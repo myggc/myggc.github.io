@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/assets/img/favicon.png"><!-- REPLACE WITH REAL IMAGE -->
+<title>Add your studio — Georgian Game Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+<style>
+  #jCanvas{ width:100%; max-width:260px; display:block; border-radius:12px;
+    border:1px solid var(--line); background:var(--sand); touch-action:none; cursor:grab; }
+</style>
+</head>
+<body>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <h1 class="page-title" data-i18n="join.title"></h1>
+      <p class="page-intro" data-i18n="join.intro"></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap" style="max-width:52rem">
+
+      <!-- thank-you screen -->
+      <div class="form-card thanks" id="thanks" hidden>
+        <div class="big" id="thanksMark"></div>
+        <h2 data-i18n="join.thanks.h"></h2>
+        <p style="color:var(--muted);max-width:44ch;margin:.6rem auto 0" data-i18n="join.thanks.p"></p>
+        <p style="color:var(--muted);font-size:.88rem;max-width:46ch;margin:1rem auto 0" data-i18n="join.thanks.edit"></p>
+        <p style="margin-top:1.6rem">
+          <button class="btn btn-ghost" type="button" id="btnEditAgain" data-i18n="join.editagain"></button>
+        </p>
+      </div>
+
+      <div id="formArea">
+        <div class="form-card">
+          <h2 data-i18n="join.type"></h2>
+          <div class="chips" id="typePick"></div>
+        </div>
+
+        <div class="form-card">
+          <h2 data-i18n="t.details"></h2>
+          <div id="fields"></div>
+        </div>
+
+        <div class="form-card">
+          <h2 data-i18n="join.image"></h2>
+          <p class="help" data-i18n="join.imagehint"></p>
+          <div class="row2">
+            <div>
+              <canvas id="jCanvas" width="260" height="260"></canvas>
+            </div>
+            <div>
+              <label class="f" data-i18n="join.image"></label>
+              <input type="file" id="jFile" accept="image/*">
+              <label class="f">Zoom</label>
+              <input type="range" id="jZoom" min="1" max="4" step="0.01" value="1" style="width:100%">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h2 data-i18n="t.contact"></h2>
+          <p class="help" data-i18n="join.contacthint"></p>
+          <div class="row2">
+            <div><label class="f" data-i18n="join.contactname"></label><input type="text" id="cName"></div>
+            <div><label class="f" data-i18n="join.contactemail"></label><input type="email" id="cEmail"></div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary" type="button" id="btnSend" data-i18n="join.send"></button>
+          </div>
+          <div class="note" id="sendNote" hidden></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="/assets/js/i18n.js"></script>
+<script src="/assets/js/ui.js"></script>
+<script src="/assets/js/site.js"></script>
+<script>
+/* ==========================================================================
+   Where submissions are sent.
+   Leave "" and the form tells people to email instead — nothing breaks.
+   Once the Cloudflare Worker in /worker/ggc-submit.js is deployed, paste its
+   address here, e.g. "https://ggc-submit.yourname.workers.dev".
+   ========================================================================== */
+const SUBMIT_ENDPOINT = "";
+
+initSite();
+document.getElementById("thanksMark").innerHTML = ggcLogo(64);
+
+const $ = s => document.querySelector(s);
+const TYPES = ["companies","developers","games"];
+const LINK_KEYS = ["facebook","instagram","youtube","linkedin","x","steam","itch","trailer"];
+let TYPE = "companies";
+
+/* one stable id per browser, so editing and resending updates the same record */
+function subId(){
+  let v = null;
+  try{ v = localStorage.getItem("ggc-sub-id"); }catch(e){}
+  if (!v){
+    v = (Date.now().toString(36) + Math.random().toString(36).slice(2,8));
+    try{ localStorage.setItem("ggc-sub-id", v); }catch(e){}
+  }
+  return v;
+}
+function saveDraft(d){ try{ localStorage.setItem("ggc-sub-draft", JSON.stringify(d)); }catch(e){} }
+function loadDraft(){ try{ return JSON.parse(localStorage.getItem("ggc-sub-draft")||"null"); }catch(e){ return null; } }
+function wasSent(){ try{ return localStorage.getItem("ggc-sub-sent") === "1"; }catch(e){ return false; } }
+function markSent(v){ try{ localStorage.setItem("ggc-sub-sent", v?"1":"0"); }catch(e){} }
+
+function chipSet(name, group){
+  return Object.entries(TAXONOMY[group])
+    .map(([k,v]) => '<label><input type="checkbox" name="'+name+'" value="'+k+'"> '+(v[LANG]||v.en)+'</label>').join("");
+}
+function optSet(group){
+  return Object.entries(TAXONOMY[group]).map(([k,v]) => '<option value="'+k+'">'+(v[LANG]||v.en)+'</option>').join("");
+}
+
+function paintTypes(){
+  $("#typePick").innerHTML = TYPES.map(x =>
+    '<label><input type="radio" name="jtype" value="'+x+'"'+(x===TYPE?" checked":"")+'> '+t("join.type."+x)+'</label>').join("");
+  $("#typePick").querySelectorAll("input").forEach(r => r.onchange = () => { TYPE = r.value; buildFields(); });
+}
+
+function buildFields(){
+  const isCo = TYPE==="companies", isGame = TYPE==="games";
+  let h = '<div class="row2">'+
+    '<div><label class="f">Name (English)</label><input type="text" id="nameEn"></div>'+
+    '<div><label class="f">სახელი (ქართულად)</label><input type="text" id="nameKa"></div>'+
+  '</div>';
+
+  if (isGame){
+    h += '<div class="row2">'+
+      '<div><label class="f">'+t("t.developer")+' (English)</label><input type="text" id="devEn"></div>'+
+      '<div><label class="f">'+t("t.developer")+' (ქართულად)</label><input type="text" id="devKa"></div>'+
+    '</div>'+
+    '<div class="row2">'+
+      '<div><label class="f">'+t("t.status")+'</label><select id="status">'+optSet("gamestatus")+'</select></div>'+
+      '<div><label class="f">'+t("t.released")+'</label><input type="text" id="released" placeholder="2024"></div>'+
+    '</div>'+
+    '<label class="f">'+t("t.platforms")+'</label><div class="chips">'+chipSet("platforms","platform")+'</div>'+
+    '<label class="f">'+t("t.genre")+'</label><div class="chips">'+chipSet("roles","genre")+'</div>';
+  } else {
+    h += '<div class="row2">'+
+      (isCo
+        ? '<div><label class="f">'+t("f.entity")+'</label><select id="entity">'+optSet("entity")+'</select></div>'+
+          '<div><label class="f">'+t("f.origin")+'</label><select id="origin">'+optSet("origin")+'</select></div>'
+        : '<div><label class="f">'+t("t.status")+'</label><select id="available">'+
+          '<option value="">—</option><option value="1">'+t("t.available")+'</option></select></div><div></div>')+
+    '</div>'+
+    '<div class="row2">'+
+      '<div><label class="f">'+t("f.city")+'</label><input type="text" id="city" placeholder="Tbilisi"></div>'+
+      '<div><label class="f">'+t("t.since")+'</label><input type="number" id="founded" placeholder="2019"></div>'+
+    '</div>'+
+    (isCo ? '<label class="f">'+t("t.people")+'</label><select id="size"><option value="">—</option>'+
+      Object.keys(TAXONOMY.size).map(k=>'<option value="'+k+'">'+k+'</option>').join("")+'</select>' : '')+
+    '<label class="f">'+t("t.details")+'</label><div class="chips">'+
+      chipSet("roles", isCo ? "role" : "discipline")+'</div>';
+  }
+
+  h += '<div class="row2">'+
+      '<div><label class="f">About (English)</label><textarea id="aboutEn"></textarea></div>'+
+      '<div><label class="f">აღწერა (ქართულად)</label><textarea id="aboutKa"></textarea></div>'+
+    '</div>'+
+    '<div class="row2">'+
+      '<div><label class="f">'+t("t.website")+'</label><input type="url" id="website" placeholder="https://"></div>'+
+      '<div><label class="f">'+t("t.email")+'</label><input type="email" id="email"></div>'+
+    '</div>'+
+    '<label class="f">'+t("t.links")+'</label><div class="row2">'+
+      LINK_KEYS.map(k=>'<div><input type="url" id="lnk_'+k+'" placeholder="'+k+'"></div>').join("")+
+    '</div>';
+
+  $("#fields").innerHTML = h;
+  const d = loadDraft();
+  if (d && d.type === TYPE) fill(d.payload);
+}
+
+function read(){
+  const g = id => { const el = $("#"+id); return el ? el.value.trim() : ""; };
+  const o = {
+    id:"", type:TYPE,
+    name:{ en:g("nameEn"), ka:g("nameKa") },
+    about:{ en:g("aboutEn"), ka:g("aboutKa") },
+    website:g("website"), email:g("email"), links:{},
+    roles:Array.from(document.querySelectorAll('input[name=roles]:checked')).map(c=>c.value)
+  };
+  LINK_KEYS.forEach(k => { const v = g("lnk_"+k); if (v) o.links[k] = v; });
+  if (TYPE === "games"){
+    o.developer = { en:g("devEn"), ka:g("devKa") };
+    o.status = g("status"); o.released = g("released");
+    o.platforms = Array.from(document.querySelectorAll('input[name=platforms]:checked')).map(c=>c.value);
+  } else {
+    o.city = g("city");
+    if (g("founded")) o.founded = Number(g("founded"));
+    if (TYPE === "companies"){ o.entity = g("entity"); o.origin = g("origin"); o.size = g("size"); }
+    else o.available = g("available") === "1";
+  }
+  return o;
+}
+
+function fill(o){
+  if (!o) return;
+  const s = (id,v) => { const el = $("#"+id); if (el) el.value = v || ""; };
+  s("nameEn", o.name&&o.name.en); s("nameKa", o.name&&o.name.ka);
+  s("aboutEn", o.about&&o.about.en); s("aboutKa", o.about&&o.about.ka);
+  s("website", o.website); s("email", o.email);
+  LINK_KEYS.forEach(k => s("lnk_"+k, o.links && o.links[k]));
+  document.querySelectorAll('input[name=roles]').forEach(c => c.checked = (o.roles||[]).indexOf(c.value) >= 0);
+  if (o.type === "games" || TYPE === "games"){
+    s("devEn", o.developer&&o.developer.en); s("devKa", o.developer&&o.developer.ka);
+    s("status", o.status); s("released", o.released);
+    document.querySelectorAll('input[name=platforms]').forEach(c => c.checked = (o.platforms||[]).indexOf(c.value) >= 0);
+  } else {
+    s("city", o.city); s("founded", o.founded);
+    s("entity", o.entity); s("origin", o.origin); s("size", o.size);
+    s("available", o.available ? "1" : "");
+  }
+}
+
+/* ------------------------------------------------------------- cropper */
+const cvj = $("#jCanvas"), cx = cvj.getContext("2d");
+let jimg = null, js = 1, jx = 0, jy = 0, jb = 1, jdrag = null, jBlob = null;
+
+function jdraw(){
+  cx.clearRect(0,0,cvj.width,cvj.height);
+  cx.fillStyle = "#fff"; cx.fillRect(0,0,cvj.width,cvj.height);
+  if (!jimg){
+    cx.fillStyle = "#9aa6b5"; cx.font = "14px sans-serif"; cx.textAlign = "center";
+    cx.fillText("—", cvj.width/2, cvj.height/2); return;
+  }
+  cx.drawImage(jimg, jx, jy, jimg.width*jb*js, jimg.height*jb*js);
+}
+$("#jFile").addEventListener("change", e => {
+  const f = e.target.files[0]; if (!f) return;
+  const im = new Image();
+  im.onload = () => {
+    jimg = im;
+    jb = Math.max(cvj.width/im.width, cvj.height/im.height);
+    js = 1; $("#jZoom").value = 1;
+    jx = (cvj.width - im.width*jb)/2; jy = (cvj.height - im.height*jb)/2;
+    jdraw();
+  };
+  im.src = URL.createObjectURL(f);
+});
+$("#jZoom").addEventListener("input", e => {
+  if (!jimg) return;
+  const old = js; js = Number(e.target.value);
+  jx = cvj.width/2 - (cvj.width/2 - jx)*(js/old);
+  jy = cvj.height/2 - (cvj.height/2 - jy)*(js/old);
+  jdraw();
+});
+cvj.addEventListener("pointerdown", e => { if(!jimg) return; jdrag = {x:e.offsetX-jx,y:e.offsetY-jy}; cvj.setPointerCapture(e.pointerId); });
+cvj.addEventListener("pointermove", e => { if(!jdrag) return; jx=e.offsetX-jdrag.x; jy=e.offsetY-jdrag.y; jdraw(); });
+cvj.addEventListener("pointerup", ()=>{ jdrag=null; });
+
+function renderImage(){
+  return new Promise(res => {
+    if (!jimg) return res(null);
+    const E = 512, k = E/cvj.width;
+    const out = document.createElement("canvas"); out.width = out.height = E;
+    const c = out.getContext("2d"); c.imageSmoothingQuality = "high";
+    c.fillStyle = "#fff"; c.fillRect(0,0,E,E);
+    c.drawImage(jimg, jx*k, jy*k, jimg.width*jb*js*k, jimg.height*jb*js*k);
+    out.toBlob(b => res(b), "image/jpeg", 0.82);
+  });
+}
+async function blobToB64(b){
+  const arr = new Uint8Array(await b.arrayBuffer());
+  let s = "";
+  for (let i=0;i<arr.length;i+=0x8000) s += String.fromCharCode.apply(null, arr.subarray(i,i+0x8000));
+  return btoa(s);
+}
+
+/* --------------------------------------------------------------- send */
+function note(msg, kind){
+  const n = $("#sendNote");
+  n.hidden = false; n.className = "note " + (kind||""); n.textContent = msg;
+}
+
+$("#btnSend").addEventListener("click", async () => {
+  const payload = read();
+  const cName = $("#cName").value.trim(), cEmail = $("#cEmail").value.trim();
+  if ((!payload.name.en && !payload.name.ka) || !cEmail){ note(t("join.required"), "bad"); return; }
+
+  const body = {
+    submissionId: subId(),
+    type: TYPE,
+    contact: { name:cName, email:cEmail },
+    payload: payload,
+    sentAt: new Date().toISOString()
+  };
+
+  saveDraft({ type:TYPE, payload:payload, contact:{name:cName,email:cEmail} });
+
+  if (!SUBMIT_ENDPOINT){
+    note("The submission service is not connected yet. Please email " + CONTACT.email + " and we will add you.", "bad");
+    return;
+  }
+
+  try{
+    note(t("join.sending"), "busy");
+    const img = await renderImage();
+    if (img) body.image = { data: await blobToB64(img), ext: "jpg" };
+    const r = await fetch(SUBMIT_ENDPOINT, {
+      method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(body)
+    });
+    if (!r.ok) throw new Error("status " + r.status);
+    markSent(true);
+    showThanks();
+  }catch(e){
+    note(t("join.offline"), "bad");
+  }
+});
+
+function showThanks(){
+  $("#formArea").hidden = true;
+  $("#thanks").hidden = false;
+  window.scrollTo({ top:0, behavior:"smooth" });
+}
+$("#btnEditAgain").addEventListener("click", () => {
+  $("#thanks").hidden = true;
+  $("#formArea").hidden = false;
+});
+
+/* ---------------------------------------------------------------- boot */
+function boot(){
+  paintTypes();
+  const d = loadDraft();
+  if (d){ TYPE = d.type || "companies"; paintTypes(); }
+  buildFields();
+  if (d && d.contact){ $("#cName").value = d.contact.name||""; $("#cEmail").value = d.contact.email||""; }
+  jdraw();
+  if (wasSent()) showThanks();
+}
+boot();
+document.addEventListener("ggc:lang", () => { paintTypes(); buildFields(); });
+</script>
+</body>
+</html>
