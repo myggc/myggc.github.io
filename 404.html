@@ -3,21 +3,29 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>404 — Georgian Game Community</title>
+<link rel="icon" href="/assets/img/favicon.png"><!-- REPLACE WITH REAL IMAGE -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600&family=Noto+Serif+Georgian:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/site.css">
+<title>404 — Georgian Game Community</title>
 </head>
 <body>
-<main class="wrap section" style="min-height:50vh">
-  <h1 class="page-title" data-i18n="404.title"></h1>
-  <p class="page-intro" data-i18n="404.p"></p>
-  <div class="enamel" aria-hidden="true"><i></i><i></i><i></i></div>
-  <a class="btn btn-primary" href="/" data-i18n="404.btn"></a>
+<main class="section">
+  <div class="wrap" style="text-align:center;padding-block:3rem">
+    <div id="m404" style="display:flex;justify-content:center;margin-bottom:1.4rem"></div>
+    <h1 class="page-title" data-i18n="404.title"></h1>
+    <p class="page-intro" style="margin-inline:auto" data-i18n="404.p"></p>
+    <p style="margin-top:1.6rem"><a class="btn btn-primary" href="/" data-i18n="404.btn"></a></p>
+  </div>
 </main>
 <script src="/assets/js/i18n.js"></script>
+<script src="/assets/js/ui.js"></script>
 <script src="/assets/js/site.js"></script>
-<script>initSite();</script>
+<script src="/assets/js/directory.js"></script>
+<script>
+initSite();
+document.getElementById("m404").innerHTML = ggcLogo(110);
+</script>
 </body>
 </html>
