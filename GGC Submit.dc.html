@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html { overflow-x:clip; }
+  body { margin:0; overflow-x:clip; background:#edf0f1; color:#16181b; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:#146590; text-decoration:none; }
+  a:hover { color:#0f5273; }
+  @keyframes ggcSpin { to { transform:rotate(360deg) } }
+  @keyframes ggcFly { 0%{transform:translate(0,0) rotate(0deg) scale(1);opacity:1} 22%{transform:translate(0,-10px) rotate(-8deg) scale(.96);opacity:1} 100%{transform:translate(360px,-260px) rotate(22deg) scale(.35);opacity:0} }
+  @keyframes ggcPop { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important } }
+</style>
+</helmet>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(237,240,241,.93);backdrop-filter:blur(10px);border-bottom:1px solid #dfe3e4">
+  <div style="max-width:1220px;margin:0 auto;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px">
+    <a href="GGC Home.dc.html" style="display:flex;align-items:center;gap:10px;flex:none"><img src="ggc-logo.svg" alt="GGC" style="height:30px;width:auto;display:block"></a>
+    <nav style="display:flex;flex-wrap:wrap;gap:4px;margin-left:auto;font-size:14px;font-weight:500">
+      <a href="GGC Companies.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e3e7e8;color:#16181b">კომპანიები</a>
+      <a href="GGC Games.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e3e7e8;color:#16181b">თამაშები</a>
+      <a href="#" style="padding:9px 12px;border-radius:9px;background:#e6f2f9;color:#146590;font-weight:600">დამატება</a>
+    </nav>
+    <span style="font-size:13px;color:#5a5f65;flex:none">{{ draftNote }}</span>
+  </div>
+</header>
+
+<section style="max-width:1000px;margin:0 auto;padding:clamp(26px,4vw,48px) 20px clamp(40px,6vw,72px)">
+  <h1 style="margin:0;font-size:clamp(28px,4.6vw,46px);line-height:1.05;font-weight:800;letter-spacing:-.03em">მონაცემების გაგზავნა</h1>
+  <p style="margin:14px 0 0;max-width:56ch;font-size:17px;line-height:1.55;color:#41464c">შენ ავსებ — ჩვენ ვამოწმებთ და ვაქვეყნებთ. კომპანია ყოველთვის ოფიციალური სახელით იდენტიფიცირდება, თამაში კი მიბმულია კომპანიაზე.</p>
+
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin:28px 0 22px">
+    <sc-for list="{{ crumbs }}" as="c" hint-placeholder-count="5">
+      <div style="display:flex;align-items:center;gap:8px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.border }};border-radius:20px;padding:8px 14px;font-size:14px;font-weight:500">
+        <span style="font-family:'Space Grotesk',sans-serif;opacity:.7">{{ c.n }}</span>{{ c.t }}
+      </div>
+    </sc-for>
+  </div>
+
+  <sc-if value="{{ isStep0 }}" hint-placeholder-val="{{ true }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:14px;animation:ggcPop .4s ease both">
+      <button type="button" onClick="{{ pickNew }}" style="text-align:left;cursor:pointer;background:#fff;border:1px solid #dfe3e4;border-top:4px solid #1d96d3;border-radius:16px;padding:24px;font-family:inherit" style-hover="border-color:#1d96d3">
+        <div style="font-size:19px;font-weight:600;color:#16181b">ახალი სტუდიის დამატება</div>
+        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">კომპანია, გუნდი ან სოლო დეველოპერი, რომელიც კატალოგში ჯერ არ არის.</p>
+      </button>
+      <button type="button" onClick="{{ pickGame }}" style="text-align:left;cursor:pointer;background:#fff;border:1px solid #dfe3e4;border-top:4px solid #ee2626;border-radius:16px;padding:24px;font-family:inherit" style-hover="border-color:#ee2626">
+        <div style="font-size:19px;font-weight:600;color:#16181b">თამაშის დამატება</div>
+        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">იპოვე შენი სტუდია და მიამაგრე თამაში. მაღაზიის ლინკიდან ყველაფერი ავტომატურად ივსება.</p>
+      </button>
+      <button type="button" onClick="{{ pickEdit }}" style="text-align:left;cursor:pointer;background:#fff;border:1px solid #dfe3e4;border-top:4px solid #fdb813;border-radius:16px;padding:24px;font-family:inherit" style-hover="border-color:#fdb813">
+        <div style="font-size:19px;font-weight:600;color:#16181b">არსებული მონაცემის შესწორება</div>
+        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">რამე არასწორია ან შეიცვალა — მოითხოვე ედიტი.</p>
+      </button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isStep1 }}">
+    <div style="background:#fff;border:1px solid #dfe3e4;border-radius:18px;padding:clamp(18px,3vw,28px);animation:ggcPop .4s ease both">
+      <div style="font-size:20px;font-weight:600">იპოვე შენი სტუდია</div>
+      <p style="margin:8px 0 18px;font-size:15px;line-height:1.6;color:#4d5258;max-width:60ch">ჩაწერე ოფიციალური სახელი — მაგალითად „MadMoa LLC“. თუ უკვე არსებობს, ედიტს მოითხოვ; თუ არა, აქვე შექმნი.</p>
+      <input type="search" placeholder="ოფიციალური სახელი ან ბრენდი" value="{{ lookup }}" onInput="{{ onLookup }}" style="width:100%;border:1px solid #dfe3e4;border-radius:11px;padding:14px 16px;font-family:inherit;font-size:16px;background:#f7f9f9;color:#16181b">
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+        <sc-for list="{{ matches }}" as="m" hint-placeholder-count="2">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:#f7f9f9;border:1px solid #e6eaeb;border-radius:12px;padding:14px 16px">
+            <div style="flex:1 1 160px;min-width:0">
+              <div style="font-size:16px;font-weight:600">{{ m.name }}</div>
+              <div style="margin-top:3px;font-size:14px;color:#5a5f65">{{ m.sub }}</div>
+            </div>
+            <button type="button" onClick="{{ m.pick }}" style="flex:none;border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:10px;padding:11px 16px;font-family:inherit;font-size:14px;font-weight:600">{{ m.action }}</button>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:{{ noMatchShow }};margin-top:14px;background:#f7f9f9;border:1px dashed #ccd3d4;border-radius:12px;padding:18px">
+        <div style="font-size:16px;font-weight:600">ვერ მოიძებნა — შექმენი ახალი</div>
+        <p style="margin:8px 0 14px;font-size:15px;color:#4d5258">ოფიციალური სახელი გახდება იდენტიფიკატორი, რომელზეც თამაშები მიება.</p>
+        <button type="button" onClick="{{ createNew }}" style="border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:10px;padding:12px 18px;font-family:inherit;font-size:15px;font-weight:600">ახლის შექმნა</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isStep2 }}">
+    <div style="background:#fff;border:1px solid #dfe3e4;border-radius:18px;padding:clamp(18px,3vw,28px);animation:ggcPop .4s ease both">
+      <div style="font-size:20px;font-weight:600">{{ step2Title }}</div>
+
+      <div style="margin-top:18px">
+        <div style="font-size:14px;color:#5a5f65;margin-bottom:8px">ვინ ხარ</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <button type="button" onClick="{{ kind0 }}" style="border:1px solid {{ kBorder0 }};cursor:pointer;background:{{ kBg0 }};color:{{ kFg0 }};border-radius:11px;padding:12px 17px;font-family:inherit;font-size:15px;font-weight:600">რეგისტრირებული კომპანია</button>
+          <button type="button" onClick="{{ kind1 }}" style="border:1px solid {{ kBorder1 }};cursor:pointer;background:{{ kBg1 }};color:{{ kFg1 }};border-radius:11px;padding:12px 17px;font-family:inherit;font-size:15px;font-weight:600">გუნდი</button>
+          <button type="button" onClick="{{ kind2 }}" style="border:1px solid {{ kBorder2 }};cursor:pointer;background:{{ kBg2 }};color:{{ kFg2 }};border-radius:11px;padding:12px 17px;font-family:inherit;font-size:15px;font-weight:600">სოლო დეველოპერი</button>
+        </div>
+        <p style="margin:10px 0 0;font-size:14px;color:#5a5f65">{{ kindHint }}</p>
+      </div>
+
+      <div style="margin-top:20px">
+        <div style="font-size:14px;color:#5a5f65;margin-bottom:8px">{{ rolesLabel }}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ roleChips }}" as="r" hint-placeholder-count="7">
+            <button type="button" onClick="{{ r.click }}" style="border:1px solid {{ r.border }};cursor:pointer;background:{{ r.bg }};color:{{ r.fg }};border-radius:20px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:500">{{ r.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px;margin-top:20px">
+        <sc-for list="{{ fields }}" as="f" hint-placeholder-count="6">
+          <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:#5a5f65">{{ f.label }}
+            <input type="text" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
+          </label>
+        </sc-for>
+      </div>
+      <div style="margin-top:22px;padding-top:20px;border-top:1px solid #eef1f1">
+        <div style="font-size:14px;color:#5a5f65;margin-bottom:10px">ლინკები და სოციალური ქსელები</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:10px">
+          <sc-for list="{{ socialFields }}" as="f" hint-placeholder-count="8">
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#5a5f65">{{ f.label }}
+              <input type="text" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:11px 13px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
+            </label>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px">
+        <button type="button" onClick="{{ next }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:11px;padding:14px 22px;font-family:inherit;font-size:16px;font-weight:600">შემდეგი</button>
+        <button type="button" onClick="{{ back }}" style="border:1px solid #dfe3e4;cursor:pointer;background:#fff;color:#41464c;border-radius:11px;padding:14px 22px;font-family:inherit;font-size:16px;font-weight:600">უკან</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isStep3 }}">
+    <div style="background:#fff;border:1px solid #dfe3e4;border-radius:18px;padding:clamp(18px,3vw,28px);animation:ggcPop .4s ease both">
+      <div style="font-size:20px;font-weight:600">თამაში</div>
+      <p style="margin:8px 0 18px;font-size:15px;color:#4d5258">გვერდი აქვს რომელიმე პლატფორმაზე?</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <button type="button" onClick="{{ hasStoreYes }}" style="border:1px solid {{ yesBorder }};cursor:pointer;background:{{ yesBg }};color:{{ yesFg }};border-radius:11px;padding:13px 20px;font-family:inherit;font-size:15px;font-weight:600">კი, გვერდი მაქვს</button>
+        <button type="button" onClick="{{ hasStoreNo }}" style="border:1px solid {{ noBorder }};cursor:pointer;background:{{ noBg }};color:{{ noFg }};border-radius:11px;padding:13px 20px;font-family:inherit;font-size:15px;font-weight:600">არა, ხელით შევავსებ</button>
+      </div>
+
+      <sc-if value="{{ storeYes }}">
+        <div style="margin-top:20px;background:#f7f9f9;border:1px solid #e6eaeb;border-radius:14px;padding:18px">
+          <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:#5a5f65">მაღაზიის ლინკი (Steam, itch.io, App Store, Google Play)
+            <input type="url" placeholder="https://store.steampowered.com/app/..." value="{{ storeUrl }}" onInput="{{ onStoreUrl }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#fff;color:#16181b">
+          </label>
+          <button type="button" onClick="{{ parse }}" style="margin-top:14px;border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:10px;padding:12px 18px;font-family:inherit;font-size:15px;font-weight:600">{{ parseLabel }}</button>
+          <div style="display:{{ parsedShow }};margin-top:16px">
+            <div style="display:flex;align-items:center;gap:9px;background:#e9f5ec;border:1px solid #d3e8d9;border-radius:11px;padding:12px 14px;font-size:14px;color:#2f5c3c">
+              <span style="width:8px;height:8px;border-radius:50%;background:#4c9a5e;flex:none"></span>ყველაფერი წამოვიდა მაღაზიიდან — შემდეგში ავტომატურად განახლდება
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr));gap:8px;margin-top:12px">
+              <sc-for list="{{ parsedFields }}" as="f" hint-placeholder-count="6">
+                <div style="background:#fff;border:1px solid #e6eaeb;border-radius:10px;padding:12px 14px">
+                  <div style="font-size:13px;color:#5a5f65">{{ f.k }}</div>
+                  <div style="margin-top:4px;font-size:15px;font-weight:600">{{ f.v }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ storeNo }}">
+        <div style="margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px">
+          <sc-for list="{{ gameFields }}" as="f" hint-placeholder-count="4">
+            <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:#5a5f65">{{ f.label }}
+              <input type="text" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
+            </label>
+          </sc-for>
+          <div style="grid-column:1/-1;display:flex;align-items:center;gap:12px;background:#fff8e7;border:1px solid #f3e2b8;border-radius:11px;padding:12px 14px;font-size:14px;color:#7a5500">
+            ატვირთული სურათი ავტომატურად შეიკვეცება 460×215-ზე და შეიკუმშება — კიდეებს არ გასცდება.
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px">
+        <button type="button" onClick="{{ next }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:11px;padding:14px 22px;font-family:inherit;font-size:16px;font-weight:600">გადახედვა</button>
+        <button type="button" onClick="{{ back }}" style="border:1px solid #dfe3e4;cursor:pointer;background:#fff;color:#41464c;border-radius:11px;padding:14px 22px;font-family:inherit;font-size:16px;font-weight:600">უკან</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isStep4 }}">
+    <div style="animation:ggcPop .4s ease both">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:16px">
+        <div style="background:#fff;border:1px solid #dfe3e4;border-radius:18px;padding:22px">
+          <div style="font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5a5f65">ცოცხალი გადახედვა</div>
+          <div style="margin-top:16px;display:flex;flex-direction:column;gap:14px;border:1px solid #e6eaeb;border-top:4px solid {{ pvAccent }};border-radius:16px;padding:20px">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:13px">
+              <div style="width:54px;height:54px;border-radius:50%;background:#e8ecec;flex:none;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:#5a5f65">{{ pvInitials }}</div>
+              <div style="flex:1 1 120px;min-width:0">
+                <div style="display:flex;align-items:center;gap:7px"><span style="font-size:18px;font-weight:600">{{ pvName }}</span><span style="color:#b9c0c0;font-size:15px">✔</span></div>
+                <div style="margin-top:3px;font-size:14px;color:#4d5258">{{ pvSub }}</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px">
+              <span style="background:#f1f4f4;color:#41464c;border-radius:7px;padding:5px 9px;font-size:13px">{{ pvKind }}</span>
+              <span style="background:#f1f4f4;color:#41464c;border-radius:7px;padding:5px 9px;font-size:13px">{{ pvRoles }}</span>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding-top:14px;border-top:1px solid #eef1f1;font-size:14px;color:#4d5258">
+              <span style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:50%;background:#83c341"></span>აქტიური</span>
+              <span style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:#16181b">{{ pvGames }}</span><span>თამაში</span>
+              <span style="margin-left:auto;font-size:13px;color:#6b7278">ვალიდაციის მოლოდინში</span>
+            </div>
+          </div>
+          <div style="margin-top:12px;display:flex;gap:12px;align-items:center;border:1px solid #e6eaeb;border-radius:14px;padding:12px">
+            <div style="width:92px;aspect-ratio:460/215;background:#e8eaec;border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;color:#5a5f65">460×215</div>
+            <div style="flex:1 1 100px;min-width:0">
+              <div style="font-size:16px;font-weight:600">{{ pvGameName }}</div>
+              <div style="margin-top:3px;font-size:14px;color:#4d5258">{{ pvGameMeta }}</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid #dfe3e4;border-radius:18px;padding:22px">
+          <div style="font-size:20px;font-weight:600">გაგზავნამდე</div>
+          <p style="margin:10px 0 0;font-size:15px;line-height:1.65;color:#4d5258">შევსებული მონაცემი ინახება ბრაუზერში — გვერდის განახლებაც არაფერს შლის. გაგზავნის შემდეგ GGC-ის ადმინისტრაცია გადაამოწმებს და გამოქვეყნდება.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px">
+            <button type="button" onClick="{{ send }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:11px;padding:14px 24px;font-family:inherit;font-size:16px;font-weight:600">გაგზავნა</button>
+            <button type="button" onClick="{{ back }}" style="border:1px solid #dfe3e4;cursor:pointer;background:#fff;color:#41464c;border-radius:11px;padding:14px 22px;font-family:inherit;font-size:16px;font-weight:600">უკან</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isSent }}">
+    <div style="position:relative;background:#fff;border:1px solid #dfe3e4;border-radius:20px;padding:clamp(28px,5vw,56px);text-align:center;overflow:hidden">
+      <div style="display:flex;justify-content:center">
+        <img src="ggc-mark.svg" alt="" style="width:88px;height:88px;display:block;animation:ggcFly 1.5s cubic-bezier(.4,0,.6,1) forwards">
+      </div>
+      <h2 style="margin:18px 0 0;font-size:clamp(24px,3.4vw,34px);font-weight:700;letter-spacing:-.02em">გაიგზავნა</h2>
+      <p style="margin:14px auto 0;max-width:46ch;font-size:17px;line-height:1.6;color:#41464c">მონაცემები გადაეგზავნა GGC-ის ადმინისტრაციას და გადამოწმდება. როგორც კი დავადასტურებთ, საიტზე გამოჩნდება.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px">
+        <a href="GGC Companies.dc.html" style="background:#16181b;color:#fff;border-radius:11px;padding:14px 22px;font-size:16px;font-weight:600">კატალოგში დაბრუნება</a>
+        <button type="button" onClick="{{ restart }}" style="border:1px solid #dfe3e4;cursor:pointer;background:#fff;color:#41464c;border-radius:11px;padding:14px 22px;font-family:inherit;font-size:16px;font-weight:600">კიდევ ერთის დამატება</button>
+      </div>
+    </div>
+  </sc-if>
+</section>
+
+<footer style="background:#1b1e22;color:#e8eaec">
+  <div style="max-width:1220px;margin:0 auto;padding:clamp(28px,4vw,44px) 20px;display:flex;flex-wrap:wrap;align-items:center;gap:20px">
+    <div style="display:flex;align-items:center;gap:12px;flex:none">
+      <img src="ggc-mark.svg" alt="" style="height:32px;width:32px;display:block">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:.04em;color:#fff">GGC</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:15px">
+      <a href="GGC Companies.dc.html" style="color:#c6ccd3">კომპანიები</a>
+      <a href="GGC Games.dc.html" style="color:#c6ccd3">თამაშები</a>
+      <a href="GGC Publishing.dc.html" style="color:#c6ccd3">გამომცემლობა</a>
+    </div>
+    <a href="https://t.me/ggcgeorgia" style="margin-left:auto;display:flex;align-items:center;gap:9px;background:#229ED9;color:#fff;border-radius:11px;padding:11px 16px;font-size:15px;font-weight:600;flex:none" style-hover="background:#1b8dc4">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff" style="flex:none"><path d="M21.9 4.3 18.9 19c-.2.9-.8 1.2-1.6.7l-4.4-3.2-2.1 2c-.2.2-.4.4-.9.4l.3-4.4 8-7.2c.3-.3-.1-.4-.5-.2L7.9 12.4 3.6 11c-.9-.3-.9-.9.2-1.3l16.7-6.4c.8-.3 1.5.2 1.4 1z"/></svg>
+      Telegram
+    </a>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const EXISTING = [
+  { id:"madmoa", name:"MadMoa LLC", sub:"რეგისტრირებული კომპანია · თბილისი · 3 თამაში" },
+  { id:"studio-2", name:"Studio LLC", sub:"რეგისტრირებული კომპანია · თბილისი · 2 თამაში" }
+];
+const CO_FIELDS = [
+  ["legal", "ოფიციალური სახელი", "MadMoa LLC"],
+  ["regId", "საიდენტიფიკაციო ნომერი", "404123456"],
+  ["nameEn", "სახელი (English)", "MadMoa"],
+  ["nameKa", "სახელი (ქართულად)", "მედმოა"],
+  ["city", "ქალაქი", "თბილისი"],
+  ["founded", "დაფუძნების წელი", "2019"],
+  ["size", "გუნდის ზომა", "6-10"],
+  ["origin", "წარმოშობა", "ქართული / უცხოური"],
+  ["aboutKa", "აღწერა (ქართულად)", "ინდი სტუდია..."],
+  ["aboutEn", "აღწერა (English)", "Indie studio..."],
+  ["website", "ვებსაიტი", "madmoa.com"],
+  ["email", "ელფოსტა", "info@madmoa.com"],
+  ["contactName", "საკონტაქტო პირი", "სახელი გვარი"],
+  ["contactEmail", "საკონტაქტო ელფოსტა", "you@studio.com"]
+];
+const TEAM_SKIP = ["regId", "origin"];
+const SOLO_SKIP = ["regId", "origin", "size"];
+const SOCIALS = [
+  ["telegram", "Telegram", "@studio"], ["facebook", "Facebook", "fb.com/studio"],
+  ["instagram", "Instagram", "instagram.com/studio"], ["linkedin", "LinkedIn", "linkedin.com/company/studio"],
+  ["youtube", "YouTube", "youtube.com/@studio"], ["x", "X", "x.com/studio"],
+  ["steam", "Steam", "store.steampowered.com/publisher/..."], ["itch", "itch.io", "studio.itch.io"]
+];
+const ROLES = { company: ["developer","publisher","outsourcing","codev","porting","art","audio"], team: ["developer","art","audio","codev"], solo: ["programmer","artist","designer","audio","QA","writer"] };
+const KINDS = ["company", "team", "solo"];
+const KIND_HINT = {
+  company: "ოფიციალურად რეგისტრირებული კომპანია — პრიორიტეტული ჩანაწერი, სჭირდება საიდენტიფიკაციო ნომერი.",
+  team: "არარეგისტრირებული გუნდი — იდენტიფიკატორი გუნდის სახელია.",
+  solo: "ერთი ადამიანი — იდენტიფიკატორი პირადი სახელია."
+};
+const GAME_FIELDS = [
+  ["gName", "თამაშის სახელი", "Dumbriel"],
+  ["gGenre", "ჟანრი", "metroidvania"],
+  ["gStatus", "სტატუსი", "მოსალოდნელი / გამოსული"],
+  ["gDate", "გამოშვების თარიღი ან TBD", "TBD"]
+];
+const PARSED = [
+  ["სახელი", "Dumbriel"], ["ჟანრი", "Metroidvania, Action"], ["პლატფორმა", "Steam, Switch, Xbox"],
+  ["გამოშვება", "TBD"], ["ძრავი", "Unity"], ["capsule", "460×215 მაღაზიიდან"]
+];
+
+class Component extends DCLogic {
+  state = { step: 0, mode: "", lookup: "", picked: null, store: "", storeUrl: "", parsed: false, sent: false, f: {}, saved: false, kind: "company", roles: [] };
+
+  componentDidMount() {
+    try {
+      const d = JSON.parse(localStorage.getItem("ggc.submit.draft") || "null");
+      if (d && d.step) this.setState(Object.assign({ saved: true }, d));
+    } catch (e) {}
+  }
+  save(patch) {
+    this.setState(patch, () => {
+      const s = this.state;
+      try { localStorage.setItem("ggc.submit.draft", JSON.stringify({ step: s.step, mode: s.mode, lookup: s.lookup, picked: s.picked, store: s.store, storeUrl: s.storeUrl, parsed: s.parsed, f: s.f, kind: s.kind, roles: s.roles })); } catch (e) {}
+    });
+  }
+  set(k, v) { this.save({ f: Object.assign({}, this.state.f, { [k]: v }) }); }
+
+  renderVals() {
+    const s = this.state, f = s.f;
+    const matches = s.lookup.length > 1
+      ? EXISTING.filter(e => e.name.toLowerCase().indexOf(s.lookup.toLowerCase()) >= 0)
+      : [];
+    const isNew = s.mode === "new";
+    const skip = s.kind === "team" ? TEAM_SKIP : s.kind === "solo" ? SOLO_SKIP : [];
+    const fields = CO_FIELDS.filter(([k]) => skip.indexOf(k) < 0).map(([k, label, ph]) => ({
+      label, ph, value: f[k] || "", onInput: e => this.set(k, e.target.value)
+    }));
+    const roleList = ROLES[s.kind];
+    const ACC = { company: "#1d96d3", team: "#83c341", solo: "#fdb813" };
+
+    return {
+      draftNote: s.step > 0 ? "დრაფტი ინახება" : "",
+      crumbs: ["ქმედება", "იდენტიფიკაცია", "დეტალები", "თამაში", "გადახედვა"].map((t, i) => ({
+        n: "0" + (i + 1), t,
+        bg: s.step === i ? "#16181b" : (s.step > i ? "#e6f2f9" : "#fff"),
+        fg: s.step === i ? "#fff" : (s.step > i ? "#146590" : "#5a5f65"),
+        border: s.step === i ? "#16181b" : "#dfe3e4"
+      })),
+      isStep0: s.step === 0 && !s.sent,
+      isStep1: s.step === 1 && !s.sent,
+      isStep2: s.step === 2 && !s.sent,
+      isStep3: s.step === 3 && !s.sent,
+      isStep4: s.step === 4 && !s.sent,
+      isSent: s.sent,
+      pickNew: () => this.save({ mode: "new", step: 1 }),
+      pickGame: () => this.save({ mode: "game", step: 1 }),
+      pickEdit: () => this.save({ mode: "edit", step: 1 }),
+      lookup: s.lookup,
+      onLookup: e => this.save({ lookup: e.target.value }),
+      matches: matches.map(m => ({
+        name: m.name, sub: m.sub,
+        action: s.mode === "game" ? "თამაშის მიმაგრება" : "ედიტის მოთხოვნა",
+        pick: () => this.save({ picked: m.id, step: s.mode === "game" ? 3 : 2 })
+      })),
+      noMatchShow: s.lookup.length > 1 && !matches.length ? "block" : "none",
+      createNew: () => this.save({ mode: "new", step: 2, f: Object.assign({}, f, { legal: s.lookup }) }),
+      step2Title: isNew ? "სტუდიის მონაცემები" : "შესწორებული მონაცემები",
+      fields,
+      kindHint: KIND_HINT[s.kind],
+      rolesLabel: s.kind === "solo" ? "რას აკეთებ" : "რას აკეთებთ",
+      roleChips: roleList.map(r => ({
+        label: r,
+        bg: s.roles.indexOf(r) >= 0 ? ACC[s.kind] : "#f7f9f9",
+        fg: s.roles.indexOf(r) >= 0 ? "#fff" : "#41464c",
+        border: s.roles.indexOf(r) >= 0 ? ACC[s.kind] : "#dfe3e4",
+        click: () => this.save({ roles: s.roles.indexOf(r) >= 0 ? s.roles.filter(x => x !== r) : s.roles.concat([r]) })
+      })),
+      socialFields: SOCIALS.map(([k, label, ph]) => ({
+        label, ph, value: f[k] || "", onInput: e => this.set(k, e.target.value)
+      })),
+      next: () => this.save({ step: Math.min(4, s.step + 1) }),
+      back: () => this.save({ step: Math.max(0, s.step - 1) }),
+      storeYes: s.store === "yes",
+      storeNo: s.store === "no",
+      hasStoreYes: () => this.save({ store: "yes" }),
+      hasStoreNo: () => this.save({ store: "no" }),
+      yesBg: s.store === "yes" ? "#16181b" : "#fff", yesFg: s.store === "yes" ? "#fff" : "#41464c", yesBorder: s.store === "yes" ? "#16181b" : "#dfe3e4",
+      noBg: s.store === "no" ? "#16181b" : "#fff", noFg: s.store === "no" ? "#fff" : "#41464c", noBorder: s.store === "no" ? "#16181b" : "#dfe3e4",
+      storeUrl: s.storeUrl,
+      onStoreUrl: e => this.save({ storeUrl: e.target.value, parsed: false }),
+      parse: () => this.save({ parsed: true }),
+      parseLabel: s.parsed ? "ხელახლა წაკითხვა" : "წაკითხვა",
+      parsedShow: s.parsed ? "block" : "none",
+      parsedFields: PARSED.map(([k, v]) => ({ k, v })),
+      gameFields: GAME_FIELDS.map(([k, label, ph]) => ({
+        label, ph, value: f[k] || "", onInput: e => this.set(k, e.target.value)
+      })),
+      pvName: f.nameKa || f.nameEn || f.legal || s.lookup || "სტუდიის სახელი",
+      pvSub: [f.legal, f.city, f.founded].filter(Boolean).join(" · ") || "ოფიციალური სახელი · ქალაქი · წელი",
+      pvInitials: (f.nameEn || f.legal || s.lookup || "GG").trim().slice(0, 2).toUpperCase(),
+      pvAccent: ACC[s.kind],
+      pvKind: s.kind === "company" ? "რეგისტრირებული კომპანია" : s.kind === "team" ? "გუნდი" : "სოლო დეველოპერი",
+      pvRoles: s.roles.length ? s.roles.join(", ") : "როლები არ არის მითითებული",
+      pvGames: s.store ? 1 : 0,
+      pvGameName: s.parsed ? "Dumbriel" : (f.gName || "თამაშის სახელი"),
+      pvGameMeta: s.parsed ? "Metroidvania · Steam, Switch, Xbox · TBD" : ([f.gGenre, f.gDate].filter(Boolean).join(" · ") || "ჟანრი · თარიღი"),
+      kind0: () => this.save({ kind: "company", roles: [] }),
+      kind1: () => this.save({ kind: "team", roles: [] }),
+      kind2: () => this.save({ kind: "solo", roles: [] }),
+      kBg0: s.kind === "company" ? "#1d96d3" : "#fff", kFg0: s.kind === "company" ? "#fff" : "#41464c", kBorder0: s.kind === "company" ? "#1d96d3" : "#dfe3e4",
+      kBg1: s.kind === "team" ? "#83c341" : "#fff", kFg1: s.kind === "team" ? "#fff" : "#41464c", kBorder1: s.kind === "team" ? "#83c341" : "#dfe3e4",
+      kBg2: s.kind === "solo" ? "#fdb813" : "#fff", kFg2: s.kind === "solo" ? "#16181b" : "#41464c", kBorder2: s.kind === "solo" ? "#fdb813" : "#dfe3e4",
+      send: () => { try { localStorage.removeItem("ggc.submit.draft"); } catch (e) {} this.setState({ sent: true }); },
+      restart: () => this.setState({ step: 0, mode: "", lookup: "", picked: null, store: "", storeUrl: "", parsed: false, sent: false, f: {}, kind: "company", roles: [] })
+    };
+  }
+}
+</script>
+</body>
+</html>

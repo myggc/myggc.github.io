@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html { overflow-x:clip; }
+  body { margin:0; overflow-x:clip; background:#eceff0; color:#16181b; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:#146590; text-decoration:none; }
+  a:hover { color:#0f5273; }
+  @keyframes ggcSpin { to { transform:rotate(360deg) } }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important } }
+</style>
+</helmet>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(236,239,240,.93);backdrop-filter:blur(10px);border-bottom:1px solid #dee2e3">
+  <div style="max-width:1220px;margin:0 auto;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px">
+    <a href="GGC Home.dc.html" style="display:flex;align-items:center;gap:10px;flex:none"><img src="ggc-logo.svg" alt="GGC" style="height:30px;width:auto;display:block"></a>
+    <nav style="display:flex;flex-wrap:wrap;gap:4px;margin-left:auto;font-size:14px;font-weight:500">
+      <a href="GGC Publishing.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e6e7;color:#16181b">გამომცემლობა</a>
+      <a href="GGC Companies.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e6e7;color:#16181b">კომპანიები</a>
+      <a href="#" style="padding:9px 12px;border-radius:9px;background:#fdecec;color:#bf1a1a;font-weight:600">თამაშები</a>
+      <a href="GGC Submit.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e6e7;color:#16181b">დამატება</a>
+    </nav>
+    <a href="GGC Submit.dc.html" style="background:#ee2626;color:#fff;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:600;flex:none" style-hover="background:#cf1c1c">დაამატე თამაში</a>
+  </div>
+</header>
+
+<section style="position:relative;padding:clamp(28px,4vw,52px) 0 clamp(16px,2vw,24px)">
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none">
+    <div style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:radial-gradient(100% 100% at 88% 0%,#fbe3e3 0%,rgba(251,227,227,0) 60%),linear-gradient(180deg,#f7f9f9,#eceff0)"></div>
+    <div style="position:absolute;right:0;top:-46%;width:min(38vw,420px);aspect-ratio:1;opacity:.06;animation:ggcSpin 82s linear infinite"><img src="ggc-mark.svg" alt="" style="width:100%;display:block"></div>
+  </div>
+  <div style="position:relative;max-width:1220px;margin:0 auto;padding:0 20px">
+    <h1 style="margin:0;font-size:clamp(30px,5vw,54px);line-height:1.04;font-weight:800;letter-spacing:-.03em">ქართული თამაშები</h1>
+    <p style="margin:14px 0 0;max-width:54ch;font-size:17px;line-height:1.55;color:#41464c">მონაცემები, ფოტოები და ფასები პლატფორმებიდან ავტომატურად მოდის. ყველა თამაში მიბმულია სტუდიაზე.</p>
+  </div>
+</section>
+
+<section style="max-width:1220px;margin:0 auto;padding:0 20px clamp(40px,6vw,72px)">
+  <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:16px;background:#fff;border:1px solid #dee2e3;border-radius:16px;margin-bottom:16px">
+    <input type="search" placeholder="ძებნა თამაშით ან სტუდიით" value="{{ q }}" onInput="{{ onSearch }}" style="flex:1 1 210px;min-width:0;border:1px solid #dee2e3;border-radius:10px;padding:11px 14px;font-family:inherit;font-size:15px;color:#16181b;background:#f7f9f9">
+    <div style="display:flex;flex-wrap:wrap;gap:4px;padding:4px;background:#f2f4f5;border-radius:12px;flex:none">
+      <button type="button" onClick="{{ st0 }}" style="border:0;cursor:pointer;background:{{ stBg0 }};color:{{ stFg0 }};border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:600">ყველა</button>
+      <button type="button" onClick="{{ st1 }}" style="border:0;cursor:pointer;background:{{ stBg1 }};color:{{ stFg1 }};border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:600">მოსალოდნელი</button>
+      <button type="button" onClick="{{ st2 }}" style="border:0;cursor:pointer;background:{{ stBg2 }};color:{{ stFg2 }};border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:600">გამოსული</button>
+    </div>
+    <sc-for list="{{ platChips }}" as="c" hint-placeholder-count="4">
+      <button type="button" onClick="{{ c.click }}" style="border:1px solid {{ c.border }};cursor:pointer;background:{{ c.bg }};color:{{ c.fg }};border-radius:20px;padding:9px 13px;font-family:inherit;font-size:14px;font-weight:500">{{ c.label }}</button>
+    </sc-for>
+    <select onChange="{{ onYear }}" style="flex:none;border:1px solid #dee2e3;border-radius:10px;padding:11px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
+      <option value="">ყველა წელი</option>
+      <option value="2026">2026</option>
+      <option value="2025">2025</option>
+      <option value="2024">2024</option>
+      <option value="tbd">TBD</option>
+    </select>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:0 4px 16px">
+    <span style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600">{{ shown }}</span>
+    <span style="font-size:15px;color:#4d5258">თამაში · მოსალოდნელი პირველ რიგში, შემდეგ ახლიდან ძველისკენ</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr));gap:16px">
+    <sc-for list="{{ list }}" as="g" hint-placeholder-count="8">
+      <div style="display:flex;flex-direction:column;background:#fff;border:1px solid #dee2e3;border-radius:15px;overflow:hidden;box-shadow:0 1px 2px rgba(20,22,26,.04);transition:transform .2s ease,border-color .2s ease" style-hover="transform:translateY(-3px);border-color:#c8cecf">
+        <button type="button" onClick="{{ g.open }}" style="border:0;padding:0;background:{{ g.artBg }};cursor:pointer;position:relative;aspect-ratio:460/215;display:flex;align-items:center;justify-content:center;overflow:hidden">
+          <div aria-hidden="true" style="position:absolute;inset:0;background:{{ g.artImg }}"></div>
+          <span style="position:relative;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.08em;color:#5a5f65">{{ g.art }}</span>
+          <span style="position:absolute;top:10px;left:10px;background:{{ g.badgeBg }};color:{{ g.badgeFg }};border-radius:7px;padding:5px 9px;font-size:12px;font-weight:600">{{ g.badge }}</span>
+        </button>
+        <div style="padding:14px 15px 16px;display:flex;flex-direction:column;gap:9px;flex:1">
+          <button type="button" onClick="{{ g.open }}" style="border:0;background:transparent;padding:0;text-align:left;cursor:pointer;font-family:inherit;font-size:17px;font-weight:600;letter-spacing:-.01em;color:#16181b">{{ g.name }}</button>
+          <a href="{{ g.studioHref }}" style="font-size:14px;color:#146590;font-weight:500">{{ g.studio }}</a>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px">
+            <sc-for list="{{ g.platforms }}" as="p" hint-placeholder-count="2">
+              <a href="{{ p.url }}" style="background:#f1f4f4;color:#41464c;border-radius:7px;padding:5px 9px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500" style-hover="background:#e4e9ea;color:#16181b">{{ p.name }}</a>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="display:{{ emptyShow }};padding:44px 20px;text-align:center;background:#fff;border:1px dashed #ccd3d4;border-radius:16px">
+    <div style="font-size:18px;font-weight:600">ვერაფერი მოიძებნა</div>
+    <p style="margin:10px 0 0;font-size:16px;color:#4d5258">გაასუფთავე ფილტრები, ან <a href="GGC Submit.dc.html">დაამატე თამაში</a>.</p>
+  </div>
+</section>
+
+<div style="display:{{ detailShow }};position:fixed;inset:0;z-index:70;background:rgba(18,20,23,.55);padding:clamp(10px,3vw,40px);overflow:auto">
+  <div style="max-width:960px;margin:0 auto;background:#f7f9f9;border-radius:20px;overflow:hidden">
+    <div style="position:relative;aspect-ratio:1920/620;background:{{ d.artBg }};display:flex;align-items:center;justify-content:center">
+      <div aria-hidden="true" style="position:absolute;inset:0;background:{{ d.heroImg }}"></div>
+      <span style="position:relative;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.08em;color:#5a5f65">{{ d.hero }}</span>
+      <button type="button" onClick="{{ closeDetail }}" aria-label="დახურვა" style="position:absolute;top:14px;right:14px;width:38px;height:38px;border:0;border-radius:11px;background:rgba(255,255,255,.92);font-size:19px;line-height:1;cursor:pointer;color:#16181b">×</button>
+    </div>
+    <div style="padding:clamp(18px,3vw,30px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:clamp(18px,3vw,32px)">
+      <div style="min-width:0">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+          <h2 style="margin:0;font-size:clamp(24px,3.4vw,34px);font-weight:700;letter-spacing:-.02em">{{ d.name }}</h2>
+          <span style="background:{{ d.badgeBg }};color:{{ d.badgeFg }};border-radius:7px;padding:5px 10px;font-size:13px;font-weight:600">{{ d.badge }}</span>
+        </div>
+        <a href="{{ d.studioHref }}" style="display:inline-block;margin-top:8px;font-size:16px;font-weight:600">{{ d.studio }} →</a>
+        <p style="margin:16px 0 0;font-size:16px;line-height:1.65;color:#41464c;text-wrap:pretty">{{ d.about }}</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(120px,100%),1fr));gap:8px;margin-top:20px">
+          <div style="aspect-ratio:16/9;background:#dfe4e5;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#5a5f65">screenshot</div>
+          <div style="aspect-ratio:16/9;background:#dfe4e5;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#5a5f65">screenshot</div>
+          <div style="aspect-ratio:16/9;background:#dfe4e5;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#5a5f65">screenshot</div>
+        </div>
+      </div>
+      <div style="min-width:0;display:flex;flex-direction:column;gap:10px">
+        <div style="background:#fff;border:1px solid #dee2e3;border-radius:14px;padding:18px">
+          <sc-for list="{{ d.facts }}" as="f" hint-placeholder-count="5">
+            <div style="display:flex;flex-wrap:wrap;gap:10px;padding:8px 0;border-bottom:1px solid #f0f2f2;font-size:15px">
+              <span style="color:#5a5f65;flex:1 1 90px;min-width:0">{{ f.k }}</span>
+              <span style="font-weight:600;color:#16181b;text-align:right">{{ f.v }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ d.platforms }}" as="p" hint-placeholder-count="2">
+            <a href="{{ p.url }}" style="background:#16181b;color:#fff;border-radius:10px;padding:11px 15px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600" style-hover="background:#000">{{ p.name }} ↗</a>
+          </sc-for>
+        </div>
+        <div style="display:flex;align-items:center;gap:9px;background:#e9f5ec;border:1px solid #d3e8d9;border-radius:12px;padding:12px 14px;font-size:14px;color:#2f5c3c">
+          <span style="width:8px;height:8px;border-radius:50%;background:#4c9a5e;flex:none"></span>{{ d.parsed }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer style="background:#1b1e22;color:#e8eaec">
+  <div style="max-width:1220px;margin:0 auto;padding:clamp(28px,4vw,44px) 20px;display:flex;flex-wrap:wrap;align-items:center;gap:20px">
+    <div style="display:flex;align-items:center;gap:12px;flex:none">
+      <img src="ggc-mark.svg" alt="" style="height:32px;width:32px;display:block">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:.04em;color:#fff">GGC</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:15px">
+      <a href="GGC Companies.dc.html" style="color:#c6ccd3">კომპანიები</a>
+      <a href="GGC Publishing.dc.html" style="color:#c6ccd3">გამომცემლობა</a>
+      <a href="GGC Submit.dc.html" style="color:#c6ccd3">მონაცემების გაგზავნა</a>
+      <a href="GGC Donate.dc.html" style="color:#c6ccd3">მხარდაჭერა</a>
+    </div>
+    <a href="https://t.me/ggcgeorgia" style="margin-left:auto;display:flex;align-items:center;gap:9px;background:#229ED9;color:#fff;border-radius:11px;padding:11px 16px;font-size:15px;font-weight:600;flex:none" style-hover="background:#1b8dc4">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff" style="flex:none"><path d="M21.9 4.3 18.9 19c-.2.9-.8 1.2-1.6.7l-4.4-3.2-2.1 2c-.2.2-.4.4-.9.4l.3-4.4 8-7.2c.3-.3-.1-.4-.5-.2L7.9 12.4 3.6 11c-.9-.3-.9-.9.2-1.3l16.7-6.4c.8-.3 1.5.2 1.4 1z"/></svg>
+      Telegram
+    </a>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const PLATS = ["Steam", "itch.io", "App Store", "Google Play", "Switch", "Xbox"];
+const STORE = { "Steam":"https://store.steampowered.com", "itch.io":"https://itch.io", "App Store":"https://apps.apple.com", "Google Play":"https://play.google.com", "Switch":"https://nintendo.com", "Xbox":"https://xbox.com" };
+const GAMES = [
+  { id:"dumbriel", name:"Dumbriel", studio:"MadMoa", studioId:"madmoa", year:0, status:"upcoming", mobile:false, genres:["metroidvania","action"], platforms:["Steam","Switch","Xbox"], engine:"Unity", price:"—", langs:"ქართული, English", about:"ხელით დახატული 2D მეტროიდვანია. აღწერა ავტომატურად მოდის მაღაზიის გვერდიდან." },
+  { id:"g2", name:"თამაშის სახელი", studio:"სტუდიის სახელი", studioId:"studio-2", year:2026, status:"upcoming", mobile:false, genres:["strategy"], platforms:["Steam"], engine:"Unreal", price:"₾45", langs:"English", about:"აღწერა ავტომატურად მოდის Steam-იდან." },
+  { id:"g3", name:"მობაილ თამაში", studio:"სტუდიის სახელი", studioId:"studio-3", year:0, status:"upcoming", mobile:true, genres:["puzzle"], platforms:["App Store","Google Play"], engine:"Godot", price:"უფასო", langs:"ქართული", about:"მობაილის თამაშის არტი ორიგინალი ფორმით ჩანს, ერთსა და იმავე ქარდში." },
+  { id:"g4", name:"თამაშის სახელი", studio:"სტუდიის სახელი", studioId:"studio-2", year:2025, status:"released", mobile:false, genres:["roguelike"], platforms:["Steam","itch.io"], engine:"Unity", price:"₾25", langs:"English", about:"აღწერა ავტომატურად მოდის მაღაზიიდან." },
+  { id:"g5", name:"თამაშის სახელი", studio:"სტუდიის სახელი", studioId:"studio-3", year:2025, status:"released", mobile:false, genres:["shooter"], platforms:["Steam"], engine:"Unity", price:"₾38", langs:"English", about:"აღწერა ავტომატურად მოდის მაღაზიიდან." },
+  { id:"g6", name:"მობაილ თამაში", studio:"სახელი გვარი", studioId:"solo-1", year:2024, status:"released", mobile:true, genres:["arcade"], platforms:["Google Play"], engine:"Godot", price:"უფასო", langs:"ქართული, English", about:"აღწერა ავტომატურად მოდის Google Play-იდან." },
+  { id:"g7", name:"თამაშის სახელი", studio:"სტუდიის სახელი", studioId:"studio-4", year:2024, status:"released", mobile:false, genres:["adventure"], platforms:["itch.io"], engine:"Unity", price:"უფასო", langs:"English", about:"აღწერა ავტომატურად მოდის itch.io-დან." },
+  { id:"g8", name:"თამაშის სახელი", studio:"სახელი გვარი", studioId:"solo-1", year:2023, status:"released", mobile:false, genres:["platformer"], platforms:["Steam"], engine:"Unity", price:"₾18", langs:"English", about:"აღწერა ავტომატურად მოდის Steam-იდან." }
+];
+
+class Component extends DCLogic {
+  state = { q: "", status: 0, plat: "", year: "", open: null };
+
+  componentDidMount() { this.readHash(); this.onHash = () => this.readHash(); window.addEventListener("hashchange", this.onHash); }
+  componentWillUnmount() { window.removeEventListener("hashchange", this.onHash); }
+  readHash() {
+    const h = (location.hash || "").replace("#", "");
+    if (h && GAMES.filter(x => x.id === h).length) this.setState({ open: h, status: 0 });
+  }
+
+  card(g) {
+    const badge = g.status === "upcoming" ? (g.year ? String(g.year) : "TBD") : String(g.year);
+    return {
+      id: g.id, name: g.name, studio: g.studio,
+      studioHref: "GGC Companies.dc.html#" + g.studioId,
+      art: (g.mobile ? "images/games/" : "images/games/") + g.id + ".jpg",
+      hero: "images/games/" + g.id + "-hero.jpg",
+      artImg: 'url("images/games/' + g.id + '.jpg") center/' + (g.mobile ? "contain" : "cover") + ' no-repeat',
+      heroImg: 'url("images/games/' + g.id + '-hero.jpg") center/cover no-repeat',
+      artBg: g.mobile ? "#e2e6e8" : "#e8eaec",
+      fit: g.mobile ? "contain" : "cover",
+      badge: g.status === "upcoming" && !g.year ? "TBD" : (g.status === "upcoming" ? "მალე " + g.year : badge),
+      badgeBg: g.status === "upcoming" ? "#ee2626" : "#16181b",
+      badgeFg: "#fff",
+      platforms: g.platforms.map(n => ({ name: n, url: STORE[n] || "#" })),
+      open: () => this.setState({ open: g.id })
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const wanted = ["", "upcoming", "released"][s.status];
+    let list = GAMES
+      .filter(g => !wanted || g.status === wanted)
+      .filter(g => !s.plat || g.platforms.indexOf(s.plat) >= 0)
+      .filter(g => !s.year || (s.year === "tbd" ? !g.year : String(g.year) === s.year))
+      .filter(g => !s.q || (g.name + " " + g.studio).toLowerCase().indexOf(s.q.toLowerCase()) >= 0);
+    list = list.slice().sort((a, b) => {
+      if (a.status !== b.status) return a.status === "upcoming" ? -1 : 1;
+      if (a.status === "upcoming") return (a.year || 9999) - (b.year || 9999);
+      return b.year - a.year;
+    });
+
+    const g = GAMES.filter(x => x.id === s.open)[0];
+    const d = g ? Object.assign(this.card(g), {
+      about: g.about,
+      parsed: "მონაცემები ავტომატურად მოდის " + g.platforms[0] + "-იდან",
+      facts: [
+        { k: "გამოშვება", v: g.status === "upcoming" ? (g.year ? String(g.year) : "TBD") : String(g.year) },
+        { k: "ჟანრი", v: g.genres.join(", ") },
+        { k: "პლატფორმა", v: g.platforms.join(", ") },
+        { k: "ძრავი", v: g.engine },
+        { k: "ფასი", v: g.price },
+        { k: "ენები", v: g.langs }
+      ].filter(f => f.v && f.v !== "—")
+    }) : { facts: [], platforms: [], artBg: "#e8eaec", hasArt: false, hero: "", name: "", studio: "", studioHref: "#", about: "", parsed: "", badge: "", badgeBg: "#16181b", badgeFg: "#fff", fit: "cover" };
+
+    const v = {
+      q: s.q,
+      onSearch: e => this.setState({ q: e.target.value }),
+      onYear: e => this.setState({ year: e.target.value }),
+      shown: list.length,
+      emptyShow: list.length ? "none" : "block",
+      list: list.map(x => this.card(x)),
+      platChips: PLATS.map(p => ({
+        label: p,
+        bg: s.plat === p ? "#16181b" : "#f7f9f9",
+        fg: s.plat === p ? "#fff" : "#41464c",
+        border: s.plat === p ? "#16181b" : "#dee2e3",
+        click: () => this.setState(st => ({ plat: st.plat === p ? "" : p }))
+      })),
+      detailShow: g ? "block" : "none",
+      closeDetail: () => { if (location.hash) location.hash = ""; this.setState({ open: null }); },
+      d
+    };
+    for (let n = 0; n < 3; n++) {
+      v["st" + n] = () => this.setState({ status: n });
+      v["stBg" + n] = s.status === n ? "#16181b" : "transparent";
+      v["stFg" + n] = s.status === n ? "#fff" : "#41464c";
+    }
+    return v;
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html { overflow-x:clip; }
+  body { margin:0; overflow-x:clip; background:#eaeff2; color:#16181b; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:#146590; text-decoration:none; }
+  a:hover { color:#0f5273; }
+  @keyframes ggcSpin { to { transform:rotate(360deg) } }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important } }
+</style>
+</helmet>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(234,239,242,.93);backdrop-filter:blur(10px);border-bottom:1px solid #dbe2e6">
+  <div style="max-width:1220px;margin:0 auto;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px">
+    <a href="GGC Home.dc.html" style="display:flex;align-items:center;gap:10px;flex:none"><img src="ggc-logo.svg" alt="GGC" style="height:30px;width:auto;display:block"></a>
+    <nav style="display:flex;flex-wrap:wrap;gap:4px;margin-left:auto;font-size:14px;font-weight:500">
+      <a href="#" style="padding:9px 12px;border-radius:9px;background:#e2f0f8;color:#146590;font-weight:600">საზოგადოება</a>
+      <a href="GGC Publishing.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#dfe6ea;color:#16181b">გამომცემლობა</a>
+      <a href="GGC Companies.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#dfe6ea;color:#16181b">კომპანიები</a>
+      <a href="GGC Games.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#dfe6ea;color:#16181b">თამაშები</a>
+    </nav>
+    <a href="https://t.me/ggcgeorgia" style="background:#229ED9;color:#fff;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:600;flex:none" style-hover="background:#1b8dc4">Telegram</a>
+  </div>
+</header>
+
+<section style="position:relative;padding:clamp(34px,5vw,72px) 0 clamp(24px,3vw,40px)">
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none">
+    <div style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:radial-gradient(100% 100% at 86% 4%,#d6e9f5 0%,rgba(214,233,245,0) 62%),linear-gradient(180deg,#f5f8fa,#eaeff2)"></div>
+    <div style="position:absolute;right:0;top:-14%;width:min(44vw,500px);aspect-ratio:1;opacity:.07;animation:ggcSpin 80s linear infinite"><img src="ggc-mark.svg" alt="" style="width:100%;display:block"></div>
+  </div>
+  <div style="position:relative;max-width:840px;margin:0 auto;padding:0 20px">
+    <div style="display:flex;align-items:center;gap:9px;margin-bottom:18px">
+      <span style="width:10px;height:10px;border-radius:3px;background:#1d96d3"></span>
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#146590">მიმართულება 01</span>
+    </div>
+    <h1 style="margin:0;font-size:clamp(32px,5.6vw,64px);line-height:1.02;font-weight:800;letter-spacing:-.03em">საზოგადოება</h1>
+    <p style="margin:20px 0 0;max-width:54ch;font-size:clamp(17px,2vw,20px);line-height:1.6;color:#41464c;text-wrap:pretty">ყველაფერი იწყება იმით, რომ ხალხი ერთმანეთს გაიცნობს. მითაფები, ჯემები და მასტერკლასები — უფასოდ, ყველასთვის, ვინც თამაშებს აკეთებს ან უნდა რომ აკეთებდეს.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:28px">
+      <a href="https://t.me/ggcgeorgia" style="background:#1d96d3;color:#fff;border-radius:11px;padding:15px 24px;font-size:16px;font-weight:600" style-hover="background:#1580b7">შემოგვიერთდი Telegram-ზე</a>
+      <a href="#calendar" style="background:#fff;border:1px solid #dbe2e6;color:#16181b;border-radius:11px;padding:15px 24px;font-size:16px;font-weight:600" style-hover="border-color:#16181b">კალენდარი</a>
+    </div>
+  </div>
+</section>
+
+<section style="max-width:1220px;margin:0 auto;padding:0 20px clamp(24px,3vw,40px)">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:14px">
+    <sc-for list="{{ formats }}" as="f" hint-placeholder-count="4">
+      <div style="background:#fff;border:1px solid #dbe2e6;border-top:4px solid #1d96d3;border-radius:16px;padding:22px">
+        <div style="font-size:19px;font-weight:600">{{ f.t }}</div>
+        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">{{ f.d }}</p>
+        <div style="margin-top:14px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#146590">{{ f.freq }}</div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="calendar" style="max-width:1220px;margin:0 auto;padding:clamp(24px,3vw,44px) 20px">
+  <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:14px;margin-bottom:20px">
+    <h2 style="margin:0;font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-.02em">2026 კალენდარი</h2>
+    <span style="font-size:15px;color:#4d5258">თარიღები შესაძლოა შეიცვალოს</span>
+  </div>
+  <div style="background:#fff;border:1px solid #dbe2e6;border-radius:18px;overflow:hidden">
+    <sc-for list="{{ events }}" as="e" hint-placeholder-count="6">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid #eef2f4">
+        <div style="flex:none;width:74px;text-align:center;background:{{ e.dateBg }};color:{{ e.dateFg }};border-radius:11px;padding:10px 8px">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:700;line-height:1">{{ e.day }}</div>
+          <div style="margin-top:2px;font-size:12px;letter-spacing:.06em;text-transform:uppercase">{{ e.month }}</div>
+        </div>
+        <div style="flex:1 1 180px;min-width:0">
+          <div style="font-size:17px;font-weight:600">{{ e.title }}</div>
+          <div style="margin-top:3px;font-size:14px;color:#4d5258">{{ e.where }}</div>
+        </div>
+        <span style="flex:none;background:{{ e.tagBg }};color:{{ e.tagFg }};border-radius:7px;padding:6px 11px;font-size:13px;font-weight:600">{{ e.tag }}</span>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section style="position:relative;padding:clamp(28px,4vw,56px) 0">
+  <div aria-hidden="true" style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:#16181b"></div>
+  <div style="position:relative;max-width:1220px;margin:0 auto;padding:0 20px">
+    <h2 style="margin:0 0 8px;font-size:clamp(22px,3vw,32px);font-weight:700;letter-spacing:-.02em;color:#fff">გასული ივენთები</h2>
+    <p style="margin:0 0 24px;font-size:16px;color:#a7aeb6">ფოტოებს ჩაანაცვლებ ფაილების ჩაგდებით — <span style="font-family:'Space Grotesk',sans-serif">images/events/*.jpg</span></p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(220px,100%),1fr));gap:12px">
+      <sc-for list="{{ shots }}" as="p" hint-placeholder-count="6">
+        <div style="position:relative;aspect-ratio:4/3;background:#22262b;border:1px solid #2c3137;border-radius:12px;display:flex;align-items:flex-end;padding:14px;overflow:hidden">
+          <div aria-hidden="true" style="position:absolute;inset:0;background:{{ p.bg }}"></div>
+          <span style="position:relative;font-family:'Space Grotesk',sans-serif;font-size:12px;color:#8b949c">{{ p.src }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="max-width:1220px;margin:0 auto;padding:clamp(28px,4vw,52px) 20px">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;background:linear-gradient(140deg,#229ED9,#146590);border-radius:20px;padding:clamp(22px,3vw,34px);color:#fff">
+    <div style="flex:1 1 260px;min-width:0">
+      <h2 style="margin:0;font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:-.02em">ყველაფერი Telegram-ში ხდება</h2>
+      <p style="margin:12px 0 0;max-width:48ch;font-size:17px;line-height:1.6;opacity:.94">ივენთების გამოცხადება, ვაკანსიები, ერთმანეთის დახმარება და ის შუადღის კითხვები, რომლებზეც ფორუმზე ვერავინ გიპასუხებდა.</p>
+    </div>
+    <a href="https://t.me/ggcgeorgia" style="flex:none;display:flex;align-items:center;gap:10px;background:#fff;color:#146590;border-radius:12px;padding:15px 24px;font-size:17px;font-weight:600" style-hover="background:#eaf3f8;color:#0f5273">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="#146590" style="flex:none"><path d="M21.9 4.3 18.9 19c-.2.9-.8 1.2-1.6.7l-4.4-3.2-2.1 2c-.2.2-.4.4-.9.4l.3-4.4 8-7.2c.3-.3-.1-.4-.5-.2L7.9 12.4 3.6 11c-.9-.3-.9-.9.2-1.3l16.7-6.4c.8-.3 1.5.2 1.4 1z"/></svg>
+      შემოგვიერთდი
+    </a>
+  </div>
+</section>
+
+<footer style="background:#1b1e22;color:#e8eaec">
+  <div style="max-width:1220px;margin:0 auto;padding:clamp(28px,4vw,44px) 20px;display:flex;flex-wrap:wrap;align-items:center;gap:20px">
+    <div style="display:flex;align-items:center;gap:12px;flex:none">
+      <img src="ggc-mark.svg" alt="" style="height:32px;width:32px;display:block">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:.04em;color:#fff">GGC</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:15px">
+      <a href="GGC Companies.dc.html" style="color:#c6ccd3">კომპანიები</a>
+      <a href="GGC Games.dc.html" style="color:#c6ccd3">თამაშები</a>
+      <a href="GGC About.dc.html" style="color:#c6ccd3">ჩვენ შესახებ</a>
+      <a href="GGC Donate.dc.html" style="color:#c6ccd3">მხარდაჭერა</a>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      formats: [
+        { t: "მითაფი", d: "ერთი თემა, ორი მოხსენება, ერთი საათი კითხვები. უფასო, დარეგისტრირების გარეშე.", freq: "თვეში ერთხელ" },
+        { t: "გეიმჯემი", d: "48 საათი, გუნდები ადგილზე იკრიბება, ბოლოს ყველა თამაშობს ერთმანეთის თამაშს.", freq: "წელიწადში ორჯერ" },
+        { t: "მასტერკლასი", d: "პრაქტიკული სესია კონკრეტულ უნარზე — 2D, 3D, პროგრამირება, ბიზნესი.", freq: "სეზონურად" },
+        { t: "შემაჯამებელი ივენთი", d: "წლის შედეგები, ახალი თამაშების ჩვენება და ინდუსტრიის შეხვედრა.", freq: "დეკემბერში" }
+      ],
+      events: [
+        { day: "24", month: "თებ", title: "2D არტი თამაშებში", where: "მითაფი #1 · თბილისი", tag: "ჩატარდა", live: false },
+        { day: "18", month: "აპრ", title: "GameJam 2026", where: "48 საათი · ტექნოპარკი", tag: "რეგისტრაცია", live: true },
+        { day: "22", month: "მაი", title: "3D არტი თამაშებში", where: "მითაფი #2 · თბილისი", tag: "მალე", live: true },
+        { day: "12", month: "ივნ", title: "პროგრამირება თამაშებში", where: "მითაფი #3 · ონლაინ", tag: "მალე", live: true },
+        { day: "09", month: "ივლ", title: "საერთაშორისო მითაფი", where: "სტუმრები საზღვარგარეთიდან", tag: "მალე", live: true },
+        { day: "05", month: "დეკ", title: "შემაჯამებელი ივენთი", where: "წლის შედეგები", tag: "მალე", live: true }
+      ].map(e => Object.assign({}, e, {
+        dateBg: e.live ? "#1d96d3" : "#eef2f4",
+        dateFg: e.live ? "#fff" : "#5a5f65",
+        tagBg: e.live ? "#e2f0f8" : "#f1f4f5",
+        tagFg: e.live ? "#146590" : "#5a5f65"
+      })),
+      shots: [1, 2, 3, 4, 5, 6].map(n => ({ src: "images/events/event-" + n + ".jpg", bg: 'url("images/events/event-' + n + '.jpg") center/cover no-repeat' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html { overflow-x:clip; }
+  body { margin:0; overflow-x:clip; background:#f1f1ed; color:#16181b; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:#146590; text-decoration:none; }
+  a:hover { color:#0f5273; }
+  @keyframes ggcSpin { to { transform:rotate(360deg) } }
+  @keyframes ggcSpinSlow { to { transform:rotate(360deg) } }
+  @keyframes ggcBob { 0%{transform:translateY(0)} 50%{transform:translateY(-16px)} 100%{transform:translateY(0)} }
+  @keyframes ggcFade { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } }
+</style>
+</helmet>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(251,251,250,.92);backdrop-filter:blur(10px);border-bottom:1px solid #ececea">
+  <div style="max-width:1220px;margin:0 auto;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px">
+    <a href="#top" style="display:flex;align-items:center;gap:10px;flex:none"><img src="ggc-logo.svg" alt="GGC" style="height:30px;width:auto;display:block"></a>
+    <nav style="display:flex;flex-wrap:wrap;gap:4px;margin-left:auto;font-size:14px;font-weight:500">
+      <a href="#directions" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#f0f0ee;color:#16181b">მიმართულებები</a>
+      <a href="GGC Companies.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#f0f0ee;color:#16181b">კომპანიები</a>
+      <a href="GGC Games.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#f0f0ee;color:#16181b">თამაშები</a>
+      <a href="GGC Data.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#f0f0ee;color:#16181b">მონაცემები</a>
+      <a href="GGC About.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#f0f0ee;color:#16181b">ჩვენ შესახებ</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:8px;flex:none">
+      <button type="button" onClick="{{ toggleLang }}" style="border:1px solid #e2e2df;background:#fff;border-radius:9px;padding:8px 11px;font-family:inherit;font-size:13px;font-weight:600;color:#41464c;cursor:pointer" style-hover="border-color:#c9c9c5">{{ langLabel }}</button>
+      <a href="GGC Donate.dc.html" style="background:#16181b;color:#fff;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:600" style-hover="background:#000">მხარდაჭერა</a>
+    </div>
+  </div>
+</header>
+
+<main id="top" style="max-width:1220px;margin:0 auto;padding:0 20px">
+
+  <section style="position:relative;padding:clamp(52px,9vw,110px) 0 clamp(40px,6vw,72px)">
+    <div aria-hidden="true" style="position:absolute;inset:-1px 0 0;pointer-events:none">
+      <div style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:radial-gradient(120% 90% at 82% 8%,#e3f1fa 0%,rgba(227,241,250,0) 58%),radial-gradient(90% 80% at 4% 96%,#eef6e6 0%,rgba(238,246,230,0) 60%),linear-gradient(180deg,#fafaf8 0%,#f1f1ed 100%)"></div>
+      <div style="position:absolute;right:0;top:-16%;width:min(52vw,600px);aspect-ratio:1;opacity:.07;animation:ggcSpin 75s linear infinite">
+        <img src="ggc-mark.svg" alt="" style="width:100%;height:100%;display:block">
+      </div>
+      <div style="position:absolute;left:6vw;bottom:8%;width:74px;height:74px;border:7px solid #1d96d3;border-radius:22px;opacity:.13;animation:ggcSpin 90s linear infinite"></div>
+      <div style="position:absolute;right:30vw;bottom:14%;width:58px;height:58px;border:7px solid #ee2626;border-radius:50%;opacity:.12;animation:ggcBob 14s ease-in-out infinite"></div>
+      <div style="position:absolute;left:34vw;top:9%;width:52px;height:52px;opacity:.14;animation:ggcSpin 74s linear infinite reverse">
+        <div style="position:absolute;inset:0;clip-path:polygon(50% 0,100% 100%,0 100%);border:0;background:#fdb813;-webkit-mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);padding:7px"></div>
+      </div>
+    </div>
+    <div style="position:relative;max-width:900px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+        <span style="width:8px;height:8px;border-radius:50%;background:#1d96d3"></span>
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#5c6167">Georgian Game Community</span>
+      </div>
+      <h1 style="margin:0;font-size:clamp(38px,7.4vw,86px);line-height:1;font-weight:800;letter-spacing:-.03em;text-wrap:balance">თამაშები იქმნება აქ</h1>
+      <p style="margin:22px 0 0;max-width:56ch;font-size:clamp(17px,2vw,21px);line-height:1.55;color:#41464c;text-wrap:pretty">GGC აერთიანებს ქართულ გეიმდევ ინდუსტრიას — სტუდიებს, გუნდებს, სოლო დეველოპერებს და მათ თამაშებს. ერთ ადგილას, ვერიფიცირებულად.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:30px">
+        <a href="GGC Submit.dc.html" style="background:#1d96d3;color:#fff;border-radius:11px;padding:15px 24px;font-size:16px;font-weight:600" style-hover="background:#1580b7">დაამატე შენი სტუდია</a>
+        <a href="GGC Companies.dc.html" style="background:#fff;border:1px solid #e2e2df;color:#16181b;border-radius:11px;padding:15px 24px;font-size:16px;font-weight:600" style-hover="border-color:#16181b">ნახე ყველა</a>
+      </div>
+    </div>
+    <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:1px;margin-top:clamp(40px,6vw,64px);background:#e4e5e1;border:1px solid #e4e5e1;border-radius:16px;overflow:hidden">
+      <a href="GGC Companies.dc.html" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #1d96d3;transition:background .25s ease" style-hover="background:#fafbf8">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#1d96d3">{{ nCompanies }}</div>
+        <div style="margin-top:8px;font-size:14px;color:#4d5258">ვერიფიცირებული კომპანია</div>
+      </a>
+      <a href="GGC Companies.dc.html#teams" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #83c341;transition:background .25s ease" style-hover="background:#fafbf8">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#83c341">{{ nTeams }}</div>
+        <div style="margin-top:8px;font-size:14px;color:#4d5258">გუნდი</div>
+      </a>
+      <a href="GGC Companies.dc.html#solo" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #fdb813;transition:background .25s ease" style-hover="background:#fafbf8">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#fdb813">{{ nSolo }}</div>
+        <div style="margin-top:8px;font-size:14px;color:#4d5258">სოლო დეველოპერი</div>
+      </a>
+      <a href="GGC Games.dc.html" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #ee2626;transition:background .25s ease" style-hover="background:#fafbf8">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#ee2626">{{ nGames }}</div>
+        <div style="margin-top:8px;font-size:14px;color:#4d5258">თამაში</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="directions" style="position:relative;margin:clamp(20px,3vw,36px) 0;padding:clamp(34px,5vw,64px) 0">
+    <div aria-hidden="true" style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:linear-gradient(180deg,#ffffff 0%,#f6f7f3 100%);border-top:1px solid #e7e7e2;border-bottom:1px solid #e7e7e2"></div>
+    <div aria-hidden="true" style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background-color:{{ haloColor }};-webkit-mask:radial-gradient(72% 92% at 22% 42%,#000 0%,rgba(0,0,0,0) 62%);mask:radial-gradient(72% 92% at 22% 42%,#000 0%,rgba(0,0,0,0) 62%);opacity:.15;transition:background-color .9s ease;pointer-events:none"></div>
+    <div style="position:relative">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:clamp(24px,4vw,56px);align-items:center">
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;padding:10px">
+        <div style="position:absolute;width:64%;aspect-ratio:1;border-radius:50%;background:{{ haloColor }};opacity:.12;filter:blur(30px);transition:background 1s ease"></div>
+        <svg viewBox="98 65 312 312" style="width:100%;max-width:420px;height:auto;display:block;position:relative">
+          <g>
+            <g onClick="{{ go0 }}" style="cursor:pointer;transform-box:view-box;transform-origin:254px 221px;transition:opacity .55s ease,transform .55s ease;opacity:{{ op0 }};transform:scale({{ sc0 }})">
+              <path transform="matrix(1,0,0,-1,167.8581,239.11351)" d="M0 0-34.683-34.683-44.234-44.234-44.277-44.277-44.276-44.278C-57.397-57.446-57.384-78.756-44.234-91.906L-24.578-111.562C-11.428-124.712 9.882-124.725 23.05-111.604L23.051-111.605 23.094-111.562 32.645-102.011 67.139-67.517 80.273-54.383 80.341-54.315C80.367-53.966 80.392-53.617 80.392-53.262V-.627C80.392 6.84 74.339 12.893 66.872 12.893H14.236C13.838 12.893 13.447 12.866 13.057 12.834L12.945 12.945 12.822 12.822Z" fill="#1d96d3"></path>
+              <path transform="matrix(1,0,0,-1,164.5905,322.40144)" d="M0 0 22.375 5.995C30.081 8.06 32.661 17.692 27.02 23.333L10.641 39.713C5 45.354-4.632 42.773-6.697 35.067L-12.692 12.692C-14.757 4.987-7.706-2.065 0 0" fill="#ffffff"></path>
+            </g>
+            <g onClick="{{ go1 }}" style="cursor:pointer;transform-box:view-box;transform-origin:254px 221px;transition:opacity .55s ease,transform .55s ease;opacity:{{ op1 }};transform:scale({{ sc1 }})">
+              <path transform="matrix(1,0,0,-1,339.6424,201.9851)" d="M0 0 34.683 34.683 44.234 44.234 44.277 44.277 44.276 44.278C57.397 57.446 57.384 78.756 44.234 91.906L24.578 111.562C11.428 124.712-9.882 124.725-23.05 111.604L-23.051 111.605-23.094 111.562-32.645 102.011-67.139 67.517-80.273 54.383-80.341 54.315C-80.367 53.966-80.392 53.617-80.392 53.262V.627C-80.392-6.84-74.339-12.893-66.872-12.893H-14.236C-13.838-12.893-13.447-12.866-13.057-12.834L-12.945-12.945-12.822-12.822Z" fill="#ee2626"></path>
+              <path transform="matrix(1,0,0,-1,342.7214,118.508609)" d="M0 0-22.375-5.995C-30.081-8.06-32.661-17.692-27.02-23.333L-10.641-39.713C-5-45.354 4.632-42.773 6.697-35.067L12.692-12.692C14.757-4.987 7.706 2.065 0 0" fill="#ffffff"></path>
+            </g>
+            <g onClick="{{ go2 }}" style="cursor:pointer;transform-box:view-box;transform-origin:254px 221px;transition:opacity .55s ease,transform .55s ease;opacity:{{ op2 }};transform:scale({{ sc2 }})">
+              <path transform="matrix(1,0,0,-1,235.0629,134.66053)" d="M0 0-34.683 34.683-44.234 44.234-44.277 44.277-44.278 44.276C-57.446 57.397-78.756 57.384-91.906 44.234L-111.562 24.578C-124.712 11.428-124.725-9.882-111.604-23.05L-111.605-23.051-111.562-23.094-102.011-32.645-67.517-67.139-54.383-80.273-54.315-80.341C-53.966-80.367-53.617-80.392-53.262-80.392H-.627C6.84-80.392 12.893-74.339 12.893-66.872V-14.236C12.893-13.838 12.866-13.447 12.834-13.057L12.945-12.945 12.822-12.822Z" fill="#83c341"></path>
+              <path transform="matrix(1,0,0,-1,151.7095,131.38962)" d="M0 0 5.995-22.375C8.06-30.081 17.692-32.661 23.333-27.02L39.713-10.641C45.354-5 42.773 4.632 35.067 6.697L12.692 12.692C4.987 14.757-2.065 7.706 0 0" fill="#ffffff"></path>
+            </g>
+            <g onClick="{{ go3 }}" style="cursor:pointer;transform-box:view-box;transform-origin:254px 221px;transition:opacity .55s ease,transform .55s ease;opacity:{{ op3 }};transform:scale({{ sc3 }})">
+              <path transform="matrix(1,0,0,-1,272.3144,306.56794)" d="M0 0 34.683-34.683 44.234-44.234 44.277-44.277 44.278-44.276C57.446-57.397 78.756-57.384 91.906-44.234L111.562-24.578C124.712-11.428 124.725 9.882 111.604 23.05L111.605 23.051 111.562 23.094 102.011 32.645 67.517 67.139 54.383 80.273 54.315 80.341C53.966 80.367 53.617 80.392 53.262 80.392H.627C-6.84 80.392-12.893 74.339-12.893 66.872V14.236C-12.893 13.838-12.866 13.447-12.834 13.057L-12.945 12.945-12.822 12.822Z" fill="#fdb813"></path>
+              <path transform="matrix(1,0,0,-1,355.6024,309.5205)" d="M0 0-5.995 22.375C-8.06 30.081-17.692 32.661-23.333 27.02L-39.713 10.641C-45.354 5-42.773-4.632-35.067-6.697L-12.692-12.692C-4.987-14.757 2.065-7.706 0 0" fill="#ffffff"></path>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div style="min-width:0">
+        <div>
+          <div style="display:grid;align-items:start">
+            <div style="grid-area:1/1;transition:opacity .5s ease,transform .5s ease;opacity:{{ opT0 }};transform:translateY({{ tyT0 }});pointer-events:{{ pe0 }}">
+              <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px"><span style="width:10px;height:10px;border-radius:3px;background:#1d96d3"></span><span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#146590">მიმართულება 01</span></div>
+              <h2 style="margin:0;font-size:clamp(28px,4vw,42px);line-height:1.08;font-weight:700;letter-spacing:-.02em">საზოგადოება</h2>
+              <p style="margin:16px 0 0;max-width:46ch;font-size:17px;line-height:1.6;color:#41464c;text-wrap:pretty">მითაფები, გეიმჯემები, მასტერკლასები და ერთი ცოცხალი კომუნითი, სადაც ინდუსტრია რეალურად ხვდება ერთმანეთს.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px">
+                <span style="background:#eaf5fb;color:#0f5273;border-radius:8px;padding:8px 12px;font-size:14px">GameJam</span>
+                <span style="background:#eaf5fb;color:#0f5273;border-radius:8px;padding:8px 12px;font-size:14px">Meetup</span>
+                <span style="background:#eaf5fb;color:#0f5273;border-radius:8px;padding:8px 12px;font-size:14px">მასტერკლასი</span>
+              </div>
+              <a href="GGC Community.dc.html" style="display:inline-block;margin-top:24px;font-size:16px;font-weight:600;color:#146590">გაიგე მეტი →</a>
+            </div>
+            <div style="grid-area:1/1;transition:opacity .5s ease,transform .5s ease;opacity:{{ opT1 }};transform:translateY({{ tyT1 }});pointer-events:{{ pe1 }}">
+              <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px"><span style="width:10px;height:10px;border-radius:3px;background:#ee2626"></span><span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#bf1a1a">მიმართულება 02</span></div>
+              <h2 style="margin:0;font-size:clamp(28px,4vw,42px);line-height:1.08;font-weight:700;letter-spacing:-.02em">გამომცემლობა</h2>
+              <p style="margin:16px 0 0;max-width:46ch;font-size:17px;line-height:1.6;color:#41464c;text-wrap:pretty">სტრატეგია, ბიზნეს-მოდელი, Steam-ზე გამოშვება, მენტორშიპი, ჟანრის და ბაზრის ანალიზი, წვდომა კონტენტ-კრეატორების და გამომცემლების ბაზაზე.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px">
+                <span style="background:#fdecec;color:#a01616;border-radius:8px;padding:8px 12px;font-size:14px">Steam launch</span>
+                <span style="background:#fdecec;color:#a01616;border-radius:8px;padding:8px 12px;font-size:14px">მენტორშიპი</span>
+                <span style="background:#fdecec;color:#a01616;border-radius:8px;padding:8px 12px;font-size:14px">ინვესტორები</span>
+              </div>
+              <a href="GGC Publishing.dc.html" style="display:inline-block;margin-top:24px;font-size:16px;font-weight:600;color:#bf1a1a">გაიგე მეტი →</a>
+            </div>
+            <div style="grid-area:1/1;transition:opacity .5s ease,transform .5s ease;opacity:{{ opT2 }};transform:translateY({{ tyT2 }});pointer-events:{{ pe2 }}">
+              <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px"><span style="width:10px;height:10px;border-radius:3px;background:#83c341"></span><span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#4b7320">მიმართულება 03</span></div>
+              <h2 style="margin:0;font-size:clamp(28px,4vw,42px);line-height:1.08;font-weight:700;letter-spacing:-.02em">აქსელერაცია</h2>
+              <p style="margin:16px 0 0;max-width:46ch;font-size:17px;line-height:1.6;color:#41464c;text-wrap:pretty">ინკუბატორი, კოჰორტები და დაფინანსება სტუდიებისთვის, რომლებიც უკვე მზად არიან გაზრდისთვის.</p>
+              <div style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:#f0f6e9;color:#3d5e19;border-radius:8px;padding:9px 13px;font-size:14px;font-weight:600">
+                <span style="width:7px;height:7px;border-radius:50%;background:#83c341"></span>მალე განახლდება
+              </div>
+              <a href="GGC Acceleration.dc.html" style="display:inline-block;margin-top:24px;font-size:16px;font-weight:600;color:#4b7320">რა იგეგმება →</a>
+            </div>
+            <div style="grid-area:1/1;transition:opacity .5s ease,transform .5s ease;opacity:{{ opT3 }};transform:translateY({{ tyT3 }});pointer-events:{{ pe3 }}">
+              <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px"><span style="width:10px;height:10px;border-radius:3px;background:#fdb813"></span><span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8a6100">მიმართულება 04</span></div>
+              <h2 style="margin:0;font-size:clamp(28px,4vw,42px);line-height:1.08;font-weight:700;letter-spacing:-.02em">ინდუსტრიის მონაცემები</h2>
+              <p style="margin:16px 0 0;max-width:46ch;font-size:17px;line-height:1.6;color:#41464c;text-wrap:pretty">ქართული თამაშების ბაზა, სტუდიების სტატისტიკა და წლიური რეპორტები — ის რიცხვები, რომლებზეც ინდუსტრია დაყრდნობით ლაპარაკობს.</p>
+              <div style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:#fdf4e0;color:#7a5500;border-radius:8px;padding:9px 13px;font-size:14px;font-weight:600">
+                <span style="width:7px;height:7px;border-radius:50%;background:#fdb813"></span>მალე განახლდება
+              </div>
+              <a href="GGC Data.dc.html" style="display:inline-block;margin-top:24px;font-size:16px;font-weight:600;color:#8a6100">ნახე მონაცემები →</a>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:32px;padding-top:22px;border-top:1px solid #ececea">
+          <button type="button" onClick="{{ go0 }}" style="border:1px solid #e2e2df;background:{{ chip0 }};color:{{ chipText0 }};border-radius:9px;padding:10px 14px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s ease">საზოგადოება</button>
+          <button type="button" onClick="{{ go1 }}" style="border:1px solid #e2e2df;background:{{ chip1 }};color:{{ chipText1 }};border-radius:9px;padding:10px 14px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s ease">გამომცემლობა</button>
+          <button type="button" onClick="{{ go2 }}" style="border:1px solid #e2e2df;background:{{ chip2 }};color:{{ chipText2 }};border-radius:9px;padding:10px 14px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s ease">აქსელერაცია</button>
+          <button type="button" onClick="{{ go3 }}" style="border:1px solid #e2e2df;background:{{ chip3 }};color:{{ chipText3 }};border-radius:9px;padding:10px 14px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s ease">მონაცემები</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(36px,5vw,64px) 0 clamp(28px,4vw,44px)">
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px;margin-bottom:28px">
+      <div style="min-width:0">
+        <h2 style="margin:0;font-size:clamp(24px,3.4vw,34px);font-weight:700;letter-spacing:-.02em">მოსალოდნელი და ახლად გამოსული</h2>
+        <p style="margin:10px 0 0;font-size:16px;color:#4d5258">ქართული თამაშები — მონაცემები პლატფორმებიდან ავტომატურად განახლდება.</p>
+      </div>
+      <a href="GGC Games.dc.html" style="margin-left:auto;font-size:16px;font-weight:600;flex:none">ყველა თამაში →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr));gap:16px">
+      <sc-for list="{{ games }}" as="g" hint-placeholder-count="6">
+        <a href="{{ g.href }}" style="display:block;background:#fff;border:1px solid #e5e5e0;border-radius:13px;overflow:hidden;box-shadow:0 1px 2px rgba(20,22,26,.04);transition:all .25s ease" style-hover="border-color:#d5d5d1;transform:translateY(-3px)">
+          <div style="position:relative;aspect-ratio:460/215;background:#e8eaec;display:flex;align-items:center;justify-content:center;overflow:hidden">
+            <div aria-hidden="true" style="position:absolute;inset:0;background:{{ g.artImg }}"></div>
+            <span style="position:relative;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#5a5f65">{{ g.slot }}</span>
+            <span style="position:absolute;top:10px;left:10px;background:{{ g.badgeBg }};color:{{ g.badgeFg }};border-radius:7px;padding:5px 9px;font-size:12px;font-weight:600">{{ g.badge }}</span>
+          </div>
+          <div style="padding:14px 15px 16px">
+            <div style="font-size:17px;font-weight:600;letter-spacing:-.01em;color:#16181b">{{ g.name }}</div>
+            <div style="margin-top:4px;font-size:14px;color:#4d5258">{{ g.studio }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px">
+              <sc-for list="{{ g.platforms }}" as="p" hint-placeholder-count="2">
+                <span style="background:#f4f4f2;color:#41464c;border-radius:6px;padding:4px 8px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500">{{ p }}</span>
+              </sc-for>
+            </div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="display:flex;justify-content:center;margin:0 0 clamp(28px,4vw,48px)">
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:7px;width:104px;flex:none">
+      <button type="button" onClick="{{ tap0 }}" aria-label="მწვანე" style="border:0;cursor:pointer;aspect-ratio:1;background:{{ pad0 }};border-radius:14px 14px 4px 14px;transition:background .12s ease,transform .12s ease;transform:scale({{ padS0 }})"></button>
+      <button type="button" onClick="{{ tap1 }}" aria-label="წითელი" style="border:0;cursor:pointer;aspect-ratio:1;background:{{ pad1 }};border-radius:14px 14px 14px 4px;transition:background .12s ease,transform .12s ease;transform:scale({{ padS1 }})"></button>
+      <button type="button" onClick="{{ tap2 }}" aria-label="ლურჯი" style="border:0;cursor:pointer;aspect-ratio:1;background:{{ pad2 }};border-radius:14px 4px 14px 14px;transition:background .12s ease,transform .12s ease;transform:scale({{ padS2 }})"></button>
+      <button type="button" onClick="{{ tap3 }}" aria-label="ყვითელი" style="border:0;cursor:pointer;aspect-ratio:1;background:{{ pad3 }};border-radius:4px 14px 14px 14px;transition:background .12s ease,transform .12s ease;transform:scale({{ padS3 }})"></button>
+    </div>
+  </section>
+
+</main>
+
+<footer style="background:#1b1e22;color:#e8eaec;margin-top:clamp(40px,6vw,72px)">
+  <div style="max-width:1220px;margin:0 auto;padding:clamp(36px,5vw,56px) 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:32px">
+    <div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <img src="ggc-mark.svg" alt="" style="height:36px;width:36px;display:block">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;letter-spacing:.04em;color:#fff">GGC</span>
+      </div>
+      <p style="margin:16px 0 0;max-width:34ch;font-size:15px;line-height:1.6;color:#9aa1a9">ქართული თამაშების საზოგადოება.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px">
+        <a href="https://t.me/ggcgeorgia" aria-label="Telegram" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#282c31" style-hover="background:#343941"><svg viewBox="0 0 24 24" width="19" height="19" fill="#e8eaec"><path d="M21.9 4.3 18.9 19c-.2.9-.8 1.2-1.6.7l-4.4-3.2-2.1 2c-.2.2-.4.4-.9.4l.3-4.4 8-7.2c.3-.3-.1-.4-.5-.2L7.9 12.4 3.6 11c-.9-.3-.9-.9.2-1.3l16.7-6.4c.8-.3 1.5.2 1.4 1z"/></svg></a>
+        <a href="https://www.fb.com/GeorgianGameCommunity" aria-label="Facebook" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#282c31" style-hover="background:#343941"><svg viewBox="0 0 24 24" width="19" height="19" fill="#e8eaec"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg></a>
+        <a href="#" aria-label="LinkedIn" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#282c31" style-hover="background:#343941"><svg viewBox="0 0 24 24" width="19" height="19" fill="#e8eaec"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.5 4.7 5.8V21h-4v-5.6c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V21h-4V9z"/></svg></a>
+        <a href="#" aria-label="Instagram" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#282c31" style-hover="background:#343941"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#e8eaec" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#e8eaec" stroke="none"/></svg></a>
+        <a href="#" aria-label="YouTube" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#282c31" style-hover="background:#343941"><svg viewBox="0 0 24 24" width="19" height="19" fill="#e8eaec"><path d="M21.6 7.2c-.2-1-.9-1.7-1.9-1.9C17.9 5 12 5 12 5s-5.9 0-7.7.3c-1 .2-1.7.9-1.9 1.9C2.1 9 2.1 12 2.1 12s0 3 .3 4.8c.2 1 .9 1.7 1.9 1.9 1.8.3 7.7.3 7.7.3s5.9 0 7.7-.3c1-.2 1.7-.9 1.9-1.9.3-1.8.3-4.8.3-4.8s0-3-.3-4.8zM10 15.5v-7l6 3.5-6 3.5z"/></svg></a>
+        <a href="#" aria-label="Discord" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#282c31" style-hover="background:#343941"><svg viewBox="0 0 24 24" width="19" height="19" fill="#e8eaec"><path d="M19.3 5.3A16 16 0 0 0 15.4 4l-.3.6a12 12 0 0 1 3.4 1.2 11.4 11.4 0 0 0-9-.1A12 12 0 0 1 13 4.6L12.6 4a16 16 0 0 0-3.9 1.3C6.2 9 5.5 12.6 5.8 16.2a16 16 0 0 0 4.8 2.4l.6-1c-.8-.3-1.5-.7-2.2-1.1l.5-.4a11.4 11.4 0 0 0 9 0l.5.4c-.7.4-1.4.8-2.2 1.1l.6 1a16 16 0 0 0 4.8-2.4c.4-4.2-.6-7.8-2.9-10.9zM9.7 14.1c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.7.8 1.6 1.8c0 1-.7 1.8-1.6 1.8zm4.6 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8 1.7.8 1.6 1.8c0 1-.7 1.8-1.6 1.8z"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8c949c;margin-bottom:14px">კატალოგი</div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
+        <a href="GGC Companies.dc.html" style="color:#c6ccd3">კომპანიები</a>
+        <a href="GGC Companies.dc.html#teams" style="color:#c6ccd3">გუნდები</a>
+        <a href="GGC Companies.dc.html#solo" style="color:#c6ccd3">სოლო დეველოპერები</a>
+        <a href="GGC Games.dc.html" style="color:#c6ccd3">თამაშები</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8c949c;margin-bottom:14px">მიმართულებები</div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
+        <a href="GGC Community.dc.html" style="color:#c6ccd3">საზოგადოება</a>
+        <a href="GGC Publishing.dc.html" style="color:#c6ccd3">გამომცემლობა</a>
+        <a href="GGC Acceleration.dc.html" style="color:#c6ccd3">აქსელერაცია</a>
+        <a href="GGC Data.dc.html" style="color:#c6ccd3">ინდუსტრიის მონაცემები</a>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8c949c;margin-bottom:14px">GGC</div>
+      <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
+        <a href="GGC About.dc.html" style="color:#c6ccd3">ჩვენ შესახებ</a>
+        <a href="GGC Submit.dc.html" style="color:#c6ccd3">მონაცემების გაგზავნა</a>
+        <a href="GGC Donate.dc.html" style="color:#c6ccd3">მხარდაჭერა</a>
+        <a href="https://github.com/myggc/myggc.github.io" style="color:#c6ccd3">GitHub</a>
+        <a href="GGC Admin.dc.html" style="color:#8b939b">ადმინი</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a href="https://t.me/ggcgeorgia" style="position:fixed;right:18px;bottom:18px;z-index:60;display:flex;align-items:center;gap:10px;background:#229ED9;color:#fff;border-radius:14px;padding:13px 17px;font-size:15px;font-weight:600;box-shadow:0 8px 24px rgba(34,158,217,.32)" style-hover="background:#1b8dc4">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="#fff" style="flex:none"><path d="M21.9 4.3 18.9 19c-.2.9-.8 1.2-1.6.7l-4.4-3.2-2.1 2c-.2.2-.4.4-.9.4l.3-4.4 8-7.2c.3-.3-.1-.4-.5-.2L7.9 12.4 3.6 11c-.9-.3-.9-.9.2-1.3l16.7-6.4c.8-.3 1.5.2 1.4 1z"/></svg>
+  Telegram
+</a>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;autoRotate&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;მიმართულებები&quot;},&quot;rotateSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:8,&quot;min&quot;:4,&quot;max&quot;:16,&quot;step&quot;:1,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;მიმართულებები&quot;},&quot;companies&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:15,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;რიცხვები&quot;},&quot;teams&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:8,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;რიცხვები&quot;},&quot;solo&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:24,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;რიცხვები&quot;},&quot;games&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:37,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;რიცხვები&quot;}}">
+const DIRS = [
+  { rot: 90,  color: "#1d96d3" },
+  { rot: 270, color: "#ee2626" },
+  { rot: 360, color: "#83c341" },
+  { rot: 540, color: "#fdb813" }
+];
+const PADS = ["#83c341", "#ee2626", "#1d96d3", "#fdb813"];
+const DIM  = ["#dbe9cb", "#f7d3d3", "#cfe4f1", "#fbeac4"];
+
+class Component extends DCLogic {
+  state = {
+    i: 0, cycle: 0, lang: "ka",
+    seq: [], step: 0, playing: false, showing: false, lit: -1,
+    round: 0, best: 0, msg: ""
+  };
+
+  componentDidMount() {
+    setTimeout(() => this.start(), 1200);
+    const calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (this.props.autoRotate !== false && !calm) {
+      this.timer = setInterval(() => this.advance(), (this.props.rotateSeconds || 8) * 1000);
+    }
+  }
+  componentWillUnmount() { clearInterval(this.timer); clearTimeout(this.t1); clearTimeout(this.t2); }
+
+  advance() { this.go((this.state.i + 1) % 4); }
+  go(n) {
+    this.setState(s => ({ i: n, cycle: n <= s.i ? s.cycle + 1 : s.cycle }));
+  }
+  hold() { clearInterval(this.timer); this.timer = null; }
+
+  flash(n, ms) {
+    this.setState({ lit: n });
+    return new Promise(r => { this.t1 = setTimeout(() => { this.setState({ lit: -1 }); this.t2 = setTimeout(r, ms * 0.35); }, ms); });
+  }
+
+  async show(seq) {
+    this.setState({ showing: true });
+    const ms = Math.max(230, 620 - seq.length * 34);
+    await new Promise(r => setTimeout(r, 450));
+    for (const n of seq) await this.flash(n, ms);
+    this.setState({ showing: false });
+  }
+
+  start() {
+    const seq = [Math.floor(Math.random() * 4)];
+    this.setState({ seq, step: 0, playing: true, round: 1 });
+    this.show(seq);
+  }
+
+  async fail() {
+    this.setState({ playing: false, showing: true });
+    for (let k = 0; k < 3; k++) {
+      this.setState({ lit: -2 });
+      await new Promise(r => setTimeout(r, 110));
+      this.setState({ lit: -1 });
+      await new Promise(r => setTimeout(r, 110));
+    }
+    this.start();
+  }
+
+  async tap(n) {
+    const s = this.state;
+    if (!s.playing || s.showing) return;
+    await this.flash(n, 130);
+    if (s.seq[s.step] !== n) { this.fail(); return; }
+    if (s.step + 1 === s.seq.length) {
+      const seq = s.seq.concat([Math.floor(Math.random() * 4)]);
+      this.setState({ seq, step: 0, round: s.round + 1 });
+      this.show(seq);
+    } else {
+      this.setState({ step: s.step + 1 });
+    }
+  }
+
+  renderVals() {
+    const s = this.state, p = this.props;
+    const v = {
+      haloColor: DIRS[s.i].color,
+      nCompanies: p.companies ?? "15",
+      nTeams: p.teams ?? "8",
+      nSolo: p.solo ?? "24",
+      nGames: p.games ?? "37",
+      langLabel: s.lang === "ka" ? "EN" : "ქარ",
+      toggleLang: () => this.setState(st => ({ lang: st.lang === "ka" ? "en" : "ka" })),
+      games: [
+        { id: "dumbriel", name: "Dumbriel", studio: "MadMoa", badge: "მალე", art: "images/games/dumbriel.jpg", slot: "images/games/dumbriel.jpg", platforms: ["Steam", "Switch", "Xbox"], mobile: false },
+        { id: "g2", name: "თამაშის სახელი", studio: "სტუდია", badge: "2026", art: "images/games/game-2.jpg", slot: "images/games/game-2.jpg", platforms: ["Steam"], mobile: false },
+        { id: "g3", name: "თამაშის სახელი", studio: "სტუდია", badge: "მალე", art: "images/games/game-3.jpg", slot: "images/games/game-3.jpg", platforms: ["App Store", "Google Play"], mobile: true },
+        { id: "g4", name: "თამაშის სახელი", studio: "სტუდია", badge: "2025", art: "images/games/game-4.jpg", slot: "images/games/game-4.jpg", platforms: ["Steam", "itch.io"], mobile: false },
+        { id: "g5", name: "თამაშის სახელი", studio: "სტუდია", badge: "TBD", art: "images/games/game-5.jpg", slot: "images/games/game-5.jpg", platforms: ["PC"], mobile: false },
+        { id: "g6", name: "თამაშის სახელი", studio: "სტუდია", badge: "2024", art: "images/games/game-6.jpg", slot: "images/games/game-6.jpg", platforms: ["Google Play"], mobile: true }
+      ].map(g => Object.assign({}, g, {
+        href: "GGC Games.dc.html#" + g.id,
+        artImg: 'url("' + g.art + '") center/' + (g.mobile ? "contain" : "cover") + ' no-repeat',
+        badgeBg: g.badge === "TBD" ? "#f4f4f2" : (/^\d/.test(g.badge) ? "#16181b" : "#1d96d3"),
+        badgeFg: g.badge === "TBD" ? "#41464c" : "#fff"
+      }))
+    };
+    for (let n = 0; n < 4; n++) {
+      const active = n === s.i;
+      v["opT" + n] = active ? 1 : 0;
+      v["tyT" + n] = active ? "0px" : "12px";
+      v["pe" + n] = active ? "auto" : "none";
+      v["op" + n] = active ? 1 : 0.2;
+      v["sc" + n] = active ? 1.08 : 0.94;
+      v["chip" + n] = active ? DIRS[n].color : "#fff";
+      v["chipText" + n] = active ? "#fff" : "#41464c";
+      v["go" + n] = () => { this.hold(); this.go(n); };
+      v["pad" + n] = (s.lit === n || s.lit === -2) ? PADS[n] : DIM[n];
+      v["padS" + n] = s.lit === n ? 1.06 : 1;
+      v["tap" + n] = () => this.tap(n);
+    }
+    return v;
+  }
+}
+</script>
+</body>
+</html>
