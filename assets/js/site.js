@@ -63,6 +63,7 @@ function buildHeader(){
     ["/index.html",      "nav.home"],
     ["/about.html",      "nav.about"],
     ["/companies.html",  "nav.companies"],
+    ["/games.html",      "nav.games"],
     ["/developers.html", "nav.developers"],
     ["/contact.html",    "nav.contact"]
   ];

@@ -9,6 +9,31 @@ const I18N = {
     "nav.companies": "კომპანიები და გუნდები",
     "nav.developers": "დეველოპერები",
     "nav.contact": "კონტაქტი",
+    "nav.games": "თამაშები",
+
+    "games.title": "ქართული თამაშები",
+    "games.intro": "თამაშები, რომლებიც საქართველოში შეიქმნა ან ქართული გუნდების მონაწილეობით დამზადდა.",
+
+    "f.genre": "ყველა ჟანრი",
+    "f.platform": "ყველა პლატფორმა",
+    "f.gamestatus": "ნებისმიერი სტატუსი",
+
+    "co.section.companies": "რეგისტრირებული კომპანიები",
+    "co.section.teams": "არარეგისტრირებული გუნდები",
+    "co.section.teams.note": "გუნდები, რომლებსაც ჯერ არ აქვთ იურიდიული რეგისტრაცია.",
+
+    "t.developer": "დეველოპერი",
+    "t.released": "გამოშვება",
+    "t.platforms": "პლატფორმები",
+    "t.genre": "ჟანრი",
+    "t.status": "სტატუსი",
+    "t.details": "დეტალები",
+    "t.links": "ბმულები",
+    "t.games": "თამაშები",
+    "t.back": "უკან",
+    "t.notfound": "ჩანაწერი ვერ მოიძებნა.",
+    "t.more": "დეტალურად",
+
     "nav.menu": "მენიუ",
 
     "brand": "ქართული თამაშების საზოგადოება",
@@ -125,6 +150,31 @@ const I18N = {
     "nav.companies": "Companies & teams",
     "nav.developers": "Developers",
     "nav.contact": "Contact",
+    "nav.games": "Games",
+
+    "games.title": "Georgian games",
+    "games.intro": "Games made in Georgia, or made with Georgian teams involved.",
+
+    "f.genre": "All genres",
+    "f.platform": "All platforms",
+    "f.gamestatus": "Any status",
+
+    "co.section.companies": "Registered companies",
+    "co.section.teams": "Unregistered teams",
+    "co.section.teams.note": "Teams working without a registered legal entity yet.",
+
+    "t.developer": "Developer",
+    "t.released": "Released",
+    "t.platforms": "Platforms",
+    "t.genre": "Genre",
+    "t.status": "Status",
+    "t.details": "Details",
+    "t.links": "Links",
+    "t.games": "Games",
+    "t.back": "Back",
+    "t.notfound": "Entry not found.",
+    "t.more": "Details",
+
     "nav.menu": "Menu",
 
     "brand": "Georgian Game Community",
@@ -278,5 +328,42 @@ const TAXONOMY = {
     "11-25": { ka: "11–25", en: "11–25" },
     "26-50": { ka: "26–50", en: "26–50" },
     "50+":   { ka: "50+",   en: "50+" }
+  }
+,
+  genre: {
+    action:      { ka: "ექშენი",           en: "Action" },
+    adventure:   { ka: "თავგადასავალი",    en: "Adventure" },
+    rpg:         { ka: "RPG",              en: "RPG" },
+    strategy:    { ka: "სტრატეგია",        en: "Strategy" },
+    puzzle:      { ka: "თავსატეხი",        en: "Puzzle" },
+    platformer:  { ka: "პლატფორმერი",      en: "Platformer" },
+    shooter:     { ka: "შუტერი",           en: "Shooter" },
+    simulation:  { ka: "სიმულატორი",       en: "Simulation" },
+    racing:      { ka: "რბოლა",            en: "Racing" },
+    sports:      { ka: "სპორტი",           en: "Sports" },
+    horror:      { ka: "საშინელება",       en: "Horror" },
+    roguelike:   { ka: "როგლაიკი",         en: "Roguelike" },
+    metroidvania:{ ka: "მეტროიდვანია",     en: "Metroidvania" },
+    visualnovel: { ka: "ვიზუალური ნოველა", en: "Visual novel" },
+    casual:      { ka: "კაჟუალი",          en: "Casual" },
+    hypercasual: { ka: "ჰიპერკაჟუალი",     en: "Hyper-casual" }
+  },
+  platform: {
+    pc:          { ka: "PC",             en: "PC" },
+    steam:       { ka: "Steam",          en: "Steam" },
+    switch:      { ka: "Nintendo Switch",en: "Nintendo Switch" },
+    xbox:        { ka: "Xbox",           en: "Xbox" },
+    playstation: { ka: "PlayStation",    en: "PlayStation" },
+    ios:         { ka: "iOS",            en: "iOS" },
+    android:     { ka: "Android",        en: "Android" },
+    web:         { ka: "ვები",           en: "Web" },
+    vr:          { ka: "VR",             en: "VR" }
+  },
+  gamestatus: {
+    released:    { ka: "გამოშვებული",       en: "Released" },
+    earlyaccess: { ka: "ადრეული წვდომა",    en: "Early access" },
+    development: { ka: "მუშავდება",         en: "In development" },
+    announced:   { ka: "გამოცხადებული",     en: "Announced" },
+    prototype:   { ka: "პროტოტიპი",         en: "Prototype" }
   }
 };
