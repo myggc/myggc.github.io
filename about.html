@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — Georgian Game Community</title>
+<meta name="description" content="Who the Georgian Game Community is, what we do, and what we have done so far.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600&family=Noto+Serif+Georgian:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+</head>
+<body>
+
+<main>
+  <section class="section wrap" style="padding-bottom:0">
+    <h1 class="page-title" data-i18n="about.title"></h1>
+    <p class="page-intro" data-i18n="about.intro"></p>
+    <div class="enamel" aria-hidden="true"><i></i><i></i><i></i></div>
+  </section>
+
+  <section class="section wrap" style="padding-top:1rem">
+    <div class="section-head"><h2 data-i18n="about.who.h"></h2></div>
+    <div class="prose">
+      <p data-i18n="about.who.p1"></p>
+      <p data-i18n="about.who.p2"></p>
+    </div>
+  </section>
+
+  <section class="section wrap" style="padding-top:0">
+    <div class="section-head"><h2 data-i18n="about.did.h"></h2></div>
+    <div class="cols cols-3">
+      <div class="topline"><h3 data-i18n="about.did.1.h"></h3><p data-i18n="about.did.1.p"></p></div>
+      <div class="topline"><h3 data-i18n="about.did.2.h"></h3><p data-i18n="about.did.2.p"></p></div>
+      <div class="topline"><h3 data-i18n="about.did.3.h"></h3><p data-i18n="about.did.3.p"></p></div>
+      <div class="topline"><h3 data-i18n="about.did.4.h"></h3><p data-i18n="about.did.4.p"></p></div>
+      <div class="topline"><h3 data-i18n="about.did.5.h"></h3><p data-i18n="about.did.5.p"></p></div>
+      <div class="topline"><h3 data-i18n="about.did.6.h"></h3><p data-i18n="about.did.6.p"></p></div>
+    </div>
+  </section>
+
+  <section class="section wrap" style="padding-top:0">
+    <div class="section-head"><h2 data-i18n="about.team.h"></h2></div>
+    <div class="team" id="team"></div>
+  </section>
+</main>
+
+<script src="/assets/js/i18n.js"></script>
+<script src="/assets/js/site.js"></script>
+<script>
+/* Team members. To add someone, copy one block.
+   photo: leave "" to show initials, or point to assets/logos/<file>.jpg */
+const TEAM = [
+  { ka:"გიორგი ჭყრუნიშვილი", en:"Giorgi Tchkrunishvili", role:"role.cofounder", photo:"" },
+  { ka:"საბა დეკანოსიძე",     en:"Saba Dekanosidze",      role:"role.cofounder", photo:"" },
+  { ka:"მარიამ ჯაფარიძე",     en:"Mariam Japaridze",      role:"role.pm",        photo:"" },
+  { ka:"გურამ ბერიტაშვილი",   en:"Guram Beritashvili",    role:"role.content",   photo:"" }
+];
+
+function renderTeam(){
+  document.getElementById("team").innerHTML = TEAM.map(m => {
+    const name = LANG === "ka" ? m.ka : m.en;
+    const other = LANG === "ka" ? m.en : m.ka;
+    const ava = m.photo
+      ? `<img class="ava" src="${m.photo}" alt="" loading="lazy">`
+      : `<div class="ava" aria-hidden="true">${name.trim().split(/\s+/).slice(0,2).map(w=>w[0]).join("")}</div>`;
+    return `<div class="member">
+      ${ava}
+      <h3>${name}</h3>
+      <div class="role">${t(m.role)}</div>
+      <div class="role" style="opacity:.6;font-size:.82rem">${other}</div>
+    </div>`;
+  }).join("");
+}
+
+initSite();
+renderTeam();
+document.addEventListener("ggc:lang", renderTeam);
+</script>
+</body>
+</html>
