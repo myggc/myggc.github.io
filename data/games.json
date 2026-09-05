@@ -1,13 +1,28 @@
 [
   {
     "id": "dumbriel",
-    "name": { "en": "Dumbriel", "ka": "დამბრიელი" },
+    "name": {
+      "en": "Dumbriel",
+      "ka": "დამბრიელი"
+    },
     "logo": "",
     "verified": true,
-    "developer": { "en": "MadMoa LLC", "ka": "მედმოა" },
+    "developer": {
+      "en": "MadMoa LLC",
+      "ka": "მედმოა"
+    },
     "developerId": "madmoa",
-    "roles": ["metroidvania", "action", "platformer"],
-    "platforms": ["pc", "steam", "switch", "xbox"],
+    "roles": [
+      "metroidvania",
+      "action",
+      "platformer"
+    ],
+    "platforms": [
+      "pc",
+      "steam",
+      "switch",
+      "xbox"
+    ],
     "status": "development",
     "released": "",
     "about": {
