@@ -5,117 +5,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GGC admin</title>
 <meta name="robots" content="noindex">
+<link rel="icon" href="/assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600&family=Noto+Serif+Georgian:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/site.css">
 <style>
-  .adm{ max-width:66rem; margin:0 auto; padding:1.5rem var(--gutter) 6rem; }
-  .panel{ background:var(--ink-2); border:1px solid var(--line); border-radius:14px; padding:1.2rem; margin-bottom:1.4rem; }
-  .panel h2{ font-size:1.06rem; margin-bottom:.9rem; }
-  label{ display:block; font-size:.82rem; color:var(--faint); margin:.9rem 0 .3rem; }
-  input[type=text],input[type=url],input[type=email],input[type=number],input[type=password],select,textarea{
-    width:100%; font-family:var(--sans); font-size:.93rem; color:var(--paper);
-    background:var(--ink); border:1px solid var(--line); border-radius:9px; padding:.55rem .7rem; }
-  textarea{ min-height:5rem; resize:vertical; line-height:1.5; }
-  textarea.code{ min-height:22rem; font-family:ui-monospace,monospace; font-size:.8rem; line-height:1.55; white-space:pre; }
-  .row2{ display:grid; gap:.8rem; grid-template-columns:1fr; }
-  @media (min-width:44rem){ .row2{ grid-template-columns:1fr 1fr; } }
-  .chips{ display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.4rem; }
-  .chips label{ margin:0; display:flex; align-items:center; gap:.35rem; font-size:.85rem; color:var(--muted);
-    border:1px solid var(--line); border-radius:999px; padding:.32rem .7rem; cursor:pointer; }
-  .chips input{ accent-color:var(--turquoise); }
-  .actions{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.2rem; align-items:center; }
-  .tabs{ display:flex; gap:.5rem; margin-bottom:1.4rem; flex-wrap:wrap; }
-  .tabs button{ background:var(--ink-2); border:1px solid var(--line); color:var(--muted);
-    padding:.55rem 1rem; border-radius:9px; cursor:pointer; font-family:var(--sans); font-size:.92rem; }
-  .tabs button[aria-pressed="true"]{ background:var(--ink-3); color:var(--paper); border-color:var(--turquoise); }
-  .list{ display:grid; gap:.5rem; max-height:24rem; overflow:auto; margin-top:1rem; }
-  .list-row{ display:flex; align-items:center; gap:.7rem; padding:.5rem .6rem;
-    border:1px solid var(--line); border-radius:10px; background:var(--ink); }
-  .list-row .thumb{ width:34px; height:34px; border-radius:8px; background:var(--paper); flex:0 0 34px;
-    display:flex; align-items:center; justify-content:center; color:#0C1B30; font-size:.75rem; font-weight:700; object-fit:cover; }
-  .list-row span.nm{ flex:1; font-size:.9rem; word-break:break-all; }
-  .list-row button{ background:none; border:1px solid var(--line); color:var(--muted); border-radius:7px;
-    padding:.25rem .55rem; font-size:.8rem; cursor:pointer; font-family:var(--sans); }
-  .list-row button:hover{ color:var(--paper); border-color:var(--paper); }
-  .crop-area{ display:grid; gap:1rem; }
-  @media (min-width:44rem){ .crop-area{ grid-template-columns:320px 1fr; } }
-  #cropCanvas{ width:100%; max-width:320px; background:#fff; border-radius:12px;
-    border:1px solid var(--line); touch-action:none; cursor:grab; display:block; }
+  .adm{ max-width:68rem; margin:0 auto; padding:1.4rem var(--gutter) 6rem; }
+  .adm h1{ font-size:1.7rem; }
+  .panel{ background:var(--paper); border:1px solid var(--line); border-radius:var(--r); padding:1.2rem; margin-bottom:1.2rem; box-shadow:var(--shadow); }
+  .panel h2{ font-size:1.05rem; margin-bottom:.8rem; }
+  .tabs{ display:flex; gap:.5rem; margin-bottom:1.2rem; flex-wrap:wrap; }
+  .tabs button{ background:var(--paper); border:1px solid var(--line); color:var(--ink-2);
+    padding:.5rem 1rem; border-radius:999px; cursor:pointer; font-family:var(--font); font-size:.9rem; font-weight:600; }
+  .tabs button[aria-pressed="true"]{ background:var(--blue-700); color:#fff; border-color:var(--blue-700); }
+  .tabs .badge{ background:var(--red); color:#fff; border-radius:999px; font-size:.7rem; padding:0 .35rem; margin-left:.3rem; }
+  .list{ display:grid; gap:.5rem; max-height:26rem; overflow:auto; margin-top:.9rem; }
+  .list-row{ display:flex; align-items:center; gap:.7rem; padding:.5rem .6rem; border:1px solid var(--line); border-radius:12px; background:var(--sand); }
+  .list-row .thumb{ width:36px; height:36px; flex:0 0 36px; border-radius:9px; object-fit:cover;
+    background:var(--paper); border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+    font-size:.75rem; font-weight:700; color:var(--blue-700); }
+  .list-row .nm{ flex:1; font-size:.9rem; word-break:break-word; }
+  .list-row .meta{ display:block; color:var(--muted); font-size:.76rem; }
+  .list-row button{ background:var(--paper); border:1px solid var(--line); color:var(--ink-2); border-radius:9px;
+    padding:.28rem .6rem; font-size:.8rem; cursor:pointer; font-family:var(--font); }
+  .list-row button:hover{ border-color:var(--blue); color:var(--blue-700); }
+  .list-row button.danger:hover{ border-color:var(--red); color:var(--red); }
+  .crop-area{ display:grid; gap:1.2rem; }
+  @media (min-width:46rem){ .crop-area{ grid-template-columns:320px 1fr; } }
+  #cropCanvas{ width:100%; max-width:320px; background:#fff; border:1px solid var(--line); border-radius:12px; touch-action:none; cursor:grab; display:block; }
   #cropCanvas.round{ border-radius:50%; }
-  .current{ display:flex; gap:.8rem; align-items:center; margin-top:.6rem;
-    border:1px solid var(--line); border-radius:10px; padding:.6rem; background:var(--ink); }
-  .current img{ max-width:80px; max-height:80px; border-radius:8px; background:#fff; }
-  .current .meta{ font-size:.82rem; color:var(--faint); word-break:break-all; }
-  .hint{ font-size:.82rem; color:var(--faint); margin:.5rem 0 0; }
-  code{ background:var(--ink); padding:.12rem .35rem; border-radius:5px; font-size:.85em; word-break:break-all; }
-  .status{ font-size:.86rem; padding:.55rem .75rem; border-radius:9px; border:1px solid var(--line); margin-top:.9rem; }
-  .status.ok{ border-color:rgba(63,182,188,.5); color:var(--turquoise); }
-  .status.bad{ border-color:rgba(178,58,72,.6); color:#e08a94; }
-  .status.busy{ color:var(--gold); border-color:rgba(223,166,58,.5); }
-  details{ margin-top:1rem; border-top:1px solid var(--line); padding-top:.9rem; }
-  summary{ cursor:pointer; font-size:.9rem; color:var(--turquoise); }
-  details ol{ color:var(--muted); font-size:.88rem; padding-left:1.2rem; line-height:1.75; }
-  .who{ display:flex; align-items:center; gap:.6rem; font-size:.9rem; }
-  .who img{ width:28px; height:28px; border-radius:50%; }
-  .crumbs{ font-size:.88rem; color:var(--muted); word-break:break-all; }
-  .crumbs a{ text-decoration:none; }
-  .drop{ border:1px dashed var(--line); border-radius:12px; padding:1.4rem; text-align:center; color:var(--faint);
-    font-size:.9rem; margin-top:1rem; }
-  .drop.over{ border-color:var(--turquoise); color:var(--turquoise); }
+  .current{ display:flex; gap:.9rem; align-items:center; border:1px solid var(--line); border-radius:12px; padding:.7rem; background:var(--sand); }
+  .current img{ width:72px; height:72px; object-fit:cover; border-radius:10px; background:#fff; border:1px solid var(--line); }
+  .current .m{ font-size:.82rem; color:var(--muted); word-break:break-all; }
+  .hint{ font-size:.83rem; color:var(--muted); margin:.5rem 0 0; }
+  code{ background:var(--sand); border:1px solid var(--line); padding:.1rem .35rem; border-radius:6px; font-size:.85em; word-break:break-all; }
+  textarea.code{ min-height:22rem; font-family:ui-monospace,monospace; font-size:.78rem; line-height:1.55; white-space:pre; }
+  details{ margin-top:.9rem; border-top:1px solid var(--line); padding-top:.8rem; }
+  summary{ cursor:pointer; font-size:.9rem; color:var(--blue-700); font-weight:600; }
+  details ol{ color:var(--ink-2); font-size:.88rem; padding-left:1.2rem; line-height:1.8; }
+  .who{ display:flex; align-items:center; gap:.6rem; font-size:.92rem; }
+  .who img{ width:30px; height:30px; border-radius:50%; }
+  .crumbs{ font-size:.88rem; color:var(--ink-2); word-break:break-all; }
+  .crumbs a{ text-decoration:none; font-weight:600; }
+  .drop{ border:2px dashed var(--line); border-radius:14px; padding:1.5rem; text-align:center; color:var(--muted); font-size:.9rem; margin-top:1rem; }
+  .drop.over{ border-color:var(--blue); color:var(--blue-700); background:#F2F9FE; }
+  .verbox{ display:flex; gap:.7rem; align-items:center; flex-wrap:wrap; background:var(--sand);
+    border:1px solid var(--line); border-radius:12px; padding:.8rem; margin-top:1rem; }
 </style>
 </head>
 <body>
 
 <div class="adm">
 
-  <h1 class="page-title" style="font-size:1.8rem">GGC admin</h1>
-  <p class="hint" style="margin-bottom:1.6rem">Everything on the site is editable from here.</p>
+  <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.3rem" id="admLogo"></div>
+  <h1>GGC admin</h1>
+  <p class="hint" style="margin-bottom:1.4rem">Everything on the site is editable here.</p>
 
   <section class="panel">
     <h2>Sign in</h2>
-    <p class="hint" style="margin-top:0">
-      Your GitHub access token is kept only in this browser and never goes into the repository.
-    </p>
+    <p class="hint" style="margin-top:0">Your GitHub token stays in this browser and never enters the repository.</p>
     <div id="signedOut">
-      <label for="tok">Access token</label>
+      <label class="f" for="tok">Access token</label>
       <input type="password" id="tok" placeholder="github_pat_… or ghp_…" autocomplete="off">
       <div class="actions"><button class="btn btn-primary" type="button" id="btnConnect">Connect</button></div>
       <details>
         <summary>How to create your token — once, about three minutes</summary>
         <ol>
-          <li>Org owner, once only: <code>myggc</code> org → Settings → Personal access tokens →
-              allow access via fine-grained tokens.</li>
-          <li>GitHub → your Settings → Developer settings → Personal access tokens →
-              Fine-grained tokens → Generate new token.</li>
-          <li>Resource owner: <code>myggc</code>. If missing, step 1 is not done.</li>
-          <li>Repository access: Only select repositories → <code>myggc.github.io</code>.</li>
+          <li>Org owner, once: <code>myggc</code> org → Settings → Personal access tokens → allow fine-grained tokens.</li>
+          <li>Your Settings → Developer settings → Personal access tokens → Fine-grained → Generate new token.</li>
+          <li>Resource owner <code>myggc</code>; repository access only <code>myggc.github.io</code>.</li>
           <li>Permissions → Repository → <b>Contents: Read and write</b>. Nothing else.</li>
-          <li>Expiration 90 days. Generate, copy, paste above.</li>
+          <li>Expiration 90 days. Copy it and paste above.</li>
         </ol>
       </details>
     </div>
     <div id="signedIn" hidden>
-      <div class="who">
-        <img id="whoImg" alt="">
-        <span>Signed in as <b id="whoName"></b>, writing to <code>myggc/myggc.github.io</code></span>
-      </div>
+      <div class="who"><img id="whoImg" alt=""><span>Signed in as <b id="whoName"></b> → <code>myggc/myggc.github.io</code></span></div>
       <div class="actions"><button class="btn btn-ghost" type="button" id="btnForget">Sign out of this browser</button></div>
     </div>
-    <div class="status" id="connStatus" hidden></div>
+    <div class="note" id="connStatus" hidden></div>
   </section>
 
   <div class="tabs">
     <button type="button" data-mode="companies"  aria-pressed="true">Companies &amp; teams</button>
-    <button type="button" data-mode="developers" aria-pressed="false">Solo developers</button>
+    <button type="button" data-mode="developers" aria-pressed="false">Developers</button>
     <button type="button" data-mode="games"      aria-pressed="false">Games</button>
+    <button type="button" data-mode="subs"       aria-pressed="false">Submissions<span class="badge" id="subCount" hidden>0</span></button>
     <button type="button" data-mode="files"      aria-pressed="false">Files</button>
   </div>
 
-  <!-- ============ DATA TABS ============ -->
+  <!-- ==================== DATA ==================== -->
   <div id="dataView">
-
     <section class="panel">
       <h2>Current list</h2>
       <div class="actions" style="margin-top:0">
@@ -128,6 +109,16 @@
     <section class="panel">
       <h2>Entry</h2>
       <div id="form"></div>
+
+      <div class="verbox">
+        <label style="display:flex;align-items:center;gap:.45rem;margin:0;font-weight:600">
+          <input type="checkbox" id="verified"> Verified by GGC
+        </label>
+        <button class="btn btn-ghost" type="button" id="btnVerifyToday">Verify with today's date</button>
+        <span class="hint" id="verInfo" style="margin:0"></span>
+        <button class="btn btn-ghost" type="button" id="btnClearVer">Clear</button>
+      </div>
+
       <div class="actions">
         <button class="btn btn-primary" type="button" id="btnSave">Add / update in the list</button>
         <button class="btn btn-ghost" type="button" id="btnClear">New blank entry</button>
@@ -143,41 +134,32 @@
           <p class="hint">Drag to move, slider to zoom.</p>
         </div>
         <div>
-          <label>Pick an image — uploading again replaces the old one</label>
+          <label class="f">Pick an image — uploading again replaces the old file</label>
           <input type="file" id="fileImg" accept="image/*">
-          <label>Zoom</label>
+          <label class="f">Zoom</label>
           <input type="range" id="zoom" min="1" max="4" step="0.01" value="1" style="width:100%">
           <div class="row2">
-            <div><label>Shape</label>
-              <select id="aspect">
-                <option value="1">Square 1:1</option>
-                <option value="1.7778">Wide 16:9</option>
-              </select>
-            </div>
-            <div><label>Width</label>
-              <select id="outSize">
-                <option value="512">512</option><option value="256">256</option>
-                <option value="1024">1024</option><option value="1600">1600</option>
-              </select>
-            </div>
+            <div><label class="f">Shape</label>
+              <select id="aspect"><option value="1">Square 1:1</option><option value="1.7778">Wide 16:9</option></select></div>
+            <div><label class="f">Width</label>
+              <select id="outSize"><option value="512">512</option><option value="256">256</option>
+                <option value="1024">1024</option><option value="1600">1600</option></select></div>
           </div>
           <div class="row2">
-            <div><label>Format</label>
+            <div><label class="f">Format</label>
               <select id="outFmt">
                 <option value="image/jpeg">JPEG — white background, smallest</option>
-                <option value="image/webp">WebP — transparent, small</option>
+                <option value="image/webp">WebP — transparent</option>
                 <option value="image/png">PNG — transparent, largest</option>
-              </select>
-            </div>
-            <div><label>Preview as circle</label>
-              <select id="shape"><option value="square">No</option><option value="round">Yes</option></select>
-            </div>
+              </select></div>
+            <div><label class="f">Preview as circle</label>
+              <select id="shape"><option value="square">No</option><option value="round">Yes</option></select></div>
           </div>
           <div class="actions">
             <button class="btn btn-primary" type="button" id="btnUploadImg">Upload image</button>
             <button class="btn btn-ghost" type="button" id="btnDlImg">Download instead</button>
           </div>
-          <div class="status" id="imgStatus" hidden></div>
+          <div class="note" id="imgStatus" hidden></div>
         </div>
       </div>
     </section>
@@ -185,43 +167,50 @@
     <section class="panel">
       <h2>Publish</h2>
       <p class="hint" style="margin-top:0">Writes <code id="targetPath">data/companies.json</code>. Live about a minute later.</p>
-      <div class="actions" style="margin-top:.9rem">
+      <div class="actions" style="margin-top:.8rem">
         <button class="btn btn-primary" type="button" id="btnPublish">Publish to the site</button>
         <button class="btn btn-ghost" type="button" id="btnDownload">Download .json instead</button>
       </div>
-      <div class="status" id="pubStatus" hidden></div>
+      <div class="note" id="pubStatus" hidden></div>
     </section>
-
   </div>
 
-  <!-- ============ FILES TAB ============ -->
-  <div id="filesView" hidden>
+  <!-- ==================== SUBMISSIONS ==================== -->
+  <div id="subsView" hidden>
+    <section class="panel">
+      <h2>Submissions from the public form</h2>
+      <p class="hint" style="margin-top:0">
+        People submit at <code>/join.html</code>. Open one to load it into the matching editor,
+        adjust anything, then Add and Publish. Delete removes it from the inbox.
+      </p>
+      <div class="actions" style="margin-top:.8rem">
+        <button class="btn btn-ghost" type="button" id="btnLoadSubs">Reload inbox</button>
+        <span class="hint" id="subState" style="margin:0"></span>
+      </div>
+      <div class="list" id="subList"></div>
+      <div class="note" id="subStatus" hidden></div>
+    </section>
+  </div>
 
+  <!-- ==================== FILES ==================== -->
+  <div id="filesView" hidden>
     <section class="panel">
       <h2>Files</h2>
       <p class="crumbs" id="crumbs"></p>
       <div class="list" id="fileList"></div>
-
       <div class="drop" id="drop">
         Drop files here, or
-        <label style="display:inline; color:var(--turquoise); cursor:pointer; margin:0">
-          choose files<input type="file" id="fileUp" multiple hidden>
-        </label>
+        <label style="display:inline;color:var(--blue-700);cursor:pointer;font-weight:600">
+          choose files<input type="file" id="fileUp" multiple hidden></label>
         — they upload into the folder above and go live at their public address.
       </div>
-
       <div class="row2" style="margin-top:1rem">
-        <div>
-          <label>Create a file or folder — type a path</label>
-          <input type="text" id="newPath" placeholder="assets/press/about.txt">
-        </div>
-        <div style="display:flex; align-items:flex-end">
-          <button class="btn btn-ghost" type="button" id="btnNewFile">Create</button>
-        </div>
+        <div><label class="f">Create a file or folder — type a path</label>
+          <input type="text" id="newPath" placeholder="assets/img/event-1.png"></div>
+        <div style="display:flex;align-items:flex-end"><button class="btn btn-ghost" type="button" id="btnNewFile">Create</button></div>
       </div>
-      <p class="hint">A path with slashes creates the folders it needs. Git has no empty folders,
-         so a folder appears once it holds a file.</p>
-      <div class="status" id="fileStatus" hidden></div>
+      <p class="hint">Slashes create the folders they need. Git has no empty folders, so one appears once it holds a file.</p>
+      <div class="note" id="fileStatus" hidden></div>
     </section>
 
     <section class="panel" id="editorPanel" hidden>
@@ -230,114 +219,83 @@
       <div class="actions">
         <button class="btn btn-primary" type="button" id="btnSaveFile">Save to the site</button>
         <button class="btn btn-ghost" type="button" id="btnCloseFile">Close</button>
-        <button class="btn btn-ghost" type="button" id="btnDeleteFile" style="border-color:rgba(178,58,72,.6);color:#e08a94">Delete file</button>
+        <button class="btn btn-ghost" type="button" id="btnDeleteFile" style="border-color:#F3C7C8;color:#96191C">Delete file</button>
       </div>
-      <div class="status" id="editStatus" hidden></div>
+      <div class="note" id="editStatus" hidden></div>
     </section>
-
   </div>
 
 </div>
 
 <script src="/assets/js/i18n.js"></script>
+<script src="/assets/js/ui.js"></script>
 <script>
-/* ================= config ================= */
+/* ===================== config ===================== */
 const OWNER="myggc", REPO="myggc.github.io", BRANCH="main";
 const API="https://api.github.com/repos/"+OWNER+"/"+REPO+"/contents/";
 const SITE="https://"+OWNER+".github.io/";
 
-/* ================= helpers ================= */
 const $=s=>document.querySelector(s);
 const enc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const slug=s=>String(s||"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,40)||"entry";
+const today=()=>new Date().toISOString().slice(0,10);
 
-function b64FromText(str){
-  const b=new TextEncoder().encode(str); let s="";
-  for(let i=0;i<b.length;i+=0x8000) s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));
-  return btoa(s);
-}
-function textFromB64(b){
-  const bin=atob(String(b).replace(/\s/g,""));
-  return new TextDecoder().decode(Uint8Array.from(bin,c=>c.charCodeAt(0)));
-}
-async function b64FromBlob(blob){
-  const b=new Uint8Array(await blob.arrayBuffer()); let s="";
-  for(let i=0;i<b.length;i+=0x8000) s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));
-  return btoa(s);
-}
-function say(el,msg,kind){ el.hidden=false; el.className="status "+(kind||""); el.textContent=msg; }
+function b64FromText(str){const b=new TextEncoder().encode(str);let s="";
+  for(let i=0;i<b.length;i+=0x8000)s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return btoa(s);}
+function textFromB64(b){const bin=atob(String(b).replace(/\s/g,""));
+  return new TextDecoder().decode(Uint8Array.from(bin,c=>c.charCodeAt(0)));}
+async function b64FromBlob(blob){const b=new Uint8Array(await blob.arrayBuffer());let s="";
+  for(let i=0;i<b.length;i+=0x8000)s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));return btoa(s);}
+function say(el,msg,kind){el.hidden=false;el.className="note "+(kind||"");el.textContent=msg;}
 
-/* ================= github ================= */
-let TOKEN=null;
-try{ TOKEN=localStorage.getItem("ggc-gh-token"); }catch(e){}
+/* ===================== github ===================== */
+let TOKEN=null; try{TOKEN=localStorage.getItem("ggc-gh-token");}catch(e){}
+const H=()=>({"Authorization":"Bearer "+TOKEN,"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"});
 
-const H=()=>({ "Authorization":"Bearer "+TOKEN, "Accept":"application/vnd.github+json", "X-GitHub-Api-Version":"2022-11-28" });
-
-async function ghUser(){
-  const r=await fetch("https://api.github.com/user",{headers:H()});
-  if(!r.ok) throw new Error(r.status===401?"That token was rejected. Check you copied all of it.":"GitHub answered "+r.status);
-  return r.json();
-}
-async function ghList(dir){
-  const r=await fetch(API+dir+"?ref="+BRANCH,{headers:H(),cache:"no-store"});
-  if(r.status===404) return [];
-  if(!r.ok) throw new Error("Could not list "+(dir||"/")+" ("+r.status+")");
-  const j=await r.json();
-  return Array.isArray(j)?j:[j];
-}
-async function ghGet(path){
-  const r=await fetch(API+path+"?ref="+BRANCH,{headers:H(),cache:"no-store"});
-  if(r.status===404) return {text:null,sha:null,raw:null};
-  if(!r.ok) throw new Error("Could not read "+path+" ("+r.status+")");
-  const j=await r.json();
-  return {text:j.content?textFromB64(j.content):"", sha:j.sha, size:j.size};
-}
+async function ghUser(){const r=await fetch("https://api.github.com/user",{headers:H()});
+  if(!r.ok)throw new Error(r.status===401?"That token was rejected. Check you copied all of it.":"GitHub answered "+r.status);
+  return r.json();}
+async function ghList(dir){const r=await fetch(API+dir+"?ref="+BRANCH,{headers:H(),cache:"no-store"});
+  if(r.status===404)return [];
+  if(!r.ok)throw new Error("Could not list "+(dir||"/")+" ("+r.status+")");
+  const j=await r.json();return Array.isArray(j)?j:[j];}
+async function ghGet(path){const r=await fetch(API+path+"?ref="+BRANCH,{headers:H(),cache:"no-store"});
+  if(r.status===404)return{text:null,sha:null};
+  if(!r.ok)throw new Error("Could not read "+path+" ("+r.status+")");
+  const j=await r.json();return{text:j.content?textFromB64(j.content):"",sha:j.sha,size:j.size};}
 async function ghPut(path,b64,message,sha){
-  const body={message:message,content:b64,branch:BRANCH};
-  if(sha) body.sha=sha;
+  const body={message:message,content:b64,branch:BRANCH}; if(sha)body.sha=sha;
   const r=await fetch(API+path,{method:"PUT",headers:Object.assign(H(),{"Content-Type":"application/json"}),body:JSON.stringify(body)});
-  if(r.ok) return r.json();
-  if(r.status===409||r.status===422) throw new Error("conflict");
-  if(r.status===403||r.status===404) throw new Error("Permission denied. The token needs Contents: Read and write, and the org may still need to approve it.");
-  const e=await r.json().catch(()=>({}));
-  throw new Error(e.message||("GitHub answered "+r.status));
-}
+  if(r.ok)return r.json();
+  if(r.status===409||r.status===422)throw new Error("conflict");
+  if(r.status===403||r.status===404)throw new Error("Permission denied. Token needs Contents: Read and write, and the org may still need to approve it.");
+  const e=await r.json().catch(()=>({}));throw new Error(e.message||("GitHub answered "+r.status));}
 async function ghPutSafe(path,b64,message){
-  try{ const c=await ghGet(path); return await ghPut(path,b64,message,c.sha); }
-  catch(e){ if(e.message!=="conflict") throw e; const c=await ghGet(path); return await ghPut(path,b64,message,c.sha); }
-}
+  try{const c=await ghGet(path);return await ghPut(path,b64,message,c.sha);}
+  catch(e){if(e.message!=="conflict")throw e;const c=await ghGet(path);return await ghPut(path,b64,message,c.sha);}}
 async function ghDelete(path,sha,message){
   const r=await fetch(API+path,{method:"DELETE",headers:Object.assign(H(),{"Content-Type":"application/json"}),
     body:JSON.stringify({message:message,sha:sha,branch:BRANCH})});
-  if(!r.ok){ const e=await r.json().catch(()=>({})); throw new Error(e.message||("GitHub answered "+r.status)); }
-  return r.json();
-}
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(e.message||("GitHub answered "+r.status));}
+  return r.json();}
 
-function setSignedIn(u){
-  $("#signedOut").hidden=true; $("#signedIn").hidden=false;
-  $("#whoName").textContent=u.login; $("#whoImg").src=u.avatar_url;
-  say($("#connStatus"),"Connected. You can publish from here.","ok");
-}
-function setSignedOut(){ $("#signedOut").hidden=false; $("#signedIn").hidden=true; }
+function setSignedIn(u){$("#signedOut").hidden=true;$("#signedIn").hidden=false;
+  $("#whoName").textContent=u.login;$("#whoImg").src=u.avatar_url;
+  say($("#connStatus"),"Connected. You can publish from here.","ok");}
+function setSignedOut(){$("#signedOut").hidden=false;$("#signedIn").hidden=true;}
 
 $("#btnConnect").addEventListener("click",async()=>{
-  const v=$("#tok").value.trim(); if(!v) return;
+  const v=$("#tok").value.trim(); if(!v)return;
   TOKEN=v; say($("#connStatus"),"Checking…","busy");
-  try{
-    const u=await ghUser();
-    try{ localStorage.setItem("ggc-gh-token",v); }catch(e){}
-    $("#tok").value=""; setSignedIn(u);
-    if(MODE==="files") openDir(CWD); else loadList();
-  }catch(e){ TOKEN=null; say($("#connStatus"),e.message,"bad"); }
-});
-$("#btnForget").addEventListener("click",()=>{
-  TOKEN=null; try{ localStorage.removeItem("ggc-gh-token"); }catch(e){}
-  setSignedOut(); say($("#connStatus"),"Signed out of this browser.","");
-});
+  try{const u=await ghUser();try{localStorage.setItem("ggc-gh-token",v);}catch(e){}
+    $("#tok").value="";setSignedIn(u);refreshCurrentTab();countSubs();}
+  catch(e){TOKEN=null;say($("#connStatus"),e.message,"bad");}});
+$("#btnForget").addEventListener("click",()=>{TOKEN=null;try{localStorage.removeItem("ggc-gh-token");}catch(e){}
+  setSignedOut();say($("#connStatus"),"Signed out of this browser.","");});
 
-/* ================= data tabs ================= */
-let MODE="companies", DATA=[], EDITING=null;
-const LINK_KEYS=["facebook","linkedin","instagram","youtube","steam","itch","x","trailer"];
+/* ===================== data ===================== */
+let MODE="companies", DATA=[], EDITING=null, VER_AT=null, IMG_VERSION=null;
+const LINK_KEYS=["facebook","instagram","youtube","linkedin","x","steam","itch","trailer"];
 const ROLE_GROUP={companies:"role",developers:"discipline",games:"genre"};
 const roleGroup=()=>ROLE_GROUP[MODE];
 
@@ -345,452 +303,152 @@ async function loadList(){
   $("#loadState").textContent="Loading…";
   try{
     let txt;
-    if(TOKEN) txt=(await ghGet("data/"+MODE+".json")).text;
+    if(TOKEN)txt=(await ghGet("data/"+MODE+".json")).text;
     else txt=await fetch("/data/"+MODE+".json",{cache:"no-store"}).then(r=>r.text());
     DATA=txt?JSON.parse(txt):[];
     $("#loadState").textContent=DATA.length+" entries loaded.";
-  }catch(e){ DATA=[]; $("#loadState").textContent="Could not load: "+e.message; }
-  EDITING=null; renderList();
-}
+  }catch(e){DATA=[];$("#loadState").textContent="Could not load: "+e.message;}
+  EDITING=null;renderList();}
 
 function renderList(){
-  $("#list").innerHTML = DATA.length ? DATA.map((o,i)=>{
+  $("#list").innerHTML=DATA.length?DATA.map((o,i)=>{
     const n=(o.name&&(o.name.en||o.name.ka))||o.id;
     const src=o.logo?("/"+String(o.logo).replace(/^\//,"")+(o.updated?"?v="+o.updated:"")):"";
-    const th=src?'<img class="thumb" src="'+enc(src)+'" alt="">'
-                :'<div class="thumb">'+enc(String(n).slice(0,2).toUpperCase())+'</div>';
-    return '<div class="list-row">'+th+
-      '<span class="nm">'+enc(n)+(o.verified?' <span style="color:var(--turquoise)">✓</span>':'')+'</span>'+
+    const th=src?'<img class="thumb" src="'+enc(src)+'" alt="">':'<div class="thumb">'+enc(String(n).slice(0,2).toUpperCase())+'</div>';
+    const meta=(o.verified?("✓ verified"+(o.verifiedAt?" "+o.verifiedAt:"")):"not verified");
+    return '<div class="list-row">'+th+'<span class="nm">'+enc(n)+'<span class="meta">'+enc(meta)+'</span></span>'+
       '<button type="button" data-edit="'+i+'">Edit</button>'+
-      '<button type="button" data-del="'+i+'">Remove</button></div>';
-  }).join("") : '<p class="hint" style="margin:0">Empty.</p>';
-
+      '<button type="button" class="danger" data-del="'+i+'">Remove</button></div>';
+  }).join(""):'<p class="hint" style="margin:0">Empty.</p>';
   $("#list").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>{
-    EDITING=Number(b.dataset.edit); writeForm(DATA[EDITING]);
-    $("#form").scrollIntoView({behavior:"smooth",block:"start"});
-  });
+    EDITING=Number(b.dataset.edit);writeForm(DATA[EDITING]);$("#form").scrollIntoView({behavior:"smooth",block:"start"});});
   $("#list").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
-    if(!confirm("Remove from the list? It leaves the site when you publish.")) return;
-    DATA.splice(Number(b.dataset.del),1); EDITING=null; renderList();
-  });
-}
+    if(!confirm("Remove from the list? It leaves the site when you publish."))return;
+    DATA.splice(Number(b.dataset.del),1);EDITING=null;renderList();});}
 
-function chipSet(name,group){
-  return Object.entries(TAXONOMY[group])
-    .map(([k,v])=>'<label><input type="checkbox" name="'+name+'" value="'+k+'"> '+enc(v.en)+'</label>').join("");
-}
-function optSet(group){
-  return Object.entries(TAXONOMY[group]).map(([k,v])=>'<option value="'+k+'">'+enc(v.en)+'</option>').join("");
-}
+function chipSet(name,group){return Object.entries(TAXONOMY[group])
+  .map(([k,v])=>'<label><input type="checkbox" name="'+name+'" value="'+k+'"> '+enc(v.en)+'</label>').join("");}
+function optSet(group){return Object.entries(TAXONOMY[group])
+  .map(([k,v])=>'<option value="'+k+'">'+enc(v.en)+'</option>').join("");}
 
 function buildForm(){
   const isCo=MODE==="companies", isGame=MODE==="games";
-  let html=
-    '<div class="row2">'+
-      '<div><label>Name (English)</label><input type="text" id="nameEn"></div>'+
-      '<div><label>Name (Georgian)</label><input type="text" id="nameKa"></div>'+
-    '</div>'+
-    '<label>ID — used for the image file name</label><input type="text" id="id">';
-
+  let h='<div class="row2">'+
+    '<div><label class="f">Name (English)</label><input type="text" id="nameEn"></div>'+
+    '<div><label class="f">Name (Georgian)</label><input type="text" id="nameKa"></div></div>'+
+    '<label class="f">ID — used for the image file name</label><input type="text" id="id">';
   if(isGame){
-    html+='<div class="row2">'+
-      '<div><label>Developer (English)</label><input type="text" id="devEn"></div>'+
-      '<div><label>Developer (Georgian)</label><input type="text" id="devKa"></div>'+
-    '</div>'+
-    '<label>Developer ID — must match a company ID to link the two</label>'+
-    '<input type="text" id="devId" placeholder="madmoa">'+
-    '<div class="row2">'+
-      '<div><label>Status</label><select id="status">'+optSet("gamestatus")+'</select></div>'+
-      '<div><label>Release</label><input type="text" id="released" placeholder="2024 or 12 May 2024"></div>'+
-    '</div>'+
-    '<label>Platforms</label><div class="chips">'+chipSet("platforms","platform")+'</div>'+
-    '<label>Genre</label><div class="chips">'+chipSet("roles","genre")+'</div>';
-  } else {
-    html+='<div class="row2">'+
-      (isCo
-        ? '<div><label>Type</label><select id="entity">'+optSet("entity")+'</select></div>'+
-          '<div><label>Origin</label><select id="origin">'+optSet("origin")+'</select></div>'
-        : '<div><label>Availability</label><select id="available"><option value="">Not stated</option>'+
-          '<option value="1">Open to work</option></select></div><div></div>')+
-    '</div>'+
-    '<div class="row2">'+
-      '<div><label>City</label><input type="text" id="city" placeholder="Tbilisi"></div>'+
-      '<div><label>Founded / active since</label><input type="number" id="founded"></div>'+
-    '</div>'+
-    (isCo?'<label>Team size</label><select id="size"><option value="">Not stated</option>'+
-      Object.keys(TAXONOMY.size).map(k=>'<option value="'+k+'">'+k+'</option>').join("")+'</select>':'')+
-    '<label>What they do</label><div class="chips">'+chipSet("roles",roleGroup())+'</div>';
+    h+='<div class="row2">'+
+      '<div><label class="f">Developer (English)</label><input type="text" id="devEn"></div>'+
+      '<div><label class="f">Developer (Georgian)</label><input type="text" id="devKa"></div></div>'+
+      '<label class="f">Developer ID — match a company ID to link them</label><input type="text" id="devId" placeholder="madmoa">'+
+      '<div class="row2">'+
+      '<div><label class="f">Status</label><select id="status">'+optSet("gamestatus")+'</select></div>'+
+      '<div><label class="f">Release</label><input type="text" id="released" placeholder="2024"></div></div>'+
+      '<label class="f">Platforms</label><div class="chips">'+chipSet("platforms","platform")+'</div>'+
+      '<label class="f">Genre</label><div class="chips">'+chipSet("roles","genre")+'</div>';
+  }else{
+    h+='<div class="row2">'+
+      (isCo?'<div><label class="f">Type</label><select id="entity">'+optSet("entity")+'</select></div>'+
+            '<div><label class="f">Origin</label><select id="origin">'+optSet("origin")+'</select></div>'
+           :'<div><label class="f">Availability</label><select id="available"><option value="">Not stated</option>'+
+            '<option value="1">Open to work</option></select></div><div></div>')+
+      '</div><div class="row2">'+
+      '<div><label class="f">City</label><input type="text" id="city" placeholder="Tbilisi"></div>'+
+      '<div><label class="f">Founded / active since</label><input type="number" id="founded"></div></div>'+
+      (isCo?'<label class="f">Team size</label><select id="size"><option value="">Not stated</option>'+
+        Object.keys(TAXONOMY.size).map(k=>'<option value="'+k+'">'+k+'</option>').join("")+'</select>':'')+
+      '<label class="f">What they do</label><div class="chips">'+chipSet("roles",roleGroup())+'</div>';
   }
-
-  html+=
+  h+='<div class="row2">'+
+      '<div><label class="f">About (English)</label><textarea id="aboutEn"></textarea></div>'+
+      '<div><label class="f">About (Georgian)</label><textarea id="aboutKa"></textarea></div></div>'+
     '<div class="row2">'+
-      '<div><label>About (English)</label><textarea id="aboutEn"></textarea></div>'+
-      '<div><label>About (Georgian)</label><textarea id="aboutKa"></textarea></div>'+
-    '</div>'+
-    '<div class="row2">'+
-      '<div><label>Website</label><input type="url" id="website" placeholder="https://"></div>'+
-      '<div><label>Email</label><input type="email" id="email"></div>'+
-    '</div>'+
-    '<label>Other links</label><div class="row2">'+
-      LINK_KEYS.map(k=>'<div><input type="url" id="lnk_'+k+'" placeholder="'+k+'"></div>').join("")+
-    '</div>'+
-    '<label>Image path — set when you upload an image</label><input type="text" id="imgPath">'+
-    '<div class="chips" style="margin-top:1rem"><label><input type="checkbox" id="verified"> Verified by GGC</label></div>';
-
-  $("#form").innerHTML=html;
-  $("#nameEn").addEventListener("input",()=>{ if(!$("#id").dataset.touched) $("#id").value=slug($("#nameEn").value); });
+      '<div><label class="f">Website</label><input type="url" id="website" placeholder="https://"></div>'+
+      '<div><label class="f">Email</label><input type="email" id="email"></div></div>'+
+    '<label class="f">Other links</label><div class="row2">'+
+      LINK_KEYS.map(k=>'<div><input type="url" id="lnk_'+k+'" placeholder="'+k+'"></div>').join("")+'</div>'+
+    '<label class="f">Image path — set when you upload an image</label><input type="text" id="imgPath">';
+  $("#form").innerHTML=h;
+  $("#nameEn").addEventListener("input",()=>{if(!$("#id").dataset.touched)$("#id").value=slug($("#nameEn").value);});
   $("#id").addEventListener("input",e=>e.target.dataset.touched="1");
-  $("#imgPath").addEventListener("input",showCurrent);
-  showCurrent();
-}
+  $("#imgPath").addEventListener("input",()=>showCurrent());
+  showCurrent(); showVer();}
+
+function showVer(){
+  $("#verInfo").textContent = VER_AT ? ("verified on " + VER_AT) : "no verification date";}
+
+$("#btnVerifyToday").addEventListener("click",()=>{
+  $("#verified").checked=true; VER_AT=today(); showVer();});
+$("#btnClearVer").addEventListener("click",()=>{
+  $("#verified").checked=false; VER_AT=null; showVer();});
 
 function readForm(){
+  const g=id=>{const el=$("#"+id);return el?el.value.trim():"";};
   const o={
-    id:$("#id").value.trim()||slug($("#nameEn").value),
-    name:{en:$("#nameEn").value.trim(),ka:$("#nameKa").value.trim()},
-    logo:$("#imgPath").value.trim(),
+    id:g("id")||slug(g("nameEn")),
+    name:{en:g("nameEn"),ka:g("nameKa")},
+    logo:g("imgPath"),
     verified:$("#verified").checked,
     roles:Array.from(document.querySelectorAll('input[name=roles]:checked')).map(c=>c.value),
-    about:{en:$("#aboutEn").value.trim(),ka:$("#aboutKa").value.trim()},
-    website:$("#website").value.trim(),
-    email:$("#email").value.trim(),
-    links:{}
+    about:{en:g("aboutEn"),ka:g("aboutKa")},
+    website:g("website"),email:g("email"),links:{}
   };
-  LINK_KEYS.forEach(k=>{const v=$("#lnk_"+k).value.trim(); if(v) o.links[k]=v;});
-  if(EDITING!==null && DATA[EDITING] && DATA[EDITING].updated) o.updated=DATA[EDITING].updated;
-  if(IMG_VERSION) o.updated=IMG_VERSION;
-
+  LINK_KEYS.forEach(k=>{const v=g("lnk_"+k);if(v)o.links[k]=v;});
+  if(o.verified&&VER_AT)o.verifiedAt=VER_AT;
+  if(EDITING!==null&&DATA[EDITING]&&DATA[EDITING].updated)o.updated=DATA[EDITING].updated;
+  if(IMG_VERSION)o.updated=IMG_VERSION;
   if(MODE==="games"){
-    o.developer={en:$("#devEn").value.trim(),ka:$("#devKa").value.trim()};
-    o.developerId=$("#devId").value.trim();
-    o.status=$("#status").value;
-    o.released=$("#released").value.trim();
+    o.developer={en:g("devEn"),ka:g("devKa")};o.developerId=g("devId");
+    o.status=g("status");o.released=g("released");
     o.platforms=Array.from(document.querySelectorAll('input[name=platforms]:checked')).map(c=>c.value);
-  } else {
-    if($("#founded").value) o.founded=Number($("#founded").value);
-    o.city=$("#city").value.trim();
-    if(MODE==="companies"){
-      o.entity=$("#entity").value; o.origin=$("#origin").value;
-      if($("#size").value) o.size=$("#size").value;
-    } else {
-      o.available=$("#available").value==="1";
-    }
+  }else{
+    o.city=g("city"); if(g("founded"))o.founded=Number(g("founded"));
+    if(MODE==="companies"){o.entity=g("entity");o.origin=g("origin");if(g("size"))o.size=g("size");}
+    else o.available=g("available")==="1";
   }
-  return o;
-}
+  return o;}
 
 function writeForm(o){
-  const nm=o.name||{}, ab=o.about||{}, dv=o.developer||{};
-  IMG_VERSION=null;
-  $("#nameEn").value=nm.en||""; $("#nameKa").value=nm.ka||"";
-  $("#id").value=o.id||""; $("#id").dataset.touched="1";
-  $("#aboutEn").value=ab.en||""; $("#aboutKa").value=ab.ka||"";
-  $("#website").value=o.website||""; $("#email").value=o.email||"";
-  $("#verified").checked=!!o.verified;
-  $("#imgPath").value=o.logo||"";
+  const s=(id,v)=>{const el=$("#"+id);if(el)el.value=v||"";};
+  const nm=o.name||{},ab=o.about||{},dv=o.developer||{};
+  IMG_VERSION=null; VER_AT=o.verifiedAt||null;
+  s("nameEn",nm.en);s("nameKa",nm.ka);s("id",o.id);
+  $("#id").dataset.touched="1";
+  s("aboutEn",ab.en);s("aboutKa",ab.ka);s("website",o.website);s("email",o.email);
+  $("#verified").checked=!!o.verified; s("imgPath",o.logo);
   document.querySelectorAll('input[name=roles]').forEach(c=>c.checked=(o.roles||[]).indexOf(c.value)>=0);
-  LINK_KEYS.forEach(k=>$("#lnk_"+k).value=(o.links&&o.links[k])||"");
+  LINK_KEYS.forEach(k=>s("lnk_"+k,o.links&&o.links[k]));
   if(MODE==="games"){
-    $("#devEn").value=dv.en||""; $("#devKa").value=dv.ka||"";
-    $("#devId").value=o.developerId||"";
-    $("#status").value=o.status||"development";
-    $("#released").value=o.released||"";
+    s("devEn",dv.en);s("devKa",dv.ka);s("devId",o.developerId);
+    s("status",o.status||"development");s("released",o.released);
     document.querySelectorAll('input[name=platforms]').forEach(c=>c.checked=(o.platforms||[]).indexOf(c.value)>=0);
-  } else {
-    $("#city").value=o.city||""; $("#founded").value=o.founded||"";
-    if(MODE==="companies"){
-      $("#entity").value=o.entity||"company";
-      $("#origin").value=o.origin||"georgian";
-      $("#size").value=o.size||"";
-    } else { $("#available").value=o.available?"1":""; }
+  }else{
+    s("city",o.city);s("founded",o.founded);
+    if(MODE==="companies"){s("entity",o.entity||"company");s("origin",o.origin||"georgian");s("size",o.size);}
+    else s("available",o.available?"1":"");
   }
-  showCurrent(o.updated);
-}
+  showCurrent(o.updated); showVer();}
 
 function showCurrent(v){
-  const p=$("#imgPath")?$("#imgPath").value.trim():"";
+  const el=$("#imgPath"); const p=el?el.value.trim():"";
   const box=$("#currentImg");
-  if(!p){ box.innerHTML='<p class="hint" style="margin:0">No image set for this entry yet.</p>'; return; }
-  const ver=v||IMG_VERSION||Date.now();
-  const src="/"+p.replace(/^\//,"")+"?v="+ver;
-  box.innerHTML='<div class="current"><img src="'+enc(src)+'" alt="" onerror="this.style.display=\'none\'">'+
-    '<div><div class="meta">Current image</div><div class="meta"><code>'+enc(p)+'</code></div>'+
-    '<div class="meta">Uploading a new one replaces this file.</div></div></div>';
-}
+  if(!p){box.innerHTML='<p class="hint" style="margin:0">No image set for this entry yet.</p>';return;}
+  const src="/"+p.replace(/^\//,"")+"?v="+(v||IMG_VERSION||Date.now());
+  box.innerHTML='<div class="current"><img src="'+enc(src)+'" alt="" onerror="this.style.visibility=\'hidden\'">'+
+    '<div><div class="m"><b>Current image</b></div><div class="m"><code>'+enc(p)+'</code></div>'+
+    '<div class="m">Uploading a new one replaces this file.</div></div></div>';}
 
 $("#btnSave").addEventListener("click",()=>{
   const o=readForm();
-  if(!o.name.en&&!o.name.ka){ alert("A name is required."); return; }
+  if(!o.name.en&&!o.name.ka){alert("A name is required.");return;}
   const at=EDITING!==null?EDITING:DATA.findIndex(x=>x.id===o.id);
-  if(at>=0) DATA[at]=o; else DATA.push(o);
-  EDITING=null; IMG_VERSION=null;
-  buildForm(); renderList();
-  say($("#pubStatus"),DATA.length+" entries ready. Press Publish.","");
-});
-$("#btnClear").addEventListener("click",()=>{ EDITING=null; IMG_VERSION=null; buildForm(); });
+  if(at>=0)DATA[at]=o;else DATA.push(o);
+  EDITING=null;IMG_VERSION=null;VER_AT=null;
+  buildForm();renderList();
+  say($("#pubStatus"),DATA.length+" entries ready. Press Publish.","");});
+$("#btnClear").addEventListener("click",()=>{EDITING=null;IMG_VERSION=null;VER_AT=null;buildForm();});
 
-/* ================= cropper ================= */
-const cv=$("#cropCanvas"), ctx=cv.getContext("2d");
-let img=null, scale=1, ox=0, oy=0, base=1, drag=null, IMG_VERSION=null;
-
-function setAspect(){
-  const r=Number($("#aspect").value)||1;
-  cv.width=320; cv.height=Math.round(320/r);
-  if(img) fitImage(); else drawCrop();
-}
-function fitImage(){
-  base=Math.max(cv.width/img.width, cv.height/img.height);
-  scale=1; $("#zoom").value=1;
-  ox=(cv.width-img.width*base)/2; oy=(cv.height-img.height*base)/2;
-  drawCrop();
-}
-function drawCrop(){
-  ctx.clearRect(0,0,cv.width,cv.height);
-  if($("#outFmt").value==="image/jpeg"){ ctx.fillStyle="#fff"; ctx.fillRect(0,0,cv.width,cv.height); }
-  if(!img){ ctx.fillStyle="#8fa0b4"; ctx.font="14px sans-serif"; ctx.textAlign="center";
-    ctx.fillText("no image",cv.width/2,cv.height/2); return; }
-  ctx.drawImage(img,ox,oy,img.width*base*scale,img.height*base*scale);
-}
-
-$("#fileImg").addEventListener("change",e=>{
-  const f=e.target.files[0]; if(!f) return;
-  const im=new Image();
-  im.onload=()=>{ img=im; fitImage();
-    say($("#imgStatus"),"Source "+im.width+"×"+im.height+", "+(f.size/1024).toFixed(0)+" KB","");};
-  im.src=URL.createObjectURL(f);
-});
-$("#zoom").addEventListener("input",e=>{
-  if(!img) return;
-  const old=scale; scale=Number(e.target.value);
-  ox=cv.width/2-(cv.width/2-ox)*(scale/old);
-  oy=cv.height/2-(cv.height/2-oy)*(scale/old);
-  drawCrop();
-});
-cv.addEventListener("pointerdown",e=>{ if(!img) return; drag={x:e.offsetX-ox,y:e.offsetY-oy}; cv.setPointerCapture(e.pointerId); });
-cv.addEventListener("pointermove",e=>{ if(!drag) return; ox=e.offsetX-drag.x; oy=e.offsetY-drag.y; drawCrop(); });
-cv.addEventListener("pointerup",()=>{drag=null;});
-cv.addEventListener("pointercancel",()=>{drag=null;});
-$("#aspect").addEventListener("change",setAspect);
-$("#shape").addEventListener("change",e=>cv.classList.toggle("round",e.target.value==="round"));
-$("#outFmt").addEventListener("change",drawCrop);
-
-function renderOut(){
-  return new Promise((res,rej)=>{
-    if(!img){ rej(new Error("Pick an image first.")); return; }
-    const W=Number($("#outSize").value), k=W/cv.width, Hh=Math.round(cv.height*k);
-    const out=document.createElement("canvas"); out.width=W; out.height=Hh;
-    const c=out.getContext("2d"); c.imageSmoothingQuality="high";
-    const fmt=$("#outFmt").value;
-    if(fmt==="image/jpeg"){ c.fillStyle="#fff"; c.fillRect(0,0,W,Hh); }
-    c.drawImage(img,ox*k,oy*k,img.width*base*scale*k,img.height*base*scale*k);
-    const ext=fmt==="image/jpeg"?"jpg":(fmt==="image/webp"?"webp":"png");
-    const name=($("#id").value.trim()||slug($("#nameEn").value))+"."+ext;
-    out.toBlob(b=>b?res({blob:b,name:name,w:W,h:Hh}):rej(new Error("Could not build the image.")),fmt,0.82);
-  });
-}
-
-$("#btnUploadImg").addEventListener("click",async()=>{
-  if(!TOKEN){ say($("#imgStatus"),"Sign in first.","bad"); return; }
-  try{
-    say($("#imgStatus"),"Uploading…","busy");
-    const r=await renderOut();
-    const path=(MODE==="games"?"assets/games/":"assets/logos/")+r.name;
-    await ghPutSafe(path,await b64FromBlob(r.blob),"admin: image "+r.name);
-    IMG_VERSION=Date.now();
-    $("#imgPath").value=path;
-    showCurrent(IMG_VERSION);
-    say($("#imgStatus"),"Uploaded "+r.name+" — "+r.w+"×"+r.h+", "+(r.blob.size/1024).toFixed(0)+
-      " KB. Press Add / update, then Publish.","ok");
-  }catch(e){ say($("#imgStatus"),e.message,"bad"); }
-});
-
-$("#btnDlImg").addEventListener("click",async()=>{
-  try{
-    const r=await renderOut();
-    const url=URL.createObjectURL(r.blob);
-    const a=document.createElement("a"); a.href=url; a.download=r.name; a.click();
-    setTimeout(()=>URL.revokeObjectURL(url),4000);
-    $("#imgPath").value=(MODE==="games"?"assets/games/":"assets/logos/")+r.name;
-    say($("#imgStatus"),"Saved "+r.name+".","ok");
-  }catch(e){ say($("#imgStatus"),e.message,"bad"); }
-});
-
-/* ================= publish ================= */
-$("#btnPublish").addEventListener("click",async()=>{
-  if(!TOKEN){ say($("#pubStatus"),"Sign in first.","bad"); return; }
-  try{
-    say($("#pubStatus"),"Publishing…","busy");
-    await ghPutSafe("data/"+MODE+".json",b64FromText(JSON.stringify(DATA,null,2)+"\n"),
-      "admin: update "+MODE+" ("+DATA.length+" entries)");
-    say($("#pubStatus"),"Published "+DATA.length+" entries. Live in about a minute.","ok");
-  }catch(e){ say($("#pubStatus"),e.message,"bad"); }
-});
-$("#btnDownload").addEventListener("click",()=>{
-  const b=new Blob([JSON.stringify(DATA,null,2)+"\n"],{type:"application/json"});
-  const url=URL.createObjectURL(b); const a=document.createElement("a");
-  a.href=url; a.download=MODE+".json"; a.click();
-  setTimeout(()=>URL.revokeObjectURL(url),4000);
-});
-
-/* ================= files ================= */
-let CWD="";
-const TEXTY=/\.(html?|css|js|json|md|txt|xml|svg|yml|yaml|csv)$/i;
-const IMAGEY=/\.(png|jpe?g|gif|webp|avif|ico)$/i;
-
-function crumbs(){
-  const parts=CWD?CWD.split("/"):[];
-  let acc="", html='<a href="#" data-dir="">root</a>';
-  parts.forEach(p=>{ acc=acc?acc+"/"+p:p; html+=' / <a href="#" data-dir="'+enc(acc)+'">'+enc(p)+'</a>'; });
-  $("#crumbs").innerHTML=html;
-  $("#crumbs").querySelectorAll("[data-dir]").forEach(a=>a.onclick=e=>{e.preventDefault(); openDir(a.dataset.dir);});
-}
-
-async function openDir(dir){
-  CWD=dir||""; crumbs();
-  $("#fileList").innerHTML='<p class="hint" style="margin:0">Loading…</p>';
-  if(!TOKEN){ $("#fileList").innerHTML='<p class="hint" style="margin:0">Sign in to browse files.</p>'; return; }
-  try{
-    const items=await ghList(CWD);
-    items.sort((a,b)=>(a.type===b.type? a.name.localeCompare(b.name) : (a.type==="dir"?-1:1)));
-    let html="";
-    if(CWD) html+='<div class="list-row"><div class="thumb">↑</div><span class="nm">..</span>'+
-      '<button type="button" data-up="1">Open</button></div>';
-    html+=items.map(it=>{
-      const isDir=it.type==="dir";
-      const th=isDir?'<div class="thumb">📁</div>'
-        :(IMAGEY.test(it.name)?'<img class="thumb" src="/'+enc(it.path)+'?v='+Date.now()+'" alt="">':'<div class="thumb">📄</div>');
-      const kb=it.size?" · "+(it.size/1024).toFixed(0)+" KB":"";
-      return '<div class="list-row">'+th+'<span class="nm">'+enc(it.name)+
-        '<span class="meta" style="color:var(--faint);font-size:.78rem">'+enc(kb)+'</span></span>'+
-        (isDir?'<button type="button" data-open="'+enc(it.path)+'">Open</button>'
-              :'<button type="button" data-file="'+enc(it.path)+'">Edit</button>')+
-        '</div>';
-    }).join("");
-    $("#fileList").innerHTML=html||'<p class="hint" style="margin:0">This folder is empty.</p>';
-    $("#fileList").querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>openDir(b.dataset.open));
-    $("#fileList").querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>openDir(CWD.split("/").slice(0,-1).join("/")));
-    $("#fileList").querySelectorAll("[data-file]").forEach(b=>b.onclick=()=>openFile(b.dataset.file));
-  }catch(e){ $("#fileList").innerHTML='<p class="hint" style="margin:0">'+enc(e.message)+'</p>'; }
-}
-
-let EDIT_PATH=null, EDIT_SHA=null;
-
-async function openFile(path){
-  EDIT_PATH=path;
-  $("#editorPanel").hidden=false;
-  $("#editPath").textContent=path;
-  $("#editStatus").hidden=true;
-  const url=SITE+path;
-  if(IMAGEY.test(path)){
-    const meta=await ghGet(path);
-    EDIT_SHA=meta.sha;
-    $("#editBody").innerHTML='<img src="/'+enc(path)+'?v='+Date.now()+'" style="max-width:16rem;border-radius:10px;background:#fff">'+
-      '<p class="hint">Public address: <a href="'+enc(url)+'" target="_blank" rel="noopener">'+enc(url)+'</a></p>'+
-      '<p class="hint">Images are replaced by uploading a file with the same name.</p>';
-    $("#btnSaveFile").disabled=true;
-  } else if(TEXTY.test(path)){
-    const f=await ghGet(path);
-    EDIT_SHA=f.sha;
-    $("#editBody").innerHTML='<textarea class="code" id="fileText"></textarea>'+
-      '<p class="hint">Public address: <a href="'+enc(url)+'" target="_blank" rel="noopener">'+enc(url)+'</a></p>';
-    $("#fileText").value=f.text||"";
-    $("#btnSaveFile").disabled=false;
-  } else {
-    const meta=await ghGet(path);
-    EDIT_SHA=meta.sha;
-    $("#editBody").innerHTML='<p class="hint">This file type cannot be edited here. You can still delete it or replace it by uploading a file with the same name.</p>'+
-      '<p class="hint">Public address: <a href="'+enc(url)+'" target="_blank" rel="noopener">'+enc(url)+'</a></p>';
-    $("#btnSaveFile").disabled=true;
-  }
-  $("#editorPanel").scrollIntoView({behavior:"smooth",block:"start"});
-}
-
-$("#btnSaveFile").addEventListener("click",async()=>{
-  if(!TOKEN||!EDIT_PATH) return;
-  const ta=$("#fileText"); if(!ta) return;
-  if(/\.json$/i.test(EDIT_PATH)){
-    try{ JSON.parse(ta.value); }
-    catch(e){ say($("#editStatus"),"This is not valid JSON, so it was not saved: "+e.message,"bad"); return; }
-  }
-  try{
-    say($("#editStatus"),"Saving…","busy");
-    await ghPutSafe(EDIT_PATH,b64FromText(ta.value),"admin: edit "+EDIT_PATH);
-    say($("#editStatus"),"Saved. Live in about a minute.","ok");
-    openDir(CWD);
-  }catch(e){ say($("#editStatus"),e.message,"bad"); }
-});
-
-$("#btnCloseFile").addEventListener("click",()=>{ $("#editorPanel").hidden=true; EDIT_PATH=null; });
-
-$("#btnDeleteFile").addEventListener("click",async()=>{
-  if(!TOKEN||!EDIT_PATH||!EDIT_SHA) return;
-  if(!confirm("Delete "+EDIT_PATH+" from the site? This cannot be undone from here.")) return;
-  try{
-    say($("#editStatus"),"Deleting…","busy");
-    await ghDelete(EDIT_PATH,EDIT_SHA,"admin: delete "+EDIT_PATH);
-    $("#editorPanel").hidden=true; EDIT_PATH=null;
-    openDir(CWD);
-  }catch(e){ say($("#editStatus"),e.message,"bad"); }
-});
-
-async function uploadFiles(files){
-  if(!TOKEN){ say($("#fileStatus"),"Sign in first.","bad"); return; }
-  const list=Array.from(files); let done=0;
-  for(const f of list){
-    const safe=f.name.toLowerCase().replace(/[^a-z0-9._-]+/g,"-");
-    const path=(CWD?CWD+"/":"")+safe;
-    try{
-      say($("#fileStatus"),"Uploading "+safe+" ("+(done+1)+" of "+list.length+")…","busy");
-      await ghPutSafe(path,await b64FromBlob(f),"admin: upload "+safe);
-      done++;
-    }catch(e){ say($("#fileStatus"),"Failed on "+safe+": "+e.message,"bad"); return; }
-  }
-  say($("#fileStatus"),done+" file(s) uploaded. Public at "+SITE+(CWD?CWD+"/":""),"ok");
-  openDir(CWD);
-}
-
-$("#fileUp").addEventListener("change",e=>uploadFiles(e.target.files));
-const drop=$("#drop");
-["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add("over");}));
-["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove("over");}));
-drop.addEventListener("drop",e=>{ if(e.dataTransfer&&e.dataTransfer.files.length) uploadFiles(e.dataTransfer.files); });
-
-$("#btnNewFile").addEventListener("click",async()=>{
-  const p=$("#newPath").value.trim().replace(/^\//,"");
-  if(!p){ say($("#fileStatus"),"Type a path first.","bad"); return; }
-  if(!TOKEN){ say($("#fileStatus"),"Sign in first.","bad"); return; }
-  try{
-    say($("#fileStatus"),"Creating…","busy");
-    await ghPutSafe(p,b64FromText(""),"admin: create "+p);
-    $("#newPath").value="";
-    say($("#fileStatus"),"Created "+p,"ok");
-    openDir(p.split("/").slice(0,-1).join("/"));
-  }catch(e){ say($("#fileStatus"),e.message,"bad"); }
-});
-
-/* ================= tabs + boot ================= */
-document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>{
-  MODE=b.dataset.mode;
-  document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
-  const isFiles=MODE==="files";
-  $("#dataView").hidden=isFiles;
-  $("#filesView").hidden=!isFiles;
-  if(isFiles){ openDir(""); return; }
-  $("#targetPath").textContent="data/"+MODE+".json";
-  $("#aspect").value=MODE==="games"?"1.7778":"1";
-  $("#shape").value=MODE==="developers"?"round":"square";
-  cv.classList.toggle("round",MODE==="developers");
-  setAspect();
-  EDITING=null; IMG_VERSION=null;
-  buildForm(); loadList();
-}));
-
-$("#btnLoad").addEventListener("click",loadList);
-
-buildForm();
-setAspect();
-if(TOKEN){ ghUser().then(u=>{setSignedIn(u);loadList();}).catch(()=>{TOKEN=null;setSignedOut();loadList();}); }
-else { setSignedOut(); loadList(); }
-</script>
-</body>
-</html>
+/* ===================== cropper ===================== */
+const cv=$("#cropCanvas"),ctx=cv.getContext("2d");
+let img=nul
