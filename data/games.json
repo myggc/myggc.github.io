@@ -1,0 +1,20 @@
+[
+  {
+    "id": "dumbriel",
+    "name": { "en": "Dumbriel", "ka": "დამბრიელი" },
+    "logo": "",
+    "verified": true,
+    "developer": { "en": "MadMoa LLC", "ka": "მედმოა" },
+    "developerId": "madmoa",
+    "roles": ["metroidvania", "action", "platformer"],
+    "platforms": ["pc", "steam", "switch", "xbox"],
+    "status": "development",
+    "released": "",
+    "about": {
+      "en": "A hand-drawn 2D metroidvania. Placeholder entry — edit it in the admin.",
+      "ka": "ხელით დახატული 2D მეტროიდვანია. სანიმუშო ჩანაწერი — შეასწორე ადმინში."
+    },
+    "website": "",
+    "links": {}
+  }
+]
