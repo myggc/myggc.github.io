@@ -1,0 +1,39 @@
+[
+  {
+    "id": "madmoa",
+    "name": { "en": "MadMoa LLC", "ka": "მედმოა" },
+    "logo": "",
+    "entity": "company",
+    "verified": true,
+    "origin": "georgian",
+    "roles": ["developer", "outsourcing", "codev", "porting"],
+    "city": "Tbilisi",
+    "founded": 2019,
+    "size": "6-10",
+    "about": {
+      "en": "Indie studio working on its own titles alongside porting and co-development for other developers.",
+      "ka": "ინდი სტუდია, რომელიც საკუთარ თამაშებთან ერთად პორტირებასა და კო-დეველოპმენტზე მუშაობს."
+    },
+    "website": "",
+    "email": "",
+    "links": {}
+  },
+  {
+    "id": "example-team",
+    "name": { "en": "Example Team", "ka": "სანიმუშო გუნდი" },
+    "logo": "",
+    "entity": "team",
+    "verified": false,
+    "origin": "georgian",
+    "roles": ["developer", "art"],
+    "city": "Batumi",
+    "size": "1-5",
+    "about": {
+      "en": "Placeholder entry so you can see how an unregistered team looks. Delete it from the admin tool.",
+      "ka": "სანიმუშო ჩანაწერი, რომ დაინახო როგორ გამოიყურება არარეგისტრირებული გუნდი. წაშალე ადმინ ხელსაწყოდან."
+    },
+    "website": "",
+    "email": "",
+    "links": {}
+  }
+]

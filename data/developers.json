@@ -1,0 +1,18 @@
+[
+  {
+    "id": "example-developer",
+    "name": { "en": "Example Developer", "ka": "სანიმუშო დეველოპერი" },
+    "logo": "",
+    "verified": false,
+    "available": true,
+    "roles": ["programmer", "designer"],
+    "city": "Tbilisi",
+    "about": {
+      "en": "Placeholder entry so the page is not empty. Delete it from the admin tool once you add real people.",
+      "ka": "სანიმუშო ჩანაწერი, რომ გვერდი ცარიელი არ იყოს. წაშალე ადმინ ხელსაწყოდან."
+    },
+    "website": "",
+    "email": "",
+    "links": {}
+  }
+]
