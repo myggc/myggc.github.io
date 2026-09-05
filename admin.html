@@ -60,6 +60,7 @@
 
   <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.3rem" id="admLogo"></div>
   <h1>GGC admin</h1>
+  <div class="note bad" id="bootError" hidden></div>
   <p class="hint" style="margin-bottom:1.4rem">Everything on the site is editable here.</p>
 
   <section class="panel">
@@ -230,6 +231,25 @@
 <script src="/assets/js/i18n.js"></script>
 <script src="/assets/js/ui.js"></script>
 <script>
+/* Show problems on the page. Without this, one bad line makes every button
+   look dead with no explanation. */
+function bootFail(msg){
+  const b=document.getElementById("bootError");
+  if(!b) return;
+  b.hidden=false;
+  b.textContent=msg;
+}
+window.addEventListener("error",e=>{
+  bootFail("Script error: "+e.message+(e.filename?"  ("+e.filename+")":""));
+});
+window.addEventListener("unhandledrejection",e=>{
+  bootFail("Failed: "+((e.reason&&e.reason.message)||e.reason));
+});
+if(typeof TAXONOMY==="undefined"||typeof ggcLogo!=="function"){
+  bootFail("assets/js/i18n.js or assets/js/ui.js did not load. Check both files are in assets/js/ "
+    +"with lowercase names, then reload with Ctrl+F5.");
+}
+
 /* ===================== config ===================== */
 const OWNER="myggc", REPO="myggc.github.io", BRANCH="main";
 const API="https://api.github.com/repos/"+OWNER+"/"+REPO+"/contents/";
@@ -252,8 +272,13 @@ function say(el,msg,kind){el.hidden=false;el.className="note "+(kind||"");el.tex
 let TOKEN=null; try{TOKEN=localStorage.getItem("ggc-gh-token");}catch(e){}
 const H=()=>({"Authorization":"Bearer "+TOKEN,"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"});
 
-async function ghUser(){const r=await fetch("https://api.github.com/user",{headers:H()});
-  if(!r.ok)throw new Error(r.status===401?"That token was rejected. Check you copied all of it.":"GitHub answered "+r.status);
+async function ghUser(){
+  let r;
+  try{ r=await fetch("https://api.github.com/user",{headers:H()}); }
+  catch(e){ throw new Error("Could not reach api.github.com. Check your connection, or whether an "
+    +"extension or firewall is blocking it. ("+e.message+")"); }
+  if(r.status===401) throw new Error("GitHub rejected that token. Copy it again in full — it is only shown once.");
+  if(!r.ok) throw new Error("GitHub answered "+r.status+". If this is 403, the org may not have approved the token yet.");
   return r.json();}
 async function ghList(dir){const r=await fetch(API+dir+"?ref="+BRANCH,{headers:H(),cache:"no-store"});
   if(r.status===404)return [];
@@ -285,8 +310,9 @@ function setSignedIn(u){$("#signedOut").hidden=true;$("#signedIn").hidden=false;
 function setSignedOut(){$("#signedOut").hidden=false;$("#signedIn").hidden=true;}
 
 $("#btnConnect").addEventListener("click",async()=>{
-  const v=$("#tok").value.trim(); if(!v)return;
-  TOKEN=v; say($("#connStatus"),"Checking…","busy");
+  const v=$("#tok").value.trim();
+  if(!v){ say($("#connStatus"),"Paste your token into the box first.","bad"); return; }
+  TOKEN=v; say($("#connStatus"),"Checking with GitHub…","busy");
   try{const u=await ghUser();try{localStorage.setItem("ggc-gh-token",v);}catch(e){}
     $("#tok").value="";setSignedIn(u);refreshCurrentTab();countSubs();}
   catch(e){TOKEN=null;say($("#connStatus"),e.message,"bad");}});
@@ -451,4 +477,283 @@ $("#btnClear").addEventListener("click",()=>{EDITING=null;IMG_VERSION=null;VER_A
 
 /* ===================== cropper ===================== */
 const cv=$("#cropCanvas"),ctx=cv.getContext("2d");
-let img=nul
+let img=null,scale=1,ox=0,oy=0,base=1,drag=null;
+
+function setAspect(){const r=Number($("#aspect").value)||1;
+  cv.width=320;cv.height=Math.round(320/r);
+  if(img)fitImage();else drawCrop();}
+function fitImage(){base=Math.max(cv.width/img.width,cv.height/img.height);
+  scale=1;$("#zoom").value=1;
+  ox=(cv.width-img.width*base)/2;oy=(cv.height-img.height*base)/2;drawCrop();}
+function drawCrop(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  if($("#outFmt").value==="image/jpeg"){ctx.fillStyle="#fff";ctx.fillRect(0,0,cv.width,cv.height);}
+  if(!img){ctx.fillStyle="#9aa6b5";ctx.font="14px sans-serif";ctx.textAlign="center";
+    ctx.fillText("no image",cv.width/2,cv.height/2);return;}
+  ctx.drawImage(img,ox,oy,img.width*base*scale,img.height*base*scale);}
+
+$("#fileImg").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;
+  const im=new Image();im.onload=()=>{img=im;fitImage();
+    say($("#imgStatus"),"Source "+im.width+"×"+im.height+", "+(f.size/1024).toFixed(0)+" KB","");};
+  im.src=URL.createObjectURL(f);});
+$("#zoom").addEventListener("input",e=>{if(!img)return;const old=scale;scale=Number(e.target.value);
+  ox=cv.width/2-(cv.width/2-ox)*(scale/old);oy=cv.height/2-(cv.height/2-oy)*(scale/old);drawCrop();});
+cv.addEventListener("pointerdown",e=>{if(!img)return;drag={x:e.offsetX-ox,y:e.offsetY-oy};cv.setPointerCapture(e.pointerId);});
+cv.addEventListener("pointermove",e=>{if(!drag)return;ox=e.offsetX-drag.x;oy=e.offsetY-drag.y;drawCrop();});
+cv.addEventListener("pointerup",()=>{drag=null;});
+cv.addEventListener("pointercancel",()=>{drag=null;});
+$("#aspect").addEventListener("change",setAspect);
+$("#shape").addEventListener("change",e=>cv.classList.toggle("round",e.target.value==="round"));
+$("#outFmt").addEventListener("change",drawCrop);
+
+function renderOut(){return new Promise((res,rej)=>{
+  if(!img){rej(new Error("Pick an image first."));return;}
+  const W=Number($("#outSize").value),k=W/cv.width,Hh=Math.round(cv.height*k);
+  const out=document.createElement("canvas");out.width=W;out.height=Hh;
+  const c=out.getContext("2d");c.imageSmoothingQuality="high";
+  const fmt=$("#outFmt").value;
+  if(fmt==="image/jpeg"){c.fillStyle="#fff";c.fillRect(0,0,W,Hh);}
+  c.drawImage(img,ox*k,oy*k,img.width*base*scale*k,img.height*base*scale*k);
+  const ext=fmt==="image/jpeg"?"jpg":(fmt==="image/webp"?"webp":"png");
+  const name=($("#id").value.trim()||slug($("#nameEn").value))+"."+ext;
+  out.toBlob(b=>b?res({blob:b,name:name,w:W,h:Hh}):rej(new Error("Could not build the image.")),fmt,0.82);});}
+
+$("#btnUploadImg").addEventListener("click",async()=>{
+  if(!TOKEN){say($("#imgStatus"),"Sign in first.","bad");return;}
+  try{say($("#imgStatus"),"Uploading…","busy");
+    const r=await renderOut();
+    const path=(MODE==="games"?"assets/games/":"assets/logos/")+r.name;
+    await ghPutSafe(path,await b64FromBlob(r.blob),"admin: image "+r.name);
+    IMG_VERSION=Date.now();$("#imgPath").value=path;showCurrent(IMG_VERSION);
+    say($("#imgStatus"),"Uploaded "+r.name+" — "+r.w+"×"+r.h+", "+(r.blob.size/1024).toFixed(0)+" KB. Now press Add / update, then Publish.","ok");
+  }catch(e){say($("#imgStatus"),e.message,"bad");}});
+
+$("#btnDlImg").addEventListener("click",async()=>{
+  try{const r=await renderOut();const url=URL.createObjectURL(r.blob);
+    const a=document.createElement("a");a.href=url;a.download=r.name;a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),4000);
+    $("#imgPath").value=(MODE==="games"?"assets/games/":"assets/logos/")+r.name;
+    say($("#imgStatus"),"Saved "+r.name+".","ok");}
+  catch(e){say($("#imgStatus"),e.message,"bad");}});
+
+/* ===================== publish ===================== */
+$("#btnPublish").addEventListener("click",async()=>{
+  if(!TOKEN){say($("#pubStatus"),"Sign in first.","bad");return;}
+  try{say($("#pubStatus"),"Publishing…","busy");
+    await ghPutSafe("data/"+MODE+".json",b64FromText(JSON.stringify(DATA,null,2)+"\n"),
+      "admin: update "+MODE+" ("+DATA.length+" entries)");
+    say($("#pubStatus"),"Published "+DATA.length+" entries. Live in about a minute.","ok");}
+  catch(e){say($("#pubStatus"),e.message,"bad");}});
+$("#btnDownload").addEventListener("click",()=>{
+  const b=new Blob([JSON.stringify(DATA,null,2)+"\n"],{type:"application/json"});
+  const url=URL.createObjectURL(b);const a=document.createElement("a");
+  a.href=url;a.download=MODE+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),4000);});
+
+/* ===================== submissions ===================== */
+let SUBS=[];
+
+async function countSubs(){
+  if(!TOKEN)return;
+  try{const items=await ghList("data/submissions");
+    const n=items.filter(i=>i.type==="file"&&/\.json$/i.test(i.name)).length;
+    const b=$("#subCount"); b.hidden=n===0; b.textContent=n;}catch(e){}}
+
+async function loadSubs(){
+  $("#subState").textContent="Loading…";
+  if(!TOKEN){$("#subState").textContent="Sign in to see submissions.";$("#subList").innerHTML="";return;}
+  try{
+    const items=(await ghList("data/submissions")).filter(i=>i.type==="file"&&/\.json$/i.test(i.name));
+    SUBS=[];
+    for(const it of items){
+      const f=await ghGet(it.path);
+      try{ SUBS.push(Object.assign(JSON.parse(f.text),{__path:it.path,__sha:f.sha})); }catch(e){}
+    }
+    SUBS.sort((a,b)=>String(b.receivedAt||"").localeCompare(String(a.receivedAt||"")));
+    $("#subState").textContent=SUBS.length+" in the inbox.";
+    renderSubs(); countSubs();
+  }catch(e){$("#subState").textContent="Could not load: "+e.message;}}
+
+function renderSubs(){
+  $("#subList").innerHTML=SUBS.length?SUBS.map((s,i)=>{
+    const p=s.payload||{}, n=(p.name&&(p.name.en||p.name.ka))||"(no name)";
+    const th=s.image?'<img class="thumb" src="/'+enc(s.image)+'" alt="">':'<div class="thumb">'+enc(String(n).slice(0,2).toUpperCase())+'</div>';
+    const meta=[s.type,(s.contact&&s.contact.email)||"",(s.receivedAt||"").slice(0,10)].filter(Boolean).join(" · ");
+    return '<div class="list-row">'+th+'<span class="nm">'+enc(n)+'<span class="meta">'+enc(meta)+'</span></span>'+
+      '<button type="button" data-open="'+i+'">Open</button>'+
+      '<button type="button" class="danger" data-drop="'+i+'">Delete</button></div>';
+  }).join(""):'<p class="hint" style="margin:0">Nothing waiting.</p>';
+
+  $("#subList").querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>openSub(SUBS[Number(b.dataset.open)]));
+  $("#subList").querySelectorAll("[data-drop]").forEach(b=>b.onclick=()=>dropSub(SUBS[Number(b.dataset.drop)]));}
+
+/* loads a submission into the matching editor */
+async function openSub(s){
+  const target=["companies","developers","games"].includes(s.type)?s.type:"companies";
+  await switchTo(target);
+  const p=Object.assign({},s.payload);
+  p.id=p.id||slug((p.name&&p.name.en)||(p.name&&p.name.ka)||"entry");
+  /* the submitted image already lives in the repo and is public, so point at it.
+     Re-upload from the Image panel if you would rather store it under assets/logos/. */
+  if(s.image)p.logo=s.image;
+  EDITING=null;
+  writeForm(p);
+  $("#form").scrollIntoView({behavior:"smooth",block:"start"});
+  say($("#pubStatus"),"Loaded from submission by "+((s.contact&&s.contact.email)||"?")+". Check it, press Add / update, then Publish.","");}
+
+async function dropSub(s){
+  if(!confirm("Delete this submission from the inbox?"))return;
+  try{
+    say($("#subStatus"),"Deleting…","busy");
+    await ghDelete(s.__path,s.__sha,"admin: clear submission");
+    if(s.image){
+      try{const im=await ghGet(s.image);if(im.sha)await ghDelete(s.image,im.sha,"admin: clear submission image");}catch(e){}
+    }
+    say($("#subStatus"),"Deleted.","ok");
+    loadSubs();
+  }catch(e){say($("#subStatus"),e.message,"bad");}}
+
+$("#btnLoadSubs").addEventListener("click",loadSubs);
+
+/* ===================== files ===================== */
+let CWD="";
+const TEXTY=/\.(html?|css|js|json|md|txt|xml|svg|yml|yaml|csv)$/i;
+const IMAGEY=/\.(png|jpe?g|gif|webp|avif|ico)$/i;
+
+function crumbs(){
+  const parts=CWD?CWD.split("/"):[];
+  let acc="",html='<a href="#" data-dir="">root</a>';
+  parts.forEach(p=>{acc=acc?acc+"/"+p:p;html+=' / <a href="#" data-dir="'+enc(acc)+'">'+enc(p)+'</a>';});
+  $("#crumbs").innerHTML=html;
+  $("#crumbs").querySelectorAll("[data-dir]").forEach(a=>a.onclick=e=>{e.preventDefault();openDir(a.dataset.dir);});}
+
+async function openDir(dir){
+  CWD=dir||"";crumbs();
+  if(!TOKEN){$("#fileList").innerHTML='<p class="hint" style="margin:0">Sign in to browse files.</p>';return;}
+  $("#fileList").innerHTML='<p class="hint" style="margin:0">Loading…</p>';
+  try{
+    const items=await ghList(CWD);
+    items.sort((a,b)=>(a.type===b.type?a.name.localeCompare(b.name):(a.type==="dir"?-1:1)));
+    let html="";
+    if(CWD)html+='<div class="list-row"><div class="thumb">↑</div><span class="nm">..</span><button type="button" data-up="1">Open</button></div>';
+    html+=items.map(it=>{
+      const isDir=it.type==="dir";
+      const th=isDir?'<div class="thumb">📁</div>'
+        :(IMAGEY.test(it.name)?'<img class="thumb" src="/'+enc(it.path)+'?v='+Date.now()+'" alt="">':'<div class="thumb">📄</div>');
+      const kb=it.size?(it.size/1024).toFixed(0)+" KB":"";
+      return '<div class="list-row">'+th+'<span class="nm">'+enc(it.name)+'<span class="meta">'+enc(kb)+'</span></span>'+
+        (isDir?'<button type="button" data-open="'+enc(it.path)+'">Open</button>'
+              :'<button type="button" data-file="'+enc(it.path)+'">Edit</button>')+'</div>';
+    }).join("");
+    $("#fileList").innerHTML=html||'<p class="hint" style="margin:0">This folder is empty.</p>';
+    $("#fileList").querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>openDir(b.dataset.open));
+    $("#fileList").querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>openDir(CWD.split("/").slice(0,-1).join("/")));
+    $("#fileList").querySelectorAll("[data-file]").forEach(b=>b.onclick=()=>openFile(b.dataset.file));
+  }catch(e){$("#fileList").innerHTML='<p class="hint" style="margin:0">'+enc(e.message)+'</p>';}}
+
+let EDIT_PATH=null,EDIT_SHA=null;
+
+async function openFile(path){
+  EDIT_PATH=path;$("#editorPanel").hidden=false;$("#editPath").textContent=path;$("#editStatus").hidden=true;
+  const url=SITE+path;
+  const meta=await ghGet(path);EDIT_SHA=meta.sha;
+  if(IMAGEY.test(path)){
+    $("#editBody").innerHTML='<img src="/'+enc(path)+'?v='+Date.now()+'" style="max-width:16rem;border-radius:12px;border:1px solid var(--line)">'+
+      '<p class="hint">Public address: <a href="'+enc(url)+'" target="_blank" rel="noopener">'+enc(url)+'</a></p>'+
+      '<p class="hint">Replace it by uploading a file with the same name.</p>';
+    $("#btnSaveFile").disabled=true;
+  }else if(TEXTY.test(path)){
+    $("#editBody").innerHTML='<textarea class="code" id="fileText"></textarea>'+
+      '<p class="hint">Public address: <a href="'+enc(url)+'" target="_blank" rel="noopener">'+enc(url)+'</a></p>';
+    $("#fileText").value=meta.text||"";$("#btnSaveFile").disabled=false;
+  }else{
+    $("#editBody").innerHTML='<p class="hint">This file type cannot be edited here. You can delete it or replace it by uploading a file with the same name.</p>';
+    $("#btnSaveFile").disabled=true;
+  }
+  $("#editorPanel").scrollIntoView({behavior:"smooth",block:"start"});}
+
+$("#btnSaveFile").addEventListener("click",async()=>{
+  if(!TOKEN||!EDIT_PATH)return;
+  const ta=$("#fileText");if(!ta)return;
+  if(/\.json$/i.test(EDIT_PATH)){
+    try{JSON.parse(ta.value);}catch(e){say($("#editStatus"),"Not valid JSON, so nothing was saved: "+e.message,"bad");return;}}
+  try{say($("#editStatus"),"Saving…","busy");
+    await ghPutSafe(EDIT_PATH,b64FromText(ta.value),"admin: edit "+EDIT_PATH);
+    say($("#editStatus"),"Saved. Live in about a minute.","ok");openDir(CWD);}
+  catch(e){say($("#editStatus"),e.message,"bad");}});
+$("#btnCloseFile").addEventListener("click",()=>{$("#editorPanel").hidden=true;EDIT_PATH=null;});
+$("#btnDeleteFile").addEventListener("click",async()=>{
+  if(!TOKEN||!EDIT_PATH||!EDIT_SHA)return;
+  if(!confirm("Delete "+EDIT_PATH+"? This cannot be undone from here."))return;
+  try{say($("#editStatus"),"Deleting…","busy");
+    await ghDelete(EDIT_PATH,EDIT_SHA,"admin: delete "+EDIT_PATH);
+    $("#editorPanel").hidden=true;EDIT_PATH=null;openDir(CWD);}
+  catch(e){say($("#editStatus"),e.message,"bad");}});
+
+async function uploadFiles(files){
+  if(!TOKEN){say($("#fileStatus"),"Sign in first.","bad");return;}
+  const list=Array.from(files);let done=0;
+  for(const f of list){
+    const safe=f.name.toLowerCase().replace(/[^a-z0-9._-]+/g,"-");
+    const path=(CWD?CWD+"/":"")+safe;
+    try{say($("#fileStatus"),"Uploading "+safe+" ("+(done+1)+" of "+list.length+")…","busy");
+      await ghPutSafe(path,await b64FromBlob(f),"admin: upload "+safe);done++;}
+    catch(e){say($("#fileStatus"),"Failed on "+safe+": "+e.message,"bad");return;}}
+  say($("#fileStatus"),done+" file(s) uploaded. Public at "+SITE+(CWD?CWD+"/":""),"ok");
+  openDir(CWD);}
+
+$("#fileUp").addEventListener("change",e=>uploadFiles(e.target.files));
+const drop=$("#drop");
+["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add("over");}));
+["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove("over");}));
+drop.addEventListener("drop",e=>{if(e.dataTransfer&&e.dataTransfer.files.length)uploadFiles(e.dataTransfer.files);});
+
+$("#btnNewFile").addEventListener("click",async()=>{
+  const p=$("#newPath").value.trim().replace(/^\//,"");
+  if(!p){say($("#fileStatus"),"Type a path first.","bad");return;}
+  if(!TOKEN){say($("#fileStatus"),"Sign in first.","bad");return;}
+  try{say($("#fileStatus"),"Creating…","busy");
+    await ghPutSafe(p,b64FromText(""),"admin: create "+p);
+    $("#newPath").value="";say($("#fileStatus"),"Created "+p,"ok");
+    openDir(p.split("/").slice(0,-1).join("/"));}
+  catch(e){say($("#fileStatus"),e.message,"bad");}});
+
+/* ===================== tabs ===================== */
+function showView(){
+  const isFiles=MODE==="files", isSubs=MODE==="subs";
+  $("#dataView").hidden=isFiles||isSubs;
+  $("#filesView").hidden=!isFiles;
+  $("#subsView").hidden=!isSubs;}
+
+async function switchTo(mode){
+  MODE=mode;
+  document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.mode===mode)));
+  showView();
+  if(mode==="files"){openDir(CWD);return;}
+  if(mode==="subs"){loadSubs();return;}
+  $("#targetPath").textContent="data/"+mode+".json";
+  $("#aspect").value=mode==="games"?"1.7778":"1";
+  $("#shape").value=mode==="developers"?"round":"square";
+  cv.classList.toggle("round",mode==="developers");
+  setAspect();
+  EDITING=null;IMG_VERSION=null;VER_AT=null;
+  buildForm();
+  await loadList();}
+
+function refreshCurrentTab(){ switchTo(MODE); }
+
+document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>switchTo(b.dataset.mode)));
+$("#btnLoad").addEventListener("click",loadList);
+
+/* ===================== boot ===================== */
+try{
+  document.getElementById("admLogo").innerHTML=ggcLogo(40);
+  buildForm();setAspect();
+  if(TOKEN){ghUser().then(u=>{setSignedIn(u);loadList();countSubs();})
+    .catch(()=>{TOKEN=null;setSignedOut();loadList();});}
+  else{setSignedOut();loadList();}
+}catch(e){
+  bootFail("Admin could not start: "+e.message);
+}
+</script>
+</body>
+</html>
