@@ -338,3 +338,58 @@ h1,h2,h3{ font-family: var(--serif); font-weight:700; letter-spacing:-0.015em; m
   .d4{ animation-delay:.38s } .d5{ animation-delay:.48s } .d6{ animation-delay:.56s }
 }
 @keyframes rise{ to{ opacity:1; transform:none; } }
+
+/* ---------------- grouped sections ---------------- */
+
+.group-head{
+  font-size: clamp(1.15rem, 3vw, 1.5rem);
+  margin: 2.6rem 0 1rem;
+  display:flex; align-items:baseline; gap:.6rem;
+}
+.group-head:first-child{ margin-top:0; }
+.group-head b{
+  font-family: var(--sans); font-size:.8rem; font-weight:600;
+  color: var(--turquoise); border:1px solid rgba(63,182,188,.4);
+  border-radius:999px; padding:.1rem .5rem;
+}
+.group-head-teams b{ color: #d9737f; border-color: rgba(178,58,72,.6); }
+.group-note{ margin:-.5rem 0 1.1rem; color:var(--faint); font-size:.88rem; }
+
+/* unregistered teams read differently from registered companies */
+.card-team{
+  background: transparent;
+  border-style: dashed;
+  border-color: rgba(178,58,72,.45);
+}
+.card-team .logo-chip{ background: #d8d2c6; }
+
+.card-hit{ text-decoration:none; color:inherit; display:block; }
+.card-hit:hover h3{ color: var(--turquoise); }
+
+.logo-chip.wide{
+  width:100%; height:auto; aspect-ratio:16/9; flex:1 1 auto;
+  border-radius:10px; font-size:1.4rem;
+}
+.card-wide .card-top{ flex-direction:column; gap:.7rem; }
+
+/* ---------------- entry page ---------------- */
+
+.crumb{ margin:0 0 1.5rem; font-size:.9rem; }
+.crumb a{ text-decoration:none; }
+
+.entry-head{ display:flex; gap:1.2rem; align-items:flex-start; flex-wrap:wrap; }
+.entry-media{
+  width:110px; height:110px; flex:0 0 110px; border-radius:16px;
+  background: var(--paper); color:#0C1B30; object-fit:cover;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--serif); font-weight:700; font-size:2rem;
+}
+.entry-media.round{ border-radius:50%; }
+.entry-media.wide{
+  width:100%; max-width:34rem; height:auto; aspect-ratio:16/9; flex:1 1 20rem; border-radius:14px;
+}
+
+.kvs{ display:grid; gap:.1rem; margin: 1.6rem 0 0; }
+.kv{ display:flex; gap:1rem; padding:.65rem 0; border-top:1px solid var(--line); }
+.kv dt{ flex:0 0 9rem; color:var(--faint); font-size:.86rem; margin:0; }
+.kv dd{ margin:0; color:var(--paper); font-size:.95rem; }
