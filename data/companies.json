@@ -1,12 +1,20 @@
 [
   {
     "id": "madmoa",
-    "name": { "en": "MadMoa LLC", "ka": "მედმოა" },
+    "name": {
+      "en": "MadMoa LLC",
+      "ka": "მედმოა"
+    },
     "logo": "",
     "entity": "company",
     "verified": true,
     "origin": "georgian",
-    "roles": ["developer", "outsourcing", "codev", "porting"],
+    "roles": [
+      "developer",
+      "outsourcing",
+      "codev",
+      "porting"
+    ],
     "city": "Tbilisi",
     "founded": 2019,
     "size": "6-10",
@@ -20,12 +28,18 @@
   },
   {
     "id": "example-team",
-    "name": { "en": "Example Team", "ka": "სანიმუშო გუნდი" },
+    "name": {
+      "en": "Example Team",
+      "ka": "სანიმუშო გუნდი"
+    },
     "logo": "",
     "entity": "team",
     "verified": false,
     "origin": "georgian",
-    "roles": ["developer", "art"],
+    "roles": [
+      "developer",
+      "art"
+    ],
     "city": "Batumi",
     "size": "1-5",
     "about": {
