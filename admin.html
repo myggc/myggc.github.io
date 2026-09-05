@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GGC content tool</title>
+<title>GGC admin</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,21 +11,10 @@
 <link rel="stylesheet" href="/assets/css/site.css">
 <style>
   .adm{ max-width:64rem; margin:0 auto; padding: 1.5rem var(--gutter) 6rem; }
-  .notice{
-    border:1px solid rgba(223,166,58,.5); background: rgba(223,166,58,.07);
-    border-radius:12px; padding:1rem 1.1rem; margin-bottom:2rem; font-size:.92rem; color:var(--muted);
-  }
-  .notice strong{ color: var(--gold); display:block; margin-bottom:.3rem; font-family:var(--serif); }
-  .tabs{ display:flex; gap:.5rem; margin-bottom:1.5rem; }
-  .tabs button{
-    background:var(--ink-2); border:1px solid var(--line); color:var(--muted);
-    padding:.55rem 1rem; border-radius:9px; cursor:pointer; font-family:var(--sans); font-size:.92rem;
-  }
-  .tabs button[aria-pressed="true"]{ background:var(--ink-3); color:var(--paper); border-color:var(--turquoise); }
-  .panel{ background:var(--ink-2); border:1px solid var(--line); border-radius:14px; padding:1.2rem; margin-bottom:1.5rem; }
-  .panel h2{ font-size:1.1rem; margin-bottom:.9rem; }
+  .panel{ background:var(--ink-2); border:1px solid var(--line); border-radius:14px; padding:1.2rem; margin-bottom:1.4rem; }
+  .panel h2{ font-size:1.08rem; margin-bottom:.9rem; }
   label{ display:block; font-size:.82rem; color:var(--faint); margin:.9rem 0 .3rem; }
-  input[type=text], input[type=url], input[type=email], input[type=number], select, textarea{
+  input[type=text], input[type=url], input[type=email], input[type=number], input[type=password], select, textarea{
     width:100%; font-family:var(--sans); font-size:.93rem; color:var(--paper);
     background:var(--ink); border:1px solid var(--line); border-radius:9px; padding:.55rem .7rem;
   }
@@ -33,92 +22,122 @@
   .row2{ display:grid; gap:.8rem; grid-template-columns:1fr; }
   @media (min-width:44rem){ .row2{ grid-template-columns:1fr 1fr; } }
   .chips{ display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.4rem; }
-  .chips label{
-    margin:0; display:flex; align-items:center; gap:.35rem; font-size:.85rem; color:var(--muted);
-    border:1px solid var(--line); border-radius:999px; padding:.32rem .7rem; cursor:pointer;
-  }
+  .chips label{ margin:0; display:flex; align-items:center; gap:.35rem; font-size:.85rem; color:var(--muted);
+    border:1px solid var(--line); border-radius:999px; padding:.32rem .7rem; cursor:pointer; }
   .chips input{ accent-color: var(--turquoise); }
-  .actions{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.3rem; }
-  .list{ display:grid; gap:.5rem; max-height:22rem; overflow:auto; }
-  .list-row{
-    display:flex; align-items:center; gap:.7rem; padding:.5rem .6rem;
-    border:1px solid var(--line); border-radius:10px; background:var(--ink);
-  }
-  .list-row img, .list-row div.ph{
-    width:34px; height:34px; border-radius:8px; background:var(--paper); flex:0 0 34px;
-    display:flex; align-items:center; justify-content:center; color:#0C1B30; font-size:.8rem; font-weight:700;
-  }
+  .actions{ display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.2rem; align-items:center; }
+  .tabs{ display:flex; gap:.5rem; margin-bottom:1.4rem; }
+  .tabs button{ background:var(--ink-2); border:1px solid var(--line); color:var(--muted);
+    padding:.55rem 1rem; border-radius:9px; cursor:pointer; font-family:var(--sans); font-size:.92rem; }
+  .tabs button[aria-pressed="true"]{ background:var(--ink-3); color:var(--paper); border-color:var(--turquoise); }
+  .list{ display:grid; gap:.5rem; max-height:22rem; overflow:auto; margin-top:1rem; }
+  .list-row{ display:flex; align-items:center; gap:.7rem; padding:.5rem .6rem;
+    border:1px solid var(--line); border-radius:10px; background:var(--ink); }
+  .list-row img, .list-row div.ph{ width:34px; height:34px; border-radius:8px; background:var(--paper);
+    flex:0 0 34px; display:flex; align-items:center; justify-content:center; color:#0C1B30; font-size:.78rem; font-weight:700; object-fit:cover; }
   .list-row span{ flex:1; font-size:.9rem; }
-  .list-row button{
-    background:none; border:1px solid var(--line); color:var(--muted); border-radius:7px;
-    padding:.25rem .55rem; font-size:.8rem; cursor:pointer; font-family:var(--sans);
-  }
+  .list-row button{ background:none; border:1px solid var(--line); color:var(--muted); border-radius:7px;
+    padding:.25rem .55rem; font-size:.8rem; cursor:pointer; font-family:var(--sans); }
   .crop-area{ display:grid; gap:1rem; }
-  @media (min-width:44rem){ .crop-area{ grid-template-columns:320px 1fr; } }
-  #cropCanvas{
-    width:100%; max-width:320px; aspect-ratio:1; background:#fff;
-    border-radius:12px; border:1px solid var(--line); touch-action:none; cursor:grab;
-  }
+  @media (min-width:44rem){ .crop-area{ grid-template-columns:300px 1fr; } }
+  #cropCanvas{ width:100%; max-width:300px; aspect-ratio:1; background:#fff; border-radius:12px;
+    border:1px solid var(--line); touch-action:none; cursor:grab; }
   #cropCanvas.round{ border-radius:50%; }
   .hint{ font-size:.82rem; color:var(--faint); margin:.5rem 0 0; }
   code{ background:var(--ink); padding:.12rem .35rem; border-radius:5px; font-size:.85em; }
-  output.jsonbox{
-    display:block; white-space:pre; overflow:auto; max-height:16rem; font-size:.78rem;
-    background:var(--ink); border:1px solid var(--line); border-radius:10px; padding:.8rem; margin-top:.8rem;
-    font-family: ui-monospace, monospace; color: var(--muted);
-  }
+  .status{ font-size:.86rem; padding:.55rem .75rem; border-radius:9px; border:1px solid var(--line); margin-top:.9rem; }
+  .status.ok{ border-color:rgba(63,182,188,.5); color:var(--turquoise); }
+  .status.bad{ border-color:rgba(178,58,72,.6); color:#e08a94; }
+  .status.busy{ color:var(--gold); border-color:rgba(223,166,58,.5); }
+  details{ margin-top:1rem; border-top:1px solid var(--line); padding-top:.9rem; }
+  summary{ cursor:pointer; font-size:.9rem; color:var(--turquoise); }
+  details ol{ color:var(--muted); font-size:.88rem; padding-left:1.2rem; line-height:1.75; }
+  .who{ display:flex; align-items:center; gap:.6rem; font-size:.9rem; }
+  .who img{ width:28px; height:28px; border-radius:50%; }
 </style>
 </head>
 <body>
 
 <div class="adm">
 
-  <h1 class="page-title" style="font-size:1.9rem">GGC content tool</h1>
+  <h1 class="page-title" style="font-size:1.8rem">GGC admin</h1>
+  <p class="hint" style="margin-bottom:1.6rem">
+    Add studios, teams and developers. Publishing writes straight to the site.
+  </p>
 
-  <div class="notice">
-    <strong>Read this once</strong>
-    This page has no login and cannot publish anything by itself. It builds the data file and the
-    cropped image for you; you then commit those two files to the repository, and the site updates.
-    Anyone can open this page, but nobody can change the site from here.
-  </div>
+  <section class="panel" id="pConnect">
+    <h2>Sign in</h2>
+    <p class="hint" style="margin-top:0">
+      Paste your GitHub access token. It is kept only in this browser and never goes into
+      the repository. Each person on the team uses their own.
+    </p>
+
+    <div id="signedOut">
+      <label for="tok">Access token</label>
+      <input type="password" id="tok" placeholder="github_pat_… or ghp_…" autocomplete="off">
+      <div class="actions">
+        <button class="btn btn-primary" type="button" id="btnConnect">Connect</button>
+      </div>
+
+      <details>
+        <summary>How to create your token — once, about three minutes</summary>
+        <ol>
+          <li>Org owner, once only: <code>myggc</code> org → Settings → Personal access tokens →
+              allow access via fine-grained tokens.</li>
+          <li>GitHub → your Settings → Developer settings → Personal access tokens →
+              Fine-grained tokens → Generate new token.</li>
+          <li>Resource owner: <code>myggc</code>. If it is not in the list, step 1 is missing.</li>
+          <li>Repository access: Only select repositories → <code>myggc.github.io</code>.</li>
+          <li>Permissions → Repository → <b>Contents: Read and write</b>. Nothing else.</li>
+          <li>Expiration 90 days is sensible. Generate, copy, paste above.</li>
+        </ol>
+        <p class="hint">If the org has approval turned on, an owner has to approve the token
+           before publishing works.</p>
+      </details>
+    </div>
+
+    <div id="signedIn" hidden>
+      <div class="who">
+        <img id="whoImg" alt="">
+        <span>Signed in as <b id="whoName"></b>, writing to <code>myggc/myggc.github.io</code></span>
+      </div>
+      <div class="actions">
+        <button class="btn btn-ghost" type="button" id="btnForget">Sign out of this browser</button>
+      </div>
+    </div>
+
+    <div class="status" id="connStatus" hidden></div>
+  </section>
 
   <div class="tabs">
     <button type="button" data-mode="companies" aria-pressed="true">Companies &amp; teams</button>
     <button type="button" data-mode="developers" aria-pressed="false">Solo developers</button>
   </div>
 
-  <!-- 1. current data -->
   <section class="panel">
-    <h2>1. Load the current list</h2>
+    <h2>Current list</h2>
     <div class="actions" style="margin-top:0">
-      <button class="btn btn-ghost" type="button" id="btnFetch">Load from the live site</button>
-      <label class="btn btn-ghost" style="margin:0;color:var(--paper)">
-        Load a .json file
-        <input type="file" id="fileJson" accept="application/json,.json" hidden>
-      </label>
-      <button class="btn btn-ghost" type="button" id="btnEmpty">Start empty</button>
+      <button class="btn btn-ghost" type="button" id="btnLoad">Reload</button>
+      <span class="hint" id="loadState" style="margin:0">Not loaded yet.</span>
     </div>
-    <p class="hint" id="loadState">Nothing loaded yet.</p>
-    <div class="list" id="list" style="margin-top:1rem"></div>
+    <div class="list" id="list"></div>
   </section>
 
-  <!-- 2. entry -->
   <section class="panel">
-    <h2>2. Entry details</h2>
+    <h2>Entry</h2>
     <div id="form"></div>
     <div class="actions">
-      <button class="btn btn-primary" type="button" id="btnSave">Add / update entry</button>
-      <button class="btn btn-ghost" type="button" id="btnClear">Clear the form</button>
+      <button class="btn btn-primary" type="button" id="btnSave">Add / update in the list</button>
+      <button class="btn btn-ghost" type="button" id="btnClear">New blank entry</button>
     </div>
   </section>
 
-  <!-- 3. image -->
   <section class="panel">
-    <h2>3. Logo or photo</h2>
+    <h2>Logo or photo</h2>
     <div class="crop-area">
       <div>
-        <canvas id="cropCanvas" width="320" height="320"></canvas>
-        <p class="hint">Drag to move. Pinch or use the slider to zoom.</p>
+        <canvas id="cropCanvas" width="300" height="300"></canvas>
+        <p class="hint">Drag to move, slider to zoom.</p>
       </div>
       <div>
         <label>Pick an image</label>
@@ -128,161 +147,295 @@
         <input type="range" id="zoom" min="1" max="4" step="0.01" value="1" style="width:100%">
 
         <div class="row2">
-          <div>
-            <label>Output size</label>
+          <div><label>Size</label>
             <select id="outSize">
               <option value="512">512 × 512</option>
               <option value="256">256 × 256</option>
               <option value="1024">1024 × 1024</option>
             </select>
           </div>
-          <div>
-            <label>Format</label>
+          <div><label>Format</label>
             <select id="outFmt">
-              <option value="image/jpeg">JPEG (white background, smallest)</option>
-              <option value="image/webp">WebP (transparent, small)</option>
-              <option value="image/png">PNG (transparent, largest)</option>
+              <option value="image/jpeg">JPEG — white background, smallest</option>
+              <option value="image/webp">WebP — transparent, small</option>
+              <option value="image/png">PNG — transparent, largest</option>
             </select>
           </div>
         </div>
 
-        <label>Preview shape (display only, the file is always square)</label>
+        <label>Preview shape — the saved file is always square</label>
         <select id="shape">
           <option value="square">Rounded square — companies</option>
           <option value="round">Circle — people</option>
         </select>
 
         <div class="actions">
-          <button class="btn btn-primary" type="button" id="btnImg">Crop, compress &amp; download</button>
+          <button class="btn btn-primary" type="button" id="btnUploadImg">Upload image to the site</button>
+          <button class="btn btn-ghost" type="button" id="btnDlImg">Download instead</button>
         </div>
-        <p class="hint" id="imgState"></p>
+        <div class="status" id="imgStatus" hidden></div>
       </div>
     </div>
   </section>
 
-  <!-- 4. export -->
   <section class="panel">
-    <h2>4. Export the data file</h2>
+    <h2>Publish</h2>
     <p class="hint" style="margin-top:0">
-      Download this and upload it to the repository at <code id="targetPath">data/companies.json</code>,
-      replacing the old file. Put images in <code>assets/logos/</code>.
+      Writes <code id="targetPath">data/companies.json</code> to the repository. The site updates
+      about a minute later.
     </p>
-    <div class="actions" style="margin-top:.8rem">
-      <button class="btn btn-primary" type="button" id="btnDownload">Download .json</button>
-      <button class="btn btn-ghost" type="button" id="btnCopy">Copy to clipboard</button>
+    <div class="actions" style="margin-top:.9rem">
+      <button class="btn btn-primary" type="button" id="btnPublish">Publish to the site</button>
+      <button class="btn btn-ghost" type="button" id="btnDownload">Download .json instead</button>
     </div>
-    <output class="jsonbox" id="jsonOut"></output>
+    <div class="status" id="pubStatus" hidden></div>
   </section>
 
 </div>
 
 <script src="/assets/js/i18n.js"></script>
 <script>
-/* ---------------- state ---------------- */
+/* ============ config ============ */
+const OWNER  = "myggc";
+const REPO   = "myggc.github.io";
+const BRANCH = "main";
+const API    = "https://api.github.com/repos/" + OWNER + "/" + REPO + "/contents/";
 
-let MODE = "companies";
-let DATA = [];
-let EDITING = null;
-
+/* ============ helpers ============ */
 const $ = s => document.querySelector(s);
-const enc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-
-const LINK_KEYS = ["website2","facebook","linkedin","instagram","youtube","steam","itch","x"];
+const enc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c =>
+  ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
 function slug(s){
   return String(s||"").toLowerCase().trim()
     .replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,40) || "entry";
 }
+function b64FromText(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = "";
+  for (let i = 0; i < bytes.length; i += 0x8000)
+    bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
+function textFromB64(b){
+  const bin = atob(String(b).replace(/\s/g,""));
+  return new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0)));
+}
+async function b64FromBlob(blob){
+  const buf = new Uint8Array(await blob.arrayBuffer());
+  let bin = "";
+  for (let i = 0; i < buf.length; i += 0x8000)
+    bin += String.fromCharCode.apply(null, buf.subarray(i, i + 0x8000));
+  return btoa(bin);
+}
+function say(el, msg, kind){
+  el.hidden = false;
+  el.className = "status " + (kind || "");
+  el.textContent = msg;
+}
 
-/* ---------------- form ---------------- */
+/* ============ github ============ */
+let TOKEN = null;
+try { TOKEN = localStorage.getItem("ggc-gh-token"); } catch(e){}
 
-function roleGroup(){ return MODE === "companies" ? "role" : "discipline"; }
+function ghHeaders(){
+  return {
+    "Authorization": "Bearer " + TOKEN,
+    "Accept": "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28"
+  };
+}
 
+async function ghUser(){
+  const r = await fetch("https://api.github.com/user", { headers: ghHeaders() });
+  if (!r.ok) throw new Error(r.status === 401
+    ? "That token was rejected. Check you copied all of it."
+    : "GitHub answered " + r.status);
+  return r.json();
+}
+
+async function ghGet(path){
+  const r = await fetch(API + path + "?ref=" + BRANCH, { headers: ghHeaders(), cache: "no-store" });
+  if (r.status === 404) return { text: null, sha: null };
+  if (!r.ok) throw new Error("Could not read " + path + " (" + r.status + ")");
+  const j = await r.json();
+  return { text: textFromB64(j.content), sha: j.sha };
+}
+
+async function ghPut(path, contentB64, message, sha){
+  const body = { message: message, content: contentB64, branch: BRANCH };
+  if (sha) body.sha = sha;
+  const r = await fetch(API + path, {
+    method: "PUT",
+    headers: Object.assign(ghHeaders(), { "Content-Type": "application/json" }),
+    body: JSON.stringify(body)
+  });
+  if (r.ok) return r.json();
+  if (r.status === 409 || r.status === 422) throw new Error("conflict");
+  if (r.status === 403 || r.status === 404) throw new Error(
+    "Permission denied. The token needs Contents: Read and write on this repository, and the org may still need to approve it.");
+  const err = await r.json().catch(function(){ return {}; });
+  throw new Error(err.message || ("GitHub answered " + r.status));
+}
+
+async function ghPutSafe(path, contentB64, message){
+  try {
+    const cur = await ghGet(path);
+    return await ghPut(path, contentB64, message, cur.sha);
+  } catch (e) {
+    if (e.message !== "conflict") throw e;
+    const cur = await ghGet(path);
+    return await ghPut(path, contentB64, message, cur.sha);
+  }
+}
+
+function setSignedIn(user){
+  $("#signedOut").hidden = true;
+  $("#signedIn").hidden = false;
+  $("#whoName").textContent = user.login;
+  $("#whoImg").src = user.avatar_url;
+  say($("#connStatus"), "Connected. You can publish from here.", "ok");
+}
+function setSignedOut(){
+  $("#signedOut").hidden = false;
+  $("#signedIn").hidden = true;
+}
+
+$("#btnConnect").addEventListener("click", async () => {
+  const v = $("#tok").value.trim();
+  if (!v) return;
+  TOKEN = v;
+  say($("#connStatus"), "Checking…", "busy");
+  try {
+    const u = await ghUser();
+    try { localStorage.setItem("ggc-gh-token", v); } catch(e){}
+    $("#tok").value = "";
+    setSignedIn(u);
+    loadList();
+  } catch (e) {
+    TOKEN = null;
+    say($("#connStatus"), e.message, "bad");
+  }
+});
+
+$("#btnForget").addEventListener("click", () => {
+  TOKEN = null;
+  try { localStorage.removeItem("ggc-gh-token"); } catch(e){}
+  setSignedOut();
+  say($("#connStatus"), "Signed out of this browser.", "");
+});
+
+/* ============ data ============ */
+let MODE = "companies";
+let DATA = [];
+let EDITING = null;
+const LINK_KEYS = ["facebook","linkedin","instagram","youtube","steam","itch","x"];
+const roleGroup = () => MODE === "companies" ? "role" : "discipline";
+
+async function loadList(){
+  $("#loadState").textContent = "Loading…";
+  try {
+    let txt;
+    if (TOKEN) txt = (await ghGet("data/" + MODE + ".json")).text;
+    else txt = await fetch("/data/" + MODE + ".json", { cache: "no-store" }).then(r => r.text());
+    DATA = txt ? JSON.parse(txt) : [];
+    $("#loadState").textContent = DATA.length + " entries loaded.";
+  } catch (e) {
+    DATA = [];
+    $("#loadState").textContent = "Could not load: " + e.message;
+  }
+  EDITING = null;
+  renderList();
+}
+
+function renderList(){
+  $("#list").innerHTML = DATA.length ? DATA.map((o,i) => {
+    const n = (o.name && (o.name.en || o.name.ka)) || o.id;
+    const img = o.logo
+      ? '<img src="/' + enc(String(o.logo).replace(/^\//,"")) + '" alt="">'
+      : '<div class="ph">' + enc(String(n).slice(0,2).toUpperCase()) + '</div>';
+    return '<div class="list-row">' + img +
+      '<span>' + enc(n) + (o.verified ? ' <span style="color:var(--turquoise)">✓</span>' : '') + '</span>' +
+      '<button type="button" data-edit="' + i + '">Edit</button>' +
+      '<button type="button" data-del="' + i + '">Delete</button></div>';
+  }).join("") : '<p class="hint" style="margin:0">Empty.</p>';
+
+  $("#list").querySelectorAll("[data-edit]").forEach(b => b.onclick = () => {
+    EDITING = Number(b.dataset.edit);
+    writeForm(DATA[EDITING]);
+    $("#form").scrollIntoView({ behavior:"smooth", block:"start" });
+  });
+  $("#list").querySelectorAll("[data-del]").forEach(b => b.onclick = () => {
+    if (!confirm("Remove from the list? It leaves the site when you publish.")) return;
+    DATA.splice(Number(b.dataset.del), 1);
+    EDITING = null;
+    renderList();
+  });
+}
+
+/* ============ form ============ */
 function buildForm(){
   const isCo = MODE === "companies";
   const roles = Object.entries(TAXONOMY[roleGroup()])
-    .map(([k,v]) => `<label><input type="checkbox" name="roles" value="${k}"> ${enc(v.en)}</label>`).join("");
+    .map(([k,v]) => '<label><input type="checkbox" name="roles" value="' + k + '"> ' + enc(v.en) + '</label>')
+    .join("");
 
-  $("#form").innerHTML = `
-    <div class="row2">
-      <div><label>Name (English)</label><input type="text" id="nameEn"></div>
-      <div><label>Name (Georgian)</label><input type="text" id="nameKa"></div>
-    </div>
-
-    <label>ID — used for the file name, lowercase, no spaces</label>
-    <input type="text" id="id" placeholder="auto from the English name">
-
-    <div class="row2">
-      ${isCo ? `
-      <div>
-        <label>Type</label>
-        <select id="entity">
-          ${Object.entries(TAXONOMY.entity).map(([k,v])=>`<option value="${k}">${enc(v.en)}</option>`).join("")}
-        </select>
-      </div>
-      <div>
-        <label>Origin</label>
-        <select id="origin">
-          ${Object.entries(TAXONOMY.origin).map(([k,v])=>`<option value="${k}">${enc(v.en)}</option>`).join("")}
-        </select>
-      </div>` : `
-      <div>
-        <label>Availability</label>
-        <select id="available"><option value="">Not stated</option><option value="1">Open to work</option></select>
-      </div>
-      <div></div>`}
-    </div>
-
-    <div class="row2">
-      <div><label>City</label><input type="text" id="city" placeholder="Tbilisi"></div>
-      ${isCo ? `
-      <div>
-        <label>Team size</label>
-        <select id="size"><option value="">Not stated</option>
-          ${Object.keys(TAXONOMY.size).map(k=>`<option value="${k}">${k}</option>`).join("")}
-        </select>
-      </div>` : `<div><label>Founded / active since</label><input type="number" id="founded" placeholder="2021"></div>`}
-    </div>
-
-    ${isCo ? `<label>Founded</label><input type="number" id="founded" placeholder="2019">` : ``}
-
-    <label>What they do — tick everything that applies</label>
-    <div class="chips">${roles}</div>
-
-    <div class="row2">
-      <div><label>About (English)</label><textarea id="aboutEn"></textarea></div>
-      <div><label>About (Georgian)</label><textarea id="aboutKa"></textarea></div>
-    </div>
-
-    <div class="row2">
-      <div><label>Website</label><input type="url" id="website" placeholder="https://"></div>
-      <div><label>Email</label><input type="email" id="email"></div>
-    </div>
-
-    <label>Other links — leave blank if none</label>
-    <div class="row2">
-      ${LINK_KEYS.filter(k=>k!=="website2").map(k =>
-        `<div><input type="url" id="lnk_${k}" placeholder="${k}"></div>`).join("")}
-    </div>
-
-    <label>Image path — set automatically when you download the image</label>
-    <input type="text" id="imgPath" placeholder="assets/logos/name.jpg">
-
-    <div class="chips" style="margin-top:1rem">
-      <label><input type="checkbox" id="verified"> Verified by GGC</label>
-    </div>`;
+  $("#form").innerHTML =
+    '<div class="row2">' +
+      '<div><label>Name (English)</label><input type="text" id="nameEn"></div>' +
+      '<div><label>Name (Georgian)</label><input type="text" id="nameKa"></div>' +
+    '</div>' +
+    '<label>ID — used for the image file name</label>' +
+    '<input type="text" id="id" placeholder="auto from the English name">' +
+    '<div class="row2">' +
+      (isCo
+        ? '<div><label>Type</label><select id="entity">' +
+            Object.entries(TAXONOMY.entity).map(([k,v]) => '<option value="'+k+'">'+enc(v.en)+'</option>').join("") +
+          '</select></div>' +
+          '<div><label>Origin</label><select id="origin">' +
+            Object.entries(TAXONOMY.origin).map(([k,v]) => '<option value="'+k+'">'+enc(v.en)+'</option>').join("") +
+          '</select></div>'
+        : '<div><label>Availability</label><select id="available">' +
+            '<option value="">Not stated</option><option value="1">Open to work</option>' +
+          '</select></div><div></div>') +
+    '</div>' +
+    '<div class="row2">' +
+      '<div><label>City</label><input type="text" id="city" placeholder="Tbilisi"></div>' +
+      '<div><label>Founded / active since</label><input type="number" id="founded" placeholder="2019"></div>' +
+    '</div>' +
+    (isCo
+      ? '<label>Team size</label><select id="size"><option value="">Not stated</option>' +
+        Object.keys(TAXONOMY.size).map(k => '<option value="'+k+'">'+k+'</option>').join("") + '</select>'
+      : '') +
+    '<label>What they do</label><div class="chips">' + roles + '</div>' +
+    '<div class="row2">' +
+      '<div><label>About (English)</label><textarea id="aboutEn"></textarea></div>' +
+      '<div><label>About (Georgian)</label><textarea id="aboutKa"></textarea></div>' +
+    '</div>' +
+    '<div class="row2">' +
+      '<div><label>Website</label><input type="url" id="website" placeholder="https://"></div>' +
+      '<div><label>Email</label><input type="email" id="email"></div>' +
+    '</div>' +
+    '<label>Other links</label><div class="row2">' +
+      LINK_KEYS.map(k => '<div><input type="url" id="lnk_'+k+'" placeholder="'+k+'"></div>').join("") +
+    '</div>' +
+    '<label>Image path — filled in when you upload an image</label>' +
+    '<input type="text" id="imgPath" placeholder="assets/logos/name.jpg">' +
+    '<div class="chips" style="margin-top:1rem">' +
+      '<label><input type="checkbox" id="verified"> Verified by GGC</label>' +
+    '</div>';
 
   $("#nameEn").addEventListener("input", () => {
-    if (!EDITING && !$("#id").dataset.touched) $("#id").value = slug($("#nameEn").value);
+    if (!$("#id").dataset.touched) $("#id").value = slug($("#nameEn").value);
   });
   $("#id").addEventListener("input", e => e.target.dataset.touched = "1");
 }
 
 function readForm(){
-  const isCo = MODE === "companies";
   const o = {
     id: $("#id").value.trim() || slug($("#nameEn").value),
     name: { en: $("#nameEn").value.trim(), ka: $("#nameKa").value.trim() },
+    logo: $("#imgPath").value.trim(),
     verified: $("#verified").checked,
     roles: Array.from(document.querySelectorAll('input[name=roles]:checked')).map(c => c.value),
     city: $("#city").value.trim(),
@@ -291,38 +444,36 @@ function readForm(){
     email: $("#email").value.trim(),
     links: {}
   };
-  LINK_KEYS.filter(k=>k!=="website2").forEach(k => {
-    const v = $("#lnk_"+k).value.trim();
-    if (v) o.links[k] = v;
-  });
-  const f = $("#founded"); if (f && f.value) o.founded = Number(f.value);
-  if (isCo){
+  LINK_KEYS.forEach(k => { const v = $("#lnk_"+k).value.trim(); if (v) o.links[k] = v; });
+  if ($("#founded").value) o.founded = Number($("#founded").value);
+  if (MODE === "companies"){
     o.entity = $("#entity").value;
     o.origin = $("#origin").value;
     if ($("#size").value) o.size = $("#size").value;
-    o.logo = $("#imgPath").value.trim();
   } else {
     o.available = $("#available").value === "1";
-    o.logo = $("#imgPath").value.trim();
   }
   return o;
 }
 
 function writeForm(o){
-  $("#nameEn").value = (o.name && o.name.en) || "";
-  $("#nameKa").value = (o.name && o.name.ka) || "";
+  const nm = o.name || {}, ab = o.about || {};
+  $("#nameEn").value = nm.en || "";
+  $("#nameKa").value = nm.ka || "";
   $("#id").value = o.id || "";
   $("#id").dataset.touched = "1";
   $("#city").value = o.city || "";
-  $("#aboutEn").value = (o.about && o.about.en) || "";
-  $("#aboutKa").value = (o.about && o.about.ka) || "";
+  $("#founded").value = o.founded || "";
+  $("#aboutEn").value = ab.en || "";
+  $("#aboutKa").value = ab.ka || "";
   $("#website").value = o.website || "";
   $("#email").value = o.email || "";
   $("#verified").checked = !!o.verified;
   $("#imgPath").value = o.logo || "";
-  const f = $("#founded"); if (f) f.value = o.founded || "";
-  document.querySelectorAll('input[name=roles]').forEach(c => c.checked = (o.roles||[]).includes(c.value));
-  LINK_KEYS.filter(k=>k!=="website2").forEach(k => { $("#lnk_"+k).value = (o.links && o.links[k]) || ""; });
+  document.querySelectorAll('input[name=roles]').forEach(c => {
+    c.checked = (o.roles || []).indexOf(c.value) >= 0;
+  });
+  LINK_KEYS.forEach(k => $("#lnk_"+k).value = (o.links && o.links[k]) || "");
   if (MODE === "companies"){
     $("#entity").value = o.entity || "company";
     $("#origin").value = o.origin || "georgian";
@@ -332,71 +483,50 @@ function writeForm(o){
   }
 }
 
-/* ---------------- list + export ---------------- */
-
-function renderList(){
-  $("#list").innerHTML = DATA.length ? DATA.map((o,i) => {
-    const n = (o.name && (o.name.en || o.name.ka)) || o.id;
-    const img = o.logo
-      ? `<img src="${enc(o.logo)}" alt="">`
-      : `<div class="ph">${enc(String(n).slice(0,2).toUpperCase())}</div>`;
-    return `<div class="list-row">
-      ${img}
-      <span>${enc(n)} ${o.verified ? '<span style="color:var(--turquoise)">✓</span>' : ''}</span>
-      <button type="button" data-edit="${i}">Edit</button>
-      <button type="button" data-del="${i}">Delete</button>
-    </div>`;
-  }).join("") : `<p class="hint" style="margin:0">The list is empty.</p>`;
-
-  $("#list").querySelectorAll("[data-edit]").forEach(b => b.addEventListener("click", () => {
-    EDITING = Number(b.dataset.edit);
-    writeForm(DATA[EDITING]);
-    window.scrollTo({ top: $("#form").offsetTop - 60, behavior: "smooth" });
-  }));
-  $("#list").querySelectorAll("[data-del]").forEach(b => b.addEventListener("click", () => {
-    const i = Number(b.dataset.del);
-    if (confirm("Delete this entry from the list?")){ DATA.splice(i,1); EDITING = null; refresh(); }
-  }));
-}
-
-function refresh(){
+$("#btnSave").addEventListener("click", () => {
+  const o = readForm();
+  if (!o.name.en && !o.name.ka){ alert("A name is required."); return; }
+  const at = EDITING !== null ? EDITING : DATA.findIndex(x => x.id === o.id);
+  if (at >= 0) DATA[at] = o; else DATA.push(o);
+  EDITING = null;
+  buildForm();
   renderList();
-  $("#jsonOut").textContent = JSON.stringify(DATA, null, 2);
-  $("#targetPath").textContent = `data/${MODE}.json`;
-}
+  say($("#pubStatus"), DATA.length + " entries ready. Press Publish to put them on the site.", "");
+});
 
-/* ---------------- image cropper ---------------- */
+$("#btnClear").addEventListener("click", () => { EDITING = null; buildForm(); });
 
+/* ============ cropper ============ */
 const cv = $("#cropCanvas"), ctx = cv.getContext("2d");
 let img = null, scale = 1, ox = 0, oy = 0, base = 1, drag = null;
 
 function drawCrop(){
   const P = cv.width;
   ctx.clearRect(0,0,P,P);
-  ctx.fillStyle = $("#outFmt").value === "image/jpeg" ? "#ffffff" : "rgba(255,255,255,0)";
-  ctx.fillRect(0,0,P,P);
-  if (!img) {
-    ctx.fillStyle = "#9aa6b5"; ctx.font = "14px sans-serif"; ctx.textAlign = "center";
+  if ($("#outFmt").value === "image/jpeg"){ ctx.fillStyle = "#fff"; ctx.fillRect(0,0,P,P); }
+  if (!img){
+    ctx.fillStyle = "#8fa0b4"; ctx.font = "14px sans-serif"; ctx.textAlign = "center";
     ctx.fillText("no image", P/2, P/2);
     return;
   }
-  const w = img.width * base * scale, h = img.height * base * scale;
-  ctx.drawImage(img, ox, oy, w, h);
-}
-
-function resetCrop(){
-  const P = cv.width;
-  base = P / Math.min(img.width, img.height);
-  scale = 1; $("#zoom").value = 1;
-  ox = (P - img.width * base) / 2;
-  oy = (P - img.height * base) / 2;
-  drawCrop();
+  ctx.drawImage(img, ox, oy, img.width*base*scale, img.height*base*scale);
 }
 
 $("#fileImg").addEventListener("change", e => {
-  const f = e.target.files[0]; if (!f) return;
+  const f = e.target.files[0];
+  if (!f) return;
   const im = new Image();
-  im.onload = () => { img = im; resetCrop(); $("#imgState").textContent = `Source: ${im.width}×${im.height}, ${(f.size/1024).toFixed(0)} KB`; };
+  im.onload = () => {
+    img = im;
+    const P = cv.width;
+    base = P / Math.min(im.width, im.height);
+    scale = 1;
+    $("#zoom").value = 1;
+    ox = (P - im.width*base)/2;
+    oy = (P - im.height*base)/2;
+    drawCrop();
+    say($("#imgStatus"), "Source " + im.width + "×" + im.height + ", " + (f.size/1024).toFixed(0) + " KB", "");
+  };
   im.src = URL.createObjectURL(f);
 });
 
@@ -404,12 +534,10 @@ $("#zoom").addEventListener("input", e => {
   if (!img) return;
   const P = cv.width, old = scale;
   scale = Number(e.target.value);
-  const cx = P/2, cy = P/2;
-  ox = cx - (cx - ox) * (scale/old);
-  oy = cy - (cy - oy) * (scale/old);
+  ox = P/2 - (P/2 - ox) * (scale/old);
+  oy = P/2 - (P/2 - oy) * (scale/old);
   drawCrop();
 });
-
 cv.addEventListener("pointerdown", e => {
   if (!img) return;
   drag = { x: e.offsetX - ox, y: e.offsetY - oy };
@@ -419,91 +547,104 @@ cv.addEventListener("pointermove", e => {
   if (!drag) return;
   ox = e.offsetX - drag.x; oy = e.offsetY - drag.y; drawCrop();
 });
-cv.addEventListener("pointerup", () => drag = null);
-cv.addEventListener("pointercancel", () => drag = null);
-
+cv.addEventListener("pointerup", () => { drag = null; });
+cv.addEventListener("pointercancel", () => { drag = null; });
 $("#shape").addEventListener("change", e => cv.classList.toggle("round", e.target.value === "round"));
 $("#outFmt").addEventListener("change", drawCrop);
 
-$("#btnImg").addEventListener("click", () => {
-  if (!img){ alert("Pick an image first."); return; }
-  const E = Number($("#outSize").value), P = cv.width, k = E / P;
-  const out = document.createElement("canvas");
-  out.width = out.height = E;
-  const c = out.getContext("2d");
-  c.imageSmoothingQuality = "high";
-  const fmt = $("#outFmt").value;
-  if (fmt === "image/jpeg"){ c.fillStyle = "#fff"; c.fillRect(0,0,E,E); }
-  c.drawImage(img, ox*k, oy*k, img.width*base*scale*k, img.height*base*scale*k);
-
-  const ext = fmt === "image/jpeg" ? "jpg" : (fmt === "image/webp" ? "webp" : "png");
-  const name = ($("#id").value.trim() || slug($("#nameEn").value)) + "." + ext;
-
-  out.toBlob(b => {
-    const url = URL.createObjectURL(b);
-    const a = document.createElement("a");
-    a.href = url; a.download = name; a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 4000);
-    $("#imgPath").value = "assets/logos/" + name;
-    $("#imgState").textContent = `Saved ${name} — ${E}×${E}, ${(b.size/1024).toFixed(0)} KB. Upload it to assets/logos/`;
-  }, fmt, 0.82);
-});
-
-/* ---------------- wiring ---------------- */
-
-document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {
-  MODE = b.dataset.mode;
-  document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
-  DATA = []; EDITING = null;
-  $("#shape").value = MODE === "companies" ? "square" : "round";
-  cv.classList.toggle("round", MODE === "developers");
-  $("#loadState").textContent = "Nothing loaded yet.";
-  buildForm(); refresh();
-}));
-
-$("#btnFetch").addEventListener("click", () => {
-  fetch(`/data/${MODE}.json`, { cache: "no-store" })
-    .then(r => r.json())
-    .then(j => { DATA = Array.isArray(j) ? j : []; $("#loadState").textContent = `Loaded ${DATA.length} entries from the site.`; refresh(); })
-    .catch(() => $("#loadState").textContent = "Could not load. Open this page from the live site, or load a .json file.");
-});
-
-$("#fileJson").addEventListener("change", e => {
-  const f = e.target.files[0]; if (!f) return;
-  f.text().then(txt => {
-    try { DATA = JSON.parse(txt); $("#loadState").textContent = `Loaded ${DATA.length} entries from the file.`; refresh(); }
-    catch(err){ alert("That file is not valid JSON."); }
+function renderOut(){
+  return new Promise((res, rej) => {
+    if (!img) { rej(new Error("Pick an image first.")); return; }
+    const E = Number($("#outSize").value), P = cv.width, k = E/P;
+    const out = document.createElement("canvas");
+    out.width = out.height = E;
+    const c = out.getContext("2d");
+    c.imageSmoothingQuality = "high";
+    const fmt = $("#outFmt").value;
+    if (fmt === "image/jpeg"){ c.fillStyle = "#fff"; c.fillRect(0,0,E,E); }
+    c.drawImage(img, ox*k, oy*k, img.width*base*scale*k, img.height*base*scale*k);
+    const ext = fmt === "image/jpeg" ? "jpg" : (fmt === "image/webp" ? "webp" : "png");
+    const name = ($("#id").value.trim() || slug($("#nameEn").value)) + "." + ext;
+    out.toBlob(b => {
+      if (b) res({ blob: b, name: name, size: E });
+      else rej(new Error("Could not build the image."));
+    }, fmt, 0.82);
   });
+}
+
+$("#btnUploadImg").addEventListener("click", async () => {
+  if (!TOKEN){ say($("#imgStatus"), "Sign in first, or use Download instead.", "bad"); return; }
+  try {
+    say($("#imgStatus"), "Uploading…", "busy");
+    const r = await renderOut();
+    const path = "assets/logos/" + r.name;
+    await ghPutSafe(path, await b64FromBlob(r.blob), "admin: image " + r.name);
+    $("#imgPath").value = path;
+    say($("#imgStatus"),
+      "Uploaded " + r.name + " — " + r.size + "×" + r.size + ", " + (r.blob.size/1024).toFixed(0) + " KB.", "ok");
+  } catch (e) {
+    say($("#imgStatus"), e.message, "bad");
+  }
 });
 
-$("#btnEmpty").addEventListener("click", () => { DATA = []; EDITING = null; $("#loadState").textContent = "Started empty."; refresh(); });
-
-$("#btnSave").addEventListener("click", () => {
-  const o = readForm();
-  if (!o.name.en && !o.name.ka){ alert("A name is required."); return; }
-  const at = EDITING !== null ? EDITING : DATA.findIndex(x => x.id === o.id);
-  if (at >= 0) DATA[at] = o; else DATA.push(o);
-  EDITING = null;
-  buildForm(); refresh();
-  $("#loadState").textContent = `${DATA.length} entries in the list. Now download the .json below.`;
+$("#btnDlImg").addEventListener("click", async () => {
+  try {
+    const r = await renderOut();
+    const url = URL.createObjectURL(r.blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = r.name; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    $("#imgPath").value = "assets/logos/" + r.name;
+    say($("#imgStatus"), "Saved " + r.name + ". Upload it to assets/logos/", "ok");
+  } catch (e) {
+    say($("#imgStatus"), e.message, "bad");
+  }
 });
 
-$("#btnClear").addEventListener("click", () => { EDITING = null; buildForm(); });
+/* ============ publish ============ */
+$("#btnPublish").addEventListener("click", async () => {
+  if (!TOKEN){ say($("#pubStatus"), "Sign in first, or use Download instead.", "bad"); return; }
+  try {
+    say($("#pubStatus"), "Publishing…", "busy");
+    const json = JSON.stringify(DATA, null, 2) + "\n";
+    await ghPutSafe("data/" + MODE + ".json", b64FromText(json),
+      "admin: update " + MODE + " (" + DATA.length + " entries)");
+    say($("#pubStatus"), "Published " + DATA.length + " entries. Live in about a minute.", "ok");
+  } catch (e) {
+    say($("#pubStatus"), e.message, "bad");
+  }
+});
 
 $("#btnDownload").addEventListener("click", () => {
-  const b = new Blob([JSON.stringify(DATA, null, 2)], { type: "application/json" });
+  const b = new Blob([JSON.stringify(DATA, null, 2) + "\n"], { type: "application/json" });
   const url = URL.createObjectURL(b);
   const a = document.createElement("a");
-  a.href = url; a.download = `${MODE}.json`; a.click();
+  a.href = url; a.download = MODE + ".json"; a.click();
   setTimeout(() => URL.revokeObjectURL(url), 4000);
 });
 
-$("#btnCopy").addEventListener("click", async () => {
-  try { await navigator.clipboard.writeText(JSON.stringify(DATA, null, 2)); $("#btnCopy").textContent = "Copied"; setTimeout(()=>$("#btnCopy").textContent="Copy to clipboard",1500); }
-  catch(e){ alert("Copy failed. Select the text below instead."); }
-});
+/* ============ tabs + boot ============ */
+document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {
+  MODE = b.dataset.mode;
+  document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  $("#targetPath").textContent = "data/" + MODE + ".json";
+  $("#shape").value = MODE === "companies" ? "square" : "round";
+  cv.classList.toggle("round", MODE === "developers");
+  buildForm();
+  loadList();
+}));
 
-buildForm(); refresh(); drawCrop();
+$("#btnLoad").addEventListener("click", loadList);
+
+buildForm();
+drawCrop();
+if (TOKEN){
+  ghUser().then(u => { setSignedIn(u); loadList(); })
+          .catch(() => { TOKEN = null; setSignedOut(); loadList(); });
+} else {
+  setSignedOut();
+  loadList();
+}
 </script>
 </body>
 </html>
