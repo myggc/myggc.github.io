@@ -1,0 +1,282 @@
+/* Georgian Game Community — translations.
+   To change any wording on the site, edit the text here, not in the HTML. */
+
+const I18N = {
+
+  ka: {
+    "nav.home": "მთავარი",
+    "nav.about": "ჩვენ შესახებ",
+    "nav.companies": "კომპანიები და გუნდები",
+    "nav.developers": "დეველოპერები",
+    "nav.contact": "კონტაქტი",
+    "nav.menu": "მენიუ",
+
+    "brand": "ქართული თამაშების საზოგადოება",
+
+    "home.w1": "ქართული",
+    "home.w2": "თამაშების",
+    "home.w3": "საზოგადოება",
+    "home.sub": "საზოგადოება ყველასთვის, ვინც საქართველოში თამაშებს ქმნის.",
+    "home.cta.companies": "ნახე კომპანიები",
+    "home.cta.join": "შემოგვიერთდი",
+
+    "count.companies": "კომპანია",
+    "count.teams": "გუნდი",
+    "count.devs": "დეველოპერი",
+
+    "home.do.title": "რას ვაკეთებთ",
+    "home.do.1.h": "კურსები",
+    "home.do.1.p": "თამაშების შექმნის კურსები, რომლებსაც GITA-სთან და Startup Bureau-სთან ერთად ვატარებთ.",
+    "home.do.2.h": "გეიმ ჯემები",
+    "home.do.2.p": "შაბათ-კვირები, სადაც გუნდები იკრიბებიან, პროტოტიპები იქმნება და ხალხი ერთმანეთს ხვდება.",
+    "home.do.3.h": "მხარდაჭერა",
+    "home.do.3.p": "მენტორობა ახალი სტუდიებისთვის — პირველი პროტოტიპიდან პირველ გამოშვებამდე.",
+
+    "home.map.title": "ქართული გეიმდევი ერთ ადგილას",
+    "home.map.p": "ვაგროვებთ და ვამოწმებთ ინფორმაციას ყველა სტუდიაზე, გუნდსა და დამოუკიდებელ დეველოპერზე, რომელიც საქართველოში მუშაობს. კატალოგი ღიაა და უფასო.",
+
+    "about.title": "ჩვენ შესახებ",
+    "about.intro": "GGC არის ქართული თამაშების საზოგადოება — გაერთიანება, რომელიც საქართველოში თამაშების ინდუსტრიას ეხმარება ზრდაში.",
+    "about.who.h": "ვინ ვართ",
+    "about.who.p1": "GGC დაარსდა იმისთვის, რომ საქართველოში თამაშების შემქმნელებს ჰქონოდათ საერთო სივრცე — ადგილი, სადაც სტუდიები, გუნდები და დამოუკიდებელი დეველოპერები ერთმანეთს პოულობენ, ცოდნას უზიარებენ და ერთად იზრდებიან.",
+    "about.who.p2": "ვმუშაობთ საგანმანათლებლო პროგრამებზე, ღონისძიებებზე და ინდუსტრიის რუკაზე, რომელიც აჩვენებს, ვინ რას აკეთებს ქვეყანაში.",
+
+    "about.did.h": "რა გავაკეთეთ",
+    "about.did.1.h": "საგანმანათლებლო პროგრამები",
+    "about.did.1.p": "თამაშების შექმნის კურსები GITA-სთან და Startup Bureau-სთან ერთად, დამწყებთათვის და პრაქტიკოსებისთვის.",
+    "about.did.2.h": "გეიმ ჯემები და ღონისძიებები",
+    "about.did.2.p": "რეგულარული ჯემები და შეხვედრები, სადაც ახალი გუნდები იქმნება და პროექტები იწყება.",
+    "about.did.3.h": "მენტორობა სტუდიებისთვის",
+    "about.did.3.p": "კონსულტაცია ახალი სტუდიებისთვის — გუნდის აწყობიდან გამოცემამდე.",
+    "about.did.4.h": "ინდუსტრიის რუკა",
+    "about.did.4.p": "ქართული სტუდიების, გუნდებისა და დეველოპერების საჯარო კატალოგი.",
+    "about.did.5.h": "საერთაშორისო კავშირები",
+    "about.did.5.p": "ქართული სტუდიების წარმოჩენა საერთაშორისო ინდუსტრიის ღონისძიებებზე.",
+    "about.did.6.h": "საზოგადოება",
+    "about.did.6.p": "აქტიური ონლაინ საზოგადოება, სადაც დეველოპერები ყოველდღიურად ერთმანეთს ეხმარებიან.",
+
+    "about.team.h": "გუნდი",
+    "role.cofounder": "თანადამფუძნებელი",
+    "role.pm": "პროექტის მენეჯერი",
+    "role.content": "კონტენტი და ანალიტიკა",
+
+    "co.title": "კომპანიები და გუნდები",
+    "co.intro": "ქართული და საქართველოში მოქმედი თამაშების სტუდიები, გამომცემლები და გუნდები. კატალოგს ვამოწმებთ და ვაახლებთ.",
+    "dev.title": "დამოუკიდებელი დეველოპერები",
+    "dev.intro": "დამოუკიდებელი დეველოპერები და სპეციალისტები, რომლებიც საქართველოში თამაშებზე მუშაობენ.",
+
+    "f.search": "ძებნა სახელით ან საქმიანობით",
+    "f.type": "ყველა ტიპი",
+    "f.entity": "კომპანია და გუნდი",
+    "f.entity.company": "რეგისტრირებული კომპანია",
+    "f.entity.team": "არარეგისტრირებული გუნდი",
+    "f.origin": "ყველა წარმომავლობა",
+    "f.origin.georgian": "ქართული",
+    "f.origin.international": "საერთაშორისო",
+    "f.origin.branch": "საერთაშორისო, ოფისით საქართველოში",
+    "f.city": "ყველა ქალაქი",
+    "f.size": "ნებისმიერი ზომა",
+    "f.all": "ყველა",
+    "f.verified": "მხოლოდ დადასტურებული",
+    "f.role": "ყველა როლი",
+    "f.available": "ღიაა პროექტებისთვის",
+    "f.reset": "ფილტრების გასუფთავება",
+    "f.showing": "ნაჩვენებია",
+    "f.of": "სულ",
+    "f.none": "ამ ფილტრით ვერაფერი მოიძებნა. სცადე ფილტრების გასუფთავება.",
+    "f.loading": "იტვირთება…",
+    "f.error": "მონაცემები ვერ ჩაიტვირთა. გვერდი გადატვირთე.",
+
+    "t.verified": "დადასტურებული",
+    "t.since": "დაარსდა",
+    "t.people": "ადამიანი",
+    "t.available": "ღიაა პროექტებისთვის",
+    "t.website": "ვებგვერდი",
+    "t.email": "ელფოსტა",
+
+    "cta.add.h": "გინდა ჩვენს კატალოგში მოხვედრა?",
+    "cta.add.p": "შეავსე მოკლე ფორმა და ჩვენი გუნდი დაგიკავშირდება.",
+    "cta.add.btn": "შეავსე ფორმა",
+
+    "contact.title": "კონტაქტი",
+    "contact.intro": "დაგვიკავშირდი ნებისმიერ საკითხზე — თანამშრომლობა, ღონისძიებები ან კატალოგში დამატება.",
+    "contact.address.h": "მისამართი",
+    "contact.email.h": "ელფოსტა",
+    "contact.phone.h": "ტელეფონი",
+    "contact.social.h": "სოციალური ქსელები",
+    "contact.join.h": "შემოგვიერთდი Telegram-ზე",
+    "contact.join.p": "ჩვენი მთავარი საზოგადოება Telegram-შია. კითხვები, ვაკანსიები, ჯემები და ყოველდღიური საუბარი.",
+
+    "tg.title": "GGC Telegram",
+    "tg.p": "შემოგვიერთდი ქართული გეიმდევ საზოგადოებას.",
+    "tg.join": "შემოერთება",
+    "tg.later": "მოგვიანებით",
+    "tg.open": "Telegram",
+
+    "foot.rights": "ქართული თამაშების საზოგადოება",
+    "404.title": "გვერდი ვერ მოიძებნა",
+    "404.p": "ასეთი გვერდი არ არსებობს ან გადატანილია.",
+    "404.btn": "მთავარ გვერდზე"
+  },
+
+  en: {
+    "nav.home": "Home",
+    "nav.about": "About",
+    "nav.companies": "Companies & teams",
+    "nav.developers": "Developers",
+    "nav.contact": "Contact",
+    "nav.menu": "Menu",
+
+    "brand": "Georgian Game Community",
+
+    "home.w1": "Georgian",
+    "home.w2": "Game",
+    "home.w3": "Community",
+    "home.sub": "A community for everyone making games in Georgia.",
+    "home.cta.companies": "Browse companies",
+    "home.cta.join": "Join us",
+
+    "count.companies": "companies",
+    "count.teams": "teams",
+    "count.devs": "developers",
+
+    "home.do.title": "What we do",
+    "home.do.1.h": "Courses",
+    "home.do.1.p": "Game development courses run together with GITA and Startup Bureau.",
+    "home.do.2.h": "Game jams",
+    "home.do.2.p": "Weekends where teams form, prototypes get built, and people meet the rest of the scene.",
+    "home.do.3.h": "Studio support",
+    "home.do.3.p": "Mentorship for new studios, from first prototype to first release.",
+
+    "home.map.title": "The Georgian game scene in one place",
+    "home.map.p": "We collect and verify information on every studio, team, and independent developer working in Georgia. The directory is open and free to use.",
+
+    "about.title": "About us",
+    "about.intro": "GGC is the Georgian Game Community, an organisation helping the game industry in Georgia grow.",
+    "about.who.h": "Who we are",
+    "about.who.p1": "GGC was founded to give the people making games in Georgia a shared place: somewhere studios, teams, and independent developers can find each other, share what they know, and grow together.",
+    "about.who.p2": "We work on education, events, and a public map of the industry that shows who is doing what in the country.",
+
+    "about.did.h": "What we have done",
+    "about.did.1.h": "Education programmes",
+    "about.did.1.p": "Game development courses with GITA and Startup Bureau, for beginners and working developers.",
+    "about.did.2.h": "Game jams and events",
+    "about.did.2.p": "Regular jams and meetups where new teams form and projects get started.",
+    "about.did.3.h": "Studio mentorship",
+    "about.did.3.p": "Guidance for new studios, from assembling a team to shipping a game.",
+    "about.did.4.h": "Industry map",
+    "about.did.4.p": "A public directory of Georgian studios, teams, and developers.",
+    "about.did.5.h": "International links",
+    "about.did.5.p": "Representing Georgian studios at international industry events.",
+    "about.did.6.h": "The community itself",
+    "about.did.6.p": "An active online community where developers help each other every day.",
+
+    "about.team.h": "Team",
+    "role.cofounder": "Co-founder",
+    "role.pm": "Project manager",
+    "role.content": "Content & analytics",
+
+    "co.title": "Companies & teams",
+    "co.intro": "Game studios, publishers, and teams based in or working from Georgia. We check and keep the directory up to date.",
+    "dev.title": "Independent developers",
+    "dev.intro": "Solo developers and specialists working on games in Georgia.",
+
+    "f.search": "Search by name or what they do",
+    "f.type": "All types",
+    "f.entity": "Companies & teams",
+    "f.entity.company": "Registered company",
+    "f.entity.team": "Unregistered team",
+    "f.origin": "All origins",
+    "f.origin.georgian": "Georgian",
+    "f.origin.international": "International",
+    "f.origin.branch": "International with a Georgian office",
+    "f.city": "All cities",
+    "f.size": "Any size",
+    "f.all": "All",
+    "f.verified": "Verified only",
+    "f.role": "All roles",
+    "f.available": "Open to work",
+    "f.reset": "Clear filters",
+    "f.showing": "Showing",
+    "f.of": "of",
+    "f.none": "Nothing matches these filters. Try clearing them.",
+    "f.loading": "Loading…",
+    "f.error": "Could not load the data. Reload the page.",
+
+    "t.verified": "Verified",
+    "t.since": "Founded",
+    "t.people": "people",
+    "t.available": "Open to work",
+    "t.website": "Website",
+    "t.email": "Email",
+
+    "cta.add.h": "Want your studio in the directory?",
+    "cta.add.p": "Fill in the short form and our team will get in touch.",
+    "cta.add.btn": "Open the form",
+
+    "contact.title": "Contact",
+    "contact.intro": "Get in touch about anything: partnerships, events, or getting listed in the directory.",
+    "contact.address.h": "Address",
+    "contact.email.h": "Email",
+    "contact.phone.h": "Phone",
+    "contact.social.h": "Social",
+    "contact.join.h": "Join us on Telegram",
+    "contact.join.p": "Our main community lives on Telegram. Questions, job posts, jams, and everyday conversation.",
+
+    "tg.title": "GGC on Telegram",
+    "tg.p": "Join the Georgian game development community.",
+    "tg.join": "Join",
+    "tg.later": "Later",
+    "tg.open": "Telegram",
+
+    "foot.rights": "Georgian Game Community",
+    "404.title": "Page not found",
+    "404.p": "This page does not exist, or it has moved.",
+    "404.btn": "Go to the home page"
+  }
+};
+
+/* Labels used by the directory cards and filters.
+   Add a new option here and it appears everywhere automatically. */
+const TAXONOMY = {
+  role: {
+    developer:   { ka: "დეველოპერი",        en: "Developer" },
+    publisher:   { ka: "გამომცემელი",       en: "Publisher" },
+    outsourcing: { ka: "აუთსორსინგი",       en: "Outsourcing" },
+    codev:       { ka: "კო-დეველოპმენტი",   en: "Co-development" },
+    porting:     { ka: "პორტირება",         en: "Porting" },
+    art:         { ka: "არტი",              en: "Art" },
+    audio:       { ka: "ხმა და მუსიკა",     en: "Audio" },
+    qa:          { ka: "QA",                en: "QA" },
+    tools:       { ka: "ხელსაწყოები",       en: "Tools & tech" },
+    education:   { ka: "განათლება",         en: "Education" },
+    localization:{ ka: "ლოკალიზაცია",       en: "Localization" },
+    marketing:   { ka: "მარკეტინგი",        en: "Marketing" }
+  },
+  discipline: {
+    programmer: { ka: "პროგრამისტი",     en: "Programmer" },
+    artist:     { ka: "მხატვარი",        en: "Artist" },
+    designer:   { ka: "გეიმ დიზაინერი",  en: "Game designer" },
+    audio:      { ka: "ხმა და მუსიკა",   en: "Audio" },
+    producer:   { ka: "პროდიუსერი",      en: "Producer" },
+    writer:     { ka: "სცენარისტი",      en: "Writer" },
+    qa:         { ka: "QA",              en: "QA" },
+    marketing:  { ka: "მარკეტინგი",      en: "Marketing" }
+  },
+  entity: {
+    company: { ka: "რეგისტრირებული კომპანია", en: "Registered company" },
+    team:    { ka: "არარეგისტრირებული გუნდი", en: "Unregistered team" }
+  },
+  origin: {
+    georgian:      { ka: "ქართული",                          en: "Georgian" },
+    international: { ka: "საერთაშორისო",                     en: "International" },
+    branch:        { ka: "საერთაშორისო, ოფისით საქართველოში", en: "International, Georgian office" }
+  },
+  size: {
+    "1-5":   { ka: "1–5",   en: "1–5" },
+    "6-10":  { ka: "6–10",  en: "6–10" },
+    "11-25": { ka: "11–25", en: "11–25" },
+    "26-50": { ka: "26–50", en: "26–50" },
+    "50+":   { ka: "50+",   en: "50+" }
+  }
+};
