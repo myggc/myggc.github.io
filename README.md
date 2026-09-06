@@ -59,9 +59,12 @@ What it does:
   from a prefilled issue opened by someone without write access, so the queue
   recognises submissions by their payload marker and title too, not only by the
   `submission` label.
-- **Approve / reject** — changes collect in a working copy; **GitHub-ზე ატვირთვა**
-  writes `companies.json` and `games.json` in a single commit, then comments on
-  and closes each issue it handled.
+- **Approve / reject** — approving stages the change; **GitHub-ზე ატვირთვა** then
+  writes `companies.json` and `games.json` in one commit and closes the issues it
+  applied. Rejecting changes no data, so it comments and closes straight away.
+  The panel publishes the whole catalogue as it was when the tab opened, so it
+  records that version on load and refuses to publish over anything committed
+  since — a tab left open overnight cannot quietly revert a refresh run.
 - **Lists** — companies, teams, solo developers and games, searchable, sortable
   (games by year by default), each row showing status, game count and validation
   date.

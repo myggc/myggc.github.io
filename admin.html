@@ -363,6 +363,9 @@ class Component extends DCLogic {
       GH.me().then(u => {
         this.setState({ authed: true, user: u.login });
         this.loadQueue();
+        // Pin the version this session started from, so publishing cannot
+        // quietly revert a commit made after this tab was opened.
+        GH.markBaseline();
       }).catch(() => GH.signOut());
     }
   }
@@ -388,6 +391,7 @@ class Component extends DCLogic {
     GH.signIn(t).then(u => {
       this.setState({ authed: true, browse: false, user: u.login, tokenInput: "", signing: false });
       this.loadQueue();
+      GH.markBaseline();
     }).catch(e => this.setState({ authErr: e.message, signing: false }));
   }
 
@@ -1074,7 +1078,16 @@ class Component extends DCLogic {
       publishBg: s.dirty ? "#1d96d3" : "#2a3138",
       publish: () => this.publish(),
       exportJson: () => this.exportJson(),
-      reload: () => { this.loadQueue(); D.load(true).then(() => this.setState({ ready: true })); },
+      // Pulling fresh data would throw away anything staged, so only do it when
+      // nothing is waiting to be published.
+      reload: () => {
+        this.loadQueue();
+        if (s.dirty) return this.say("რიგი განახლდა — მონაცემები არა, რადგან " + s.dirty + " ცვლილება ატვირთვას ელოდება", "#f4cd77");
+        D.load(true).then(() => {
+          this.setState({ ready: true, companies: U.clone(D.companies()), games: U.clone(D.games()) });
+          if (s.authed) GH.markBaseline();
+        });
+      },
 
       nav: NAV.map(([id, label]) => {
         const badge = id === "queue" ? pending

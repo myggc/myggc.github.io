@@ -204,21 +204,52 @@
     return JSON.stringify(doc, null, 2) + "\n";
   }
 
+  /* The panel publishes whole arrays it loaded when the tab opened, so a tab
+     left open overwrites anything committed since — a refresh run, or another
+     admin. Remember what the data looked like at load and refuse to publish
+     over a newer version rather than silently reverting it. */
+  var baseline = null;
+
+  function fileSha(path) {
+    return req(R + "/contents/" + path + "?ref=" + C.branch)
+      .then(function (f) { return f.sha; })
+      .catch(function () { return null; });
+  }
+
+  function markBaseline() {
+    return Promise.all([fileSha(C.paths.companies), fileSha(C.paths.games)])
+      .then(function (shas) {
+        baseline = { companies: shas[0], games: shas[1] };
+        return baseline;
+      });
+  }
+
   /* Writes both catalogue files in a single commit. Pass the full item arrays. */
   function saveData(companies, games, message) {
-    var raw = window.GGC.data.raw();
-    var cDoc = Object.assign({}, raw.companies || { version: 1 }, { items: companies });
-    var gDoc = Object.assign({}, raw.games || { version: 1 }, { items: games });
-    return commit([
-      { path: C.paths.companies, content: stringify(cDoc) },
-      { path: C.paths.games, content: stringify(gDoc) }
-    ], message);
+    return Promise.all([fileSha(C.paths.companies), fileSha(C.paths.games)])
+      .then(function (shas) {
+        if (baseline && (shas[0] !== baseline.companies || shas[1] !== baseline.games)) {
+          throw new Error(
+            "მონაცემები შეიცვალა მას შემდეგ, რაც ეს გვერდი გაიხსნა. " +
+            "გადატვირთე გვერდი, თორემ სხვისი ცვლილება წაიშლება."
+          );
+        }
+        var raw = window.GGC.data.raw();
+        var cDoc = Object.assign({}, raw.companies || { version: 1 }, { items: companies });
+        var gDoc = Object.assign({}, raw.games || { version: 1 }, { items: games });
+        return commit([
+          { path: C.paths.companies, content: stringify(cDoc) },
+          { path: C.paths.games, content: stringify(gDoc) }
+        ], message);
+      })
+      .then(function (r) { return markBaseline().then(function () { return r; }); });
   }
 
   window.GGCGitHub = {
     hasToken: hasToken, setToken: setToken, signIn: signIn, me: me,
     listSubmissions: listSubmissions, comment: comment, closeIssue: closeIssue,
     getFile: getFile, getText: getText, commit: commit, saveData: saveData, parseIssue: parseIssue,
+    markBaseline: markBaseline,
     putImage: putImage,
     signOut: function () { setToken(""); }
   };
