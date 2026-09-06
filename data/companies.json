@@ -10,7 +10,7 @@
       "legal": "შპს მედმოა",
       "regId": "404123456",
       "city": "თბილისი",
-      "founded": 2019,
+      "founded": "2023-06-30",
       "size": "6-10",
       "roles": [
         "developer",
@@ -22,8 +22,8 @@
       "email": "info@madmoa.com",
       "phone": "",
       "contact": "",
-      "about": "",
-      "aboutEn": "",
+      "about": "თამაშების დეველოპერული და აუთსორს კომპანია.",
+      "aboutEn": "Game Development and Outsourcing company",
       "logo": "images/logos/madmoa.jpg",
       "links": {
         "facebook": "https://www.facebook.com/share/1KbdgtUYMv/",
