@@ -67,12 +67,12 @@
   <sc-if value="{{ isStep0 }}" hint-placeholder-val="{{ true }}">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:14px;animation:ggcPop .4s ease both">
       <button type="button" onClick="{{ pickNew }}" style="text-align:left;cursor:pointer;background:#fff;border:1px solid #dfe3e4;border-top:4px solid #1d96d3;border-radius:16px;padding:24px;font-family:inherit" style-hover="border-color:#1d96d3">
-        <div style="font-size:19px;font-weight:600;color:#16181b">ახალი სტუდიის დამატება</div>
-        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">კომპანია, გუნდი ან სოლო დეველოპერი, რომელიც კატალოგში ჯერ არ არის.</p>
+        <div style="font-size:19px;font-weight:600;color:#16181b">დაამატე სტუდია, გუნდი ან სოლო დეველოპერი</div>
+        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">რეგისტრირებული კომპანია, არარეგისტრირებული გუნდი ან ერთი ადამიანი — რომელიც კატალოგში ჯერ არ არის.</p>
       </button>
       <button type="button" onClick="{{ pickGame }}" style="text-align:left;cursor:pointer;background:#fff;border:1px solid #dfe3e4;border-top:4px solid #ee2626;border-radius:16px;padding:24px;font-family:inherit" style-hover="border-color:#ee2626">
         <div style="font-size:19px;font-weight:600;color:#16181b">თამაშის დამატება</div>
-        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">იპოვე შენი სტუდია და მიამაგრე თამაში. მაღაზიის ლინკიდან ყველაფერი ავტომატურად ივსება.</p>
+        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">იპოვე შენი ჩანაწერი — სტუდია, გუნდი თუ საკუთარი სახელი — და მიამაგრე თამაში. მაღაზიის ლინკიდან ყველაფერი ავტომატურად ივსება.</p>
       </button>
       <button type="button" onClick="{{ pickEdit }}" style="text-align:left;cursor:pointer;background:#fff;border:1px solid #dfe3e4;border-top:4px solid #fdb813;border-radius:16px;padding:24px;font-family:inherit" style-hover="border-color:#fdb813">
         <div style="font-size:19px;font-weight:600;color:#16181b">არსებული მონაცემის შესწორება</div>
@@ -85,7 +85,7 @@
     <div style="background:#fff;border:1px solid #dfe3e4;border-radius:18px;padding:clamp(18px,3vw,28px);animation:ggcPop .4s ease both">
       <div style="display:{{ prefillShow }};background:#eef6fb;border:1px solid #cfe3ef;border-radius:16px;padding:18px;margin-bottom:20px">
         <div style="font-size:17px;font-weight:600;color:#14536f">ყველაზე მარტივი გზა — მაღაზიის გვერდი</div>
-        <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#2c5f7d">ჩასვი შენი სტუდიის გვერდი Steam-ზე (სასურველია), itch.io-ზე, App Store-ზე ან Google Play-ზე. სახელს, ვებსაიტს, სოციალურ ქსელებს და ყველა თამაშს ავტომატურად შევავსებთ — შენ მხოლოდ დანარჩენს დაამატებ.</p>
+        <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#2c5f7d">ჩასვი შენი (ან შენი სტუდიის) გვერდი Steam-ზე (სასურველია), itch.io-ზე, App Store-ზე ან Google Play-ზე. სახელს, ვებსაიტს, სოციალურ ქსელებს და ყველა თამაშს ავტომატურად შევავსებთ — შენ მხოლოდ დანარჩენს დაამატებ.</p>
         <input type="url" placeholder="https://store.steampowered.com/developer/…" value="{{ studioUrl }}" onInput="{{ onStudioUrl }}" style="width:100%;margin-top:14px;border:1px solid #cfe3ef;border-radius:11px;padding:13px 15px;font-family:inherit;font-size:15px;background:#fff;color:#16181b">
         <button type="button" onClick="{{ importStudio }}" style="margin-top:12px;border:0;cursor:pointer;background:#146590;color:#fff;border-radius:11px;padding:13px 20px;font-family:inherit;font-size:15px;font-weight:600">{{ importLabel }}</button>
         <div style="display:{{ importBusyShow }};align-items:center;gap:12px;margin-top:12px;background:#fff;border:1px solid #cfe3ef;border-radius:11px;padding:13px">
@@ -97,7 +97,7 @@
 
       <div style="font-size:20px;font-weight:600">{{ step1Title }}</div>
       <p style="margin:8px 0 18px;font-size:15px;line-height:1.6;color:#4d5258;max-width:62ch">{{ step1Hint }}</p>
-      <input type="search" placeholder="ოფიციალური სახელი ან ბრენდი — მაგ. MadMoa LLC" value="{{ lookup }}" onInput="{{ onLookup }}" style="width:100%;border:1px solid #dfe3e4;border-radius:11px;padding:14px 16px;font-family:inherit;font-size:16px;background:#f7f9f9;color:#16181b">
+      <input type="search" placeholder="სახელი — მაგ. GGC Games LLC, GGC Games ან გიორგი ჩხაიძე" value="{{ lookup }}" onInput="{{ onLookup }}" style="width:100%;border:1px solid #dfe3e4;border-radius:11px;padding:14px 16px;font-family:inherit;font-size:16px;background:#f7f9f9;color:#16181b">
       <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
         <sc-for list="{{ matches }}" as="m" hint-placeholder-count="2">
           <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:#f7f9f9;border:1px solid #e6eaeb;border-radius:12px;padding:14px 16px">
@@ -111,7 +111,7 @@
       </div>
       <div style="display:{{ noMatchShow }};margin-top:14px;background:#f7f9f9;border:1px dashed #ccd3d4;border-radius:12px;padding:18px">
         <div style="font-size:16px;font-weight:600">ვერ მოიძებნა — შექმენი ახალი</div>
-        <p style="margin:8px 0 14px;font-size:15px;color:#4d5258">ოფიციალური სახელი გახდება იდენტიფიკატორი, რომელზეც თამაშები მიება.</p>
+        <p style="margin:8px 0 14px;font-size:15px;color:#4d5258">{{ createHint }}</p>
         <button type="button" onClick="{{ createNew }}" style="border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:10px;padding:12px 18px;font-family:inherit;font-size:15px;font-weight:600">ახლის შექმნა</button>
       </div>
     </div>
@@ -219,7 +219,7 @@
         <div style="font-size:16px;font-weight:600;color:#14536f">ყველა თამაში ერთბაშად</div>
         <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#2c5f7d">ჩასვი შენი სტუდიის გვერდი — Steam-ის publisher/developer გვერდი, itch.io-ს პროფილი, App Store-ის ან Google Play-ის დეველოპერის გვერდი. ჩვენ თვითონ ვიპოვით ყველა თამაშს და შევავსებთ თითოეულის მონაცემებს.</p>
         <label style="display:flex;flex-direction:column;gap:7px;margin-top:14px;font-size:14px;color:#2c5f7d">სტუდიის გვერდი
-          <input type="url" placeholder="https://store.steampowered.com/publisher/madmoa" value="{{ studioUrl }}" onInput="{{ onStudioUrl }}" style="border:1px solid #cfe3ef;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#fff;color:#16181b">
+          <input type="url" placeholder="https://store.steampowered.com/developer/…" value="{{ studioUrl }}" onInput="{{ onStudioUrl }}" style="border:1px solid #cfe3ef;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#fff;color:#16181b">
         </label>
         <button type="button" onClick="{{ importStudio }}" style="margin-top:14px;border:0;cursor:pointer;background:#146590;color:#fff;border-radius:10px;padding:12px 18px;font-family:inherit;font-size:15px;font-weight:600">{{ importLabel }}</button>
         <div style="display:{{ importBusyShow }};align-items:center;gap:12px;margin-top:14px;background:#fff;border:1px solid #cfe3ef;border-radius:11px;padding:14px">
@@ -415,24 +415,56 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{}">
 const D = GGC.data, U = GGC.util;
-const CO_FIELDS = [
-  ["legal", "ოფიციალური სახელი", "MadMoa LLC"],
-  ["regId", "საიდენტიფიკაციო ნომერი", "404123456"],
-  ["name", "საჯარო სახელი", "MadMoa"],
-
-  ["founded", "დაფუძნების წელი", "2019"],
-  ["about", "აღწერა", "ინდი სტუდია…"],
-  ["aboutEn", "აღწერა (English)", "Indie studio…"],
-  ["website", "ვებსაიტი", "https://madmoa.com"],
-  ["email", "ელფოსტა", "info@madmoa.com"],
-  ["contact", "საკონტაქტო პირი და კავშირი", "სახელი გვარი · @telegram"]
-];
+/* The catalogue holds three kinds of record and they are not the same thing.
+   A company is founded and carries a registration number; a team forms; a person
+   is born, has a name rather than a legal name, and has nobody to nominate as a
+   contact because they are the contact. One shared list asked a solo developer
+   for their "official name", their "founding date" and a "contact person" —
+   which is how a form tells someone it was not written for them. */
+const FIELDS_BY_KIND = {
+  company: [
+    ["legal", "ოფიციალური სახელი", "GGC Games LLC"],
+    ["regId", "საიდენტიფიკაციო ნომერი", "404123456"],
+    ["name", "საჯარო სახელი", "GGC Games"],
+    ["founded", "ოფიციალურად დაფუძნების წელი", "2019"],
+    ["about", "აღწერა", "ქართული ინდი სტუდია…"],
+    ["aboutEn", "აღწერა (English)", "Georgian indie studio…"],
+    ["website", "ვებსაიტი", "https://ggc.ge"],
+    ["email", "ელფოსტა", "info@ggc.ge"],
+    ["phone", "ტელეფონი (არასავალდებულო)", "+995 555 00 00 00"],
+    ["contact", "საკონტაქტო პირი და კავშირი", "სახელი გვარი · @telegram"]
+  ],
+  team: [
+    ["legal", "გუნდის სახელი", "GGC Games"],
+    ["name", "საჯარო სახელი", "GGC Games"],
+    ["founded", "ჩამოყალიბების წელი", "2019"],
+    ["about", "აღწერა", "ქართული ინდი გუნდი…"],
+    ["aboutEn", "აღწერა (English)", "Georgian indie team…"],
+    ["website", "ვებსაიტი", "https://ggc.ge"],
+    ["email", "ელფოსტა", "hello@ggc.ge"],
+    ["phone", "ტელეფონი (არასავალდებულო)", "+995 555 00 00 00"],
+    ["contact", "საკონტაქტო პირი და კავშირი", "სახელი გვარი · @telegram"]
+  ],
+  solo: [
+    ["legal", "სახელი და გვარი", "გიორგი ჩხაიძე"],
+    ["name", "სახელი საიტზე", "GGC"],
+    ["founded", "დაბადების წელი", "1995"],
+    ["about", "ჩემს შესახებ", "ვაკეთებ ინდი თამაშებს…"],
+    ["aboutEn", "ჩემს შესახებ (English)", "I make indie games…"],
+    ["website", "ვებსაიტი ან პორტფოლიო", "https://ggc.ge"],
+    ["email", "ელფოსტა", "me@ggc.ge"],
+    ["phone", "ტელეფონი (არასავალდებულო)", "+995 555 00 00 00"]
+  ]
+};
+const CO_FIELDS = FIELDS_BY_KIND.company;
+const fieldsFor = (kind) => FIELDS_BY_KIND[kind] || FIELDS_BY_KIND.company;
+const STEP2_TITLE = {
+  company: "კომპანიის მონაცემები", team: "გუნდის მონაცემები", solo: "შენი მონაცემები"
+};
 /* One choice from a fixed list, so the catalogue can group and count sizes
    instead of holding a dozen spellings of the same range. */
 const SIZES = ["1-2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-250", "251+"];
 const CITIES = ["თბილისი", "ბათუმი", "ქუთაისი", "რუსთავი", "გორი", "ზუგდიდი", "ფოთი", "თელავი", "ახალციხე", "ოზურგეთი", "სხვა", "საზღვარგარეთ"];
-const TEAM_SKIP = ["regId"];
-const SOLO_SKIP = ["regId"];
 /* The catalogue will not publish a studio without these, and finding that out
    on the last step — after the games are filled in and the send button is
    pressed — is the wrong place to learn it. Marked on the field itself, and the
@@ -506,7 +538,7 @@ class Component extends DCLogic {
     } catch (e) {}
   }
 
-  /* "submit.html#edit=madmoa" arrives from a profile's შესწორების მოთხოვნა
+  /* "submit.html#edit=ggc-games" arrives from a profile's შესწორების მოთხოვნა
      button — open the edit form already filled with the published record, so
      nobody has to search for a studio they just came from. */
   openFromHash() {
@@ -527,7 +559,8 @@ class Component extends DCLogic {
       f: Object.assign({
         legal: c.legal, regId: c.regId, name: c.name, city: c.city,
         founded: c.founded ? String(c.founded) : "", size: c.size,
-        about: c.about, aboutEn: c.aboutEn, website: c.website, email: c.email
+        about: c.about, aboutEn: c.aboutEn, website: c.website, email: c.email,
+        phone: c.phone, contact: c.contact
       }, c.links || {})
     };
   }
@@ -723,9 +756,10 @@ class Component extends DCLogic {
   payload() {
     const s = this.state, f = s.f;
     const company = {};
-    CO_FIELDS.forEach(([k]) => { if (f[k]) company[k] = f[k]; });
+    fieldsFor(s.kind).forEach(([k]) => { if (f[k]) company[k] = f[k]; });
     /* City and size are the two the visitor picks from a list rather than
-       types, so they are not in CO_FIELDS and have to be carried by hand. Size
+       types, so they are not in the kind's field list and have to be carried by
+       hand. Size
        was; city was not, and every submission so far arrived without it — a
        required field, asked for, filled in, and dropped on the way out. */
     if (f.city) company.city = f.city;
@@ -843,13 +877,12 @@ class Component extends DCLogic {
       ? D.companies().filter(c => (c.name + " " + c.legal + " " + c.regId).toLowerCase().indexOf(term) >= 0).slice(0, 6)
       : [];
     const isNew = s.mode === "new";
-    const skip = s.kind === "team" ? TEAM_SKIP : s.kind === "solo" ? SOLO_SKIP : [];
     const need = requiredFor(s.kind);
     // A required field that is filled looks like any other; an empty one says so.
     const mark = (k, label) => need.indexOf(k) < 0 ? label : label + " *";
     const markColor = (k) => need.indexOf(k) >= 0 && !f[k] ? "#8c2f2f" : "#5a5f65";
     const markBorder = (k) => need.indexOf(k) >= 0 && !f[k] ? "#e8c4c4" : "#dfe3e4";
-    const fields = CO_FIELDS.filter(([k]) => skip.indexOf(k) < 0).map(([k, label, ph]) => ({
+    const fields = fieldsFor(s.kind).map(([k, label, ph]) => ({
       label: mark(k, label), ph, value: f[k] || "",
       color: markColor(k), border: markBorder(k),
       onInput: e => this.set(k, e.target.value)
@@ -978,15 +1011,16 @@ class Component extends DCLogic {
       // The store-page shortcut belongs to a studio that is not in the catalogue
       // yet; correcting an existing one starts from the record we already have.
       prefillShow: s.mode === "edit" ? "none" : "block",
-      step1Title: s.mode === "edit" ? "იპოვე შენი სტუდია" : (s.mode === "game" ? "რომელ სტუდიას ეკუთვნის?" : "ან ჩაწერე სახელით"),
+      step1Title: s.mode === "edit" ? "იპოვე შენი ჩანაწერი" : (s.mode === "game" ? "ვის ეკუთვნის თამაში?" : "ან ჩაწერე სახელით"),
+      createHint: "სახელი გახდება იდენტიფიკატორი, რომელზეც თამაშები მიება — კომპანიის ოფიციალური სახელი, გუნდის სახელი ან შენი სახელი და გვარი.",
       step1Hint: s.mode === "edit"
-        ? "ჩაწერე ოფიციალური სახელი — მაგალითად „MadMoa LLC“. იპოვი და იქვე შეასწორებ."
+        ? "ჩაწერე სახელი — კომპანიის, გუნდის ან შენი. იპოვი და იქვე შეასწორებ."
         : (s.mode === "game"
           ? "იპოვე სტუდია, რომელსაც თამაში მიება. თუ სიაში არაა, ჯერ სტუდია უნდა დაემატოს."
-          : "თუ მაღაზიის გვერდი არ გაქვს, ჩაწერე ოფიციალური სახელი — მაგალითად „MadMoa LLC“. თუ უკვე არსებობს, ედიტს მოითხოვ; თუ არა, აქვე შექმნი."),
+          : "თუ მაღაზიის გვერდი არ გაქვს, ჩაწერე სახელი — კომპანიის, გუნდის ან შენი. თუ უკვე არსებობს, ედიტს მოითხოვ; თუ არა, აქვე შექმნი."),
       createNew: () => this.save({ mode: "new", step: 2, f: Object.assign({}, f, { legal: s.lookup }) }),
 
-      step2Title: isNew ? "სტუდიის მონაცემები" : "შესწორებული მონაცემები",
+      step2Title: isNew ? STEP2_TITLE[s.kind] : "შესწორებული მონაცემები",
       fields,
       selectFields: [{
         label: mark("city", "ქალაქი"), color: markColor("city"), border: markBorder("city"),

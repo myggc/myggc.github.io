@@ -20,12 +20,14 @@ to link back to its studio.
 | --- | --- |
 | `id` | url slug, used in `companies.html#<id>` and by `studioId` |
 | `kind` | `company` (registered), `team` (unregistered), `solo` |
-| `legal` | **official registered name — the real identifier** |
+| `legal` | **the real identifier** — a company's registered name, a team's name, or a person's full name |
 | `regId` | state registration number (companies only) |
 | `name` | public / brand name |
-| `city`, `founded`, `size` | shown only when filled |
+| `city`, `size` | shown only when filled; `size` is not asked of a solo developer |
+| `founded` | a year (`2019`) or a full date (`2019-05-14`); for a solo developer this is the birth year |
 | `roles` | `developer`, `publisher`, `art`, `audio`, `porting`, `outsourcing`, `codev` |
-| `website`, `email`, `about`, `aboutEn` | optional |
+| `website`, `email`, `about`, `aboutEn` | `website` is a portfolio for a solo developer |
+| `phone`, `contact` | never shown publicly; `contact` is not asked of a solo developer, who is their own contact |
 | `logo` | path under `images/logos/`, shown in a circle |
 | `links` | `{ telegram, facebook, instagram, linkedin, youtube, x, steam, itch, … }` |
 | `verified` | shows the ✔ badge |

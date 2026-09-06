@@ -138,6 +138,10 @@
     return m ? m[3] + "." + m[2] + "." + m[1] : String(iso);
   }
   function today() { return new Date().toISOString().slice(0, 10); }
+  /* `founded` may be a year or a full date; lists and sorts want the year. */
+  function foundedYear(c) {
+    return Number(String((c && c.founded) || "").slice(0, 4)) || 0;
+  }
   function yearOf(g) {
     if (g.year) return Number(g.year);
     var m = /(\d{4})/.exec(g.releaseDate || "");
@@ -235,11 +239,20 @@
       legal: c.legal || "",
       regId: c.regId || "",
       city: c.city || "",
-      founded: Number(c.founded) || 0,
+      /* The panel offers a date picker, because "officially founded" is a date
+         and a registration certificate carries one. Coercing straight to a
+         number turned "2019-05-14" into NaN and then into 0 — the date was
+         asked for, typed, and thrown away on the way to the file. A full date
+         is kept as written; a bare year still stores as a year. */
+      founded: /^\d{4}-\d{2}-\d{2}$/.test(String(c.founded || "")) ? c.founded : (Number(c.founded) || 0),
       size: c.size || "",
       roles: Array.isArray(c.roles) ? c.roles : [],
       website: c.website || "",
       email: c.email || "",
+      // Optional, and never shown publicly — a way to reach a solo developer
+      // who has no office address and no colleague to nominate as a contact.
+      phone: c.phone || "",
+      contact: c.contact || "",
       about: c.about || "",
       aboutEn: c.aboutEn || "",
       logo: c.logo || "",
@@ -1344,6 +1357,7 @@
       slug: slug, initials: initials, fmtDate: fmtDate, today: today, clone: clone,
       prepareImage: prepareImage, IMAGE_SIZES: IMAGE_SIZES, iconUrl: iconUrl,
       KIND_LABEL: KIND_LABEL, ACCENT: ACCENT, SOC: SOC, STORE_LABEL: STORE_LABEL,
+      foundedYear: foundedYear,
       PLATFORM_HOME: PLATFORM_HOME
     },
     data: {

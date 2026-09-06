@@ -282,7 +282,7 @@ class Component extends DCLogic {
     const want = ["", "upcoming", "released"][s.gf];
     const games = D.sortGames(all.filter(g => !want || g.status === want)).map(g => this.gameRow(g));
     const src = Object.assign({}, d, {
-      founded: d.founded ? String(d.founded) : "",
+      founded: U.foundedYear(d) ? String(U.foundedYear(d)) : "",
       status: d.active ? "აქტიური" : "არააქტიური",
       validated: U.fmtDate(d.validated)
     });
@@ -299,7 +299,7 @@ class Component extends DCLogic {
       editHref: "submit.html#edit=" + encodeURIComponent(d.id),
       logoBg: d.logo ? 'url("' + d.logo + '") center/cover no-repeat' : "none",
       initials: U.initials(d.name),
-      sub: [d.legal, d.city, d.founded || ""].filter(Boolean).join(" · "),
+      sub: [d.legal, d.city, U.foundedYear(d) || ""].filter(Boolean).join(" · "),
       about: d.about || "",
       roles: d.roles, facts, games, links,
       gamesCount: all.length,
@@ -320,7 +320,7 @@ class Component extends DCLogic {
       .filter(c => !s.q || (c.name + " " + c.legal + " " + c.city).toLowerCase().indexOf(s.q.toLowerCase()) >= 0)
       .map(c => Object.assign({}, c, { gamesCount: D.gamesOf(c.id).length }));
     list.sort((a, b) => s.sort === "name" ? a.name.localeCompare(b.name)
-      : s.sort === "founded" ? b.founded - a.founded
+      : s.sort === "founded" ? U.foundedYear(b) - U.foundedYear(a)
       : b.gamesCount - a.gamesCount || a.name.localeCompare(b.name));
 
     const v = {
@@ -355,7 +355,7 @@ class Component extends DCLogic {
         open: () => this.setState({ open: c.id }),
         logoBg: c.logo ? 'url("' + c.logo + '") center/cover no-repeat' : "none",
         initials: U.initials(c.name),
-        sub: [c.legal, c.city, c.founded || ""].filter(Boolean).join(" · "),
+        sub: [c.legal, c.city, U.foundedYear(c) || ""].filter(Boolean).join(" · "),
         roles: c.roles,
         gamesCount: c.gamesCount,
         accent: U.ACCENT[c.kind],
