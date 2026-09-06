@@ -1197,6 +1197,751 @@
       "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "bakery-manager",
+      "name": "Bakery Manager",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "May 22, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "simulation"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "\"Welcome to the delicious world of baking! In our mobile game.",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr38.bakerymanager"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/aJDwlTFDuuwa64DH522y9XxKpSobvAWKgnLkqwOGQr2NZh2dpzeiop7HTz2DtSIOR5b54P6iGfJ3DbAP1hOd",
+        "hero": "https://play-lh.googleusercontent.com/aJDwlTFDuuwa64DH522y9XxKpSobvAWKgnLkqwOGQr2NZh2dpzeiop7HTz2DtSIOR5b54P6iGfJ3DbAP1hOd",
+        "portrait": "https://play-lh.googleusercontent.com/aJDwlTFDuuwa64DH522y9XxKpSobvAWKgnLkqwOGQr2NZh2dpzeiop7HTz2DtSIOR5b54P6iGfJ3DbAP1hOd",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "house-builder",
+      "name": "House Builder",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jan 24, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "simulation"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Build houses, rent apartments and expand your property!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr27.mansionbuilder"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/WCDrvs5Qf8tPrRFJALLbiQh188VlHmoxJPFJaSyIINhsZi7KFOth_XRPgKoewo1h3St6PuaflBM6x3EytjwM-1U",
+        "hero": "https://play-lh.googleusercontent.com/WCDrvs5Qf8tPrRFJALLbiQh188VlHmoxJPFJaSyIINhsZi7KFOth_XRPgKoewo1h3St6PuaflBM6x3EytjwM-1U",
+        "portrait": "https://play-lh.googleusercontent.com/WCDrvs5Qf8tPrRFJALLbiQh188VlHmoxJPFJaSyIINhsZi7KFOth_XRPgKoewo1h3St6PuaflBM6x3EytjwM-1U",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "grow-and-sell-animal-farm",
+      "name": "Grow and Sell - Animal Farm",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jun 26, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "simulation"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Care for a variety of animals, feed them, collect and sell the products",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr42.animalfarm"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/I7hAjBBYcGv8nOlMjCeitXTbf-adEpCTUQMyge26z7U5hJr6m0t7SmZfmKNthysOwcRDPKitHqoEL2k32m9f",
+        "hero": "https://play-lh.googleusercontent.com/I7hAjBBYcGv8nOlMjCeitXTbf-adEpCTUQMyge26z7U5hJr6m0t7SmZfmKNthysOwcRDPKitHqoEL2k32m9f",
+        "portrait": "https://play-lh.googleusercontent.com/I7hAjBBYcGv8nOlMjCeitXTbf-adEpCTUQMyge26z7U5hJr6m0t7SmZfmKNthysOwcRDPKitHqoEL2k32m9f",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "hospital-manager",
+      "name": "Hospital Manager",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jul 25, 2022",
+      "year": 2022,
+      "mobile": true,
+      "genres": [
+        "simulation"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Help people and manage your own hospital",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr14.hospital"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/umboPVXCSByDquM27OOs7GhZ18fL-YwwkoyxzjgWSU8CGJ8QaUDYA1NqUlRVYYzeB9W1_rgJ0l4FmxILTSP6E4k",
+        "hero": "https://play-lh.googleusercontent.com/umboPVXCSByDquM27OOs7GhZ18fL-YwwkoyxzjgWSU8CGJ8QaUDYA1NqUlRVYYzeB9W1_rgJ0l4FmxILTSP6E4k",
+        "portrait": "https://play-lh.googleusercontent.com/umboPVXCSByDquM27OOs7GhZ18fL-YwwkoyxzjgWSU8CGJ8QaUDYA1NqUlRVYYzeB9W1_rgJ0l4FmxILTSP6E4k",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "vet-house-manager",
+      "name": "Vet House Manager",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Apr 26, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "simulation",
+        "casual"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Manage a Vet House where you'll bring animals back to health.",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr36.vethouse"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/1FUplTsNZ7RFQkHQWQwFEqCy6PQ887IuWo2z-z6PgjGw4NsVzTX0XLz7An9KBCaCpFvaoODohj5rWRdqsZS-qzY",
+        "hero": "https://play-lh.googleusercontent.com/1FUplTsNZ7RFQkHQWQwFEqCy6PQ887IuWo2z-z6PgjGw4NsVzTX0XLz7An9KBCaCpFvaoODohj5rWRdqsZS-qzY",
+        "portrait": "https://play-lh.googleusercontent.com/1FUplTsNZ7RFQkHQWQwFEqCy6PQ887IuWo2z-z6PgjGw4NsVzTX0XLz7An9KBCaCpFvaoODohj5rWRdqsZS-qzY",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "school-driver",
+      "name": "School Driver",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "May 24, 2022",
+      "year": 2022,
+      "mobile": true,
+      "genres": [
+        "arcade"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Drive kids to school",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr8.schooldriver"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/se-mlQrVOlnSym5fC5WdlyphBYxmxYwZCoQkFoUST4aaangIdJYwU_1m77qqZLCjeCquKVt5IaPu6XrdsO7IUQ",
+        "hero": "https://play-lh.googleusercontent.com/se-mlQrVOlnSym5fC5WdlyphBYxmxYwZCoQkFoUST4aaangIdJYwU_1m77qqZLCjeCquKVt5IaPu6XrdsO7IUQ",
+        "portrait": "https://play-lh.googleusercontent.com/se-mlQrVOlnSym5fC5WdlyphBYxmxYwZCoQkFoUST4aaangIdJYwU_1m77qqZLCjeCquKVt5IaPu6XrdsO7IUQ",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "monster-truck",
+      "name": "Monster Truck",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jun 22, 2022",
+      "year": 2022,
+      "mobile": true,
+      "genres": [
+        "arcade"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Smash others with your Monster Truck!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr11.monstertruck"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/pDi_sKRMu5EDDF_rJRQ8eP37LDTQy1jkm_VhZMhJIC5vfAkhIFjulxXwXiP89jpet4D2OwSFvR2rJWlBaiSR8g",
+        "hero": "https://play-lh.googleusercontent.com/pDi_sKRMu5EDDF_rJRQ8eP37LDTQy1jkm_VhZMhJIC5vfAkhIFjulxXwXiP89jpet4D2OwSFvR2rJWlBaiSR8g",
+        "portrait": "https://play-lh.googleusercontent.com/pDi_sKRMu5EDDF_rJRQ8eP37LDTQy1jkm_VhZMhJIC5vfAkhIFjulxXwXiP89jpet4D2OwSFvR2rJWlBaiSR8g",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "border-officer",
+      "name": "Border Officer",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "May 23, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "simulation"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Become an enforcer of the road",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr40.borderofficer"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/RrVzH83K1C9mokGmWtQvSiK2wpwSYZeToUXiTdsRWBgR3aJ5azAQabtpKoTEHQNFk-V8ZlT2mEIjVf9gcYJaKA",
+        "hero": "https://play-lh.googleusercontent.com/RrVzH83K1C9mokGmWtQvSiK2wpwSYZeToUXiTdsRWBgR3aJ5azAQabtpKoTEHQNFk-V8ZlT2mEIjVf9gcYJaKA",
+        "portrait": "https://play-lh.googleusercontent.com/RrVzH83K1C9mokGmWtQvSiK2wpwSYZeToUXiTdsRWBgR3aJ5azAQabtpKoTEHQNFk-V8ZlT2mEIjVf9gcYJaKA",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "laundry-mania",
+      "name": "Laundry Mania",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jul 26, 2022",
+      "year": 2022,
+      "mobile": true,
+      "genres": [
+        "arcade"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Expand your Laundry business",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr15.laundry"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/hhsD_iDWLnwz4finlmvTP-J9VZtlY-jtWM_S7oMzoStQbluTvJ3ehDdN8Eny6YvTtLqKyxemfWtNTrB7dld0cVE",
+        "hero": "https://play-lh.googleusercontent.com/hhsD_iDWLnwz4finlmvTP-J9VZtlY-jtWM_S7oMzoStQbluTvJ3ehDdN8Eny6YvTtLqKyxemfWtNTrB7dld0cVE",
+        "portrait": "https://play-lh.googleusercontent.com/hhsD_iDWLnwz4finlmvTP-J9VZtlY-jtWM_S7oMzoStQbluTvJ3ehDdN8Eny6YvTtLqKyxemfWtNTrB7dld0cVE",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "hunt-master",
+      "name": "Hunt Master",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jul 25, 2022",
+      "year": 2022,
+      "mobile": true,
+      "genres": [
+        "arcade"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Become the best Hunter",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr13.hunter"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/f_eFgnjLns8B0XYKclQmub4ED1B_3maJqZEFen97D8F7xbRUG40K1Dzfq7Zkrdg0mnQqsC-NtAMFsk3FvUWnVQ",
+        "hero": "https://play-lh.googleusercontent.com/f_eFgnjLns8B0XYKclQmub4ED1B_3maJqZEFen97D8F7xbRUG40K1Dzfq7Zkrdg0mnQqsC-NtAMFsk3FvUWnVQ",
+        "portrait": "https://play-lh.googleusercontent.com/f_eFgnjLns8B0XYKclQmub4ED1B_3maJqZEFen97D8F7xbRUG40K1Dzfq7Zkrdg0mnQqsC-NtAMFsk3FvUWnVQ",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "idle-wars-tank-merger",
+      "name": "Idle Wars: Tank Merger",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jan 17, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "simulation"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Join the world of idle tank combat: Build, Merge, Fight, Loot!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pi1.idlewars"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/LMIz7TiLqkjnDysr_nY9GQb0hCRtHqT4JKuvsBLAoUaCZIppgJMX9xpAvI7OS54nbp6xfmL8CDWGAGSFVbDhbw",
+        "hero": "https://play-lh.googleusercontent.com/LMIz7TiLqkjnDysr_nY9GQb0hCRtHqT4JKuvsBLAoUaCZIppgJMX9xpAvI7OS54nbp6xfmL8CDWGAGSFVbDhbw",
+        "portrait": "https://play-lh.googleusercontent.com/LMIz7TiLqkjnDysr_nY9GQb0hCRtHqT4JKuvsBLAoUaCZIppgJMX9xpAvI7OS54nbp6xfmL8CDWGAGSFVbDhbw",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "highway-officer",
+      "name": "Highway Officer",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Sep 23, 2022",
+      "year": 2022,
+      "mobile": true,
+      "genres": [
+        "arcade"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Manage the highway toll",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr19.highwayofficer"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/Lm6UPZbETSu0es7on48RrXx8JcHxZXeBLVjYKbIAzPaOygvJpcjUGXGjiDAYrs2PjY_r8EYsCBszeq6DSo0P",
+        "hero": "https://play-lh.googleusercontent.com/Lm6UPZbETSu0es7on48RrXx8JcHxZXeBLVjYKbIAzPaOygvJpcjUGXGjiDAYrs2PjY_r8EYsCBszeq6DSo0P",
+        "portrait": "https://play-lh.googleusercontent.com/Lm6UPZbETSu0es7on48RrXx8JcHxZXeBLVjYKbIAzPaOygvJpcjUGXGjiDAYrs2PjY_r8EYsCBszeq6DSo0P",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "busyboard-games-for-kids-2-5",
+      "name": "BusyBoard Games for Kids 2-5",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Sensory play games for kids, baby & toddlers. Busy board - games for kids!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.iz.busyboard.baby.sensory.kids.toddler.games"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/aJTNG5IgYUNuCzN_-n4ZyE2TeMfuSetNLdxlY_ljDIriDZCGBJP0DvnBD4uKvSY20yKkmMoS3MwRLcRFA3ltc6M=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/aJTNG5IgYUNuCzN_-n4ZyE2TeMfuSetNLdxlY_ljDIriDZCGBJP0DvnBD4uKvSY20yKkmMoS3MwRLcRFA3ltc6M=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "the-chosen",
+      "name": "The Chosen",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Watch The Chosen. Every episode. Nothing required. Come and see for yourself.",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=net.comeandsee.thechosen"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/Mx0NgoUrp8J8YKEMJD35YkiyrvGi3NhIk8vjqrcXfj4a1fimCUNMJkqqKe8MMuf51Q3k-5tWXNRc3XTM2uZIDQ=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/Mx0NgoUrp8J8YKEMJD35YkiyrvGi3NhIk8vjqrcXfj4a1fimCUNMJkqqKe8MMuf51Q3k-5tWXNRc3XTM2uZIDQ=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "wizard-of-oz-slots-games",
+      "name": "Wizard of Oz Slots Games",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Play casino games from the Emerald City & win huge slot machine bonuses!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.zynga.wizardofoz"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/2jc1pA7kg35j19HQjLJkFxU0m1TWHhPCgJfqIjnycYI67Jt_Qqhh7rvp_GoXg6exWjN8aWDLbcHE5RhCL2Q5Lg=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/2jc1pA7kg35j19HQjLJkFxU0m1TWHhPCgJfqIjnycYI67Jt_Qqhh7rvp_GoXg6exWjN8aWDLbcHE5RhCL2Q5Lg=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "pet-games-for-kids",
+      "name": "Pet Games for kids",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Oct 30, 2025",
+      "year": 2025,
+      "mobile": true,
+      "genres": [
+        "educational"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Kid game & animal games: virtual pets - care for dog, cat, puppy, kitty & kitten",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=bebi.family.games.pets"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/Vn7Dfp-G3qP9wSpPKk9nstnvTJbIlH4JICW-gPL4wAq_GYq24BK2VZY7kYa5Uvu0AnGxuR5E_dXXEwebz6TFlWk",
+        "hero": "https://play-lh.googleusercontent.com/Vn7Dfp-G3qP9wSpPKk9nstnvTJbIlH4JICW-gPL4wAq_GYq24BK2VZY7kYa5Uvu0AnGxuR5E_dXXEwebz6TFlWk",
+        "portrait": "https://play-lh.googleusercontent.com/Vn7Dfp-G3qP9wSpPKk9nstnvTJbIlH4JICW-gPL4wAq_GYq24BK2VZY7kYa5Uvu0AnGxuR5E_dXXEwebz6TFlWk",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "toddler-space-learning-games",
+      "name": "Toddler Space Learning Games",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Apr 22, 2026",
+      "year": 2026,
+      "mobile": true,
+      "genres": [
+        "educational"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Baby preschool game for education: planets, abc, 123 & puzzles. Kids mini games.",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.bebi.family.space.games"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/CeLeXQ-m2Aj4kLqGVhBjrMaXFjW2V7KXJ4d6kJOb76dmXV9V3qvaTJ2pLq4JTzKa3ioxjgU5wpjANF7W5a45",
+        "hero": "https://play-lh.googleusercontent.com/CeLeXQ-m2Aj4kLqGVhBjrMaXFjW2V7KXJ4d6kJOb76dmXV9V3qvaTJ2pLq4JTzKa3ioxjgU5wpjANF7W5a45",
+        "portrait": "https://play-lh.googleusercontent.com/CeLeXQ-m2Aj4kLqGVhBjrMaXFjW2V7KXJ4d6kJOb76dmXV9V3qvaTJ2pLq4JTzKa3ioxjgU5wpjANF7W5a45",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "baby-rattle-giggles-lullaby",
+      "name": "Baby Rattle: Giggles & Lullaby",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Mar 2, 2021",
+      "year": 2021,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "For Toddlers & Infants - Lively, Cute, Animated characters and Sounds! NoAds!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.bebi.family.baby.rattle"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/Y4mVCte89cawUUFYe8wTXt8pNJfAo6rHFSjQLJkGkTZQLs6galj4Hr2sMbzjsZV5rPLkSfb6bEH7zgOzq5UJ6w",
+        "hero": "https://play-lh.googleusercontent.com/Y4mVCte89cawUUFYe8wTXt8pNJfAo6rHFSjQLJkGkTZQLs6galj4Hr2sMbzjsZV5rPLkSfb6bEH7zgOzq5UJ6w",
+        "portrait": "https://play-lh.googleusercontent.com/Y4mVCte89cawUUFYe8wTXt8pNJfAo6rHFSjQLJkGkTZQLs6galj4Hr2sMbzjsZV5rPLkSfb6bEH7zgOzq5UJ6w",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "baby-photo-editor",
+      "name": "Baby Photo Editor",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Sep 4, 2022",
+      "year": 2022,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Edit photos then bring them to life with stickers, frames & ready-made templates",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=bebi.family.baby.photo.album"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/dbukCsylAZ-J7C4jO-xlIm_WFrwaMyAOrIARp-k4VLGQL2szDe0x5a7JWQxTfO9j4iDrgVpjRZk6sge5WY4OcA",
+        "hero": "https://play-lh.googleusercontent.com/dbukCsylAZ-J7C4jO-xlIm_WFrwaMyAOrIARp-k4VLGQL2szDe0x5a7JWQxTfO9j4iDrgVpjRZk6sge5WY4OcA",
+        "portrait": "https://play-lh.googleusercontent.com/dbukCsylAZ-J7C4jO-xlIm_WFrwaMyAOrIARp-k4VLGQL2szDe0x5a7JWQxTfO9j4iDrgVpjRZk6sge5WY4OcA",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "baby-learning-games-for-kids",
+      "name": "Baby learning games for kids",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Learning games for babies and toddlers: 30 games for boys and girls under 5",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.bimiboo.adventure"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/hLJqlGQLM_kNx37rbweAlDKjY_lzRovklYzrrv2iBCrNjdWX2IuHachcA1AFrgLBl1JQWJq2DlL8MoE-gPetew=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/hLJqlGQLM_kNx37rbweAlDKjY_lzRovklYzrrv2iBCrNjdWX2IuHachcA1AFrgLBl1JQWJq2DlL8MoE-gPetew=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
     }
   ]
 }
