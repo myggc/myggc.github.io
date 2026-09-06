@@ -4,50 +4,6 @@
   "updated": "2026-09-06",
   "items": [
     {
-      "id": "draft",
-      "name": "Dumbriel: Magnificent Adventure in Hell",
-      "studioId": "madmoa",
-      "publisherId": "",
-      "status": "upcoming",
-      "releaseDate": "October 2026",
-      "year": 2026,
-      "mobile": false,
-      "genres": [
-        "action",
-        "adventure",
-        "indie"
-      ],
-      "platforms": [
-        "Steam"
-      ],
-      "engine": "",
-      "price": "",
-      "langs": "English, Japanese, Korean, Simplified Chinese, French, Italian, German, Spanish - Spain, Polish, Portuguese - Brazil, Portuguese - Portugal, Russian, Spanish - Latin America, Thai, Turkish, Ukrainian, Vietnamese, Georgian, Hindi",
-      "about": "Dumbriel is a 2D metroidvania action-adventure set in Hell. Play as a clumsy fallen angel in a twisted underworld. Slash, craft, and dodge through deadly arenas, weird monsters, and hellish traps. Die, upgrade, and dive back in.",
-      "aboutEn": "",
-      "stores": {
-        "steam": "https://store.steampowered.com/app/2500690/Dumbriel_Magnificent_Adventure_in_Hell/"
-      },
-      "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/0d9eb4d1ea21411876857b6883cce6db80fc5d2f/header.jpg?t=1788358384",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/36d50647c47d383fd2b19dc0146b20f0eee236d3/page_bg_raw.jpg?t=1788358384",
-        "portrait": "",
-        "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/7e5061910bb165e86a701b9ec26dcca9273b10fb/ss_7e5061910bb165e86a701b9ec26dcca9273b10fb.600x338.jpg?t=1788358384",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/8578e5e3aa1cab045d7610487f153a7cd5ef676b/ss_8578e5e3aa1cab045d7610487f153a7cd5ef676b.600x338.jpg?t=1788358384",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/adb2bf5b033bb6d5ab9941e67ee2e17017cb74cb/ss_adb2bf5b033bb6d5ab9941e67ee2e17017cb74cb.600x338.jpg?t=1788358384"
-        ]
-      },
-      "localArt": "",
-      "source": "steam",
-      "parsedAt": "2026-09-06T15:52:01.052Z",
-      "verified": false,
-      "active": true,
-      "validated": "2026-09-06",
-      "created": "2026-09-06",
-      "updated": "2026-09-06"
-    },
-    {
       "id": "besos-shawarma",
       "name": "Beso's Shawarma",
       "studioId": "mtatsminda-studio",
@@ -349,6 +305,356 @@
       "updated": "2026-09-06"
     },
     {
+      "id": "baby-games-for-1-3-year-olds",
+      "name": "Baby Games for 1-3 Year Olds",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Play educational games for preschool toddlers—plus more to discover ►AdsFree◄",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.educational.baby.games"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/Ip5nr0LizkQsgjS3gaiETgGQ5475hGdEZpHwNtWuhs9CNYLN4-rdDcVhFXiNkZEyp_uCXxT5HPiNf8tJYCn2=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/Ip5nr0LizkQsgjS3gaiETgGQ5475hGdEZpHwNtWuhs9CNYLN4-rdDcVhFXiNkZEyp_uCXxT5HPiNf8tJYCn2=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-09-06T22:13:37.386Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "bebi-baby-games-for-2-4y-kids",
+      "name": "Bebi: Baby Games for 2-4y kids",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Toddler Learning Games, Learn: Colors, Shapes, Puzzles, ABC ... ►NoAds!◄",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.happytools.learning.kids.games"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/Pf413xL8FZGWuNG7ljvWcTS4lVD5jGhBqUB451oB6NkfmXctF53KVphb6s8F3vmFdffeNCx7xtrOtZwdTasM=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/Pf413xL8FZGWuNG7ljvWcTS4lVD5jGhBqUB451oB6NkfmXctF53KVphb6s8F3vmFdffeNCx7xtrOtZwdTasM=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-09-06T22:13:37.386Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "abc-games-phonics-tracing",
+      "name": "ABC Games: Phonics & Tracing",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "NoAds! ABC Kids Game, Learn: Alphabet letters, Read & Write. 2+ Toddlers",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.kids.learn.reading.app"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/JuLMOB9jrav6nhCJZmdXI-1TGqeu76wIWOPXwwi9LhWZJ1N3vteesB3cPBZJROsZ6Z_1RH86VqwfiDup-RJpvg=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/JuLMOB9jrav6nhCJZmdXI-1TGqeu76wIWOPXwwi9LhWZJ1N3vteesB3cPBZJROsZ6Z_1RH86VqwfiDup-RJpvg=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-09-06T22:13:37.386Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "coloring-games-for-kids-2-5-y",
+      "name": "Coloring games for kids: 2-5 y",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Glow Doodle! Baby Coloring & Drawing games for toddlers: Color and Learn! NoAds!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.bebi.family.baby.coloring"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/3MrircWldm9IvgsnKB4QiWUOvZicQkm_mVZcCho-G3rYjznOw8YE6nXKI5SUnraXmQOtC00cnxw2Yu4O0CM-=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/3MrircWldm9IvgsnKB4QiWUOvZicQkm_mVZcCho-G3rYjznOw8YE6nXKI5SUnraXmQOtC00cnxw2Yu4O0CM-=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-09-06T22:13:37.386Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "baby-puzzle-games-for-toddlers",
+      "name": "Baby Puzzle Games for Toddlers",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "100+ jigsaw puzzle games for pre-k kids aged 2, 3, 4 & 5 ►AdsFree◄",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.pzl1.toddler.puzzles"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/k6CTwzuMIBldWMGTbn1ZF5hG7Uj29VhImRczv8NyAShmlpiVV8BCo_0vf5No2lc3FbBXlOskzDYzZ-uDQGx8NK0=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/k6CTwzuMIBldWMGTbn1ZF5hG7Uj29VhImRczv8NyAShmlpiVV8BCo_0vf5No2lc3FbBXlOskzDYzZ-uDQGx8NK0=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-09-06T22:13:37.386Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "balloon-pop-kids-learning-game",
+      "name": "Balloon Pop Kids Learning Game",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Learn numbers, letters, and shapes playing toddler balloon pop games ►NoAds◄",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=ge.bebi.balloon.pop.game"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/rXQwo61l7zpxag0_3AgSrvka3RZmHxLosOFp37fImvSZo8IJvnQGPK1czeYndrcOPjyWM0zWfuJ-5M-kEC11=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/rXQwo61l7zpxag0_3AgSrvka3RZmHxLosOFp37fImvSZo8IJvnQGPK1czeYndrcOPjyWM0zWfuJ-5M-kEC11=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-09-06T22:13:37.386Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "kids-cooking-games-for-2-5",
+      "name": "Kids Cooking Games For 2-5",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Cook food games for Boys & Girls. Toddler pizza game with learning for ages 3–4",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=bebi.family.games.cooking"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/suzFuvZ-xVPs2KAcqRRsuhrOqeQ3UXIYRfEJ6bFEKoKaOikUIhyMlUrkn4ek7Jkh_Hqz42rRTcc_5nv57OTK=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/suzFuvZ-xVPs2KAcqRRsuhrOqeQ3UXIYRfEJ6bFEKoKaOikUIhyMlUrkn4ek7Jkh_Hqz42rRTcc_5nv57OTK=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-09-06T22:13:37.386Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "baby-piano-drums-xylo-more",
+      "name": "Baby Piano, Drums, Xylo & more",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Create a musical playground for your toddler with 5 interactive instrument games",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=bebi.kids.music.instruments"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/gWE9SZoGGTRsvjvwKmxH-jwzlZ5FRGmanPKpX4A-IJlXCVceOwwLsI0VRf42LwF5Brn_5RUdxQhHHXSjzOV4eok=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/gWE9SZoGGTRsvjvwKmxH-jwzlZ5FRGmanPKpX4A-IJlXCVceOwwLsI0VRf42LwF5Brn_5RUdxQhHHXSjzOV4eok=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-09-06T22:13:37.386Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "fun-dinosaur-games-for-kids",
+      "name": "Fun Dinosaur Games for Kids",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Dinosaur games for kids-play & learn; games for toddlers; dino puzzles, matching",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=bebi.family.games.dino.world"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/Z3H87TsKhIZEydhESMUBf3-saYFwvzabAPQfHlvwZbH1tKmrvDFdA7cIbkyA6gIBIe_AV-bKX95AO-PT20ADew=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/Z3H87TsKhIZEydhESMUBf3-saYFwvzabAPQfHlvwZbH1tKmrvDFdA7cIbkyA6gIBIe_AV-bKX95AO-PT20ADew=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-09-06T22:13:37.386Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "toy-phone-baby-learning-games",
+      "name": "Toy Phone Baby Learning games",
+      "studioId": "შპს-ბაბი-2007",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Kids can Video call: animals, professions and characters. Learn numbers & more",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=bebi.family.baby.phone"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/TmvTtJm4EqKKEjCCaEMZ6v41nhKIXB_bxEbHGhHTcpc3F0rBR1FFpjUguSWs-2zquB7O09QOYKKyLIjEuPZE=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/TmvTtJm4EqKKEjCCaEMZ6v41nhKIXB_bxEbHGhHTcpc3F0rBR1FFpjUguSWs-2zquB7O09QOYKKyLIjEuPZE=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-09-06T22:13:37.386Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
       "id": "plague-doctor-vs-the-profane",
       "name": "Plague Doctor VS The Profane",
       "studioId": "შპს-ანტი-გეიმინგ-სტუდიო",
@@ -393,379 +699,44 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "baby-games-for-1-3-year-olds",
-      "name": "Baby Games for 1-3 Year Olds",
-      "studioId": "შპს-ბაბი-2007",
+      "id": "dumbriel-magnificent-adventure-in-hell",
+      "name": "Dumbriel: Magnificent Adventure in Hell",
+      "studioId": "madmoa",
       "publisherId": "",
-      "status": "released",
-      "releaseDate": "Aug 27, 2019",
-      "year": 2019,
-      "mobile": true,
+      "status": "upcoming",
+      "releaseDate": "October 2026",
+      "year": 2026,
+      "mobile": false,
       "genres": [
-        "educational",
-        "casual"
+        "action",
+        "adventure",
+        "indie"
       ],
       "platforms": [
-        "Google Play"
+        "Steam",
+        "Switch",
+        "Epic Games"
       ],
       "engine": "",
-      "price": "უფასო",
-      "langs": "",
-      "about": "Play educational games for preschool toddlers—plus more to discover ►AdsFree◄",
+      "price": "",
+      "langs": "English, Japanese, Korean, Simplified Chinese, French, Italian, German, Spanish - Spain, Polish, Portuguese - Brazil, Portuguese - Portugal, Russian, Spanish - Latin America, Thai, Turkish, Ukrainian, Vietnamese, Georgian, Hindi",
+      "about": "Dumbriel is a 2D metroidvania action-adventure set in Hell. Play as a clumsy fallen angel in a twisted underworld. Slash, craft, and dodge through deadly arenas, weird monsters, and hellish traps. Die, upgrade, and dive back in.",
       "aboutEn": "",
       "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=com.educational.baby.games"
+        "steam": "https://store.steampowered.com/app/2500690/"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/Ip5nr0LizkQsgjS3gaiETgGQ5475hGdEZpHwNtWuhs9CNYLN4-rdDcVhFXiNkZEyp_uCXxT5HPiNf8tJYCn2",
-        "hero": "https://play-lh.googleusercontent.com/Ip5nr0LizkQsgjS3gaiETgGQ5475hGdEZpHwNtWuhs9CNYLN4-rdDcVhFXiNkZEyp_uCXxT5HPiNf8tJYCn2",
-        "portrait": "https://play-lh.googleusercontent.com/Ip5nr0LizkQsgjS3gaiETgGQ5475hGdEZpHwNtWuhs9CNYLN4-rdDcVhFXiNkZEyp_uCXxT5HPiNf8tJYCn2",
-        "shots": []
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/0d9eb4d1ea21411876857b6883cce6db80fc5d2f/header.jpg?t=1788358384",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/36d50647c47d383fd2b19dc0146b20f0eee236d3/page_bg_raw.jpg?t=1788358384",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/7e5061910bb165e86a701b9ec26dcca9273b10fb/ss_7e5061910bb165e86a701b9ec26dcca9273b10fb.600x338.jpg?t=1788358384",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/8578e5e3aa1cab045d7610487f153a7cd5ef676b/ss_8578e5e3aa1cab045d7610487f153a7cd5ef676b.600x338.jpg?t=1788358384",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/adb2bf5b033bb6d5ab9941e67ee2e17017cb74cb/ss_adb2bf5b033bb6d5ab9941e67ee2e17017cb74cb.600x338.jpg?t=1788358384"
+        ]
       },
       "localArt": "",
-      "source": "googleplay",
-      "parsedAt": "",
-      "verified": true,
-      "active": true,
-      "validated": "2026-09-06",
-      "created": "2026-09-06",
-      "updated": "2026-09-06"
-    },
-    {
-      "id": "bebi-baby-games-for-2-4y-kids",
-      "name": "Bebi: Baby Games for 2-4y kids",
-      "studioId": "შპს-ბაბი-2007",
-      "publisherId": "",
-      "status": "released",
-      "releaseDate": "Jul 17, 2019",
-      "year": 2019,
-      "mobile": true,
-      "genres": [
-        "educational"
-      ],
-      "platforms": [
-        "Google Play"
-      ],
-      "engine": "",
-      "price": "უფასო",
-      "langs": "",
-      "about": "Toddler Learning Games, Learn: Colors, Shapes, Puzzles, ABC ... ►NoAds!◄",
-      "aboutEn": "",
-      "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=com.happytools.learning.kids.games"
-      },
-      "art": {
-        "capsule": "https://play-lh.googleusercontent.com/Pf413xL8FZGWuNG7ljvWcTS4lVD5jGhBqUB451oB6NkfmXctF53KVphb6s8F3vmFdffeNCx7xtrOtZwdTasM",
-        "hero": "https://play-lh.googleusercontent.com/Pf413xL8FZGWuNG7ljvWcTS4lVD5jGhBqUB451oB6NkfmXctF53KVphb6s8F3vmFdffeNCx7xtrOtZwdTasM",
-        "portrait": "https://play-lh.googleusercontent.com/Pf413xL8FZGWuNG7ljvWcTS4lVD5jGhBqUB451oB6NkfmXctF53KVphb6s8F3vmFdffeNCx7xtrOtZwdTasM",
-        "shots": []
-      },
-      "localArt": "",
-      "source": "googleplay",
-      "parsedAt": "",
-      "verified": true,
-      "active": true,
-      "validated": "2026-09-06",
-      "created": "2026-09-06",
-      "updated": "2026-09-06"
-    },
-    {
-      "id": "coloring-games-for-kids-2-5-y",
-      "name": "Coloring games for kids: 2-5 y",
-      "studioId": "შპს-ბაბი-2007",
-      "publisherId": "",
-      "status": "released",
-      "releaseDate": "Dec 25, 2020",
-      "year": 2020,
-      "mobile": true,
-      "genres": [
-        "educational",
-        "casual"
-      ],
-      "platforms": [
-        "Google Play"
-      ],
-      "engine": "",
-      "price": "უფასო",
-      "langs": "",
-      "about": "Glow Doodle! Baby Coloring & Drawing games for toddlers: Color and Learn! NoAds!",
-      "aboutEn": "",
-      "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=com.bebi.family.baby.coloring"
-      },
-      "art": {
-        "capsule": "https://play-lh.googleusercontent.com/3MrircWldm9IvgsnKB4QiWUOvZicQkm_mVZcCho-G3rYjznOw8YE6nXKI5SUnraXmQOtC00cnxw2Yu4O0CM-",
-        "hero": "https://play-lh.googleusercontent.com/3MrircWldm9IvgsnKB4QiWUOvZicQkm_mVZcCho-G3rYjznOw8YE6nXKI5SUnraXmQOtC00cnxw2Yu4O0CM-",
-        "portrait": "https://play-lh.googleusercontent.com/3MrircWldm9IvgsnKB4QiWUOvZicQkm_mVZcCho-G3rYjznOw8YE6nXKI5SUnraXmQOtC00cnxw2Yu4O0CM-",
-        "shots": []
-      },
-      "localArt": "",
-      "source": "googleplay",
-      "parsedAt": "",
-      "verified": true,
-      "active": true,
-      "validated": "2026-09-06",
-      "created": "2026-09-06",
-      "updated": "2026-09-06"
-    },
-    {
-      "id": "abc-games-phonics-tracing",
-      "name": "ABC Games: Phonics & Tracing",
-      "studioId": "შპს-ბაბი-2007",
-      "publisherId": "",
-      "status": "released",
-      "releaseDate": "Oct 30, 2019",
-      "year": 2019,
-      "mobile": true,
-      "genres": [
-        "educational"
-      ],
-      "platforms": [
-        "Google Play"
-      ],
-      "engine": "",
-      "price": "უფასო",
-      "langs": "",
-      "about": "NoAds! ABC Kids Game, Learn: Alphabet letters, Read & Write. 2+ Toddlers",
-      "aboutEn": "",
-      "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=com.kids.learn.reading.app"
-      },
-      "art": {
-        "capsule": "https://play-lh.googleusercontent.com/JuLMOB9jrav6nhCJZmdXI-1TGqeu76wIWOPXwwi9LhWZJ1N3vteesB3cPBZJROsZ6Z_1RH86VqwfiDup-RJpvg",
-        "hero": "https://play-lh.googleusercontent.com/JuLMOB9jrav6nhCJZmdXI-1TGqeu76wIWOPXwwi9LhWZJ1N3vteesB3cPBZJROsZ6Z_1RH86VqwfiDup-RJpvg",
-        "portrait": "https://play-lh.googleusercontent.com/JuLMOB9jrav6nhCJZmdXI-1TGqeu76wIWOPXwwi9LhWZJ1N3vteesB3cPBZJROsZ6Z_1RH86VqwfiDup-RJpvg",
-        "shots": []
-      },
-      "localArt": "",
-      "source": "googleplay",
-      "parsedAt": "",
-      "verified": true,
-      "active": true,
-      "validated": "2026-09-06",
-      "created": "2026-09-06",
-      "updated": "2026-09-06"
-    },
-    {
-      "id": "baby-puzzle-games-for-toddlers",
-      "name": "Baby Puzzle Games for Toddlers",
-      "studioId": "შპს-ბაბი-2007",
-      "publisherId": "",
-      "status": "released",
-      "releaseDate": "Sep 11, 2020",
-      "year": 2020,
-      "mobile": true,
-      "genres": [
-        "educational",
-        "casual"
-      ],
-      "platforms": [
-        "Google Play"
-      ],
-      "engine": "",
-      "price": "უფასო",
-      "langs": "",
-      "about": "100+ jigsaw puzzle games for pre-k kids aged 2, 3, 4 & 5 ►AdsFree◄",
-      "aboutEn": "",
-      "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=com.pzl1.toddler.puzzles"
-      },
-      "art": {
-        "capsule": "https://play-lh.googleusercontent.com/k6CTwzuMIBldWMGTbn1ZF5hG7Uj29VhImRczv8NyAShmlpiVV8BCo_0vf5No2lc3FbBXlOskzDYzZ-uDQGx8NK0",
-        "hero": "https://play-lh.googleusercontent.com/k6CTwzuMIBldWMGTbn1ZF5hG7Uj29VhImRczv8NyAShmlpiVV8BCo_0vf5No2lc3FbBXlOskzDYzZ-uDQGx8NK0",
-        "portrait": "https://play-lh.googleusercontent.com/k6CTwzuMIBldWMGTbn1ZF5hG7Uj29VhImRczv8NyAShmlpiVV8BCo_0vf5No2lc3FbBXlOskzDYzZ-uDQGx8NK0",
-        "shots": []
-      },
-      "localArt": "",
-      "source": "googleplay",
-      "parsedAt": "",
-      "verified": true,
-      "active": true,
-      "validated": "2026-09-06",
-      "created": "2026-09-06",
-      "updated": "2026-09-06"
-    },
-    {
-      "id": "balloon-pop-kids-learning-game",
-      "name": "Balloon Pop Kids Learning Game",
-      "studioId": "შპს-ბაბი-2007",
-      "publisherId": "",
-      "status": "released",
-      "releaseDate": "Jan 24, 2020",
-      "year": 2020,
-      "mobile": true,
-      "genres": [
-        "educational"
-      ],
-      "platforms": [
-        "Google Play"
-      ],
-      "engine": "",
-      "price": "უფასო",
-      "langs": "",
-      "about": "Learn numbers, letters, and shapes playing toddler balloon pop games ►NoAds◄",
-      "aboutEn": "",
-      "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=ge.bebi.balloon.pop.game"
-      },
-      "art": {
-        "capsule": "https://play-lh.googleusercontent.com/rXQwo61l7zpxag0_3AgSrvka3RZmHxLosOFp37fImvSZo8IJvnQGPK1czeYndrcOPjyWM0zWfuJ-5M-kEC11",
-        "hero": "https://play-lh.googleusercontent.com/rXQwo61l7zpxag0_3AgSrvka3RZmHxLosOFp37fImvSZo8IJvnQGPK1czeYndrcOPjyWM0zWfuJ-5M-kEC11",
-        "portrait": "https://play-lh.googleusercontent.com/rXQwo61l7zpxag0_3AgSrvka3RZmHxLosOFp37fImvSZo8IJvnQGPK1czeYndrcOPjyWM0zWfuJ-5M-kEC11",
-        "shots": []
-      },
-      "localArt": "",
-      "source": "googleplay",
-      "parsedAt": "",
-      "verified": true,
-      "active": true,
-      "validated": "2026-09-06",
-      "created": "2026-09-06",
-      "updated": "2026-09-06"
-    },
-    {
-      "id": "kids-cooking-games-for-2-5",
-      "name": "Kids Cooking Games For 2-5",
-      "studioId": "შპს-ბაბი-2007",
-      "publisherId": "",
-      "status": "released",
-      "releaseDate": "Oct 25, 2025",
-      "year": 2025,
-      "mobile": true,
-      "genres": [
-        "educational"
-      ],
-      "platforms": [
-        "Google Play"
-      ],
-      "engine": "",
-      "price": "უფასო",
-      "langs": "",
-      "about": "Cook food games for Boys & Girls. Toddler pizza game with learning for ages 3–4",
-      "aboutEn": "",
-      "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=bebi.family.games.cooking"
-      },
-      "art": {
-        "capsule": "https://play-lh.googleusercontent.com/suzFuvZ-xVPs2KAcqRRsuhrOqeQ3UXIYRfEJ6bFEKoKaOikUIhyMlUrkn4ek7Jkh_Hqz42rRTcc_5nv57OTK",
-        "hero": "https://play-lh.googleusercontent.com/suzFuvZ-xVPs2KAcqRRsuhrOqeQ3UXIYRfEJ6bFEKoKaOikUIhyMlUrkn4ek7Jkh_Hqz42rRTcc_5nv57OTK",
-        "portrait": "https://play-lh.googleusercontent.com/suzFuvZ-xVPs2KAcqRRsuhrOqeQ3UXIYRfEJ6bFEKoKaOikUIhyMlUrkn4ek7Jkh_Hqz42rRTcc_5nv57OTK",
-        "shots": []
-      },
-      "localArt": "",
-      "source": "googleplay",
-      "parsedAt": "",
-      "verified": true,
-      "active": true,
-      "validated": "2026-09-06",
-      "created": "2026-09-06",
-      "updated": "2026-09-06"
-    },
-    {
-      "id": "baby-piano-drums-xylo-more",
-      "name": "Baby Piano, Drums, Xylo & more",
-      "studioId": "შპს-ბაბი-2007",
-      "publisherId": "",
-      "status": "released",
-      "releaseDate": "Jul 1, 2021",
-      "year": 2021,
-      "mobile": true,
-      "genres": [],
-      "platforms": [
-        "Google Play"
-      ],
-      "engine": "",
-      "price": "უფასო",
-      "langs": "",
-      "about": "Create a musical playground for your toddler with 5 interactive instrument games",
-      "aboutEn": "",
-      "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=bebi.kids.music.instruments"
-      },
-      "art": {
-        "capsule": "https://play-lh.googleusercontent.com/gWE9SZoGGTRsvjvwKmxH-jwzlZ5FRGmanPKpX4A-IJlXCVceOwwLsI0VRf42LwF5Brn_5RUdxQhHHXSjzOV4eok",
-        "hero": "https://play-lh.googleusercontent.com/gWE9SZoGGTRsvjvwKmxH-jwzlZ5FRGmanPKpX4A-IJlXCVceOwwLsI0VRf42LwF5Brn_5RUdxQhHHXSjzOV4eok",
-        "portrait": "https://play-lh.googleusercontent.com/gWE9SZoGGTRsvjvwKmxH-jwzlZ5FRGmanPKpX4A-IJlXCVceOwwLsI0VRf42LwF5Brn_5RUdxQhHHXSjzOV4eok",
-        "shots": []
-      },
-      "localArt": "",
-      "source": "googleplay",
-      "parsedAt": "",
-      "verified": true,
-      "active": true,
-      "validated": "2026-09-06",
-      "created": "2026-09-06",
-      "updated": "2026-09-06"
-    },
-    {
-      "id": "toy-phone-baby-learning-games",
-      "name": "Toy Phone Baby Learning games",
-      "studioId": "შპს-ბაბი-2007",
-      "publisherId": "",
-      "status": "released",
-      "releaseDate": "May 26, 2021",
-      "year": 2021,
-      "mobile": true,
-      "genres": [
-        "educational"
-      ],
-      "platforms": [
-        "Google Play"
-      ],
-      "engine": "",
-      "price": "უფასო",
-      "langs": "",
-      "about": "Kids can Video call: animals, professions and characters. Learn numbers & more",
-      "aboutEn": "",
-      "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=bebi.family.baby.phone"
-      },
-      "art": {
-        "capsule": "https://play-lh.googleusercontent.com/TmvTtJm4EqKKEjCCaEMZ6v41nhKIXB_bxEbHGhHTcpc3F0rBR1FFpjUguSWs-2zquB7O09QOYKKyLIjEuPZE",
-        "hero": "https://play-lh.googleusercontent.com/TmvTtJm4EqKKEjCCaEMZ6v41nhKIXB_bxEbHGhHTcpc3F0rBR1FFpjUguSWs-2zquB7O09QOYKKyLIjEuPZE",
-        "portrait": "https://play-lh.googleusercontent.com/TmvTtJm4EqKKEjCCaEMZ6v41nhKIXB_bxEbHGhHTcpc3F0rBR1FFpjUguSWs-2zquB7O09QOYKKyLIjEuPZE",
-        "shots": []
-      },
-      "localArt": "",
-      "source": "googleplay",
-      "parsedAt": "",
-      "verified": true,
-      "active": true,
-      "validated": "2026-09-06",
-      "created": "2026-09-06",
-      "updated": "2026-09-06"
-    },
-    {
-      "id": "fun-dinosaur-games-for-kids",
-      "name": "Fun Dinosaur Games for Kids",
-      "studioId": "შპს-ბაბი-2007",
-      "publisherId": "",
-      "status": "released",
-      "releaseDate": "Oct 17, 2025",
-      "year": 2025,
-      "mobile": true,
-      "genres": [
-        "educational"
-      ],
-      "platforms": [
-        "Google Play"
-      ],
-      "engine": "",
-      "price": "უფასო",
-      "langs": "",
-      "about": "Dinosaur games for kids-play & learn; games for toddlers; dino puzzles, matching",
-      "aboutEn": "",
-      "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=bebi.family.games.dino.world"
-      },
-      "art": {
-        "capsule": "https://play-lh.googleusercontent.com/Z3H87TsKhIZEydhESMUBf3-saYFwvzabAPQfHlvwZbH1tKmrvDFdA7cIbkyA6gIBIe_AV-bKX95AO-PT20ADew",
-        "hero": "https://play-lh.googleusercontent.com/Z3H87TsKhIZEydhESMUBf3-saYFwvzabAPQfHlvwZbH1tKmrvDFdA7cIbkyA6gIBIe_AV-bKX95AO-PT20ADew",
-        "portrait": "https://play-lh.googleusercontent.com/Z3H87TsKhIZEydhESMUBf3-saYFwvzabAPQfHlvwZbH1tKmrvDFdA7cIbkyA6gIBIe_AV-bKX95AO-PT20ADew",
-        "shots": []
-      },
-      "localArt": "",
-      "source": "googleplay",
+      "source": "steam",
       "parsedAt": "",
       "verified": true,
       "active": true,
