@@ -125,6 +125,35 @@
       "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "შპს-ბაბი-2007",
+      "kind": "company",
+      "name": "[ ] founder",
+      "legal": "შპს ბაბი 2007",
+      "regId": "405075662",
+      "city": "თბილისი",
+      "founded": 2014,
+      "size": "21-50",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://bebi.family/",
+      "email": "contact@fndr.ge",
+      "phone": "",
+      "contact": "",
+      "about": "Founder არის ტექნოლოგიური კომპანია, რომელიც ორიენტირებულია ინოვაციური იდეებისა და ნიჭიერი ადამიანების აღმოჩენაზე. მათთან ერთად ჩვენ ვავითარებთ პროექტებს, რომლებიც ეფუძნება პატიოსნებასა და კეთილსინდისიერებას. ჩვენი საერთო რესურსებისა და კოლექტიური ექსპერტიზის გამოყენებით, ჩვენ ვუვლით ამ პროექტებს და ვეხმარებით მათ წარმატების მიღწევაში.",
+      "aboutEn": "Founder is a tech company committed to discovering innovative ideas and talented individuals. With them, we foster projects built on integrity and honesty. By leveraging our shared resources and collective expertise, we nurture these projects and help them thrive.",
+      "logo": "images/logos/შპს-ბაბი-2007.jpg?v=1788732961210",
+      "links": {
+        "linkedin": "https://fndr.ge/",
+        "googleplay": "https://play.google.com/store/apps/dev?id=5122078557185708602&hl=en"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
     }
   ]
 }
