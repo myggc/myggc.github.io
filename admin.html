@@ -283,14 +283,6 @@
                   </div>
                 </div>
 
-                <div style="display:{{ syncBoxShow }};background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
-                  <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">მაღაზიის სინქრონიზაცია</div>
-                  <p style="margin:12px 0 0;font-size:14px;line-height:1.6;color:#c6ccd3">მაღაზიის ბმულის შევსების შემდეგ სახელი, აღწერა, ჟანრი, თარიღი, ფასი და capsule ავტომატურად ივსება. განახლება ასევე ხდება დღეში ორჯერ GitHub Action-ით.</p>
-                  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center">
-                    <button type="button" onClick="{{ syncNow }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ syncLabel }}</button>
-                    <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#8b949c"><span style="width:8px;height:8px;border-radius:50%;background:{{ syncDot }}"></span>{{ syncText }}</span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -334,6 +326,107 @@
   </div>
   </sc-if>
 </div>
+
+  <div style="display:{{ gmShow }};position:fixed;inset:0;z-index:60;background:rgba(10,12,14,.7);padding:clamp(10px,3vw,40px);overflow:auto">
+    <div style="max-width:1000px;margin:0 auto;background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+        <div style="flex:1 1 200px;min-width:0">
+          <h2 style="margin:0;font-size:19px;font-weight:600;color:#fff">{{ gmName }}</h2>
+          <div style="margin-top:3px;font-size:13px;color:#8b949c">{{ gmStudio }}</div>
+        </div>
+        <button type="button" onClick="{{ gmDelete }}" style="flex:none;border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px">წაშლა</button>
+        <button type="button" onClick="{{ gmClose }}" style="flex:none;border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:9px 16px;font-family:inherit;font-size:14px;font-weight:600">დასრულება</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:14px;margin-top:18px">
+        <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
+          <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">თამაშის მონაცემები</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+            <sc-for list="{{ gmSelects }}" as="f" hint-placeholder-count="3">
+              <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8b949c">{{ f.k }}
+                <select value="{{ f.v }}" onChange="{{ f.onChange }}" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-size:14px;background:#1d2126;color:#e9ecee">
+                  <sc-for list="{{ f.options }}" as="o" hint-placeholder-count="3">
+                    <option value="{{ o.v }}">{{ o.label }}</option>
+                  </sc-for>
+                </select>
+              </label>
+            </sc-for>
+            <sc-for list="{{ gmFields }}" as="f" hint-placeholder-count="6">
+              <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8b949c">{{ f.k }}
+                <input type="text" value="{{ f.v }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-size:14px;background:#1d2126;color:#e9ecee">
+              </label>
+            </sc-for>
+            <sc-for list="{{ gmAreas }}" as="f" hint-placeholder-count="1">
+              <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8b949c">{{ f.k }}
+                <textarea value="{{ f.v }}" onInput="{{ f.onInput }}" rows="4" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-size:14px;background:#1d2126;color:#e9ecee;resize:vertical"></textarea>
+              </label>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
+            <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">სტატუსი</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+              <sc-for list="{{ gmToggles }}" as="t" hint-placeholder-count="2">
+                <button type="button" onClick="{{ t.click }}" style="border:1px solid {{ t.border }};cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};border-radius:9px;padding:10px 14px;font-family:inherit;font-size:14px;font-weight:600">{{ t.label }}</button>
+              </sc-for>
+            </div>
+            <sc-for list="{{ gmChips }}" as="grp" hint-placeholder-count="1">
+              <div style="margin-top:16px">
+                <div style="font-size:13px;color:#8b949c">{{ grp.label }}</div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+                  <sc-for list="{{ grp.items }}" as="c" hint-placeholder-count="6">
+                    <button type="button" onClick="{{ c.click }}" style="border:1px solid {{ c.border }};cursor:pointer;background:{{ c.bg }};color:{{ c.fg }};border-radius:20px;padding:7px 12px;font-family:inherit;font-size:13px">{{ c.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
+            <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">{{ gmImageTitle }}</div>
+            <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:16px;margin-top:14px">
+              <div style="flex:none;text-align:center">
+                <div style="width:{{ gmImagePreviewW }};aspect-ratio:{{ gmImageRatio }};border-radius:{{ gmImageRadius }};background:{{ gmImagePreview }};border:1px solid #2f353c"></div>
+                <div style="margin-top:6px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#6a737c">{{ gmImagePreviewCaption }}</div>
+              </div>
+              <div style="flex:1 1 160px;min-width:0">
+                <label style="display:inline-block;cursor:pointer;border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:9px;padding:10px 14px;font-size:14px;font-weight:600">{{ gmImagePickLabel }}
+                  <input type="file" accept="image/*" onChange="{{ gmOnImagePick }}" style="display:none">
+                </label>
+                <div style="margin-top:8px;font-size:13px;line-height:1.5;color:#8b949c">{{ gmImageHint }}</div>
+                <div style="display:{{ gmImageCompareShow }};margin-top:12px">
+                  <div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#6a737c;margin-bottom:6px">ახლა გამოქვეყნებულია</div>
+                  <div style="width:{{ gmImagePreviewW }};aspect-ratio:{{ gmImageRatio }};border-radius:{{ gmImageRadius }};background:{{ gmImageCurrent }};border:1px solid #2f353c;opacity:.65"></div>
+                </div>
+              </div>
+            </div>
+            <div style="display:{{ gmImageActionShow }};flex-wrap:wrap;gap:8px;margin-top:12px">
+              <button type="button" onClick="{{ gmUpload }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ gmUploadLabel }}</button>
+              <button type="button" onClick="{{ gmCancelImage }}" style="border:1px solid #333941;cursor:pointer;background:#20242a;color:#8b949c;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px">გაუქმება</button>
+            </div>
+          </div>
+
+          <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
+            <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">მაღაზიის ბმულები</div>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+              <sc-for list="{{ gmLinks }}" as="f" hint-placeholder-count="4">
+                <label style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px;color:#8b949c">
+                  <span style="flex:0 0 92px">{{ f.k }}</span>
+                  <input type="text" value="{{ f.v }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="flex:1 1 140px;min-width:0;border:1px solid #333941;border-radius:9px;padding:9px 12px;font-size:14px;background:#1d2126;color:#e9ecee">
+                </label>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center">
+              <button type="button" onClick="{{ gmSync }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ gmSyncLabel }}</button>
+              <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#8b949c"><span style="width:8px;height:8px;border-radius:50%;background:{{ gmSyncDot }}"></span>{{ gmSyncText }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{}">
 const D = GGC.data, U = GGC.util, GH = window.GGCGitHub, C = GGC.config;
@@ -371,6 +464,7 @@ class Component extends DCLogic {
     queue: [], decisions: {}, companies: [], games: [], touched: {},
     status: "", statusColor: "#8b949c", publishing: false, syncing: "",
     pending: null, uploading: false, asking: 0, busy: 0, testing: false, endpointOk: "",
+    gameEdit: null,
     endpointInput: (window.GGC && GGC.config.submitEndpoint) || "", savingEndpoint: false,
     endpointMsg: "", endpointMsgColor: "#c6ccd3",
     studioUrl: "", importing: false, importMsg: "", importMsgColor: "#8b949c"
@@ -571,7 +665,7 @@ class Component extends DCLogic {
       .then(() => D.load(true))
       .then(() => {
         this.setState({
-          publishing: false, touched: {}, decisions: {},
+          publishing: false, touched: {}, decisions: {}, gameEdit: null,
           companies: U.clone(D.companies()), games: U.clone(D.games())
         });
         this.say("გამოქვეყნდა", "#9ede9e");
@@ -591,37 +685,43 @@ class Component extends DCLogic {
       companies: s.companies.map(c => c.id === id ? Object.assign({}, c, patch, { updated: U.today() }) : c)
     }));
   }
+  /* Two independent pointers: the studio panel and the game dialog are open at
+     the same time, so each edits its own record. */
+  current() {
+    const s = this.state;
+    return s.edit ? s.companies.filter(c => c.id === s.edit)[0] : null;
+  }
+  currentGame() {
+    const s = this.state;
+    return s.gameEdit ? s.games.filter(g => g.id === s.gameEdit)[0] : null;
+  }
+
+  patch(patch) {
+    const s = this.state;
+    if (!s.edit) return;
+    this.patchCompany(s.edit, patch);
+    /* Editing the id renames the record the panel is pointing at, so the pointer
+       has to move with it — otherwise the first keystroke leaves it aimed at an
+       id nothing has any more and the form closes itself. */
+    if (patch.id !== undefined && patch.id !== s.edit) {
+      this.setState(st => ({
+        edit: patch.id,
+        // A company keeps its games: repoint them in the same move.
+        games: st.games.map(g => g.studioId === s.edit ? Object.assign({}, g, { studioId: patch.id }) : g)
+      }));
+    }
+  }
+
   patchGame(id, patch) {
     this.setState(s => ({
       touched: Object.assign({}, s.touched, { ["g:" + id]: 1 }),
       games: s.games.map(g => g.id === id ? Object.assign({}, g, patch, { updated: U.today() }) : g)
     }));
-  }
-  current() {
-    const s = this.state;
-    if (!s.edit) return null;
-    return s.editKind === "game"
-      ? s.games.filter(g => g.id === s.edit)[0]
-      : s.companies.filter(c => c.id === s.edit)[0];
-  }
-  patch(patch) {
-    const s = this.state;
-    if (s.editKind === "game") this.patchGame(s.edit, patch);
-    else this.patchCompany(s.edit, patch);
-    /* Editing the id renames the record the editor is pointing at, so the
-       pointer has to move with it — otherwise the first keystroke leaves it
-       aimed at an id nothing has any more and the form closes itself. */
-    if (patch.id !== undefined && patch.id !== s.edit) {
-      const games = s.editKind === "game" ? null : s.games;
-      this.setState({ edit: patch.id });
-      // A company keeps its games: repoint them at the new id in the same move.
-      if (games) {
-        this.setState(st => ({
-          games: st.games.map(g => g.studioId === s.edit ? Object.assign({}, g, { studioId: patch.id }) : g)
-        }));
-      }
+    if (patch.id !== undefined && patch.id !== id) {
+      this.setState(st => ({ gameEdit: st.gameEdit === id ? patch.id : st.gameEdit }));
     }
   }
+
   patchLink(group, key, value) {
     const cur = this.current();
     if (!cur) return;
@@ -629,13 +729,12 @@ class Component extends DCLogic {
     next[key] = value;
     this.patch({ [group]: next });
   }
-  toggleIn(field, value) {
-    const cur = this.current();
-    if (!cur) return;
-    const list = (cur[field] || []).slice();
-    const i = list.indexOf(value);
-    if (i < 0) list.push(value); else list.splice(i, 1);
-    this.patch({ [field]: list });
+  patchGameLink(id, key, value) {
+    const g = this.state.games.filter(x => x.id === id)[0];
+    if (!g) return;
+    const next = Object.assign({}, g.stores || {});
+    next[key] = value;
+    this.patchGame(id, { stores: next });
   }
 
   addEntry() {
@@ -651,7 +750,7 @@ class Component extends DCLogic {
         studioId: s.companies[0].id, status: "upcoming",
         created: now, updated: now, validated: now
       });
-      this.setState(st => ({ games: st.games.concat([g]), edit: g.id, editKind: "game", touched: Object.assign({}, st.touched, { ["g:" + g.id]: 1 }) }));
+      this.setState(st => ({ games: st.games.concat([g]), gameEdit: g.id, touched: Object.assign({}, st.touched, { ["g:" + g.id]: 1 }) }));
     } else {
       const kind = KIND_OF_TAB[s.tab] || "company";
       const c = D.normCompany({
@@ -663,16 +762,17 @@ class Component extends DCLogic {
     }
   }
 
+  // Deleting a game is the dialog's own action now; this only removes studios.
   removeEntry() {
     const s = this.state;
     if (!s.edit) return;
-    if (s.editKind === "game") {
-      this.setState(st => ({ games: st.games.filter(g => g.id !== st.edit), edit: null, touched: Object.assign({}, st.touched, { ["g:" + st.edit]: 1 }) }));
-    } else {
-      const attached = s.games.filter(g => g.studioId === s.edit).length;
-      if (attached) return this.say("ჯერ მოხსენი " + attached + " მიმაგრებული თამაში", "#f0a8a8");
-      this.setState(st => ({ companies: st.companies.filter(c => c.id !== st.edit), edit: null, touched: Object.assign({}, st.touched, { ["c:" + st.edit]: 1 }) }));
-    }
+    const attached = s.games.filter(g => g.studioId === s.edit).length;
+    if (attached) return this.say("ჯერ მოხსენი " + attached + " მიმაგრებული თამაში", "#f0a8a8");
+    this.setState(st => ({
+      companies: st.companies.filter(c => c.id !== st.edit),
+      edit: null,
+      touched: Object.assign({}, st.touched, { ["c:" + st.edit]: 1 })
+    }));
   }
 
   /* Reads the store page and overwrites only the fields the store owns. */
@@ -733,12 +833,13 @@ class Component extends DCLogic {
 
   /* Crop and compress on pick so the admin sees the exact framing that will be
      published; nothing is committed until they confirm. */
-  pickImage(file) {
-    const cur = this.current();
+  // The caller says which record the file is for, since the studio panel and
+  // the game dialog each have their own upload box open at once.
+  pickImage(file, cur, isGame) {
     if (!file || !cur) return;
-    const kind = this.state.editKind !== "game" ? "logo" : (cur.mobile ? "portrait" : "capsule");
+    const kind = !isGame ? "logo" : (cur.mobile ? "portrait" : "capsule");
     U.prepareImage(file, kind).then(img => {
-      this.setState({ pending: { img, kind, id: cur.id, forGame: this.state.editKind === "game" } });
+      this.setState({ pending: { img, kind, id: cur.id, forGame: !!isGame } });
       this.say("მზადაა — " + img.width + "×" + img.height + ", " + Math.round(img.bytes / 1024) + " KB", "#9ede9e");
     }).catch(e => this.say(e.message, "#f0a8a8"));
   }
@@ -841,7 +942,7 @@ class Component extends DCLogic {
   importStudio() {
     const cur = this.current();
     const url = (this.state.studioUrl || "").trim();
-    if (!cur || this.state.editKind === "game") return;
+    if (!cur) return;
     if (!url) return this.setState({ importMsg: "ჩასვი სტუდიის გვერდის ბმული", importMsgColor: "#f0a8a8" });
     if (!GGC.stores.detectStudio(url)) {
       return this.setState({
@@ -1016,7 +1117,7 @@ class Component extends DCLogic {
           dot: g.status === "upcoming" ? "#d3a11d" : "#4c9a5e",
           games: 0, gamesShow: "none",
           validated: g.validated ? "ვალიდაცია " + U.fmtDate(g.validated) : "არ არის ვალიდირებული",
-          edit: () => this.setState({ edit: g.id, editKind: "game" })
+          edit: () => this.setState({ gameEdit: g.id })
         };
       });
     }
@@ -1044,6 +1145,90 @@ class Component extends DCLogic {
     }));
   }
 
+  /* Field builders bound to whichever record is being edited, so the company
+     panel and the game dialog can be open at the same time without one writing
+     into the other. `patcher` decides where the change lands. */
+  fieldKit(cur, patcher) {
+    return {
+      text: (key, label, ph) => ({
+        k: label, v: cur[key] == null ? "" : String(cur[key]), ph: ph || "",
+        onInput: e => patcher({ [key]: e.target.value })
+      }),
+      /* Visible but not editable: bookkeeping the panel maintains, where typing
+         over it could only ever make it wrong. */
+      readOnly: (key, label) => ({
+        k: label, v: U.fmtDate(cur[key]) || "—", ph: "", onInput: () => {}
+      }),
+      num: (key, label, ph) => ({
+        k: label, v: cur[key] ? String(cur[key]) : "", ph: ph || "",
+        onInput: e => patcher({ [key]: Number(e.target.value) || 0 })
+      }),
+      csv: (key, label, ph) => ({
+        k: label, v: (cur[key] || []).join(", "), ph: ph || "",
+        onInput: e => patcher({ [key]: e.target.value.split(",").map(x => x.trim()).filter(Boolean) })
+      }),
+      toggle: (key, label) => ({
+        label: label,
+        bg: cur[key] ? "#1d96d3" : "transparent",
+        fg: cur[key] ? "#fff" : "#8b949c",
+        border: cur[key] ? "#1d96d3" : "#333941",
+        click: () => patcher({ [key]: !cur[key] })
+      }),
+      chip: (field, value) => {
+        const on = (cur[field] || []).indexOf(value) >= 0;
+        return {
+          label: value,
+          bg: on ? "#1d96d3" : "transparent",
+          fg: on ? "#fff" : "#8b949c",
+          border: on ? "#1d96d3" : "#333941",
+          click: () => {
+            const list = (cur[field] || []).slice();
+            const i = list.indexOf(value);
+            if (i < 0) list.push(value); else list.splice(i, 1);
+            patcher({ [field]: list });
+          }
+        };
+      }
+    };
+  }
+
+  /* The upload box, for whichever record owns the image. */
+  imageKit(cur, isGame) {
+    const s = this.state;
+    const pending = s.pending && s.pending.id === cur.id ? s.pending : null;
+    // Store art already covers this record — a hand-uploaded file would be
+    // thrown away by the next refresh, so say so instead of offering upload.
+    const storeArt = isGame && cur.art && (cur.art.capsule || cur.art.hero);
+    const size = U.IMAGE_SIZES[!isGame ? "logo" : (cur.mobile ? "portrait" : "capsule")];
+    const currentArt = isGame ? D.gameArt(cur) : cur.logo;
+    return {
+      show: "block",
+      title: isGame ? "თამაშის არტი" : "ლოგო",
+      preview: pending ? 'url("' + pending.img.url + '") center/cover no-repeat'
+        : currentArt ? 'url("' + currentArt + '") center/cover no-repeat' : "#2f353c",
+      ratio: size.w + "/" + size.h,
+      radius: isGame ? "6px" : "50%",
+      // Big enough to judge the crop, drawn in the shape the site uses.
+      previewW: isGame ? (cur.mobile ? "120px" : "220px") : "120px",
+      previewCaption: pending ? "ასე გამოჩნდება" : (currentArt ? "ამჟამინდელი" : "ცარიელი"),
+      compareShow: pending && currentArt ? "block" : "none",
+      current: currentArt ? 'url("' + currentArt + '") center/cover no-repeat' : "#2f353c",
+      hint: storeArt
+        ? "მაღაზიის capsule უკვე გამოიყენება — ატვირთული ფაილი შემდეგ სინქზე წაიშლება."
+        : size.w + "×" + size.h + " · ავტომატურად იჭრება ცენტრიდან და იკუმშება",
+      pickLabel: pending ? "სხვა ფაილი" : "ფაილის არჩევა",
+      actionShow: pending ? "flex" : "none",
+      uploadLabel: s.uploading ? "იტვირთება…" : "ატვირთვა და მიბმა",
+      onPick: e => {
+        const f = e.target.files && e.target.files[0];
+        e.target.value = "";
+        this.pickImage(f, cur, isGame);
+      },
+      upload: () => this.uploadImage(),
+      cancel: () => this.setState({ pending: null })
+    };
+  }
+
   editor() {
     const s = this.state;
     const cur = this.current();
@@ -1051,132 +1236,19 @@ class Component extends DCLogic {
       return {
         editorOpen: false, editName: "", editFields: [], editSelects: [], editAreas: [],
         editToggles: [], editChips: [], editLinks: [], editGames: [],
-        gamesBoxShow: "none", syncBoxShow: "none", linkBoxShow: "none", linkBoxTitle: "",
-        editSectionLabel: "", syncLabel: "ახლა წაკითხვა", syncText: "", syncDot: "#5d666e",
+        gamesBoxShow: "none", linkBoxShow: "none", linkBoxTitle: "", editSectionLabel: "",
         imageBoxShow: "none", imageTitle: "", imagePreview: "#2f353c", imageRatio: "1",
         imageRadius: "8px", imagePreviewW: "64px", imageHint: "", imagePickLabel: "",
         imageActionShow: "none", uploadLabel: "", onImagePick: () => {},
         uploadImage: () => {}, cancelImage: () => {},
-        imagePreviewCaption: "", imageCompareShow: "none", imageCurrent: "#2f353c",
-        backToStudio: () => {}, backShow: "none", backLabel: ""
+        imagePreviewCaption: "", imageCompareShow: "none", imageCurrent: "#2f353c"
       };
     }
-    const isGame = s.editKind === "game";
-    const pending = s.pending && s.pending.id === cur.id ? s.pending : null;
-    // Store art already covers this record — a hand-uploaded file would be
-    // thrown away by the next refresh, so say so instead of offering upload.
-    const storeArt = isGame && cur.art && (cur.art.capsule || cur.art.hero);
-    const shape = !isGame ? "logo" : (cur.mobile ? "portrait" : "capsule");
-    const size = U.IMAGE_SIZES[shape];
-    const currentArt = isGame ? D.gameArt(cur) : cur.logo;
-    const image = {
-      imageBoxShow: "block",
-      imageTitle: isGame ? "თამაშის არტი" : "ლოგო",
-      imagePreview: pending ? 'url("' + pending.img.url + '") center/cover no-repeat'
-        : currentArt ? 'url("' + currentArt + '") center/cover no-repeat' : "#2f353c",
-      imageRatio: size.w + "/" + size.h,
-      imageRadius: isGame ? "6px" : "50%",
-      // Big enough to actually judge the crop, and drawn in the shape the site
-      // uses — a circle for a logo, the card capsule for a game.
-      imagePreviewW: isGame ? (cur.mobile ? "120px" : "220px") : "120px",
-      imagePreviewCaption: pending ? "ასე გამოჩნდება" : (currentArt ? "ამჟამინდელი" : "ცარიელი"),
-      imageCompareShow: pending && currentArt ? "block" : "none",
-      imageCurrent: currentArt ? 'url("' + currentArt + '") center/cover no-repeat' : "#2f353c",
-      imageHint: storeArt
-        ? "მაღაზიის capsule უკვე გამოიყენება — ატვირთული ფაილი შემდეგ სინქზე წაიშლება."
-        : size.w + "×" + size.h + " · ავტომატურად იჭრება ცენტრიდან და იკუმშება",
-      imagePickLabel: pending ? "სხვა ფაილი" : "ფაილის არჩევა",
-      imageActionShow: pending ? "flex" : "none",
-      uploadLabel: s.uploading ? "იტვირთება…" : "ატვირთვა და მიბმა",
-      onImagePick: e => {
-        const f = e.target.files && e.target.files[0];
-        e.target.value = "";
-        this.pickImage(f);
-      },
-      uploadImage: () => this.uploadImage(),
-      cancelImage: () => this.setState({ pending: null })
-    };
-    const text = (key, label, ph) => ({
-      k: label, v: cur[key] == null ? "" : String(cur[key]), ph: ph || "",
-      onInput: e => this.patch({ [key]: e.target.value })
-    });
-    /* Kept visible but not editable: these are bookkeeping the panel maintains,
-       and typing over them would only ever make them wrong. */
-    const readOnly = (key, label) => ({
-      k: label, v: U.fmtDate(cur[key]) || "—", ph: "",
-      onInput: () => {}
-    });
-    const num = (key, label, ph) => ({
-      k: label, v: cur[key] ? String(cur[key]) : "", ph: ph || "",
-      onInput: e => this.patch({ [key]: Number(e.target.value) || 0 })
-    });
-    const csv = (key, label, ph) => ({
-      k: label, v: (cur[key] || []).join(", "), ph: ph || "",
-      onInput: e => this.patch({ [key]: e.target.value.split(",").map(x => x.trim()).filter(Boolean) })
-    });
-    const toggle = (key, label) => ({
-      label: label,
-      bg: cur[key] ? "#1d96d3" : "transparent",
-      fg: cur[key] ? "#fff" : "#8b949c",
-      border: cur[key] ? "#1d96d3" : "#333941",
-      click: () => this.patch({ [key]: !cur[key] })
-    });
-    const chip = (field, value) => ({
-      label: value,
-      bg: (cur[field] || []).indexOf(value) >= 0 ? "#1d96d3" : "transparent",
-      fg: (cur[field] || []).indexOf(value) >= 0 ? "#fff" : "#8b949c",
-      border: (cur[field] || []).indexOf(value) >= 0 ? "#1d96d3" : "#333941",
-      click: () => this.toggleIn(field, value)
-    });
-
-    if (isGame) {
-      const studioOpts = s.companies.map(c => ({ v: c.id, label: c.name + (c.legal ? " (" + c.legal + ")" : "") }));
-      // Opening an attached game used to be a dead end — the company's own form,
-      // links and logo were simply gone with no way back to them.
-      const studio = s.companies.filter(c => c.id === cur.studioId)[0];
-      return Object.assign({}, image, {
-        backShow: studio ? "inline-block" : "none",
-        backLabel: studio ? studio.name : "",
-        backToStudio: () => { if (studio) this.setState({ edit: studio.id, editKind: studio.kind }); },
-        editorOpen: true,
-        editName: cur.name || "თამაში",
-        editSectionLabel: "თამაშის მონაცემები",
-        editSelects: [
-          { k: "სტუდია (სავალდებულო)", v: cur.studioId, options: studioOpts, onChange: e => this.patch({ studioId: e.target.value }) },
-          { k: "გამომცემელი", v: cur.publisherId, options: [{ v: "", label: "—" }].concat(studioOpts), onChange: e => this.patch({ publisherId: e.target.value }) },
-          { k: "სტატუსი", v: cur.status, options: [{ v: "upcoming", label: "მოსალოდნელი" }, { v: "released", label: "გამოსული" }], onChange: e => this.patch({ status: e.target.value }) }
-        ],
-        editFields: [
-          text("name", "სახელი", "Dumbriel"),
-          text("id", "ID", "dumbriel"),
-          text("releaseDate", "გამოშვების თარიღი", "2026-04-20 ან ცარიელი = TBD"),
-          num("year", "წელი", "2026"),
-          csv("genres", "ჟანრი", "metroidvania, action"),
-          text("engine", "ძრავი", "Unity"),
-          text("price", "ფასი", "₾25"),
-          text("langs", "ენები", "ქართული, English"),
-          text("validated", "პირველი ვალიდაცია", U.today()),
-          readOnly("updated", "ბოლო განახლება")
-        ],
-        editAreas: [text("about", "აღწერა", "")],
-        editToggles: [toggle("verified", "ვერიფიცირებული"), toggle("mobile", "მობაილი")],
-        editChips: [{ label: "პლატფორმები", items: PLATFORMS.map(p => chip("platforms", p)) }],
-        editLinks: STORE_KEYS.map(k => ({
-          k: U.STORE_LABEL[k] || k, v: (cur.stores || {})[k] || "",
-          ph: k === "steam" ? "https://store.steampowered.com/app/…" : "",
-          onInput: e => this.patchLink("stores", k, e.target.value)
-        })),
-        linkBoxShow: "block", linkBoxTitle: "მაღაზიის ბმულები",
-        editGames: [], gamesBoxShow: "none", syncBoxShow: "block",
-        syncLabel: s.syncing === cur.id ? "იკითხება…" : "ახლა წაკითხვა",
-        syncText: cur.parsedAt ? "ბოლო სინქი " + U.fmtDate(cur.parsedAt.slice(0, 10)) + " · " + (U.STORE_LABEL[cur.source] || cur.source) : "ჯერ არ წაკითხულა",
-        syncDot: cur.parsedAt ? "#4c9a5e" : "#5d666e"
-      });
-    }
-
+    const k = this.fieldKit(cur, p => this.patch(p));
+    const img = this.imageKit(cur, false);
     const attached = s.games.filter(g => g.studioId === cur.id);
-    return Object.assign({}, image, {
-      backShow: "none", backLabel: "", backToStudio: () => {},
+
+    return {
       editorOpen: true,
       editName: cur.legal || cur.name || "ჩანაწერი",
       editSectionLabel: "იდენტიფიკაცია",
@@ -1185,58 +1257,137 @@ class Component extends DCLogic {
           { v: "company", label: "რეგისტრირებული კომპანია" },
           { v: "team", label: "გუნდი" },
           { v: "solo", label: "სოლო დეველოპერი" }
-        ], onChange: e => { this.patch({ kind: e.target.value }); this.setState({ editKind: e.target.value }); } }
-      ].concat([{
+        ], onChange: e => { this.patch({ kind: e.target.value }); this.setState({ editKind: e.target.value }); } },
         // Fixed lists on both sides, so the catalogue can group by city and size
         // instead of collecting a dozen spellings of each.
-        k: "ქალაქი", v: cur.city || "",
-        options: [{ v: "", label: "—" }].concat(CITIES.map(v => ({ v: v, label: v }))),
-        onChange: e => this.patch({ city: e.target.value })
-      }]).concat(cur.kind === "solo" ? [] : [{
+        { k: "ქალაქი", v: cur.city || "",
+          options: [{ v: "", label: "—" }].concat(CITIES.map(v => ({ v: v, label: v }))),
+          onChange: e => this.patch({ city: e.target.value }) }
+      ].concat(cur.kind === "solo" ? [] : [{
         k: "გუნდის ზომა", v: cur.size || "",
         options: [{ v: "", label: "—" }].concat(SIZES.map(v => ({ v: v, label: v }))),
         onChange: e => this.patch({ size: e.target.value })
       }]),
       // Only a registered company has a state registration number, and a solo
-      // developer has no team size — showing those fields invites data that
-      // means nothing for that kind of entry.
+      // developer has no team size — showing those invites data that means
+      // nothing for that kind of entry.
       editFields: [
-        text("legal", cur.kind === "company" ? "ოფიციალური სახელი" : "სრული სახელი", "MadMoa LLC"),
-        cur.kind === "company" ? text("regId", "საიდენტიფიკაციო ნომერი", "404123456") : null,
-        text("name", "საჯარო სახელი", ""),
-        text("id", "ID", ""),
-        num("founded", cur.kind === "solo" ? "საქმიანობის დაწყება" : "დაფუძნება", "2019"),
-        text("website", "ვებსაიტი", "https://…"),
-        text("email", "ელფოსტა", ""),
-        text("validated", "პირველი ვალიდაცია", U.today()),
-        readOnly("updated", "ბოლო განახლება")
+        k.text("legal", cur.kind === "company" ? "ოფიციალური სახელი" : "სრული სახელი", "MadMoa LLC"),
+        cur.kind === "company" ? k.text("regId", "საიდენტიფიკაციო ნომერი", "404123456") : null,
+        k.text("name", "საჯარო სახელი", ""),
+        k.text("id", "ID", ""),
+        k.num("founded", cur.kind === "solo" ? "საქმიანობის დაწყება" : "დაფუძნება", "2019"),
+        k.text("website", "ვებსაიტი", "https://…"),
+        k.text("email", "ელფოსტა", ""),
+        k.text("validated", "პირველი ვალიდაცია", U.today()),
+        k.readOnly("updated", "ბოლო განახლება")
       ].filter(Boolean),
-      editAreas: [text("about", "აღწერა", "")],
-      editToggles: [toggle("verified", "ვერიფიცირებული"), toggle("active", "აქტიური")],
-      editChips: [{ label: "როლები", items: ROLES.map(r => chip("roles", r)) }],
-      editLinks: SOCIALS.map(k => ({
-        k: U.SOC[k] || k, v: (cur.links || {})[k] || "", ph: "",
-        onInput: e => this.patchLink("links", k, e.target.value)
+      editAreas: [k.text("about", "აღწერა", "")],
+      editToggles: [k.toggle("verified", "ვერიფიცირებული"), k.toggle("active", "აქტიური")],
+      editChips: [{ label: "როლები", items: ROLES.map(r => k.chip("roles", r)) }],
+      editLinks: SOCIALS.map(key => ({
+        k: U.SOC[key] || key, v: (cur.links || {})[key] || "", ph: "",
+        onInput: e => this.patchLink("links", key, e.target.value)
       })),
       linkBoxShow: "block", linkBoxTitle: "სოციალური ქსელები",
       editGames: attached.map(g => {
         const art = D.gameArt(g);
         return {
-          name: g.name,
+          name: g.name || "(უსახელო)",
           meta: [D.releaseLabel(g), (g.platforms || []).join(", ")].filter(Boolean).join(" · "),
           art: art ? 'url("' + art + '") center/cover no-repeat' : "#2f353c",
-          open: () => this.setState({ edit: g.id, editKind: "game" }),
-          // Detaching from the studio's own view, without having to open the
-          // game and come back.
+          open: () => this.setState({ gameEdit: g.id }),
           remove: () => this.setState(st => ({
             games: st.games.filter(x => x.id !== g.id),
             touched: Object.assign({}, st.touched, { ["g:" + g.id]: 1 })
           }))
         };
       }),
-      gamesBoxShow: "block", syncBoxShow: "none",
-      syncLabel: "ახლა წაკითხვა", syncText: "", syncDot: "#5d666e"
-    });
+      gamesBoxShow: "block",
+      imageBoxShow: img.show, imageTitle: img.title, imagePreview: img.preview,
+      imageRatio: img.ratio, imageRadius: img.radius, imagePreviewW: img.previewW,
+      imagePreviewCaption: img.previewCaption, imageCompareShow: img.compareShow,
+      imageCurrent: img.current, imageHint: img.hint, imagePickLabel: img.pickLabel,
+      imageActionShow: img.actionShow, uploadLabel: img.uploadLabel,
+      onImagePick: img.onPick, uploadImage: img.upload, cancelImage: img.cancel
+    };
+  }
+
+  /* The game form lives in a dialog over the company panel rather than
+     replacing it — editing a game used to unmount the studio's own fields, so
+     adding a game meant losing access to its socials and logo until you went
+     back. Both stay mounted now. */
+  gameEditor() {
+    const s = this.state;
+    const cur = this.currentGame();
+    if (!cur) {
+      return {
+        gmOpen: false, gmName: "", gmFields: [], gmSelects: [], gmAreas: [],
+        gmToggles: [], gmChips: [], gmLinks: [], gmClose: () => {}, gmDelete: () => {},
+        gmStudio: "", gmSyncLabel: "", gmSyncText: "", gmSyncDot: "#5d666e", gmSync: () => {},
+        gmImageTitle: "", gmImagePreview: "#2f353c", gmImageRatio: "1", gmImageRadius: "6px",
+        gmImagePreviewW: "120px", gmImageHint: "", gmImagePickLabel: "", gmImageActionShow: "none",
+        gmUploadLabel: "", gmOnImagePick: () => {}, gmUpload: () => {}, gmCancelImage: () => {},
+        gmImagePreviewCaption: "", gmImageCompareShow: "none", gmImageCurrent: "#2f353c"
+      };
+    }
+    const k = this.fieldKit(cur, p => this.patchGame(cur.id, p));
+    const img = this.imageKit(cur, true);
+    const studioOpts = s.companies.map(c => ({ v: c.id, label: c.name + (c.legal ? " (" + c.legal + ")" : "") }));
+    const studio = s.companies.filter(c => c.id === cur.studioId)[0];
+
+    return {
+      gmOpen: true,
+      gmName: cur.name || "ახალი თამაში",
+      gmStudio: studio ? studio.name : "სტუდია არ არის მიბმული",
+      gmClose: () => this.setState({ gameEdit: null, pending: null }),
+      gmDelete: () => this.setState(st => ({
+        games: st.games.filter(g => g.id !== cur.id),
+        gameEdit: null,
+        touched: Object.assign({}, st.touched, { ["g:" + cur.id]: 1 })
+      })),
+      gmSelects: [
+        { k: "სტუდია (სავალდებულო)", v: cur.studioId, options: studioOpts,
+          onChange: e => this.patchGame(cur.id, { studioId: e.target.value }) },
+        { k: "გამომცემელი", v: cur.publisherId, options: [{ v: "", label: "—" }].concat(studioOpts),
+          onChange: e => this.patchGame(cur.id, { publisherId: e.target.value }) },
+        { k: "სტატუსი", v: cur.status,
+          options: [{ v: "upcoming", label: "მოსალოდნელი" }, { v: "released", label: "გამოსული" }],
+          onChange: e => this.patchGame(cur.id, { status: e.target.value }) }
+      ],
+      gmFields: [
+        k.text("name", "სახელი", "Dumbriel"),
+        k.text("id", "ID", "dumbriel"),
+        k.text("releaseDate", "გამოშვების თარიღი", "2026-04-20 ან ცარიელი = TBD"),
+        k.num("year", "წელი", "2026"),
+        k.csv("genres", "ჟანრი", "metroidvania, action"),
+        k.text("engine", "ძრავი", "Unity"),
+        k.text("price", "ფასი", "₾25"),
+        k.text("langs", "ენები", "ქართული, English"),
+        k.text("validated", "პირველი ვალიდაცია", U.today()),
+        k.readOnly("updated", "ბოლო განახლება")
+      ],
+      gmAreas: [k.text("about", "აღწერა", "")],
+      gmToggles: [k.toggle("verified", "ვერიფიცირებული"), k.toggle("mobile", "მობაილი")],
+      gmChips: [{ label: "პლატფორმები", items: PLATFORMS.map(p => k.chip("platforms", p)) }],
+      gmLinks: STORE_KEYS.map(key => ({
+        k: U.STORE_LABEL[key] || key, v: (cur.stores || {})[key] || "",
+        ph: key === "steam" ? "https://store.steampowered.com/app/…" : "",
+        onInput: e => this.patchGameLink(cur.id, key, e.target.value)
+      })),
+      gmSync: () => this.syncGame(cur),
+      gmSyncLabel: s.syncing === cur.id ? "იკითხება…" : "ახლა წაკითხვა",
+      gmSyncText: cur.parsedAt
+        ? "ბოლო სინქი " + U.fmtDate(cur.parsedAt.slice(0, 10)) + " · " + (U.STORE_LABEL[cur.source] || cur.source)
+        : "ჯერ არ წაკითხულა",
+      gmSyncDot: cur.parsedAt ? "#4c9a5e" : "#5d666e",
+      gmImageTitle: img.title, gmImagePreview: img.preview, gmImageRatio: img.ratio,
+      gmImageRadius: img.radius, gmImagePreviewW: img.previewW,
+      gmImagePreviewCaption: img.previewCaption, gmImageCompareShow: img.compareShow,
+      gmImageCurrent: img.current, gmImageHint: img.hint, gmImagePickLabel: img.pickLabel,
+      gmImageActionShow: img.actionShow, gmUploadLabel: img.uploadLabel,
+      gmOnImagePick: img.onPick, gmUpload: img.upload, gmCancelImage: img.cancel
+    };
   }
 
   renderVals() {
@@ -1296,7 +1447,7 @@ class Component extends DCLogic {
         badgeBg: id === "queue" ? "#ee2626" : "#333941",
         bg: s.tab === id ? "#2b3138" : "transparent",
         fg: s.tab === id ? "#fff" : "#a9b1b9",
-        click: () => this.setState({ tab: id, edit: null, q: "", sort: "" })
+        click: () => this.setState({ tab: id, edit: null, gameEdit: null, q: "", sort: "" })
         };
       }),
 
@@ -1326,12 +1477,13 @@ class Component extends DCLogic {
         if (!cur) return;
         const now = U.today();
         const g = D.normGame({
-          id: this.nextId(cur.name + "-game", s.games), name: "ახალი თამაში",
-          studioId: cur.id, status: "upcoming", created: now, updated: now
+          id: this.nextId("draft", s.games), name: "",
+          studioId: cur.id, status: "upcoming",
+          created: now, updated: now, validated: now
         });
-        this.setState(st => ({ games: st.games.concat([g]), edit: g.id, editKind: "game", touched: Object.assign({}, st.touched, { ["g:" + g.id]: 1 }) }));
+        this.setState(st => ({ games: st.games.concat([g]), gameEdit: g.id, touched: Object.assign({}, st.touched, { ["g:" + g.id]: 1 }) }));
       },
-      syncNow: () => { if (cur && s.editKind === "game") this.syncGame(cur); },
+      gmShow: s.gameEdit ? "block" : "none",
       studioUrl: s.studioUrl,
       onStudioUrl: e => this.setState({ studioUrl: e.target.value, importMsg: "" }),
       importStudio: () => this.importStudio(),
@@ -1369,7 +1521,7 @@ class Component extends DCLogic {
         { k: "ფორმის მიმღები", v: C.submitEndpoint ? (s.endpointOk || "კონფიგურირებულია") : "არ არის — ფორმა ვერაფერს გამოგზავნის" },
         { k: "ბოლო განახლება", v: U.fmtDate((D.raw().games || {}).updated || "") }
       ]
-    }, this.editor());
+    }, this.editor(), this.gameEditor());
     return v;
   }
 }
