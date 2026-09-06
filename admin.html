@@ -121,9 +121,9 @@
                   </div>
                   <div style="display:{{ q.noteShow }};margin-top:12px;background:#171a1e;border:1px solid #2f353c;border-radius:11px;padding:14px;font-size:14px;line-height:1.6;color:#c6ccd3">{{ q.note }}</div>
                   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center">
-                    <button type="button" onClick="{{ q.approve }}" style="display:{{ q.actShow }};border:0;cursor:pointer;background:#4c9a5e;color:#fff;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">დადასტურება</button>
-                    <button type="button" onClick="{{ q.reject }}" style="display:{{ q.actShow }};border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">უარი</button>
-                    <button type="button" onClick="{{ q.ask }}" style="display:{{ q.actShow }};border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">{{ q.askLabel }}</button>
+                    <button type="button" onClick="{{ q.approve }}" style="display:{{ q.approveShow }};border:0;cursor:pointer;background:#4c9a5e;color:#fff;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">დადასტურება</button>
+                    <button type="button" onClick="{{ q.reject }}" style="display:{{ q.rejectShow }};border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">{{ q.rejectLabel }}</button>
+                    <button type="button" onClick="{{ q.ask }}" style="display:{{ q.approveShow }};border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">{{ q.askLabel }}</button>
                     <a href="{{ q.url }}" target="_blank" rel="noopener" style="border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 18px;font-size:15px;font-weight:600">GitHub-ზე გახსნა ↗</a>
                     <span style="display:{{ q.stateShow }};font-size:14px;color:#9ede9e">{{ q.stateText }}</span>
                   </div>
@@ -295,10 +295,16 @@
             <button type="button" onClick="{{ syncAll }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:10px;padding:11px 16px;font-family:inherit;font-size:14px;font-weight:600">{{ syncAllLabel }}</button>
             <button type="button" onClick="{{ testEndpoint }}" style="border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 16px;font-family:inherit;font-size:14px;font-weight:600">{{ testEndpointLabel }}</button>
           </div>
-          <div style="display:{{ endpointWarnShow }};margin-top:16px;background:#2a1f1f;border:1px solid #4a3232;border-radius:12px;padding:16px">
-            <div style="font-size:15px;font-weight:600;color:#f0a8a8">ფორმა ვერაფერს გამოგზავნის</div>
-            <p style="margin:10px 0 0;font-size:14px;line-height:1.65;color:#c6ccd3">GitHub Pages-ზე განთავსებულ გვერდს თავისით ვერ შეუქმნია issue — საჭიროა პატარა მიმღები, რომელიც ტოკენს ინახავს. <b style="color:#fff">worker/apps-script.gs</b> ბრაუზერიდან იშლება ~3 წუთში, ინსტალაციის გარეშე. მერე მისი URL ჩაწერე <b style="color:#fff">assets/js/ggc-core.js</b>-ში, <b style="color:#fff">submitEndpoint</b>-ად.</p>
-            <a href="{{ workerDocUrl }}" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;font-size:14px">ინსტრუქცია ↗</a>
+          <div style="margin-top:16px;background:{{ endpointBoxBg }};border:1px solid {{ endpointBoxBorder }};border-radius:12px;padding:16px">
+            <div style="font-size:15px;font-weight:600;color:{{ endpointBoxFg }}">{{ endpointBoxTitle }}</div>
+            <p style="margin:10px 0 0;font-size:14px;line-height:1.65;color:#c6ccd3">{{ endpointBoxText }}</p>
+            <label style="display:flex;flex-direction:column;gap:7px;margin-top:14px;font-size:13px;color:#8b949c">მიმღების URL
+              <input type="url" value="{{ endpointInput }}" onInput="{{ onEndpointInput }}" placeholder="https://script.google.com/macros/s/…/exec" style="border:1px solid #333941;border-radius:9px;padding:11px 13px;font-family:inherit;font-size:14px;background:#1d2126;color:#e9ecee">
+            </label>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center">
+              <button type="button" onClick="{{ saveEndpoint }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ saveEndpointLabel }}</button>
+              <a href="{{ workerDocUrl }}" target="_blank" rel="noopener" style="font-size:14px">ინსტრუქცია ↗</a>
+            </div>
           </div>
         </div>
       </sc-if>
@@ -341,7 +347,8 @@ class Component extends DCLogic {
     tab: "queue", open: null, q: "", sort: "", edit: null, editKind: "company",
     queue: [], decisions: {}, companies: [], games: [], dirty: 0,
     status: "", statusColor: "#8b949c", publishing: false, syncing: "",
-    pending: null, uploading: false, asking: 0, testing: false, endpointOk: ""
+    pending: null, uploading: false, asking: 0, busy: 0, testing: false, endpointOk: "",
+    endpointInput: (window.GGC && GGC.config.submitEndpoint) || "", savingEndpoint: false
   };
 
   componentDidMount() {
@@ -459,12 +466,27 @@ class Component extends DCLogic {
     }, () => this.say(failed || "დადასტურდა — დარჩა ატვირთვა", failed ? "#f0a8a8" : "#9ede9e"));
   }
 
+  /* Rejecting changes no catalogue data, so there is nothing to stage and
+     nothing to publish — close it now and drop it out of the queue. Waiting for
+     an upload that has no data to upload is what left rejected items sitting
+     there looking untouched. */
   reject(item) {
-    this.setState(s => ({
-      dirty: s.dirty + 1,
-      decisions: Object.assign({}, s.decisions, { [item.number]: "rejected" })
-    }));
-    this.say("მონიშნულია უარით — დარჩა ატვირთვა", "#f4cd77");
+    if (!this.state.authed) return this.say("უარყოფას ტოკენი სჭირდება", "#f0a8a8");
+    this.setState({ busy: item.number });
+    GH.comment(item.number, "ამჯერად არ დადასტურებულა. თუ რამე დასაზუსტებელია, მოგვწერე Telegram-ზე და თავიდან შევხედავთ.")
+      .then(() => GH.closeIssue(item.number, "rejected"))
+      .then(() => {
+        this.setState(s => ({
+          busy: 0,
+          open: s.open === item.number ? null : s.open,
+          queue: s.queue.filter(q => q.number !== item.number)
+        }));
+        this.say("#" + item.number + " უარყოფილია და დაიხურა", "#f4cd77");
+      })
+      .catch(e => {
+        this.setState({ busy: 0 });
+        this.say("ვერ დაიხურა: " + e.message, "#f0a8a8");
+      });
   }
 
   /* Posts straight away and leaves the issue open — the point is to keep
@@ -491,18 +513,15 @@ class Component extends DCLogic {
     if (!s.authed || s.publishing || !s.dirty) return;
     this.setState({ publishing: true });
     this.say("იტვირთება…", "#6cc0e8");
-    const decided = Object.keys(s.decisions);
+    // Only approvals reach here — a rejection closed itself when it was made.
+    const approved = Object.keys(s.decisions);
     const msg = "data: " + s.dirty + " განახლება ადმინიდან";
     GH.saveData(s.companies, s.games, msg)
-      .then(() => Promise.all(decided.map(n => {
-        const verdict = s.decisions[n];
-        const body = verdict === "approved"
-          ? "დადასტურდა და გამოქვეყნდა კატალოგში. მადლობა!"
-          : "ამჯერად არ დადასტურდა. თუ რამე დასაზუსტებელია, მოგვწერე Telegram-ზე.";
-        return GH.comment(n, body)
-          .then(() => GH.closeIssue(n, verdict === "approved" ? "approved" : "rejected"))
-          .catch(() => null);
-      })))
+      .then(() => Promise.all(approved.map(n =>
+        GH.comment(n, "დადასტურდა და გამოქვეყნდა კატალოგში. მადლობა!")
+          .then(() => GH.closeIssue(n, "approved"))
+          .catch(() => null)
+      )))
       .then(() => D.load(true))
       .then(() => {
         this.setState({
@@ -680,6 +699,37 @@ class Component extends DCLogic {
       });
   }
 
+  /* Writes the relay URL into the one config line that names it, so setting the
+     site up never means opening an editor. The line is matched rather than the
+     whole file rewritten, to leave every other setting untouched. */
+  saveEndpoint() {
+    const url = (this.state.endpointInput || "").trim();
+    if (url && !/^https:\/\//.test(url)) return this.say("URL https-ით უნდა იწყებოდეს", "#f0a8a8");
+    if (!this.state.authed) return this.say("შენახვას ტოკენი სჭირდება", "#f0a8a8");
+    this.setState({ savingEndpoint: true });
+    const path = "assets/js/ggc-core.js";
+    GH.getText(path)
+      .then(file => {
+        const line = /^(\s*)submitEndpoint:\s*"[^"]*",/m;
+        if (!line.test(file.text)) throw new Error("submitEndpoint ვერ მოიძებნა " + path + "-ში");
+        const next = file.text.replace(line, '$1submitEndpoint: "' + url + '",');
+        if (next === file.text) {
+          this.setState({ savingEndpoint: false });
+          return this.say("იგივე მისამართია — ცვლილება არ არის", "#8b949c");
+        }
+        return GH.commit([{ path: path, content: next }], "config: set submitEndpoint")
+          .then(() => {
+            C.submitEndpoint = url;
+            this.setState({ savingEndpoint: false, endpointOk: "" });
+            this.say(url ? "შენახულია — გვერდის განახლების შემდეგ ფორმა ამ მისამართზე გაგზავნის" : "მისამართი წაიშალა", "#9ede9e");
+          });
+      })
+      .catch(e => {
+        this.setState({ savingEndpoint: false });
+        this.say("ვერ შეინახა: " + e.message, "#f0a8a8");
+      });
+  }
+
   /* Sends a deliberately invalid payload: a correctly wired relay answers with
      a validation error, which proves it is reachable without opening a junk
      issue. Anything else means the form cannot deliver. */
@@ -761,9 +811,13 @@ class Component extends DCLogic {
         note: p.note || "",
         noteShow: p.note ? "block" : "none",
         url: item.url,
-        actShow: !decided && s.authed && !item.malformed ? "inline-block" : "none",
+        // Approving needs a payload to apply; rejecting only needs the issue,
+        // so a malformed submission can still be cleared out of the queue.
+        approveShow: !decided && s.authed && !item.malformed ? "inline-block" : "none",
+        rejectShow: !decided && s.authed ? "inline-block" : "none",
+        rejectLabel: s.busy === item.number ? "იხურება…" : "უარი",
         stateShow: decided ? "inline" : "none",
-        stateText: decided === "approved" ? "✔ დადასტურებული — ატვირთვის მოლოდინში" : decided ? "უარყოფილი — ატვირთვის მოლოდინში" : "",
+        stateText: decided === "approved" ? "✔ დადასტურებული — დააჭირე „GitHub-ზე ატვირთვა“-ს" : "",
         toggle: () => this.setState(st => ({ open: st.open === item.number ? null : item.number })),
         approve: () => this.approve(item),
         reject: () => this.reject(item),
@@ -1071,7 +1125,17 @@ class Component extends DCLogic {
       syncNow: () => { if (cur && s.editKind === "game") this.syncGame(cur); },
       syncAll: () => this.syncAll(),
       syncAllLabel: s.syncing === "all" ? "იკითხება…" : "ყველა თამაშის განახლება",
-      endpointWarnShow: C.submitEndpoint ? "none" : "block",
+      endpointBoxBg: C.submitEndpoint ? "#171a1e" : "#2a1f1f",
+      endpointBoxBorder: C.submitEndpoint ? "#2f353c" : "#4a3232",
+      endpointBoxFg: C.submitEndpoint ? "#c6ccd3" : "#f0a8a8",
+      endpointBoxTitle: C.submitEndpoint ? "ფორმის მიმღები" : "ფორმა ვერაფერს გამოგზავნის",
+      endpointBoxText: C.submitEndpoint
+        ? "ფორმა ამ მისამართზე აგზავნის მოთხოვნებს. შეცვლა აქვე შეგიძლია — შენახვა პირდაპირ ჩაწერს კონფიგურაციაში."
+        : "GitHub Pages-ზე განთავსებულ გვერდს თავისით ვერ შეუქმნია issue — საჭიროა პატარა მიმღები, რომელიც ტოკენს ინახავს. worker/apps-script.gs ბრაუზერიდან იშლება ~3 წუთში, ინსტალაციის გარეშე. მერე მისი URL აქ ჩასვი — ფაილს ჩვენ თვითონ განვაახლებთ.",
+      endpointInput: s.endpointInput,
+      onEndpointInput: e => this.setState({ endpointInput: e.target.value }),
+      saveEndpoint: () => this.saveEndpoint(),
+      saveEndpointLabel: s.savingEndpoint ? "ინახება…" : "შენახვა და ჩაწერა",
       workerDocUrl: "https://github.com/" + C.owner + "/" + C.repo + "/blob/" + C.branch + "/worker/README.md",
       testEndpoint: () => this.testEndpoint(),
       testEndpointLabel: s.testing ? "მოწმდება…" : "მიმღების შემოწმება",

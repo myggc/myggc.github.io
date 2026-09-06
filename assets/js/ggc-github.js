@@ -131,6 +131,17 @@
 
   /* ------------------------------------------------------------------ commits */
 
+  /* Raw text of a tracked file, decoded from the base64 the contents API
+     returns. UTF-8 safe, which matters for the Georgian in these sources. */
+  function getText(path) {
+    return req(R + "/contents/" + path + "?ref=" + C.branch).then(function (f) {
+      var bin = atob((f.content || "").replace(/\n/g, ""));
+      var bytes = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      return { sha: f.sha, text: new TextDecoder("utf-8").decode(bytes) };
+    });
+  }
+
   function getFile(path) {
     return req(R + "/contents/" + encodeURIComponent(path) + "?ref=" + C.branch)
       .then(function (f) {
@@ -207,7 +218,7 @@
   window.GGCGitHub = {
     hasToken: hasToken, setToken: setToken, signIn: signIn, me: me,
     listSubmissions: listSubmissions, comment: comment, closeIssue: closeIssue,
-    getFile: getFile, commit: commit, saveData: saveData, parseIssue: parseIssue,
+    getFile: getFile, getText: getText, commit: commit, saveData: saveData, parseIssue: parseIssue,
     putImage: putImage,
     signOut: function () { setToken(""); }
   };
