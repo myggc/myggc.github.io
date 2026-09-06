@@ -134,6 +134,52 @@ async function readApple(id) {
   };
 }
 
+/* A Play page carries its own description of the app in a JSON-LD block, and
+   writes its dates beside the timestamps that produced them. Reading only the
+   og tags — which is all this did — left every Play game with a name, a picture
+   and no genre, year or price. Same reader as the site's importer. */
+async function readPlay(url) {
+  const html = await get(url, false);
+  let ld = null;
+  const m = /<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/i.exec(html);
+  if (m) {
+    try { ld = JSON.parse(m[1].replace(/\\u003d/g, "=").replace(/\\u0026/g, "&")); } catch {}
+  }
+  const name = ((ld && ld.name) || meta(html, "og:title") || "")
+    .replace(/\s*[-–—|]\s*(Apps|Games) on Google Play\s*$/i, "").trim();
+  if (!name) throw new Error(`no metadata at ${url}`);
+
+  const dates = [];
+  const re = /\["([A-Z][a-z]{2} \d{1,2}, \d{4})",\[(\d{9,10}),/g;
+  let hit;
+  while ((hit = re.exec(html))) dates.push({ text: hit[1], at: Number(hit[2]) });
+  dates.sort((a, b) => a.at - b.at);
+  const released = dates[0] || null;
+
+  const cats = new Set();
+  if (ld?.applicationCategory) cats.add(ld.applicationCategory);
+  const cre = /\/store\/apps\/category\/([A-Z_]+)/g;
+  while ((hit = cre.exec(html))) cats.add(hit[1]);
+  const genres = [...cats].filter((c) => c.startsWith("GAME_"))
+    .map((c) => c.replace(/^GAME_/, "").toLowerCase().replace(/_/g, " "));
+
+  const offer = ld?.offers?.[0];
+  const img = ld?.image || meta(html, "og:image") || "";
+  return {
+    name,
+    about: strip((ld && ld.description) || meta(html, "og:description") || ""),
+    genres,
+    status: released && released.at * 1000 > Date.now() ? "upcoming" : "released",
+    releaseDate: released ? released.text : "",
+    year: released ? new Date(released.at * 1000).getUTCFullYear() : 0,
+    price: offer ? (String(offer.price) === "0" ? "უფასო" : [offer.price, offer.priceCurrency].filter(Boolean).join(" ")) : "",
+    art: { capsule: img, hero: img, portrait: img },
+    platforms: ["Google Play"],
+    mobile: true,
+    source: "googleplay"
+  };
+}
+
 function detect(url) {
   const u = String(url || "").trim();
   if (!u) return null;
@@ -157,7 +203,7 @@ async function readStore(url) {
   if (d.kind === "steam") return readSteam(d.id, d.url);
   if (d.kind === "itch") return readOG(d.url, { platforms: ["itch.io"], source: "itch" });
   if (d.kind === "appstore") return readApple(d.id).catch(() => readOG(d.url, { platforms: ["App Store"], mobile: true, source: "appstore" }));
-  if (d.kind === "googleplay") return readOG(d.url, { platforms: ["Google Play"], mobile: true, source: "googleplay" });
+  if (d.kind === "googleplay") return readPlay(d.url).catch(() => readOG(d.url, { platforms: ["Google Play"], mobile: true, source: "googleplay" }));
   return readOG(d.url, { platforms: [STORE_LABEL[d.kind] || "Web"], source: d.kind });
 }
 

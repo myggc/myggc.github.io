@@ -143,7 +143,7 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px;margin-top:20px">
         <sc-for list="{{ fields }}" as="f" hint-placeholder-count="6">
           <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:{{ f.color }}">{{ f.label }}
-            <input type="text" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid {{ f.border }};border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
+            <input type="{{ f.type }}" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid {{ f.border }};border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
           </label>
         </sc-for>
         <sc-for list="{{ selectFields }}" as="f" hint-placeholder-count="1">
@@ -426,24 +426,22 @@ const FIELDS_BY_KIND = {
     ["legal", "ოფიციალური სახელი", "GGC Games LLC"],
     ["regId", "საიდენტიფიკაციო ნომერი", "404123456"],
     ["name", "საჯარო სახელი", "GGC Games"],
-    ["founded", "ოფიციალურად დაფუძნების წელი", "2019"],
+    ["founded", "ოფიციალურად დაფუძნების თარიღი", "", "date"],
     ["about", "აღწერა", "ქართული ინდი სტუდია…"],
     ["aboutEn", "აღწერა (English)", "Georgian indie studio…"],
     ["website", "ვებსაიტი", "https://ggc.ge"],
     ["email", "ელფოსტა", "info@ggc.ge"],
     ["phone", "ტელეფონი (არასავალდებულო)", "+995 555 00 00 00"],
-    ["contact", "საკონტაქტო პირი და კავშირი", "სახელი გვარი · @telegram"]
   ],
   team: [
     ["legal", "გუნდის სახელი", "GGC Games"],
     ["name", "საჯარო სახელი", "GGC Games"],
-    ["founded", "ჩამოყალიბების წელი", "2019"],
+    ["founded", "ჩამოყალიბების თარიღი", "", "date"],
     ["about", "აღწერა", "ქართული ინდი გუნდი…"],
     ["aboutEn", "აღწერა (English)", "Georgian indie team…"],
     ["website", "ვებსაიტი", "https://ggc.ge"],
     ["email", "ელფოსტა", "hello@ggc.ge"],
     ["phone", "ტელეფონი (არასავალდებულო)", "+995 555 00 00 00"],
-    ["contact", "საკონტაქტო პირი და კავშირი", "სახელი გვარი · @telegram"]
   ],
   solo: [
     ["legal", "სახელი და გვარი", "გიორგი ჩხაიძე"],
@@ -882,8 +880,8 @@ class Component extends DCLogic {
     const mark = (k, label) => need.indexOf(k) < 0 ? label : label + " *";
     const markColor = (k) => need.indexOf(k) >= 0 && !f[k] ? "#8c2f2f" : "#5a5f65";
     const markBorder = (k) => need.indexOf(k) >= 0 && !f[k] ? "#e8c4c4" : "#dfe3e4";
-    const fields = fieldsFor(s.kind).map(([k, label, ph]) => ({
-      label: mark(k, label), ph, value: f[k] || "",
+    const fields = fieldsFor(s.kind).map(([k, label, ph, type]) => ({
+      label: mark(k, label), ph, type: type || "text", value: f[k] || "",
       color: markColor(k), border: markBorder(k),
       onInput: e => this.set(k, e.target.value)
     }));

@@ -1703,7 +1703,6 @@ class Component extends DCLogic {
         req(k.text("email", "ელფოსტა *", "მაგ. info@ggc.ge"), "email"),
         /* A solo developer has no colleague to nominate as a contact — they are
            the contact — so the phone stands in for it. Never shown publicly. */
-        k.text("phone", "ტელეფონი (არასავალდებულო)", "+995 555 00 00 00"),
         cur.kind === "solo" ? null : k.text("contact", "საკონტაქტო პირი", "სახელი გვარი · @telegram"),
         k.text("validated", "პირველი ვალიდაცია", U.today()),
         k.readOnly("updated", "ბოლო განახლება")

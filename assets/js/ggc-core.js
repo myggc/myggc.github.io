@@ -436,7 +436,13 @@
      yet, or its daily quota runs out, the import still works. */
   function proxyOrder() {
     var list = config.proxies;
-    if (config.submitEndpoint) {
+    /* A relay deployed before it learned to read store pages answers every
+       fetch with its own status note — quickly, and uselessly. Tried first on
+       every request, that is a wasted round trip per game, which is most of why
+       importing a studio felt slow. Two useless answers is enough to conclude
+       it is not serving pages, and it is dropped for the rest of the session;
+       a reload picks it up again once it has been redeployed. */
+    if (config.submitEndpoint && relayMisses < 2) {
       list = [config.submitEndpoint + "?action=fetch&url={url}"].concat(list);
     }
     if (!lastGoodProxy) return list;
@@ -513,6 +519,8 @@
      six is most of the budget — and the rate limit reads, from the outside,
      exactly like the studio having no games. */
   var relayWorks = false;
+  // How many times the relay answered but gave us nothing a reader could use.
+  var relayMisses = 0;
 
   function fetchOnce(tpl, target, read) {
     var url = tpl.replace("{url}", encodeURIComponent(target)).replace("{raw}", target);
@@ -544,10 +552,13 @@
               .then(function () { return attempt(false); });
           }
           if (!r.ok) throw new Error("proxy " + r.status);
+          var isRelay = !!config.submitEndpoint && tpl.indexOf(config.submitEndpoint) === 0;
           return r.text().then(function (text) {
-            var out = read(unmarkdown(unwrap(text)));
+            var out;
+            try { out = read(unmarkdown(unwrap(text))); }
+            catch (e) { if (isRelay) relayMisses++; throw e; }
             lastGoodProxy = tpl;
-            if (config.submitEndpoint && tpl.indexOf(config.submitEndpoint) === 0) relayWorks = true;
+            if (isRelay) relayWorks = true;
             pageCache[target] = text;
             return out;
           });
@@ -696,6 +707,79 @@
     });
   }
 
+  /* ----------------------------------------------------------- google play */
+
+  /* A Play page carries far more than its og tags, and reading only those was
+     importing games with a name, a picture and nothing else — no genre, no year,
+     no price. Two things on the page are worth having:
+
+     a JSON-LD block, which is the store's own description of the app — its
+     category, its price, and who published it; and the dates, which the page
+     writes as ["Aug 27, 2019",[1566919311,…]] — the text beside the timestamp
+     that produced it. There are exactly two: the release and the last update.
+     Review dates elsewhere on the page carry no timestamp, which is what makes
+     this safe to match on. */
+  function parsePlay(url) {
+    return fetchVia(url, function (html) {
+      var ld = null;
+      var m = /<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/i.exec(html);
+      if (m) {
+        try {
+          ld = JSON.parse(m[1].replace(/\\u003d/g, "=").replace(/\\u0026/g, "&"));
+        } catch (e) { ld = null; }
+      }
+      var og = function (p) {
+        var hit = new RegExp('<meta[^>]+(?:property|name)="' + p + '"[^>]*content="([^"]+)', "i").exec(html);
+        return hit ? hit[1] : "";
+      };
+      var name = ((ld && ld.name) || og("og:title") || "")
+        .replace(/\s*[-–—|]\s*(Apps|Games) on Google Play\s*$/i, "").trim();
+      if (!name) throw new Error("ამ გვერდიდან მონაცემები ვერ წაიკითხა");
+
+      var dates = [], re = /\["([A-Z][a-z]{2} \d{1,2}, \d{4})",\[(\d{9,10}),/g, hit;
+      while ((hit = re.exec(html))) dates.push({ text: hit[1], at: Number(hit[2]) });
+      dates.sort(function (a, b) { return a.at - b.at; });
+      var released = dates.length ? dates[0] : null;
+
+      /* The category appears once as the app's own and again as every section
+         it is listed under. "GAME_EDUCATIONAL" is a genre; "FAMILY" is a shelf. */
+      var cats = {};
+      if (ld && ld.applicationCategory) cats[ld.applicationCategory] = 1;
+      var cre = /\/store\/apps\/category\/([A-Z_]+)/g;
+      while ((hit = cre.exec(html))) cats[hit[1]] = 1;
+      var genres = Object.keys(cats)
+        .filter(function (c) { return /^GAME_/.test(c); })
+        .map(function (c) { return c.replace(/^GAME_/, "").toLowerCase().replace(/_/g, " "); });
+
+      var offer = ld && ld.offers && ld.offers[0];
+      var price = "";
+      if (offer) {
+        price = String(offer.price) === "0" ? "უფასო"
+          : [offer.price, offer.priceCurrency].filter(Boolean).join(" ");
+      }
+      var img = (ld && ld.image) || og("og:image") || "";
+      return {
+        name: name,
+        about: ((ld && ld.description) || og("og:description") || "").trim(),
+        genres: genres,
+        status: released && released.at * 1000 > Date.now() ? "upcoming" : "released",
+        releaseDate: released ? released.text : "",
+        year: released ? Number(new Date(released.at * 1000).getUTCFullYear()) || 0 : 0,
+        price: price,
+        langs: "",
+        website: "",
+        developers: ld && ld.author && ld.author.name ? [ld.author.name] : [],
+        publishers: [],
+        art: { capsule: img, hero: img, portrait: img, shots: [] },
+        platforms: ["Google Play"],
+        stores: { googleplay: url },
+        mobile: true,
+        type: "game",
+        source: "googleplay"
+      };
+    });
+  }
+
   /* ------------------------------------------------------------- app store */
 
   /* The App Store is the exception to scraping. A developer page —
@@ -806,7 +890,13 @@
     var bare = u.replace(/^https?:\/\//, "");
     var m;
     if ((m = /store\.steampowered\.com\/(publisher|developer|curator|franchise)\/([^/?#]+)/i.exec(u))) {
-      /* A Steam publisher page renders its catalogue with JavaScript, so the
+      /* The listing sources, in the order they are asked. The searches come
+         first because a studio page renders most of its catalogue in
+         JavaScript and the fetchable HTML shows only part of it; the page
+         itself is the fallback. Asking stops at the first source that returns
+         a catalogue, and secondPass below covers what that misses.
+
+         Historic note kept because each quirk cost a release to find:
          HTML we can fetch lists only part of it — MadMoa's showed one of two
          games. The store search for the same name returns the whole set in
          plain markup, so ask that first and keep the original as a fallback. */
@@ -1038,6 +1128,9 @@
        a catalogue. The name search comes first because it is the one that has
        never come back empty; the rest are still there for when it does. */
     var lists = [];
+    // Which listing URLs were actually read, so the second pass can tell whether
+    // the pasted page itself ever got looked at for games.
+    var seenListing = {};
     var askNext = function (i) {
       if (i >= candidates.length || lists.length) return Promise.resolve();
       return ask(candidates[i]).then(function (found) {
@@ -1046,6 +1139,7 @@
       });
     };
     function ask(listUrl) {
+      seenListing[listUrl] = 1;
       return fetchVia(listUrl, function (html) {
         var found = studioGameUrls(html, d);
         // A search-results page is the storefront's own chrome, not the
@@ -1085,55 +1179,144 @@
         .then(function (p) { profile = p; return urls; }, function () { return urls; });
     }).then(function (urls) {
       if (!urls.length && !profile) throw new Error("ამ გვერდზე არაფერი მოიძებნა");
-      var out = [], done = 0;
+      var out = [], done = 0, total = 0;
+      var seenUrl = {};
       var list = urls.slice(0, 40);
+      list.forEach(function (u) { seenUrl[u] = 1; });
       /* Read several titles at once. One at a time made the import cost the sum
          of every proxy round trip — minutes for a studio with a handful of
          games — when it only ever needed the slowest of each batch. Four lanes
          collapse that without hammering the storefront. */
-      var next = 0;
-      function worker() {
-        if (next >= list.length) return Promise.resolve();
-        var u = list[next++];
-        // One retry: a single proxy hiccup should not drop a title from the
-        // catalogue and leave the whole import looking like it failed.
-        return parseStore(u)
-          .catch(function () { return parseStore(u); })
-          .then(function (g) { out.push(g); }, function () {})
-          .then(function () {
-            done++;
-            if (onProgress) onProgress(done, list.length, out.length ? out[out.length - 1].name : "");
-            return worker();
-          });
-      }
       /* How many lanes depends on who is answering. Through our own relay six
          is nothing. Against the one public proxy still standing — about twenty
          requests a minute, shared with everyone else using it — a burst of six
          spends the budget and comes back rate-limited, which looks from here
          like a studio with no games. Two lanes is slower and finishes. */
-      var lanes = [];
-      var width = Math.min(relayWorks ? 6 : 2, list.length);
-      for (var i = 0; i < width; i++) lanes.push(worker());
-      return Promise.all(lanes).then(function () {
-        // A studio page also lists demos, soundtracks and DLC. Those are not
-        // catalogue entries — importing them would file "… Demo" as its own game.
-        /* A free-text search can surface titles by other studios, so keep only
-           those the store itself credits to this one. Compared with everything
-           but letters and digits stripped, since "team-cherry" in a URL is
-           "Team Cherry" on the page. */
-        var want = String(d.id || "").toLowerCase().replace(/[^a-z0-9]/g, "");
-        var byThisStudio = function (g) {
-          if (!want) return true;
-          var credits = (g.developers || []).concat(g.publishers || []).join(" ")
-            .toLowerCase().replace(/[^a-z0-9]/g, "");
-          // No credits at all means a non-Steam source, which was not searched.
-          return !credits || credits.indexOf(want) >= 0;
-        };
-        var games = out.filter(function (g) {
-          if (g.type && g.type !== "game") return false;
-          if (!byThisStudio(g)) return false;
-          return !/\bdemo\b|\bplaytest\b|soundtrack|\bost\b/i.test(g.name || "");
-        });
+      function readAll(batch) {
+        total += batch.length;
+        var next = 0;
+        function worker() {
+          if (next >= batch.length) return Promise.resolve();
+          var u = batch[next++];
+          // One retry: a single proxy hiccup should not drop a title from the
+          // catalogue and leave the whole import looking like it failed.
+          return parseStore(u)
+            .catch(function () { return parseStore(u); })
+            .then(function (g) { out.push(g); }, function () {})
+            .then(function () {
+              done++;
+              if (onProgress) onProgress(done, total, out.length ? out[out.length - 1].name : "");
+              return worker();
+            });
+        }
+        var lanes = [];
+        var width = Math.min(relayWorks ? 6 : 2, batch.length);
+        for (var i = 0; i < width; i++) lanes.push(worker());
+        return Promise.all(lanes);
+      }
+      return readAll(list).then(function () {
+        var prof = profile || { links: {} };
+        prof.links = prof.links || {};
+        /* The page that was pasted is itself the studio's store link — worth
+           keeping on the record rather than making someone paste it twice. */
+        if (!prof.links[d.kind]) prof.links[d.kind] = d.url;
+
+        /* Keeps only the titles this studio is actually credited with, and
+           drops what a store page carries alongside them. Re-run after the
+           second pass below, so anything it adds is held to the same test. */
+        function harvest() {
+          // A studio page also lists demos, soundtracks and DLC. Those are not
+          // catalogue entries — importing them would file "… Demo" as its own game.
+          /* A free-text search can surface titles by other studios, so keep only
+             those the store itself credits to this one. Compared with everything
+             but letters and digits stripped, since "team-cherry" in a URL is
+             "Team Cherry" on the page. */
+          var want = String(d.id || prof.name || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+          var mine = out.filter(function (g) {
+            if (g.type && g.type !== "game") return false;
+            if (want) {
+              var credits = (g.developers || []).concat(g.publishers || []).join(" ")
+                .toLowerCase().replace(/[^a-z0-9]/g, "");
+              // No credits at all means a non-Steam source, which was not searched.
+              if (credits && credits.indexOf(want) < 0) return false;
+            }
+            return !/\bdemo\b|\bplaytest\b|soundtrack|\bost\b/i.test(g.name || "");
+          });
+          /* The studio page could not tell us its own name, but every game it
+             published names it. Take the credit that appears on the most titles,
+             and the first official site any of them lists. */
+          if (!prof.name) {
+            var tally = {};
+            mine.forEach(function (g) {
+              (g.developers || []).concat(g.publishers || []).forEach(function (n) {
+                if (n) tally[n] = (tally[n] || 0) + 1;
+              });
+            });
+            var best = "";
+            Object.keys(tally).forEach(function (n) {
+              if (!best || tally[n] > tally[best]) best = n;
+            });
+            if (best) prof.name = best;
+          }
+          if (!prof.website) {
+            for (var i = 0; i < mine.length; i++) {
+              if (mine[i].website) { prof.website = mine[i].website; break; }
+            }
+          }
+          // The support address on a small studio's own title is the studio's.
+          if (!prof.email) {
+            for (var e = 0; e < mine.length; e++) {
+              if (mine[e].email) { prof.email = mine[e].email; break; }
+            }
+          }
+          return mine;
+        }
+
+        /* A Steam studio page renders most of its catalogue in JavaScript, so
+           the HTML that can be fetched shows only part of it — MadMoa's lists
+           one of its two titles, and the one it leaves out is the unreleased
+           one. The store's own search does return them all, but a curator page
+           is addressed by a number, so there is nothing to search for until the
+           games have been read and the studio has told us its name.
+
+           So once the name is known, the search runs again with it. That is the
+           difference between a studio page showing an upcoming title and only
+           showing it when its own link is pasted separately. */
+        function secondPass(games) {
+          var sources = [];
+          /* The asking stopped at the first source that answered, so the page
+             that was actually pasted may never have been read for its games —
+             and it is the one place a title the search does not surface can
+             still be listed. It was read for the profile a moment ago, so this
+             costs nothing but a cache lookup. */
+          if (!seenListing[d.url]) sources.push(d.url);
+          var name = prof.name || "";
+          var slug = String(d.id || "");
+          var already = slug && name.toLowerCase().replace(/[^a-z0-9]/g, "") ===
+            slug.toLowerCase().replace(/[^a-z0-9]/g, "");
+          if (d.kind === "steam" && name && !already) {
+            sources.push("https://store.steampowered.com/search/?term=" +
+              encodeURIComponent(name) + "&ndl=1&ignore_preferences=1");
+          }
+          if (!sources.length) return Promise.resolve(games);
+          return Promise.all(sources.map(function (u) {
+            return fetchVia(u, function (html) { return studioGameUrls(html, d); })
+              .catch(function () { return []; });
+          })).then(function (lists) {
+            var fresh = [];
+            lists.forEach(function (l) {
+              l.forEach(function (u) {
+                if (seenUrl[u] || fresh.length >= 20) return;
+                seenUrl[u] = 1;
+                fresh.push(u);
+              });
+            });
+            if (!fresh.length) return games;
+            return readAll(fresh).then(function () { return harvest(); });
+          });
+        }
+
+        return secondPass(harvest()).then(function (games) {
         /* Never throw for an empty game list. The studio's own details were read
            from the same page and are worth keeping even when no title could be:
            losing the name, site and socials because a storefront request failed
@@ -1141,45 +1324,12 @@
         var reason = "";
         if (!games.length) {
           reason = !out.length
-            ? ("გვერდზე " + list.length + " თამაში მოიძებნა, მაგრამ ვერცერთი ვერ წაიკითხა — " +
+            ? ("გვერდზე " + total + " თამაში მოიძებნა, მაგრამ ვერცერთი ვერ წაიკითხა — " +
                "მაღაზია ახლა დაკავებულია, სცადე ერთ წუთში.")
             : "მხოლოდ დემო/DLC მოიძებნა — სრული თამაში ამ გვერდზე არ არის.";
         }
-        /* The page that was pasted is itself the studio's store link — worth
-           keeping on the record rather than making someone paste it twice. */
-        var prof = profile || { links: {} };
-        prof.links = prof.links || {};
-        if (!prof.links[d.kind]) prof.links[d.kind] = d.url;
-
-        /* The studio page could not tell us its own name, but every game it
-           published names it. Take the credit that appears on the most titles,
-           and the first official site any of them lists. */
-        if (!prof.name) {
-          var tally = {};
-          games.forEach(function (g) {
-            (g.developers || []).concat(g.publishers || []).forEach(function (n) {
-              if (n) tally[n] = (tally[n] || 0) + 1;
-            });
-          });
-          var best = "";
-          Object.keys(tally).forEach(function (n) {
-            if (!best || tally[n] > tally[best]) best = n;
-          });
-          if (best) prof.name = best;
-        }
-        if (!prof.website) {
-          for (var i = 0; i < games.length; i++) {
-            if (games[i].website) { prof.website = games[i].website; break; }
-          }
-        }
-        // The support address on a small studio's own title is the studio's.
-        if (!prof.email) {
-          for (var e = 0; e < games.length; e++) {
-            if (games[e].email) { prof.email = games[e].email; break; }
-          }
-        }
         var result = {
-          source: d.kind, found: list.length, skipped: out.length - games.length,
+          source: d.kind, found: total, skipped: out.length - games.length,
           games: games, profile: prof, reason: reason
         };
         /* A studio page is not always where a studio keeps its links. Steam's
@@ -1203,6 +1353,7 @@
             if (!prof.website && p.website) prof.website = p.website;
             return result;
           }, function () { return result; });
+        });
       });
     });
   }
@@ -1220,7 +1371,11 @@
         return parseOG(d.url, { platforms: ["App Store"], stores: { appstore: d.url }, mobile: true, source: "appstore" });
       });
     }
-    if (d.kind === "googleplay") return parseOG(d.url, { platforms: ["Google Play"], stores: { googleplay: d.url }, mobile: true, source: "googleplay" });
+    if (d.kind === "googleplay") {
+      return parsePlay(d.url).catch(function () {
+        return parseOG(d.url, { platforms: ["Google Play"], stores: { googleplay: d.url }, mobile: true, source: "googleplay" });
+      });
+    }
     var label = STORE_LABEL[d.kind] || "Web";
     var st = {};
     st[d.kind] = d.url;
