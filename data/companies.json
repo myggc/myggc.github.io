@@ -185,29 +185,28 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "sollerstech",
+      "id": "zambara-studio",
       "kind": "company",
-      "name": "SollersTech",
-      "legal": "SollersTech",
-      "regId": "431956449",
+      "name": "Zambara Studio",
+      "legal": "შპს ზამბარა",
+      "regId": "400311578",
       "city": "თბილისი",
-      "founded": "2024-04-14",
-      "size": "3-5",
+      "founded": "2021-11-02",
+      "size": "1-2",
       "roles": [
         "developer"
       ],
-      "website": "https://www.sollerstech.com/",
-      "email": "sollerstech.com@gmail.com",
+      "website": "https://steamdeck.com/en/verified",
+      "email": "info@zambara.studio",
       "phone": "",
       "contact": "",
-      "about": "დამოუკიდებელი ინდი სტუდია რომელიც ფოკუსირებულია 2დ სათავგადასავლო თამაშებზე.",
-      "aboutEn": "An independent game studio based in Georgia, specializing in the development of 2D adventure puzzle games.",
-      "logo": "https://avatars.fastly.steamstatic.com/2e4282e77e9c8381c02c05b97ea23f44066cc784_full.jpg",
+      "about": "ინდი სტუდია",
+      "aboutEn": "Indie studio",
+      "logo": "",
       "links": {
-        "steam": "https://store.steampowered.com/developer/sollerstech",
-        "x": "https://x.com/BackToTheCollis",
-        "youtube": "https://www.youtube.com/@sollerstech",
-        "discord": "https://discord.gg/sfV3x5eTqv"
+        "steam": "https://store.steampowered.com/search/?publisher=Zambara%20Studio",
+        "x": "https://x.com/ZambaraStudio",
+        "youtube": "https://www.youtube.com/@zambarastudio"
       },
       "verified": true,
       "active": true,
