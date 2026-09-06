@@ -48,6 +48,33 @@
       "validated": "2025-03-12",
       "created": "2025-03-12",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "სახელი-საჯარო-game",
+      "name": "ახალი თამაში",
+      "studioId": "mad 1",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [],
+      "platforms": [],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "",
+      "aboutEn": "",
+      "stores": {},
+      "art": {},
+      "localArt": "",
+      "source": "manual",
+      "parsedAt": "",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
     }
   ]
 }
