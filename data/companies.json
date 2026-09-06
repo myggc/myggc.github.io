@@ -243,26 +243,26 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "black-room-games",
+      "id": "animmal-studio",
       "kind": "company",
-      "name": "Black Room Games",
-      "legal": "შპს ბლექ რუმ გეიმს",
-      "regId": "405158779",
+      "name": "ANIMMAL STUDIO",
+      "legal": "შპს ანიმმალ გეიმს",
+      "regId": "405487110",
       "city": "თბილისი",
-      "founded": "2016-07-15",
+      "founded": "2021-10-08",
       "size": "3-5",
       "roles": [
         "developer"
       ],
-      "website": "https://blackroomgames.com/",
-      "email": "info@blackroomgames.com",
+      "website": "",
+      "email": " ",
       "phone": "",
       "contact": "",
       "about": "ინდი სტუდია",
       "aboutEn": "Indie studio",
-      "logo": "https://play-lh.googleusercontent.com/79Ul9b4SAYLDSRRtvfdVqAZZ38h6Pi5RBRzkTdkBM-5V7eFm0rSRnJQF0vKYUIRMtA",
+      "logo": "https://avatars.fastly.steamstatic.com/65cbdf7f53b2b111a1bee61f59300e48b4103edf_full.jpg",
       "links": {
-        "googleplay": "https://play.google.com/store/apps/dev?id=4869302861934416363&hl=en"
+        "steam": "https://store.steampowered.com/developer/animmalstudio"
       },
       "verified": true,
       "active": true,
