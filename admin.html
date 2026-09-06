@@ -102,9 +102,9 @@
                     </div>
                     <sc-for list="{{ q.diff }}" as="d" hint-placeholder-count="3">
                       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:1px;background:#2f353c;font-size:14px">
-                        <div style="background:#171a1e;padding:11px 14px;color:#8b949c">{{ d.k }}</div>
-                        <div style="background:#171a1e;padding:11px 14px;color:#c6ccd3;text-decoration:line-through">{{ d.old }}</div>
-                        <div style="background:#16221a;padding:11px 14px;color:#9ede9e;font-weight:600">{{ d.new }}</div>
+                        <div style="background:#171a1e;padding:11px 14px;color:#8b949c;word-break:break-word;overflow-wrap:anywhere">{{ d.k }}</div>
+                        <div style="background:#171a1e;padding:11px 14px;color:#c6ccd3;text-decoration:line-through;word-break:break-word;overflow-wrap:anywhere">{{ d.old }}</div>
+                        <div style="background:#16221a;padding:11px 14px;color:#9ede9e;font-weight:600;word-break:break-word;overflow-wrap:anywhere">{{ d.new }}</div>
                       </div>
                     </sc-for>
                   </div>
@@ -114,11 +114,12 @@
                       <sc-for list="{{ q.diff }}" as="d" hint-placeholder-count="3">
                         <div style="background:#1d2126;border-radius:9px;padding:12px 14px">
                           <div style="font-size:13px;color:#8b949c">{{ d.k }}</div>
-                          <div style="margin-top:4px;font-size:15px;font-weight:600;color:#fff">{{ d.new }}</div>
+                          <div style="margin-top:4px;font-size:15px;font-weight:600;color:#fff;word-break:break-word;overflow-wrap:anywhere">{{ d.new }}</div>
                         </div>
                       </sc-for>
                     </div>
                   </div>
+                  <div style="display:{{ q.emptyShow }};background:#171a1e;border:1px solid #2f353c;border-radius:11px;padding:16px;font-size:14px;line-height:1.65;color:#c6ccd3">ამ მოთხოვნაში ცვლილება აღარ არის — ყველაფერი უკვე გამოქვეყნებულია. დახურვისთვის დააჭირე „უარს“.</div>
                   <div style="display:{{ q.noteShow }};margin-top:12px;background:#171a1e;border:1px solid #2f353c;border-radius:11px;padding:14px;font-size:14px;line-height:1.6;color:#c6ccd3">{{ q.note }}</div>
                   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center">
                     <button type="button" onClick="{{ q.approve }}" style="display:{{ q.approveShow }};border:0;cursor:pointer;background:#4c9a5e;color:#fff;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">დადასტურება</button>
@@ -171,6 +172,7 @@
         <sc-if value="{{ editorOpen }}">
           <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+              <button type="button" onClick="{{ backToStudio }}" style="display:{{ backShow }};flex:none;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:600">← {{ backLabel }}</button>
               <h2 style="margin:0;font-size:19px;font-weight:600;color:#fff;flex:1 1 160px;min-width:0">{{ editName }}</h2>
               <button type="button" onClick="{{ deleteEntry }}" style="flex:none;border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px">წაშლა</button>
               <button type="button" onClick="{{ closeEditor }}" style="flex:none;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px">დახურვა</button>
@@ -222,13 +224,20 @@
 
                 <div style="display:{{ imageBoxShow }};background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
                   <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">{{ imageTitle }}</div>
-                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px">
-                    <div style="width:{{ imagePreviewW }};aspect-ratio:{{ imageRatio }};border-radius:{{ imageRadius }};background:{{ imagePreview }};flex:none;border:1px solid #2f353c"></div>
-                    <div style="flex:1 1 140px;min-width:0">
+                  <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:16px;margin-top:14px">
+                    <div style="flex:none;text-align:center">
+                      <div style="width:{{ imagePreviewW }};aspect-ratio:{{ imageRatio }};border-radius:{{ imageRadius }};background:{{ imagePreview }};border:1px solid #2f353c"></div>
+                      <div style="margin-top:6px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#6a737c">{{ imagePreviewCaption }}</div>
+                    </div>
+                    <div style="flex:1 1 160px;min-width:0">
                       <label style="display:inline-block;cursor:pointer;border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:9px;padding:10px 14px;font-size:14px;font-weight:600">{{ imagePickLabel }}
                         <input type="file" accept="image/*" onChange="{{ onImagePick }}" style="display:none">
                       </label>
                       <div style="margin-top:8px;font-size:13px;line-height:1.5;color:#8b949c">{{ imageHint }}</div>
+                      <div style="display:{{ imageCompareShow }};margin-top:12px">
+                        <div style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#6a737c;margin-bottom:6px">ახლა გამოქვეყნებულია</div>
+                        <div style="width:{{ imagePreviewW }};aspect-ratio:{{ imageRatio }};border-radius:{{ imageRadius }};background:{{ imageCurrent }};border:1px solid #2f353c;opacity:.65"></div>
+                      </div>
                     </div>
                   </div>
                   <div style="display:{{ imageActionShow }};display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
@@ -260,6 +269,14 @@
                       </button>
                     </sc-for>
                     <button type="button" onClick="{{ addGame }}" style="border:1px dashed #333941;cursor:pointer;background:transparent;color:#8b949c;border-radius:9px;padding:11px;font-family:inherit;font-size:14px">+ თამაშის მიმაგრება</button>
+                  </div>
+                  <div style="margin-top:14px;padding-top:14px;border-top:1px solid #2f353c">
+                    <div style="font-size:13px;color:#8b949c">სტუდიის გვერდიდან ყველა თამაშის წამოღება</div>
+                    <input type="url" value="{{ studioUrl }}" onInput="{{ onStudioUrl }}" placeholder="https://store.steampowered.com/publisher/…" style="width:100%;margin-top:8px;border:1px solid #333941;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;background:#1d2126;color:#e9ecee">
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center">
+                      <button type="button" onClick="{{ importStudio }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:10px 14px;font-family:inherit;font-size:14px;font-weight:600">{{ importLabel }}</button>
+                      <span style="display:{{ importMsgShow }};flex:1 1 140px;min-width:0;font-size:13px;line-height:1.5;color:{{ importMsgColor }}">{{ importMsg }}</span>
+                    </div>
                   </div>
                 </div>
 
@@ -325,6 +342,7 @@ const NAV = [
 const TITLES = { companies: "კომპანიები", teams: "გუნდები", solo: "სოლო დეველოპერები", games: "თამაშები" };
 const KIND_OF_TAB = { companies: "company", teams: "team", solo: "solo" };
 const ROLES = ["developer", "publisher", "art", "audio", "porting", "outsourcing", "codev"];
+const SIZES = ["1-2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-250", "251+"];
 const PLATFORMS = ["Steam", "itch.io", "App Store", "Google Play", "Switch", "Xbox", "PlayStation", "Epic Games"];
 const SOCIALS = ["telegram", "facebook", "instagram", "linkedin", "youtube", "x", "steam", "itch", "discord", "tiktok"];
 const STORE_KEYS = ["steam", "itch", "appstore", "googleplay", "switch", "xbox", "playstation", "epic"];
@@ -350,7 +368,8 @@ class Component extends DCLogic {
     status: "", statusColor: "#8b949c", publishing: false, syncing: "",
     pending: null, uploading: false, asking: 0, busy: 0, testing: false, endpointOk: "",
     endpointInput: (window.GGC && GGC.config.submitEndpoint) || "", savingEndpoint: false,
-    endpointMsg: "", endpointMsgColor: "#c6ccd3"
+    endpointMsg: "", endpointMsgColor: "#c6ccd3",
+    studioUrl: "", importing: false, importMsg: "", importMsgColor: "#8b949c"
   };
 
   componentDidMount() {
@@ -790,6 +809,58 @@ class Component extends DCLogic {
       });
   }
 
+  /* Reads a studio's store page and attaches every game on it that is not
+     already here, each one parsed exactly as a single pasted link would be. */
+  importStudio() {
+    const cur = this.current();
+    const url = (this.state.studioUrl || "").trim();
+    if (!cur || this.state.editKind === "game") return;
+    if (!url) return this.setState({ importMsg: "ჩასვი სტუდიის გვერდის ბმული", importMsgColor: "#f0a8a8" });
+    if (!GGC.stores.detectStudio(url)) {
+      return this.setState({
+        importMsg: "სტუდიის გვერდი გვჭირდება — Steam-ზე /publisher/ ან /developer/",
+        importMsgColor: "#f4cd77"
+      });
+    }
+    this.setState({ importing: true, importMsg: "ვეძებთ…", importMsgColor: "#8ccbe9" });
+    GGC.stores.parseStudio(url, (done, total, name) =>
+      this.setState({ importMsg: "წაკითხულია " + done + "/" + total + (name ? " — " + name : ""), importMsgColor: "#8ccbe9" })
+    ).then(res => {
+      const now = U.today();
+      const have = {};
+      this.state.games.forEach(g => {
+        have[(g.name || "").toLowerCase()] = 1;
+        Object.keys(g.stores || {}).forEach(k => { if (g.stores[k]) have[g.stores[k].toLowerCase()] = 1; });
+      });
+      const fresh = res.games.filter(g => {
+        const u = Object.keys(g.stores || {}).map(k => g.stores[k]).filter(Boolean)[0] || "";
+        return !have[(g.name || "").toLowerCase()] && !have[u.toLowerCase()];
+      });
+      if (!fresh.length) {
+        return this.setState({ importing: false, importMsg: "ყველა ნაპოვნი თამაში უკვე კატალოგშია", importMsgColor: "#8b949c" });
+      }
+      this.setState(s => {
+        const games = s.games.slice();
+        fresh.forEach(g => {
+          games.push(D.normGame(Object.assign({}, g, {
+            id: this.nextId(g.name || "game", games),
+            studioId: cur.id,
+            validated: now, created: now, updated: now, verified: true
+          })));
+        });
+        return {
+          games, importing: false, dirty: s.dirty + fresh.length,
+          importMsg: "დაემატა " + fresh.length + " თამაში — დარჩა ატვირთვა",
+          importMsgColor: "#9ede9e"
+        };
+      });
+    }, err => this.setState({
+      importing: false,
+      importMsg: (err && err.message) || "ვერ წავიკითხეთ",
+      importMsgColor: "#f0a8a8"
+    }));
+  }
+
   exportJson() {
     const doc = {
       companies: { version: 1, updated: U.today(), items: this.state.companies },
@@ -845,14 +916,17 @@ class Component extends DCLogic {
         diff: diff,
         show: s.open === item.number ? "block" : "none",
         chevron: s.open === item.number ? "−" : "+",
-        diffShow: isEdit && !item.malformed ? "block" : "none",
-        newShow: !isEdit || item.malformed ? "block" : "none",
+        // A submission whose values already match what is published leaves an
+        // empty table, which read as a broken card. Say so instead.
+        emptyShow: !item.malformed && !diff.length ? "block" : "none",
+        diffShow: isEdit && !item.malformed && diff.length ? "block" : "none",
+        newShow: (!isEdit || item.malformed) && diff.length ? "block" : "none",
         note: p.note || "",
         noteShow: p.note ? "block" : "none",
         url: item.url,
         // Approving needs a payload to apply; rejecting only needs the issue,
         // so a malformed submission can still be cleared out of the queue.
-        approveShow: !decided && s.authed && !item.malformed ? "inline-block" : "none",
+        approveShow: !decided && s.authed && !item.malformed && diff.length ? "inline-block" : "none",
         rejectShow: !decided && s.authed ? "inline-block" : "none",
         rejectLabel: s.busy === item.number ? "იხურება…" : "უარი",
         stateShow: decided ? "inline" : "none",
@@ -932,7 +1006,9 @@ class Component extends DCLogic {
         imageBoxShow: "none", imageTitle: "", imagePreview: "#2f353c", imageRatio: "1",
         imageRadius: "8px", imagePreviewW: "64px", imageHint: "", imagePickLabel: "",
         imageActionShow: "none", uploadLabel: "", onImagePick: () => {},
-        uploadImage: () => {}, cancelImage: () => {}
+        uploadImage: () => {}, cancelImage: () => {},
+        imagePreviewCaption: "", imageCompareShow: "none", imageCurrent: "#2f353c",
+        backToStudio: () => {}, backShow: "none", backLabel: ""
       };
     }
     const isGame = s.editKind === "game";
@@ -950,7 +1026,12 @@ class Component extends DCLogic {
         : currentArt ? 'url("' + currentArt + '") center/cover no-repeat' : "#2f353c",
       imageRatio: size.w + "/" + size.h,
       imageRadius: isGame ? "6px" : "50%",
-      imagePreviewW: isGame && !cur.mobile ? "108px" : "64px",
+      // Big enough to actually judge the crop, and drawn in the shape the site
+      // uses — a circle for a logo, the card capsule for a game.
+      imagePreviewW: isGame ? (cur.mobile ? "120px" : "220px") : "120px",
+      imagePreviewCaption: pending ? "ასე გამოჩნდება" : (currentArt ? "ამჟამინდელი" : "ცარიელი"),
+      imageCompareShow: pending && currentArt ? "block" : "none",
+      imageCurrent: currentArt ? 'url("' + currentArt + '") center/cover no-repeat' : "#2f353c",
       imageHint: storeArt
         ? "მაღაზიის capsule უკვე გამოიყენება — ატვირთული ფაილი შემდეგ სინქზე წაიშლება."
         : size.w + "×" + size.h + " · ავტომატურად იჭრება ცენტრიდან და იკუმშება",
@@ -994,7 +1075,13 @@ class Component extends DCLogic {
 
     if (isGame) {
       const studioOpts = s.companies.map(c => ({ v: c.id, label: c.name + (c.legal ? " (" + c.legal + ")" : "") }));
+      // Opening an attached game used to be a dead end — the company's own form,
+      // links and logo were simply gone with no way back to them.
+      const studio = s.companies.filter(c => c.id === cur.studioId)[0];
       return Object.assign({}, image, {
+        backShow: studio ? "inline-block" : "none",
+        backLabel: studio ? studio.name : "",
+        backToStudio: () => { if (studio) this.setState({ edit: studio.id, editKind: studio.kind }); },
         editorOpen: true,
         editName: cur.name || "თამაში",
         editSectionLabel: "თამაშის მონაცემები",
@@ -1033,6 +1120,7 @@ class Component extends DCLogic {
 
     const attached = s.games.filter(g => g.studioId === cur.id);
     return Object.assign({}, image, {
+      backShow: "none", backLabel: "", backToStudio: () => {},
       editorOpen: true,
       editName: cur.legal || cur.name || "ჩანაწერი",
       editSectionLabel: "იდენტიფიკაცია",
@@ -1042,20 +1130,28 @@ class Component extends DCLogic {
           { v: "team", label: "გუნდი" },
           { v: "solo", label: "სოლო დეველოპერი" }
         ], onChange: e => { this.patch({ kind: e.target.value }); this.setState({ editKind: e.target.value }); } }
-      ],
+      ].concat(cur.kind === "solo" ? [] : [{
+        // Same fixed ranges the public form offers, so both sides produce values
+        // the catalogue can actually group by.
+        k: "გუნდის ზომა", v: cur.size || "",
+        options: [{ v: "", label: "—" }].concat(SIZES.map(v => ({ v: v, label: v }))),
+        onChange: e => this.patch({ size: e.target.value })
+      }]),
+      // Only a registered company has a state registration number, and a solo
+      // developer has no team size — showing those fields invites data that
+      // means nothing for that kind of entry.
       editFields: [
-        text("legal", "ოფიციალური სახელი", "MadMoa LLC"),
-        text("regId", "საიდენტიფიკაციო ნომერი", "404123456"),
+        text("legal", cur.kind === "company" ? "ოფიციალური სახელი" : "სრული სახელი", "MadMoa LLC"),
+        cur.kind === "company" ? text("regId", "საიდენტიფიკაციო ნომერი", "404123456") : null,
         text("name", "საჯარო სახელი", "MadMoa"),
         text("id", "ID", "madmoa"),
         text("city", "ქალაქი", "თბილისი"),
-        num("founded", "დაფუძნება", "2019"),
-        text("size", "გუნდის ზომა", "6-10"),
+        num("founded", cur.kind === "solo" ? "საქმიანობის დაწყება" : "დაფუძნება", "2019"),
         text("website", "ვებსაიტი", "https://…"),
         text("email", "ელფოსტა", ""),
         text("logo", "ლოგო", "images/logos/madmoa.jpg"),
         text("validated", "ვალიდაცია", "2026-01-31")
-      ],
+      ].filter(Boolean),
       editAreas: [text("about", "აღწერა", "")],
       editToggles: [toggle("verified", "ვერიფიცირებული"), toggle("active", "აქტიური")],
       editChips: [{ label: "როლები", items: ROLES.map(r => chip("roles", r)) }],
@@ -1171,6 +1267,13 @@ class Component extends DCLogic {
         this.setState(st => ({ games: st.games.concat([g]), edit: g.id, editKind: "game", dirty: st.dirty + 1 }));
       },
       syncNow: () => { if (cur && s.editKind === "game") this.syncGame(cur); },
+      studioUrl: s.studioUrl,
+      onStudioUrl: e => this.setState({ studioUrl: e.target.value, importMsg: "" }),
+      importStudio: () => this.importStudio(),
+      importLabel: s.importing ? "იკითხება…" : "წამოღება",
+      importMsg: s.importMsg,
+      importMsgShow: s.importMsg ? "inline" : "none",
+      importMsgColor: s.importMsgColor,
       syncAll: () => this.syncAll(),
       syncAllLabel: s.syncing === "all" ? "იკითხება…" : "ყველა თამაშის განახლება",
       endpointBoxBg: C.submitEndpoint ? "#171a1e" : "#2a1f1f",

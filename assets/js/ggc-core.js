@@ -487,6 +487,116 @@
     });
   }
 
+  /* ------------------------------------------------- whole-studio discovery */
+
+  /* A studio page rather than a game page: Steam publisher/developer/curator
+     pages, an itch.io profile, an App Store developer page, a Google Play
+     developer listing. Recognised separately from parseStore, which expects a
+     single title. */
+  function detectStudio(url) {
+    var u = String(url || "").trim();
+    if (!u) return null;
+    var bare = u.replace(/^https?:\/\//, "");
+    var m;
+    if ((m = /store\.steampowered\.com\/(publisher|developer|curator|franchise)\/([^/?#]+)/i.exec(u))) {
+      /* A Steam publisher page renders its catalogue with JavaScript, so the
+         HTML we can fetch lists only part of it — MadMoa's showed one of two
+         games. The store search for the same name returns the whole set in
+         plain markup, so ask that first and keep the original as a fallback. */
+      var role = m[1].toLowerCase() === "developer" ? "developer" : "publisher";
+      var search = "https://store.steampowered.com/search/?" + role + "=" +
+        encodeURIComponent(decodeURIComponent(m[2]).replace(/[-_]+/g, " "));
+      return { kind: "steam", id: m[2], url: u, listUrls: [search, u] };
+    }
+    if (/store\.steampowered\.com\/search\/?\?.*(publisher|developer)=/i.test(u)) {
+      return { kind: "steam", id: "", url: u, listUrls: [u] };
+    }
+    if ((m = /^([\w-]+)\.itch\.io\/?$/i.exec(bare.split("?")[0]))) {
+      return { kind: "itch", id: m[1], url: "https://" + m[1] + ".itch.io" };
+    }
+    if (/apps\.apple\.com\/[^/]*\/?developer\//i.test(u)) return { kind: "appstore", id: "", url: u };
+    if (/play\.google\.com\/store\/apps\/dev(eloper)?\?/i.test(u)) return { kind: "googleplay", id: "", url: u };
+    return null;
+  }
+
+  /* Pulls every title's own page URL out of a studio page. Each one is then read
+     by the normal single-game parser, so a bulk import and a hand-pasted link
+     produce exactly the same record. */
+  function studioGameUrls(html, kind) {
+    var urls = [], seen = {}, m, re;
+    if (kind === "steam") {
+      // Search results carry the appid in an attribute rather than a link.
+      var push = function (id) {
+        if (!id || seen[id]) return;
+        seen[id] = 1;
+        urls.push("https://store.steampowered.com/app/" + id + "/");
+      };
+      re = /data-ds-appid="([\d,]+)"/gi;
+      while ((m = re.exec(html))) m[1].split(",").forEach(push);
+      re = /store\.steampowered\.com\/app\/(\d+)/gi;
+      while ((m = re.exec(html))) push(m[1]);
+    } else if (kind === "itch") {
+      re = /https?:\/\/([\w-]+)\.itch\.io\/([\w-]+)/gi;
+      while ((m = re.exec(html))) {
+        var u = "https://" + m[1] + ".itch.io/" + m[2];
+        if (seen[u]) continue;
+        seen[u] = 1;
+        urls.push(u);
+      }
+    } else if (kind === "appstore") {
+      re = /apps\.apple\.com\/[^"'\s]*?\/id(\d+)/gi;
+      while ((m = re.exec(html))) {
+        if (seen[m[1]]) continue;
+        seen[m[1]] = 1;
+        urls.push("https://apps.apple.com/us/app/id" + m[1]);
+      }
+    } else if (kind === "googleplay") {
+      re = /\/store\/apps\/details\?id=([\w.]+)/gi;
+      while ((m = re.exec(html))) {
+        if (seen[m[1]]) continue;
+        seen[m[1]] = 1;
+        urls.push("https://play.google.com/store/apps/details?id=" + m[1]);
+      }
+    }
+    return urls;
+  }
+
+  /* Reads a studio page and then every game on it. `onProgress(done, total,
+     name)` is called as each title lands, because this is slow enough that a
+     silent wait reads as a hang. */
+  function parseStudio(url, onProgress) {
+    var d = detectStudio(url);
+    if (!d) return Promise.reject(new Error("ეს სტუდიის გვერდი არ არის"));
+    var candidates = d.listUrls || [d.url];
+    // Try each listing source in turn; the first that yields titles wins.
+    return candidates.reduce(function (chain, listUrl) {
+      return chain.catch(function () {
+        return fetchVia(listUrl, function (html) {
+          var found = studioGameUrls(html, d.kind);
+          if (!found.length) throw new Error("ამ გვერდზე თამაშები ვერ ვიპოვეთ");
+          return found;
+        });
+      });
+    }, Promise.reject(new Error("start"))).then(function (urls) {
+      var out = [], done = 0;
+      return urls.slice(0, 40).reduce(function (chain, u) {
+        return chain.then(function () {
+          return parseStore(u).then(function (g) {
+            out.push(g);
+            done++;
+            if (onProgress) onProgress(done, urls.length, g.name);
+          }, function () {
+            done++;
+            if (onProgress) onProgress(done, urls.length, "");
+          });
+        });
+      }, Promise.resolve()).then(function () {
+        if (!out.length) throw new Error("თამაშები ვერ წაიკითხა");
+        return { source: d.kind, found: urls.length, games: out };
+      });
+    });
+  }
+
   function parseStore(url) {
     var d = detect(url);
     if (!d) return Promise.reject(new Error("ცარიელი ბმული"));
@@ -525,10 +635,35 @@
     Object.keys(next || {}).forEach(function (k) {
       var b = next[k];
       if (b === undefined || b === null || b === "") return;
-      var sa = fmtVal(current ? current[k] : "");
+      var a = current ? current[k] : undefined;
+      var label = (labels && labels[k]) || k;
+
+      /* Social links and store URLs arrive as a whole object every time. Compared
+         as one blob they always look different — a reordered key or a single
+         added link reported all of them as changed. Compare entry by entry so
+         only what actually moved is shown. */
+      if (b && typeof b === "object" && !Array.isArray(b)) {
+        var cur = (a && typeof a === "object") ? a : {};
+        Object.keys(b).forEach(function (kk) {
+          var bv = b[kk];
+          if (bv === undefined || bv === null || bv === "") return;
+          var sa2 = fmtVal(cur[kk]);
+          var sb2 = fmtVal(bv);
+          if (sa2 === sb2) return;
+          out.push({
+            key: k + "." + kk,
+            k: label + " · " + (SOC[kk] || STORE_LABEL[kk] || kk),
+            old: sa2 || "—",
+            "new": sb2
+          });
+        });
+        return;
+      }
+
+      var sa = fmtVal(a);
       var sb = fmtVal(b);
       if (sa === sb || sb === "") return;
-      out.push({ key: k, k: (labels && labels[k]) || k, old: sa || "—", "new": sb });
+      out.push({ key: k, k: label, old: sa || "—", "new": sb });
     });
     return out;
   }
@@ -614,7 +749,11 @@
       releaseLabel: releaseLabel, normCompany: normCompany, normGame: normGame,
       raw: function () { return cache.raw || {}; }
     },
-    stores: { detect: detect, parse: parseStore, steamFromJson: steamFromJson, viaProxy: viaProxy, fetchVia: fetchVia, jsonFrom: jsonFrom },
+    stores: {
+      detect: detect, parse: parseStore, steamFromJson: steamFromJson,
+      viaProxy: viaProxy, fetchVia: fetchVia, jsonFrom: jsonFrom,
+      detectStudio: detectStudio, parseStudio: parseStudio, studioGameUrls: studioGameUrls
+    },
     submit: { diff: diff, deliver: deliver, issueUrl: issueUrl, payloadToIssue: payloadToIssue, fmtVal: fmtVal }
   };
 })();

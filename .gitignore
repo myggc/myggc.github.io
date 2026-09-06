@@ -1,0 +1,8 @@
+# Local files that should never be committed.
+*.log
+.DS_Store
+Thumbs.db
+node_modules/
+.env
+.env.*
+*.local

@@ -178,6 +178,20 @@
         </div>
       </div>
 
+      <div style="margin-top:20px;background:#eef6fb;border:1px solid #cfe3ef;border-radius:16px;padding:18px">
+        <div style="font-size:16px;font-weight:600;color:#14536f">ყველა თამაში ერთბაშად</div>
+        <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#2c5f7d">ჩასვი შენი სტუდიის გვერდი — Steam-ის publisher/developer გვერდი, itch.io-ს პროფილი, App Store-ის ან Google Play-ის დეველოპერის გვერდი. ჩვენ თვითონ ვიპოვით ყველა თამაშს და შევავსებთ თითოეულის მონაცემებს.</p>
+        <label style="display:flex;flex-direction:column;gap:7px;margin-top:14px;font-size:14px;color:#2c5f7d">სტუდიის გვერდი
+          <input type="url" placeholder="https://store.steampowered.com/publisher/madmoa" value="{{ studioUrl }}" onInput="{{ onStudioUrl }}" style="border:1px solid #cfe3ef;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#fff;color:#16181b">
+        </label>
+        <button type="button" onClick="{{ importStudio }}" style="margin-top:14px;border:0;cursor:pointer;background:#146590;color:#fff;border-radius:10px;padding:12px 18px;font-family:inherit;font-size:15px;font-weight:600">{{ importLabel }}</button>
+        <div style="display:{{ importBusyShow }};align-items:center;gap:12px;margin-top:14px;background:#fff;border:1px solid #cfe3ef;border-radius:11px;padding:14px">
+          <span style="width:18px;height:18px;border-radius:50%;border:3px solid #cfe3ef;border-top-color:#146590;animation:ggcSpin 900ms linear infinite;flex:none"></span>
+          <div style="flex:1 1 160px;min-width:0;font-size:14px;line-height:1.55;color:#14536f">{{ importProgress }}</div>
+        </div>
+        <div style="display:{{ importMsgShow }};margin-top:14px;background:#fff;border:1px solid #cfe3ef;border-radius:11px;padding:12px 14px;font-size:14px;line-height:1.55;color:{{ importMsgColor }}">{{ importMsg }}</div>
+      </div>
+
       <div style="display:flex;flex-direction:column;gap:14px;margin-top:20px">
         <sc-for list="{{ drafts }}" as="g" hint-placeholder-count="1">
           <div style="border:1px solid {{ g.border }};border-radius:16px;padding:18px;background:{{ g.bg }}">
@@ -377,6 +391,7 @@ class Component extends DCLogic {
     ready: false, step: 0, mode: "", lookup: "", picked: null,
     sent: false, sending: false, f: {}, saved: false,
     kind: "company", roles: [], result: null,
+    studioUrl: "", importing: false, importProgress: "", importMsg: "", importMsgColor: "#2c5f7d",
     // Every game being added or corrected, each with its own store URL and
     // parse state — one submission can carry as many as the studio has.
     drafts: []
@@ -471,6 +486,61 @@ class Component extends DCLogic {
         gDate: g.releaseDate || (g.year ? String(g.year) : "TBD"),
         gEngine: g.engine, gPrice: g.price, gAbout: g.about
       }
+    });
+  }
+
+  /* One studio page in, a filled-in draft per game out. Each game still goes
+     through the same single-game parser, so a bulk import and a hand-pasted
+     link produce identical records — and anything already added is skipped so
+     pressing it twice cannot duplicate a title. */
+  importStudio() {
+    const url = (this.state.studioUrl || "").trim();
+    if (!url) return this.setState({ importMsg: "ჩასვი სტუდიის გვერდის ბმული.", importMsgColor: "#8c2f2f" });
+    if (!GGC.stores.detectStudio(url)) {
+      return this.setState({
+        importMsg: "ეს კონკრეტული თამაშის გვერდს ჰგავს. სტუდიის გვერდი გვჭირდება — Steam-ზე ეს არის /publisher/ ან /developer/ მისამართი.",
+        importMsgColor: "#7a5500"
+      });
+    }
+    this.setState({ importing: true, importMsg: "", importProgress: "ვეძებთ თამაშებს სტუდიის გვერდზე…" });
+    GGC.stores.parseStudio(url, (done, total, name) => {
+      this.setState({
+        importProgress: "წაკითხულია " + done + "/" + total + (name ? " — " + name : "") +
+          ". გვერდი ღია დატოვე."
+      });
+    }).then(res => {
+      const have = {};
+      this.state.drafts.forEach(d => {
+        const u = (d.storeUrl || "").toLowerCase();
+        if (u) have[u] = 1;
+        if (d.f.gName) have[d.f.gName.toLowerCase()] = 1;
+      });
+      const owned = this.state.picked ? D.gamesOf(this.state.picked) : [];
+      owned.forEach(g => { have[(g.name || "").toLowerCase()] = 1; });
+
+      const fresh = res.games.filter(g => {
+        const storeUrl = Object.keys(g.stores || {}).map(k => g.stores[k]).filter(Boolean)[0] || "";
+        return !have[(g.name || "").toLowerCase()] && !have[storeUrl.toLowerCase()];
+      });
+      const added = fresh.map(g => ({
+        key: "d" + (++seq), gameId: "", store: "yes",
+        storeUrl: Object.keys(g.stores || {}).map(k => g.stores[k]).filter(Boolean)[0] || "",
+        parsed: g, parsing: false, parseErr: "", f: {}
+      }));
+      this.save({
+        importing: false,
+        drafts: this.state.drafts.concat(added),
+        importMsg: added.length
+          ? "დაემატა " + added.length + " თამაში. ქვემოთ ნახავ ყველას — შეგიძლია რომელიმე მოხსნა ან შეასწორო."
+          : "ყველა ნაპოვნი თამაში უკვე სიაშია.",
+        importMsgColor: added.length ? "#2f5c3c" : "#7a5500"
+      });
+    }, err => {
+      this.setState({
+        importing: false,
+        importMsg: (err && err.message) || "ვერ წავიკითხეთ.",
+        importMsgColor: "#8c2f2f"
+      });
     });
   }
 
@@ -721,6 +791,15 @@ class Component extends DCLogic {
       owned,
       drafts,
       addGame: () => this.addDraft(),
+      studioUrl: s.studioUrl,
+      onStudioUrl: e => this.setState({ studioUrl: e.target.value, importMsg: "" }),
+      importStudio: () => this.importStudio(),
+      importLabel: s.importing ? "იკითხება…" : "ყველა თამაშის წამოღება",
+      importBusyShow: s.importing ? "flex" : "none",
+      importProgress: s.importProgress,
+      importMsgShow: s.importMsg && !s.importing ? "block" : "none",
+      importMsg: s.importMsg,
+      importMsgColor: s.importMsgColor,
 
       pvName: pvName,
       pvSub: picked
