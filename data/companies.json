@@ -154,6 +154,33 @@
       "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "შპს-ანტი-გეიმინგ-სტუდიო",
+      "kind": "company",
+      "name": "Anti-Gaming Studio",
+      "legal": "შპს ანტი-გეიმინგ სტუდიო",
+      "regId": "421275006",
+      "city": "თბილისი",
+      "founded": 2017,
+      "size": "6-10",
+      "roles": [],
+      "website": "",
+      "email": " ",
+      "phone": "598614440",
+      "contact": "",
+      "about": "დამოუკიდებელი (ინდი) თამაშების დეველოპერული სტუდია დიდი ხედვით, რომ გადაიზარდოს მსოფლიო დონის AAA სტუდიაში. ჩვენი ვნება განსაცვიფრებელი სათამაშო გამოცდილების შექმნის მიმართ გვიბძგებს, რომ გადავსახოთ საზღვრები და მოვუტანოთ დაუვიწყარი თავგადასავლები მოთამაშეებს მთელ მსოფლიოში.",
+      "aboutEn": "Indie game development studio with a grand vision to grow into a world-class AAA studio. Our passion for creating immersive gaming experiences drives us to push boundaries and deliver unforgettable adventures to players worldwide.",
+      "logo": "https://avatars.fastly.steamstatic.com/0a6a0d6dec95f12579c92a63f3c6b5b2d5cbcace_full.jpg",
+      "links": {
+        "steam": "https://store.steampowered.com/curator/45607140",
+        "linkedin": "https://www.linkedin.com/company/anti-gaming-studio/about/"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
     }
   ]
 }
