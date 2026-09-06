@@ -23,7 +23,7 @@
     // worker/ (the Apps Script option needs nothing installed) and paste its
     // URL here. While this is empty the form has nowhere to send and nothing
     // reaches the admin queue.
-    submitEndpoint: "",
+    submitEndpoint: "https://script.google.com/macros/s/AKfycbycnJ6mfGDvH_ZXWMKXWKeyGRYu7KP-2n6tkN9hhOFla5KokwLGA7cjVO8XpJkw1V_x/exec",
     telegram: "https://t.me/ggcgeorgia",
     // CORS proxies used for live (browser side) store reads, tried in order.
     // "{url}" gets the encoded target, "{raw}" the target as-is. The scheduled
