@@ -11,8 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="assets/js/ggc-core.js?v=fcbe8ba716"></script>
-<script src="assets/js/ggc-github.js?v=fcbe8ba716"></script>
+<script src="assets/js/ggc-core.js?v=fe63045cd3"></script>
+<script src="assets/js/ggc-github.js?v=fe63045cd3"></script>
 <style>
   html { overflow-x:clip; }
   body { margin:0; overflow-x:clip; background:#171a1e; color:#e9ecee; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
@@ -1056,7 +1056,7 @@ class Component extends DCLogic {
     if (!this.state.authed) return this.endpointSays("შენახვას GitHub-ის ტოკენი სჭირდება — გამოდი და ისევ შედი ტოკენით.", "#f0a8a8");
     this.setState({ savingEndpoint: true });
     this.endpointSays("ინახება…", "#8ccbe9");
-    const path = "assets/js/ggc-core.js?v=fcbe8ba716";
+    const path = "assets/js/ggc-core.js?v=fe63045cd3";
     GH.getText(path)
       .then(file => {
         const line = /^(\s*)submitEndpoint:\s*"[^"]*",/m;
