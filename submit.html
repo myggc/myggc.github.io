@@ -142,13 +142,13 @@
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px;margin-top:20px">
         <sc-for list="{{ fields }}" as="f" hint-placeholder-count="6">
-          <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:#5a5f65">{{ f.label }}
-            <input type="text" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
+          <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:{{ f.color }}">{{ f.label }}
+            <input type="text" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid {{ f.border }};border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
           </label>
         </sc-for>
         <sc-for list="{{ selectFields }}" as="f" hint-placeholder-count="1">
-          <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:#5a5f65">{{ f.label }}
-            <select value="{{ f.value }}" onChange="{{ f.onChange }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
+          <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:{{ f.color }}">{{ f.label }}
+            <select value="{{ f.value }}" onChange="{{ f.onChange }}" style="border:1px solid {{ f.border }};border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
               <sc-for list="{{ f.options }}" as="o" hint-placeholder-count="8">
                 <option value="{{ o.v }}">{{ o.label }}</option>
               </sc-for>
@@ -156,6 +156,7 @@
           </label>
         </sc-for>
       </div>
+      <p style="margin:12px 0 0;font-size:14px;line-height:1.55;color:{{ requiredNoteColor }}">{{ requiredNote }}</p>
       <div style="margin-top:22px;padding-top:20px;border-top:1px solid #eef1f1">
         <div style="font-size:14px;color:#5a5f65;margin-bottom:10px">სოციალური ქსელები</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:10px">
@@ -263,6 +264,15 @@
                       <div style="margin-top:4px;font-size:15px;font-weight:600">{{ p.v }}</div>
                     </div>
                   </sc-for>
+                </div>
+                <div style="display:{{ g.artShow }};margin-top:12px;background:#fff;border:1px solid #e6eaeb;border-radius:12px;padding:12px 14px">
+                  <div style="font-size:13px;color:#5a5f65">სურათები მაღაზიიდან</div>
+                  <img src="{{ g.artUrl }}" alt="" style="display:block;width:100%;max-width:340px;aspect-ratio:460/215;object-fit:cover;border-radius:9px;margin-top:9px;background:#eef1f1">
+                  <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:9px">
+                    <sc-for list="{{ g.shots }}" as="sh" hint-placeholder-count="4">
+                      <img src="{{ sh.u }}" alt="" style="width:96px;aspect-ratio:16/9;object-fit:cover;border-radius:7px;background:#eef1f1">
+                    </sc-for>
+                  </div>
                 </div>
               </div>
 
@@ -398,6 +408,15 @@ const SIZES = ["1-2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-250", "251
 const CITIES = ["თბილისი", "ბათუმი", "ქუთაისი", "რუსთავი", "გორი", "ზუგდიდი", "ფოთი", "თელავი", "ახალციხე", "ოზურგეთი", "სხვა", "საზღვარგარეთ"];
 const TEAM_SKIP = ["regId"];
 const SOLO_SKIP = ["regId"];
+/* The catalogue will not publish a studio without these, and finding that out
+   on the last step — after the games are filled in and the send button is
+   pressed — is the wrong place to learn it. Marked on the field itself, and the
+   details step will not hand over to the games step until they are there. */
+const REQUIRED = ["legal", "name", "city", "founded", "email", "about"];
+const REQUIRED_KIND = { company: ["regId"], team: ["size"], solo: [] };
+function requiredFor(kind) {
+  return REQUIRED.concat(REQUIRED_KIND[kind] || []).concat(kind === "company" ? ["size"] : []);
+}
 /* Kept in step with the admin panel's own list. It had drifted, and the drift
    was visible: the importer reads a studio's TikTok and Discord off its store
    page, and this form had no field for either, so they were found and then
@@ -603,9 +622,15 @@ class Component extends DCLogic {
       // details, already filled, instead of asking for a name we now know.
       const goForward = startingFresh;
       if (goForward && !f2.legal && f2.name) f2.legal = f2.name;
+      /* A studio page on a storefront belongs to whoever made the games on it.
+         Leaving the role untouched meant every imported studio arrived with no
+         role at all, which the visitor then had to tick to state the obvious. */
+      const roles = this.state.roles.length ? this.state.roles
+        : (added.length || res.games.length ? ["developer"] : []);
       this.save(Object.assign({
         importing: false,
         f: f2,
+        roles: roles,
         drafts: startingFresh ? added : this.state.drafts.concat(added),
         importMsg: added.length
           ? "დაემატა " + added.length + " თამაში" + extra + ". შემდეგ ბიჯზე ნახავ ყველას."
@@ -674,6 +699,11 @@ class Component extends DCLogic {
     const s = this.state, f = s.f;
     const company = {};
     CO_FIELDS.forEach(([k]) => { if (f[k]) company[k] = f[k]; });
+    /* City and size are the two the visitor picks from a list rather than
+       types, so they are not in CO_FIELDS and have to be carried by hand. Size
+       was; city was not, and every submission so far arrived without it — a
+       required field, asked for, filled in, and dropped on the way out. */
+    if (f.city) company.city = f.city;
     if (f.size) company.size = f.size;
     if (company.founded) company.founded = Number(company.founded) || 0;
     company.kind = s.kind;
@@ -765,9 +795,14 @@ class Component extends DCLogic {
           { k: "ჟანრი", v: (d.parsed.genres || []).join(", ") },
           { k: "პლატფორმა", v: (d.parsed.platforms || []).join(", ") },
           { k: "გამოშვება", v: d.parsed.releaseDate || (d.parsed.status === "upcoming" ? "TBD" : "") },
-          { k: "ფასი", v: d.parsed.price },
-          { k: "capsule", v: d.parsed.art && d.parsed.art.capsule ? "მაღაზიიდან" : "" }
+          { k: "ფასი", v: d.parsed.price }
         ].filter(x => x.v) : [],
+        /* The art was being reported as the word "capsule: from the store",
+           which is a promise rather than a picture — and the one thing someone
+           can check at a glance is whether the right picture came back. */
+        artShow: d.parsed && d.parsed.art && d.parsed.art.capsule ? "block" : "none",
+        artUrl: (d.parsed && d.parsed.art && d.parsed.art.capsule) || "",
+        shots: ((d.parsed && d.parsed.art && d.parsed.art.shots) || []).slice(0, 4).map(u => ({ u })),
         fields: GAME_FIELDS.map(([k, label, ph]) => ({
           label, ph, value: d.f[k] || "",
           onInput: e => this.setDraftField(d.key, k, e.target.value)
@@ -784,8 +819,15 @@ class Component extends DCLogic {
       : [];
     const isNew = s.mode === "new";
     const skip = s.kind === "team" ? TEAM_SKIP : s.kind === "solo" ? SOLO_SKIP : [];
+    const need = requiredFor(s.kind);
+    // A required field that is filled looks like any other; an empty one says so.
+    const mark = (k, label) => need.indexOf(k) < 0 ? label : label + " *";
+    const markColor = (k) => need.indexOf(k) >= 0 && !f[k] ? "#8c2f2f" : "#5a5f65";
+    const markBorder = (k) => need.indexOf(k) >= 0 && !f[k] ? "#e8c4c4" : "#dfe3e4";
     const fields = CO_FIELDS.filter(([k]) => skip.indexOf(k) < 0).map(([k, label, ph]) => ({
-      label, ph, value: f[k] || "", onInput: e => this.set(k, e.target.value)
+      label: mark(k, label), ph, value: f[k] || "",
+      color: markColor(k), border: markBorder(k),
+      onInput: e => this.set(k, e.target.value)
     }));
     const roleList = ROLES[s.kind];
     const picked = s.picked ? D.company(s.picked) : null;
@@ -874,16 +916,20 @@ class Component extends DCLogic {
       step2Title: isNew ? "სტუდიის მონაცემები" : "შესწორებული მონაცემები",
       fields,
       selectFields: [{
-        label: "ქალაქი",
+        label: mark("city", "ქალაქი"), color: markColor("city"), border: markBorder("city"),
         value: f.city || "",
         options: [{ v: "", label: "აირჩიე" }].concat(CITIES.map(v => ({ v, label: v }))),
         onChange: e => this.set("city", e.target.value)
       }].concat(s.kind === "solo" ? [] : [{
-        label: "გუნდის ზომა",
+        label: mark("size", "გუნდის ზომა"), color: markColor("size"), border: markBorder("size"),
         value: f.size || "",
         options: [{ v: "", label: "აირჩიე" }].concat(SIZES.map(v => ({ v, label: v }))),
         onChange: e => this.set("size", e.target.value)
       }]),
+      requiredNote: this.missingFields().length
+        ? "* — სავალდებულო. შესავსებია: " + this.missingFields().join(", ") + "."
+        : "* — სავალდებულო. ყველა შევსებულია.",
+      requiredNoteColor: this.missingFields().length ? "#8c2f2f" : "#2f5c3c",
       kindHint: KIND_HINT[s.kind],
       rolesLabel: s.kind === "solo" ? "რას აკეთებ" : "რას აკეთებთ",
       roleChips: roleList.map(r => ({
@@ -902,7 +948,15 @@ class Component extends DCLogic {
       logoShow: f.logoUrl ? "block" : "none",
       logoUrl: f.logoUrl || "",
 
-      next: () => this.save({ step: Math.min(4, s.step + 1) }),
+      /* The details step does not hand over until the catalogue's own required
+         set is there. It used to, and the refusal came at the very end instead —
+         after the games were filled in and send was pressed. */
+      next: () => {
+        if (s.step === 2 && this.missingFields().length) {
+          return this.setState({ missing: this.missingFields() });
+        }
+        this.save({ step: Math.min(4, s.step + 1), missing: [] });
+      },
       back: () => this.save({ step: Math.max(0, s.step - 1) }),
 
       gamesIntro: picked
