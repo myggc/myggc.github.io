@@ -94,7 +94,7 @@
         "facebook": "https://www.facebook.com/RevoltEntertainment/",
         "steam": "https://store.steampowered.com/curator/45820461"
       },
-      "verified": true,
+      "verified": false,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
@@ -122,7 +122,7 @@
         "discord": "https://discord.gg/cJu4SVVtDx",
         "steam": "https://store.steampowered.com/developer/lisisoft"
       },
-      "verified": true,
+      "verified": false,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
@@ -151,7 +151,7 @@
         "linkedin": "",
         "googleplay": "https://play.google.com/store/apps/dev?id=5122078557185708602&hl=en"
       },
-      "verified": true,
+      "verified": false,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
@@ -178,7 +178,7 @@
         "steam": "https://store.steampowered.com/curator/45607140",
         "linkedin": "https://www.linkedin.com/company/anti-gaming-studio/about/"
       },
-      "verified": true,
+      "verified": false,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
@@ -208,7 +208,7 @@
         "x": "https://x.com/ZambaraStudio",
         "youtube": "https://www.youtube.com/@zambarastudio"
       },
-      "verified": true,
+      "verified": false,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
@@ -264,7 +264,35 @@
       "links": {
         "steam": "https://store.steampowered.com/developer/animmalstudio"
       },
-      "verified": true,
+      "verified": false,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "black-room-games",
+      "kind": "company",
+      "name": "Black Room Games",
+      "legal": "შპს ბლექ რუმ გეიმს",
+      "regId": "405158779",
+      "city": "თბილისი",
+      "founded": "2016-07-15",
+      "size": "3-5",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://blackroomgames.com/",
+      "email": "info@blackroomgames.com",
+      "phone": "",
+      "contact": "",
+      "about": "ინდი სტუდია",
+      "aboutEn": "Indie studio",
+      "logo": "https://play-lh.googleusercontent.com/79Ul9b4SAYLDSRRtvfdVqAZZ38h6Pi5RBRzkTdkBM-5V7eFm0rSRnJQF0vKYUIRMtA",
+      "links": {
+        "googleplay": "https://play.google.com/store/apps/dev?id=4869302861934416363&hl=en"
+      },
+      "verified": false,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
