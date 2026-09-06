@@ -183,6 +183,37 @@
       "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "sollerstech",
+      "kind": "company",
+      "name": "SollersTech",
+      "legal": "SollersTech",
+      "regId": "431956449",
+      "city": "თბილისი",
+      "founded": "2024-04-14",
+      "size": "3-5",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://www.sollerstech.com/",
+      "email": "sollerstech.com@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "დამოუკიდებელი ინდი სტუდია რომელიც ფოკუსირებულია 2დ სათავგადასავლო თამაშებზე.",
+      "aboutEn": "An independent game studio based in Georgia, specializing in the development of 2D adventure puzzle games.",
+      "logo": "https://avatars.fastly.steamstatic.com/2e4282e77e9c8381c02c05b97ea23f44066cc784_full.jpg",
+      "links": {
+        "steam": "https://store.steampowered.com/developer/sollerstech",
+        "x": "https://x.com/BackToTheCollis",
+        "youtube": "https://www.youtube.com/@sollerstech",
+        "discord": "https://discord.gg/sfV3x5eTqv"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
     }
   ]
 }
