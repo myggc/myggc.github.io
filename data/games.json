@@ -175,6 +175,178 @@
       "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "glass-cannon",
+      "name": "Glass Cannon",
+      "studioId": "შპს-ლისისოფტი",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "May 1, 2025",
+      "year": 2025,
+      "mobile": false,
+      "genres": [
+        "action",
+        "casual",
+        "strategy"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$4.99",
+      "langs": "English",
+      "about": "Challenging and chill roguelike where you plan your shots carefully and creatively eliminate enemies using different weapon combinations. Buy weapon mods to create powerful synergies and clear all 24 rounds.",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/3325030/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3325030/header.jpg?t=1765731363",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/3325030?t=1765731363",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3325030/ss_12f47e512212dc81001835f1cef6b1c6b85d6630.600x338.jpg?t=1765731363",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3325030/ss_647b6a1f54c5ae32e7b81fc610be7d181277e14d.600x338.jpg?t=1765731363",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3325030/ss_514b7ee95817411a72a791493a360444f41bbfca.600x338.jpg?t=1765731363"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-09-06T21:56:35.291Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "gnomber",
+      "name": "Gnomber",
+      "studioId": "შპს-ლისისოფტი",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Apr 28, 2024",
+      "year": 2024,
+      "mobile": false,
+      "genres": [
+        "action",
+        "indie"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$2.99",
+      "langs": "English",
+      "about": "An action roguelike where you use different bombs to blow up your enemies. Use knockback from your explosions to throw enemies into each other or walls, throw projectiles and deal damage in creative ways. Level up, combine different perks, get new bombs, unlock new gnomes and become overpowered.",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/2800770/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2800770/header.jpg?t=1765731319",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2800770/page_bg_raw.jpg?t=1765731319",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2800770/ss_cd954039c542a8523934f3252ede1e71cbc8505f.600x338.jpg?t=1765731319",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2800770/ss_d5f30632592250a35743ab5d6f8403385b550570.600x338.jpg?t=1765731319",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2800770/ss_66d62b9696b13ea441947c7870f6663509c14ec1.600x338.jpg?t=1765731319"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-09-06T21:56:35.291Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "queue-queen",
+      "name": "Queue Queen",
+      "studioId": "შპს-ლისისოფტი",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jan 18, 2026",
+      "year": 2026,
+      "mobile": false,
+      "genres": [
+        "casual",
+        "indie"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$4.99",
+      "langs": "English",
+      "about": "A card-stacking roguelike where you quickly stack cards and trigger items to get points. Discover thousands of different items and make synergistic builds by customizing your deck and inventory to reach higher scores and break the game.",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/3941130/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3941130/a2e48650d002ded435fb36d3fbffc0268e943dc8/header.jpg?t=1768738076",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/3941130?t=1768738076",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3941130/d884f888b58ffe9e4b663f85c7aa3e115542b152/ss_d884f888b58ffe9e4b663f85c7aa3e115542b152.600x338.jpg?t=1768738076",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3941130/b3abd2469fc172153c2644a500fc398874ad6864/ss_b3abd2469fc172153c2644a500fc398874ad6864.600x338.jpg?t=1768738076",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3941130/c2775d75f4e2a4bc840f5f5975cb49d9b5d8a16b/ss_c2775d75f4e2a4bc840f5f5975cb49d9b5d8a16b.600x338.jpg?t=1768738076"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-09-06T21:56:35.291Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "man-pit",
+      "name": "Man Pit",
+      "studioId": "შპს-ლისისოფტი",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Oct 23, 2024",
+      "year": 2024,
+      "mobile": false,
+      "genres": [
+        "action"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$2.99",
+      "langs": "English",
+      "about": "Man Pit is a challenging platformer with randomly generated levels and fluid and tight controls. As you journey out of the pit, you will learn to become a better man by finding wisdom and brothers along the way.",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/2871950/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2871950/header.jpg?t=1733687095",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/2871950?t=1733687095",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2871950/ss_97e34e59bb80c02c0680e9d2b7694792dc82769f.600x338.jpg?t=1733687095",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2871950/ss_9026d6b066993f19b61ffd344ed86ca1a6b0c0f7.600x338.jpg?t=1733687095",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2871950/ss_cbe15e92a326d956fbea6b11dc879e746fae1692.600x338.jpg?t=1733687095"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-09-06T21:56:35.291Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
     }
   ]
 }
