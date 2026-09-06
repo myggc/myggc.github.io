@@ -213,6 +213,35 @@
       "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "dasi-games",
+      "kind": "company",
+      "name": "Dasi Games",
+      "legal": "შპს დასი გეიმს",
+      "regId": "405445503",
+      "city": "თბილისი",
+      "founded": "2021-02-22",
+      "size": "11-20",
+      "roles": [
+        "developer",
+        "outsourcing"
+      ],
+      "website": "https://dasigames.com/",
+      "email": " ",
+      "phone": "",
+      "contact": "",
+      "about": "",
+      "aboutEn": "",
+      "logo": "https://play-lh.googleusercontent.com/bD0HsPn6Kyrzzws7eoKQ8ntDeovgT2S_Aquk9NoF1MsZqNX_imO1n02JdOlZMsoDkw",
+      "links": {
+        "googleplay": "https://play.google.com/store/apps/dev?id=5818328852601157830&hl=en"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
     }
   ]
 }

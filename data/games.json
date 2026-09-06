@@ -436,6 +436,386 @@
       "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "my-flower-shop",
+      "name": "My Flower Shop",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Dec 27, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "simulation"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Play the coolest flower game ever! Manage your shop!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr58.flowershop"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/sWqm72CKWgCNpJgZA8duhugpEYXq6h8DR2nLHWMaiVZctuT8Fv4tbVDbSFcstdkJUl5vy_a3gCA-mwHxDh28rw",
+        "hero": "https://play-lh.googleusercontent.com/sWqm72CKWgCNpJgZA8duhugpEYXq6h8DR2nLHWMaiVZctuT8Fv4tbVDbSFcstdkJUl5vy_a3gCA-mwHxDh28rw",
+        "portrait": "https://play-lh.googleusercontent.com/sWqm72CKWgCNpJgZA8duhugpEYXq6h8DR2nLHWMaiVZctuT8Fv4tbVDbSFcstdkJUl5vy_a3gCA-mwHxDh28rw",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "my-spa-resort",
+      "name": "My Spa Resort",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jan 26, 2024",
+      "year": 2024,
+      "mobile": true,
+      "genres": [
+        "simulation"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Start your journey in the Spa Resort business! Build your dream Spa Resort",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr63.mysparesort"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/AxIO3uQFt8to6fTX3B9h7XMkdOmYs5XOPf2BCKL4bSLeIba_CxrE5w7ArVq1eI3ja0l35C8Xs7ROHMFhpBrIOQ",
+        "hero": "https://play-lh.googleusercontent.com/AxIO3uQFt8to6fTX3B9h7XMkdOmYs5XOPf2BCKL4bSLeIba_CxrE5w7ArVq1eI3ja0l35C8Xs7ROHMFhpBrIOQ",
+        "portrait": "https://play-lh.googleusercontent.com/AxIO3uQFt8to6fTX3B9h7XMkdOmYs5XOPf2BCKL4bSLeIba_CxrE5w7ArVq1eI3ja0l35C8Xs7ROHMFhpBrIOQ",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "space-adventure",
+      "name": "Space Adventure",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Nov 27, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "adventure"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Play and create your own Space",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr57.spaceadventure"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/NUOyjM6ciKaNdd8eWshEh1AWhW3Dx-_lLfP43RwXbyKacqFRcTdqRkXitIR3Ws0E365f6tRXwGS0TMdvy9TXmQ",
+        "hero": "https://play-lh.googleusercontent.com/NUOyjM6ciKaNdd8eWshEh1AWhW3Dx-_lLfP43RwXbyKacqFRcTdqRkXitIR3Ws0E365f6tRXwGS0TMdvy9TXmQ",
+        "portrait": "https://play-lh.googleusercontent.com/NUOyjM6ciKaNdd8eWshEh1AWhW3Dx-_lLfP43RwXbyKacqFRcTdqRkXitIR3Ws0E365f6tRXwGS0TMdvy9TXmQ",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "wild-west-adventure",
+      "name": "Wild West: Adventure",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Oct 23, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "adventure"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Gather resources, Upgrade your tools to Survive in Wild West",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr44.wildwest"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/aMyLMdAYbO9MQ38OI6dwFkXEn5Usy76hXcZbEv3du7WAvd2Z4J-jDae0roM3beIA3-Q2Z2wy1EXvVNl_AV75-Q",
+        "hero": "https://play-lh.googleusercontent.com/aMyLMdAYbO9MQ38OI6dwFkXEn5Usy76hXcZbEv3du7WAvd2Z4J-jDae0roM3beIA3-Q2Z2wy1EXvVNl_AV75-Q",
+        "portrait": "https://play-lh.googleusercontent.com/aMyLMdAYbO9MQ38OI6dwFkXEn5Usy76hXcZbEv3du7WAvd2Z4J-jDae0roM3beIA3-Q2Z2wy1EXvVNl_AV75-Q",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "jurassic-explorer",
+      "name": "Jurassic Explorer",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Oct 23, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "adventure"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Gather different resources, Upgrade your tools and Explore new Dinosaurs",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.PR52.jurassicexplorer"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/kzV4vVGyg1hjm79yL-gUYLVo2JtyBb5_4WRe-ZfYzVNX1erAeQ--xSaw5wU_jJjbra_13zI8KqMAqdqyXqqNzA",
+        "hero": "https://play-lh.googleusercontent.com/kzV4vVGyg1hjm79yL-gUYLVo2JtyBb5_4WRe-ZfYzVNX1erAeQ--xSaw5wU_jJjbra_13zI8KqMAqdqyXqqNzA",
+        "portrait": "https://play-lh.googleusercontent.com/kzV4vVGyg1hjm79yL-gUYLVo2JtyBb5_4WRe-ZfYzVNX1erAeQ--xSaw5wU_jJjbra_13zI8KqMAqdqyXqqNzA",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "alien-invader-ufo-game",
+      "name": "Alien Invader: UFO Game",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Sep 22, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "simulation"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "😍 A GAME TO KEEP YOU FULLY OCCUPIED. Suck up everything in your path",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr50.spaceinvader"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/fN8MVTAYBAi8mplWO6egRZ89Y9M3VdSl2Fb5V2TgYGM_5qPooF8cS9bRsZx6EQmajVWKVcwGGY6G5So1jgWkPw",
+        "hero": "https://play-lh.googleusercontent.com/fN8MVTAYBAi8mplWO6egRZ89Y9M3VdSl2Fb5V2TgYGM_5qPooF8cS9bRsZx6EQmajVWKVcwGGY6G5So1jgWkPw",
+        "portrait": "https://play-lh.googleusercontent.com/fN8MVTAYBAi8mplWO6egRZ89Y9M3VdSl2Fb5V2TgYGM_5qPooF8cS9bRsZx6EQmajVWKVcwGGY6G5So1jgWkPw",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "hospital-fever",
+      "name": "Hospital Fever",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Aug 25, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "simulation"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Manage your hospital. Play as a doctor and heal your patients",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr47.hospitalmanager2"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/67QVA3MCbQEA4Syn3taPHCk7Zkl_GV1zzWXvEATDHbWgZ6bv-xxsO-mA5Y40ZaFpiA_wV9xybUz-mT-OmB72yw",
+        "hero": "https://play-lh.googleusercontent.com/67QVA3MCbQEA4Syn3taPHCk7Zkl_GV1zzWXvEATDHbWgZ6bv-xxsO-mA5Y40ZaFpiA_wV9xybUz-mT-OmB72yw",
+        "portrait": "https://play-lh.googleusercontent.com/67QVA3MCbQEA4Syn3taPHCk7Zkl_GV1zzWXvEATDHbWgZ6bv-xxsO-mA5Y40ZaFpiA_wV9xybUz-mT-OmB72yw",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "gold-miner",
+      "name": "Gold Miner",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Aug 25, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "adventure"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Mine Gold, Diamond and other Jams, Sell them and become rich.",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr48.goldrusher"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/UpJnku1vj-wAMuk1TqNLu_znowpR5nDhVM_X1fKnFPRuN-TWlaac3Gi6fhV5ZoZm-Cws9mPzoo93A95IjIgtzA",
+        "hero": "https://play-lh.googleusercontent.com/UpJnku1vj-wAMuk1TqNLu_znowpR5nDhVM_X1fKnFPRuN-TWlaac3Gi6fhV5ZoZm-Cws9mPzoo93A95IjIgtzA",
+        "portrait": "https://play-lh.googleusercontent.com/UpJnku1vj-wAMuk1TqNLu_znowpR5nDhVM_X1fKnFPRuN-TWlaac3Gi6fhV5ZoZm-Cws9mPzoo93A95IjIgtzA",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "taxi-manager",
+      "name": "Taxi Manager",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jul 26, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "simulation"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Fix the cars and meeting client needs. Build the best Taxi company in the city",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr46.taximanager"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/xhO1ananiu8aE7vdWY-YACWdqwffctpwbh5gdu0K1s0SnwdMf3XqUTOW9t_aeRLXCpTxdj05ve8HrPCbpLlBVA",
+        "hero": "https://play-lh.googleusercontent.com/xhO1ananiu8aE7vdWY-YACWdqwffctpwbh5gdu0K1s0SnwdMf3XqUTOW9t_aeRLXCpTxdj05ve8HrPCbpLlBVA",
+        "portrait": "https://play-lh.googleusercontent.com/xhO1ananiu8aE7vdWY-YACWdqwffctpwbh5gdu0K1s0SnwdMf3XqUTOW9t_aeRLXCpTxdj05ve8HrPCbpLlBVA",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "attack-and-loot",
+      "name": "Attack and Loot",
+      "studioId": "dasi-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jul 4, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "action"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Ready for challenge? Jump in the action, Attack and Loot!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=dasi.prm1.attackloot"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/JdXjH_nybZe4B_OVxVZf4qL0fBMsxRtzQ3s6vj7MZE_dmbjjC50WnlII-UkT0nB9BODqOKdEuN67lPTfdPXh7w",
+        "hero": "https://play-lh.googleusercontent.com/JdXjH_nybZe4B_OVxVZf4qL0fBMsxRtzQ3s6vj7MZE_dmbjjC50WnlII-UkT0nB9BODqOKdEuN67lPTfdPXh7w",
+        "portrait": "https://play-lh.googleusercontent.com/JdXjH_nybZe4B_OVxVZf4qL0fBMsxRtzQ3s6vj7MZE_dmbjjC50WnlII-UkT0nB9BODqOKdEuN67lPTfdPXh7w",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
     }
   ]
 }
