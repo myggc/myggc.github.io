@@ -78,9 +78,21 @@
 
   <sc-if value="{{ isStep1 }}">
     <div style="background:#fff;border:1px solid #dfe3e4;border-radius:18px;padding:clamp(18px,3vw,28px);animation:ggcPop .4s ease both">
-      <div style="font-size:20px;font-weight:600">იპოვე შენი სტუდია</div>
-      <p style="margin:8px 0 18px;font-size:15px;line-height:1.6;color:#4d5258;max-width:60ch">ჩაწერე ოფიციალური სახელი — მაგალითად „MadMoa LLC“. თუ უკვე არსებობს, ედიტს მოითხოვ; თუ არა, აქვე შექმნი.</p>
-      <input type="search" placeholder="ოფიციალური სახელი ან ბრენდი" value="{{ lookup }}" onInput="{{ onLookup }}" style="width:100%;border:1px solid #dfe3e4;border-radius:11px;padding:14px 16px;font-family:inherit;font-size:16px;background:#f7f9f9;color:#16181b">
+      <div style="display:{{ prefillShow }};background:#eef6fb;border:1px solid #cfe3ef;border-radius:16px;padding:18px;margin-bottom:20px">
+        <div style="font-size:17px;font-weight:600;color:#14536f">ყველაზე მარტივი გზა — მაღაზიის გვერდი</div>
+        <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#2c5f7d">ჩასვი შენი სტუდიის გვერდი Steam-ზე (სასურველია), itch.io-ზე, App Store-ზე ან Google Play-ზე. სახელს, ვებსაიტს, სოციალურ ქსელებს და ყველა თამაშს ავტომატურად შევავსებთ — შენ მხოლოდ დანარჩენს დაამატებ.</p>
+        <input type="url" placeholder="https://store.steampowered.com/developer/…" value="{{ studioUrl }}" onInput="{{ onStudioUrl }}" style="width:100%;margin-top:14px;border:1px solid #cfe3ef;border-radius:11px;padding:13px 15px;font-family:inherit;font-size:15px;background:#fff;color:#16181b">
+        <button type="button" onClick="{{ importStudio }}" style="margin-top:12px;border:0;cursor:pointer;background:#146590;color:#fff;border-radius:11px;padding:13px 20px;font-family:inherit;font-size:15px;font-weight:600">{{ importLabel }}</button>
+        <div style="display:{{ importBusyShow }};align-items:center;gap:12px;margin-top:12px;background:#fff;border:1px solid #cfe3ef;border-radius:11px;padding:13px">
+          <span style="width:18px;height:18px;border-radius:50%;border:3px solid #cfe3ef;border-top-color:#146590;animation:ggcSpin 900ms linear infinite;flex:none"></span>
+          <div style="flex:1 1 160px;min-width:0;font-size:14px;line-height:1.55;color:#14536f">{{ importProgress }}</div>
+        </div>
+        <div style="display:{{ importMsgShow }};margin-top:12px;background:#fff;border:1px solid #cfe3ef;border-radius:11px;padding:12px 14px;font-size:14px;line-height:1.55;color:{{ importMsgColor }}">{{ importMsg }}</div>
+      </div>
+
+      <div style="font-size:20px;font-weight:600">{{ step1Title }}</div>
+      <p style="margin:8px 0 18px;font-size:15px;line-height:1.6;color:#4d5258;max-width:62ch">{{ step1Hint }}</p>
+      <input type="search" placeholder="ოფიციალური სახელი ან ბრენდი — მაგ. MadMoa LLC" value="{{ lookup }}" onInput="{{ onLookup }}" style="width:100%;border:1px solid #dfe3e4;border-radius:11px;padding:14px 16px;font-family:inherit;font-size:16px;background:#f7f9f9;color:#16181b">
       <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
         <sc-for list="{{ matches }}" as="m" hint-placeholder-count="2">
           <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:#f7f9f9;border:1px solid #e6eaeb;border-radius:12px;padding:14px 16px">
@@ -544,15 +556,19 @@ class Component extends DCLogic {
         if (!f2[key]) { f2[key] = prof.links[key]; filled++; }
       });
       const extra = filled ? " და " + filled + " ველი პროფილში" : "";
-      this.save({
+      // Started from the store page rather than a name: carry straight on to the
+      // details, already filled, instead of asking for a name we now know.
+      const goForward = this.state.step <= 1 && this.state.mode !== "edit";
+      if (goForward && !f2.legal && f2.name) f2.legal = f2.name;
+      this.save(Object.assign({
         importing: false,
         f: f2,
         drafts: this.state.drafts.concat(added),
         importMsg: added.length
-          ? "დაემატა " + added.length + " თამაში" + extra + ". ქვემოთ ნახავ ყველას — შეგიძლია რომელიმე მოხსნა ან შეასწორო."
-          : ("ყველა ნაპოვნი თამაში უკვე სიაშია" + extra + "."),
+          ? "დაემატა " + added.length + " თამაში" + extra + ". შემდეგ ბიჯზე ნახავ ყველას."
+          : ((res.reason || "ყველა ნაპოვნი თამაში უკვე სიაშია") + extra + "."),
         importMsgColor: added.length || filled ? "#2f5c3c" : "#7a5500"
-      });
+      }, goForward ? { mode: "new", step: 2, lookup: f2.legal || this.state.lookup } : {}));
     }, err => {
       this.setState({
         importing: false,
@@ -792,6 +808,15 @@ class Component extends DCLogic {
         }
       })),
       noMatchShow: term.length > 1 && !matches.length ? "block" : "none",
+      // The store-page shortcut belongs to a studio that is not in the catalogue
+      // yet; correcting an existing one starts from the record we already have.
+      prefillShow: s.mode === "edit" ? "none" : "block",
+      step1Title: s.mode === "edit" ? "იპოვე შენი სტუდია" : (s.mode === "game" ? "რომელ სტუდიას ეკუთვნის?" : "ან ჩაწერე სახელით"),
+      step1Hint: s.mode === "edit"
+        ? "ჩაწერე ოფიციალური სახელი — მაგალითად „MadMoa LLC“. იპოვი და იქვე შეასწორებ."
+        : (s.mode === "game"
+          ? "იპოვე სტუდია, რომელსაც თამაში მიება. თუ სიაში არაა, ჯერ სტუდია უნდა დაემატოს."
+          : "თუ მაღაზიის გვერდი არ გაქვს, ჩაწერე ოფიციალური სახელი — მაგალითად „MadMoa LLC“. თუ უკვე არსებობს, ედიტს მოითხოვ; თუ არა, აქვე შექმნი."),
       createNew: () => this.save({ mode: "new", step: 2, f: Object.assign({}, f, { legal: s.lookup }) }),
 
       step2Title: isNew ? "სტუდიის მონაცემები" : "შესწორებული მონაცემები",

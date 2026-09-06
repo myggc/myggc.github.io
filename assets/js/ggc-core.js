@@ -696,9 +696,16 @@
           urls.push(u);
         });
       });
-      if (!urls.length) throw new Error("ამ გვერდზე თამაშები ვერ ვიპოვეთ");
-      return urls;
+      /* The studio's own page is what describes the studio, and it is worth a
+         request of its own: the listings that find the games are often store
+         searches, which describe the store. Without this the profile was only
+         picked up by accident, when the studio page happened to be the listing
+         that worked. */
+      if (profile) return urls;
+      return fetchVia(d.url, function (html) { return studioProfile(html); })
+        .then(function (p) { profile = p; return urls; }, function () { return urls; });
     }).then(function (urls) {
+      if (!urls.length && !profile) throw new Error("ამ გვერდზე არაფერი მოიძებნა");
       var out = [], done = 0;
       var list = urls.slice(0, 40);
       /* Read several titles at once. One at a time made the import cost the sum
@@ -709,7 +716,11 @@
       function worker() {
         if (next >= list.length) return Promise.resolve();
         var u = list[next++];
-        return parseStore(u).then(function (g) { out.push(g); }, function () {})
+        // One retry: a single proxy hiccup should not drop a title from the
+        // catalogue and leave the whole import looking like it failed.
+        return parseStore(u)
+          .catch(function () { return parseStore(u); })
+          .then(function (g) { out.push(g); }, function () {})
           .then(function () {
             done++;
             if (onProgress) onProgress(done, list.length, out.length ? out[out.length - 1].name : "");
@@ -738,16 +749,25 @@
           if (!byThisStudio(g)) return false;
           return !/\bdemo\b|\bplaytest\b|soundtrack|\bost\b/i.test(g.name || "");
         });
-        /* Say which of the three things happened, because they need different
-           responses: nothing readable, only demos, or a partial read where one
-           title's request failed and retrying will pick it up. */
+        /* Never throw for an empty game list. The studio's own details were read
+           from the same page and are worth keeping even when no title could be:
+           losing the name, site and socials because a storefront request failed
+           is the wrong trade. The caller is told why the list is empty. */
+        var reason = "";
         if (!games.length) {
-          if (!out.length) {
-            throw new Error("გვერდზე " + list.length + " თამაში მოიძებნა, მაგრამ ვერცერთი ვერ წაიკითხა — სცადე ხელახლა.");
-          }
-          throw new Error("მხოლოდ დემო/DLC მოიძებნა — სრული თამაშები ამ გვერდზე არ არის.");
+          reason = !out.length
+            ? ("გვერდზე " + list.length + " თამაში მოიძებნა, მაგრამ ვერცერთი ვერ წაიკითხა — სცადე ხელახლა.")
+            : "მხოლოდ დემო/DLC მოიძებნა — სრული თამაში ამ გვერდზე არ არის.";
         }
-        return { source: d.kind, found: list.length, skipped: out.length - games.length, games: games, profile: profile };
+        /* The page that was pasted is itself the studio's store link — worth
+           keeping on the record rather than making someone paste it twice. */
+        var prof = profile || { links: {} };
+        prof.links = prof.links || {};
+        if (!prof.links[d.kind]) prof.links[d.kind] = d.url;
+        return {
+          source: d.kind, found: list.length, skipped: out.length - games.length,
+          games: games, profile: prof, reason: reason
+        };
       });
     });
   }

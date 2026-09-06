@@ -469,6 +469,7 @@ const SOCIALS = ["telegram", "facebook", "instagram", "linkedin", "youtube", "x"
 const SOCIAL_PH = { telegram: "@ggcgeorgia", facebook: "facebook.com/ggc", instagram: "instagram.com/ggc", linkedin: "linkedin.com/company/ggc", youtube: "youtube.com/@ggc", x: "x.com/ggc", discord: "discord.gg/…", tiktok: "tiktok.com/@ggc", twitch: "twitch.tv/ggc" };
 /* The studio's own shop pages — a storefront is not a social account. */
 const CO_STORES = ["steam", "itch", "appstore", "googleplay"];
+const ADMIN_DRAFT = "ggc.admin.draft";
 const FIELD_LABEL = { kind: "ტიპი", city: "ქალაქი", size: "გუნდის ზომა", legal: "ოფიციალური სახელი", regId: "საიდენტიფიკაციო ნომერი", name: "საჯარო სახელი", founded: "დაფუძნების თარიღი", email: "ელფოსტა", about: "აღწერა" };
 const CO_STORE_PH = { steam: "store.steampowered.com/developer/…", itch: "studio.itch.io", appstore: "apps.apple.com/developer/…", googleplay: "play.google.com/store/apps/dev?id=…" };
 const STORE_KEYS = ["steam", "itch", "appstore", "googleplay", "switch", "xbox", "playstation", "epic"];
@@ -499,12 +500,36 @@ class Component extends DCLogic {
     studioUrl: "", importing: false, importMsg: "", importMsgColor: "#8b949c"
   };
 
+  /* Staged work outlives the tab. Everything approved, imported or typed lives
+     only in memory until it is published, so a stray Back gesture or a reload
+     used to throw it away with no warning. It is written to this browser as it
+     changes and picked up again on the next load. */
+  componentDidUpdate() {
+    if (!this.state.ready) return;
+    try {
+      if (this.dirtyKeys().length) {
+        localStorage.setItem(ADMIN_DRAFT, JSON.stringify({
+          companies: this.state.companies, games: this.state.games
+        }));
+      } else {
+        localStorage.removeItem(ADMIN_DRAFT);
+      }
+    } catch (e) {}
+  }
+
   componentDidMount() {
     D.load().then(() => {
+      let draft = null;
+      try { draft = JSON.parse(localStorage.getItem(ADMIN_DRAFT) || "null"); } catch (e) {}
+      const restored = draft && Array.isArray(draft.companies) && Array.isArray(draft.games);
       this.setState({
         ready: true,
-        companies: U.clone(D.companies()),
-        games: U.clone(D.games())
+        companies: restored ? draft.companies.map(D.normCompany) : U.clone(D.companies()),
+        games: restored ? draft.games.map(D.normGame) : U.clone(D.games())
+      }, () => {
+        if (restored && this.dirtyKeys().length) {
+          this.say("აღდგა " + this.dirtyKeys().length + " შენახული ცვლილება ამ ბრაუზერიდან", "#f4cd77");
+        }
       });
     });
     if (GH.hasToken()) {
@@ -733,7 +758,7 @@ class Component extends DCLogic {
       .then(() => D.load(true))
       .then(() => {
         this.setState({
-          publishing: false, decisions: {}, gameEdit: null,
+          publishing: false, decisions: {}, gameEdit: null, edit: null,
           companies: U.clone(D.companies()), games: U.clone(D.games())
         });
         this.say("გამოქვეყნდა", "#9ede9e");
@@ -749,9 +774,15 @@ class Component extends DCLogic {
 
   patchCompany(id, patch) {
     this.setState(s => ({
-
       companies: s.companies.map(c => c.id === id ? Object.assign({}, c, patch, { updated: U.today() }) : c)
     }));
+    /* The id follows the official name until someone types their own. A record
+       still carrying its placeholder id has not been named yet, so deriving one
+       is strictly better than leaving "draft" in the field. */
+    if (patch.legal !== undefined && /^draft(-\d+)?$/.test(id)) {
+      const next = U.slug(patch.legal);
+      if (next && next !== "entry") this.patch({ id: next });
+    }
   }
   /* Two independent pointers: the studio panel and the game dialog are open at
      the same time, so each edits its own record. */
@@ -824,6 +855,9 @@ class Component extends DCLogic {
       const c = D.normCompany({
         id: this.nextId("draft", s.companies), kind: kind,
         name: "", legal: "", active: true,
+        // Every studio in this catalogue makes games; publisher, art and the
+        // rest are the ones worth asking about.
+        roles: ["developer"],
         created: now, updated: now, validated: now
       });
       this.setState(st => ({ companies: st.companies.concat([c]), edit: c.id, editKind: kind  }));
@@ -1046,13 +1080,14 @@ class Component extends DCLogic {
       if (addedLinks) coPatch.links = links;
       if (Object.keys(coPatch).length) this.patchCompany(cur.id, coPatch);
 
-      const extra = (Object.keys(coPatch).length ? " + პროფილის " + (Object.keys(coPatch).length) + " ველი" : "") +
+      const filled = Object.keys(coPatch).length;
+      const extra = (filled ? " + პროფილის " + filled + " ველი" : "") +
         (res.skipped ? " (" + res.skipped + " დემო/DLC გამოტოვდა)" : "");
       if (!fresh.length) {
         return this.setState({
           importing: false,
-          importMsg: "ყველა ნაპოვნი თამაში უკვე კატალოგშია" + extra,
-          importMsgColor: "#8b949c"
+          importMsg: (res.reason || "ყველა ნაპოვნი თამაში უკვე კატალოგშია") + extra,
+          importMsgColor: filled ? "#9ede9e" : "#f4cd77"
         });
       }
       this.setState(s => {
