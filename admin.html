@@ -156,7 +156,7 @@
                   <span style="position:relative">{{ r.initials }}</span>
                 </div>
                 <div style="flex:1 1 150px;min-width:0">
-                  <div style="display:flex;align-items:center;gap:7px;color:#fff;font-weight:600">{{ r.name }}<span style="display:{{ r.verifiedShow }};color:#6cc0e8;font-size:14px">✔</span></div>
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:7px;color:#fff;font-weight:600">{{ r.name }}<span style="display:{{ r.verifiedShow }};color:#6cc0e8;font-size:14px">✔</span><span style="display:{{ r.pendingShow }};background:#3a2f14;color:#f4cd77;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600">{{ r.pendingLabel }}</span></div>
                   <div style="margin-top:2px;font-size:13px;color:#8b949c">{{ r.sub }}</div>
                 </div>
                 <div style="flex:none;display:flex;align-items:center;gap:7px;font-size:14px;color:#c6ccd3"><span style="width:8px;height:8px;border-radius:50%;background:{{ r.dot }}"></span>{{ r.status }}</div>
@@ -262,11 +262,14 @@
                   <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">მიმაგრებული თამაშები</div>
                   <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
                     <sc-for list="{{ editGames }}" as="g" hint-placeholder-count="2">
-                      <button type="button" onClick="{{ g.open }}" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:#1d2126;border:0;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;cursor:pointer;text-align:left">
-                        <div style="width:66px;aspect-ratio:460/215;background:{{ g.art }};border-radius:5px;flex:none"></div>
-                        <span style="flex:1 1 90px;min-width:0;color:#fff;font-weight:600">{{ g.name }}</span>
-                        <span style="flex:none;color:#8b949c">{{ g.meta }}</span>
-                      </button>
+                      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:#1d2126;border-radius:9px;padding:10px 12px;font-size:14px">
+                        <button type="button" onClick="{{ g.open }}" style="flex:1 1 140px;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:transparent;border:0;padding:0;font-family:inherit;font-size:14px;cursor:pointer;text-align:left">
+                          <div style="width:66px;aspect-ratio:460/215;background:{{ g.art }};border-radius:5px;flex:none"></div>
+                          <span style="flex:1 1 90px;min-width:0;color:#fff;font-weight:600">{{ g.name }}</span>
+                          <span style="flex:none;color:#8b949c">{{ g.meta }}</span>
+                        </button>
+                        <button type="button" onClick="{{ g.remove }}" title="მოხსნა" style="flex:none;border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:8px;padding:7px 11px;font-family:inherit;font-size:13px;font-weight:600">✕</button>
+                      </div>
                     </sc-for>
                     <button type="button" onClick="{{ addGame }}" style="border:1px dashed #333941;cursor:pointer;background:transparent;color:#8b949c;border-radius:9px;padding:11px;font-family:inherit;font-size:14px">+ თამაშის მიმაგრება</button>
                   </div>
@@ -365,7 +368,7 @@ class Component extends DCLogic {
   state = {
     ready: false, authed: false, browse: false, user: "", tokenInput: "", authErr: "", signing: false,
     tab: "queue", open: null, q: "", sort: "", edit: null, editKind: "company",
-    queue: [], decisions: {}, companies: [], games: [], dirty: 0,
+    queue: [], decisions: {}, companies: [], games: [], touched: {},
     status: "", statusColor: "#8b949c", publishing: false, syncing: "",
     pending: null, uploading: false, asking: 0, busy: 0, testing: false, endpointOk: "",
     endpointInput: (window.GGC && GGC.config.submitEndpoint) || "", savingEndpoint: false,
@@ -391,6 +394,11 @@ class Component extends DCLogic {
       }).catch(() => GH.signOut());
     }
   }
+
+  /* How many records are waiting, not how many edits were made. Counting
+     operations meant one company took six keystrokes to read as "6 pending". */
+  dirtyCount() { return Object.keys(this.state.touched || {}).length; }
+  isTouched(kind, id) { return !!(this.state.touched || {})[kind + ":" + id]; }
 
   loadQueue() {
     GH.listSubmissions()
@@ -494,7 +502,7 @@ class Component extends DCLogic {
         return {
           companies: next.companies,
           games: next.games,
-          dirty: s.dirty + 1,
+          touched: Object.assign({}, s.touched, { ["q:" + item.number]: 1 }),
           decisions: Object.assign({}, s.decisions, { [item.number]: "approved" })
         };
       } catch (e) {
@@ -548,12 +556,12 @@ class Component extends DCLogic {
 
   publish() {
     const s = this.state;
-    if (!s.authed || s.publishing || !s.dirty) return;
+    if (!s.authed || s.publishing || !this.dirtyCount()) return;
     this.setState({ publishing: true });
     this.say("იტვირთება…", "#6cc0e8");
     // Only approvals reach here — a rejection closed itself when it was made.
     const approved = Object.keys(s.decisions);
-    const msg = "data: " + s.dirty + " განახლება ადმინიდან";
+    const msg = "data: " + this.dirtyCount() + " განახლება ადმინიდან";
     GH.saveData(s.companies, s.games, msg)
       .then(() => Promise.all(approved.map(n =>
         GH.comment(n, "დადასტურდა და გამოქვეყნდა კატალოგში. მადლობა!")
@@ -563,7 +571,7 @@ class Component extends DCLogic {
       .then(() => D.load(true))
       .then(() => {
         this.setState({
-          publishing: false, dirty: 0, decisions: {},
+          publishing: false, touched: {}, decisions: {},
           companies: U.clone(D.companies()), games: U.clone(D.games())
         });
         this.say("გამოქვეყნდა", "#9ede9e");
@@ -579,13 +587,13 @@ class Component extends DCLogic {
 
   patchCompany(id, patch) {
     this.setState(s => ({
-      dirty: s.dirty + 1,
+      touched: Object.assign({}, s.touched, { ["c:" + id]: 1 }),
       companies: s.companies.map(c => c.id === id ? Object.assign({}, c, patch, { updated: U.today() }) : c)
     }));
   }
   patchGame(id, patch) {
     this.setState(s => ({
-      dirty: s.dirty + 1,
+      touched: Object.assign({}, s.touched, { ["g:" + id]: 1 }),
       games: s.games.map(g => g.id === id ? Object.assign({}, g, patch, { updated: U.today() }) : g)
     }));
   }
@@ -643,7 +651,7 @@ class Component extends DCLogic {
         studioId: s.companies[0].id, status: "upcoming",
         created: now, updated: now, validated: now
       });
-      this.setState(st => ({ games: st.games.concat([g]), edit: g.id, editKind: "game", dirty: st.dirty + 1 }));
+      this.setState(st => ({ games: st.games.concat([g]), edit: g.id, editKind: "game", touched: Object.assign({}, st.touched, { ["g:" + g.id]: 1 }) }));
     } else {
       const kind = KIND_OF_TAB[s.tab] || "company";
       const c = D.normCompany({
@@ -651,7 +659,7 @@ class Component extends DCLogic {
         name: "", legal: "", active: true,
         created: now, updated: now, validated: now
       });
-      this.setState(st => ({ companies: st.companies.concat([c]), edit: c.id, editKind: kind, dirty: st.dirty + 1 }));
+      this.setState(st => ({ companies: st.companies.concat([c]), edit: c.id, editKind: kind, touched: Object.assign({}, st.touched, { ["c:" + c.id]: 1 }) }));
     }
   }
 
@@ -659,11 +667,11 @@ class Component extends DCLogic {
     const s = this.state;
     if (!s.edit) return;
     if (s.editKind === "game") {
-      this.setState(st => ({ games: st.games.filter(g => g.id !== st.edit), edit: null, dirty: st.dirty + 1 }));
+      this.setState(st => ({ games: st.games.filter(g => g.id !== st.edit), edit: null, touched: Object.assign({}, st.touched, { ["g:" + st.edit]: 1 }) }));
     } else {
       const attached = s.games.filter(g => g.studioId === s.edit).length;
       if (attached) return this.say("ჯერ მოხსენი " + attached + " მიმაგრებული თამაში", "#f0a8a8");
-      this.setState(st => ({ companies: st.companies.filter(c => c.id !== st.edit), edit: null, dirty: st.dirty + 1 }));
+      this.setState(st => ({ companies: st.companies.filter(c => c.id !== st.edit), edit: null, touched: Object.assign({}, st.touched, { ["c:" + st.edit]: 1 }) }));
     }
   }
 
@@ -855,8 +863,27 @@ class Component extends DCLogic {
         const u = Object.keys(g.stores || {}).map(k => g.stores[k]).filter(Boolean)[0] || "";
         return !have[(g.name || "").toLowerCase()] && !have[u.toLowerCase()];
       });
+      // The studio page also carries the studio's own details. Fill in only what
+      // is still blank, so an import never overwrites something already checked.
+      const prof = res.profile || {};
+      const coPatch = {};
+      if (prof.website && !cur.website) coPatch.website = prof.website;
+      if (prof.name && !cur.name) coPatch.name = prof.name;
+      const links = Object.assign({}, cur.links);
+      let addedLinks = 0;
+      Object.keys(prof.links || {}).forEach(k => {
+        if (!links[k]) { links[k] = prof.links[k]; addedLinks++; }
+      });
+      if (addedLinks) coPatch.links = links;
+      if (Object.keys(coPatch).length) this.patchCompany(cur.id, coPatch);
+
+      const extra = (Object.keys(coPatch).length ? " + პროფილის " + (Object.keys(coPatch).length) + " ველი" : "");
       if (!fresh.length) {
-        return this.setState({ importing: false, importMsg: "ყველა ნაპოვნი თამაში უკვე კატალოგშია", importMsgColor: "#8b949c" });
+        return this.setState({
+          importing: false,
+          importMsg: "ყველა ნაპოვნი თამაში უკვე კატალოგშია" + extra,
+          importMsgColor: "#8b949c"
+        });
       }
       this.setState(s => {
         const games = s.games.slice();
@@ -868,8 +895,8 @@ class Component extends DCLogic {
           })));
         });
         return {
-          games, importing: false, dirty: s.dirty + fresh.length,
-          importMsg: "დაემატა " + fresh.length + " თამაში — დარჩა ატვირთვა",
+          games, importing: false,
+          importMsg: "დაემატა " + fresh.length + " თამაში" + extra + " — დარჩა ატვირთვა",
           importMsgColor: "#9ede9e"
         };
       });
@@ -978,6 +1005,8 @@ class Component extends DCLogic {
         const art = D.gameArt(g);
         return {
           name: g.name || "(უსახელო — შეავსე)",
+          pendingShow: this.isTouched("g", g.id) ? "inline" : "none",
+          pendingLabel: D.game(g.id) ? "შეცვლილი — არ არის ატვირთული" : "ახალი — არ არის ატვირთული",
           initials: art ? "" : U.initials(g.name),
           art: art ? 'url("' + art + '") center/cover no-repeat' : "none",
           radius: "6px",
@@ -1000,6 +1029,8 @@ class Component extends DCLogic {
       : b.count - a.count);
     return rows.map(c => ({
       name: c.name || "(უსახელო — შეავსე)",
+      pendingShow: this.isTouched("c", c.id) ? "inline" : "none",
+      pendingLabel: D.company(c.id) ? "შეცვლილი — არ არის ატვირთული" : "ახალი — არ არის ატვირთული",
       initials: c.logo ? "" : U.initials(c.name),
       art: c.logo ? 'url("' + c.logo + '") center/cover no-repeat' : "none",
       radius: "50%",
@@ -1194,7 +1225,13 @@ class Component extends DCLogic {
           name: g.name,
           meta: [D.releaseLabel(g), (g.platforms || []).join(", ")].filter(Boolean).join(" · "),
           art: art ? 'url("' + art + '") center/cover no-repeat' : "#2f353c",
-          open: () => this.setState({ edit: g.id, editKind: "game" })
+          open: () => this.setState({ edit: g.id, editKind: "game" }),
+          // Detaching from the studio's own view, without having to open the
+          // game and come back.
+          remove: () => this.setState(st => ({
+            games: st.games.filter(x => x.id !== g.id),
+            touched: Object.assign({}, st.touched, { ["g:" + g.id]: 1 })
+          }))
         };
       }),
       gamesBoxShow: "block", syncBoxShow: "none",
@@ -1231,17 +1268,17 @@ class Component extends DCLogic {
       statusText: s.status,
       statusShow: s.status ? "block" : "none",
       statusColor: s.statusColor,
-      dirtyShow: s.dirty ? "inline" : "none",
-      dirtyLabel: s.dirty + " შენახვის მოლოდინში",
+      dirtyShow: this.dirtyCount() ? "inline" : "none",
+      dirtyLabel: this.dirtyCount() + " ჩანაწერი შენახვის მოლოდინში",
       publishLabel: s.publishing ? "იტვირთება…" : "GitHub-ზე ატვირთვა",
-      publishBg: s.dirty ? "#1d96d3" : "#2a3138",
+      publishBg: this.dirtyCount() ? "#1d96d3" : "#2a3138",
       publish: () => this.publish(),
       exportJson: () => this.exportJson(),
       // Pulling fresh data would throw away anything staged, so only do it when
       // nothing is waiting to be published.
       reload: () => {
         this.loadQueue();
-        if (s.dirty) return this.say("რიგი განახლდა — მონაცემები არა, რადგან " + s.dirty + " ცვლილება ატვირთვას ელოდება", "#f4cd77");
+        if (this.dirtyCount()) return this.say("რიგი განახლდა — მონაცემები არა, რადგან " + this.dirtyCount() + " ჩანაწერი ატვირთვას ელოდება", "#f4cd77");
         D.load(true).then(() => {
           this.setState({ ready: true, companies: U.clone(D.companies()), games: U.clone(D.games()) });
           if (s.authed) GH.markBaseline();
@@ -1292,7 +1329,7 @@ class Component extends DCLogic {
           id: this.nextId(cur.name + "-game", s.games), name: "ახალი თამაში",
           studioId: cur.id, status: "upcoming", created: now, updated: now
         });
-        this.setState(st => ({ games: st.games.concat([g]), edit: g.id, editKind: "game", dirty: st.dirty + 1 }));
+        this.setState(st => ({ games: st.games.concat([g]), edit: g.id, editKind: "game", touched: Object.assign({}, st.touched, { ["g:" + g.id]: 1 }) }));
       },
       syncNow: () => { if (cur && s.editKind === "game") this.syncGame(cur); },
       studioUrl: s.studioUrl,
@@ -1328,7 +1365,7 @@ class Component extends DCLogic {
         { k: "შესული", v: s.authed ? "@" + s.user : "არა" },
         { k: "კომპანია / გუნდი / სოლო", v: s.companies.filter(c => c.kind === "company").length + " / " + s.companies.filter(c => c.kind === "team").length + " / " + s.companies.filter(c => c.kind === "solo").length },
         { k: "თამაში", v: String(s.games.length) },
-        { k: "შენახვის მოლოდინში", v: String(s.dirty) },
+        { k: "შენახვის მოლოდინში", v: String(this.dirtyCount()) },
         { k: "ფორმის მიმღები", v: C.submitEndpoint ? (s.endpointOk || "კონფიგურირებულია") : "არ არის — ფორმა ვერაფერს გამოგზავნის" },
         { k: "ბოლო განახლება", v: U.fmtDate((D.raw().games || {}).updated || "") }
       ]

@@ -557,6 +557,48 @@
     return null;
   }
 
+  /* A studio page also carries the studio's own details — its name, its site and
+     whichever socials it links. Worth harvesting in the same pass: it is the
+     difference between an import that fills the games and one that fills the
+     profile too. Only keys the page actually links are returned. */
+  function studioProfile(html) {
+    var out = { links: {} };
+    var m = /<meta[^>]+property=["']og:title["'][^>]*content=["']([^"']+)/i.exec(html) ||
+      /<title[^>]*>([^<]+)/i.exec(html);
+    if (m) {
+      out.name = m[1]
+        .replace(/\s*(on Steam|Steam Search|itch\.io|·.*)$/i, "")
+        .replace(/^Games by\s+/i, "")
+        .trim();
+    }
+    var patterns = [
+      ["facebook", /https?:\/\/(?:www\.)?facebook\.com\/[\w.\-/]+/i],
+      ["instagram", /https?:\/\/(?:www\.)?instagram\.com\/[\w.\-]+/i],
+      ["x", /https?:\/\/(?:www\.)?(?:twitter|x)\.com\/[\w.\-]+/i],
+      ["youtube", /https?:\/\/(?:www\.)?youtube\.com\/(?:@|c\/|channel\/|user\/)[\w.\-]+/i],
+      ["linkedin", /https?:\/\/(?:www\.)?linkedin\.com\/company\/[\w.\-]+/i],
+      ["discord", /https?:\/\/discord\.(?:gg|com\/invite)\/[\w.\-]+/i],
+      ["tiktok", /https?:\/\/(?:www\.)?tiktok\.com\/@[\w.\-]+/i],
+      ["twitch", /https?:\/\/(?:www\.)?twitch\.tv\/[\w.\-]+/i],
+      ["itch", /https?:\/\/[\w-]+\.itch\.io\/?/i]
+    ];
+    /* A storefront page links the storefront's own accounts in its chrome —
+       scraping naively wrote facebook.com/steam onto a Georgian studio. Anything
+       whose handle belongs to the store itself is not the studio's. */
+    var STORE_OWNED = /\/@?(steam|steamgames|steamdb|valve|steamworks|nintendo|nintendoamerica|xbox|playstation|itchio|itchdotio|googleplay|appstore|apple|epicgames)\/?$/i;
+    patterns.forEach(function (p) {
+      var hit = p[1].exec(html);
+      if (!hit) return;
+      var link = hit[0].replace(/[)"'<].*$/, "");
+      if (STORE_OWNED.test(link)) return;
+      out.links[p[0]] = link;
+    });
+    // A plain site link, ignoring the storefront's own domains.
+    var site = /href=["'](https?:\/\/(?!(?:store\.|www\.)?(?:steampowered|steamcommunity|valvesoftware|akamai|google|apple|facebook|instagram|twitter|x|youtube|linkedin|discord|tiktok|twitch|itch)\.)[^"']+)["']/i.exec(html);
+    if (site) out.website = site[1];
+    return out;
+  }
+
   /* Pulls every title's own page URL out of a studio page. Each one is then read
      by the normal single-game parser, so a bulk import and a hand-pasted link
      produce exactly the same record. */
@@ -606,29 +648,40 @@
     var d = detectStudio(url);
     if (!d) return Promise.reject(new Error("ეს სტუდიის გვერდი არ არის"));
     var candidates = d.listUrls || [d.url];
+    var profile = null;
     // Try each listing source in turn; the first that yields titles wins.
     return candidates.reduce(function (chain, listUrl) {
       return chain.catch(function () {
         return fetchVia(listUrl, function (html) {
           var found = studioGameUrls(html, d.kind);
           if (!found.length) throw new Error("ამ გვერდზე თამაშები ვერ ვიპოვეთ");
+          // A search-results page is the storefront's own chrome, not the
+          // studio's page — only the studio's own page describes the studio.
+          if (!/\/search\/?\?/i.test(listUrl)) profile = studioProfile(html);
           return found;
         });
       });
     }, Promise.reject(new Error("start"))).then(function (urls) {
       var out = [], done = 0;
-      return urls.slice(0, 40).reduce(function (chain, u) {
-        return chain.then(function () {
-          return parseStore(u).then(function (g) {
-            out.push(g);
+      var list = urls.slice(0, 40);
+      /* Read several titles at once. One at a time made the import cost the sum
+         of every proxy round trip — minutes for a studio with a handful of
+         games — when it only ever needed the slowest of each batch. Four lanes
+         collapse that without hammering the storefront. */
+      var next = 0;
+      function worker() {
+        if (next >= list.length) return Promise.resolve();
+        var u = list[next++];
+        return parseStore(u).then(function (g) { out.push(g); }, function () {})
+          .then(function () {
             done++;
-            if (onProgress) onProgress(done, urls.length, g.name);
-          }, function () {
-            done++;
-            if (onProgress) onProgress(done, urls.length, "");
+            if (onProgress) onProgress(done, list.length, out.length ? out[out.length - 1].name : "");
+            return worker();
           });
-        });
-      }, Promise.resolve()).then(function () {
+      }
+      var lanes = [];
+      for (var i = 0; i < Math.min(6, list.length); i++) lanes.push(worker());
+      return Promise.all(lanes).then(function () {
         // A studio page also lists demos, soundtracks and DLC. Those are not
         // catalogue entries — importing them would file "… Demo" as its own game.
         var games = out.filter(function (g) {
@@ -636,7 +689,7 @@
           return !/\bdemo\b|\bplaytest\b|soundtrack|\bost\b/i.test(g.name || "");
         });
         if (!games.length) throw new Error("თამაშები ვერ წაიკითხა");
-        return { source: d.kind, found: urls.length, skipped: out.length - games.length, games: games };
+        return { source: d.kind, found: list.length, skipped: out.length - games.length, games: games, profile: profile };
       });
     });
   }
