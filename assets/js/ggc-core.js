@@ -168,12 +168,26 @@
           ctx.imageSmoothingQuality = "high";
           ctx.drawImage(img, (size.w - dw) / 2, (size.h - dh) / 2, dw, dh);
           var dataUrl = canvas.toDataURL("image/jpeg", quality || 0.82);
+          var base64 = dataUrl.slice(dataUrl.indexOf(",") + 1);
+          /* The preview goes into an inline style, and a data URL carries a
+             semicolon in "image/jpeg;base64" — which the template's style
+             parser treats as the end of the declaration, leaving an empty box.
+             A blob URL has no semicolon, so preview and upload use different
+             forms of the same bytes. */
+          var blob = null;
+          try {
+            var bin = atob(base64);
+            var buf = new Uint8Array(bin.length);
+            for (var i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+            blob = new Blob([buf], { type: "image/jpeg" });
+          } catch (e) { blob = null; }
           resolve({
+            url: blob ? URL.createObjectURL(blob) : dataUrl,
             dataUrl: dataUrl,
-            base64: dataUrl.slice(dataUrl.indexOf(",") + 1),
+            base64: base64,
             width: size.w,
             height: size.h,
-            bytes: Math.round((dataUrl.length - dataUrl.indexOf(",") - 1) * 0.75)
+            bytes: Math.round(base64.length * 0.75)
           });
         };
         img.src = reader.result;
@@ -379,16 +393,39 @@
   /* Tries each proxy until one returns something `read` can actually make sense
      of — a proxy that answers 200 with a useless body is a failure too, so the
      read runs inside the retry rather than after it. */
+  /* Whichever proxy answered last is tried first next time. Without this every
+     single request re-walked the dead ones from the top, which is what made
+     importing a studio's whole catalogue look like it had hung — the work was
+     happening, buried under twenty seconds of timeouts per game. */
+  var lastGoodProxy = null;
+  var PROXY_TIMEOUT = 9000;
+
+  function proxyOrder() {
+    if (!lastGoodProxy) return config.proxies;
+    return [lastGoodProxy].concat(config.proxies.filter(function (p) { return p !== lastGoodProxy; }));
+  }
+
   function fetchVia(target, read) {
-    return config.proxies.reduce(function (chain, tpl) {
+    return proxyOrder().reduce(function (chain, tpl) {
       return chain.catch(function () {
         var url = tpl.replace("{url}", encodeURIComponent(target)).replace("{raw}", target);
-        return fetch(url, { cache: "no-store" })
+        // A hanging proxy is worse than a failing one; cut it off and move on.
+        var ctl = typeof AbortController !== "undefined" ? new AbortController() : null;
+        var timer = ctl ? setTimeout(function () { ctl.abort(); }, PROXY_TIMEOUT) : null;
+        return fetch(url, { cache: "no-store", signal: ctl ? ctl.signal : undefined })
           .then(function (r) {
             if (!r.ok) throw new Error("proxy " + r.status);
             return r.text();
           })
-          .then(read);
+          .then(function (text) {
+            var out = read(text);
+            lastGoodProxy = tpl;
+            return out;
+          })
+          .then(function (v) { if (timer) clearTimeout(timer); return v; }, function (e) {
+            if (timer) clearTimeout(timer);
+            throw e;
+          });
       });
     }, Promise.reject(new Error("start")));
   }
@@ -451,6 +488,7 @@
       platforms: ["Steam"],
       stores: { steam: url || ("https://store.steampowered.com/app/" + appid + "/") },
       mobile: false,
+      type: d.type || "game",
       source: "steam"
     };
   }
@@ -591,8 +629,14 @@
           });
         });
       }, Promise.resolve()).then(function () {
-        if (!out.length) throw new Error("თამაშები ვერ წაიკითხა");
-        return { source: d.kind, found: urls.length, games: out };
+        // A studio page also lists demos, soundtracks and DLC. Those are not
+        // catalogue entries — importing them would file "… Demo" as its own game.
+        var games = out.filter(function (g) {
+          if (g.type && g.type !== "game") return false;
+          return !/\bdemo\b|\bplaytest\b|soundtrack|\bost\b/i.test(g.name || "");
+        });
+        if (!games.length) throw new Error("თამაშები ვერ წაიკითხა");
+        return { source: d.kind, found: urls.length, skipped: out.length - games.length, games: games };
       });
     });
   }

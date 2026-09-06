@@ -344,7 +344,7 @@ const CO_FIELDS = [
   ["legal", "ოფიციალური სახელი", "MadMoa LLC"],
   ["regId", "საიდენტიფიკაციო ნომერი", "404123456"],
   ["name", "საჯარო სახელი", "MadMoa"],
-  ["city", "ქალაქი", "თბილისი"],
+
   ["founded", "დაფუძნების წელი", "2019"],
   ["about", "აღწერა", "ინდი სტუდია…"],
   ["aboutEn", "აღწერა (English)", "Indie studio…"],
@@ -355,6 +355,7 @@ const CO_FIELDS = [
 /* One choice from a fixed list, so the catalogue can group and count sizes
    instead of holding a dozen spellings of the same range. */
 const SIZES = ["1-2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-250", "251+"];
+const CITIES = ["თბილისი", "ბათუმი", "ქუთაისი", "რუსთავი", "გორი", "ზუგდიდი", "ფოთი", "თელავი", "ახალციხე", "ოზურგეთი", "სხვა", "საზღვარგარეთ"];
 const TEAM_SKIP = ["regId"];
 const SOLO_SKIP = ["regId"];
 const SOCIALS = [
@@ -761,12 +762,17 @@ class Component extends DCLogic {
 
       step2Title: isNew ? "სტუდიის მონაცემები" : "შესწორებული მონაცემები",
       fields,
-      selectFields: s.kind === "solo" ? [] : [{
+      selectFields: [{
+        label: "ქალაქი",
+        value: f.city || "",
+        options: [{ v: "", label: "აირჩიე" }].concat(CITIES.map(v => ({ v, label: v }))),
+        onChange: e => this.set("city", e.target.value)
+      }].concat(s.kind === "solo" ? [] : [{
         label: "გუნდის ზომა",
         value: f.size || "",
         options: [{ v: "", label: "აირჩიე" }].concat(SIZES.map(v => ({ v, label: v }))),
         onChange: e => this.set("size", e.target.value)
-      }],
+      }]),
       kindHint: KIND_HINT[s.kind],
       rolesLabel: s.kind === "solo" ? "რას აკეთებ" : "რას აკეთებთ",
       roleChips: roleList.map(r => ({

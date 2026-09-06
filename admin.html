@@ -343,6 +343,7 @@ const TITLES = { companies: "კომპანიები", teams: "გუნ�
 const KIND_OF_TAB = { companies: "company", teams: "team", solo: "solo" };
 const ROLES = ["developer", "publisher", "art", "audio", "porting", "outsourcing", "codev"];
 const SIZES = ["1-2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-250", "251+"];
+const CITIES = ["თბილისი", "ბათუმი", "ქუთაისი", "რუსთავი", "გორი", "ზუგდიდი", "ფოთი", "თელავი", "ახალციხე", "ოზურგეთი", "სხვა", "საზღვარგარეთ"];
 const PLATFORMS = ["Steam", "itch.io", "App Store", "Google Play", "Switch", "Xbox", "PlayStation", "Epic Games"];
 const SOCIALS = ["telegram", "facebook", "instagram", "linkedin", "youtube", "x", "steam", "itch", "discord", "tiktok"];
 const STORE_KEYS = ["steam", "itch", "appstore", "googleplay", "switch", "xbox", "playstation", "epic"];
@@ -599,6 +600,19 @@ class Component extends DCLogic {
     const s = this.state;
     if (s.editKind === "game") this.patchGame(s.edit, patch);
     else this.patchCompany(s.edit, patch);
+    /* Editing the id renames the record the editor is pointing at, so the
+       pointer has to move with it — otherwise the first keystroke leaves it
+       aimed at an id nothing has any more and the form closes itself. */
+    if (patch.id !== undefined && patch.id !== s.edit) {
+      const games = s.editKind === "game" ? null : s.games;
+      this.setState({ edit: patch.id });
+      // A company keeps its games: repoint them at the new id in the same move.
+      if (games) {
+        this.setState(st => ({
+          games: st.games.map(g => g.studioId === s.edit ? Object.assign({}, g, { studioId: patch.id }) : g)
+        }));
+      }
+    }
   }
   patchLink(group, key, value) {
     const cur = this.current();
@@ -621,16 +635,21 @@ class Component extends DCLogic {
     const now = U.today();
     if (s.tab === "games") {
       if (!s.companies.length) return this.say("ჯერ დაამატე კომპანია — თამაში სტუდიის გარეშე არ ემატება", "#f0a8a8");
+      // Name and id start empty — placeholder text only invites someone to
+      // publish "ახალი თამაში" by forgetting to replace it. The id is a
+      // throwaway until the name is typed; it is derived on save.
       const g = D.normGame({
-        id: this.nextId("new-game", s.games), name: "ახალი თამაში",
-        studioId: s.companies[0].id, status: "upcoming", created: now, updated: now
+        id: this.nextId("draft", s.games), name: "",
+        studioId: s.companies[0].id, status: "upcoming",
+        created: now, updated: now, validated: now
       });
       this.setState(st => ({ games: st.games.concat([g]), edit: g.id, editKind: "game", dirty: st.dirty + 1 }));
     } else {
       const kind = KIND_OF_TAB[s.tab] || "company";
       const c = D.normCompany({
-        id: this.nextId("new-" + kind, s.companies), kind: kind,
-        name: "ახალი ჩანაწერი", legal: "", active: true, created: now, updated: now
+        id: this.nextId("draft", s.companies), kind: kind,
+        name: "", legal: "", active: true,
+        created: now, updated: now, validated: now
       });
       this.setState(st => ({ companies: st.companies.concat([c]), edit: c.id, editKind: kind, dirty: st.dirty + 1 }));
     }
@@ -958,7 +977,7 @@ class Component extends DCLogic {
         const st = s.companies.filter(c => c.id === g.studioId)[0];
         const art = D.gameArt(g);
         return {
-          name: g.name,
+          name: g.name || "(უსახელო — შეავსე)",
           initials: art ? "" : U.initials(g.name),
           art: art ? 'url("' + art + '") center/cover no-repeat' : "none",
           radius: "6px",
@@ -980,7 +999,7 @@ class Component extends DCLogic {
       : sort === "year" ? b.founded - a.founded
       : b.count - a.count);
     return rows.map(c => ({
-      name: c.name,
+      name: c.name || "(უსახელო — შეავსე)",
       initials: c.logo ? "" : U.initials(c.name),
       art: c.logo ? 'url("' + c.logo + '") center/cover no-repeat' : "none",
       radius: "50%",
@@ -1022,7 +1041,7 @@ class Component extends DCLogic {
     const image = {
       imageBoxShow: "block",
       imageTitle: isGame ? "თამაშის არტი" : "ლოგო",
-      imagePreview: pending ? 'url("' + pending.img.dataUrl + '") center/cover no-repeat'
+      imagePreview: pending ? 'url("' + pending.img.url + '") center/cover no-repeat'
         : currentArt ? 'url("' + currentArt + '") center/cover no-repeat' : "#2f353c",
       imageRatio: size.w + "/" + size.h,
       imageRadius: isGame ? "6px" : "50%",
@@ -1049,6 +1068,12 @@ class Component extends DCLogic {
     const text = (key, label, ph) => ({
       k: label, v: cur[key] == null ? "" : String(cur[key]), ph: ph || "",
       onInput: e => this.patch({ [key]: e.target.value })
+    });
+    /* Kept visible but not editable: these are bookkeeping the panel maintains,
+       and typing over them would only ever make them wrong. */
+    const readOnly = (key, label) => ({
+      k: label, v: U.fmtDate(cur[key]) || "—", ph: "",
+      onInput: () => {}
     });
     const num = (key, label, ph) => ({
       k: label, v: cur[key] ? String(cur[key]) : "", ph: ph || "",
@@ -1099,8 +1124,8 @@ class Component extends DCLogic {
           text("engine", "ძრავი", "Unity"),
           text("price", "ფასი", "₾25"),
           text("langs", "ენები", "ქართული, English"),
-          text("localArt", "ლოკალური არტი", "images/games/dumbriel.jpg"),
-          text("validated", "ვალიდაცია", "2026-01-31")
+          text("validated", "პირველი ვალიდაცია", U.today()),
+          readOnly("updated", "ბოლო განახლება")
         ],
         editAreas: [text("about", "აღწერა", "")],
         editToggles: [toggle("verified", "ვერიფიცირებული"), toggle("mobile", "მობაილი")],
@@ -1130,9 +1155,13 @@ class Component extends DCLogic {
           { v: "team", label: "გუნდი" },
           { v: "solo", label: "სოლო დეველოპერი" }
         ], onChange: e => { this.patch({ kind: e.target.value }); this.setState({ editKind: e.target.value }); } }
-      ].concat(cur.kind === "solo" ? [] : [{
-        // Same fixed ranges the public form offers, so both sides produce values
-        // the catalogue can actually group by.
+      ].concat([{
+        // Fixed lists on both sides, so the catalogue can group by city and size
+        // instead of collecting a dozen spellings of each.
+        k: "ქალაქი", v: cur.city || "",
+        options: [{ v: "", label: "—" }].concat(CITIES.map(v => ({ v: v, label: v }))),
+        onChange: e => this.patch({ city: e.target.value })
+      }]).concat(cur.kind === "solo" ? [] : [{
         k: "გუნდის ზომა", v: cur.size || "",
         options: [{ v: "", label: "—" }].concat(SIZES.map(v => ({ v: v, label: v }))),
         onChange: e => this.patch({ size: e.target.value })
@@ -1143,14 +1172,13 @@ class Component extends DCLogic {
       editFields: [
         text("legal", cur.kind === "company" ? "ოფიციალური სახელი" : "სრული სახელი", "MadMoa LLC"),
         cur.kind === "company" ? text("regId", "საიდენტიფიკაციო ნომერი", "404123456") : null,
-        text("name", "საჯარო სახელი", "MadMoa"),
-        text("id", "ID", "madmoa"),
-        text("city", "ქალაქი", "თბილისი"),
+        text("name", "საჯარო სახელი", ""),
+        text("id", "ID", ""),
         num("founded", cur.kind === "solo" ? "საქმიანობის დაწყება" : "დაფუძნება", "2019"),
         text("website", "ვებსაიტი", "https://…"),
         text("email", "ელფოსტა", ""),
-        text("logo", "ლოგო", "images/logos/madmoa.jpg"),
-        text("validated", "ვალიდაცია", "2026-01-31")
+        text("validated", "პირველი ვალიდაცია", U.today()),
+        readOnly("updated", "ბოლო განახლება")
       ].filter(Boolean),
       editAreas: [text("about", "აღწერა", "")],
       editToggles: [toggle("verified", "ვერიფიცირებული"), toggle("active", "აქტიური")],
