@@ -560,6 +560,13 @@
          So: free-text search for the slug, both exact-role searches in case the
          slug happens to be correctly cased, and the page itself. Merged. */
       var slug = decodeURIComponent(m[2]);
+      /* A curator page is addressed by a number, not a name. Searching the store
+         for "45881856" finds nothing, and matching titles against it as if it
+         were a studio name rejects every one of them — which is what made a
+         curator page report "only demos found" for a real game. So when the id
+         is not name-like, read the page itself and trust what is on it. */
+      var byName = /[a-z]/i.test(slug);
+      if (!byName) return { kind: "steam", id: "", url: u, listUrls: [u] };
       var pretty = encodeURIComponent(slug.replace(/[-_]+/g, " "));
       var q = "&ndl=1&ignore_preferences=1";
       return {

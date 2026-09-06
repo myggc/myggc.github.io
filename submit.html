@@ -51,12 +51,17 @@
   <h1 style="margin:0;font-size:clamp(28px,4.6vw,46px);line-height:1.05;font-weight:800;letter-spacing:-.03em">მონაცემების გაგზავნა</h1>
   <p style="margin:14px 0 0;max-width:56ch;font-size:17px;line-height:1.55;color:#41464c">შენ ავსებ — ჩვენ ვამოწმებთ და ვაქვეყნებთ. კომპანია ყოველთვის ოფიციალური სახელით იდენტიფიცირდება, თამაში კი მიბმულია კომპანიაზე.</p>
 
-  <div style="display:flex;flex-wrap:wrap;gap:6px;margin:28px 0 22px">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:28px 0 22px">
     <sc-for list="{{ crumbs }}" as="c" hint-placeholder-count="5">
       <div style="display:flex;align-items:center;gap:8px;background:{{ c.bg }};color:{{ c.fg }};border:1px solid {{ c.border }};border-radius:20px;padding:8px 14px;font-size:14px;font-weight:500">
         <span style="font-family:'Space Grotesk',sans-serif;opacity:.7">{{ c.n }}</span>{{ c.t }}
       </div>
     </sc-for>
+    <button type="button" onClick="{{ restart }}" style="display:{{ resumeShow }};margin-left:auto;border:1px solid #dfe3e4;cursor:pointer;background:#fff;color:#5a5f65;border-radius:20px;padding:8px 14px;font-family:inherit;font-size:14px">თავიდან დაწყება</button>
+  </div>
+
+  <div style="display:{{ resumeShow }};margin:0 0 18px;background:#fff8e7;border:1px solid #f3e2b8;border-radius:14px;padding:14px 16px;font-size:15px;line-height:1.6;color:#7a5500">
+    გაგრძელებულია ადრე დაწყებული შევსება{{ resumeWho }}. თუ სხვა სტუდიას ამატებ, დააჭირე „თავიდან დაწყებას“.
   </div>
 
   <sc-if value="{{ isStep0 }}" hint-placeholder-val="{{ true }}">
@@ -548,7 +553,11 @@ class Component extends DCLogic {
       // The same page carries the studio's own details. Fill only what is still
       // blank, so an import never overwrites something already typed.
       const prof = res.profile || {};
-      const f2 = Object.assign({}, this.state.f);
+      /* Pasting a store page at the start means "this studio", so it starts from
+         a clean form. Merging onto whatever was left in the browser from an
+         earlier session showed one studio's page filled with another's details. */
+      const startingFresh = this.state.step <= 1 && this.state.mode !== "edit";
+      const f2 = startingFresh ? {} : Object.assign({}, this.state.f);
       let filled = 0;
       if (prof.name && !f2.name) { f2.name = prof.name; filled++; }
       if (prof.website && !f2.website) { f2.website = prof.website; filled++; }
@@ -558,12 +567,12 @@ class Component extends DCLogic {
       const extra = filled ? " და " + filled + " ველი პროფილში" : "";
       // Started from the store page rather than a name: carry straight on to the
       // details, already filled, instead of asking for a name we now know.
-      const goForward = this.state.step <= 1 && this.state.mode !== "edit";
+      const goForward = startingFresh;
       if (goForward && !f2.legal && f2.name) f2.legal = f2.name;
       this.save(Object.assign({
         importing: false,
         f: f2,
-        drafts: this.state.drafts.concat(added),
+        drafts: startingFresh ? added : this.state.drafts.concat(added),
         importMsg: added.length
           ? "დაემატა " + added.length + " თამაში" + extra + ". შემდეგ ბიჯზე ნახავ ყველას."
           : ((res.reason || "ყველა ნაპოვნი თამაში უკვე სიაშია") + extra + "."),
@@ -768,6 +777,10 @@ class Component extends DCLogic {
 
     return {
       draftNote: s.step > 0 ? "დრაფტი ინახება" : "",
+      // A restored draft used to be invisible, so a new studio could be filled
+      // in on top of an old one without any sign of it.
+      resumeShow: s.saved && !s.sent ? "block" : "none",
+      resumeWho: (f.legal || f.name) ? " — " + (f.legal || f.name) : "",
       crumbs: ["ქმედება", "იდენტიფიკაცია", "დეტალები", "თამაშები", "გადახედვა"].map((t, i) => ({
         n: "0" + (i + 1), t,
         bg: s.step === i ? "#16181b" : (s.step > i ? "#e6f2f9" : "#fff"),
@@ -903,10 +916,11 @@ class Component extends DCLogic {
       retry: () => this.send(),
       retryLabel: s.sending ? "იგზავნება…" : "ხელახლა გაგზავნა",
 
-      restart: () => this.setState({
-        step: 0, mode: "", lookup: "", picked: null, drafts: [],
+      restart: () => { try { localStorage.removeItem(DRAFT); } catch (e) {} this.setState({
+        step: 0, mode: "", lookup: "", picked: null, drafts: [], saved: false,
+        studioUrl: "", importMsg: "", importing: false, missing: [],
         sent: false, sending: false, f: {}, kind: "company", roles: [], result: null
-      })
+      }); }
     };
   }
 }
