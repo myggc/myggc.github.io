@@ -1986,6 +1986,48 @@
       "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "back-to-the-collis",
+      "name": "Back To The Collis",
+      "studioId": "sollerstech",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "Coming soon",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "adventure"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "English, French, Italian, German, Spanish - Spain, Arabic, Bulgarian, Czech, Danish, Dutch, Finnish, Greek, Hungarian, Japanese, Korean, Norwegian, Polish, Portuguese - Brazil, Portuguese - Portugal, Romanian, Russian, Simplified Chinese, Spanish - Latin America, Swedish, Thai, Traditional Chinese, Turkish, Ukrainian, Vietnamese, Afrikaans, Albanian, Amharic, Armenian, Assamese, Azerbaijani, Bangla, Basque, Belarusian, Bosnian, Catalan, Cherokee, Croatian, Dari, Estonian, Filipino, Galician, Georgian, Gujarati, Hausa, Hebrew, Hindi, Icelandic, Igbo, Indonesian, Irish, K'iche', Kannada, Kazakh, Khmer, Kinyarwanda, Konkani, Kyrgyz, Latvian, Lithuanian, Luxembourgish, Macedonian, Malay, Malayalam, Maltese, Maori, Marathi, Mongolian, Nepali, Odia, Persian, Punjabi (Gurmukhi), Punjabi (Shahmukhi), Quechua, Scots, Serbian, Sindhi, Sinhala, Slovak, Slovenian, Sorani, Sotho, Swahili, Tajik, Tamil, Tatar, Telugu, Tigrinya, Tswana, Turkmen, Urdu, Uyghur, Uzbek, Valencian, Welsh, Wolof, Xhosa, Yoruba, Zululanguages with full audio support",
+      "about": "Back To The Collis is a story-rich, fully hand-drawn 2D Point &amp; Click adventure puzzle. Embark on a journey alongside the main character, Benjamin, to solve lots of engaging puzzles and explore the town of Collis, outstanding by its memorable populace.",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/2333220/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/header.jpg?t=1777476193",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/2333220?t=1777476193",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/ss_7fb0025e09a5e30f814835a754e13d0d189a26ac.600x338.jpg?t=1777476193",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/ss_3a450af6cc1c2b3d507167b4c039ead7fbc2b1ea.600x338.jpg?t=1777476193",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/ss_41148b0ece4e47d699f98d43c63de55bf02613bd.600x338.jpg?t=1777476193"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-09-06T23:52:40.841Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
     }
   ]
 }
