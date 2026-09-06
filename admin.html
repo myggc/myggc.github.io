@@ -1103,11 +1103,31 @@ class Component extends DCLogic {
         const rejected = /unknown action|missing subject|invalid json/i.test(res.body);
         const reachable = res.status < 500;
         this.setState({ testing: false, endpointOk: reachable ? "მუშაობს" : "პასუხობს შეცდომით" });
-        this.endpointSays(
-          rejected ? "✔ მიმღები მუშაობს — ფორმა უკვე აგზავნის მოთხოვნებს."
-            : reachable ? "მიმღებმა უპასუხა, მაგრამ მოულოდნელად: " + res.body.slice(0, 160)
-            : "მიმღები შეცდომას აბრუნებს: " + res.body.slice(0, 160),
-          rejected ? "#9ede9e" : "#f4cd77");
+        if (!rejected) {
+          this.endpointSays(
+            reachable ? "მიმღებმა უპასუხა, მაგრამ მოულოდნელად: " + res.body.slice(0, 160)
+              : "მიმღები შეცდომას აბრუნებს: " + res.body.slice(0, 160),
+            "#f4cd77");
+          return;
+        }
+        /* The relay does a second job — reading store pages for the importer —
+           and a deployment made before that was added answers only the first.
+           Both are worth reporting separately: the form working while imports
+           crawl is exactly the state a stale deployment leaves behind, and it
+           is otherwise invisible. */
+        this.endpointSays("✔ მიმღები მუშაობს — ფორმა უკვე აგზავნის მოთხოვნებს. მაღაზიის კითხვა მოწმდება…", "#9ede9e");
+        return fetch(C.submitEndpoint + "?action=fetch&url=" +
+          encodeURIComponent("https://store.steampowered.com/api/appdetails?appids=2500690&l=english"))
+          .then(r => r.text())
+          .then(t => {
+            const ok = t.indexOf('"success"') >= 0 || t.indexOf("Dumbriel") >= 0;
+            this.endpointSays(ok
+              ? "✔ მიმღები ორივე საქმეს აკეთებს — ფორმასაც აგზავნის და მაღაზიის გვერდებსაც კითხულობს. პარსინგი სწრაფი იქნება."
+              : "✔ ფორმა მუშაობს, მაგრამ მაღაზიის კითხვა ჯერ არ არის — ეს ძველი deployment-ია. გახსენი Apps Script, ჩასვი ახალი apps-script.gs და Deploy → Manage deployments → New version. მანამდე პარსინგი ნელია.",
+              ok ? "#9ede9e" : "#f4cd77");
+          }, () => {
+            this.endpointSays("✔ ფორმა მუშაობს, მაგრამ მაღაზიის კითხვამდე ვერ მივედით — გადააქვეყნე Apps Script ახალი ვერსიით (Deploy → Manage deployments → New version).", "#f4cd77");
+          });
       })
       .catch(e => {
         this.setState({ testing: false, endpointOk: "მიუწვდომელია" });

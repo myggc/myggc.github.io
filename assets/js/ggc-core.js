@@ -29,20 +29,22 @@
     // "{url}" gets the encoded target, "{raw}" the target as-is. The scheduled
     // GitHub Action does the same work server side without a proxy, so a proxy
     // outage only affects the instant preview, never the published data.
-    /* Ordered by what actually answers, measured rather than assumed — free
-       proxies come and go, and the list had rotted: corsproxy.io started
-       demanding an API key, allorigins' /raw and codetabs stopped answering
-       altogether. Their replacements return a page in about a second. The two
-       at the end are kept because they may well come back, and by then the
-       sticky-last-good ordering will have found them again on its own.
-       allorigins /get wraps the page in JSON and r.jina.ai rewrites it as
-       Markdown unless asked for HTML; both are handled in fetchVia. */
+    /* Measured from myggc.github.io itself, not from a laptop — the difference
+       matters. Seventeen public proxies were tried; exactly one answered.
+       corsproxy.io wants an API key, allorigins and codetabs have stopped
+       answering, and corsfix serves localhost but replies 403
+       "domain_not_registered" to the real site, which is the sort of thing that
+       only shows up when you test where the visitors are.
+
+       So r.jina.ai carries the public path alone, and it rate-limits. That is
+       the case for the relay above: it is ours, it is not shared with the
+       internet, and it makes this list a fallback rather than the plan. The
+       last two are kept because they may come back — sticky-last-good ordering
+       will find them again on its own if they do. */
     proxies: [
-      "https://proxy.corsfix.com/?{raw}",
       "https://r.jina.ai/{raw}",
       "https://api.allorigins.win/get?url={url}",
-      "https://api.codetabs.com/v1/proxy?quest={url}",
-      "https://api.allorigins.win/raw?url={url}"
+      "https://api.codetabs.com/v1/proxy?quest={url}"
     ],
     paths: { companies: "data/companies.json", games: "data/games.json" }
   };
@@ -452,9 +454,14 @@
   }
 
   function unmarkdown(text) {
-    if (!/^\s*Title:\s*.+\r?\n+URL Source:\s*http/i.test(text)) return text;
-    var title = (/^\s*Title:\s*(.+)$/im.exec(text) || [])[1] || "";
+    if (!/^\s*Title:[^\n]*\r?\n+URL Source:\s*http/i.test(text)) return text;
+    var title = (/^\s*Title:[ \t]*(.+)$/im.exec(text) || [])[1] || "";
     var body = text.split(/Markdown Content:\s*/i)[1] || text;
+    /* The same header is put in front of a JSON endpoint's response, and what
+       follows it is not Markdown at all — it is the payload, verbatim. Rewriting
+       that as if it were prose turned Steam's appdetails into a title tag and
+       three links, and every game in a studio import failed to read. */
+    if (/^\s*[{[]/.test(body)) return body;
     var image = (/!\[[^\]]*\]\((https?:\/\/[^)\s]+)/.exec(body) || [])[1] || "";
     /* The first run of prose that is not a link, an image, a price or a heading
        — which on every storefront tested is the short description. */
@@ -480,35 +487,75 @@
       links.join("");
   }
 
-  function fetchVia(target, read) {
-    return proxyOrder().reduce(function (chain, tpl) {
-      return chain.catch(function () {
-        var url = tpl.replace("{url}", encodeURIComponent(target)).replace("{raw}", target);
-        // A hanging proxy is worse than a failing one; cut it off and move on.
-        var ctl = typeof AbortController !== "undefined" ? new AbortController() : null;
-        var timer = ctl ? setTimeout(function () { ctl.abort(); }, PROXY_TIMEOUT) : null;
-        /* r.jina.ai rewrites pages as Markdown unless asked otherwise, and the
-           rewrite throws away exactly what the parsers need — og tags, image
-           URLs, the studio's own links. One header gets the real markup back.
-           It costs a preflight, which jina answers; unmarkdown below still
-           covers the case where it does not honour the header. */
-        var opts = { cache: "no-store", signal: ctl ? ctl.signal : undefined };
-        if (/^https:\/\/r\.jina\.ai\//.test(url)) opts.headers = { "x-return-format": "html" };
-        return fetch(url, opts)
-          .then(function (r) {
-            if (!r.ok) throw new Error("proxy " + r.status);
-            return r.text();
-          })
-          .then(function (text) {
+  /* Pages already read in this tab. An import re-reads the same studio page for
+     its profile, a retry re-reads the title that failed, and someone comparing
+     two studios reads the first one again — every one of those is a request the
+     shared public proxy does not have to spend on us. Cleared with the tab. */
+  var pageCache = {};
+
+  /* Whether the relay has actually answered a page request. Set the first time
+     it does, and it decides how hard the importer is allowed to push: through
+     our own relay six titles at once is nothing, while against a public proxy
+     that allows about twenty requests a minute for everyone at once, a burst of
+     six is most of the budget — and the rate limit reads, from the outside,
+     exactly like the studio having no games. */
+  var relayWorks = false;
+
+  function fetchOnce(tpl, target, read) {
+    var url = tpl.replace("{url}", encodeURIComponent(target)).replace("{raw}", target);
+    var attempt = function (retryOn429) {
+      // A hanging proxy is worse than a failing one; cut it off and move on.
+      var ctl = typeof AbortController !== "undefined" ? new AbortController() : null;
+      var timer = ctl ? setTimeout(function () { ctl.abort(); }, PROXY_TIMEOUT) : null;
+      /* r.jina.ai rewrites pages as Markdown unless asked otherwise, and the
+         rewrite throws away exactly what the parsers need — og tags, image
+         URLs, the studio's own links. One header gets the real markup back.
+         It costs a preflight, which jina answers; unmarkdown below still
+         covers the case where it does not honour the header. */
+      var opts = { cache: "no-store", signal: ctl ? ctl.signal : undefined };
+      /* …but not for an endpoint that answers with JSON. Asked for HTML, the
+         proxy renders the JSON the way a browser would — wrapped in a page
+         with the payload inside a <pre> — and Steam's appdetails came back
+         unreadable. Left alone it returns the JSON as itself. */
+      if (/^https:\/\/r\.jina\.ai\//.test(url) && !/\/api\/|appdetails|\.json/i.test(target)) {
+        opts.headers = { "x-return-format": "html" };
+      }
+      return fetch(url, opts)
+        .then(function (r) {
+          /* 429 is the one status worth waiting out rather than walking past:
+             it means this proxy works and is simply busy, and the alternatives
+             are a relay that may not be deployed and two that answer nothing. */
+          if (r.status === 429 && retryOn429) {
+            if (timer) clearTimeout(timer);
+            return new Promise(function (res) { setTimeout(res, 2500); })
+              .then(function () { return attempt(false); });
+          }
+          if (!r.ok) throw new Error("proxy " + r.status);
+          return r.text().then(function (text) {
             var out = read(unmarkdown(unwrap(text)));
             lastGoodProxy = tpl;
+            if (config.submitEndpoint && tpl.indexOf(config.submitEndpoint) === 0) relayWorks = true;
+            pageCache[target] = text;
             return out;
-          })
-          .then(function (v) { if (timer) clearTimeout(timer); return v; }, function (e) {
-            if (timer) clearTimeout(timer);
-            throw e;
           });
-      });
+        })
+        .then(function (v) { if (timer) clearTimeout(timer); return v; }, function (e) {
+          if (timer) clearTimeout(timer);
+          throw e;
+        });
+    };
+    return attempt(true);
+  }
+
+  function fetchVia(target, read) {
+    /* A page read once is read again from here, but still through `read`: the
+       same bytes can be wanted as a game one moment and as a studio profile the
+       next, and only the caller knows which. */
+    if (pageCache[target]) {
+      try { return Promise.resolve(read(unmarkdown(unwrap(pageCache[target])))); } catch (e) {}
+    }
+    return proxyOrder().reduce(function (chain, tpl) {
+      return chain.catch(function () { return fetchOnce(tpl, target, read); });
     }, Promise.reject(new Error("start")));
   }
   function viaProxy(target) { return fetchVia(target, function (t) { return t; }); }
@@ -519,6 +566,21 @@
     var i = txt.indexOf("{"), j = txt.lastIndexOf("}");
     if (i >= 0 && j > i) {
       try { return JSON.parse(txt.slice(i, j + 1)); } catch (e2) {}
+    }
+    /* A proxy can hand back the JSON dressed as a web page — the browser's own
+       JSON viewer, markup and entities and all. The payload is still in there;
+       undress it and try once more. */
+    if (/^\s*</.test(txt)) {
+      var bare = txt
+        .replace(/<script[\s\S]*?<\/script>/gi, "")
+        .replace(/<style[\s\S]*?<\/style>/gi, "")
+        .replace(/<[^>]+>/g, "")
+        .replace(/&quot;/g, '"').replace(/&#(\d+);/g, function (_, n) { return String.fromCharCode(n); })
+        .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+      var a = bare.indexOf("{"), b = bare.lastIndexOf("}");
+      if (a >= 0 && b > a) {
+        try { return JSON.parse(bare.slice(a, b + 1)); } catch (e3) {}
+      }
     }
     throw new Error("პასუხი JSON არ არის");
   }
@@ -947,10 +1009,25 @@
     if (d.kind === "appstore" && d.id) return appleStudio(d, onProgress);
     var candidates = d.listUrls || [d.url];
     var profile = null;
-    /* Every listing source is asked, and their results merged — one of them
-       being partial should not decide the whole import. They are independent,
-       so they run together and cost the slowest rather than the sum. */
-    return Promise.all(candidates.map(function (listUrl) {
+    /* Steam indexes a studio four ways — a name search, a publisher search, a
+       developer search, and the page itself — and each can be partial, so all
+       four used to be asked at once and merged. That was affordable when there
+       were four proxies. With one, and it rate-limited, firing four requests
+       for a studio whose first answer was already complete is what turned a
+       three second import into nearly two minutes.
+
+       So they are asked in order, and the asking stops as soon as one returns
+       a catalogue. The name search comes first because it is the one that has
+       never come back empty; the rest are still there for when it does. */
+    var lists = [];
+    var askNext = function (i) {
+      if (i >= candidates.length || lists.length) return Promise.resolve();
+      return ask(candidates[i]).then(function (found) {
+        if (found.length) lists.push(found);
+        return askNext(i + 1);
+      });
+    };
+    function ask(listUrl) {
       return fetchVia(listUrl, function (html) {
         var found = studioGameUrls(html, d);
         // A search-results page is the storefront's own chrome, not the
@@ -970,7 +1047,8 @@
         if (!found.length) throw new Error("ამ გვერდზე თამაშები ვერ მოიძებნა");
         return found;
       }).catch(function () { return []; });
-    })).then(function (lists) {
+    }
+    return askNext(0).then(function () {
       var seen = {}, urls = [];
       lists.forEach(function (l) {
         l.forEach(function (u) {
@@ -1010,8 +1088,14 @@
             return worker();
           });
       }
+      /* How many lanes depends on who is answering. Through our own relay six
+         is nothing. Against the one public proxy still standing — about twenty
+         requests a minute, shared with everyone else using it — a burst of six
+         spends the budget and comes back rate-limited, which looks from here
+         like a studio with no games. Two lanes is slower and finishes. */
       var lanes = [];
-      for (var i = 0; i < Math.min(6, list.length); i++) lanes.push(worker());
+      var width = Math.min(relayWorks ? 6 : 2, list.length);
+      for (var i = 0; i < width; i++) lanes.push(worker());
       return Promise.all(lanes).then(function () {
         // A studio page also lists demos, soundtracks and DLC. Those are not
         // catalogue entries — importing them would file "… Demo" as its own game.
@@ -1039,7 +1123,8 @@
         var reason = "";
         if (!games.length) {
           reason = !out.length
-            ? ("გვერდზე " + list.length + " თამაში მოიძებნა, მაგრამ ვერცერთი ვერ წაიკითხა — სცადე ხელახლა.")
+            ? ("გვერდზე " + list.length + " თამაში მოიძებნა, მაგრამ ვერცერთი ვერ წაიკითხა — " +
+               "მაღაზია ახლა დაკავებულია, სცადე ერთ წუთში.")
             : "მხოლოდ დემო/DLC მოიძებნა — სრული თამაში ამ გვერდზე არ არის.";
         }
         /* The page that was pasted is itself the studio's store link — worth

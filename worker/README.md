@@ -76,11 +76,14 @@ that fills a studio in and one that sits there spinning.
 To show a preview of an import, the browser has to read a Steam or itch page —
 and it cannot: the stores send no CORS header, so the request is refused before
 it starts. The site works around that with free public proxies, but they rot.
-Measured in September 2026: `corsproxy.io` had started demanding an API key,
-`api.allorigins.win/raw` and `api.codetabs.com` had stopped answering
-altogether, and the one still up returned every page rewritten as Markdown with
-the images and links thrown away. Three of four gone, and store parsing looked
-broken to whoever was using the form.
+Seventeen were tried from `myggc.github.io` itself in September 2026 and exactly
+one answered: `corsproxy.io` wants an API key, `api.allorigins.win` and
+`api.codetabs.com` have stopped answering, and `proxy.corsfix.com` serves
+localhost happily but replies `403 domain_not_registered` to the real site —
+which is why this has to be measured where the visitors are, not on a laptop.
+
+So one public proxy carries the whole load, and it rate-limits. That is what
+made a studio import take two minutes and come back without its games.
 
 Both relays now answer `GET ?action=fetch&url=…` with the page, and the site
 tries that first. It only fetches the storefronts in `ALLOWED` — Steam, itch,
@@ -92,8 +95,12 @@ the old code until you redeploy.** To pick this up: open the project → paste t
 current `apps-script.gs` → **Deploy → Manage deployments** → pencil icon →
 *Version*: **New version** → **Deploy**. The `/exec` URL does not change, so
 nothing in the repository needs editing. Until then the site still works — the
-relay's old reply fails the parse and the public proxies take over — it is just
-slower and at their mercy.
+relay's old reply fails the parse and the one live public proxy takes over — but
+it is slow, and it stops working entirely whenever that proxy is busy.
+
+`admin.html` → პარამეტრები → **მიმღების შემოწმება** says which of the two jobs
+the deployed relay is doing, so there is no guessing about whether the redeploy
+took.
 
 ## Notes
 
