@@ -54,6 +54,20 @@ submitEndpoint: "https://…",
 That is the only change the site needs. Reload `submit.html`, send a test
 submission, and it should appear in `admin.html` → ვალიდაციის რიგი.
 
+## If a submission does not arrive
+
+Open `admin.html` → პარამეტრები → **მიმღების შემოწმება**. It pings the endpoint
+and reports what came back, which separates the three things that look alike
+from the visitor's side:
+
+| symptom | cause | fix |
+| --- | --- | --- |
+| "submitEndpoint ცარიელია" | no relay configured | deploy one above, paste the URL |
+| "მიმღებამდე ვერ მივედით" | blocked by CORS, or the URL is wrong | for Apps Script, redeploy with *Who has access: **Anyone*** — the usual cause is "Anyone with Google account". Check you copied the `/exec` URL, not `/dev` |
+| "მიმღები შეცდომას აბრუნებს" | the relay ran but GitHub refused | the token is expired, or lacks **Issues: Read and write** on this repo |
+
+The browser console on `submit.html` also names the problem on a failed send.
+
 ## Notes
 
 - The site posts the payload as `text/plain` on purpose. That keeps it a
