@@ -19,7 +19,7 @@
         "outsourcing"
       ],
       "website": "",
-      "email": "",
+      "email": "info@madmoa.com",
       "about": "",
       "aboutEn": "",
       "logo": "images/logos/madmoa.jpg",
@@ -35,6 +35,32 @@
       "active": true,
       "validated": "2026-09-06",
       "created": "2025-03-12",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "re-logic",
+      "kind": "company",
+      "name": "Re-Logic",
+      "legal": "Re-Logic",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "http://www.terraria.org/",
+      "email": "",
+      "about": "",
+      "aboutEn": "",
+      "logo": "https://avatars.fastly.steamstatic.com/6ca4f16b768d95e984b8b4d7e09866a88d0aa036_full.jpg",
+      "links": {
+        "steam": "https://store.steampowered.com/developer/Re-Logic"
+      },
+      "verified": false,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
       "updated": "2026-09-06"
     }
   ]

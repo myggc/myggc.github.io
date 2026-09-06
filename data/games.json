@@ -4,52 +4,6 @@
   "updated": "2026-09-06",
   "items": [
     {
-      "id": "dumbriel",
-      "name": "Dumbriel: Magnificent Adventure in Hell",
-      "studioId": "madmoa",
-      "publisherId": "madmoa",
-      "status": "upcoming",
-      "releaseDate": "October 2026",
-      "year": 2026,
-      "mobile": false,
-      "genres": [
-        "action",
-        "adventure",
-        "indie"
-      ],
-      "platforms": [
-        "Steam",
-        "Switch",
-        "Xbox"
-      ],
-      "engine": "Unity",
-      "price": "",
-      "langs": "English, Japanese, Korean, Simplified Chinese, French, Italian, German, Spanish - Spain, Polish, Portuguese - Brazil, Portuguese - Portugal, Russian, Spanish - Latin America, Thai, Turkish, Ukrainian, Vietnamese, Georgian, Hindi",
-      "about": "Dumbriel is a 2D metroidvania action-adventure set in Hell. Play as a clumsy fallen angel in a twisted underworld. Slash, craft, and dodge through deadly arenas, weird monsters, and hellish traps. Die, upgrade, and dive back in.",
-      "aboutEn": "",
-      "stores": {
-        "steam": "https://store.steampowered.com/app/2500690/Dumbriel_Magnificent_Adventure_in_Hell/"
-      },
-      "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/0d9eb4d1ea21411876857b6883cce6db80fc5d2f/header.jpg?t=1788358384",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/36d50647c47d383fd2b19dc0146b20f0eee236d3/page_bg_raw.jpg?t=1788358384",
-        "portrait": "",
-        "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/7e5061910bb165e86a701b9ec26dcca9273b10fb/ss_7e5061910bb165e86a701b9ec26dcca9273b10fb.600x338.jpg?t=1788358384",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/8578e5e3aa1cab045d7610487f153a7cd5ef676b/ss_8578e5e3aa1cab045d7610487f153a7cd5ef676b.600x338.jpg?t=1788358384",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/adb2bf5b033bb6d5ab9941e67ee2e17017cb74cb/ss_adb2bf5b033bb6d5ab9941e67ee2e17017cb74cb.600x338.jpg?t=1788358384"
-        ]
-      },
-      "localArt": "",
-      "source": "steam",
-      "parsedAt": "2026-09-06T01:50:48.646Z",
-      "verified": true,
-      "active": true,
-      "validated": "2025-03-12",
-      "created": "2025-03-12",
-      "updated": "2026-09-06"
-    },
-    {
       "id": "draft",
       "name": "Dumbriel: Magnificent Adventure in Hell",
       "studioId": "madmoa",
@@ -86,8 +40,99 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-09-06T15:09:03.852Z",
+      "parsedAt": "2026-09-06T15:52:01.052Z",
       "verified": false,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "terraria",
+      "name": "Terraria",
+      "studioId": "re-logic",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "16 May, 2011",
+      "year": 2011,
+      "mobile": false,
+      "genres": [
+        "action",
+        "adventure",
+        "indie",
+        "rpg"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "¥ 21.00",
+      "langs": "English, French, Italian, German, Spanish - Spain, Polish, Portuguese - Brazil, Russian, Simplified Chinese",
+      "about": "Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game. Four Pack also available!",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/105600/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/105600/header.jpg?t=1769844435",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/105600/page_bg_raw.jpg?t=1769844435",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/105600/ss_8c03886f214d2108cafca13845533eaa3d87d83f.600x338.jpg?t=1769844435",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/105600/ss_ae168a00ab08104ba266dc30232654d4b3c919e5.600x338.jpg?t=1769844435",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/105600/ss_9edd98caaf9357c2f40758f354475a56e356e8b0.600x338.jpg?t=1769844435"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "pixel-privateers",
+      "name": "Pixel Privateers",
+      "studioId": "re-logic",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Feb 21, 2017",
+      "year": 2017,
+      "mobile": false,
+      "genres": [
+        "action",
+        "adventure",
+        "indie",
+        "rpg",
+        "simulation"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$14.99",
+      "langs": "English",
+      "about": "Pixel Privateers is a Squad Based Tactical RPG “Loot ‘Em Up” that will send your team of mercenaries through a mysterious wormhole on a quest to gather technology for your employer. An entire galaxy awaits - full of worlds to explore, factions to encounter, and epic gear to collect!",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/342640/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/342640/header.jpg?t=1498149668",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/342640/page_bg_raw.jpg?t=1498149668",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/342640/ss_7eda0e2b9f1ab7b9dd12abbc07b439854d787ce1.600x338.jpg?t=1498149668",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/342640/ss_0c3c67a0da8abc0910d32af4f7edb248f318369a.600x338.jpg?t=1498149668",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/342640/ss_e20bd4c0f20fa5ea817af0af23623bb34b62e60c.600x338.jpg?t=1498149668"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "",
+      "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
