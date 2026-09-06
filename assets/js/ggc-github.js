@@ -157,6 +157,21 @@
       });
   }
 
+  /* Images go up on their own, straight away — the catalogue only stores the
+     path, so the file has to exist before the record referring to it lands. */
+  function putImage(path, base64, message) {
+    return req(R + "/contents/" + path + "?ref=" + C.branch)
+      .then(function (f) { return f.sha; })
+      .catch(function () { return undefined; })
+      .then(function (sha) {
+        return req(R + "/contents/" + path, {
+          method: "PUT",
+          body: { message: message, content: base64, branch: C.branch, sha: sha }
+        });
+      })
+      .then(function () { return path; });
+  }
+
   function stringify(doc) {
     doc.updated = new Date().toISOString().slice(0, 10);
     return JSON.stringify(doc, null, 2) + "\n";
@@ -177,6 +192,7 @@
     hasToken: hasToken, setToken: setToken, signIn: signIn, me: me,
     listSubmissions: listSubmissions, comment: comment, closeIssue: closeIssue,
     getFile: getFile, commit: commit, saveData: saveData, parseIssue: parseIssue,
+    putImage: putImage,
     signOut: function () { setToken(""); }
   };
 })();

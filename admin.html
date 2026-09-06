@@ -219,6 +219,23 @@
                   </sc-for>
                 </div>
 
+                <div style="display:{{ imageBoxShow }};background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
+                  <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">{{ imageTitle }}</div>
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:14px">
+                    <div style="width:{{ imagePreviewW }};aspect-ratio:{{ imageRatio }};border-radius:{{ imageRadius }};background:{{ imagePreview }};flex:none;border:1px solid #2f353c"></div>
+                    <div style="flex:1 1 140px;min-width:0">
+                      <label style="display:inline-block;cursor:pointer;border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:9px;padding:10px 14px;font-size:14px;font-weight:600">{{ imagePickLabel }}
+                        <input type="file" accept="image/*" onChange="{{ onImagePick }}" style="display:none">
+                      </label>
+                      <div style="margin-top:8px;font-size:13px;line-height:1.5;color:#8b949c">{{ imageHint }}</div>
+                    </div>
+                  </div>
+                  <div style="display:{{ imageActionShow }};display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+                    <button type="button" onClick="{{ uploadImage }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ uploadLabel }}</button>
+                    <button type="button" onClick="{{ cancelImage }}" style="border:1px solid #333941;cursor:pointer;background:#20242a;color:#8b949c;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px">გაუქმება</button>
+                  </div>
+                </div>
+
                 <div style="display:{{ linkBoxShow }};background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
                   <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">{{ linkBoxTitle }}</div>
                   <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
@@ -316,7 +333,8 @@ class Component extends DCLogic {
     ready: false, authed: false, browse: false, user: "", tokenInput: "", authErr: "", signing: false,
     tab: "queue", open: null, q: "", sort: "", edit: null, editKind: "company",
     queue: [], decisions: {}, companies: [], games: [], dirty: 0,
-    status: "", statusColor: "#8b949c", publishing: false, syncing: ""
+    status: "", statusColor: "#8b949c", publishing: false, syncing: "",
+    pending: null, uploading: false
   };
 
   componentDidMount() {
@@ -591,6 +609,38 @@ class Component extends DCLogic {
     });
   }
 
+  /* Crop and compress on pick so the admin sees the exact framing that will be
+     published; nothing is committed until they confirm. */
+  pickImage(file) {
+    const cur = this.current();
+    if (!file || !cur) return;
+    const kind = this.state.editKind !== "game" ? "logo" : (cur.mobile ? "portrait" : "capsule");
+    U.prepareImage(file, kind).then(img => {
+      this.setState({ pending: { img, kind, id: cur.id, forGame: this.state.editKind === "game" } });
+      this.say("მზადაა — " + img.width + "×" + img.height + ", " + Math.round(img.bytes / 1024) + " KB", "#9ede9e");
+    }).catch(e => this.say(e.message, "#f0a8a8"));
+  }
+
+  uploadImage() {
+    const p = this.state.pending;
+    if (!p || !this.state.authed) return this.say("ატვირთვას ტოკენი სჭირდება", "#f0a8a8");
+    const path = (p.forGame ? "images/games/" : "images/logos/") + p.id + ".jpg";
+    this.setState({ uploading: true });
+    GH.putImage(path, p.img.base64, "images: " + path)
+      .then(() => {
+        // Cache-bust so the admin sees the new file rather than the old one.
+        const href = path + "?v=" + Date.now();
+        if (p.forGame) this.patchGame(p.id, { localArt: href });
+        else this.patchCompany(p.id, { logo: href });
+        this.setState({ pending: null, uploading: false });
+        this.say("ატვირთულია " + path, "#9ede9e");
+      })
+      .catch(e => {
+        this.setState({ uploading: false });
+        this.say("ატვირთვა ვერ მოხერხდა: " + e.message, "#f0a8a8");
+      });
+  }
+
   exportJson() {
     const doc = {
       companies: { version: 1, updated: U.today(), items: this.state.companies },
@@ -711,10 +761,43 @@ class Component extends DCLogic {
         editorOpen: false, editName: "", editFields: [], editSelects: [], editAreas: [],
         editToggles: [], editChips: [], editLinks: [], editGames: [],
         gamesBoxShow: "none", syncBoxShow: "none", linkBoxShow: "none", linkBoxTitle: "",
-        editSectionLabel: "", syncLabel: "ახლა წაკითხვა", syncText: "", syncDot: "#5d666e"
+        editSectionLabel: "", syncLabel: "ახლა წაკითხვა", syncText: "", syncDot: "#5d666e",
+        imageBoxShow: "none", imageTitle: "", imagePreview: "#2f353c", imageRatio: "1",
+        imageRadius: "8px", imagePreviewW: "64px", imageHint: "", imagePickLabel: "",
+        imageActionShow: "none", uploadLabel: "", onImagePick: () => {},
+        uploadImage: () => {}, cancelImage: () => {}
       };
     }
     const isGame = s.editKind === "game";
+    const pending = s.pending && s.pending.id === cur.id ? s.pending : null;
+    // Store art already covers this record — a hand-uploaded file would be
+    // thrown away by the next refresh, so say so instead of offering upload.
+    const storeArt = isGame && cur.art && (cur.art.capsule || cur.art.hero);
+    const shape = !isGame ? "logo" : (cur.mobile ? "portrait" : "capsule");
+    const size = U.IMAGE_SIZES[shape];
+    const currentArt = isGame ? D.gameArt(cur) : cur.logo;
+    const image = {
+      imageBoxShow: "block",
+      imageTitle: isGame ? "თამაშის არტი" : "ლოგო",
+      imagePreview: pending ? 'url("' + pending.img.dataUrl + '") center/cover no-repeat'
+        : currentArt ? 'url("' + currentArt + '") center/cover no-repeat' : "#2f353c",
+      imageRatio: size.w + "/" + size.h,
+      imageRadius: isGame ? "6px" : "50%",
+      imagePreviewW: isGame && !cur.mobile ? "108px" : "64px",
+      imageHint: storeArt
+        ? "მაღაზიის capsule უკვე გამოიყენება — ატვირთული ფაილი შემდეგ სინქზე წაიშლება."
+        : size.w + "×" + size.h + " · ავტომატურად იჭრება ცენტრიდან და იკუმშება",
+      imagePickLabel: pending ? "სხვა ფაილი" : "ფაილის არჩევა",
+      imageActionShow: pending ? "flex" : "none",
+      uploadLabel: s.uploading ? "იტვირთება…" : "ატვირთვა და მიბმა",
+      onImagePick: e => {
+        const f = e.target.files && e.target.files[0];
+        e.target.value = "";
+        this.pickImage(f);
+      },
+      uploadImage: () => this.uploadImage(),
+      cancelImage: () => this.setState({ pending: null })
+    };
     const text = (key, label, ph) => ({
       k: label, v: cur[key] == null ? "" : String(cur[key]), ph: ph || "",
       onInput: e => this.patch({ [key]: e.target.value })
@@ -744,7 +827,7 @@ class Component extends DCLogic {
 
     if (isGame) {
       const studioOpts = s.companies.map(c => ({ v: c.id, label: c.name + (c.legal ? " (" + c.legal + ")" : "") }));
-      return {
+      return Object.assign({}, image, {
         editorOpen: true,
         editName: cur.name || "თამაში",
         editSectionLabel: "თამაშის მონაცემები",
@@ -778,11 +861,11 @@ class Component extends DCLogic {
         syncLabel: s.syncing === cur.id ? "იკითხება…" : "ახლა წაკითხვა",
         syncText: cur.parsedAt ? "ბოლო სინქი " + U.fmtDate(cur.parsedAt.slice(0, 10)) + " · " + (U.STORE_LABEL[cur.source] || cur.source) : "ჯერ არ წაკითხულა",
         syncDot: cur.parsedAt ? "#4c9a5e" : "#5d666e"
-      };
+      });
     }
 
     const attached = s.games.filter(g => g.studioId === cur.id);
-    return {
+    return Object.assign({}, image, {
       editorOpen: true,
       editName: cur.legal || cur.name || "ჩანაწერი",
       editSectionLabel: "იდენტიფიკაცია",
@@ -825,7 +908,7 @@ class Component extends DCLogic {
       }),
       gamesBoxShow: "block", syncBoxShow: "none",
       syncLabel: "ახლა წაკითხვა", syncText: "", syncDot: "#5d666e"
-    };
+    });
   }
 
   renderVals() {

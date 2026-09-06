@@ -60,6 +60,10 @@ Any empty field simply does not appear on the profile.
 clears `localArt`, so a studio that opens a Steam page later stops using its
 hand-uploaded image and no stale file is left behind.
 
+Images uploaded through the admin panel are centre-cropped and compressed in
+the browser first, to fixed sizes — logo 512×512, capsule 920×430, phone title
+600×900 — so a row of cards always lines up and no image shows a blank edge.
+
 ### Keeping it fresh
 
 `scripts/refresh-stores.mjs` re-reads every game that has a store link and

@@ -22,7 +22,7 @@
     // needing a GitHub account (see worker/README.md). Empty = disabled, and
     // the submit page falls back to a prefilled GitHub issue + copy/Telegram.
     submitEndpoint: "",
-    telegram: "https://t.me/gamedevgeorgia",
+    telegram: "https://t.me/ggcgeorgia",
     // CORS proxies used for live (browser side) store reads, tried in order.
     // "{url}" gets the encoded target, "{raw}" the target as-is. The scheduled
     // GitHub Action does the same work server side without a proxy, so a proxy
@@ -82,6 +82,54 @@
     return m ? Number(m[1]) : 0;
   }
   function clone(o) { return JSON.parse(JSON.stringify(o)); }
+
+  /* Target sizes for hand-uploaded art, so every card in a row lines up.
+     Logos are square (shown in a circle), store-style capsules are 460×215 at
+     2×, phone titles keep the tall store shape. */
+  var IMAGE_SIZES = {
+    logo: { w: 512, h: 512 },
+    capsule: { w: 920, h: 430 },
+    portrait: { w: 600, h: 900 }
+  };
+
+  /* Centre-crops to the target aspect and re-encodes as JPEG, so an upload can
+     never overflow its frame or leave a blank band at the edges — and a 6 MB
+     phone screenshot does not end up committed as-is. */
+  function prepareImage(file, kind, quality) {
+    var size = IMAGE_SIZES[kind] || IMAGE_SIZES.capsule;
+    return new Promise(function (resolve, reject) {
+      if (!file || !/^image\//.test(file.type)) return reject(new Error("ეს სურათი არ არის"));
+      var reader = new FileReader();
+      reader.onerror = function () { reject(new Error("ფაილი ვერ წაიკითხა")); };
+      reader.onload = function () {
+        var img = new Image();
+        img.onerror = function () { reject(new Error("სურათი ვერ გაიხსნა")); };
+        img.onload = function () {
+          var canvas = document.createElement("canvas");
+          canvas.width = size.w;
+          canvas.height = size.h;
+          var ctx = canvas.getContext("2d");
+          // Cover: scale to fill, then centre what does not fit.
+          var scale = Math.max(size.w / img.width, size.h / img.height);
+          var dw = img.width * scale, dh = img.height * scale;
+          ctx.fillStyle = "#e8eaec";
+          ctx.fillRect(0, 0, size.w, size.h);
+          ctx.imageSmoothingQuality = "high";
+          ctx.drawImage(img, (size.w - dw) / 2, (size.h - dh) / 2, dw, dh);
+          var dataUrl = canvas.toDataURL("image/jpeg", quality || 0.82);
+          resolve({
+            dataUrl: dataUrl,
+            base64: dataUrl.slice(dataUrl.indexOf(",") + 1),
+            width: size.w,
+            height: size.h,
+            bytes: Math.round((dataUrl.length - dataUrl.indexOf(",") - 1) * 0.75)
+          });
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
 
   /* -------------------------------------------------------------------- data */
 
@@ -443,6 +491,7 @@
     config: config,
     util: {
       slug: slug, initials: initials, fmtDate: fmtDate, today: today, clone: clone,
+      prepareImage: prepareImage, IMAGE_SIZES: IMAGE_SIZES,
       KIND_LABEL: KIND_LABEL, ACCENT: ACCENT, SOC: SOC, STORE_LABEL: STORE_LABEL,
       PLATFORM_HOME: PLATFORM_HOME
     },

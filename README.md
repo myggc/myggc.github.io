@@ -60,8 +60,13 @@ What it does:
   (games by year by default), each row showing status, game count and validation
   date.
 - **Editor** — every field of a record, its attached games, social and store
-  links, and per-game store sync.
+  links, per-game store sync, and image upload.
 - **JSON ექსპორტი** — a full snapshot, no sign-in needed.
+
+Uploaded images are centre-cropped and re-encoded in the browser before they
+are committed — 512×512 for a logo, 920×430 for a capsule, 600×900 for a phone
+title — so every card in a row lines up, nothing overflows its frame and no
+blank edge shows. The admin sees the exact framing before confirming.
 
 Without a token the panel still opens in read-only mode ("მხოლოდ დათვალიერება").
 
