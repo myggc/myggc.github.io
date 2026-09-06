@@ -20,6 +20,7 @@
   a { color:#6cc0e8; text-decoration:none; }
   a:hover { color:#9ad5f2; }
   input, select, textarea { font-family:inherit; }
+  @keyframes ggcSpin { to { transform:rotate(360deg) } }
   @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important } }
 </style>
 </helmet>
@@ -32,6 +33,9 @@
         <span style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">Admin</span>
       </div>
       <span style="display:{{ userShow }};flex:none;font-size:14px;color:#8b949c">{{ userLabel }}</span>
+      <span style="display:{{ busyShow }};flex:none;align-items:center;gap:8px;background:#14293a;color:#8ccbe9;border-radius:7px;padding:5px 11px;font-size:13px;font-weight:600">
+        <span style="width:12px;height:12px;border-radius:50%;border:2px solid #1d4a68;border-top-color:#8ccbe9;animation:ggcSpin 800ms linear infinite;flex:none"></span>{{ busyLabel }}
+      </span>
       <span style="display:{{ dirtyShow }};flex:none;background:#3a2f14;color:#f4cd77;border-radius:7px;padding:5px 10px;font-size:13px;font-weight:600">{{ dirtyLabel }}</span>
       <span style="display:{{ statusShow }};flex:1 1 160px;min-width:0;font-size:14px;color:{{ statusColor }}">{{ statusText }}</span>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:auto;flex:none">
@@ -493,7 +497,7 @@ class Component extends DCLogic {
     queue: [], decisions: {}, companies: [], games: [],
     status: "", statusColor: "#8b949c", publishing: false, syncing: "",
     pending: null, uploading: false, asking: 0, busy: 0, testing: false, endpointOk: "",
-    gameEdit: null,
+    gameEdit: null, loadingQueue: false,
     endpointInput: (window.GGC && GGC.config.submitEndpoint) || "", savingEndpoint: false,
     endpointMsg: "", endpointMsgColor: "#c6ccd3",
     studioUrl: "", importing: false, importMsg: "", importMsgColor: "#8b949c"
@@ -503,30 +507,60 @@ class Component extends DCLogic {
      only in memory until it is published, so a stray Back gesture or a reload
      used to throw it away with no warning. It is written to this browser as it
      changes and picked up again on the next load. */
+  /* The draft is only what differs from what is published — the records touched
+     and the ids removed — never a copy of the whole catalogue. Storing the whole
+     thing meant a record deleted on GitHub came back on the next load, because
+     the stale copy was restored wholesale over the fresh data and then looked
+     like a local addition. */
   componentDidUpdate() {
     if (!this.state.ready) return;
     try {
-      if (this.dirtyKeys().length) {
-        localStorage.setItem(ADMIN_DRAFT, JSON.stringify({
-          companies: this.state.companies, games: this.state.games
-        }));
-      } else {
-        localStorage.removeItem(ADMIN_DRAFT);
-      }
+      const keys = this.dirtyKeys();
+      if (!keys.length) return localStorage.removeItem(ADMIN_DRAFT);
+      const byId = (list) => {
+        const m = {};
+        list.forEach(x => { m[x.id] = x; });
+        return m;
+      };
+      const nowC = byId(this.state.companies), nowG = byId(this.state.games);
+      const draft = { companies: [], games: [], deleted: [] };
+      keys.forEach(k => {
+        const id = k.slice(2);
+        const rec = k[0] === "c" ? nowC[id] : nowG[id];
+        if (!rec) return draft.deleted.push(k);
+        (k[0] === "c" ? draft.companies : draft.games).push(rec);
+      });
+      localStorage.setItem(ADMIN_DRAFT, JSON.stringify(draft));
     } catch (e) {}
   }
 
   componentDidMount() {
     D.load().then(() => {
+      /* Restoring means replaying the delta onto whatever is published now, so
+         work done elsewhere in the meantime survives and a record removed there
+         stays removed. */
       let draft = null;
       try { draft = JSON.parse(localStorage.getItem(ADMIN_DRAFT) || "null"); } catch (e) {}
-      const restored = draft && Array.isArray(draft.companies) && Array.isArray(draft.games);
-      this.setState({
-        ready: true,
-        companies: restored ? draft.companies.map(D.normCompany) : U.clone(D.companies()),
-        games: restored ? draft.games.map(D.normGame) : U.clone(D.games())
-      }, () => {
-        if (restored && this.dirtyKeys().length) {
+      const companies = U.clone(D.companies());
+      const games = U.clone(D.games());
+      let replayed = 0;
+      if (draft && Array.isArray(draft.companies) && Array.isArray(draft.games)) {
+        (draft.deleted || []).forEach(k => {
+          const id = k.slice(2);
+          const list = k[0] === "c" ? companies : games;
+          const i = list.findIndex(x => x.id === id);
+          if (i >= 0) { list.splice(i, 1); replayed++; }
+        });
+        const merge = (list, rec, norm) => {
+          const i = list.findIndex(x => x.id === rec.id);
+          if (i >= 0) list[i] = norm(rec); else list.push(norm(rec));
+          replayed++;
+        };
+        draft.companies.forEach(c => merge(companies, c, D.normCompany));
+        draft.games.forEach(g => merge(games, g, D.normGame));
+      }
+      this.setState({ ready: true, companies, games }, () => {
+        if (replayed) {
           this.say("აღდგა " + this.dirtyKeys().length + " შენახული ცვლილება ამ ბრაუზერიდან", "#f4cd77");
         }
       });
@@ -583,13 +617,34 @@ class Component extends DCLogic {
     });
   }
 
+  /* Whatever the panel is currently doing, in the words the operation itself
+     would use. Empty when it is idle. */
+  busyLabel() {
+    const s = this.state;
+    if (s.publishing) return "იტვირთება GitHub-ზე…";
+    if (s.importing) return s.importMsg && /წაკითხულია/.test(s.importMsg) ? s.importMsg : "მაღაზიის კითხვა…";
+    if (s.syncing === "all") return "ყველა თამაშის განახლება…";
+    if (s.syncing) return "მაღაზიის კითხვა…";
+    if (s.uploading) return "სურათი იტვირთება…";
+    if (s.savingEndpoint) return "კონფიგურაცია ინახება…";
+    if (s.testing) return "მიმღები მოწმდება…";
+    if (s.asking) return "კომენტარი იგზავნება…";
+    if (s.busy) return "მოთხოვნა იხურება…";
+    if (s.loadingQueue) return "რიგი იტვირთება…";
+    return "";
+  }
+
   dirtyCount() { return this.dirtyKeys().length; }
   isTouched(kind, id) { return this.dirtyKeys().indexOf(kind + ":" + id) >= 0; }
 
   loadQueue() {
+    this.setState({ loadingQueue: true });
     GH.listSubmissions()
-      .then(list => this.setState({ queue: list }))
-      .catch(e => this.say("რიგი ვერ ჩაიტვირთა: " + e.message, "#f0a8a8"));
+      .then(list => this.setState({ queue: list, loadingQueue: false }))
+      .catch(e => {
+        this.setState({ loadingQueue: false });
+        this.say("რიგი ვერ ჩაიტვირთა: " + e.message, "#f0a8a8");
+      });
   }
 
   say(text, color) {
@@ -1103,6 +1158,11 @@ class Component extends DCLogic {
       });
       if (addedLinks) coPatch.links = links;
       if (Object.keys(coPatch).length) this.patchCompany(cur.id, coPatch);
+      /* Filling the profile can rename the record — the id follows the official
+         name while it is still a placeholder — so the games have to be attached
+         to what it is called now, not to the "draft" it was called a moment ago.
+         Getting this wrong left every imported title with no studio. */
+      const studioId = this.state.edit || cur.id;
 
       // Count the fields actually written, not the patch keys — "links" is one
       // key holding seven accounts, which read as "1 field filled".
@@ -1127,7 +1187,7 @@ class Component extends DCLogic {
         fresh.forEach(g => {
           games.push(D.normGame(Object.assign({}, g, {
             id: this.nextId(g.name || "game", games),
-            studioId: cur.id,
+            studioId: studioId,
             validated: now, created: now, updated: now, verified: true
           })));
         });
@@ -1525,7 +1585,7 @@ class Component extends DCLogic {
       gmClose: () => this.setState({ gameEdit: null, pending: null }),
       gmDelete: () => this.setState(st => ({
         games: st.games.filter(g => g.id !== cur.id),
-        gameEdit: null,
+        gameEdit: null, loadingQueue: false,
 
       })),
       gmSelects: [
@@ -1604,6 +1664,11 @@ class Component extends DCLogic {
       statusText: s.status,
       statusShow: s.status ? "block" : "none",
       statusColor: s.statusColor,
+      /* One place that says the panel is working, whatever the work is —
+         importing, syncing, uploading, publishing or fetching the queue. Actions
+         that take twenty seconds looked like nothing happening. */
+      busyShow: this.busyLabel() ? "inline-flex" : "none",
+      busyLabel: this.busyLabel(),
       dirtyShow: this.dirtyCount() ? "inline" : "none",
       dirtyLabel: this.dirtyCount() + " ჩანაწერი შენახვის მოლოდინში",
       publishLabel: s.publishing ? "იტვირთება…" : "GitHub-ზე ატვირთვა",
