@@ -1,0 +1,50 @@
+name: Stamp asset versions
+
+# GitHub Pages serves assets/js/*.js with a cache header, so a browser that has
+# already loaded the site keeps running the old JavaScript after a fix ships —
+# the page looks unchanged and the fix looks broken. Every push re-stamps the
+# script tags with the commit sha, which makes each release a new URL and
+# retires the cached copy.
+#
+# A push made with GITHUB_TOKEN does not itself trigger workflows, so this
+# cannot loop.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "assets/js/**"
+      - "*.html"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: stamp-assets
+  cancel-in-progress: false
+
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Point every page at this commit's scripts
+        run: |
+          sha="${GITHUB_SHA::10}"
+          for f in *.html; do
+            [ -e "$f" ] || continue
+            sed -i -E "s#(assets/js/(ggc-core|ggc-github|i18n)\.js)(\?v=[A-Za-z0-9]+)?#\1?v=$sha#g" "$f"
+          done
+
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet -- '*.html'; then
+            echo "already stamped"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ./*.html
+          git commit -m "chore: stamp asset versions [skip ci]"
+          git push
