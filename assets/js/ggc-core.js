@@ -65,6 +65,10 @@
     "switch": "Switch", xbox: "Xbox", playstation: "PlayStation", epic: "Epic Games",
     gog: "GOG", web: "Web"
   };
+  /* The engines a Georgian studio actually ships on, plus a way out. Free text
+     collected "Unity", "unity", "Unity 6", "Unity3D" and "юнити" as four
+     different engines, which makes the number in a report meaningless. */
+  var ENGINES = ["Unity", "Unreal Engine", "Godot", "GameMaker", "Construct", "RPG Maker", "Ren'Py", "Custom"];
   var PLATFORM_HOME = {
     "Steam": "https://store.steampowered.com", "itch.io": "https://itch.io",
     "App Store": "https://apps.apple.com", "Google Play": "https://play.google.com",
@@ -1563,7 +1567,7 @@
       prepareImage: prepareImage, IMAGE_SIZES: IMAGE_SIZES, iconUrl: iconUrl,
       KIND_LABEL: KIND_LABEL, ACCENT: ACCENT, SOC: SOC, STORE_LABEL: STORE_LABEL,
       foundedYear: foundedYear,
-      PLATFORM_HOME: PLATFORM_HOME
+      PLATFORM_HOME: PLATFORM_HOME, ENGINES: ENGINES
     },
     data: {
       load: load, companies: companies, games: games, company: company, game: game,

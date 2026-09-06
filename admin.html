@@ -474,7 +474,7 @@ const TAB_OF_KIND = { company: "companies", team: "teams", solo: "solo" };
 const ROLES = ["developer", "publisher", "art", "audio", "porting", "outsourcing", "codev"];
 const SIZES = ["1-2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-250", "251+"];
 const CITIES = ["თბილისი", "ბათუმი", "ქუთაისი", "რუსთავი", "გორი", "ზუგდიდი", "ფოთი", "თელავი", "ახალციხე", "ოზურგეთი", "სხვა", "საზღვარგარეთ"];
-const PLATFORMS = ["Steam", "itch.io", "App Store", "Google Play", "Switch", "Xbox", "PlayStation", "Epic Games"];
+const PLATFORMS = ["Steam", "itch.io", "App Store", "Google Play", "Switch", "Xbox", "PlayStation", "Epic Games", "GOG", "Web"];
 const SOCIALS = ["telegram", "facebook", "instagram", "linkedin", "youtube", "x", "discord", "tiktok", "twitch"];
 const SOCIAL_PH = { telegram: "@ggcgeorgia", facebook: "facebook.com/ggc", instagram: "instagram.com/ggc", linkedin: "linkedin.com/company/ggc", youtube: "youtube.com/@ggc", x: "x.com/ggc", discord: "discord.gg/…", tiktok: "tiktok.com/@ggc", twitch: "twitch.tv/ggc" };
 /* The studio's own shop pages — a storefront is not a social account. */
@@ -494,7 +494,7 @@ const KIND_FIELD = {
     aboutEn: "ჩემს შესახებ (English)" }
 };
 const CO_STORE_PH = { steam: "store.steampowered.com/developer/…", itch: "studio.itch.io", appstore: "apps.apple.com/developer/…", googleplay: "play.google.com/store/apps/dev?id=…" };
-const STORE_KEYS = ["steam", "itch", "appstore", "googleplay", "switch", "xbox", "playstation", "epic"];
+const STORE_KEYS = ["steam", "itch", "appstore", "googleplay", "switch", "xbox", "playstation", "epic", "gog", "web"];
 
 const CO_LABELS = {
   legal: "ოფიციალური სახელი", regId: "საიდენტიფიკაციო", name: "საჯარო სახელი", kind: "ტიპი",
@@ -1703,7 +1703,7 @@ class Component extends DCLogic {
         req(k.text("email", "ელფოსტა *", "მაგ. info@ggc.ge"), "email"),
         /* A solo developer has no colleague to nominate as a contact — they are
            the contact — so the phone stands in for it. Never shown publicly. */
-        cur.kind === "solo" ? null : k.text("contact", "საკონტაქტო პირი", "სახელი გვარი · @telegram"),
+        k.text("phone", "ტელეფონი (არასავალდებულო)", "+995 555 00 00 00"),
         k.text("validated", "პირველი ვალიდაცია", U.today()),
         k.readOnly("updated", "ბოლო განახლება")
       ].filter(Boolean),
@@ -1770,6 +1770,11 @@ class Component extends DCLogic {
     const img = this.imageKit(cur, true);
     const studioOpts = s.companies.map(c => ({ v: c.id, label: c.name + (c.legal ? " (" + c.legal + ")" : "") }));
     const studio = s.companies.filter(c => c.id === cur.studioId)[0];
+    /* An engine outside the list is kept as "Custom: <whatever>", so the select
+       can still show where it belongs while the text box holds the real name. */
+    const engineIsListed = U.ENGINES.indexOf(cur.engine) >= 0;
+    const engineChoice = cur.engine ? (engineIsListed ? cur.engine : "Custom") : "";
+    const engineOpts = [{ v: "", label: "—" }].concat(U.ENGINES.map(v => ({ v: v, label: v })));
 
     return {
       gmOpen: true,
@@ -1788,7 +1793,11 @@ class Component extends DCLogic {
           onChange: e => this.patchGame(cur.id, { publisherId: e.target.value }) },
         { k: "სტატუსი", v: cur.status,
           options: [{ v: "upcoming", label: "მოსალოდნელი" }, { v: "released", label: "გამოსული" }],
-          onChange: e => this.patchGame(cur.id, { status: e.target.value }) }
+          onChange: e => this.patchGame(cur.id, { status: e.target.value }) },
+        /* One from a list, so a report can count engines instead of counting
+           spellings. "Custom" leaves the box below for whatever it really is. */
+        { k: "ძრავი", v: engineChoice, options: engineOpts,
+          onChange: e => this.patchGame(cur.id, { engine: e.target.value === "Custom" ? "Custom: " : e.target.value }) }
       ],
       gmFields: [
         k.text("name", "სახელი", "Dumbriel"),
@@ -1796,12 +1805,13 @@ class Component extends DCLogic {
         k.text("releaseDate", "გამოშვების თარიღი", "2026-04-20 ან ცარიელი = TBD"),
         k.num("year", "წელი", "2026"),
         k.csv("genres", "ჟანრი", "metroidvania, action"),
-        k.text("engine", "ძრავი", "Unity"),
+        // Only asked when the select above says the engine is not on the list.
+        engineChoice === "Custom" ? k.text("engine", "რომელი ძრავი", "Custom: …") : null,
         k.text("price", "ფასი", "₾25"),
         k.text("langs", "ენები", "ქართული, English"),
         k.text("validated", "პირველი ვალიდაცია", U.today()),
         k.readOnly("updated", "ბოლო განახლება")
-      ],
+      ].filter(Boolean),
       gmAreas: [k.text("about", "აღწერა", "")],
       // No mobile or verified switch: the platforms already say whether a title
       // is on phones, on PC, or on both, and a second control that can disagree
