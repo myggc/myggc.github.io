@@ -15,7 +15,8 @@
       "roles": [
         "developer",
         "publisher",
-        "porting"
+        "porting",
+        "outsourcing"
       ],
       "website": "",
       "email": "",
@@ -24,17 +25,17 @@
       "logo": "images/logos/madmoa.jpg",
       "links": {
         "facebook": "https://www.facebook.com/share/1KbdgtUYMv/",
-        "linkedin": "https://www.linkedin.com/company/madmoa/",
         "instagram": "https://www.instagram.com/madmoastudio",
+        "linkedin": "https://www.linkedin.com/company/madmoa/",
         "youtube": "https://youtube.com/@madmoastudio",
-        "steam": "https://store.steampowered.com/publisher/madmoa",
-        "x": "https://x.com/MadMoaStudio"
+        "x": "https://x.com/MadMoaStudio",
+        "steam": "https://store.steampowered.com/publisher/madmoa"
       },
       "verified": true,
       "active": true,
-      "validated": "2025-03-12",
+      "validated": "2026-09-06",
       "created": "2025-03-12",
-      "updated": "2025-03-12"
+      "updated": "2026-09-06"
     }
   ]
 }
