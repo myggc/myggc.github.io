@@ -36,6 +36,19 @@
       return r.json().then(function (j) {
         if (!r.ok) {
           var msg = (j && j.message) || ("HTTP " + r.status);
+          /* GitHub answers "Resource not accessible by personal access token"
+             for anything the token was not granted, and says nothing about
+             which permission is missing. A fine-grained token with Contents
+             write but no Issues write signs in perfectly and then fails on the
+             first approve or reject — so name the permission and where to set
+             it, rather than passing GitHub's sentence through. */
+          if (r.status === 403 && /not accessible|Resource not accessible/i.test(msg)) {
+            msg = /\/issues/.test(path)
+              ? "ტოკენს ამ რეპოზიტორიის Issues-ზე ჩაწერის უფლება არ აქვს. GitHub → Settings → " +
+                "Developer settings → Personal access tokens → Fine-grained tokens → ეს ტოკენი → " +
+                "Repository permissions → Issues: Read and write. შემდეგ ხელახლა შედი ადმინში."
+              : "ტოკენს ამ მოქმედების უფლება არ აქვს: " + path;
+          }
           var err = new Error(msg);
           err.status = r.status;
           throw err;

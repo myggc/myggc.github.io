@@ -132,6 +132,7 @@
                   <div style="display:{{ q.noteShow }};margin-top:12px;background:#171a1e;border:1px solid #2f353c;border-radius:11px;padding:14px;font-size:14px;line-height:1.6;color:#c6ccd3">{{ q.note }}</div>
                   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center">
                     <button type="button" onClick="{{ q.approve }}" style="display:{{ q.approveShow }};border:0;cursor:pointer;background:#4c9a5e;color:#fff;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">დადასტურება</button>
+                    <button type="button" onClick="{{ q.approveEdit }}" style="display:{{ q.approveShow }};border:1px solid #3d5c47;cursor:pointer;background:#1e2a22;color:#9ede9e;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">ჩასწორება და დადასტურება</button>
                     <button type="button" onClick="{{ q.reject }}" style="display:{{ q.rejectShow }};border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">{{ q.rejectLabel }}</button>
                     <button type="button" onClick="{{ q.ask }}" style="display:{{ q.approveShow }};border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">{{ q.askLabel }}</button>
                     <a href="{{ q.url }}" target="_blank" rel="noopener" style="border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 18px;font-size:15px;font-weight:600">GitHub-ზე გახსნა ↗</a>
@@ -469,6 +470,7 @@ const NAV = [
 ];
 const TITLES = { companies: "კომპანიები", teams: "გუნდები", solo: "სოლო დეველოპერები", games: "თამაშები" };
 const KIND_OF_TAB = { companies: "company", teams: "team", solo: "solo" };
+const TAB_OF_KIND = { company: "companies", team: "teams", solo: "solo" };
 const ROLES = ["developer", "publisher", "art", "audio", "porting", "outsourcing", "codev"];
 const SIZES = ["1-2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-250", "251+"];
 const CITIES = ["თბილისი", "ბათუმი", "ქუთაისი", "რუსთავი", "გორი", "ზუგდიდი", "ფოთი", "თელავი", "ახალციხე", "ოზურგეთი", "სხვა", "საზღვარგარეთ"];
@@ -725,6 +727,8 @@ class Component extends DCLogic {
       p.appliedId = companies[i].id;
     }
 
+    // Which records this produced, so the panel can open them straight after.
+    p.appliedGameIds = [];
     this.payloadGames(p).forEach(entry => {
       const fields = Object.assign({}, entry);
       const gameId = fields.gameId;
@@ -733,21 +737,28 @@ class Component extends DCLogic {
         const i = games.findIndex(g => g.id === gameId);
         if (i < 0) throw new Error("თამაში ვერ მოიძებნა: " + gameId);
         games[i] = D.normGame(Object.assign({}, games[i], fields, { updated: now, validated: now }));
+        p.appliedGameIds.push(gameId);
         return;
       }
       if (!companyId) throw new Error("თამაშს სტუდია არ აქვს მიბმული");
       if (!companies.some(c => c.id === companyId)) throw new Error("კომპანია ვერ მოიძებნა: " + companyId);
+      const id = this.nextId(fields.name || "game", games);
       games.push(D.normGame(Object.assign({}, fields, {
-        id: this.nextId(fields.name || "game", games),
+        id: id,
         studioId: companyId,
         validated: now, created: now, updated: now, verified: true
       })));
+      p.appliedGameIds.push(id);
     });
 
     return { companies, games };
   }
 
-  approve(item) {
+  /* `andEdit` stages the submission exactly as approving does, then opens the
+     record it produced. Nothing is uploaded either way — the upload is still a
+     separate, deliberate press — so a submission with one wrong value no longer
+     has to be rejected and asked for again: accept it, fix the value, upload. */
+  approve(item, andEdit) {
     let failed = "";
     this.setState(s => {
       try {
@@ -762,7 +773,29 @@ class Component extends DCLogic {
         failed = e.message;
         return null;
       }
-    }, () => this.say(failed || "დადასტურდა — დარჩა ატვირთვა", failed ? "#f0a8a8" : "#9ede9e"));
+    }, () => {
+      if (failed) return this.say(failed, "#f0a8a8");
+      if (!andEdit) return this.say("დადასტურდა — დარჩა ატვირთვა", "#9ede9e");
+      this.openApplied(item.payload);
+    });
+  }
+
+  /* Opens whatever the submission just created or changed: the studio if it
+     carried one, otherwise the first game. */
+  openApplied(p) {
+    const id = (p && (p.appliedId || p.companyId)) || "";
+    const co = this.state.companies.filter(c => c.id === id)[0];
+    if (co) {
+      this.setState({ tab: TAB_OF_KIND[co.kind] || "companies", edit: co.id, editKind: co.kind, open: null });
+      return this.say("გახსნილია ჩასასწორებლად — შესწორების შემდეგ „GitHub-ზე ატვირთვა“", "#6cc0e8");
+    }
+    const gid = ((p && p.appliedGameIds) || [])[0] || "";
+    const g = this.state.games.filter(x => x.id === gid)[0];
+    if (g) {
+      this.setState({ tab: "games", gameEdit: g.id, open: null });
+      return this.say("გახსნილია ჩასასწორებლად — შესწორების შემდეგ „GitHub-ზე ატვირთვა“", "#6cc0e8");
+    }
+    this.say("დადასტურდა, მაგრამ ჩანაწერი ვერ გავხსენი — მოძებნე სიაში", "#f4cd77");
   }
 
   /* Rejecting changes no catalogue data, so there is nothing to stage and
@@ -772,7 +805,12 @@ class Component extends DCLogic {
   reject(item) {
     if (!this.state.authed) return this.say("უარყოფას ტოკენი სჭირდება", "#f0a8a8");
     this.setState({ busy: item.number });
+    /* The note back to the submitter is a courtesy; closing is the decision.
+       A token without Issues write failed on the comment and never reached the
+       close, so a rejection could not be carried out at all — and the message
+       said nothing about why. */
     GH.comment(item.number, "ამჯერად არ დადასტურებულა. თუ რამე დასაზუსტებელია, მოგვწერე Telegram-ზე და თავიდან შევხედავთ.")
+      .catch(() => {})
       .then(() => GH.closeIssue(item.number, "rejected"))
       .then(() => {
         this.setState(s => ({
@@ -931,16 +969,31 @@ class Component extends DCLogic {
   }
 
   // Deleting a game is the dialog's own action now; this only removes studios.
+  /* A game cannot exist without a studio, so deleting the studio has to take
+     its games with it. Refusing until they were detached one at a time — each
+     from inside its own dialog — left no way to undo a wrong submission at all:
+     the games could not be removed while the studio was still there, and the
+     studio could not be removed while the games were. */
   removeEntry() {
     const s = this.state;
     if (!s.edit) return;
-    const attached = s.games.filter(g => g.studioId === s.edit).length;
-    if (attached) return this.say("ჯერ მოხსენი " + attached + " მიმაგრებული თამაში", "#f0a8a8");
+    const mine = s.games.filter(g => g.studioId === s.edit);
+    const co = s.companies.filter(c => c.id === s.edit)[0];
+    const name = co ? (co.legal || co.name || co.id) : s.edit;
+    const ok = window.confirm(mine.length
+      ? "წაიშლება „" + name + "“ და მისი " + mine.length + " თამაში:\n\n" +
+        mine.map(g => "· " + (g.name || g.id)).join("\n") +
+        "\n\nთამაში სტუდიის გარეშე ვერ იარსებებს, ამიტომ ერთად იშლება. გავაგრძელო?"
+      : "წაიშლება „" + name + "“. გავაგრძელო?");
+    if (!ok) return;
     this.setState(st => ({
       companies: st.companies.filter(c => c.id !== st.edit),
+      games: st.games.filter(g => g.studioId !== st.edit),
       edit: null,
-
-    }));
+      gameEdit: null
+    }), () => this.say(mine.length
+      ? "წაიშალა სტუდია და " + mine.length + " თამაში — დარჩა ატვირთვა"
+      : "წაიშალა — დარჩა ატვირთვა", "#f4cd77"));
   }
 
   /* Reads the store page and overwrites only the fields the store owns. */
@@ -1397,6 +1450,7 @@ class Component extends DCLogic {
         stateText: decided === "approved" ? "✔ დადასტურებული — დააჭირე „GitHub-ზე ატვირთვა“-ს" : "",
         toggle: () => this.setState(st => ({ open: st.open === item.number ? null : item.number })),
         approve: () => this.approve(item),
+        approveEdit: () => this.approve(item, true),
         reject: () => this.reject(item),
         ask: () => this.ask(item),
         askLabel: s.asking === item.number ? "იგზავნება…" : "დაზუსტების თხოვნა"
