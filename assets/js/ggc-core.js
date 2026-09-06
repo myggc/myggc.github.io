@@ -60,6 +60,55 @@
     "GOG": "https://www.gog.com", "Web": ""
   };
 
+  /* Official brand marks, by the service's own icon rather than its name.
+     Served from Simple Icons, which keeps the current official glyph for each
+     brand and takes the fill colour in the path — so one URL covers a dark pill
+     and a light one. The label stays next to the icon, which also means a
+     blocked or failed image never leaves an unlabelled button. */
+  var ICON_SLUG = {
+    telegram: "telegram", facebook: "facebook", instagram: "instagram",
+    linkedin: "linkedin", youtube: "youtube", x: "x", steam: "steam",
+    itch: "itchdotio", discord: "discord", tiktok: "tiktok", twitch: "twitch",
+    bluesky: "bluesky", artstation: "artstation", github: "github"
+  };
+  var PLATFORM_SLUG = {
+    "Steam": "steam", "itch.io": "itchdotio", "App Store": "appstore",
+    "Google Play": "googleplay", "Switch": "nintendoswitch", "Xbox": "xbox",
+    "PlayStation": "playstation", "Epic Games": "epicgames", "GOG": "gogdotcom"
+  };
+  /* LinkedIn, Xbox and Nintendo asked Simple Icons to drop their marks, so the
+     CDN answers 404 for those three — and a plain website has no brand mark at
+     all. Those are drawn here instead, as data URIs so the same <img> works
+     either way. COLOR is substituted per use. */
+  var LOCAL_ICON = {
+    website:
+      '<circle cx="12" cy="12" r="9" fill="none" stroke="COLOR" stroke-width="2"/>' +
+      '<path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18" fill="none" stroke="COLOR" stroke-width="2"/>',
+    linkedin:
+      '<path fill="COLOR" d="M22.2 0H1.8C.8 0 0 .8 0 1.7v20.6C0 23.2.8 24 1.8 24h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0zM7.1 20.5H3.5V9h3.6v11.5zM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2zm15.1 13.1h-3.6v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9v5.7H9.4V9h3.4v1.6h.1c.5-.9 1.6-1.9 3.4-1.9 3.6 0 4.3 2.4 4.3 5.5v6.3z"/>',
+    Xbox:
+      '<circle cx="12" cy="12" r="10" fill="none" stroke="COLOR" stroke-width="2"/>' +
+      '<path d="M6.2 4.9C8.6 7.6 12 11.9 12 11.9s3.4-4.3 5.8-7M6.2 19.1C8.6 16.4 12 12.1 12 12.1s3.4 4.3 5.8 7" fill="none" stroke="COLOR" stroke-width="2" stroke-linecap="round"/>',
+    "Switch":
+      '<path fill="COLOR" fill-rule="evenodd" d="M7 2.2h1.2A3.8 3.8 0 0 1 12 6v12a3.8 3.8 0 0 1-3.8 3.8H7A3.8 3.8 0 0 1 3.2 18V6A3.8 3.8 0 0 1 7 2.2zm.1 1.9A1.9 1.9 0 0 0 5.2 6v12c0 1 .8 1.9 1.9 1.9h1a1.9 1.9 0 0 0 1.9-1.9V6a1.9 1.9 0 0 0-1.9-1.9h-1zm.4 1.9a1.7 1.7 0 1 1 0 3.4 1.7 1.7 0 0 1 0-3.4z"/>' +
+      '<path fill="COLOR" fill-rule="evenodd" d="M15.8 2.2H17A3.8 3.8 0 0 1 20.8 6v12A3.8 3.8 0 0 1 17 21.8h-1.2A3.8 3.8 0 0 1 12 18V6a3.8 3.8 0 0 1 3.8-3.8zm.7 12a1.7 1.7 0 1 0 0 3.4 1.7 1.7 0 0 0 0-3.4z"/>'
+  };
+
+  function dataIcon(shapes, color) {
+    return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">' +
+      shapes.split("COLOR").join("#" + color) + "</svg>"
+    );
+  }
+
+  function iconUrl(key, hex) {
+    var color = (hex || "ffffff").replace("#", "");
+    if (LOCAL_ICON[key]) return dataIcon(LOCAL_ICON[key], color);
+    var slug = ICON_SLUG[key] || PLATFORM_SLUG[key];
+    if (!slug) return dataIcon(LOCAL_ICON.website, color);
+    return "https://cdn.simpleicons.org/" + slug + "/" + color;
+  }
+
   function slug(s) {
     return String(s || "").toLowerCase().trim()
       .replace(/['".,()]/g, "")
@@ -289,7 +338,15 @@
       if (stores[k]) byLabel[STORE_LABEL[k] || k] = stores[k];
     });
     return (g.platforms || []).map(function (p) {
-      return { name: p, url: byLabel[p] || PLATFORM_HOME[p] || "", external: !!byLabel[p] };
+      return {
+        name: p,
+        url: byLabel[p] || PLATFORM_HOME[p] || "",
+        external: !!byLabel[p],
+        // Two fills, because the same list is drawn on a dark pill in the game
+        // page and on a light chip in the card.
+        icon: iconUrl(p, "ffffff"),
+        iconDark: iconUrl(p, "41464c")
+      };
     });
   }
   function releaseLabel(g) {
@@ -345,6 +402,30 @@
     throw new Error("პასუხი JSON არ არის");
   }
 
+  /* Only ever use URLs the store API itself returned.
+     The guessable path — cdn.*.steamstatic.com/steam/apps/<id>/capsule_616x353.jpg
+     — still resolves, but for Dumbriel it serves artwork the studio replaced long
+     ago. That staleness is at the origin, not the edge: the same bytes come back
+     with or without a cache-busting query, so it cannot be worked around. The
+     hashed store_item_assets URLs in the API response are the current art, and
+     they carry a ?t= stamp that changes whenever the store page is updated.
+
+     header_image is 460x215 — exactly the aspect the cards draw — so it serves
+     as the capsule. background_raw is the wide page art, which suits the detail
+     banner. Portrait is left empty: Steam does not return one, and a guessed
+     library_600x900.jpg has the same staleness problem. */
+  function steamArt(d) {
+    var header = d.header_image || "";
+    return {
+      capsule: header,
+      hero: d.background_raw || header,
+      portrait: "",
+      shots: (d.screenshots || []).slice(0, 3)
+        .map(function (s) { return s.path_thumbnail || s.path_full; })
+        .filter(Boolean)
+    };
+  }
+
   /* Shared shape with scripts/refresh-stores.mjs — keep the two in step. */
   function steamFromJson(json, appid, url) {
     var entry = json && json[appid];
@@ -353,7 +434,6 @@
     var rel = d.release_date || {};
     var date = rel.date || "";
     var year = (/(\d{4})/.exec(date) || [])[1];
-    var cdn = "https://cdn.cloudflare.steamstatic.com/steam/apps/" + appid + "/";
     return {
       name: d.name || "",
       about: (d.short_description || "").replace(/<[^>]+>/g, "").trim(),
@@ -365,14 +445,7 @@
       langs: (d.supported_languages || "").replace(/<[^>]+>/g, "").replace(/\*/g, "").trim(),
       developers: d.developers || [],
       publishers: d.publishers || [],
-      art: {
-        capsule: cdn + "capsule_616x353.jpg",
-        hero: d.header_image || (cdn + "header.jpg"),
-        portrait: cdn + "library_600x900.jpg",
-        shots: (d.screenshots || []).slice(0, 3).map(function (s) {
-          return s.path_thumbnail || s.path_full;
-        }).filter(Boolean)
-      },
+      art: steamArt(d),
       platforms: ["Steam"],
       stores: { steam: url || ("https://store.steampowered.com/app/" + appid + "/") },
       mobile: false,
@@ -515,7 +588,7 @@
     config: config,
     util: {
       slug: slug, initials: initials, fmtDate: fmtDate, today: today, clone: clone,
-      prepareImage: prepareImage, IMAGE_SIZES: IMAGE_SIZES,
+      prepareImage: prepareImage, IMAGE_SIZES: IMAGE_SIZES, iconUrl: iconUrl,
       KIND_LABEL: KIND_LABEL, ACCENT: ACCENT, SOC: SOC, STORE_LABEL: STORE_LABEL,
       PLATFORM_HOME: PLATFORM_HOME
     },

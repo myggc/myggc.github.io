@@ -207,7 +207,9 @@
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:8px">
           <sc-for list="{{ p.links }}" as="l" hint-placeholder-count="3">
-            <a href="{{ l.url }}" style="background:#16181b;color:#fff;border-radius:10px;padding:10px 14px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600" style-hover="background:#000">{{ l.name }} ↗</a>
+            <a href="{{ l.url }}" target="_blank" rel="noopener" title="{{ l.name }}" style="display:inline-flex;align-items:center;gap:7px;background:#16181b;color:#fff;border-radius:10px;padding:10px 14px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600" style-hover="background:#000">
+              <img src="{{ l.icon }}" alt="" width="15" height="15" style="display:block;flex:none">{{ l.name }} ↗
+            </a>
           </sc-for>
         </div>
       </div>
@@ -288,8 +290,8 @@ class Component extends DCLogic {
     const facts = FACT_LABELS.map(([k, label]) => ({ k: label, v: src[k] || "" })).filter(f => f.v);
     const links = Object.keys(d.links || {})
       .filter(k => d.links[k])
-      .map(k => ({ name: U.SOC[k] || k, url: d.links[k] }));
-    if (d.website) links.unshift({ name: "ვებსაიტი", url: d.website });
+      .map(k => ({ name: U.SOC[k] || k, url: d.links[k], icon: U.iconUrl(k, "ffffff") }));
+    if (d.website) links.unshift({ name: "ვებსაიტი", url: d.website, icon: U.iconUrl("website", "ffffff") });
     return {
       name: d.name,
       // Hands the form this exact record, so the visitor edits what is

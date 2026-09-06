@@ -94,7 +94,9 @@
           <a href="{{ g.studioHref }}" style="font-size:14px;color:#146590;font-weight:500">{{ g.studio }}</a>
           <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px">
             <sc-for list="{{ g.platforms }}" as="p" hint-placeholder-count="2">
-              <a href="{{ p.url }}" style="background:#f1f4f4;color:#41464c;border-radius:7px;padding:5px 9px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500" style-hover="background:#e4e9ea;color:#16181b">{{ p.name }}</a>
+              <a href="{{ p.url }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;background:#f1f4f4;color:#41464c;border-radius:7px;padding:5px 9px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500" style-hover="background:#e4e9ea;color:#16181b">
+                <img src="{{ p.iconDark }}" alt="" width="12" height="12" style="display:block;flex:none">{{ p.name }}
+              </a>
             </sc-for>
           </div>
         </div>
@@ -141,7 +143,9 @@
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:8px">
           <sc-for list="{{ d.platforms }}" as="p" hint-placeholder-count="2">
-            <a href="{{ p.url }}" style="background:#16181b;color:#fff;border-radius:10px;padding:11px 15px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600" style-hover="background:#000">{{ p.name }} ↗</a>
+            <a href="{{ p.url }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#16181b;color:#fff;border-radius:10px;padding:11px 15px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600" style-hover="background:#000">
+              <img src="{{ p.icon }}" alt="" width="15" height="15" style="display:block;flex:none">{{ p.name }} ↗
+            </a>
           </sc-for>
         </div>
         <div style="display:flex;align-items:center;gap:9px;background:#e9f5ec;border:1px solid #d3e8d9;border-radius:12px;padding:12px 14px;font-size:14px;color:#2f5c3c">

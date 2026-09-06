@@ -64,6 +64,23 @@ Images uploaded through the admin panel are centre-cropped and compressed in
 the browser first, to fixed sizes — logo 512×512, capsule 920×430, phone title
 600×900 — so a row of cards always lines up and no image shows a blank edge.
 
+### Where Steam art comes from
+
+Only from URLs the Steam API actually returns. The guessable
+`cdn.*.steamstatic.com/steam/apps/<id>/capsule_616x353.jpg` path still resolves,
+but it can serve artwork a studio replaced long ago — Dumbriel's did — and that
+staleness is at the origin, so no cache-busting query gets around it.
+
+| field | Steam source | note |
+| --- | --- | --- |
+| `art.capsule` | `header_image` | 460×215, the aspect the cards draw |
+| `art.hero` | `background_raw` | wide page art for the detail banner |
+| `art.portrait` | — | left empty; Steam returns none |
+| `art.shots` | `screenshots` | first three |
+
+Every one of those carries a `?t=` stamp that changes when the store page is
+updated, so a refreshed run picks up new art on its own.
+
 ### Keeping it fresh
 
 `scripts/refresh-stores.mjs` re-reads every game that has a store link and

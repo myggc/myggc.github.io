@@ -94,7 +94,12 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:clamp(24px,4vw,56px);align-items:center">
       <div style="position:relative;display:flex;align-items:center;justify-content:center;padding:10px">
         <div style="position:absolute;width:64%;aspect-ratio:1;border-radius:50%;background:{{ haloColor }};opacity:.12;filter:blur(30px);transition:background 1s ease"></div>
-        <svg viewBox="98 65 312 312" style="width:100%;max-width:420px;height:auto;display:block;position:relative">
+        <!-- The artwork is 312 units square about (254,221); rotating it puts the
+             arm tips out to a 235-unit radius, which the old 312-unit viewBox cut
+             off. The box is widened to hold the full sweep, and the negative
+             margin bleeds that extra room back out of the layout so the logo
+             still renders at exactly the width it did before. -->
+        <svg viewBox="19 -14 470 470" style="width:calc(100% + 50.6%);max-width:633px;margin:-25.3%;height:auto;display:block;position:relative;overflow:visible">
           <!-- New wrapper group for the rotation -->
           <g style="transform-origin: 254px 221px; transform: rotateZ({{ svgRot }}deg); transition: transform .55s ease">
             

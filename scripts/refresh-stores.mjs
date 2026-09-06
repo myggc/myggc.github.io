@@ -39,6 +39,29 @@ function meta(html, prop) {
 }
 const strip = (s) => String(s || "").replace(/<[^>]+>/g, "").trim();
 
+/* Only ever use URLs the store API itself returned.
+   The guessable path — cdn.*.steamstatic.com/steam/apps/<id>/capsule_616x353.jpg
+   — still resolves, but for Dumbriel it serves artwork the studio replaced long
+   ago. That staleness is at the origin, not the edge: the same bytes come back
+   with or without a cache-busting query, so it cannot be worked around. The
+   hashed store_item_assets URLs in the API response are the current art, and
+   they carry a ?t= stamp that changes whenever the store page is updated.
+
+   header_image is 460x215 — exactly the aspect the cards draw — so it serves as
+   the capsule. background_raw is the wide page art, which suits the detail
+   banner. Portrait is left empty: Steam does not return one, and a guessed
+   library_600x900.jpg has the same staleness problem.
+   Mirrors steamArt() in assets/js/ggc-core.js — keep the two in step. */
+function steamArt(d) {
+  const header = d.header_image || '';
+  return {
+    capsule: header,
+    hero: d.background_raw || header,
+    portrait: '',
+    shots: (d.screenshots || []).slice(0, 3).map((s) => s.path_thumbnail || s.path_full).filter(Boolean)
+  };
+}
+
 /* Mirrors GGC.stores.steamFromJson in assets/js/ggc-core.js — keep in step. */
 async function readSteam(appid, url) {
   const json = await get(`https://store.steampowered.com/api/appdetails?appids=${appid}&l=english&cc=us`, true);
@@ -48,7 +71,6 @@ async function readSteam(appid, url) {
   const rel = d.release_date || {};
   const date = rel.date || "";
   const year = Number(/(\d{4})/.exec(date)?.[1]) || 0;
-  const cdn = `https://cdn.cloudflare.steamstatic.com/steam/apps/${appid}/`;
   return {
     name: d.name || "",
     about: strip(d.short_description),
@@ -58,12 +80,7 @@ async function readSteam(appid, url) {
     year,
     price: d.is_free ? "უფასო" : (d.price_overview?.final_formatted || ""),
     langs: strip(d.supported_languages).replace(/\*/g, "").trim(),
-    art: {
-      capsule: `${cdn}capsule_616x353.jpg`,
-      hero: d.header_image || `${cdn}header.jpg`,
-      portrait: `${cdn}library_600x900.jpg`,
-      shots: (d.screenshots || []).slice(0, 3).map((s) => s.path_thumbnail || s.path_full).filter(Boolean)
-    },
+    art: steamArt(d),
     platforms: ["Steam"],
     mobile: false,
     source: "steam"
