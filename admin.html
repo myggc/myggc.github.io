@@ -293,6 +293,12 @@
             <a href="{{ actionsUrl }}" target="_blank" rel="noopener" style="border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 16px;font-size:14px;font-weight:600">ავტომატური სინქი (Actions) ↗</a>
             <a href="{{ issuesUrl }}" target="_blank" rel="noopener" style="border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 16px;font-size:14px;font-weight:600">შემოსული მოთხოვნები ↗</a>
             <button type="button" onClick="{{ syncAll }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:10px;padding:11px 16px;font-family:inherit;font-size:14px;font-weight:600">{{ syncAllLabel }}</button>
+            <button type="button" onClick="{{ testEndpoint }}" style="border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 16px;font-family:inherit;font-size:14px;font-weight:600">{{ testEndpointLabel }}</button>
+          </div>
+          <div style="display:{{ endpointWarnShow }};margin-top:16px;background:#2a1f1f;border:1px solid #4a3232;border-radius:12px;padding:16px">
+            <div style="font-size:15px;font-weight:600;color:#f0a8a8">ფორმა ვერაფერს გამოგზავნის</div>
+            <p style="margin:10px 0 0;font-size:14px;line-height:1.65;color:#c6ccd3">GitHub Pages-ზე განთავსებულ გვერდს თავისით ვერ შეუქმნია issue — საჭიროა პატარა მიმღები, რომელიც ტოკენს ინახავს. <b style="color:#fff">worker/apps-script.gs</b> ბრაუზერიდან იშლება ~3 წუთში, ინსტალაციის გარეშე. მერე მისი URL ჩაწერე <b style="color:#fff">assets/js/ggc-core.js</b>-ში, <b style="color:#fff">submitEndpoint</b>-ად.</p>
+            <a href="{{ workerDocUrl }}" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;font-size:14px">ინსტრუქცია ↗</a>
           </div>
         </div>
       </sc-if>
@@ -335,7 +341,7 @@ class Component extends DCLogic {
     tab: "queue", open: null, q: "", sort: "", edit: null, editKind: "company",
     queue: [], decisions: {}, companies: [], games: [], dirty: 0,
     status: "", statusColor: "#8b949c", publishing: false, syncing: "",
-    pending: null, uploading: false, asking: 0
+    pending: null, uploading: false, asking: 0, testing: false, endpointOk: ""
   };
 
   componentDidMount() {
@@ -671,6 +677,30 @@ class Component extends DCLogic {
       .catch(e => {
         this.setState({ uploading: false });
         this.say("ატვირთვა ვერ მოხერხდა: " + e.message, "#f0a8a8");
+      });
+  }
+
+  /* Sends a deliberately invalid payload: a correctly wired relay answers with
+     a validation error, which proves it is reachable without opening a junk
+     issue. Anything else means the form cannot deliver. */
+  testEndpoint() {
+    if (!C.submitEndpoint) return this.say("submitEndpoint ცარიელია — იხილე worker/README.md", "#f0a8a8");
+    this.setState({ testing: true });
+    fetch(C.submitEndpoint, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ action: "ping", subject: "" })
+    })
+      .then(r => r.text().then(t => ({ status: r.status, body: t })))
+      .then(res => {
+        const reachable = res.status < 500;
+        this.setState({ testing: false, endpointOk: reachable ? "მუშაობს" : "პასუხობს შეცდომით" });
+        this.say(reachable ? "მიმღები პასუხობს — ფორმა მუშაობს" : "მიმღები შეცდომას აბრუნებს: " + res.body.slice(0, 120),
+          reachable ? "#9ede9e" : "#f0a8a8");
+      })
+      .catch(e => {
+        this.setState({ testing: false, endpointOk: "მიუწვდომელია" });
+        this.say("მიმღებამდე ვერ მივედით: " + e.message, "#f0a8a8");
       });
   }
 
@@ -1041,6 +1071,10 @@ class Component extends DCLogic {
       syncNow: () => { if (cur && s.editKind === "game") this.syncGame(cur); },
       syncAll: () => this.syncAll(),
       syncAllLabel: s.syncing === "all" ? "იკითხება…" : "ყველა თამაშის განახლება",
+      endpointWarnShow: C.submitEndpoint ? "none" : "block",
+      workerDocUrl: "https://github.com/" + C.owner + "/" + C.repo + "/blob/" + C.branch + "/worker/README.md",
+      testEndpoint: () => this.testEndpoint(),
+      testEndpointLabel: s.testing ? "მოწმდება…" : "მიმღების შემოწმება",
 
       settings: [
         { k: "რეპოზიტორია", v: C.owner + "/" + C.repo },
@@ -1049,7 +1083,7 @@ class Component extends DCLogic {
         { k: "კომპანია / გუნდი / სოლო", v: s.companies.filter(c => c.kind === "company").length + " / " + s.companies.filter(c => c.kind === "team").length + " / " + s.companies.filter(c => c.kind === "solo").length },
         { k: "თამაში", v: String(s.games.length) },
         { k: "შენახვის მოლოდინში", v: String(s.dirty) },
-        { k: "მოთხოვნის მიღება", v: C.submitEndpoint ? "endpoint + GitHub issue" : "GitHub issue" },
+        { k: "ფორმის მიმღები", v: C.submitEndpoint ? (s.endpointOk || "კონფიგურირებულია") : "არ არის — ფორმა ვერაფერს გამოგზავნის" },
         { k: "ბოლო განახლება", v: U.fmtDate((D.raw().games || {}).updated || "") }
       ]
     }, this.editor());

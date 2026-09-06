@@ -249,18 +249,11 @@
       </div>
       <h2 style="margin:18px 0 0;font-size:clamp(24px,3.4vw,34px);font-weight:700;letter-spacing:-.02em">{{ sentTitle }}</h2>
       <p style="margin:14px auto 0;max-width:46ch;font-size:17px;line-height:1.6;color:#41464c">{{ sentText }}</p>
-      <div style="display:{{ manualShow }};max-width:520px;margin:22px auto 0;text-align:left;background:#f7f9f9;border:1px solid #dfe3e4;border-radius:16px;padding:18px">
-        <div style="font-size:15px;font-weight:600;color:#16181b">დაასრულე გაგზავნა</div>
-        <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#41464c">{{ manualText }}</p>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
-          <a href="{{ telegramHref }}" target="_blank" rel="noopener" style="background:#229ED9;color:#fff;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:600">Telegram-ზე გახსნა ↗</a>
-          <button type="button" onClick="{{ copyJson }}" style="border:1px solid #dfe3e4;cursor:pointer;background:#fff;color:#41464c;border-radius:10px;padding:12px 18px;font-family:inherit;font-size:15px;font-weight:600">{{ copyLabel }}</button>
-        </div>
-        <div style="margin-top:14px;padding-top:14px;border-top:1px solid #e6eaeb">
-          <a href="{{ issueHref }}" target="_blank" rel="noopener" style="font-size:14px;color:#5a5f65">GitHub-ის ანგარიში თუ გაქვს, პირდაპირ იქ გააგზავნე ↗</a>
-        </div>
+      <div style="display:{{ failShow }};max-width:520px;margin:22px auto 0;background:#fdf2f2;border:1px solid #f3d4d4;border-radius:16px;padding:18px">
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#8c2f2f">გაგზავნა ვერ მოხერხდა — შენი მონაცემები არსად დაკარგულა, უბრალოდ სცადე ხელახლა.</p>
+        <button type="button" onClick="{{ retry }}" style="margin-top:14px;border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:10px;padding:12px 20px;font-family:inherit;font-size:15px;font-weight:600">{{ retryLabel }}</button>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px">
+      <div style="display:{{ doneShow }};flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px">
         <a href="companies.html" style="background:#16181b;color:#fff;border-radius:11px;padding:14px 22px;font-size:16px;font-weight:600">კატალოგში დაბრუნება</a>
         <button type="button" onClick="{{ restart }}" style="border:1px solid #dfe3e4;cursor:pointer;background:#fff;color:#41464c;border-radius:11px;padding:14px 22px;font-family:inherit;font-size:16px;font-weight:600">კიდევ ერთის დამატება</button>
       </div>
@@ -335,8 +328,8 @@ const DRAFT = "ggc.submit.draft";
 class Component extends DCLogic {
   state = {
     ready: false, step: 0, mode: "", lookup: "", picked: null, store: "", storeUrl: "",
-    parsing: false, parsed: null, parseErr: "", sent: false, f: {}, saved: false,
-    kind: "company", roles: [], result: null, copied: false
+    parsing: false, parsed: null, parseErr: "", sent: false, sending: false, f: {}, saved: false,
+    kind: "company", roles: [], result: null
   };
 
   componentDidMount() {
@@ -468,26 +461,15 @@ class Component extends DCLogic {
     return out;
   }
 
+  /* The draft is only cleared once the submission is actually accepted, so a
+     failed send leaves everything the visitor typed exactly where it was. */
   send() {
     const p = this.payload();
-    this.setState({ sent: true, result: null, copied: false });
-    try { localStorage.removeItem(DRAFT); } catch (e) {}
+    this.setState({ sent: true, result: null, sending: true });
     GGC.submit.deliver(p).then(r => {
-      this.setState({ result: r });
-      // Nothing to finish by hand when the endpoint took it; when there is,
-      // put the payload on the clipboard right away — the send click still
-      // counts as the gesture the clipboard API wants.
-      if (r.via === "manual") this.copy(true);
+      this.setState({ result: r, sending: false });
+      if (r.ok) { try { localStorage.removeItem(DRAFT); } catch (e) {} }
     });
-  }
-
-  copy(silent) {
-    const r = this.state.result;
-    if (!r || !r.json || !navigator.clipboard) return;
-    navigator.clipboard.writeText(r.json).then(() => {
-      this.setState({ copied: true });
-      if (!silent) setTimeout(() => this.setState({ copied: false }), 2500);
-    }, () => {});
   }
 
   renderVals() {
@@ -618,22 +600,21 @@ class Component extends DCLogic {
       kBg2: s.kind === "solo" ? "#fdb813" : "#fff", kFg2: s.kind === "solo" ? "#16181b" : "#41464c", kBorder2: s.kind === "solo" ? "#fdb813" : "#dfe3e4",
 
       send: () => this.send(),
-      sentTitle: res && res.via === "manual" ? "თითქმის მზადაა" : "გაიგზავნა",
-      sentText: res && res.via === "manual"
-        ? "ფორმა შევსებულია. დარჩა ერთი ღილაკი — აირჩიე, როგორ მოგვაწოდო, და ჩვენ გადავამოწმებთ."
-        : "მონაცემები გადაეგზავნა GGC-ის ადმინისტრაციას და გადამოწმდება. როგორც კი დავადასტურებთ, საიტზე გამოჩნდება.",
-      manualShow: res && res.via === "manual" ? "block" : "none",
-      manualText: s.copied
-        ? "შევსებული მონაცემები დაკოპირდა. გახსენი Telegram და ჩასვი მესიჯში — მეტი არაფერია საჭირო."
-        : "დააკოპირე შევსებული მონაცემები და გამოგვიგზავნე Telegram-ზე.",
-      issueHref: res && res.url ? res.url : GGC.config.issueNew,
-      telegramHref: GGC.config.telegram,
-      copyJson: () => this.copy(),
-      copyLabel: s.copied ? "დაკოპირდა ✔" : "მონაცემების კოპირება",
+      sentTitle: s.sending ? "იგზავნება…" : (res && res.ok ? "გაიგზავნა" : "ვერ გაიგზავნა"),
+      sentText: s.sending
+        ? "ერთი წამი."
+        : res && res.ok
+          ? "მონაცემები გადაეგზავნა GGC-ის ადმინისტრაციას და გადამოწმდება. როგორც კი დავადასტურებთ, საიტზე გამოჩნდება."
+          : "სერვერამდე ვერ მივიდა.",
+      failShow: !s.sending && res && !res.ok ? "block" : "none",
+      doneShow: !s.sending && res && res.ok ? "flex" : "none",
+      retry: () => this.send(),
+      retryLabel: s.sending ? "იგზავნება…" : "ხელახლა გაგზავნა",
 
       restart: () => this.setState({
         step: 0, mode: "", lookup: "", picked: null, store: "", storeUrl: "",
-        parsed: null, parseErr: "", sent: false, f: {}, kind: "company", roles: [], result: null
+        parsed: null, parseErr: "", sent: false, f: {}, kind: "company", roles: [],
+        result: null, sending: false
       })
     };
   }

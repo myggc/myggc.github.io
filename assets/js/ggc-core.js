@@ -562,24 +562,37 @@
      request, so the browser sends no preflight, which is what lets a Google
      Apps Script web app work as the endpoint without any extra plumbing. Both
      recipes in worker/ read the raw body, so the header costs nothing. */
+  /* Send means sent. Pressing the button is the last thing the visitor does —
+     there is no "now finish it yourself" step, because asking someone to relay
+     our own form is not a submission flow.
+
+     That means config.submitEndpoint has to be set; a page served from GitHub
+     Pages cannot create an issue on its own without a secret to sign it. If it
+     is missing or the POST fails, that is our fault, not the visitor's: report
+     the failure so the form can offer a retry, and say plainly in the console
+     what the site owner needs to do. See worker/README.md. */
   function deliver(p) {
     p.submittedAt = new Date().toISOString();
-    var manual = function (reason) {
-      return { via: "manual", url: issueUrl(p), json: JSON.stringify(p, null, 2), reason: reason || "" };
-    };
-    if (!config.submitEndpoint) return Promise.resolve(manual("no-endpoint"));
+    if (!config.submitEndpoint) {
+      console.error(
+        "GGC: config.submitEndpoint is empty, so submissions cannot be delivered.\n" +
+        "Deploy worker/apps-script.gs (about 3 minutes, browser only) or\n" +
+        "worker/submit-worker.js, then put its URL in assets/js/ggc-core.js."
+      );
+      return Promise.resolve({ ok: false, error: "endpoint-missing" });
+    }
     return fetch(config.submitEndpoint, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(p)
     }).then(function (r) {
-      if (!r.ok) throw new Error("endpoint " + r.status);
+      if (!r.ok) throw new Error("HTTP " + r.status);
       return r.json().catch(function () { return {}; });
     }).then(function (j) {
       if (j && j.error) throw new Error(j.error);
-      return { via: "endpoint", url: (j && j.url) || "" };
+      return { ok: true, url: (j && j.url) || "" };
     }).catch(function (e) {
-      return manual(e && e.message ? e.message : "endpoint unreachable");
+      return { ok: false, error: (e && e.message) || "unreachable" };
     });
   }
 
