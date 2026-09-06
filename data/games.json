@@ -31,14 +31,9 @@
         "steam": "https://store.steampowered.com/app/2500690/Dumbriel_Magnificent_Adventure_in_Hell/"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/0d9eb4d1ea21411876857b6883cce6db80fc5d2f/header.jpg?t=1788358384",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/36d50647c47d383fd2b19dc0146b20f0eee236d3/page_bg_raw.jpg?t=1788358384",
-        "portrait": "",
-        "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/7e5061910bb165e86a701b9ec26dcca9273b10fb/ss_7e5061910bb165e86a701b9ec26dcca9273b10fb.600x338.jpg?t=1788358384",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/8578e5e3aa1cab045d7610487f153a7cd5ef676b/ss_8578e5e3aa1cab045d7610487f153a7cd5ef676b.600x338.jpg?t=1788358384",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/adb2bf5b033bb6d5ab9941e67ee2e17017cb74cb/ss_adb2bf5b033bb6d5ab9941e67ee2e17017cb74cb.600x338.jpg?t=1788358384"
-        ]
+        "capsule": "https://cdn.cloudflare.steamstatic.com/steam/apps/2500690/capsule_616x353.jpg",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/0d9eb4d1ea21411876857b6883cce6db80fc5d2f/header.jpg?t=1788358384",
+        "portrait": "https://cdn.cloudflare.steamstatic.com/steam/apps/2500690/library_600x900.jpg"
       },
       "localArt": "",
       "source": "steam",
