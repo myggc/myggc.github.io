@@ -89,6 +89,92 @@
       "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "gatekeeper-simulator-inner-circle",
+      "name": "Gatekeeper Simulator: Inner Circle",
+      "studioId": "შპს-რევოლტ-ენთერთეინმენთი",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jun 23, 2026",
+      "year": 2026,
+      "mobile": false,
+      "genres": [
+        "simulation",
+        "strategy"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$4.99",
+      "langs": "Englishlanguages with full audio support",
+      "about": "You guard the gate of a secret society. Every visitor lies, some better than others. Inspect, decide, and live with the consequences of who you let inside.",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/4487100/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4487100/a92a4437769376cf7429816d0bbec4ee5df500e7/header.jpg?t=1782219525",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/4487100?t=1782219525",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4487100/addf27476e547dc0b18278736b9ed6badbecbf67/ss_addf27476e547dc0b18278736b9ed6badbecbf67.600x338.jpg?t=1782219525",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4487100/d0653ab4edece8face9a1a0643a30a19b608b2ae/ss_d0653ab4edece8face9a1a0643a30a19b608b2ae.600x338.jpg?t=1782219525",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4487100/f5738f43af1388363a11e97d54077b9213976d0a/ss_f5738f43af1388363a11e97d54077b9213976d0a.600x338.jpg?t=1782219525"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-09-06T21:12:47.364Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "the-seven-enchantments",
+      "name": "The Seven Enchantments",
+      "studioId": "შპს-რევოლტ-ენთერთეინმენთი",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Dec 6, 2025",
+      "year": 2025,
+      "mobile": false,
+      "genres": [
+        "adventure",
+        "indie"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$9.99",
+      "langs": "English, Russian, Georgianlanguages with full audio support",
+      "about": "A first-person folk horror story about a scammer exorcist priest trapped in a cursed 19th-century village. Investigate the seven deadly sins by day and survive the forest spirits that hunt you at night.",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/3612720/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3612720/8ade67ee3b4ee8922569c5edcd97226aa105a5c6/header.jpg?t=1765543362",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3612720/0e39a11339fac0abb03a1b1415fa794337822333/page_bg_raw.jpg?t=1765543362",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3612720/4a6bfd278cfd83de87c790e33d3e9698d618ee63/ss_4a6bfd278cfd83de87c790e33d3e9698d618ee63.600x338.jpg?t=1765543362",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3612720/9da30f2b3215a00612e688a6db5b265a45b9d66d/ss_9da30f2b3215a00612e688a6db5b265a45b9d66d.600x338.jpg?t=1765543362",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3612720/b6054347c32e6f90129691df7a60ee448ae7a639/ss_b6054347c32e6f90129691df7a60ee448ae7a639.600x338.jpg?t=1765543362"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-09-06T21:12:47.364Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
     }
   ]
 }

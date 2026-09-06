@@ -7,7 +7,7 @@
       "id": "madmoa",
       "kind": "company",
       "name": "MadMoa",
-      "legal": "MadMoa LLC",
+      "legal": "შპს მედმოა",
       "regId": "404123456",
       "city": "თბილისი",
       "founded": 2019,
@@ -58,6 +58,33 @@
         "discord": "https://discord.gg/bKMjgUx2yT",
         "tiktok": "https://www.tiktok.com/@besosshaurma",
         "steam": "https://store.steampowered.com/curator/45881856"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
+    },
+    {
+      "id": "შპს-რევოლტ-ენთერთეინმენთი",
+      "kind": "company",
+      "name": "Revolt Entertainment",
+      "legal": "შპს რევოლტ ენთერთეინმენთი",
+      "regId": "400276795",
+      "city": "თბილისი",
+      "founded": 2019,
+      "size": "1-2",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://reventstudios.com/",
+      "email": "...",
+      "about": "ინდი სტუდია",
+      "aboutEn": "Indie Studio",
+      "logo": "https://avatars.fastly.steamstatic.com/c49ebc219d52110fde0ac2c4b7e684143928f645_full.jpg",
+      "links": {
+        "facebook": "https://www.facebook.com/RevoltEntertainment/",
+        "steam": "https://store.steampowered.com/curator/45820461"
       },
       "verified": true,
       "active": true,
