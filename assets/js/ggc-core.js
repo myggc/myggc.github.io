@@ -276,10 +276,13 @@
       updated: g.updated || ""
     };
     out.year = yearOf(out);
-    // A title sold only on phone stores uses portrait art; the rest use a capsule.
-    out.mobile = out.mobile || (plats.length > 0 && plats.every(function (p) {
-      return p === "App Store" || p === "Google Play";
-    }));
+    /* Derived from the platforms rather than stored: a title on the App Store
+       and on Steam is not a phone title, and asking someone to keep a separate
+       switch in agreement with the platform list only creates disagreements.
+       "mobile" here means "shows portrait art", which is true only when every
+       platform it ships on is a phone store. */
+    var PHONE = { "App Store": 1, "Google Play": 1 };
+    out.mobile = plats.length > 0 && plats.every(function (p) { return PHONE[p]; });
     return out;
   }
 
@@ -541,10 +544,32 @@
          HTML we can fetch lists only part of it — MadMoa's showed one of two
          games. The store search for the same name returns the whole set in
          plain markup, so ask that first and keep the original as a fallback. */
-      var role = m[1].toLowerCase() === "developer" ? "developer" : "publisher";
-      var search = "https://store.steampowered.com/search/?" + role + "=" +
-        encodeURIComponent(decodeURIComponent(m[2]).replace(/[-_]+/g, " "));
-      return { kind: "steam", id: m[2], url: u, listUrls: [search, u] };
+      /* A studio is usually both the developer and the publisher of its titles,
+         but the store indexes those separately and each list can be partial —
+         MadMoa's developer search returned only the demo while the publisher
+         search had both games. Ask all three and merge. */
+      /* Three quirks, each of which alone loses titles:
+         - the studio page renders its catalogue in JavaScript and exposes only
+           part of it (MadMoa's showed the demo and not the game);
+         - store search applies the visitor's content preferences by default,
+           which hide unreleased titles — "&ndl=1" turns that off, and without
+           it an upcoming game is simply missing;
+         - publisher= and developer= match the name case-sensitively, so a
+           lowercase URL slug finds nothing, while term= does not care.
+         So: free-text search for the slug, both exact-role searches in case the
+         slug happens to be correctly cased, and the page itself. Merged. */
+      var slug = decodeURIComponent(m[2]);
+      var pretty = encodeURIComponent(slug.replace(/[-_]+/g, " "));
+      var q = "&ndl=1&ignore_preferences=1";
+      return {
+        kind: "steam", id: slug, url: u,
+        listUrls: [
+          "https://store.steampowered.com/search/?term=" + encodeURIComponent(slug) + q,
+          "https://store.steampowered.com/search/?publisher=" + pretty + q,
+          "https://store.steampowered.com/search/?developer=" + pretty + q,
+          u
+        ]
+      };
     }
     if (/store\.steampowered\.com\/search\/?\?.*(publisher|developer)=/i.test(u)) {
       return { kind: "steam", id: "", url: u, listUrls: [u] };
@@ -649,19 +674,31 @@
     if (!d) return Promise.reject(new Error("ეს სტუდიის გვერდი არ არის"));
     var candidates = d.listUrls || [d.url];
     var profile = null;
-    // Try each listing source in turn; the first that yields titles wins.
-    return candidates.reduce(function (chain, listUrl) {
-      return chain.catch(function () {
-        return fetchVia(listUrl, function (html) {
-          var found = studioGameUrls(html, d.kind);
-          if (!found.length) throw new Error("ამ გვერდზე თამაშები ვერ ვიპოვეთ");
-          // A search-results page is the storefront's own chrome, not the
-          // studio's page — only the studio's own page describes the studio.
-          if (!/\/search\/?\?/i.test(listUrl)) profile = studioProfile(html);
-          return found;
+    /* Every listing source is asked, and their results merged — one of them
+       being partial should not decide the whole import. They are independent,
+       so they run together and cost the slowest rather than the sum. */
+    return Promise.all(candidates.map(function (listUrl) {
+      return fetchVia(listUrl, function (html) {
+        var found = studioGameUrls(html, d.kind);
+        // A search-results page is the storefront's own chrome, not the
+        // studio's page — only the studio's own page describes the studio.
+        if (!profile && found.length && !/\/search\/?\?/i.test(listUrl)) {
+          profile = studioProfile(html);
+        }
+        return found;
+      }).catch(function () { return []; });
+    })).then(function (lists) {
+      var seen = {}, urls = [];
+      lists.forEach(function (l) {
+        l.forEach(function (u) {
+          if (seen[u]) return;
+          seen[u] = 1;
+          urls.push(u);
         });
       });
-    }, Promise.reject(new Error("start"))).then(function (urls) {
+      if (!urls.length) throw new Error("ამ გვერდზე თამაშები ვერ ვიპოვეთ");
+      return urls;
+    }).then(function (urls) {
       var out = [], done = 0;
       var list = urls.slice(0, 40);
       /* Read several titles at once. One at a time made the import cost the sum
@@ -684,11 +721,32 @@
       return Promise.all(lanes).then(function () {
         // A studio page also lists demos, soundtracks and DLC. Those are not
         // catalogue entries — importing them would file "… Demo" as its own game.
+        /* A free-text search can surface titles by other studios, so keep only
+           those the store itself credits to this one. Compared with everything
+           but letters and digits stripped, since "team-cherry" in a URL is
+           "Team Cherry" on the page. */
+        var want = String(d.id || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+        var byThisStudio = function (g) {
+          if (!want) return true;
+          var credits = (g.developers || []).concat(g.publishers || []).join(" ")
+            .toLowerCase().replace(/[^a-z0-9]/g, "");
+          // No credits at all means a non-Steam source, which was not searched.
+          return !credits || credits.indexOf(want) >= 0;
+        };
         var games = out.filter(function (g) {
           if (g.type && g.type !== "game") return false;
+          if (!byThisStudio(g)) return false;
           return !/\bdemo\b|\bplaytest\b|soundtrack|\bost\b/i.test(g.name || "");
         });
-        if (!games.length) throw new Error("თამაშები ვერ წაიკითხა");
+        /* Say which of the three things happened, because they need different
+           responses: nothing readable, only demos, or a partial read where one
+           title's request failed and retrying will pick it up. */
+        if (!games.length) {
+          if (!out.length) {
+            throw new Error("გვერდზე " + list.length + " თამაში მოიძებნა, მაგრამ ვერცერთი ვერ წაიკითხა — სცადე ხელახლა.");
+          }
+          throw new Error("მხოლოდ დემო/DLC მოიძებნა — სრული თამაშები ამ გვერდზე არ არის.");
+        }
         return { source: d.kind, found: list.length, skipped: out.length - games.length, games: games, profile: profile };
       });
     });

@@ -177,6 +177,18 @@
               <button type="button" onClick="{{ deleteEntry }}" style="flex:none;border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px">წაშლა</button>
               <button type="button" onClick="{{ closeEditor }}" style="flex:none;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px">დახურვა</button>
             </div>
+            <div style="display:{{ prefillShow }};margin-top:16px;background:#14293a;border:1px solid #1d4a68;border-radius:12px;padding:16px">
+              <div style="font-size:15px;font-weight:600;color:#8ccbe9">დაიწყე მაღაზიის გვერდით</div>
+              <p style="margin:8px 0 0;font-size:14px;line-height:1.6;color:#c6ccd3">ჩასვი სტუდიის Steam-ის (სასურველია), itch.io-ს, App Store-ის ან Google Play-ის გვერდი — სახელს, საიტს, სოციალურ ქსელებს და ყველა თამაშს ჩვენ შევავსებთ. დანარჩენს მერე შეავსებ.</p>
+              <input type="url" value="{{ studioUrl }}" onInput="{{ onStudioUrl }}" placeholder="https://store.steampowered.com/developer/…" style="width:100%;margin-top:12px;border:1px solid #1d4a68;border-radius:9px;padding:11px 13px;font-family:inherit;font-size:14px;background:#0f1c26;color:#e9ecee">
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center">
+                <button type="button" onClick="{{ importStudio }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:10px 16px;font-family:inherit;font-size:14px;font-weight:600">{{ importLabel }}</button>
+                <span style="display:{{ importMsgShow }};flex:1 1 140px;min-width:0;font-size:13px;line-height:1.5;color:{{ importMsgColor }}">{{ importMsg }}</span>
+              </div>
+            </div>
+
+            <div style="display:{{ requiredShow }};margin-top:14px;background:#3a2f14;border:1px solid #5c4a1e;border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.6;color:#f4cd77">{{ requiredMsg }}</div>
+
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:14px;margin-top:18px">
               <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
                 <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">{{ editSectionLabel }}</div>
@@ -192,7 +204,7 @@
                   </sc-for>
                   <sc-for list="{{ editFields }}" as="f" hint-placeholder-count="5">
                     <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8b949c">{{ f.k }}
-                      <input type="text" value="{{ f.v }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-size:14px;background:#1d2126;color:#e9ecee">
+                      <input type="{{ f.type }}" value="{{ f.v }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="border:1px solid {{ f.border }};border-radius:9px;padding:10px 12px;font-size:14px;background:#1d2126;color:#e9ecee">
                     </label>
                   </sc-for>
                   <sc-for list="{{ editAreas }}" as="f" hint-placeholder-count="1">
@@ -250,6 +262,18 @@
                   <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">{{ linkBoxTitle }}</div>
                   <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
                     <sc-for list="{{ editLinks }}" as="f" hint-placeholder-count="4">
+                      <label style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px;color:#8b949c">
+                        <span style="flex:0 0 92px">{{ f.k }}</span>
+                        <input type="text" value="{{ f.v }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="flex:1 1 140px;min-width:0;border:1px solid #333941;border-radius:9px;padding:9px 12px;font-size:14px;background:#1d2126;color:#e9ecee">
+                      </label>
+                    </sc-for>
+                  </div>
+                </div>
+
+                <div style="display:{{ storeBoxShow }};background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
+                  <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">მაღაზიები</div>
+                  <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+                    <sc-for list="{{ storeLinks }}" as="f" hint-placeholder-count="4">
                       <label style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px;color:#8b949c">
                         <span style="flex:0 0 92px">{{ f.k }}</span>
                         <input type="text" value="{{ f.v }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="flex:1 1 140px;min-width:0;border:1px solid #333941;border-radius:9px;padding:9px 12px;font-size:14px;background:#1d2126;color:#e9ecee">
@@ -441,7 +465,12 @@ const ROLES = ["developer", "publisher", "art", "audio", "porting", "outsourcing
 const SIZES = ["1-2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-250", "251+"];
 const CITIES = ["თბილისი", "ბათუმი", "ქუთაისი", "რუსთავი", "გორი", "ზუგდიდი", "ფოთი", "თელავი", "ახალციხე", "ოზურგეთი", "სხვა", "საზღვარგარეთ"];
 const PLATFORMS = ["Steam", "itch.io", "App Store", "Google Play", "Switch", "Xbox", "PlayStation", "Epic Games"];
-const SOCIALS = ["telegram", "facebook", "instagram", "linkedin", "youtube", "x", "steam", "itch", "discord", "tiktok"];
+const SOCIALS = ["telegram", "facebook", "instagram", "linkedin", "youtube", "x", "discord", "tiktok", "twitch"];
+const SOCIAL_PH = { telegram: "@ggcgeorgia", facebook: "facebook.com/ggc", instagram: "instagram.com/ggc", linkedin: "linkedin.com/company/ggc", youtube: "youtube.com/@ggc", x: "x.com/ggc", discord: "discord.gg/…", tiktok: "tiktok.com/@ggc", twitch: "twitch.tv/ggc" };
+/* The studio's own shop pages — a storefront is not a social account. */
+const CO_STORES = ["steam", "itch", "appstore", "googleplay"];
+const FIELD_LABEL = { kind: "ტიპი", city: "ქალაქი", size: "გუნდის ზომა", legal: "ოფიციალური სახელი", regId: "საიდენტიფიკაციო ნომერი", name: "საჯარო სახელი", founded: "დაფუძნების თარიღი", email: "ელფოსტა", about: "აღწერა" };
+const CO_STORE_PH = { steam: "store.steampowered.com/developer/…", itch: "studio.itch.io", appstore: "apps.apple.com/developer/…", googleplay: "play.google.com/store/apps/dev?id=…" };
 const STORE_KEYS = ["steam", "itch", "appstore", "googleplay", "switch", "xbox", "playstation", "epic"];
 
 const CO_LABELS = {
@@ -461,7 +490,7 @@ class Component extends DCLogic {
   state = {
     ready: false, authed: false, browse: false, user: "", tokenInput: "", authErr: "", signing: false,
     tab: "queue", open: null, q: "", sort: "", edit: null, editKind: "company",
-    queue: [], decisions: {}, companies: [], games: [], touched: {},
+    queue: [], decisions: {}, companies: [], games: [],
     status: "", statusColor: "#8b949c", publishing: false, syncing: "",
     pending: null, uploading: false, asking: 0, busy: 0, testing: false, endpointOk: "",
     gameEdit: null,
@@ -489,10 +518,49 @@ class Component extends DCLogic {
     }
   }
 
-  /* How many records are waiting, not how many edits were made. Counting
-     operations meant one company took six keystrokes to read as "6 pending". */
-  dirtyCount() { return Object.keys(this.state.touched || {}).length; }
-  isTouched(kind, id) { return !!(this.state.touched || {})[kind + ":" + id]; }
+  /* What actually differs from what is published — not what was typed on. A
+     flag set per edit counted an operation, so one company read as "6 pending"
+     after six keystrokes, and toggling a role off again still counted. This
+     compares the working copy against the published record, so undoing a change
+     genuinely clears it. `updated` is ignored: it moves on every keystroke and
+     is bookkeeping, not content. */
+  stable(o) {
+    const clean = {};
+    Object.keys(o).sort().forEach(k => {
+      if (k === "updated") return;
+      const v = o[k];
+      if (v === "" || v === null || v === undefined) return;
+      if (Array.isArray(v)) { if (v.length) clean[k] = v.slice().sort(); return; }
+      if (v && typeof v === "object") {
+        const inner = {};
+        Object.keys(v).sort().forEach(kk => { if (v[kk]) inner[kk] = v[kk]; });
+        if (Object.keys(inner).length) clean[k] = inner;
+        return;
+      }
+      clean[k] = v;
+    });
+    return JSON.stringify(clean);
+  }
+
+  dirtyKeys() {
+    const pub = {};
+    D.companies().forEach(c => { pub["c:" + c.id] = c; });
+    D.games().forEach(g => { pub["g:" + g.id] = g; });
+    const now = {};
+    this.state.companies.forEach(c => { now["c:" + c.id] = c; });
+    this.state.games.forEach(g => { now["g:" + g.id] = g; });
+    const keys = {};
+    Object.keys(pub).forEach(k => { keys[k] = 1; });
+    Object.keys(now).forEach(k => { keys[k] = 1; });
+    return Object.keys(keys).filter(k => {
+      const a = pub[k], b = now[k];
+      if (!a || !b) return true;
+      return this.stable(a) !== this.stable(b);
+    });
+  }
+
+  dirtyCount() { return this.dirtyKeys().length; }
+  isTouched(kind, id) { return this.dirtyKeys().indexOf(kind + ":" + id) >= 0; }
 
   loadQueue() {
     GH.listSubmissions()
@@ -596,7 +664,7 @@ class Component extends DCLogic {
         return {
           companies: next.companies,
           games: next.games,
-          touched: Object.assign({}, s.touched, { ["q:" + item.number]: 1 }),
+
           decisions: Object.assign({}, s.decisions, { [item.number]: "approved" })
         };
       } catch (e) {
@@ -665,7 +733,7 @@ class Component extends DCLogic {
       .then(() => D.load(true))
       .then(() => {
         this.setState({
-          publishing: false, touched: {}, decisions: {}, gameEdit: null,
+          publishing: false, decisions: {}, gameEdit: null,
           companies: U.clone(D.companies()), games: U.clone(D.games())
         });
         this.say("გამოქვეყნდა", "#9ede9e");
@@ -681,7 +749,7 @@ class Component extends DCLogic {
 
   patchCompany(id, patch) {
     this.setState(s => ({
-      touched: Object.assign({}, s.touched, { ["c:" + id]: 1 }),
+
       companies: s.companies.map(c => c.id === id ? Object.assign({}, c, patch, { updated: U.today() }) : c)
     }));
   }
@@ -714,7 +782,7 @@ class Component extends DCLogic {
 
   patchGame(id, patch) {
     this.setState(s => ({
-      touched: Object.assign({}, s.touched, { ["g:" + id]: 1 }),
+
       games: s.games.map(g => g.id === id ? Object.assign({}, g, patch, { updated: U.today() }) : g)
     }));
     if (patch.id !== undefined && patch.id !== id) {
@@ -750,7 +818,7 @@ class Component extends DCLogic {
         studioId: s.companies[0].id, status: "upcoming",
         created: now, updated: now, validated: now
       });
-      this.setState(st => ({ games: st.games.concat([g]), gameEdit: g.id, touched: Object.assign({}, st.touched, { ["g:" + g.id]: 1 }) }));
+      this.setState(st => ({ games: st.games.concat([g]), gameEdit: g.id  }));
     } else {
       const kind = KIND_OF_TAB[s.tab] || "company";
       const c = D.normCompany({
@@ -758,7 +826,7 @@ class Component extends DCLogic {
         name: "", legal: "", active: true,
         created: now, updated: now, validated: now
       });
-      this.setState(st => ({ companies: st.companies.concat([c]), edit: c.id, editKind: kind, touched: Object.assign({}, st.touched, { ["c:" + c.id]: 1 }) }));
+      this.setState(st => ({ companies: st.companies.concat([c]), edit: c.id, editKind: kind  }));
     }
   }
 
@@ -771,7 +839,7 @@ class Component extends DCLogic {
     this.setState(st => ({
       companies: st.companies.filter(c => c.id !== st.edit),
       edit: null,
-      touched: Object.assign({}, st.touched, { ["c:" + st.edit]: 1 })
+
     }));
   }
 
@@ -978,7 +1046,8 @@ class Component extends DCLogic {
       if (addedLinks) coPatch.links = links;
       if (Object.keys(coPatch).length) this.patchCompany(cur.id, coPatch);
 
-      const extra = (Object.keys(coPatch).length ? " + პროფილის " + (Object.keys(coPatch).length) + " ველი" : "");
+      const extra = (Object.keys(coPatch).length ? " + პროფილის " + (Object.keys(coPatch).length) + " ველი" : "") +
+        (res.skipped ? " (" + res.skipped + " დემო/DLC გამოტოვდა)" : "");
       if (!fresh.length) {
         return this.setState({
           importing: false,
@@ -1151,20 +1220,33 @@ class Component extends DCLogic {
   fieldKit(cur, patcher) {
     return {
       text: (key, label, ph) => ({
-        k: label, v: cur[key] == null ? "" : String(cur[key]), ph: ph || "",
+        k: label, type: "text", border: "#333941",
+        v: cur[key] == null ? "" : String(cur[key]), ph: ph || "",
         onInput: e => patcher({ [key]: e.target.value })
       }),
       /* Visible but not editable: bookkeeping the panel maintains, where typing
          over it could only ever make it wrong. */
       readOnly: (key, label) => ({
-        k: label, v: U.fmtDate(cur[key]) || "—", ph: "", onInput: () => {}
+        k: label, type: "text", border: "#2a2f35",
+        v: U.fmtDate(cur[key]) || "—", ph: "", onInput: () => {}
+      }),
+      /* A real date picker rather than a year box: "officially founded" is a
+         date, and typing four digits loses the month a registration actually
+         carries. A stored bare year still opens correctly. */
+      date: (key, label) => ({
+        k: label, type: "date", ph: "", border: "#333941",
+        v: /^\d{4}-\d{2}-\d{2}$/.test(String(cur[key] || "")) ? cur[key]
+          : (cur[key] ? String(cur[key]).slice(0, 4) + "-01-01" : ""),
+        onInput: e => patcher({ [key]: e.target.value })
       }),
       num: (key, label, ph) => ({
-        k: label, v: cur[key] ? String(cur[key]) : "", ph: ph || "",
+        k: label, type: "text", border: "#333941",
+        v: cur[key] ? String(cur[key]) : "", ph: ph || "",
         onInput: e => patcher({ [key]: Number(e.target.value) || 0 })
       }),
       csv: (key, label, ph) => ({
-        k: label, v: (cur[key] || []).join(", "), ph: ph || "",
+        k: label, type: "text", border: "#333941",
+        v: (cur[key] || []).join(", "), ph: ph || "",
         onInput: e => patcher({ [key]: e.target.value.split(",").map(x => x.trim()).filter(Boolean) })
       }),
       toggle: (key, label) => ({
@@ -1229,6 +1311,18 @@ class Component extends DCLogic {
     };
   }
 
+  /* What a studio record has to carry before it is worth publishing. Checked
+     rather than assumed, so a half-filled entry cannot reach the catalogue. */
+  missingFields(c) {
+    const need = ["kind", "city", "legal", "name", "founded", "email", "about"];
+    if (c.kind === "company") need.push("regId");
+    if (c.kind !== "solo") need.push("size");
+    return need.filter(key => {
+      const v = c[key];
+      return v === undefined || v === null || v === "" || v === 0;
+    });
+  }
+
   editor() {
     const s = this.state;
     const cur = this.current();
@@ -1247,8 +1341,19 @@ class Component extends DCLogic {
     const k = this.fieldKit(cur, p => this.patch(p));
     const img = this.imageKit(cur, false);
     const attached = s.games.filter(g => g.studioId === cur.id);
+    const missing = this.missingFields(cur);
+    // A required field that is still empty gets a red edge rather than only a
+    // message at the top, so it is obvious which one is meant.
+    const req = (f, key) => Object.assign(f, {
+      border: missing.indexOf(key) >= 0 ? "#7a3535" : "#333941"
+    });
 
     return {
+      // Prefilling is offered while the record is still essentially blank; once
+      // it has a name, the games box below is the place to import from.
+      prefillShow: !cur.legal && !cur.name ? "block" : "none",
+      requiredShow: missing.length ? "block" : "none",
+      requiredMsg: "შესავსებია: " + missing.map(x => FIELD_LABEL[x] || x).join(", "),
       editorOpen: true,
       editName: cur.legal || cur.name || "ჩანაწერი",
       editSectionLabel: "იდენტიფიკაცია",
@@ -1272,24 +1377,34 @@ class Component extends DCLogic {
       // developer has no team size — showing those invites data that means
       // nothing for that kind of entry.
       editFields: [
-        k.text("legal", cur.kind === "company" ? "ოფიციალური სახელი" : "სრული სახელი", "MadMoa LLC"),
-        cur.kind === "company" ? k.text("regId", "საიდენტიფიკაციო ნომერი", "404123456") : null,
-        k.text("name", "საჯარო სახელი", ""),
-        k.text("id", "ID", ""),
-        k.num("founded", cur.kind === "solo" ? "საქმიანობის დაწყება" : "დაფუძნება", "2019"),
+        req(k.text("legal", cur.kind === "company" ? "ოფიციალური სახელი *" : "სრული სახელი *",
+          cur.kind === "company" ? "მაგ. GGC LLC" : "მაგ. სახელი გვარი"), "legal"),
+        cur.kind === "company" ? req(k.text("regId", "საიდენტიფიკაციო ნომერი *", "მაგ. 404123456"), "regId") : null,
+        req(k.text("name", "საჯარო სახელი *", "მაგ. GGC"), "name"),
+        // Derived from the official name, so nobody has to invent a slug and no
+        // two records collide by accident. Still editable if it needs to differ.
+        Object.assign(k.text("id", "ID", U.slug(cur.legal || cur.name) || "auto"), { hintShow: "block" }),
+        req(k.date("founded", cur.kind === "solo" ? "საქმიანობის დაწყება *" : "ოფიციალურად დაფუძნება *"), "founded"),
         k.text("website", "ვებსაიტი", "https://…"),
-        k.text("email", "ელფოსტა", ""),
+        req(k.text("email", "ელფოსტა *", "მაგ. info@ggc.ge"), "email"),
         k.text("validated", "პირველი ვალიდაცია", U.today()),
         k.readOnly("updated", "ბოლო განახლება")
       ].filter(Boolean),
       editAreas: [k.text("about", "აღწერა", "")],
       editToggles: [k.toggle("verified", "ვერიფიცირებული"), k.toggle("active", "აქტიური")],
       editChips: [{ label: "როლები", items: ROLES.map(r => k.chip("roles", r)) }],
+      // Steam and itch.io are storefronts, not social accounts — keeping them in
+      // one list made the studio's shop pages look like another Instagram.
       editLinks: SOCIALS.map(key => ({
-        k: U.SOC[key] || key, v: (cur.links || {})[key] || "", ph: "",
+        k: U.SOC[key] || key, v: (cur.links || {})[key] || "", ph: SOCIAL_PH[key] || "",
         onInput: e => this.patchLink("links", key, e.target.value)
       })),
       linkBoxShow: "block", linkBoxTitle: "სოციალური ქსელები",
+      storeLinks: CO_STORES.map(key => ({
+        k: U.STORE_LABEL[key] || key, v: (cur.links || {})[key] || "", ph: CO_STORE_PH[key] || "",
+        onInput: e => this.patchLink("links", key, e.target.value)
+      })),
+      storeBoxShow: "block",
       editGames: attached.map(g => {
         const art = D.gameArt(g);
         return {
@@ -1299,7 +1414,7 @@ class Component extends DCLogic {
           open: () => this.setState({ gameEdit: g.id }),
           remove: () => this.setState(st => ({
             games: st.games.filter(x => x.id !== g.id),
-            touched: Object.assign({}, st.touched, { ["g:" + g.id]: 1 })
+
           }))
         };
       }),
@@ -1344,7 +1459,7 @@ class Component extends DCLogic {
       gmDelete: () => this.setState(st => ({
         games: st.games.filter(g => g.id !== cur.id),
         gameEdit: null,
-        touched: Object.assign({}, st.touched, { ["g:" + cur.id]: 1 })
+
       })),
       gmSelects: [
         { k: "სტუდია (სავალდებულო)", v: cur.studioId, options: studioOpts,
@@ -1368,7 +1483,10 @@ class Component extends DCLogic {
         k.readOnly("updated", "ბოლო განახლება")
       ],
       gmAreas: [k.text("about", "აღწერა", "")],
-      gmToggles: [k.toggle("verified", "ვერიფიცირებული"), k.toggle("mobile", "მობაილი")],
+      // No mobile or verified switch: the platforms already say whether a title
+      // is on phones, on PC, or on both, and a second control that can disagree
+      // with them is just another thing to get wrong.
+      gmToggles: [],
       gmChips: [{ label: "პლატფორმები", items: PLATFORMS.map(p => k.chip("platforms", p)) }],
       gmLinks: STORE_KEYS.map(key => ({
         k: U.STORE_LABEL[key] || key, v: (cur.stores || {})[key] || "",
@@ -1481,7 +1599,7 @@ class Component extends DCLogic {
           studioId: cur.id, status: "upcoming",
           created: now, updated: now, validated: now
         });
-        this.setState(st => ({ games: st.games.concat([g]), gameEdit: g.id, touched: Object.assign({}, st.touched, { ["g:" + g.id]: 1 }) }));
+        this.setState(st => ({ games: st.games.concat([g]), gameEdit: g.id  }));
       },
       gmShow: s.gameEdit ? "block" : "none",
       studioUrl: s.studioUrl,
