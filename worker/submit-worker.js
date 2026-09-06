@@ -22,7 +22,7 @@ const ACTIONS = ["new-company", "edit-company", "new-game", "edit-game"];
 
 const cors = (origin) => ({
   "Access-Control-Allow-Origin": origin || "*",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type",
   "Access-Control-Max-Age": "86400"
 });
@@ -33,10 +33,43 @@ const json = (body, status, origin) =>
     headers: { "Content-Type": "application/json", ...cors(origin) }
   });
 
+/* Storefront pages have to be read from the browser to preview an import, and a
+   browser cannot read them directly — the stores send no CORS header. The site
+   falls back to public proxies for that, but they come and go. This deployment
+   already exists and is already trusted, so it does the same job reliably.
+
+   ALLOWED keeps it from becoming an open proxy for anyone who finds the URL:
+   only the storefronts the importer actually reads, and only ever read. */
+const ALLOWED = [
+  "store.steampowered.com", "steamcommunity.com",
+  "itch.io", "apps.apple.com", "itunes.apple.com",
+  "play.google.com", "www.nintendo.com", "store.playstation.com",
+  "www.xbox.com", "store.epicgames.com", "www.gog.com"
+];
+
+const allowedHost = (url) => {
+  let host;
+  try { host = new URL(url).hostname.toLowerCase(); } catch { return false; }
+  return ALLOWED.some((a) => host === a || host.endsWith("." + a));
+};
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: cors(origin) });
+
+    if (request.method === "GET") {
+      const target = new URL(request.url).searchParams.get("url") || "";
+      if (!allowedHost(target)) return json({ error: "host not allowed" }, 400, origin);
+      const upstream = await fetch(target, {
+        headers: { "User-Agent": "Mozilla/5.0 (compatible; GGC importer)" },
+        cf: { cacheTtl: 900, cacheEverything: true }
+      });
+      if (!upstream.ok) return json({ error: `store ${upstream.status}` }, 502, origin);
+      return new Response(await upstream.text(), {
+        headers: { "Content-Type": "text/plain; charset=utf-8", ...cors(origin) }
+      });
+    }
     if (request.method !== "POST") return json({ error: "POST only" }, 405, origin);
 
     const raw = await request.text();

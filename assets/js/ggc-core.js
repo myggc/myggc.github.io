@@ -29,11 +29,20 @@
     // "{url}" gets the encoded target, "{raw}" the target as-is. The scheduled
     // GitHub Action does the same work server side without a proxy, so a proxy
     // outage only affects the instant preview, never the published data.
+    /* Ordered by what actually answers, measured rather than assumed — free
+       proxies come and go, and the list had rotted: corsproxy.io started
+       demanding an API key, allorigins' /raw and codetabs stopped answering
+       altogether. Their replacements return a page in about a second. The two
+       at the end are kept because they may well come back, and by then the
+       sticky-last-good ordering will have found them again on its own.
+       allorigins /get wraps the page in JSON and r.jina.ai rewrites it as
+       Markdown unless asked for HTML; both are handled in fetchVia. */
     proxies: [
-      "https://api.allorigins.win/raw?url={url}",
-      "https://api.codetabs.com/v1/proxy?quest={url}",
+      "https://proxy.corsfix.com/?{raw}",
       "https://r.jina.ai/{raw}",
-      "https://corsproxy.io/?url={url}"
+      "https://api.allorigins.win/get?url={url}",
+      "https://api.codetabs.com/v1/proxy?quest={url}",
+      "https://api.allorigins.win/raw?url={url}"
     ],
     paths: { companies: "data/companies.json", games: "data/games.json" }
   };
@@ -401,11 +410,74 @@
      importing a studio's whole catalogue look like it had hung — the work was
      happening, buried under twenty seconds of timeouts per game. */
   var lastGoodProxy = null;
-  var PROXY_TIMEOUT = 9000;
+  /* Long enough for a slow public proxy to answer — one measured at just over
+     nine seconds for a wrapped page — and short enough that the two dead ones
+     measured above cost twenty seconds between them rather than a minute. */
+  var PROXY_TIMEOUT = 11000;
 
+  /* The submission relay can read a store page as well as it can open an issue,
+     and unlike the public proxies it is ours, so it goes first whenever one is
+     configured. The public list stays behind it: if the relay is not deployed
+     yet, or its daily quota runs out, the import still works. */
   function proxyOrder() {
-    if (!lastGoodProxy) return config.proxies;
-    return [lastGoodProxy].concat(config.proxies.filter(function (p) { return p !== lastGoodProxy; }));
+    var list = config.proxies;
+    if (config.submitEndpoint) {
+      list = [config.submitEndpoint + "?action=fetch&url={url}"].concat(list);
+    }
+    if (!lastGoodProxy) return list;
+    return [lastGoodProxy].concat(list.filter(function (p) { return p !== lastGoodProxy; }));
+  }
+
+  /* One of the proxies — r.jina.ai, and for a while the only one still up —
+     does not return the page. It returns the page rewritten as Markdown, with a
+     short header of its own. Every reader below expects HTML, so a page that
+     arrived this way used to read as empty: no title, no og:image, no hrefs,
+     and an import that found the games but knew nothing about them.
+
+     Rather than teach four readers a second syntax, the Markdown is turned back
+     into the handful of tags they look for. The signature is specific enough
+     that a JSON body — Steam's appdetails comes through the same path — can
+     never be mistaken for it. */
+  /* allorigins' /get endpoint answers with the page wrapped in a JSON envelope
+     rather than as itself. Unwrap it before anything downstream looks at it. A
+     store's own JSON — Steam's appdetails comes through the same path — has no
+     `contents` string, so it passes through untouched. */
+  function unwrap(text) {
+    if (text.charAt(0) !== "{" || text.indexOf('"contents"') < 0) return text;
+    try {
+      var o = JSON.parse(text);
+      if (o && typeof o.contents === "string") return o.contents;
+    } catch (e) {}
+    return text;
+  }
+
+  function unmarkdown(text) {
+    if (!/^\s*Title:\s*.+\r?\n+URL Source:\s*http/i.test(text)) return text;
+    var title = (/^\s*Title:\s*(.+)$/im.exec(text) || [])[1] || "";
+    var body = text.split(/Markdown Content:\s*/i)[1] || text;
+    var image = (/!\[[^\]]*\]\((https?:\/\/[^)\s]+)/.exec(body) || [])[1] || "";
+    /* The first run of prose that is not a link, an image, a price or a heading
+       — which on every storefront tested is the short description. */
+    var about = "";
+    body.split(/\n{2,}/).some(function (block) {
+      var t = block.replace(/\s+/g, " ").trim();
+      if (t.length < 40) return false;
+      if (/^[#>*\-|]/.test(t) || /^!?\[/.test(t) || /^\$?\d/.test(t)) return false;
+      about = t.slice(0, 600);
+      return true;
+    });
+    var links = [], seen = {}, re = /\]\((https?:\/\/[^)\s]+)\)/g, m;
+    while ((m = re.exec(body))) {
+      if (seen[m[1]]) continue;
+      seen[m[1]] = 1;
+      links.push('<a href="' + m[1] + '"></a>');
+    }
+    var esc = function (s) { return String(s).replace(/"/g, "&quot;").replace(/</g, "&lt;"); };
+    return '<title>' + esc(title) + '</title>' +
+      '<meta property="og:title" content="' + esc(title) + '">' +
+      (about ? '<meta property="og:description" content="' + esc(about) + '">' : "") +
+      (image ? '<meta property="og:image" content="' + esc(image) + '">' : "") +
+      links.join("");
   }
 
   function fetchVia(target, read) {
@@ -415,13 +487,20 @@
         // A hanging proxy is worse than a failing one; cut it off and move on.
         var ctl = typeof AbortController !== "undefined" ? new AbortController() : null;
         var timer = ctl ? setTimeout(function () { ctl.abort(); }, PROXY_TIMEOUT) : null;
-        return fetch(url, { cache: "no-store", signal: ctl ? ctl.signal : undefined })
+        /* r.jina.ai rewrites pages as Markdown unless asked otherwise, and the
+           rewrite throws away exactly what the parsers need — og tags, image
+           URLs, the studio's own links. One header gets the real markup back.
+           It costs a preflight, which jina answers; unmarkdown below still
+           covers the case where it does not honour the header. */
+        var opts = { cache: "no-store", signal: ctl ? ctl.signal : undefined };
+        if (/^https:\/\/r\.jina\.ai\//.test(url)) opts.headers = { "x-return-format": "html" };
+        return fetch(url, opts)
           .then(function (r) {
             if (!r.ok) throw new Error("proxy " + r.status);
             return r.text();
           })
           .then(function (text) {
-            var out = read(text);
+            var out = read(unmarkdown(unwrap(text)));
             lastGoodProxy = tpl;
             return out;
           })
@@ -519,7 +598,15 @@
       if (!title.trim()) throw new Error("ამ გვერდიდან მონაცემები ვერ წაიკითხა");
       var img = meta("og:image");
       var out = {
-        name: title.replace(/\s+by\s+[^|]*$/i, "").trim(),
+        /* Every store appends its own name to the title — "X - Apps on Google
+           Play", "X on Steam", "X by studio" on itch. None of that is the
+           game's name, and left in it becomes the name in the catalogue. */
+        name: title
+          .replace(/\s*[-–—|]\s*(Apps|Games) on Google Play\s*$/i, "")
+          .replace(/\s+on (Steam|the App Store)\s*$/i, "")
+          .replace(/\s*[-–—|]\s*itch\.io\s*$/i, "")
+          .replace(/\s+by\s+[^|]*$/i, "")
+          .trim(),
         about: meta("og:description") || meta("description") || "",
         art: { capsule: img, hero: img, portrait: "" },
         genres: [], platforms: [], stores: {}, source: "og"
@@ -527,6 +614,104 @@
       Object.keys(extra || {}).forEach(function (k) { out[k] = extra[k]; });
       return out;
     });
+  }
+
+  /* ------------------------------------------------------------- app store */
+
+  /* The App Store is the exception to scraping. A developer page —
+     apps.apple.com/…/developer/…/id123 — is served as a two-kilobyte JavaScript
+     shell with no apps in it, so no proxy and no parser can find a catalogue
+     there. Apple publishes the same data as JSON through the iTunes lookup
+     endpoint, which answers cross-origin requests directly: no proxy chain, and
+     records richer than the og tags ever were — screenshots, genres, languages,
+     release dates and the developer's own site. */
+  function appleJson(query) {
+    var ctl = typeof AbortController !== "undefined" ? new AbortController() : null;
+    var timer = ctl ? setTimeout(function () { ctl.abort(); }, PROXY_TIMEOUT) : null;
+    return fetch("https://itunes.apple.com/" + query, {
+      cache: "no-store", signal: ctl ? ctl.signal : undefined
+    }).then(function (r) {
+      if (timer) clearTimeout(timer);
+      if (!r.ok) throw new Error("apple " + r.status);
+      return r.json();
+    }, function (e) {
+      if (timer) clearTimeout(timer);
+      throw e;
+    }).then(function (j) { return (j && j.results) || []; });
+  }
+
+  /* One App Store record in the shape the rest of the site speaks. */
+  function appleGame(r) {
+    var date = String(r.releaseDate || "").slice(0, 10);
+    var art = r.artworkUrl512 || r.artworkUrl100 || "";
+    var shots = (r.screenshotUrls || []).concat(r.ipadScreenshotUrls || []).slice(0, 6);
+    return {
+      name: String(r.trackName || "").trim(),
+      about: String(r.description || "").replace(/<[^>]+>/g, "").trim(),
+      genres: (r.genres || [])
+        .filter(function (g) { return !/^games$/i.test(g); })
+        .map(function (g) { return String(g).toLowerCase(); }),
+      status: date && date > new Date().toISOString().slice(0, 10) ? "upcoming" : "released",
+      releaseDate: date,
+      year: Number(date.slice(0, 4)) || 0,
+      price: r.formattedPrice || "",
+      langs: (r.languageCodesISO2A || []).join(", "),
+      website: r.sellerUrl || "",
+      developers: r.artistName ? [r.artistName] : [],
+      publishers: [],
+      art: { capsule: art, hero: shots[0] || art, portrait: art, shots: shots },
+      platforms: ["App Store"],
+      stores: { appstore: String(r.trackViewUrl || "").split("?")[0] },
+      mobile: true,
+      /* Apple files everything under "software"; only the games category tells
+         a game from a utility, and the catalogue has no room for utilities. */
+      type: /game/i.test(r.primaryGenreName || "") || (r.genreIds || []).indexOf("6014") >= 0
+        ? "game" : "app",
+      source: "appstore"
+    };
+  }
+
+  /* Every title by one developer, plus the developer's own details, from a
+     single lookup. Returns the same shape as parseStudio's other branches so
+     the wizard and the admin panel cannot tell the two apart. */
+  function appleStudio(d, onProgress) {
+    return appleJson("lookup?id=" + d.id + "&entity=software&limit=200&country=us")
+      .then(function (rows) {
+        var apps = rows.filter(function (r) { return r.wrapperType === "software" || r.trackId; });
+        var games = [], skipped = 0, name = "", website = "";
+        apps.forEach(function (r) {
+          if (!name && r.artistName) name = r.artistName;
+          if (!website && r.sellerUrl) website = r.sellerUrl;
+          var g = appleGame(r);
+          if (g.type !== "game") { skipped++; return; }
+          games.push(g);
+          if (onProgress) onProgress(games.length + skipped, apps.length, g.name);
+        });
+        /* The lookup's first row is the artist itself when Apple has one, and
+           it carries the name even for a developer whose apps are all filtered
+           out. Worth reading before falling back to the app credits. */
+        rows.forEach(function (r) {
+          if (r.wrapperType === "artist" && r.artistName) name = r.artistName;
+        });
+        return {
+          source: "appstore",
+          found: apps.length,
+          skipped: skipped,
+          games: games,
+          profile: {
+            name: name,
+            website: website,
+            /* An App Store developer has no picture of its own — Apple never
+               publishes one — so nothing is guessed here. The uploader in the
+               form is the honest answer. */
+            logo: "",
+            links: { appstore: d.url }
+          },
+          reason: games.length ? "" : (apps.length
+            ? "ამ დეველოპერს App Store-ზე თამაშები არ აქვს — მხოლოდ აპლიკაციები."
+            : "ამ დეველოპერის გვერდზე არაფერი მოიძებნა.")
+        };
+      });
   }
 
   /* ------------------------------------------------- whole-studio discovery */
@@ -585,7 +770,9 @@
     if ((m = /^([\w-]+)\.itch\.io\/?$/i.exec(bare.split("?")[0]))) {
       return { kind: "itch", id: m[1], url: "https://" + m[1] + ".itch.io" };
     }
-    if (/apps\.apple\.com\/[^/]*\/?developer\//i.test(u)) return { kind: "appstore", id: "", url: u };
+    if ((m = /apps\.apple\.com\/[^"'\s]*?\/developer\/[^/]*\/id(\d+)/i.exec(u))) {
+      return { kind: "appstore", id: m[1], url: u };
+    }
     if (/play\.google\.com\/store\/apps\/dev(eloper)?\?/i.test(u)) return { kind: "googleplay", id: "", url: u };
     return null;
   }
@@ -594,20 +781,37 @@
      whichever socials it links. Worth harvesting in the same pass: it is the
      difference between an import that fills the games and one that fills the
      profile too. Only keys the page actually links are returned. */
-  function studioProfile(html) {
+  function studioProfile(html, kind) {
     var out = { links: {} };
     /* Steam's studio pages are a JavaScript shell — no og:title, no og:image,
        not even a <title> in the HTML that can be fetched. The partner avatar is
        one of the few real things in it; the studio's name and site come from
        its games instead, which parseStudio fills in afterwards. */
     var avatar = /https?:\/\/avatars[^"'\s]*?_full\.(?:jpg|png)/i.exec(html);
+    var og = function (prop) {
+      var re = new RegExp('<meta[^>]+(?:property|name)=["\']' + prop + '["\'][^>]*content=["\']([^"\']+)', "i");
+      var hit = re.exec(html);
+      return hit ? hit[1] : "";
+    };
+    /* Google Play's developer page carries the studio's own mark as og:image.
+       Nowhere else does: on an itch profile the same tag is the first game's
+       cover, and filing that as the studio's logo is worse than filing none —
+       so only Play is trusted for it, and Steam's partner avatar wins outright.
+       itch and the App Store publish no studio picture at all; the uploader in
+       the form is the honest answer there. */
     if (avatar) out.logo = avatar[0];
-    var m = /<meta[^>]+property=["']og:title["'][^>]*content=["']([^"']+)/i.exec(html) ||
-      /<title[^>]*>([^<]+)/i.exec(html);
+    else if (kind === "googleplay" && og("og:image")) out.logo = og("og:image");
+    var m = og("og:title") || (/<title[^>]*>([^<]+)/i.exec(html) || [])[1] || "";
     if (m) {
-      out.name = m[1]
-        .replace(/\s*(on Steam|Steam Search|itch\.io|·.*)$/i, "")
-        .replace(/^Games by\s+/i, "")
+      /* Each store wraps the studio's name in its own furniture: "Android Apps
+         by X on Google Play", "X - itch.io", "Games by X". Strip the wrapper
+         and what is left is the name — otherwise the profile arrives called
+         "Mtatsminda Studio - itch.io". */
+      out.name = m
+        .replace(/^\s*(Android\s+)?(Apps|Games)\s+by\s+/i, "")
+        .replace(/^\s*Steam\s+(Curator|Publisher|Developer|Franchise):\s*/i, "")
+        .replace(/\s*(on Steam|on Google Play|on the App Store|Steam Search|itch\.io|·.*)\s*$/i, "")
+        .replace(/[\s·|,\-–—]+$/, "")
         .trim();
     }
     var patterns = [
@@ -624,24 +828,68 @@
     /* A storefront page links the storefront's own accounts in its chrome —
        scraping naively wrote facebook.com/steam onto a Georgian studio. Anything
        whose handle belongs to the store itself is not the studio's. */
-    var STORE_OWNED = /\/@?(steam|steamgames|steamdb|valve|steamworks|nintendo|nintendoamerica|xbox|playstation|itchio|itchdotio|googleplay|appstore|apple|epicgames)\/?$/i;
+    var STORE_OWNED = /\/@?(steam|steamgames|steamdb|valve|steamworks|nintendo|nintendoamerica|xbox|playstation|itchio|itchdotio|googleplay|appstore|apple|epicgames|google|googleworkspace|android|youtube|chrome)\/?$/i;
+    // itch's own asset hosts wear the same shape as a studio's itch page.
+    var ITCH_OWN = /^https?:\/\/(static|img|www|help|blog|api)\.itch\.io/i;
+    /* Only Steam and itch let a studio put its own links on its page. A Google
+       Play developer page has no such section — every social link in it belongs
+       to Google's own footer, and scraping them filed facebook.com/googleworkspace
+       as the studio's Facebook. Better no link than someone else's. */
+    if (kind === "googleplay" || kind === "appstore") patterns = [];
     patterns.forEach(function (p) {
       var hit = p[1].exec(html);
       if (!hit) return;
       var link = hit[0].replace(/[)"'<].*$/, "");
-      if (STORE_OWNED.test(link)) return;
+      if (STORE_OWNED.test(link) || ITCH_OWN.test(link)) return;
       out.links[p[0]] = link;
     });
-    // A plain site link, ignoring the storefront's own domains.
-    var site = /href=["'](https?:\/\/(?!(?:store\.|www\.)?(?:steampowered|steamcommunity|valvesoftware|akamai|google|apple|facebook|instagram|twitter|x|youtube|linkedin|discord|tiktok|twitch|itch)\.)[^"']+)["']/i.exec(html);
-    if (site) out.website = site[1];
+    /* A plain site link. Every store page is full of hrefs that are not the
+       studio's site — the store's own domains, its CDNs, the stylesheet in the
+       head — and taking the first one wrote static.itch.io/user.css into the
+       website field. Walk them and keep the first that is neither the store's
+       nor a file. */
+    var NOT_MINE = [
+      "steampowered.com", "steamcommunity.com", "steamstatic.com", "valvesoftware.com",
+      "akamaized.net", "akamai.net", "itch.io", "itch.zone", "google.com", "googleusercontent.com",
+      "android.com", "googleblog.com", "chrome.com", "gstatic.com", "goo.gl",
+      "apple.com", "mzstatic.com", "facebook.com", "fbcdn.net",
+      "instagram.com", "twitter.com", "x.com", "t.co", "youtube.com", "youtu.be",
+      "linkedin.com", "discord.com", "discord.gg", "tiktok.com", "twitch.tv", "bsky.app",
+      "bsky.social", "reddit.com", "patreon.com", "kickstarter.com", "paypal.com",
+      "amazon.com", "microsoft.com", "xbox.com", "playstation.com", "nintendo.com",
+      "epicgames.com", "unrealengine.com", "unity.com", "w3.org", "schema.org",
+      "creativecommons.org", "gnu.org"
+    ];
+    var ASSET = /\.(css|js|json|png|jpe?g|gif|svg|webp|ico|xml|rss|pdf|mp4|woff2?)(\?|$)/i;
+    var href = /href=["'](https?:\/\/[^"'\s]+)["']/gi, h;
+    while ((h = href.exec(html))) {
+      var link = h[1];
+      var host = (/^https?:\/\/([^/:?#]+)/i.exec(link) || [])[1];
+      if (!host) continue;
+      host = host.toLowerCase();
+      var theirs = NOT_MINE.some(function (dom) {
+        return host === dom || host.slice(-(dom.length + 1)) === "." + dom;
+      });
+      if (theirs || ASSET.test(link)) continue;
+      out.website = link;
+      break;
+    }
+    /* A proxy that hands back prose instead of a page leaves this with nothing
+       at all. Saying so lets the next proxy have a turn — returning an empty
+       profile would instead be accepted as the truth, and the studio would end
+       up imported with no name, no site and no socials. */
+    if (!out.name && !out.logo && !out.website && !Object.keys(out.links).length) {
+      throw new Error("ამ გვერდიდან სტუდიის მონაცემები ვერ წაიკითხა");
+    }
     return out;
   }
 
   /* Pulls every title's own page URL out of a studio page. Each one is then read
      by the normal single-game parser, so a bulk import and a hand-pasted link
      produce exactly the same record. */
-  function studioGameUrls(html, kind) {
+  function studioGameUrls(html, d) {
+    var kind = typeof d === "string" ? d : d.kind;
+    var owner = typeof d === "string" ? "" : String(d.id || "");
     var urls = [], seen = {}, m, re;
     if (kind === "steam") {
       // Search results carry the appid in an attribute rather than a link.
@@ -655,8 +903,14 @@
       re = /store\.steampowered\.com\/app\/(\d+)/gi;
       while ((m = re.exec(html))) push(m[1]);
     } else if (kind === "itch") {
+      /* Every itch page links itch's own asset hosts — static.itch.io/lib,
+         static.itch.io/react — in the same shape a game link has, and a profile
+         also links games by other people it has collaborated with. Only pages
+         under this studio's own subdomain are this studio's games. */
       re = /https?:\/\/([\w-]+)\.itch\.io\/([\w-]+)/gi;
       while ((m = re.exec(html))) {
+        if (owner ? m[1].toLowerCase() !== owner.toLowerCase()
+          : /^(static|img|itch|www|help|blog|api)$/i.test(m[1])) continue;
         var u = "https://" + m[1] + ".itch.io/" + m[2];
         if (seen[u]) continue;
         seen[u] = 1;
@@ -686,6 +940,11 @@
   function parseStudio(url, onProgress) {
     var d = detectStudio(url);
     if (!d) return Promise.reject(new Error("ეს სტუდიის გვერდი არ არის"));
+    /* An App Store developer page has no catalogue in its HTML at all, so the
+       usual read-the-page-then-read-each-game route cannot work. One lookup
+       returns the developer and every title at once — which also makes this the
+       fastest of the four imports rather than the only broken one. */
+    if (d.kind === "appstore" && d.id) return appleStudio(d, onProgress);
     var candidates = d.listUrls || [d.url];
     var profile = null;
     /* Every listing source is asked, and their results merged — one of them
@@ -693,12 +952,22 @@
        so they run together and cost the slowest rather than the sum. */
     return Promise.all(candidates.map(function (listUrl) {
       return fetchVia(listUrl, function (html) {
-        var found = studioGameUrls(html, d.kind);
+        var found = studioGameUrls(html, d);
         // A search-results page is the storefront's own chrome, not the
         // studio's page — only the studio's own page describes the studio.
         if (!profile && found.length && !/\/search\/?\?/i.test(listUrl)) {
-          profile = studioProfile(html);
+          // Games in hand are worth more than the profile: if the page cannot
+          // describe the studio, keep the list and ask for the profile again
+          // separately rather than discarding both.
+          try { profile = studioProfile(html, d.kind); } catch (e) {}
         }
+        /* An answer with no games in it is not an answer. A proxy that is up
+           but hands back its own error page, or a status note, reads as a page
+           with an empty catalogue — and being accepted, it ended the search
+           before the proxies that would have returned the real page were
+           tried. A genuinely empty studio page costs one extra round of
+           attempts and still lands on the empty list below. */
+        if (!found.length) throw new Error("ამ გვერდზე თამაშები ვერ მოიძებნა");
         return found;
       }).catch(function () { return []; });
     })).then(function (lists) {
@@ -716,7 +985,7 @@
          picked up by accident, when the studio page happened to be the listing
          that worked. */
       if (profile) return urls;
-      return fetchVia(d.url, function (html) { return studioProfile(html); })
+      return fetchVia(d.url, function (html) { return studioProfile(html, d.kind); })
         .then(function (p) { profile = p; return urls; }, function () { return urls; });
     }).then(function (urls) {
       if (!urls.length && !profile) throw new Error("ამ გვერდზე არაფერი მოიძებნა");
@@ -813,7 +1082,14 @@
     if (!d) return Promise.reject(new Error("ცარიელი ბმული"));
     if (d.kind === "steam") return parseSteam(d.id, d.url);
     if (d.kind === "itch") return parseOG(d.url, { platforms: ["itch.io"], stores: { itch: d.url }, source: "itch" });
-    if (d.kind === "appstore") return parseOG(d.url, { platforms: ["App Store"], stores: { appstore: d.url }, mobile: true, source: "appstore" });
+    if (d.kind === "appstore") {
+      return appleJson("lookup?id=" + d.id + "&country=us").then(function (rows) {
+        if (!rows.length) throw new Error("empty");
+        return appleGame(rows[0]);
+      }).catch(function () {
+        return parseOG(d.url, { platforms: ["App Store"], stores: { appstore: d.url }, mobile: true, source: "appstore" });
+      });
+    }
     if (d.kind === "googleplay") return parseOG(d.url, { platforms: ["Google Play"], stores: { googleplay: d.url }, mobile: true, source: "googleplay" });
     var label = STORE_LABEL[d.kind] || "Web";
     var st = {};

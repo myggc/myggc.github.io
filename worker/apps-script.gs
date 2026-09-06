@@ -36,8 +36,66 @@ function reply_(obj, status) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
-function doGet() {
-  return reply_({ ok: true, note: 'GGC submission relay. POST a submission payload here.' });
+/* Storefront pages have to be read from the browser to preview an import, and a
+   browser cannot read them directly — the stores send no CORS header. The site
+   falls back to public proxies for that, but they come and go: corsproxy.io
+   started demanding an API key, and the one that stayed up returns pages
+   rewritten as Markdown. This deployment already exists and is already trusted,
+   so it does the same job reliably.
+
+   ALLOWED keeps it from becoming an open proxy for anyone who finds the URL:
+   only the storefronts the importer actually reads are fetched, and only ever
+   read — nothing here can write. */
+var ALLOWED = [
+  'store.steampowered.com', 'steamcommunity.com',
+  'itch.io', 'apps.apple.com', 'itunes.apple.com',
+  'play.google.com', 'www.nintendo.com', 'store.playstation.com',
+  'www.xbox.com', 'store.epicgames.com', 'www.gog.com'
+];
+
+function allowed_(url) {
+  var m = /^https:\/\/([^/:?#]+)/i.exec(String(url || ''));
+  if (!m) return false;
+  var host = m[1].toLowerCase();
+  for (var i = 0; i < ALLOWED.length; i++) {
+    var a = ALLOWED[i];
+    if (host === a || host.slice(-(a.length + 1)) === '.' + a) return true;
+  }
+  return false;
+}
+
+function doGet(e) {
+  var p = (e && e.parameter) || {};
+  if (p.action !== 'fetch') {
+    return reply_({ ok: true, note: 'GGC submission relay. POST a submission payload here.' });
+  }
+  if (!allowed_(p.url)) return reply_({ error: 'host not allowed' });
+
+  // A store page rarely changes between two people importing the same studio.
+  var cache = CacheService.getScriptCache();
+  var key = 'pg:' + Utilities.base64Encode(Utilities.computeDigest(
+    Utilities.DigestAlgorithm.MD5, p.url));
+  var hit = cache.get(key);
+  if (hit) return ContentService.createTextOutput(hit).setMimeType(ContentService.MimeType.TEXT);
+
+  var res;
+  try {
+    res = UrlFetchApp.fetch(p.url, {
+      muteHttpExceptions: true,
+      followRedirects: true,
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; GGC importer)' }
+    });
+  } catch (err) {
+    return reply_({ error: 'fetch failed' });
+  }
+  if (res.getResponseCode() >= 400) return reply_({ error: 'store ' + res.getResponseCode() });
+
+  var text = res.getContentText();
+  // The cache entry cap is 100 KB; a bigger page is still served, just uncached.
+  if (text.length < 95000) {
+    try { cache.put(key, text, 900); } catch (err2) {}
+  }
+  return ContentService.createTextOutput(text).setMimeType(ContentService.MimeType.TEXT);
 }
 
 function doPost(e) {

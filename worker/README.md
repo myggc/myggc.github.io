@@ -68,6 +68,33 @@ from the visitor's side:
 
 The browser console on `submit.html` also names the problem on a failed send.
 
+## It also reads store pages
+
+The relay does a second job, and this one is the difference between an import
+that fills a studio in and one that sits there spinning.
+
+To show a preview of an import, the browser has to read a Steam or itch page —
+and it cannot: the stores send no CORS header, so the request is refused before
+it starts. The site works around that with free public proxies, but they rot.
+Measured in September 2026: `corsproxy.io` had started demanding an API key,
+`api.allorigins.win/raw` and `api.codetabs.com` had stopped answering
+altogether, and the one still up returned every page rewritten as Markdown with
+the images and links thrown away. Three of four gone, and store parsing looked
+broken to whoever was using the form.
+
+Both relays now answer `GET ?action=fetch&url=…` with the page, and the site
+tries that first. It only fetches the storefronts in `ALLOWED` — Steam, itch,
+Apple, Google Play and the console stores — so the URL being public does not
+turn it into an open proxy for anything else, and it can only ever read.
+
+**Apps Script deployments are versioned: an already-deployed relay keeps running
+the old code until you redeploy.** To pick this up: open the project → paste the
+current `apps-script.gs` → **Deploy → Manage deployments** → pencil icon →
+*Version*: **New version** → **Deploy**. The `/exec` URL does not change, so
+nothing in the repository needs editing. Until then the site still works — the
+relay's old reply fails the parse and the public proxies take over — it is just
+slower and at their mercy.
+
 ## Notes
 
 - The site posts the payload as `text/plain` on purpose. That keeps it a

@@ -93,11 +93,44 @@ async function readOG(url, extra) {
   if (!title.trim()) throw new Error(`no metadata at ${url}`);
   const img = meta(html, "og:image");
   return {
-    name: title.replace(/\s+by\s+[^|]*$/i, "").trim(),
+    // Every store appends its own name to the title; none of that is the game's.
+    name: title
+      .replace(/\s*[-–—|]\s*(Apps|Games) on Google Play\s*$/i, "")
+      .replace(/\s+on (Steam|the App Store)\s*$/i, "")
+      .replace(/\s*[-–—|]\s*itch\.io\s*$/i, "")
+      .replace(/\s+by\s+[^|]*$/i, "")
+      .trim(),
     about: meta(html, "og:description") || meta(html, "description") || "",
     art: { capsule: img, hero: img, portrait: "" },
     genres: [], platforms: [], mobile: false, source: "og",
     ...extra
+  };
+}
+
+/* Apple publishes an app's whole record as JSON, which is both richer than the
+   og tags — screenshots, genres, languages, the exact release date — and stable
+   in a way a rendered page is not. Same endpoint the site's importer uses, so a
+   refreshed record matches the one the import produced. */
+async function readApple(id) {
+  const j = await get(`https://itunes.apple.com/lookup?id=${id}&country=us`, true);
+  const r = (j.results || [])[0];
+  if (!r) throw new Error(`apple: no record for ${id}`);
+  const date = String(r.releaseDate || "").slice(0, 10);
+  const art = r.artworkUrl512 || r.artworkUrl100 || "";
+  const shots = (r.screenshotUrls || []).concat(r.ipadScreenshotUrls || []).slice(0, 6);
+  return {
+    name: String(r.trackName || "").trim(),
+    about: strip(r.description),
+    genres: (r.genres || []).filter((g) => !/^games$/i.test(g)).map((g) => String(g).toLowerCase()),
+    status: date && date > new Date().toISOString().slice(0, 10) ? "upcoming" : "released",
+    releaseDate: date,
+    year: Number(date.slice(0, 4)) || 0,
+    price: r.formattedPrice || "",
+    langs: (r.languageCodesISO2A || []).join(", "),
+    art: { capsule: art, hero: shots[0] || art, portrait: art, shots },
+    platforms: ["App Store"],
+    mobile: true,
+    source: "appstore"
   };
 }
 
@@ -123,7 +156,7 @@ async function readStore(url) {
   if (!d) throw new Error(`unrecognised store url: ${url}`);
   if (d.kind === "steam") return readSteam(d.id, d.url);
   if (d.kind === "itch") return readOG(d.url, { platforms: ["itch.io"], source: "itch" });
-  if (d.kind === "appstore") return readOG(d.url, { platforms: ["App Store"], mobile: true, source: "appstore" });
+  if (d.kind === "appstore") return readApple(d.id).catch(() => readOG(d.url, { platforms: ["App Store"], mobile: true, source: "appstore" }));
   if (d.kind === "googleplay") return readOG(d.url, { platforms: ["Google Play"], mobile: true, source: "googleplay" });
   return readOG(d.url, { platforms: [STORE_LABEL[d.kind] || "Web"], source: d.kind });
 }
