@@ -305,6 +305,7 @@
               <button type="button" onClick="{{ saveEndpoint }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ saveEndpointLabel }}</button>
               <a href="{{ workerDocUrl }}" target="_blank" rel="noopener" style="font-size:14px">ინსტრუქცია ↗</a>
             </div>
+            <div style="display:{{ endpointMsgShow }};margin-top:12px;background:#1d2126;border:1px solid #2f353c;border-radius:10px;padding:12px 14px;font-size:14px;line-height:1.6;color:{{ endpointMsgColor }}">{{ endpointMsg }}</div>
           </div>
         </div>
       </sc-if>
@@ -348,7 +349,8 @@ class Component extends DCLogic {
     queue: [], decisions: {}, companies: [], games: [], dirty: 0,
     status: "", statusColor: "#8b949c", publishing: false, syncing: "",
     pending: null, uploading: false, asking: 0, busy: 0, testing: false, endpointOk: "",
-    endpointInput: (window.GGC && GGC.config.submitEndpoint) || "", savingEndpoint: false
+    endpointInput: (window.GGC && GGC.config.submitEndpoint) || "", savingEndpoint: false,
+    endpointMsg: "", endpointMsgColor: "#c6ccd3"
   };
 
   componentDidMount() {
@@ -718,11 +720,16 @@ class Component extends DCLogic {
   /* Writes the relay URL into the one config line that names it, so setting the
      site up never means opening an editor. The line is matched rather than the
      whole file rewritten, to leave every other setting untouched. */
+  endpointSays(text, color) {
+    this.setState({ endpointMsg: text, endpointMsgColor: color || "#c6ccd3" });
+  }
+
   saveEndpoint() {
     const url = (this.state.endpointInput || "").trim();
-    if (url && !/^https:\/\//.test(url)) return this.say("URL https-ით უნდა იწყებოდეს", "#f0a8a8");
-    if (!this.state.authed) return this.say("შენახვას ტოკენი სჭირდება", "#f0a8a8");
+    if (url && !/^https:\/\//.test(url)) return this.endpointSays("URL https-ით უნდა იწყებოდეს.", "#f0a8a8");
+    if (!this.state.authed) return this.endpointSays("შენახვას GitHub-ის ტოკენი სჭირდება — გამოდი და ისევ შედი ტოკენით.", "#f0a8a8");
     this.setState({ savingEndpoint: true });
+    this.endpointSays("ინახება…", "#8ccbe9");
     const path = "assets/js/ggc-core.js";
     GH.getText(path)
       .then(file => {
@@ -731,18 +738,23 @@ class Component extends DCLogic {
         const next = file.text.replace(line, '$1submitEndpoint: "' + url + '",');
         if (next === file.text) {
           this.setState({ savingEndpoint: false });
-          return this.say("იგივე მისამართია — ცვლილება არ არის", "#8b949c");
+          C.submitEndpoint = url;
+          return this.endpointSays("იგივე მისამართი უკვე შენახულია — ცვლილება არ დასჭირდა.", "#9ede9e");
         }
         return GH.commit([{ path: path, content: next }], "config: set submitEndpoint")
           .then(() => {
             C.submitEndpoint = url;
             this.setState({ savingEndpoint: false, endpointOk: "" });
-            this.say(url ? "შენახულია — გვერდის განახლების შემდეგ ფორმა ამ მისამართზე გაგზავნის" : "მისამართი წაიშალა", "#9ede9e");
+            // GitHub Pages republishes on its own schedule, so the live form
+            // keeps using the old value for a minute after the commit lands.
+            this.endpointSays(url
+              ? "✔ შენახულია და ჩაიწერა რეპოზიტორიაში. GitHub Pages დაახლოებით ერთ წუთში გამოაქვეყნებს — მერე გადატვირთე გვერდი და დააჭირე „მიმღების შემოწმებას“."
+              : "მისამართი წაიშალა.", "#9ede9e");
           });
       })
       .catch(e => {
         this.setState({ savingEndpoint: false });
-        this.say("ვერ შეინახა: " + e.message, "#f0a8a8");
+        this.endpointSays("ვერ შეინახა: " + e.message, "#f0a8a8");
       });
   }
 
@@ -750,8 +762,9 @@ class Component extends DCLogic {
      a validation error, which proves it is reachable without opening a junk
      issue. Anything else means the form cannot deliver. */
   testEndpoint() {
-    if (!C.submitEndpoint) return this.say("submitEndpoint ცარიელია — იხილე worker/README.md", "#f0a8a8");
+    if (!C.submitEndpoint) return this.endpointSays("მისამართი ჯერ არ არის შენახული.", "#f0a8a8");
     this.setState({ testing: true });
+    this.endpointSays("მოწმდება…", "#8ccbe9");
     fetch(C.submitEndpoint, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -759,14 +772,21 @@ class Component extends DCLogic {
     })
       .then(r => r.text().then(t => ({ status: r.status, body: t })))
       .then(res => {
+        // The relay rejects this deliberately invalid payload, which proves it
+        // is reachable and running without leaving a junk issue behind.
+        const rejected = /unknown action|missing subject|invalid json/i.test(res.body);
         const reachable = res.status < 500;
         this.setState({ testing: false, endpointOk: reachable ? "მუშაობს" : "პასუხობს შეცდომით" });
-        this.say(reachable ? "მიმღები პასუხობს — ფორმა მუშაობს" : "მიმღები შეცდომას აბრუნებს: " + res.body.slice(0, 120),
-          reachable ? "#9ede9e" : "#f0a8a8");
+        this.endpointSays(
+          rejected ? "✔ მიმღები მუშაობს — ფორმა უკვე აგზავნის მოთხოვნებს."
+            : reachable ? "მიმღებმა უპასუხა, მაგრამ მოულოდნელად: " + res.body.slice(0, 160)
+            : "მიმღები შეცდომას აბრუნებს: " + res.body.slice(0, 160),
+          rejected ? "#9ede9e" : "#f4cd77");
       })
       .catch(e => {
         this.setState({ testing: false, endpointOk: "მიუწვდომელია" });
-        this.say("მიმღებამდე ვერ მივედით: " + e.message, "#f0a8a8");
+        this.endpointSays("მიმღებამდე ვერ მივედით: " + e.message +
+          " — შეამოწმე, რომ Apps Script გამოქვეყნებულია „Anyone“-ზე და URL /exec-ით მთავრდება.", "#f0a8a8");
       });
   }
 
@@ -1164,6 +1184,9 @@ class Component extends DCLogic {
       onEndpointInput: e => this.setState({ endpointInput: e.target.value }),
       saveEndpoint: () => this.saveEndpoint(),
       saveEndpointLabel: s.savingEndpoint ? "ინახება…" : "შენახვა და ჩაწერა",
+      endpointMsg: s.endpointMsg,
+      endpointMsgShow: s.endpointMsg ? "block" : "none",
+      endpointMsgColor: s.endpointMsgColor,
       workerDocUrl: "https://github.com/" + C.owner + "/" + C.repo + "/blob/" + C.branch + "/worker/README.md",
       testEndpoint: () => this.testEndpoint(),
       testEndpointLabel: s.testing ? "მოწმდება…" : "მიმღების შემოწმება",
