@@ -1,451 +1,280 @@
-/* Georgian Game Community — translations.
-   To change any wording on the site, edit the text here, not in the HTML. */
-
-const I18N = {
-
-  ka: {
-    "nav.home": "მთავარი",
-    "nav.about": "ჩვენ შესახებ",
-    "nav.companies": "კომპანიები და გუნდები",
-    "nav.developers": "დეველოპერები",
-    "nav.contact": "კონტაქტი",
-    "nav.games": "თამაშები",
-    "nav.join": "დაამატე შენი სტუდია",
-
-    "count.verified": "დადასტურებული",
-    "count.games": "თამაში",
-    "count.teams.short": "გუნდი",
-
-    "home.playtitle": "შესვენება",
-    "home.playintro": "პატარა თამაში, სანამ გვერდს ათვალიერებ. დააჭირე ან დააჭირე Space-ს, რომ გრავიტაცია შეატრიალო.",
-    "game.score": "ქულა",
-    "game.best": "რეკორდი",
-    "game.start": "დაწყება",
-    "game.again": "თავიდან",
-    "game.tap": "დააჭირე ან Space — გრავიტაციის შესატრიალებლად",
-    "game.over": "დასრულდა",
-
-    "home.shots": "ჩვენი ღონისძიებებიდან",
-    "home.shots.p": "მიტაპები, ლექციები, ჯემები და პოდკასტი GGC Talks.",
-
-    "join.title": "დაამატე შენი სტუდია, გუნდი ან პროფილი",
-    "join.intro": "შეავსე ფორმა და ჩვენი გუნდი გადაამოწმებს ინფორმაციას. გამოქვეყნების შემდეგ დაგიკავშირდებით.",
-    "join.type": "რას ამატებ?",
-    "join.type.companies": "კომპანია ან გუნდი",
-    "join.type.developers": "დამოუკიდებელი დეველოპერი",
-    "join.type.games": "თამაში",
-    "join.image": "ლოგო ან სურათი",
-    "join.imagehint": "აირჩიე სურათი, დააკადრირე და გააგრძელე. ავტომატურად შეიკუმშება.",
-    "join.contactname": "საკონტაქტო პირი",
-    "join.contactemail": "საკონტაქტო ელფოსტა",
-    "join.contacthint": "მხოლოდ ჩვენთვის — საიტზე არ გამოჩნდება.",
-    "join.send": "გაგზავნა",
-    "join.sending": "იგზავნება…",
-    "join.required": "შეავსე სახელი და საკონტაქტო ელფოსტა.",
-    "join.thanks.h": "მიღებულია, გმადლობთ!",
-    "join.thanks.p": "შენი განაცხადი განხილვაშია. თუ რამე დასაზუსტებელი იქნება, დაგიკავშირდებით.",
-    "join.thanks.edit": "შენი პასუხები შენახულია ამ ბრაუზერში. თუ რამეს შეასწორებ და ხელახლა გააგზავნი, იგივე განაცხადი განახლდება — ახალი არ შეიქმნება.",
-    "join.editagain": "შესწორება და ხელახლა გაგზავნა",
-    "join.offline": "გაგზავნა ვერ მოხერხდა. სცადე მოგვიანებით ან მოგვწერე georgiangamecommunity@gmail.com-ზე.",
-
-    "t.verifiedon": "დადასტურდა",
-    "t.contact": "კონტაქტი",
-
-
-    "games.title": "ქართული თამაშები",
-    "games.intro": "თამაშები, რომლებიც საქართველოში შეიქმნა ან ქართული გუნდების მონაწილეობით დამზადდა.",
-
-    "f.genre": "ყველა ჟანრი",
-    "f.platform": "ყველა პლატფორმა",
-    "f.gamestatus": "ნებისმიერი სტატუსი",
-
-    "co.section.companies": "რეგისტრირებული კომპანიები",
-    "co.section.teams": "არარეგისტრირებული გუნდები",
-    "co.section.teams.note": "გუნდები, რომლებსაც ჯერ არ აქვთ იურიდიული რეგისტრაცია.",
-
-    "t.developer": "დეველოპერი",
-    "t.released": "გამოშვება",
-    "t.platforms": "პლატფორმები",
-    "t.genre": "ჟანრი",
-    "t.status": "სტატუსი",
-    "t.details": "დეტალები",
-    "t.links": "ბმულები",
-    "t.games": "თამაშები",
-    "t.back": "უკან",
-    "t.notfound": "ჩანაწერი ვერ მოიძებნა.",
-    "t.more": "დეტალურად",
-
-    "nav.menu": "მენიუ",
-
-    "brand": "ქართული თამაშების საზოგადოება",
-
-    "home.w1": "ქართული",
-    "home.w2": "თამაშების",
-    "home.w3": "საზოგადოება",
-    "home.sub": "საზოგადოება ყველასთვის, ვინც საქართველოში თამაშებს ქმნის.",
-    "home.cta.companies": "ნახე კომპანიები",
-    "home.cta.join": "შემოგვიერთდი",
-
-    "count.companies": "კომპანია",
-    "count.teams": "გუნდი",
-    "count.devs": "დეველოპერი",
-
-    "home.do.title": "რას ვაკეთებთ",
-    "home.do.1.h": "კურსები",
-    "home.do.1.p": "თამაშების შექმნის კურსები, რომლებსაც GITA-სთან და Startup Bureau-სთან ერთად ვატარებთ.",
-    "home.do.2.h": "გეიმ ჯემები",
-    "home.do.2.p": "შაბათ-კვირები, სადაც გუნდები იკრიბებიან, პროტოტიპები იქმნება და ხალხი ერთმანეთს ხვდება.",
-    "home.do.3.h": "მხარდაჭერა",
-    "home.do.3.p": "მენტორობა ახალი სტუდიებისთვის — პირველი პროტოტიპიდან პირველ გამოშვებამდე.",
-
-    "home.map.title": "ქართული გეიმდევი ერთ ადგილას",
-    "home.map.p": "ვაგროვებთ და ვამოწმებთ ინფორმაციას ყველა სტუდიაზე, გუნდსა და დამოუკიდებელ დეველოპერზე, რომელიც საქართველოში მუშაობს. კატალოგი ღიაა და უფასო.",
-
-    "about.title": "ჩვენ შესახებ",
-    "about.intro": "GGC არის ქართული თამაშების საზოგადოება — გაერთიანება, რომელიც საქართველოში თამაშების ინდუსტრიას ეხმარება ზრდაში.",
-    "about.who.h": "ვინ ვართ",
-    "about.who.p1": "GGC დაარსდა იმისთვის, რომ საქართველოში თამაშების შემქმნელებს ჰქონოდათ საერთო სივრცე — ადგილი, სადაც სტუდიები, გუნდები და დამოუკიდებელი დეველოპერები ერთმანეთს პოულობენ, ცოდნას უზიარებენ და ერთად იზრდებიან.",
-    "about.who.p2": "ვმუშაობთ საგანმანათლებლო პროგრამებზე, ღონისძიებებზე და ინდუსტრიის რუკაზე, რომელიც აჩვენებს, ვინ რას აკეთებს ქვეყანაში.",
-
-    "about.did.h": "რა გავაკეთეთ",
-    "about.did.1.h": "საგანმანათლებლო პროგრამები",
-    "about.did.1.p": "თამაშების შექმნის კურსები GITA-სთან და Startup Bureau-სთან ერთად, დამწყებთათვის და პრაქტიკოსებისთვის.",
-    "about.did.2.h": "გეიმ ჯემები და ღონისძიებები",
-    "about.did.2.p": "რეგულარული ჯემები და შეხვედრები, სადაც ახალი გუნდები იქმნება და პროექტები იწყება.",
-    "about.did.3.h": "მენტორობა სტუდიებისთვის",
-    "about.did.3.p": "კონსულტაცია ახალი სტუდიებისთვის — გუნდის აწყობიდან გამოცემამდე.",
-    "about.did.4.h": "ინდუსტრიის რუკა",
-    "about.did.4.p": "ქართული სტუდიების, გუნდებისა და დეველოპერების საჯარო კატალოგი.",
-    "about.did.5.h": "საერთაშორისო კავშირები",
-    "about.did.5.p": "ქართული სტუდიების წარმოჩენა საერთაშორისო ინდუსტრიის ღონისძიებებზე.",
-    "about.did.6.h": "საზოგადოება",
-    "about.did.6.p": "აქტიური ონლაინ საზოგადოება, სადაც დეველოპერები ყოველდღიურად ერთმანეთს ეხმარებიან.",
-
-    "about.team.h": "გუნდი",
-    "role.cofounder": "თანადამფუძნებელი",
-    "role.pm": "პროექტის მენეჯერი",
-    "role.content": "კონტენტი და ანალიტიკა",
-
-    "co.title": "კომპანიები და გუნდები",
-    "co.intro": "ქართული და საქართველოში მოქმედი თამაშების სტუდიები, გამომცემლები და გუნდები. კატალოგს ვამოწმებთ და ვაახლებთ.",
-    "dev.title": "დამოუკიდებელი დეველოპერები",
-    "dev.intro": "დამოუკიდებელი დეველოპერები და სპეციალისტები, რომლებიც საქართველოში თამაშებზე მუშაობენ.",
-
-    "f.search": "ძებნა სახელით ან საქმიანობით",
-    "f.type": "ყველა ტიპი",
-    "f.entity": "კომპანია და გუნდი",
-    "f.entity.company": "რეგისტრირებული კომპანია",
-    "f.entity.team": "არარეგისტრირებული გუნდი",
-    "f.origin": "ყველა წარმომავლობა",
-    "f.origin.georgian": "ქართული",
-    "f.origin.international": "საერთაშორისო",
-    "f.origin.branch": "საერთაშორისო, ოფისით საქართველოში",
-    "f.city": "ყველა ქალაქი",
-    "f.size": "ნებისმიერი ზომა",
-    "f.all": "ყველა",
-    "f.verified": "მხოლოდ დადასტურებული",
-    "f.role": "ყველა როლი",
-    "f.available": "ღიაა პროექტებისთვის",
-    "f.reset": "ფილტრების გასუფთავება",
-    "f.showing": "ნაჩვენებია",
-    "f.of": "სულ",
-    "f.none": "ამ ფილტრით ვერაფერი მოიძებნა. სცადე ფილტრების გასუფთავება.",
-    "f.loading": "იტვირთება…",
-    "f.error": "მონაცემები ვერ ჩაიტვირთა. გვერდი გადატვირთე.",
-
-    "t.verified": "დადასტურებული",
-    "t.since": "დაარსდა",
-    "t.people": "ადამიანი",
-    "t.available": "ღიაა პროექტებისთვის",
-    "t.website": "ვებგვერდი",
-    "t.email": "ელფოსტა",
-
-    "cta.add.h": "გინდა ჩვენს კატალოგში მოხვედრა?",
-    "cta.add.p": "შეავსე მოკლე ფორმა და ჩვენი გუნდი დაგიკავშირდება.",
-    "cta.add.btn": "შეავსე ფორმა",
-
-    "contact.title": "კონტაქტი",
-    "contact.intro": "დაგვიკავშირდი ნებისმიერ საკითხზე — თანამშრომლობა, ღონისძიებები ან კატალოგში დამატება.",
-    "contact.address.h": "მისამართი",
-    "contact.email.h": "ელფოსტა",
-    "contact.phone.h": "ტელეფონი",
-    "contact.social.h": "სოციალური ქსელები",
-    "contact.join.h": "შემოგვიერთდი Telegram-ზე",
-    "contact.join.p": "ჩვენი მთავარი საზოგადოება Telegram-შია. კითხვები, ვაკანსიები, ჯემები და ყოველდღიური საუბარი.",
-
-    "tg.title": "GGC Telegram",
-    "tg.p": "შემოგვიერთდი ქართული გეიმდევ საზოგადოებას.",
-    "tg.join": "შემოერთება",
-    "tg.later": "მოგვიანებით",
-    "tg.open": "Telegram",
-
-    "foot.rights": "ქართული თამაშების საზოგადოება",
-    "404.title": "გვერდი ვერ მოიძებნა",
-    "404.p": "ასეთი გვერდი არ არსებობს ან გადატანილია.",
-    "404.btn": "მთავარ გვერდზე"
-  },
-
-  en: {
-    "nav.home": "Home",
-    "nav.about": "About",
-    "nav.companies": "Companies & teams",
-    "nav.developers": "Developers",
-    "nav.contact": "Contact",
-    "nav.games": "Games",
-    "nav.join": "Add your studio",
-
-    "count.verified": "verified",
-    "count.games": "games",
-    "count.teams.short": "teams",
-
-    "home.playtitle": "Take a break",
-    "home.playintro": "A small game while you are here. Click or press Space to flip gravity.",
-    "game.score": "Score",
-    "game.best": "Best",
-    "game.start": "Start",
-    "game.again": "Play again",
-    "game.tap": "Click or press Space to flip gravity",
-    "game.over": "Game over",
-
-    "home.shots": "From our events",
-    "home.shots.p": "Meetups, talks, jams, and the GGC Talks podcast.",
-
-    "join.title": "Add your studio, team, or profile",
-    "join.intro": "Fill in the form and our team will check the details. We will get in touch once it is published.",
-    "join.type": "What are you adding?",
-    "join.type.companies": "Company or team",
-    "join.type.developers": "Independent developer",
-    "join.type.games": "Game",
-    "join.image": "Logo or image",
-    "join.imagehint": "Pick an image, frame it, and carry on. It gets compressed automatically.",
-    "join.contactname": "Contact person",
-    "join.contactemail": "Contact email",
-    "join.contacthint": "For us only. It is never shown on the site.",
-    "join.send": "Send",
-    "join.sending": "Sending…",
-    "join.required": "A name and a contact email are needed.",
-    "join.thanks.h": "Received, thank you!",
-    "join.thanks.p": "Your submission is under review. We will contact you if anything needs clarifying.",
-    "join.thanks.edit": "Your answers are saved in this browser. If you change something and send again, the same submission is updated rather than a new one created.",
-    "join.editagain": "Edit and send again",
-    "join.offline": "Could not send. Try again later, or write to georgiangamecommunity@gmail.com.",
-
-    "t.verifiedon": "Verified on",
-    "t.contact": "Contact",
-
-
-    "games.title": "Georgian games",
-    "games.intro": "Games made in Georgia, or made with Georgian teams involved.",
-
-    "f.genre": "All genres",
-    "f.platform": "All platforms",
-    "f.gamestatus": "Any status",
-
-    "co.section.companies": "Registered companies",
-    "co.section.teams": "Unregistered teams",
-    "co.section.teams.note": "Teams working without a registered legal entity yet.",
-
-    "t.developer": "Developer",
-    "t.released": "Released",
-    "t.platforms": "Platforms",
-    "t.genre": "Genre",
-    "t.status": "Status",
-    "t.details": "Details",
-    "t.links": "Links",
-    "t.games": "Games",
-    "t.back": "Back",
-    "t.notfound": "Entry not found.",
-    "t.more": "Details",
-
-    "nav.menu": "Menu",
-
-    "brand": "Georgian Game Community",
-
-    "home.w1": "Georgian",
-    "home.w2": "Game",
-    "home.w3": "Community",
-    "home.sub": "A community for everyone making games in Georgia.",
-    "home.cta.companies": "Browse companies",
-    "home.cta.join": "Join us",
-
-    "count.companies": "companies",
-    "count.teams": "teams",
-    "count.devs": "developers",
-
-    "home.do.title": "What we do",
-    "home.do.1.h": "Courses",
-    "home.do.1.p": "Game development courses run together with GITA and Startup Bureau.",
-    "home.do.2.h": "Game jams",
-    "home.do.2.p": "Weekends where teams form, prototypes get built, and people meet the rest of the scene.",
-    "home.do.3.h": "Studio support",
-    "home.do.3.p": "Mentorship for new studios, from first prototype to first release.",
-
-    "home.map.title": "The Georgian game scene in one place",
-    "home.map.p": "We collect and verify information on every studio, team, and independent developer working in Georgia. The directory is open and free to use.",
-
-    "about.title": "About us",
-    "about.intro": "GGC is the Georgian Game Community, an organisation helping the game industry in Georgia grow.",
-    "about.who.h": "Who we are",
-    "about.who.p1": "GGC was founded to give the people making games in Georgia a shared place: somewhere studios, teams, and independent developers can find each other, share what they know, and grow together.",
-    "about.who.p2": "We work on education, events, and a public map of the industry that shows who is doing what in the country.",
-
-    "about.did.h": "What we have done",
-    "about.did.1.h": "Education programmes",
-    "about.did.1.p": "Game development courses with GITA and Startup Bureau, for beginners and working developers.",
-    "about.did.2.h": "Game jams and events",
-    "about.did.2.p": "Regular jams and meetups where new teams form and projects get started.",
-    "about.did.3.h": "Studio mentorship",
-    "about.did.3.p": "Guidance for new studios, from assembling a team to shipping a game.",
-    "about.did.4.h": "Industry map",
-    "about.did.4.p": "A public directory of Georgian studios, teams, and developers.",
-    "about.did.5.h": "International links",
-    "about.did.5.p": "Representing Georgian studios at international industry events.",
-    "about.did.6.h": "The community itself",
-    "about.did.6.p": "An active online community where developers help each other every day.",
-
-    "about.team.h": "Team",
-    "role.cofounder": "Co-founder",
-    "role.pm": "Project manager",
-    "role.content": "Content & analytics",
-
-    "co.title": "Companies & teams",
-    "co.intro": "Game studios, publishers, and teams based in or working from Georgia. We check and keep the directory up to date.",
-    "dev.title": "Independent developers",
-    "dev.intro": "Solo developers and specialists working on games in Georgia.",
-
-    "f.search": "Search by name or what they do",
-    "f.type": "All types",
-    "f.entity": "Companies & teams",
-    "f.entity.company": "Registered company",
-    "f.entity.team": "Unregistered team",
-    "f.origin": "All origins",
-    "f.origin.georgian": "Georgian",
-    "f.origin.international": "International",
-    "f.origin.branch": "International with a Georgian office",
-    "f.city": "All cities",
-    "f.size": "Any size",
-    "f.all": "All",
-    "f.verified": "Verified only",
-    "f.role": "All roles",
-    "f.available": "Open to work",
-    "f.reset": "Clear filters",
-    "f.showing": "Showing",
-    "f.of": "of",
-    "f.none": "Nothing matches these filters. Try clearing them.",
-    "f.loading": "Loading…",
-    "f.error": "Could not load the data. Reload the page.",
-
-    "t.verified": "Verified",
-    "t.since": "Founded",
-    "t.people": "people",
-    "t.available": "Open to work",
-    "t.website": "Website",
-    "t.email": "Email",
-
-    "cta.add.h": "Want your studio in the directory?",
-    "cta.add.p": "Fill in the short form and our team will get in touch.",
-    "cta.add.btn": "Open the form",
-
-    "contact.title": "Contact",
-    "contact.intro": "Get in touch about anything: partnerships, events, or getting listed in the directory.",
-    "contact.address.h": "Address",
-    "contact.email.h": "Email",
-    "contact.phone.h": "Phone",
-    "contact.social.h": "Social",
-    "contact.join.h": "Join us on Telegram",
-    "contact.join.p": "Our main community lives on Telegram. Questions, job posts, jams, and everyday conversation.",
-
-    "tg.title": "GGC on Telegram",
-    "tg.p": "Join the Georgian game development community.",
-    "tg.join": "Join",
-    "tg.later": "Later",
-    "tg.open": "Telegram",
-
-    "foot.rights": "Georgian Game Community",
-    "404.title": "Page not found",
-    "404.p": "This page does not exist, or it has moved.",
-    "404.btn": "Go to the home page"
+/* GGC bilingual layer: Georgian is authored in the markup, English is applied on top.
+   Add pairs here — key = exact Georgian text, value = English. */
+(function () {
+  var DICT = {
+    // header / nav
+    "ჰაბი": "Hub", "კომპანიები": "Companies", "თამაშები": "Games", "ჩვენ შესახებ": "About",
+    "დონაცია": "Donate", "დამატება": "Submit", "მონაცემები": "Report", "რეპორტი": "Report",
+    "საზოგადოება": "Community", "გამომცემლობა": "Publishing", "აქსელერაცია": "Acceleration",
+    "მხარდაჭერა": "Support", "ადმინი": "Admin", "ქარ": "GE",
+    // home
+    "თამაშები იქმნება აქ": "Games are made here",
+    "ვერიფიცირებული კომპანია და გუნდი": "verified companies and teams",
+    "სოლო დეველოპერი": "solo developers", "სოლო დეველოპერები": "solo developers",
+    "თამაში კატალოგში": "games in the catalogue",
+    "ვერიფიცირებული სტუდია": "verified studios",
+    "მოსალოდნელი გამოშვება": "upcoming releases",
+    "ოთხი მიმართულება": "Four directions",
+    "მალე განახლდება": "coming soon",
+    "რა იგეგმება →": "what is planned →",
+    "ნახე მონაცემები →": "see the report →",
+    "დაამატე შენი სტუდია": "Add your studio",
+    "დაამატე თამაში": "Add a game",
+    "ყველა თამაში →": "All games →",
+    "ყველა სტუდია →": "All studios →",
+    // hub
+    "ოთხი მიმართულება, ერთ ადგილას": "Four directions, one place",
+    "მიმართულება 01": "Direction 01", "მიმართულება 02": "Direction 02",
+    "მიმართულება 03": "Direction 03", "მიმართულება 04": "Direction 04",
+    "მითაფი": "Meetup", "გეიმჯემი": "Game jam", "მასტერკლასი": "Masterclass",
+    "შემაჯამებელი ივენთი": "Year-end event",
+    "თვეში ერთხელ": "monthly", "წელიწადში ორჯერ": "twice a year",
+    "სეზონურად": "seasonal", "დეკემბერში": "in December",
+    "2026 კალენდარი": "2026 calendar",
+    "თარიღები შესაძლოა შეიცვალოს": "dates may change",
+    "გასული ივენთები": "Past events",
+    "ჩატარდა": "past", "რეგისტრაცია": "registration open", "მალე": "soon",
+    "ყველაფერი Telegram-ში ხდება": "Everything happens on Telegram",
+    "შემოგვიერთდი": "Join us", "შემოგვიერთდი Telegram-ზე": "Join us on Telegram",
+    "კალენდარი": "Calendar",
+    "ინვესტორებისთვის": "For investors",
+    "დაგვიკავშირდი": "Get in touch",
+    "წლიური რეპორტები": "Annual reports",
+    "გამოშვებები წლების მიხედვით": "Releases by year",
+    "ჟანრები": "Genres", "პლატფორმები": "Platforms",
+    "სტუდიები ქალაქების მიხედვით": "Studios by city", "გუნდის ზომა": "Team size",
+    "კატალოგში ნახვა →": "See in the catalogue →",
+    "კოჰორტები": "Cohorts", "დაფინანსება": "Funding", "რელოკაცია": "Relocation",
+    "მაინტერესებს — შემატყობინეთ": "I'm interested — notify me",
+    "სანამ — გამომცემლობა": "Meanwhile — publishing",
+    "თბილისი": "Tbilisi", "ბათუმი": "Batumi", "ქუთაისი": "Kutaisi", "სხვა": "Other",
+    "ონლაინ": "online",
+    // catalogue
+    "ქართული სტუდიები": "Georgian studios", "ქართული თამაშები": "Georgian games",
+    "რეგისტრირებული კომპანიები": "Registered companies", "გუნდები": "Teams",
+    "რეგისტრირებული კომპანია": "Registered company", "გუნდი": "Team",
+    "ყველა": "All", "მოსალოდნელი": "Upcoming", "გამოსული": "Released",
+    "ყველა წელი": "All years", "ძებნა": "Search",
+    "ძებნა სახელით ან ID-ით": "Search by name or ID",
+    "ძებნა თამაშით ან სტუდიით": "Search by game or studio",
+    "ვერაფერი მოიძებნა": "Nothing found",
+    "აქტიური": "active", "არააქტიური": "inactive",
+    "არააქტიურების ჩვენება": "show inactive",
+    "ვერიფიცირებული": "verified",
+    "თამაში": "games", "სტუდია": "studio",
+    "ოფიციალური სახელი": "Legal name", "საიდენტიფიკაციო": "Registry ID",
+    "ქალაქი": "City", "დაფუძნება": "Founded", "სტატუსი": "Status",
+    "GGC ვალიდაცია": "GGC validation", "ვალიდაცია": "validated",
+    "შესწორების მოთხოვნა": "Suggest an edit",
+    "თამაში ჯერ არ არის მიმაგრებული": "No games attached yet",
+    "გამოშვება": "Release", "ჟანრი": "Genre", "პლატფორმა": "Platforms",
+    "ძრავი": "Engine", "ფასი": "Price", "ენები": "Languages",
+    "დახურვა": "Close",
+    // submit
+    "მონაცემების გაგზავნა": "Submit data",
+    "ქმედება": "Action", "იდენტიფიკაცია": "Identification", "დეტალები": "Details",
+    "გადახედვა": "Review", "ცოცხალი გადახედვა": "Live preview",
+    "ახალი სტუდიის დამატება": "Add a new studio",
+    "თამაშის დამატება": "Add a game",
+    "არსებული მონაცემის შესწორება": "Correct existing data",
+    "იპოვე შენი სტუდია": "Find your studio",
+    "ახლის შექმნა": "Create new",
+    "ვერ მოიძებნა — შექმენი ახალი": "Not found — create it",
+    "შემდეგი": "Next", "უკან": "Back", "გაგზავნა": "Send", "გაიგზავნა": "Sent",
+    "კი, გვერდი მაქვს": "Yes, I have a store page",
+    "არა, ხელით შევავსებ": "No, I'll fill it in",
+    "წაკითხვა": "Read", "ხელახლა წაკითხვა": "Read again",
+    "ვინ ხარ": "Who you are", "რას აკეთებთ": "What you do", "რას აკეთებ": "What you do",
+    "ლინკები და სოციალური ქსელები": "Links and social media",
+    "დრაფტი ინახება": "Draft saved",
+    "კატალოგში დაბრუნება": "Back to the catalogue",
+    "კიდევ ერთის დამატება": "Add another",
+    "გაგზავნამდე": "Before you send",
+    "ვალიდაციის მოლოდინში": "awaiting validation",
+    "როლები არ არის მითითებული": "no roles set",
+    // donate
+    "შემოწირულობა Kisa.ge-ით": "Donate via Kisa.ge",
+    "ჯემის პრიზები": "Jam prizes", "სივრცე და ტექნიკა": "Venue and gear",
+    "სტუდიები ექსპოებზე": "Studios at expos",
+    "სად წავიდა შარშანდელი ფული": "Where last year's money went",
+    "სულ": "Total", "მწვანე": "Green", "შავ-თეთრი": "Mono",
+    "დაასკანერე QR ტელეფონით": "Scan the QR with your phone",
+    // about
+    "GGC რიცხვებში": "GGC in numbers", "გუნდი": "Team", "პარტნიორები": "Partners",
+    "გზა 2022-დან დღემდე": "From 2022 to today",
+    "კომუნითი და ივენთები": "Community and events",
+    "გამომცემლობა და პარტნიორობა": "Publishing and partnerships",
+    "მონაცემები და კატალოგი": "Data and catalogue",
+    "ფორმა →": "Form →",
+    "თანადამფუძნებელი": "Co-founder",
+    "პროექტების მენეჯერი": "Project manager", "კონტენტი": "Content",
+    // hub body copy
+    "GGC-ის საქმიანობა ოთხ ნაწილად იყოფა. აირჩიე მიმართულება — ქვემოთ სრული კონტენტი გამოჩნდება.":
+      "GGC's work splits into four parts. Pick a direction — the full content appears below.",
+    "მითაფები, ჯემები, მასტერკლასები": "Meetups, jams, masterclasses",
+    "დაფინანსება, პორტინგი, გამოშვება": "Funding, porting, release",
+    "ინკუბატორი და ზრდის პროგრამა": "Incubator and growth programme",
+    "ინდუსტრიის მონაცემები რიცხვებში": "Industry data in numbers",
+    "ერთი თემა, ორი მოხსენება, ერთი საათი კითხვები. უფასო, დარეგისტრირების გარეშე.":
+      "One topic, two talks, an hour of questions. Free, no registration.",
+    "48 საათი, გუნდები ადგილზე იკრიბება, ბოლოს ყველა თამაშობს ერთმანეთის თამაშს.":
+      "48 hours, teams form on site, and everyone plays each other's games at the end.",
+    "პრაქტიკული სესია კონკრეტულ უნარზე — 2D, 3D, პროგრამირება, ბიზნესი.":
+      "A hands-on session on one skill — 2D, 3D, programming, business.",
+    "წლის შედეგები, ახალი თამაშების ჩვენება და ინდუსტრიის შეხვედრა.":
+      "The year's results, new game showcases and an industry get-together.",
+    "ივენთების გამოცხადება, ვაკანსიები, ერთმანეთის დახმარება და ის შუადღის კითხვები, რომლებზეც ფორუმზე ვერავინ გიპასუხებდა.":
+      "Event announcements, job posts, mutual help, and the midday questions no forum would answer.",
+    "Facebook-ის გვერდიდან": "from the Facebook page",
+    // calendar
+    "თებ": "Feb", "მარ": "Mar", "აპრ": "Apr", "მაი": "May", "ივნ": "Jun",
+    "ივლ": "Jul", "აგვ": "Aug", "სექ": "Sep", "ოქტ": "Oct", "ნოე": "Nov", "დეკ": "Dec", "იან": "Jan",
+    "2D არტი თამაშებში": "2D art in games", "3D არტი თამაშებში": "3D art in games",
+    "პროგრამირება თამაშებში": "Programming in games",
+    "საერთაშორისო მითაფი": "International meetup",
+    "მითაფი #1 · თბილისი": "Meetup #1 · Tbilisi",
+    "მითაფი #2 · თბილისი": "Meetup #2 · Tbilisi",
+    "მითაფი #3 · ონლაინ": "Meetup #3 · online",
+    "48 საათი · ტექნოპარკი": "48 hours · Technopark",
+    "სტუმრები საზღვარგარეთიდან": "Guests from abroad",
+    "წლის შედეგები": "The year in review",
+    // past events
+    "GameJam 2025 — შემაჯამებელი": "GameJam 2025 — wrap-up",
+    "მითაფი: 2D არტი თამაშებში": "Meetup: 2D art in games",
+    "მასტერკლასი: Unity-ს ოპტიმიზაცია": "Masterclass: Unity optimisation",
+    "GGC კონფერენცია": "GGC conference",
+    "იანვარი": "January", "თებერვალი": "February", "მარტი": "March", "აპრილი": "April",
+    "მაისი": "May", "ივნისი": "June", "ივლისი": "July", "აგვისტო": "August",
+    "სექტემბერი": "September", "ოქტომბერი": "October", "ნოემბერი": "November", "დეკემბერი": "December",
+    // publishing tab
+    "პორტინგი": "Porting", "მარკეტინგი": "Marketing",
+    "ბიზნეს-განვითარება": "Business development", "პორტფელი": "Portfolio",
+    "პროდაქშენის ბიუჯეტი ან თანადაფინანსება კონკრეტულ ეტაპზე.":
+      "A production budget or co-funding at a specific stage.",
+    "კონსოლებზე და მაღაზიებზე გამოშვების ტექნიკური ნაწილი.":
+      "The technical side of shipping to consoles and stores.",
+    "ვიშლისტები, სტრიმერები, ფესტივალები, პრეს-კიტი.":
+      "Wishlists, streamers, festivals, press kit.",
+    "კონტრაქტები, პლატფორმებთან ურთიერთობა, გარიგებები.":
+      "Contracts, platform relations, deals.",
+    "გამოგვიგზავნე თამაში": "Send us your game",
+    "პიჩ-დეკი, ბილდი ან უბრალოდ იდეა — ყველაფერს ვუყურებთ. პასუხს ორ კვირაში იღებ.":
+      "A pitch deck, a build or just an idea — we look at everything. You get an answer within two weeks.",
+    "შესაძლებელია ინვესტიციის ჩადება როგორც კონკრეტულ თამაშში, ისე სტუდიაში. მოგვწერე და გამოგიგზავნით პროექტების მოკლე მიმოხილვას.":
+      "You can invest in a specific game or in a studio. Write to us and we'll send a short overview of the projects.",
+    "თუ ეძებ, სად შედის ფული ქართულ გეიმდევში — ეს გვერდი საწყისი წერტილია. სრული პორტფელი, ეტაპები და გუნდები მოთხოვნისთანავე.":
+      "If you're looking for where money goes in Georgian gamedev, this page is the starting point. Full portfolio, milestones and teams on request.",
+    // acceleration tab
+    "ინკუბატორი და აქსელერატორი ქართული სტუდიებისთვის, რომლებიც უკვე მზად არიან გაზრდისთვის. პროგრამა ჯერ იწერება — ქვემოთ ის მიმართულებებია, რომლებზეც ვმუშაობთ.":
+      "An incubator and accelerator for Georgian studios that are ready to grow. The programme is still being written — below are the directions we're working on.",
+    "3-6 სტუდია ერთ ნაკადში, ფიქსირებული ხანგრძლივობა და ეტაპები.":
+      "3-6 studios per cohort, with a fixed length and milestones.",
+    "გრანტი ან თანადაფინანსება კონკრეტულ ეტაპზე, გამჭვირვალე პირობებით.":
+      "A grant or co-funding at a specific stage, on transparent terms.",
+    "უცხოური სტუდიების საქართველოში გადმოსვლის მხარდაჭერა.":
+      "Support for foreign studios relocating to Georgia.",
+    // report tab
+    "ქართული გეიმდევი 2025": "Georgian gamedev 2025",
+    "ქართული გეიმდევი 2024": "Georgian gamedev 2024",
+    "სტუდიების გამოკითხვა 2024": "Studio survey 2024",
+    "PDF · მალე": "PDF · soon",
+    "სტუდიის სახელი": "Studio name", "თამაშის სახელი": "Game title",
+    "მობაილ თამაში": "Mobile game", "სახელი გვარი": "Name Surname",
+    // about page
+    "GGC არის ქართული თამაშების საზოგადოება — ადგილი, სადაც სტუდიები, გუნდები და ცალკეული დეველოპერები ერთმანეთს პოულობენ. ჩვენ არ ვქმნით თამაშებს; ჩვენ ვაშენებთ ინფრასტრუქტურას, რომელიც თამაშების შექმნას აადვილებს.":
+      "GGC is the Georgian games community — the place where studios, teams and individual developers find each other. We don't make games; we build the infrastructure that makes making them easier.",
+    "ადამიანი გადამზადებული 2023 წლიდან": "people trained since 2023",
+    "ტექნოპარკის ჩართულობით": "with Technopark involvement",
+    "გლობალური გეიმჯემი 2022-2026": "global game jams 2022-2026",
+    "სტარტაპ ბიუროსთან პარტნიორობით": "in partnership with Startup Bureau",
+    "მითაფი და 1 კონფერენცია": "meetups and 1 conference",
+    "საშუალო დასწრება 130 კაცი": "average attendance 130 people",
+    "კონსულტაცია სტუდიებთან": "consultations with studios",
+    "მიმართულებები, გამოცდილება, მასშტაბი": "direction, experience, scale",
+    "საერთაშორისო კომპანიის რელოკაცია": "international company relocated",
+    "ესტონური აუთსორს-სტუდია": "an Estonian outsourcing studio",
+    "კომპანიის ქსელი, 160 წევრი": "company network, 160 members",
+    "Telegram, სოც მედია, პირდაპირი კავშირი": "Telegram, social media, direct contact",
+    "დასაწყისი": "The start", "გადამზადება": "Training", "მასშტაბი": "Scale", "კატალოგი": "Catalogue",
+    "პირველი ჯემი და პირველი მითაფები.": "The first jam and the first meetups.",
+    "30+ ადამიანი, ტექნოპარკთან თანამშრომლობა.": "30+ people, working with Technopark.",
+    "10 მითაფი, კონფერენცია, 70,000₾ ბიუჯეტი.": "10 meetups, a conference, a ₾70,000 budget.",
+    "სტუდიებთან კონსულტაციები და პირველი პროექტები.": "Consultations with studios and the first projects.",
+    "ღია მონაცემები ქართულ გეიმდევზე.": "Open data on Georgian gamedev.",
+    "ლოგოებს ჩაანაცვლებ — ": "Replace the logos — ",
+    "დაწერე Telegram-ზე — ყველაზე სწრაფი გზაა.": "Write on Telegram — it's the fastest way.",
+    "თამაშის პიჩი, ინვესტიცია, სპონსორობა.": "Game pitches, investment, sponsorship.",
+    "შენი სტუდიის დამატება ან შესწორება.": "Add or correct your studio."
+  };
+  var ATTRS = ["placeholder", "aria-label", "title"];
+  // Whole-node matching only. Composites (word + number/date) get narrow patterns —
+  // a general substring pass would splice English into untranslated Georgian sentences.
+  var PATTERNS = [
+    [/^(\u10d8\u10d0\u10dc\u10d5\u10d0\u10e0\u10d8|\u10d7\u10d4\u10d1\u10d4\u10e0\u10d5\u10d0\u10da\u10d8|\u10db\u10d0\u10e0\u10e2\u10d8|\u10d0\u10de\u10e0\u10d8\u10da\u10d8|\u10db\u10d0\u10d8\u10e1\u10d8|\u10d8\u10d5\u10dc\u10d8\u10e1\u10d8|\u10d8\u10d5\u10da\u10d8\u10e1\u10d8|\u10d0\u10d2\u10d5\u10d8\u10e1\u10e2\u10dd|\u10e1\u10d4\u10e5\u10e2\u10d4\u10db\u10d1\u10d4\u10e0\u10d8|\u10dd\u10e5\u10e2\u10dd\u10db\u10d1\u10d4\u10e0\u10d8|\u10dc\u10dd\u10d4\u10db\u10d1\u10d4\u10e0\u10d8|\u10d3\u10d4\u10d9\u10d4\u10db\u10d1\u10d4\u10e0\u10d8) (\d{4})$/, function (m, a, b) { return (DICT[a] || a) + " " + b; }],
+    [/^\u10d5\u10d0\u10da\u10d8\u10d3\u10d0\u10ea\u10d8\u10d0 (.+)$/, function (m, a) { return "validated " + a; }],
+    [/^\u10db\u10d0\u10da\u10d4 (\d{4})$/, function (m, a) { return "soon " + a; }],
+    [/^(\d+) \u10d7\u10d0\u10db\u10d0\u10e8\u10d8$/, function (m, a) { return a + " games"; }],
+    [/^\u10db\u10d8\u10d7\u10d0\u10e4\u10d8 #(\d+) \u00b7 (.+)$/, function (m, a, b) { return "Meetup #" + a + " \u00b7 " + (DICT[b] || b); }]
+  ];
+  function tr(text) {
+    var k = text.trim();
+    if (DICT[k]) return text.replace(k, DICT[k]);
+    for (var i = 0; i < PATTERNS.length; i++) {
+      if (PATTERNS[i][0].test(k)) return text.replace(k, k.replace(PATTERNS[i][0], PATTERNS[i][1]));
+    }
+    return null;
   }
-};
+  var lang = "ka";
+  try { lang = localStorage.getItem("ggc.lang") || "ka"; } catch (e) {}
 
-/* Labels used by the directory cards and filters.
-   Add a new option here and it appears everywhere automatically. */
-const TAXONOMY = {
-  role: {
-    developer:   { ka: "დეველოპერი",        en: "Developer" },
-    publisher:   { ka: "გამომცემელი",       en: "Publisher" },
-    outsourcing: { ka: "აუთსორსინგი",       en: "Outsourcing" },
-    codev:       { ka: "კო-დეველოპმენტი",   en: "Co-development" },
-    porting:     { ka: "პორტირება",         en: "Porting" },
-    art:         { ka: "არტი",              en: "Art" },
-    audio:       { ka: "ხმა და მუსიკა",     en: "Audio" },
-    qa:          { ka: "QA",                en: "QA" },
-    tools:       { ka: "ხელსაწყოები",       en: "Tools & tech" },
-    education:   { ka: "განათლება",         en: "Education" },
-    localization:{ ka: "ლოკალიზაცია",       en: "Localization" },
-    marketing:   { ka: "მარკეტინგი",        en: "Marketing" }
-  },
-  discipline: {
-    programmer: { ka: "პროგრამისტი",     en: "Programmer" },
-    artist:     { ka: "მხატვარი",        en: "Artist" },
-    designer:   { ka: "გეიმ დიზაინერი",  en: "Game designer" },
-    audio:      { ka: "ხმა და მუსიკა",   en: "Audio" },
-    producer:   { ka: "პროდიუსერი",      en: "Producer" },
-    writer:     { ka: "სცენარისტი",      en: "Writer" },
-    qa:         { ka: "QA",              en: "QA" },
-    marketing:  { ka: "მარკეტინგი",      en: "Marketing" }
-  },
-  entity: {
-    company: { ka: "რეგისტრირებული კომპანია", en: "Registered company" },
-    team:    { ka: "არარეგისტრირებული გუნდი", en: "Unregistered team" }
-  },
-  origin: {
-    georgian:      { ka: "ქართული",                          en: "Georgian" },
-    international: { ka: "საერთაშორისო",                     en: "International" },
-    branch:        { ka: "საერთაშორისო, ოფისით საქართველოში", en: "International, Georgian office" }
-  },
-  size: {
-    "1-5":   { ka: "1–5",   en: "1–5" },
-    "6-10":  { ka: "6–10",  en: "6–10" },
-    "11-25": { ka: "11–25", en: "11–25" },
-    "26-50": { ka: "26–50", en: "26–50" },
-    "50+":   { ka: "50+",   en: "50+" }
+  function walk(root) {
+    if (lang !== "en") return;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var n, hits = [];
+    while ((n = w.nextNode())) {
+      var t = n.nodeValue;
+      if (!t.trim()) continue;
+      if (n.parentNode && /SCRIPT|STYLE/.test(n.parentNode.nodeName)) continue;
+      var next = tr(t);
+      if (next && next !== t) hits.push([n, next]);
+    }
+    hits.forEach(function (h) { h[0].nodeValue = h[1]; });
+    var els = root.querySelectorAll ? root.querySelectorAll("[placeholder],[aria-label],[title]") : [];
+    for (var i = 0; i < els.length; i++) {
+      for (var a = 0; a < ATTRS.length; a++) {
+        var v = els[i].getAttribute(ATTRS[a]);
+        if (!v) continue;
+        var nv = tr(v);
+        if (nv && nv !== v) els[i].setAttribute(ATTRS[a], nv);
+      }
+    }
   }
-,
-  genre: {
-    action:      { ka: "ექშენი",           en: "Action" },
-    adventure:   { ka: "თავგადასავალი",    en: "Adventure" },
-    rpg:         { ka: "RPG",              en: "RPG" },
-    strategy:    { ka: "სტრატეგია",        en: "Strategy" },
-    puzzle:      { ka: "თავსატეხი",        en: "Puzzle" },
-    platformer:  { ka: "პლატფორმერი",      en: "Platformer" },
-    shooter:     { ka: "შუტერი",           en: "Shooter" },
-    simulation:  { ka: "სიმულატორი",       en: "Simulation" },
-    racing:      { ka: "რბოლა",            en: "Racing" },
-    sports:      { ka: "სპორტი",           en: "Sports" },
-    horror:      { ka: "საშინელება",       en: "Horror" },
-    roguelike:   { ka: "როგლაიკი",         en: "Roguelike" },
-    metroidvania:{ ka: "მეტროიდვანია",     en: "Metroidvania" },
-    visualnovel: { ka: "ვიზუალური ნოველა", en: "Visual novel" },
-    casual:      { ka: "კაჟუალი",          en: "Casual" },
-    hypercasual: { ka: "ჰიპერკაჟუალი",     en: "Hyper-casual" }
-  },
-  platform: {
-    pc:          { ka: "PC",             en: "PC" },
-    steam:       { ka: "Steam",          en: "Steam" },
-    switch:      { ka: "Nintendo Switch",en: "Nintendo Switch" },
-    xbox:        { ka: "Xbox",           en: "Xbox" },
-    playstation: { ka: "PlayStation",    en: "PlayStation" },
-    ios:         { ka: "iOS",            en: "iOS" },
-    android:     { ka: "Android",        en: "Android" },
-    web:         { ka: "ვები",           en: "Web" },
-    vr:          { ka: "VR",             en: "VR" }
-  },
-  gamestatus: {
-    released:    { ka: "გამოშვებული",       en: "Released" },
-    earlyaccess: { ka: "ადრეული წვდომა",    en: "Early access" },
-    development: { ka: "მუშავდება",         en: "In development" },
-    announced:   { ka: "გამოცხადებული",     en: "Announced" },
-    prototype:   { ka: "პროტოტიპი",         en: "Prototype" }
+  function marks() {
+    var b = document.querySelectorAll("[data-ggc-lang]");
+    for (var i = 0; i < b.length; i++) {
+      var on = b[i].getAttribute("data-ggc-lang") === lang;
+      b[i].style.background = on ? "#16181b" : "transparent";
+      b[i].style.color = on ? "#fff" : "#5a5f65";
+    }
   }
-};
+  function run() { walk(document.body); marks(); }
+
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest && e.target.closest("[data-ggc-lang]");
+    if (!t) return;
+    var next = t.getAttribute("data-ggc-lang");
+    if (next === lang) return;
+    try { localStorage.setItem("ggc.lang", next); } catch (er) {}
+    location.reload();
+  });
+
+  var pending = null;
+  new MutationObserver(function () {
+    if (pending) return;
+    pending = requestAnimationFrame(function () { pending = null; run(); });
+  }).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+  else run();
+  window.GGCI18n = { lang: lang, dict: DICT, apply: run };
+})();

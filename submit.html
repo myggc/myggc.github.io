@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script src="assets/js/support.js"></script>
 </head>
 <body>
 <x-dc>
@@ -11,10 +11,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="assets/js/ggc-core.js"></script>
+<script src="assets/js/i18n.js"></script>
 <style>
   html { overflow-x:clip; }
   body { margin:0; overflow-x:clip; background:#edf0f1; color:#16181b; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
   * { box-sizing:border-box; }
+  body { min-height:100vh; }
+  #root, #dc-root, body > div, #dc-root > div { display:flex; flex-direction:column; min-height:100vh; }
+  #dc-root > div > * { flex:none; width:100%; }
+  footer { margin-top:auto; }
   a { color:#146590; text-decoration:none; }
   a:hover { color:#0f5273; }
   @keyframes ggcSpin { to { transform:rotate(360deg) } }
@@ -24,15 +30,20 @@
 </style>
 </helmet>
 
-<header style="position:sticky;top:0;z-index:40;background:rgba(237,240,241,.93);backdrop-filter:blur(10px);border-bottom:1px solid #dfe3e4">
+<header style="position:sticky;top:0;z-index:40;background:rgba(240,241,238,.94);backdrop-filter:blur(10px);border-bottom:1px solid #dcdfd9">
   <div style="max-width:1220px;margin:0 auto;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px">
-    <a href="index.html" style="display:flex;align-items:center;gap:10px;flex:none"><img src="ggc-logo.svg" alt="GGC" style="height:30px;width:auto;display:block"></a>
-    <nav style="display:flex;flex-wrap:wrap;gap:4px;margin-left:auto;font-size:14px;font-weight:500">
-      <a href="GGC Companies.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e3e7e8;color:#16181b">კომპანიები</a>
-      <a href="GGC Games.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e3e7e8;color:#16181b">თამაშები</a>
-      <a href="#" style="padding:9px 12px;border-radius:9px;background:#e6f2f9;color:#146590;font-weight:600">დამატება</a>
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;flex:none"><img src="assets/brand/ggc-logo.svg" alt="GGC" style="height:30px;width:auto;display:block"></a>
+    <nav style="display:flex;flex-wrap:wrap;gap:2px;margin-left:auto;font-size:14px;font-weight:500">
+      <a href="hub.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">ჰაბი</a>
+      <a href="companies.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">კომპანიები</a>
+      <a href="games.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">თამაშები</a>
+      <a href="about.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">ჩვენ შესახებ</a>
     </nav>
-    <span style="font-size:13px;color:#5a5f65;flex:none">{{ draftNote }}</span>
+    <div style="display:flex;gap:2px;padding:3px;background:#e2e5df;border-radius:9px;flex:none">
+      <button type="button" data-ggc-lang="ka" style="border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:7px;padding:7px 10px;font-family:inherit;font-size:13px;font-weight:600">ქარ</button>
+      <button type="button" data-ggc-lang="en" style="border:0;cursor:pointer;background:transparent;color:#5a5f65;border-radius:7px;padding:7px 10px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600">EN</button>
+    </div>
+    <a href="donate.html" style="display:flex;align-items:center;gap:8px;background:#83c341;color:#16181b;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:700;flex:none" style-hover="background:#6ba22f;color:#fff">დონაცია</a>
   </div>
 </header>
 
@@ -234,12 +245,21 @@
   <sc-if value="{{ isSent }}">
     <div style="position:relative;background:#fff;border:1px solid #dfe3e4;border-radius:20px;padding:clamp(28px,5vw,56px);text-align:center;overflow:hidden">
       <div style="display:flex;justify-content:center">
-        <img src="ggc-mark.svg" alt="" style="width:88px;height:88px;display:block;animation:ggcFly 1.5s cubic-bezier(.4,0,.6,1) forwards">
+        <img src="assets/brand/ggc-mark.svg" alt="" style="width:88px;height:88px;display:block;animation:ggcFly 1.5s cubic-bezier(.4,0,.6,1) forwards">
       </div>
-      <h2 style="margin:18px 0 0;font-size:clamp(24px,3.4vw,34px);font-weight:700;letter-spacing:-.02em">გაიგზავნა</h2>
-      <p style="margin:14px auto 0;max-width:46ch;font-size:17px;line-height:1.6;color:#41464c">მონაცემები გადაეგზავნა GGC-ის ადმინისტრაციას და გადამოწმდება. როგორც კი დავადასტურებთ, საიტზე გამოჩნდება.</p>
+      <h2 style="margin:18px 0 0;font-size:clamp(24px,3.4vw,34px);font-weight:700;letter-spacing:-.02em">{{ sentTitle }}</h2>
+      <p style="margin:14px auto 0;max-width:46ch;font-size:17px;line-height:1.6;color:#41464c">{{ sentText }}</p>
+      <div style="display:{{ manualShow }};max-width:520px;margin:22px auto 0;text-align:left;background:#f7f9f9;border:1px solid #dfe3e4;border-radius:16px;padding:18px">
+        <div style="font-size:15px;font-weight:600;color:#16181b">დაასრულე გაგზავნა</div>
+        <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#41464c">აირჩიე ერთი გზა — ორივე ერთსა და იმავე ადგილას მოდის.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+          <a href="{{ issueHref }}" target="_blank" rel="noopener" style="background:#1d96d3;color:#fff;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:600">GitHub-ით გაგზავნა ↗</a>
+          <a href="{{ telegramHref }}" target="_blank" rel="noopener" style="background:#229ED9;color:#fff;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:600">Telegram ↗</a>
+          <button type="button" onClick="{{ copyJson }}" style="border:1px solid #dfe3e4;cursor:pointer;background:#fff;color:#41464c;border-radius:10px;padding:12px 18px;font-family:inherit;font-size:15px;font-weight:600">{{ copyLabel }}</button>
+        </div>
+      </div>
       <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px">
-        <a href="GGC Companies.dc.html" style="background:#16181b;color:#fff;border-radius:11px;padding:14px 22px;font-size:16px;font-weight:600">კატალოგში დაბრუნება</a>
+        <a href="companies.html" style="background:#16181b;color:#fff;border-radius:11px;padding:14px 22px;font-size:16px;font-weight:600">კატალოგში დაბრუნება</a>
         <button type="button" onClick="{{ restart }}" style="border:1px solid #dfe3e4;cursor:pointer;background:#fff;color:#41464c;border-radius:11px;padding:14px 22px;font-family:inherit;font-size:16px;font-weight:600">კიდევ ერთის დამატება</button>
       </div>
     </div>
@@ -249,13 +269,13 @@
 <footer style="background:#1b1e22;color:#e8eaec">
   <div style="max-width:1220px;margin:0 auto;padding:clamp(28px,4vw,44px) 20px;display:flex;flex-wrap:wrap;align-items:center;gap:20px">
     <div style="display:flex;align-items:center;gap:12px;flex:none">
-      <img src="ggc-mark.svg" alt="" style="height:32px;width:32px;display:block">
+      <img src="assets/brand/ggc-mark.svg" alt="" style="height:32px;width:32px;display:block">
       <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:.04em;color:#fff">GGC</span>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:15px">
-      <a href="GGC Companies.dc.html" style="color:#c6ccd3">კომპანიები</a>
-      <a href="GGC Games.dc.html" style="color:#c6ccd3">თამაშები</a>
-      <a href="GGC Publishing.dc.html" style="color:#c6ccd3">გამომცემლობა</a>
+      <a href="companies.html" style="color:#c6ccd3">კომპანიები</a>
+      <a href="games.html" style="color:#c6ccd3">თამაშები</a>
+      <a href="hub.html#publishing" style="color:#c6ccd3">გამომცემლობა</a>
     </div>
     <a href="https://t.me/ggcgeorgia" style="margin-left:auto;display:flex;align-items:center;gap:9px;background:#229ED9;color:#fff;border-radius:11px;padding:11px 16px;font-size:15px;font-weight:600;flex:none" style-hover="background:#1b8dc4">
       <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff" style="flex:none"><path d="M21.9 4.3 18.9 19c-.2.9-.8 1.2-1.6.7l-4.4-3.2-2.1 2c-.2.2-.4.4-.9.4l.3-4.4 8-7.2c.3-.3-.1-.4-.5-.2L7.9 12.4 3.6 11c-.9-.3-.9-.9.2-1.3l16.7-6.4c.8-.3 1.5.2 1.4 1z"/></svg>
@@ -265,35 +285,33 @@
 </footer>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{}">
-const EXISTING = [
-  { id:"madmoa", name:"MadMoa LLC", sub:"რეგისტრირებული კომპანია · თბილისი · 3 თამაში" },
-  { id:"studio-2", name:"Studio LLC", sub:"რეგისტრირებული კომპანია · თბილისი · 2 თამაში" }
-];
+const D = GGC.data, U = GGC.util;
 const CO_FIELDS = [
   ["legal", "ოფიციალური სახელი", "MadMoa LLC"],
   ["regId", "საიდენტიფიკაციო ნომერი", "404123456"],
-  ["nameEn", "სახელი (English)", "MadMoa"],
-  ["nameKa", "სახელი (ქართულად)", "მედმოა"],
+  ["name", "საჯარო სახელი", "MadMoa"],
   ["city", "ქალაქი", "თბილისი"],
   ["founded", "დაფუძნების წელი", "2019"],
   ["size", "გუნდის ზომა", "6-10"],
-  ["origin", "წარმოშობა", "ქართული / უცხოური"],
-  ["aboutKa", "აღწერა (ქართულად)", "ინდი სტუდია..."],
-  ["aboutEn", "აღწერა (English)", "Indie studio..."],
-  ["website", "ვებსაიტი", "madmoa.com"],
+  ["about", "აღწერა", "ინდი სტუდია…"],
+  ["aboutEn", "აღწერა (English)", "Indie studio…"],
+  ["website", "ვებსაიტი", "https://madmoa.com"],
   ["email", "ელფოსტა", "info@madmoa.com"],
-  ["contactName", "საკონტაქტო პირი", "სახელი გვარი"],
-  ["contactEmail", "საკონტაქტო ელფოსტა", "you@studio.com"]
+  ["contact", "საკონტაქტო პირი და კავშირი", "სახელი გვარი · @telegram"]
 ];
-const TEAM_SKIP = ["regId", "origin"];
-const SOLO_SKIP = ["regId", "origin", "size"];
+const TEAM_SKIP = ["regId"];
+const SOLO_SKIP = ["regId", "size"];
 const SOCIALS = [
   ["telegram", "Telegram", "@studio"], ["facebook", "Facebook", "fb.com/studio"],
   ["instagram", "Instagram", "instagram.com/studio"], ["linkedin", "LinkedIn", "linkedin.com/company/studio"],
   ["youtube", "YouTube", "youtube.com/@studio"], ["x", "X", "x.com/studio"],
-  ["steam", "Steam", "store.steampowered.com/publisher/..."], ["itch", "itch.io", "studio.itch.io"]
+  ["steam", "Steam", "store.steampowered.com/publisher/…"], ["itch", "itch.io", "studio.itch.io"]
 ];
-const ROLES = { company: ["developer","publisher","outsourcing","codev","porting","art","audio"], team: ["developer","art","audio","codev"], solo: ["programmer","artist","designer","audio","QA","writer"] };
+const ROLES = {
+  company: ["developer", "publisher", "outsourcing", "codev", "porting", "art", "audio"],
+  team: ["developer", "art", "audio", "codev"],
+  solo: ["developer", "art", "audio", "porting"]
+};
 const KINDS = ["company", "team", "solo"];
 const KIND_HINT = {
   company: "ოფიციალურად რეგისტრირებული კომპანია — პრიორიტეტული ჩანაწერი, სჭირდება საიდენტიფიკაციო ნომერი.",
@@ -302,36 +320,154 @@ const KIND_HINT = {
 };
 const GAME_FIELDS = [
   ["gName", "თამაშის სახელი", "Dumbriel"],
-  ["gGenre", "ჟანრი", "metroidvania"],
-  ["gStatus", "სტატუსი", "მოსალოდნელი / გამოსული"],
-  ["gDate", "გამოშვების თარიღი ან TBD", "TBD"]
+  ["gGenre", "ჟანრი", "metroidvania, action"],
+  ["gPlatforms", "პლატფორმა", "Steam, Switch"],
+  ["gDate", "გამოშვების თარიღი ან TBD", "TBD"],
+  ["gEngine", "ძრავი", "Unity"],
+  ["gPrice", "ფასი", "₾25"],
+  ["gAbout", "აღწერა", "მოკლე აღწერა…"]
 ];
-const PARSED = [
-  ["სახელი", "Dumbriel"], ["ჟანრი", "Metroidvania, Action"], ["პლატფორმა", "Steam, Switch, Xbox"],
-  ["გამოშვება", "TBD"], ["ძრავი", "Unity"], ["capsule", "460×215 მაღაზიიდან"]
-];
+const ACC = { company: "#1d96d3", team: "#83c341", solo: "#fdb813" };
+const DRAFT = "ggc.submit.draft";
 
 class Component extends DCLogic {
-  state = { step: 0, mode: "", lookup: "", picked: null, store: "", storeUrl: "", parsed: false, sent: false, f: {}, saved: false, kind: "company", roles: [] };
+  state = {
+    ready: false, step: 0, mode: "", lookup: "", picked: null, store: "", storeUrl: "",
+    parsing: false, parsed: null, parseErr: "", sent: false, f: {}, saved: false,
+    kind: "company", roles: [], result: null, copied: false
+  };
 
   componentDidMount() {
+    D.load().then(() => this.setState({ ready: true }));
     try {
-      const d = JSON.parse(localStorage.getItem("ggc.submit.draft") || "null");
+      const d = JSON.parse(localStorage.getItem(DRAFT) || "null");
       if (d && d.step) this.setState(Object.assign({ saved: true }, d));
     } catch (e) {}
   }
+
+  /* Every step writes the draft back, so a closed tab never loses the form. */
   save(patch) {
     this.setState(patch, () => {
       const s = this.state;
-      try { localStorage.setItem("ggc.submit.draft", JSON.stringify({ step: s.step, mode: s.mode, lookup: s.lookup, picked: s.picked, store: s.store, storeUrl: s.storeUrl, parsed: s.parsed, f: s.f, kind: s.kind, roles: s.roles })); } catch (e) {}
+      try {
+        localStorage.setItem(DRAFT, JSON.stringify({
+          step: s.step, mode: s.mode, lookup: s.lookup, picked: s.picked, store: s.store,
+          storeUrl: s.storeUrl, parsed: s.parsed, f: s.f, kind: s.kind, roles: s.roles
+        }));
+      } catch (e) {}
     });
   }
   set(k, v) { this.save({ f: Object.assign({}, this.state.f, { [k]: v }) }); }
 
+  runParse() {
+    const url = this.state.storeUrl.trim();
+    if (!url) return this.setState({ parseErr: "ჩასვი მაღაზიის ბმული" });
+    this.setState({ parsing: true, parseErr: "" });
+    GGC.stores.parse(url).then(p => {
+      this.save({ parsing: false, parsed: p, parseErr: "" });
+    }).catch(() => {
+      this.setState({
+        parsing: false, parsed: null,
+        parseErr: "ავტომატურად ვერ წავიკითხეთ — შეავსე ხელით, ბმულს ჩვენ თვითონ დავამუშავებთ"
+      });
+    });
+  }
+
+  /* Turns the wizard state into the payload the admin queue understands. */
+  payload() {
+    const s = this.state, f = s.f, p = s.parsed;
+    const company = {};
+    CO_FIELDS.forEach(([k]) => { if (f[k]) company[k] = f[k]; });
+    if (company.founded) company.founded = Number(company.founded) || 0;
+    company.kind = s.kind;
+    if (s.roles.length) company.roles = s.roles;
+    const links = {};
+    SOCIALS.forEach(([k]) => { if (f[k]) links[k] = f[k]; });
+    if (Object.keys(links).length) company.links = links;
+
+    const game = {};
+    if (p) {
+      game.name = p.name;
+      game.about = p.about;
+      game.genres = p.genres;
+      game.platforms = p.platforms;
+      game.status = p.status;
+      game.releaseDate = p.releaseDate;
+      game.year = p.year;
+      game.price = p.price;
+      game.langs = p.langs;
+      game.art = p.art;
+      game.stores = p.stores;
+      game.mobile = !!p.mobile;
+      game.source = p.source;
+      game.parsedAt = new Date().toISOString();
+    } else {
+      if (f.gName) game.name = f.gName;
+      if (f.gGenre) game.genres = f.gGenre.split(",").map(x => x.trim()).filter(Boolean);
+      if (f.gPlatforms) game.platforms = f.gPlatforms.split(",").map(x => x.trim()).filter(Boolean);
+      if (f.gEngine) game.engine = f.gEngine;
+      if (f.gPrice) game.price = f.gPrice;
+      if (f.gAbout) game.about = f.gAbout;
+      if (f.gDate && !/tbd/i.test(f.gDate)) {
+        game.releaseDate = f.gDate;
+        game.year = Number((/(\d{4})/.exec(f.gDate) || [])[1]) || 0;
+        game.status = "released";
+      } else {
+        game.status = "upcoming";
+      }
+      if (s.storeUrl) {
+        const det = GGC.stores.detect(s.storeUrl);
+        if (det) game.stores = { [det.kind]: det.url };
+      }
+    }
+
+    const picked = s.picked ? D.company(s.picked) : null;
+    const hasGame = s.mode === "game" || (s.mode === "new" && (p || f.gName));
+    const action = s.mode === "game" ? "new-game"
+      : s.mode === "edit" ? "edit-company"
+      : "new-company";
+
+    const out = {
+      action: action,
+      subject: picked ? (picked.legal || picked.name) : (company.legal || company.name || s.lookup),
+      contact: f.contact || f.email || links.telegram || "",
+      note: f.note || "",
+      site: "myggc"
+    };
+    if (action === "new-game") {
+      out.companyId = s.picked;
+      out.game = game;
+    } else {
+      out.company = company;
+      if (action === "edit-company") out.companyId = s.picked;
+      if (hasGame && Object.keys(game).length) out.pendingGame = game;
+    }
+    return out;
+  }
+
+  send() {
+    const p = this.payload();
+    this.setState({ sent: true, result: null });
+    try { localStorage.removeItem(DRAFT); } catch (e) {}
+    GGC.submit.deliver(p).then(r => this.setState({ result: r }));
+  }
+
+  copy() {
+    const r = this.state.result;
+    if (!r || !r.json) return;
+    const done = () => {
+      this.setState({ copied: true });
+      setTimeout(() => this.setState({ copied: false }), 2500);
+    };
+    if (navigator.clipboard) navigator.clipboard.writeText(r.json).then(done, done);
+    else done();
+  }
+
   renderVals() {
-    const s = this.state, f = s.f;
-    const matches = s.lookup.length > 1
-      ? EXISTING.filter(e => e.name.toLowerCase().indexOf(s.lookup.toLowerCase()) >= 0)
+    const s = this.state, f = s.f, p = s.parsed;
+    const term = s.lookup.trim().toLowerCase();
+    const matches = term.length > 1
+      ? D.companies().filter(c => (c.name + " " + c.legal + " " + c.regId).toLowerCase().indexOf(term) >= 0).slice(0, 6)
       : [];
     const isNew = s.mode === "new";
     const skip = s.kind === "team" ? TEAM_SKIP : s.kind === "solo" ? SOLO_SKIP : [];
@@ -339,7 +475,16 @@ class Component extends DCLogic {
       label, ph, value: f[k] || "", onInput: e => this.set(k, e.target.value)
     }));
     const roleList = ROLES[s.kind];
-    const ACC = { company: "#1d96d3", team: "#83c341", solo: "#fdb813" };
+    const picked = s.picked ? D.company(s.picked) : null;
+    const res = s.result;
+
+    // Live preview of the card the entry will produce, from whichever source
+    // filled it in — the parser or the form.
+    const pvName = picked ? picked.name : (f.name || f.legal || s.lookup || "სტუდიის სახელი");
+    const pvGameName = p ? p.name : (f.gName || "თამაშის სახელი");
+    const pvGameMeta = p
+      ? [(p.genres || []).join(", "), (p.platforms || []).join(", "), p.releaseDate || "TBD"].filter(Boolean).join(" · ")
+      : ([f.gGenre, f.gPlatforms, f.gDate].filter(Boolean).join(" · ") || "ჟანრი · პლატფორმა · თარიღი");
 
     return {
       draftNote: s.step > 0 ? "დრაფტი ინახება" : "",
@@ -355,18 +500,34 @@ class Component extends DCLogic {
       isStep3: s.step === 3 && !s.sent,
       isStep4: s.step === 4 && !s.sent,
       isSent: s.sent,
+
       pickNew: () => this.save({ mode: "new", step: 1 }),
       pickGame: () => this.save({ mode: "game", step: 1 }),
       pickEdit: () => this.save({ mode: "edit", step: 1 }),
+
       lookup: s.lookup,
       onLookup: e => this.save({ lookup: e.target.value }),
       matches: matches.map(m => ({
-        name: m.name, sub: m.sub,
+        name: m.legal || m.name,
+        sub: [U.KIND_LABEL[m.kind], m.city, D.gamesOf(m.id).length + " თამაში"].filter(Boolean).join(" · "),
         action: s.mode === "game" ? "თამაშის მიმაგრება" : "ედიტის მოთხოვნა",
-        pick: () => this.save({ picked: m.id, step: s.mode === "game" ? 3 : 2 })
+        // Attaching a game jumps straight to the game step; an edit opens the
+        // form pre-filled with what the catalogue already holds.
+        pick: () => this.save({
+          picked: m.id,
+          step: s.mode === "game" ? 3 : 2,
+          kind: m.kind,
+          roles: s.mode === "game" ? s.roles : (m.roles || []),
+          f: s.mode === "game" ? s.f : Object.assign({}, s.f, {
+            legal: m.legal, regId: m.regId, name: m.name, city: m.city,
+            founded: m.founded ? String(m.founded) : "", size: m.size,
+            about: m.about, website: m.website, email: m.email
+          }, m.links || {})
+        })
       })),
-      noMatchShow: s.lookup.length > 1 && !matches.length ? "block" : "none",
+      noMatchShow: term.length > 1 && !matches.length ? "block" : "none",
       createNew: () => this.save({ mode: "new", step: 2, f: Object.assign({}, f, { legal: s.lookup }) }),
+
       step2Title: isNew ? "სტუდიის მონაცემები" : "შესწორებული მონაცემები",
       fields,
       kindHint: KIND_HINT[s.kind],
@@ -381,40 +542,69 @@ class Component extends DCLogic {
       socialFields: SOCIALS.map(([k, label, ph]) => ({
         label, ph, value: f[k] || "", onInput: e => this.set(k, e.target.value)
       })),
+
       next: () => this.save({ step: Math.min(4, s.step + 1) }),
       back: () => this.save({ step: Math.max(0, s.step - 1) }),
+
       storeYes: s.store === "yes",
       storeNo: s.store === "no",
       hasStoreYes: () => this.save({ store: "yes" }),
       hasStoreNo: () => this.save({ store: "no" }),
-      yesBg: s.store === "yes" ? "#16181b" : "#fff", yesFg: s.store === "yes" ? "#fff" : "#41464c", yesBorder: s.store === "yes" ? "#16181b" : "#dfe3e4",
-      noBg: s.store === "no" ? "#16181b" : "#fff", noFg: s.store === "no" ? "#fff" : "#41464c", noBorder: s.store === "no" ? "#16181b" : "#dfe3e4",
+      yesBg: s.store === "yes" ? "#16181b" : "#fff", yesFg: s.store === "yes" ? "#fff" : "#41464c",
+      yesBorder: s.store === "yes" ? "#16181b" : "#dfe3e4",
+      noBg: s.store === "no" ? "#16181b" : "#fff", noFg: s.store === "no" ? "#fff" : "#41464c",
+      noBorder: s.store === "no" ? "#16181b" : "#dfe3e4",
       storeUrl: s.storeUrl,
-      onStoreUrl: e => this.save({ storeUrl: e.target.value, parsed: false }),
-      parse: () => this.save({ parsed: true }),
-      parseLabel: s.parsed ? "ხელახლა წაკითხვა" : "წაკითხვა",
-      parsedShow: s.parsed ? "block" : "none",
-      parsedFields: PARSED.map(([k, v]) => ({ k, v })),
+      onStoreUrl: e => this.save({ storeUrl: e.target.value, parsed: null, parseErr: "" }),
+      parse: () => this.runParse(),
+      parseLabel: s.parsing ? "იკითხება…" : (p ? "ხელახლა წაკითხვა" : "წაკითხვა"),
+      parsedShow: p || s.parseErr ? "block" : "none",
+      parsedFields: p ? [
+        { k: "სახელი", v: p.name },
+        { k: "ჟანრი", v: (p.genres || []).join(", ") },
+        { k: "პლატფორმა", v: (p.platforms || []).join(", ") },
+        { k: "გამოშვება", v: p.releaseDate || (p.status === "upcoming" ? "TBD" : "") },
+        { k: "ფასი", v: p.price },
+        { k: "capsule", v: p.art && p.art.capsule ? "მაღაზიიდან" : "" }
+      ].filter(x => x.v) : [{ k: "შენიშვნა", v: s.parseErr }],
       gameFields: GAME_FIELDS.map(([k, label, ph]) => ({
         label, ph, value: f[k] || "", onInput: e => this.set(k, e.target.value)
       })),
-      pvName: f.nameKa || f.nameEn || f.legal || s.lookup || "სტუდიის სახელი",
-      pvSub: [f.legal, f.city, f.founded].filter(Boolean).join(" · ") || "ოფიციალური სახელი · ქალაქი · წელი",
-      pvInitials: (f.nameEn || f.legal || s.lookup || "GG").trim().slice(0, 2).toUpperCase(),
+
+      pvName: pvName,
+      pvSub: picked
+        ? [picked.legal, picked.city, picked.founded || ""].filter(Boolean).join(" · ")
+        : ([f.legal, f.city, f.founded].filter(Boolean).join(" · ") || "ოფიციალური სახელი · ქალაქი · წელი"),
+      pvInitials: U.initials(pvName).toUpperCase(),
       pvAccent: ACC[s.kind],
-      pvKind: s.kind === "company" ? "რეგისტრირებული კომპანია" : s.kind === "team" ? "გუნდი" : "სოლო დეველოპერი",
+      pvKind: U.KIND_LABEL[s.kind],
       pvRoles: s.roles.length ? s.roles.join(", ") : "როლები არ არის მითითებული",
-      pvGames: s.store ? 1 : 0,
-      pvGameName: s.parsed ? "Dumbriel" : (f.gName || "თამაშის სახელი"),
-      pvGameMeta: s.parsed ? "Metroidvania · Steam, Switch, Xbox · TBD" : ([f.gGenre, f.gDate].filter(Boolean).join(" · ") || "ჟანრი · თარიღი"),
+      pvGames: (p || f.gName) ? 1 : (picked ? D.gamesOf(picked.id).length : 0),
+      pvGameName: pvGameName,
+      pvGameMeta: pvGameMeta,
+
       kind0: () => this.save({ kind: "company", roles: [] }),
       kind1: () => this.save({ kind: "team", roles: [] }),
       kind2: () => this.save({ kind: "solo", roles: [] }),
       kBg0: s.kind === "company" ? "#1d96d3" : "#fff", kFg0: s.kind === "company" ? "#fff" : "#41464c", kBorder0: s.kind === "company" ? "#1d96d3" : "#dfe3e4",
       kBg1: s.kind === "team" ? "#83c341" : "#fff", kFg1: s.kind === "team" ? "#fff" : "#41464c", kBorder1: s.kind === "team" ? "#83c341" : "#dfe3e4",
       kBg2: s.kind === "solo" ? "#fdb813" : "#fff", kFg2: s.kind === "solo" ? "#16181b" : "#41464c", kBorder2: s.kind === "solo" ? "#fdb813" : "#dfe3e4",
-      send: () => { try { localStorage.removeItem("ggc.submit.draft"); } catch (e) {} this.setState({ sent: true }); },
-      restart: () => this.setState({ step: 0, mode: "", lookup: "", picked: null, store: "", storeUrl: "", parsed: false, sent: false, f: {}, kind: "company", roles: [] })
+
+      send: () => this.send(),
+      sentTitle: res && res.via === "manual" ? "თითქმის მზადაა" : "გაიგზავნა",
+      sentText: res && res.via === "manual"
+        ? "ფორმა შევსებულია. დარჩა ერთი ღილაკი — აირჩიე, როგორ მოგვაწოდო, და ჩვენ გადავამოწმებთ."
+        : "მონაცემები გადაეგზავნა GGC-ის ადმინისტრაციას და გადამოწმდება. როგორც კი დავადასტურებთ, საიტზე გამოჩნდება.",
+      manualShow: res && res.via === "manual" ? "block" : "none",
+      issueHref: res && res.url ? res.url : GGC.config.issueNew,
+      telegramHref: GGC.config.telegram,
+      copyJson: () => this.copy(),
+      copyLabel: s.copied ? "დაკოპირდა ✔" : "JSON-ის კოპირება",
+
+      restart: () => this.setState({
+        step: 0, mode: "", lookup: "", picked: null, store: "", storeUrl: "",
+        parsed: null, parseErr: "", sent: false, f: {}, kind: "company", roles: [], result: null
+      })
     };
   }
 }

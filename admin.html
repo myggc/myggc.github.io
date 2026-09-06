@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="assets/js/ggc-core.js"></script>
+<script src="assets/js/ggc-github.js"></script>
+<style>
+  html { overflow-x:clip; }
+  body { margin:0; overflow-x:clip; background:#171a1e; color:#e9ecee; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:#6cc0e8; text-decoration:none; }
+  a:hover { color:#9ad5f2; }
+  input, select, textarea { font-family:inherit; }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important } }
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;flex-direction:column">
+  <header style="position:sticky;top:0;z-index:30;background:rgba(23,26,30,.94);backdrop-filter:blur(10px);border-bottom:1px solid #2a2f35">
+    <div style="max-width:1400px;margin:0 auto;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px">
+      <div style="display:flex;align-items:center;gap:11px;flex:none">
+        <img src="assets/brand/ggc-mark.svg" alt="" style="height:28px;width:28px;display:block">
+        <span style="font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">Admin</span>
+      </div>
+      <span style="display:{{ userShow }};flex:none;font-size:14px;color:#8b949c">{{ userLabel }}</span>
+      <span style="display:{{ dirtyShow }};flex:none;background:#3a2f14;color:#f4cd77;border-radius:7px;padding:5px 10px;font-size:13px;font-weight:600">{{ dirtyLabel }}</span>
+      <span style="display:{{ statusShow }};flex:1 1 160px;min-width:0;font-size:14px;color:{{ statusColor }}">{{ statusText }}</span>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:auto;flex:none">
+        <button type="button" onClick="{{ exportJson }}" style="border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">JSON ექსპორტი</button>
+        <button type="button" onClick="{{ publish }}" style="display:{{ authedShow }};border:0;cursor:pointer;background:{{ publishBg }};color:#fff;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ publishLabel }}</button>
+        <button type="button" onClick="{{ signOut }}" style="display:{{ authedShow }};border:1px solid #333941;cursor:pointer;background:#20242a;color:#8b949c;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px">გასვლა</button>
+      </div>
+    </div>
+  </header>
+
+  <sc-if value="{{ needsAuth }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:24px">
+      <div style="width:100%;max-width:520px;background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(20px,3vw,30px)">
+        <h1 style="margin:0;font-size:22px;font-weight:600;color:#fff">GGC ადმინი</h1>
+        <p style="margin:12px 0 0;font-size:15px;line-height:1.65;color:#c6ccd3">შესვლა ხდება GitHub-ის პირადი ტოკენით. ტოკენი ინახება მხოლოდ ამ ბრაუზერში და არსად იგზავნება GitHub-ის გარდა.</p>
+        <ol style="margin:16px 0 0;padding-left:20px;font-size:14px;line-height:1.8;color:#8b949c">
+          <li>GitHub → Settings → Developer settings → <b style="color:#c6ccd3">Fine-grained tokens</b></li>
+          <li>Repository access: მხოლოდ <b style="color:#c6ccd3">{{ repoLabel }}</b></li>
+          <li>Permissions: <b style="color:#c6ccd3">Contents — Read and write</b>, <b style="color:#c6ccd3">Issues — Read and write</b></li>
+        </ol>
+        <a href="{{ tokenUrl }}" target="_blank" rel="noopener" style="display:inline-block;margin-top:14px;font-size:14px">ტოკენის შექმნა ↗</a>
+        <label style="display:flex;flex-direction:column;gap:7px;margin-top:20px;font-size:13px;color:#8b949c">ტოკენი
+          <input type="password" value="{{ tokenInput }}" onInput="{{ onToken }}" placeholder="github_pat_..." style="border:1px solid #333941;border-radius:10px;padding:12px 14px;font-size:14px;background:#171a1e;color:#e9ecee">
+        </label>
+        <div style="display:{{ authErrShow }};margin-top:12px;background:#2a1f1f;border:1px solid #4a3232;border-radius:10px;padding:12px 14px;font-size:14px;color:#f0a8a8">{{ authErr }}</div>
+        <button type="button" onClick="{{ signIn }}" style="width:100%;margin-top:16px;border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:10px;padding:13px;font-family:inherit;font-size:15px;font-weight:600">{{ signInLabel }}</button>
+        <p style="margin:16px 0 0;font-size:13px;line-height:1.6;color:#6a737c">ტოკენის გარეშეც შეგიძლია მონაცემების ნახვა — მხოლოდ დადასტურება და ჩაწერა საჭიროებს უფლებას.</p>
+        <button type="button" onClick="{{ browseOnly }}" style="width:100%;margin-top:10px;border:1px solid #333941;cursor:pointer;background:transparent;color:#8b949c;border-radius:10px;padding:11px;font-family:inherit;font-size:14px">მხოლოდ დათვალიერება</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showPanel }}" hint-placeholder-val="{{ true }}">
+  <div style="flex:1;max-width:1400px;width:100%;margin:0 auto;padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));gap:16px;align-items:start">
+    <nav style="display:flex;flex-direction:column;gap:4px;background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:12px;max-width:240px">
+      <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+        <button type="button" onClick="{{ n.click }}" style="display:flex;align-items:center;gap:10px;border:0;cursor:pointer;background:{{ n.bg }};color:{{ n.fg }};border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;font-weight:500;text-align:left">
+          <span style="flex:1 1 auto;min-width:0">{{ n.label }}</span>
+          <span style="display:{{ n.badgeShow }};flex:none;background:{{ n.badgeBg }};color:#fff;border-radius:20px;padding:2px 8px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600">{{ n.badge }}</span>
+        </button>
+      </sc-for>
+    </nav>
+
+    <main style="grid-column:2/-1;min-width:0;display:flex;flex-direction:column;gap:16px">
+
+      <sc-if value="{{ isQueue }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px">
+            <h1 style="margin:0;font-size:22px;font-weight:600;color:#fff">ვალიდაციის რიგი</h1>
+            <span style="font-size:15px;color:#8b949c">{{ queueCount }} მოთხოვნა</span>
+            <button type="button" onClick="{{ reload }}" style="margin-left:auto;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px">განახლება</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px">
+            <sc-for list="{{ queue }}" as="q" hint-placeholder-count="3">
+              <div style="background:#20242a;border:1px solid #2f353c;border-left:4px solid {{ q.accent }};border-radius:13px;overflow:hidden">
+                <button type="button" onClick="{{ q.toggle }}" style="width:100%;display:flex;flex-wrap:wrap;align-items:center;gap:12px;border:0;cursor:pointer;background:transparent;padding:16px 18px;font-family:inherit;text-align:left">
+                  <span style="flex:none;background:{{ q.tagBg }};color:{{ q.tagFg }};border-radius:7px;padding:5px 10px;font-size:12px;font-weight:600">{{ q.kind }}</span>
+                  <span style="flex:1 1 160px;min-width:0;font-size:16px;font-weight:600;color:#fff">{{ q.name }}</span>
+                  <span style="flex:none;font-size:14px;color:#8b949c">{{ q.meta }}</span>
+                  <span style="flex:none;font-family:'Space Grotesk',sans-serif;font-size:18px;color:#6cc0e8">{{ q.chevron }}</span>
+                </button>
+                <div style="display:{{ q.show }};padding:0 18px 18px">
+                  <div style="display:{{ q.diffShow }};background:#171a1e;border:1px solid #2f353c;border-radius:11px;overflow:hidden">
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:1px;background:#2f353c;font-size:13px;font-weight:600;color:#8b949c">
+                      <div style="background:#1d2126;padding:10px 14px">ველი</div>
+                      <div style="background:#1d2126;padding:10px 14px">ახლა</div>
+                      <div style="background:#1d2126;padding:10px 14px">ახალი</div>
+                    </div>
+                    <sc-for list="{{ q.diff }}" as="d" hint-placeholder-count="3">
+                      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:1px;background:#2f353c;font-size:14px">
+                        <div style="background:#171a1e;padding:11px 14px;color:#8b949c">{{ d.k }}</div>
+                        <div style="background:#171a1e;padding:11px 14px;color:#c6ccd3;text-decoration:line-through">{{ d.old }}</div>
+                        <div style="background:#16221a;padding:11px 14px;color:#9ede9e;font-weight:600">{{ d.new }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div style="display:{{ q.newShow }};background:#171a1e;border:1px solid #2f353c;border-radius:11px;padding:16px">
+                    <div style="font-size:14px;color:#8b949c;margin-bottom:12px">ახალი ჩანაწერი — შედარება არ არის</div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr));gap:8px">
+                      <sc-for list="{{ q.diff }}" as="d" hint-placeholder-count="3">
+                        <div style="background:#1d2126;border-radius:9px;padding:12px 14px">
+                          <div style="font-size:13px;color:#8b949c">{{ d.k }}</div>
+                          <div style="margin-top:4px;font-size:15px;font-weight:600;color:#fff">{{ d.new }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div style="display:{{ q.noteShow }};margin-top:12px;background:#171a1e;border:1px solid #2f353c;border-radius:11px;padding:14px;font-size:14px;line-height:1.6;color:#c6ccd3">{{ q.note }}</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center">
+                    <button type="button" onClick="{{ q.approve }}" style="display:{{ q.actShow }};border:0;cursor:pointer;background:#4c9a5e;color:#fff;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">დადასტურება</button>
+                    <button type="button" onClick="{{ q.reject }}" style="display:{{ q.actShow }};border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">უარი</button>
+                    <a href="{{ q.url }}" target="_blank" rel="noopener" style="border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 18px;font-size:15px;font-weight:600">GitHub-ზე გახსნა ↗</a>
+                    <span style="display:{{ q.stateShow }};font-size:14px;color:#9ede9e">{{ q.stateText }}</span>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:{{ queueEmpty }};padding:34px;text-align:center;border:1px dashed #333941;border-radius:13px;color:#8b949c;font-size:16px">{{ queueEmptyText }}</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isList }}">
+        <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+            <h1 style="margin:0;font-size:22px;font-weight:600;color:#fff;flex:1 1 160px;min-width:0">{{ listTitle }}</h1>
+            <input type="search" placeholder="ძებნა" value="{{ q }}" onInput="{{ onSearch }}" style="flex:0 1 200px;min-width:0;border:1px solid #333941;border-radius:10px;padding:10px 13px;font-family:inherit;font-size:14px;background:#171a1e;color:#e9ecee">
+            <select value="{{ sort }}" onChange="{{ onSort }}" style="flex:none;border:1px solid #333941;border-radius:10px;padding:10px 13px;font-family:inherit;font-size:14px;background:#171a1e;color:#e9ecee">
+              <sc-for list="{{ sortOptions }}" as="o" hint-placeholder-count="3">
+                <option value="{{ o.v }}">{{ o.label }}</option>
+              </sc-for>
+            </select>
+            <button type="button" onClick="{{ addNew }}" style="flex:none;border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:10px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">+ ახალი</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:1px;margin-top:18px;background:#2a2f35;border:1px solid #2a2f35;border-radius:12px;overflow:hidden">
+            <sc-for list="{{ rows }}" as="r" hint-placeholder-count="5">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:#20242a;padding:14px 16px;font-size:15px">
+                <div style="position:relative;width:32px;height:32px;border-radius:{{ r.radius }};background:#2f353c;flex:none;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:#8b949c">
+                  <div aria-hidden="true" style="position:absolute;inset:0;background:{{ r.art }}"></div>
+                  <span style="position:relative">{{ r.initials }}</span>
+                </div>
+                <div style="flex:1 1 150px;min-width:0">
+                  <div style="display:flex;align-items:center;gap:7px;color:#fff;font-weight:600">{{ r.name }}<span style="display:{{ r.verifiedShow }};color:#6cc0e8;font-size:14px">✔</span></div>
+                  <div style="margin-top:2px;font-size:13px;color:#8b949c">{{ r.sub }}</div>
+                </div>
+                <div style="flex:none;display:flex;align-items:center;gap:7px;font-size:14px;color:#c6ccd3"><span style="width:8px;height:8px;border-radius:50%;background:{{ r.dot }}"></span>{{ r.status }}</div>
+                <div style="display:{{ r.gamesShow }};flex:none;font-family:'Space Grotesk',sans-serif;font-size:14px;color:#c6ccd3"><b style="color:#fff">{{ r.games }}</b> თამაში</div>
+                <div style="flex:none;font-size:13px;color:#8b949c">{{ r.validated }}</div>
+                <button type="button" onClick="{{ r.edit }}" style="flex:none;border:1px solid #333941;cursor:pointer;background:#171a1e;color:#c6ccd3;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:600">რედაქტირება</button>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:{{ rowsEmpty }};padding:30px;text-align:center;color:#8b949c;font-size:15px">ჩანაწერი არ არის — დაამატე „+ ახალი"</div>
+        </div>
+
+        <sc-if value="{{ editorOpen }}">
+          <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+              <h2 style="margin:0;font-size:19px;font-weight:600;color:#fff;flex:1 1 160px;min-width:0">{{ editName }}</h2>
+              <button type="button" onClick="{{ deleteEntry }}" style="flex:none;border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px">წაშლა</button>
+              <button type="button" onClick="{{ closeEditor }}" style="flex:none;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px">დახურვა</button>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:14px;margin-top:18px">
+              <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
+                <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">{{ editSectionLabel }}</div>
+                <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+                  <sc-for list="{{ editSelects }}" as="f" hint-placeholder-count="2">
+                    <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8b949c">{{ f.k }}
+                      <select value="{{ f.v }}" onChange="{{ f.onChange }}" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-size:14px;background:#1d2126;color:#e9ecee">
+                        <sc-for list="{{ f.options }}" as="o" hint-placeholder-count="3">
+                          <option value="{{ o.v }}">{{ o.label }}</option>
+                        </sc-for>
+                      </select>
+                    </label>
+                  </sc-for>
+                  <sc-for list="{{ editFields }}" as="f" hint-placeholder-count="5">
+                    <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8b949c">{{ f.k }}
+                      <input type="text" value="{{ f.v }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-size:14px;background:#1d2126;color:#e9ecee">
+                    </label>
+                  </sc-for>
+                  <sc-for list="{{ editAreas }}" as="f" hint-placeholder-count="1">
+                    <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8b949c">{{ f.k }}
+                      <textarea value="{{ f.v }}" onInput="{{ f.onInput }}" rows="4" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-size:14px;background:#1d2126;color:#e9ecee;resize:vertical"></textarea>
+                    </label>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:14px">
+                <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
+                  <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">სტატუსი</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+                    <sc-for list="{{ editToggles }}" as="t" hint-placeholder-count="3">
+                      <button type="button" onClick="{{ t.click }}" style="border:1px solid {{ t.border }};cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};border-radius:9px;padding:10px 14px;font-family:inherit;font-size:14px;font-weight:600">{{ t.label }}</button>
+                    </sc-for>
+                  </div>
+                  <sc-for list="{{ editChips }}" as="grp" hint-placeholder-count="2">
+                    <div style="margin-top:16px">
+                      <div style="font-size:13px;color:#8b949c">{{ grp.label }}</div>
+                      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+                        <sc-for list="{{ grp.items }}" as="c" hint-placeholder-count="4">
+                          <button type="button" onClick="{{ c.click }}" style="border:1px solid {{ c.border }};cursor:pointer;background:{{ c.bg }};color:{{ c.fg }};border-radius:20px;padding:7px 12px;font-family:inherit;font-size:13px">{{ c.label }}</button>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <div style="display:{{ linkBoxShow }};background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
+                  <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">{{ linkBoxTitle }}</div>
+                  <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+                    <sc-for list="{{ editLinks }}" as="f" hint-placeholder-count="4">
+                      <label style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px;color:#8b949c">
+                        <span style="flex:0 0 92px">{{ f.k }}</span>
+                        <input type="text" value="{{ f.v }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="flex:1 1 140px;min-width:0;border:1px solid #333941;border-radius:9px;padding:9px 12px;font-size:14px;background:#1d2126;color:#e9ecee">
+                      </label>
+                    </sc-for>
+                  </div>
+                </div>
+
+                <div style="display:{{ gamesBoxShow }};background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
+                  <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">მიმაგრებული თამაშები</div>
+                  <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+                    <sc-for list="{{ editGames }}" as="g" hint-placeholder-count="2">
+                      <button type="button" onClick="{{ g.open }}" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:#1d2126;border:0;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;cursor:pointer;text-align:left">
+                        <div style="width:66px;aspect-ratio:460/215;background:{{ g.art }};border-radius:5px;flex:none"></div>
+                        <span style="flex:1 1 90px;min-width:0;color:#fff;font-weight:600">{{ g.name }}</span>
+                        <span style="flex:none;color:#8b949c">{{ g.meta }}</span>
+                      </button>
+                    </sc-for>
+                    <button type="button" onClick="{{ addGame }}" style="border:1px dashed #333941;cursor:pointer;background:transparent;color:#8b949c;border-radius:9px;padding:11px;font-family:inherit;font-size:14px">+ თამაშის მიმაგრება</button>
+                  </div>
+                </div>
+
+                <div style="display:{{ syncBoxShow }};background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
+                  <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">მაღაზიის სინქრონიზაცია</div>
+                  <p style="margin:12px 0 0;font-size:14px;line-height:1.6;color:#c6ccd3">მაღაზიის ბმულის შევსების შემდეგ სახელი, აღწერა, ჟანრი, თარიღი, ფასი და capsule ავტომატურად ივსება. განახლება ასევე ხდება დღეში ორჯერ GitHub Action-ით.</p>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center">
+                    <button type="button" onClick="{{ syncNow }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ syncLabel }}</button>
+                    <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#8b949c"><span style="width:8px;height:8px;border-radius:50%;background:{{ syncDot }}"></span>{{ syncText }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+      </sc-if>
+
+      <sc-if value="{{ isSettings }}">
+        <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
+          <h1 style="margin:0;font-size:22px;font-weight:600;color:#fff">პარამეტრები</h1>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px;margin-top:18px">
+            <sc-for list="{{ settings }}" as="s" hint-placeholder-count="6">
+              <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
+                <div style="font-size:13px;color:#8b949c">{{ s.k }}</div>
+                <div style="margin-top:6px;font-size:16px;font-weight:600;color:#fff;word-break:break-word">{{ s.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:18px">
+            <a href="{{ repoUrl }}" target="_blank" rel="noopener" style="border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 16px;font-size:14px;font-weight:600">რეპოზიტორია ↗</a>
+            <a href="{{ actionsUrl }}" target="_blank" rel="noopener" style="border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 16px;font-size:14px;font-weight:600">ავტომატური სინქი (Actions) ↗</a>
+            <a href="{{ issuesUrl }}" target="_blank" rel="noopener" style="border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 16px;font-size:14px;font-weight:600">შემოსული მოთხოვნები ↗</a>
+            <button type="button" onClick="{{ syncAll }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:10px;padding:11px 16px;font-family:inherit;font-size:14px;font-weight:600">{{ syncAllLabel }}</button>
+          </div>
+        </div>
+      </sc-if>
+
+    </main>
+  </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const D = GGC.data, U = GGC.util, GH = window.GGCGitHub, C = GGC.config;
+
+const NAV = [
+  ["queue", "ვალიდაციის რიგი"], ["companies", "კომპანიები"], ["teams", "გუნდები"],
+  ["solo", "სოლო დეველოპერები"], ["games", "თამაშები"], ["settings", "პარამეტრები"]
+];
+const TITLES = { companies: "კომპანიები", teams: "გუნდები", solo: "სოლო დეველოპერები", games: "თამაშები" };
+const KIND_OF_TAB = { companies: "company", teams: "team", solo: "solo" };
+const ROLES = ["developer", "publisher", "art", "audio", "porting", "outsourcing", "codev"];
+const PLATFORMS = ["Steam", "itch.io", "App Store", "Google Play", "Switch", "Xbox", "PlayStation", "Epic Games"];
+const SOCIALS = ["telegram", "facebook", "instagram", "linkedin", "youtube", "x", "steam", "itch", "discord", "tiktok"];
+const STORE_KEYS = ["steam", "itch", "appstore", "googleplay", "switch", "xbox", "playstation", "epic"];
+
+const CO_LABELS = {
+  legal: "ოფიციალური სახელი", regId: "საიდენტიფიკაციო", name: "საჯარო სახელი", kind: "ტიპი",
+  city: "ქალაქი", founded: "დაფუძნება", size: "გუნდის ზომა", website: "ვებსაიტი",
+  email: "ელფოსტა", about: "აღწერა", logo: "ლოგო", roles: "როლები",
+  verified: "ვერიფიცირებული", active: "აქტიური", validated: "ვალიდაცია", links: "სოც. ქსელები"
+};
+const GAME_LABELS = {
+  name: "სახელი", studioId: "სტუდია", publisherId: "გამომცემელი", status: "სტატუსი",
+  releaseDate: "გამოშვების თარიღი", year: "წელი", genres: "ჟანრი", platforms: "პლატფორმა",
+  engine: "ძრავი", price: "ფასი", langs: "ენები", about: "აღწერა", stores: "მაღაზიები",
+  localArt: "ლოკალური არტი", mobile: "მობაილი", verified: "ვერიფიცირებული", validated: "ვალიდაცია"
+};
+
+class Component extends DCLogic {
+  state = {
+    ready: false, authed: false, browse: false, user: "", tokenInput: "", authErr: "", signing: false,
+    tab: "queue", open: null, q: "", sort: "", edit: null, editKind: "company",
+    queue: [], decisions: {}, companies: [], games: [], dirty: 0,
+    status: "", statusColor: "#8b949c", publishing: false, syncing: ""
+  };
+
+  componentDidMount() {
+    D.load().then(() => {
+      this.setState({
+        ready: true,
+        companies: U.clone(D.companies()),
+        games: U.clone(D.games())
+      });
+    });
+    if (GH.hasToken()) {
+      GH.me().then(u => {
+        this.setState({ authed: true, user: u.login });
+        this.loadQueue();
+      }).catch(() => GH.signOut());
+    }
+  }
+
+  loadQueue() {
+    GH.listSubmissions()
+      .then(list => this.setState({ queue: list }))
+      .catch(e => this.say("რიგი ვერ ჩაიტვირთა: " + e.message, "#f0a8a8"));
+  }
+
+  say(text, color) {
+    this.setState({ status: text, statusColor: color || "#8b949c" });
+    clearTimeout(this.sayT);
+    this.sayT = setTimeout(() => this.setState({ status: "" }), 6000);
+  }
+
+  /* ------------------------------------------------------------------ auth */
+
+  doSignIn() {
+    const t = this.state.tokenInput.trim();
+    if (!t) return this.setState({ authErr: "ჩასვი ტოკენი" });
+    this.setState({ signing: true, authErr: "" });
+    GH.signIn(t).then(u => {
+      this.setState({ authed: true, browse: false, user: u.login, tokenInput: "", signing: false });
+      this.loadQueue();
+    }).catch(e => this.setState({ authErr: e.message, signing: false }));
+  }
+
+  /* ------------------------------------ applying a submission to the catalogue */
+
+  nextId(base, list) {
+    let id = U.slug(base), n = 2;
+    while (list.some(x => x.id === id)) id = U.slug(base) + "-" + n++;
+    return id;
+  }
+
+  applyPayload(p) {
+    const companies = this.state.companies.slice();
+    const games = this.state.games.slice();
+    const now = U.today();
+
+    if (p.action === "new-company") {
+      const c = D.normCompany(Object.assign({}, p.company, {
+        id: this.nextId(p.company.legal || p.company.name, companies),
+        validated: now, created: now, updated: now, verified: true
+      }));
+      companies.push(c);
+      p.appliedId = c.id;
+    } else if (p.action === "edit-company") {
+      const i = companies.findIndex(c => c.id === p.companyId);
+      if (i < 0) throw new Error("კომპანია ვერ მოიძებნა: " + p.companyId);
+      companies[i] = D.normCompany(Object.assign({}, companies[i], p.company, { updated: now, validated: now }));
+      p.appliedId = companies[i].id;
+    } else if (p.action === "new-game") {
+      if (!companies.some(c => c.id === p.companyId)) throw new Error("თამაშს სტუდია არ აქვს მიბმული");
+      const g = D.normGame(Object.assign({}, p.game, {
+        id: this.nextId(p.game.name, games),
+        studioId: p.companyId,
+        validated: now, created: now, updated: now, verified: true
+      }));
+      games.push(g);
+      p.appliedId = g.id;
+    } else if (p.action === "edit-game") {
+      const i = games.findIndex(g => g.id === p.gameId);
+      if (i < 0) throw new Error("თამაში ვერ მოიძებნა: " + p.gameId);
+      games[i] = D.normGame(Object.assign({}, games[i], p.game, { updated: now, validated: now }));
+      p.appliedId = games[i].id;
+    } else {
+      throw new Error("უცნობი ტიპი: " + p.action);
+    }
+    return { companies, games };
+  }
+
+  approve(item) {
+    try {
+      const next = this.applyPayload(item.payload);
+      this.setState(s => ({
+        companies: next.companies,
+        games: next.games,
+        dirty: s.dirty + 1,
+        decisions: Object.assign({}, s.decisions, { [item.number]: "approved" })
+      }));
+      this.say("დადასტურდა — დარჩა ატვირთვა", "#9ede9e");
+    } catch (e) {
+      this.say(e.message, "#f0a8a8");
+    }
+  }
+
+  reject(item) {
+    this.setState(s => ({
+      dirty: s.dirty + 1,
+      decisions: Object.assign({}, s.decisions, { [item.number]: "rejected" })
+    }));
+    this.say("მონიშნულია უარით — დარჩა ატვირთვა", "#f4cd77");
+  }
+
+  /* ------------------------------------------------- commit + close the issues */
+
+  publish() {
+    const s = this.state;
+    if (!s.authed || s.publishing || !s.dirty) return;
+    this.setState({ publishing: true });
+    this.say("იტვირთება…", "#6cc0e8");
+    const decided = Object.keys(s.decisions);
+    const msg = "data: " + s.dirty + " განახლება ადმინიდან";
+    GH.saveData(s.companies, s.games, msg)
+      .then(() => Promise.all(decided.map(n => {
+        const verdict = s.decisions[n];
+        const body = verdict === "approved"
+          ? "დადასტურდა და გამოქვეყნდა კატალოგში. მადლობა!"
+          : "ამჯერად არ დადასტურდა. თუ რამე დასაზუსტებელია, მოგვწერე Telegram-ზე.";
+        return GH.comment(n, body)
+          .then(() => GH.closeIssue(n, verdict === "approved" ? "approved" : "rejected"))
+          .catch(() => null);
+      })))
+      .then(() => D.load(true))
+      .then(() => {
+        this.setState({
+          publishing: false, dirty: 0, decisions: {},
+          companies: U.clone(D.companies()), games: U.clone(D.games())
+        });
+        this.say("გამოქვეყნდა", "#9ede9e");
+        this.loadQueue();
+      })
+      .catch(e => {
+        this.setState({ publishing: false });
+        this.say("ატვირთვა ვერ მოხერხდა: " + e.message, "#f0a8a8");
+      });
+  }
+
+  /* -------------------------------------------------------------- edit helpers */
+
+  patchCompany(id, patch) {
+    this.setState(s => ({
+      dirty: s.dirty + 1,
+      companies: s.companies.map(c => c.id === id ? Object.assign({}, c, patch, { updated: U.today() }) : c)
+    }));
+  }
+  patchGame(id, patch) {
+    this.setState(s => ({
+      dirty: s.dirty + 1,
+      games: s.games.map(g => g.id === id ? Object.assign({}, g, patch, { updated: U.today() }) : g)
+    }));
+  }
+  current() {
+    const s = this.state;
+    if (!s.edit) return null;
+    return s.editKind === "game"
+      ? s.games.filter(g => g.id === s.edit)[0]
+      : s.companies.filter(c => c.id === s.edit)[0];
+  }
+  patch(patch) {
+    const s = this.state;
+    if (s.editKind === "game") this.patchGame(s.edit, patch);
+    else this.patchCompany(s.edit, patch);
+  }
+  patchLink(group, key, value) {
+    const cur = this.current();
+    if (!cur) return;
+    const next = Object.assign({}, cur[group] || {});
+    next[key] = value;
+    this.patch({ [group]: next });
+  }
+  toggleIn(field, value) {
+    const cur = this.current();
+    if (!cur) return;
+    const list = (cur[field] || []).slice();
+    const i = list.indexOf(value);
+    if (i < 0) list.push(value); else list.splice(i, 1);
+    this.patch({ [field]: list });
+  }
+
+  addEntry() {
+    const s = this.state;
+    const now = U.today();
+    if (s.tab === "games") {
+      if (!s.companies.length) return this.say("ჯერ დაამატე კომპანია — თამაში სტუდიის გარეშე არ ემატება", "#f0a8a8");
+      const g = D.normGame({
+        id: this.nextId("new-game", s.games), name: "ახალი თამაში",
+        studioId: s.companies[0].id, status: "upcoming", created: now, updated: now
+      });
+      this.setState(st => ({ games: st.games.concat([g]), edit: g.id, editKind: "game", dirty: st.dirty + 1 }));
+    } else {
+      const kind = KIND_OF_TAB[s.tab] || "company";
+      const c = D.normCompany({
+        id: this.nextId("new-" + kind, s.companies), kind: kind,
+        name: "ახალი ჩანაწერი", legal: "", active: true, created: now, updated: now
+      });
+      this.setState(st => ({ companies: st.companies.concat([c]), edit: c.id, editKind: kind, dirty: st.dirty + 1 }));
+    }
+  }
+
+  removeEntry() {
+    const s = this.state;
+    if (!s.edit) return;
+    if (s.editKind === "game") {
+      this.setState(st => ({ games: st.games.filter(g => g.id !== st.edit), edit: null, dirty: st.dirty + 1 }));
+    } else {
+      const attached = s.games.filter(g => g.studioId === s.edit).length;
+      if (attached) return this.say("ჯერ მოხსენი " + attached + " მიმაგრებული თამაში", "#f0a8a8");
+      this.setState(st => ({ companies: st.companies.filter(c => c.id !== st.edit), edit: null, dirty: st.dirty + 1 }));
+    }
+  }
+
+  /* Reads the store page and overwrites only the fields the store owns. */
+  syncGame(g) {
+    const url = STORE_KEYS.map(k => (g.stores || {})[k]).filter(Boolean)[0];
+    if (!url) return this.say("მაღაზიის ბმული არ არის შევსებული", "#f0a8a8");
+    this.setState({ syncing: g.id });
+    GGC.stores.parse(url).then(p => {
+      const patch = {
+        name: p.name || g.name,
+        about: p.about || g.about,
+        genres: (p.genres && p.genres.length ? p.genres : g.genres),
+        status: p.status || g.status,
+        releaseDate: p.releaseDate || g.releaseDate,
+        year: p.year || g.year,
+        price: p.price || g.price,
+        langs: p.langs || g.langs,
+        art: Object.assign({}, g.art, p.art),
+        source: p.source,
+        parsedAt: new Date().toISOString()
+      };
+      // Store art replaces the hand-uploaded file so nothing stale is left behind.
+      if (patch.art && (patch.art.capsule || patch.art.hero)) patch.localArt = "";
+      this.patchGame(g.id, patch);
+      this.setState({ syncing: "" });
+      this.say("წაკითხულია " + (U.STORE_LABEL[p.source] || p.source) + "-იდან", "#9ede9e");
+    }).catch(e => {
+      this.setState({ syncing: "" });
+      this.say("წაკითხვა ვერ მოხერხდა (" + e.message + ") — ავტომატური სინქი მაინც იმუშავებს", "#f0a8a8");
+    });
+  }
+
+  syncAll() {
+    const withStore = this.state.games.filter(g => STORE_KEYS.some(k => (g.stores || {})[k]));
+    if (!withStore.length) return this.say("მაღაზიის ბმულიანი თამაში არ არის", "#f0a8a8");
+    this.setState({ syncing: "all" });
+    let done = 0;
+    withStore.reduce((chain, g) => chain.then(() => {
+      const url = STORE_KEYS.map(k => (g.stores || {})[k]).filter(Boolean)[0];
+      return GGC.stores.parse(url).then(p => {
+        const patch = {
+          name: p.name || g.name, about: p.about || g.about,
+          genres: (p.genres && p.genres.length ? p.genres : g.genres),
+          status: p.status || g.status, releaseDate: p.releaseDate || g.releaseDate,
+          year: p.year || g.year, price: p.price || g.price, langs: p.langs || g.langs,
+          art: Object.assign({}, g.art, p.art), source: p.source,
+          parsedAt: new Date().toISOString()
+        };
+        if (patch.art && (patch.art.capsule || patch.art.hero)) patch.localArt = "";
+        this.patchGame(g.id, patch);
+        done++;
+      }).catch(() => null);
+    }), Promise.resolve()).then(() => {
+      this.setState({ syncing: "" });
+      this.say(done + " / " + withStore.length + " განახლდა", done ? "#9ede9e" : "#f0a8a8");
+    });
+  }
+
+  exportJson() {
+    const doc = {
+      companies: { version: 1, updated: U.today(), items: this.state.companies },
+      games: { version: 1, updated: U.today(), items: this.state.games }
+    };
+    const blob = new Blob([JSON.stringify(doc, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "ggc-data-" + U.today() + ".json";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  }
+
+  /* ------------------------------------------------------------------- render */
+
+  queueRows() {
+    const s = this.state;
+    return s.queue.map(item => {
+      const p = item.payload || {};
+      const decided = s.decisions[item.number];
+      const isEdit = p.action === "edit-company" || p.action === "edit-game";
+      const isGame = p.action === "new-game" || p.action === "edit-game";
+      let diff = [];
+      if (item.malformed) {
+        diff = [{ k: "შენიშვნა", old: "—", "new": "JSON ვერ წაიკითხა — გახსენი GitHub-ზე" }];
+      } else if (isGame) {
+        const cur = isEdit ? D.game(p.gameId) : null;
+        diff = GGC.submit.diff(cur, p.game || {}, GAME_LABELS);
+      } else {
+        const cur = isEdit ? D.company(p.companyId) : null;
+        diff = GGC.submit.diff(cur, p.company || {}, CO_LABELS);
+      }
+      const kind = item.malformed ? "შემოწმება" : isEdit ? "ედიტი" : isGame ? "თამაში" : "ახალი";
+      const accent = isEdit ? "#fdb813" : isGame ? "#ee2626" : "#1d96d3";
+      return {
+        name: p.subject || item.title,
+        meta: [item.author ? "@" + item.author : "", p.contact || "", U.fmtDate((item.createdAt || "").slice(0, 10))].filter(Boolean).join(" · "),
+        kind: kind, accent: accent,
+        tagBg: isEdit ? "#3a2f14" : isGame ? "#3a1717" : "#14293a",
+        tagFg: isEdit ? "#f4cd77" : isGame ? "#f0a8a8" : "#8ccbe9",
+        diff: diff,
+        show: s.open === item.number ? "block" : "none",
+        chevron: s.open === item.number ? "−" : "+",
+        diffShow: isEdit && !item.malformed ? "block" : "none",
+        newShow: !isEdit || item.malformed ? "block" : "none",
+        note: p.note || "",
+        noteShow: p.note ? "block" : "none",
+        url: item.url,
+        actShow: !decided && s.authed && !item.malformed ? "inline-block" : "none",
+        stateShow: decided ? "inline" : "none",
+        stateText: decided === "approved" ? "✔ დადასტურებული — ატვირთვის მოლოდინში" : decided ? "უარყოფილი — ატვირთვის მოლოდინში" : "",
+        toggle: () => this.setState(st => ({ open: st.open === item.number ? null : item.number })),
+        approve: () => this.approve(item),
+        reject: () => this.reject(item)
+      };
+    });
+  }
+
+  listRows() {
+    const s = this.state;
+    const isGames = s.tab === "games";
+    const sort = s.sort || (isGames ? "year" : "games");
+    const term = s.q.toLowerCase();
+    if (isGames) {
+      let rows = s.games.filter(g => {
+        const st = s.companies.filter(c => c.id === g.studioId)[0];
+        return !term || (g.name + " " + (st ? st.name : "")).toLowerCase().indexOf(term) >= 0;
+      });
+      rows.sort((a, b) =>
+        sort === "name" ? a.name.localeCompare(b.name)
+        : sort === "status" ? (a.status === b.status ? b.year - a.year : a.status === "upcoming" ? -1 : 1)
+        : (b.year || 9999) - (a.year || 9999));
+      return rows.map(g => {
+        const st = s.companies.filter(c => c.id === g.studioId)[0];
+        const art = D.gameArt(g);
+        return {
+          name: g.name,
+          initials: art ? "" : U.initials(g.name),
+          art: art ? 'url("' + art + '") center/cover no-repeat' : "none",
+          radius: "6px",
+          sub: [st ? st.name : "სტუდიის გარეშე", (g.platforms || []).join(", "), D.releaseLabel(g)].filter(Boolean).join(" · "),
+          verifiedShow: g.verified ? "inline" : "none",
+          status: g.status === "upcoming" ? "მოსალოდნელი" : "გამოსული",
+          dot: g.status === "upcoming" ? "#d3a11d" : "#4c9a5e",
+          games: 0, gamesShow: "none",
+          validated: g.validated ? "ვალიდაცია " + U.fmtDate(g.validated) : "არ არის ვალიდირებული",
+          edit: () => this.setState({ edit: g.id, editKind: "game" })
+        };
+      });
+    }
+    const kind = KIND_OF_TAB[s.tab] || "company";
+    let rows = s.companies.filter(c => c.kind === kind)
+      .filter(c => !term || (c.name + " " + c.legal + " " + c.regId).toLowerCase().indexOf(term) >= 0)
+      .map(c => Object.assign({}, c, { count: s.games.filter(g => g.studioId === c.id).length }));
+    rows.sort((a, b) => sort === "name" ? a.name.localeCompare(b.name)
+      : sort === "year" ? b.founded - a.founded
+      : b.count - a.count);
+    return rows.map(c => ({
+      name: c.name,
+      initials: c.logo ? "" : U.initials(c.name),
+      art: c.logo ? 'url("' + c.logo + '") center/cover no-repeat' : "none",
+      radius: "50%",
+      sub: [c.legal, c.regId, c.city, c.founded || ""].filter(Boolean).join(" · ") || "დეტალები არ არის",
+      verifiedShow: c.verified ? "inline" : "none",
+      status: c.active ? "აქტიური" : "არააქტიური",
+      dot: c.active ? "#4c9a5e" : "#5d666e",
+      games: c.count, gamesShow: "flex",
+      validated: c.validated ? "ვალიდაცია " + U.fmtDate(c.validated) : "არ არის ვალიდირებული",
+      edit: () => this.setState({ edit: c.id, editKind: c.kind })
+    }));
+  }
+
+  editor() {
+    const s = this.state;
+    const cur = this.current();
+    if (!cur) {
+      return {
+        editorOpen: false, editName: "", editFields: [], editSelects: [], editAreas: [],
+        editToggles: [], editChips: [], editLinks: [], editGames: [],
+        gamesBoxShow: "none", syncBoxShow: "none", linkBoxShow: "none", linkBoxTitle: "",
+        editSectionLabel: "", syncLabel: "ახლა წაკითხვა", syncText: "", syncDot: "#5d666e"
+      };
+    }
+    const isGame = s.editKind === "game";
+    const text = (key, label, ph) => ({
+      k: label, v: cur[key] == null ? "" : String(cur[key]), ph: ph || "",
+      onInput: e => this.patch({ [key]: e.target.value })
+    });
+    const num = (key, label, ph) => ({
+      k: label, v: cur[key] ? String(cur[key]) : "", ph: ph || "",
+      onInput: e => this.patch({ [key]: Number(e.target.value) || 0 })
+    });
+    const csv = (key, label, ph) => ({
+      k: label, v: (cur[key] || []).join(", "), ph: ph || "",
+      onInput: e => this.patch({ [key]: e.target.value.split(",").map(x => x.trim()).filter(Boolean) })
+    });
+    const toggle = (key, label) => ({
+      label: label,
+      bg: cur[key] ? "#1d96d3" : "transparent",
+      fg: cur[key] ? "#fff" : "#8b949c",
+      border: cur[key] ? "#1d96d3" : "#333941",
+      click: () => this.patch({ [key]: !cur[key] })
+    });
+    const chip = (field, value) => ({
+      label: value,
+      bg: (cur[field] || []).indexOf(value) >= 0 ? "#1d96d3" : "transparent",
+      fg: (cur[field] || []).indexOf(value) >= 0 ? "#fff" : "#8b949c",
+      border: (cur[field] || []).indexOf(value) >= 0 ? "#1d96d3" : "#333941",
+      click: () => this.toggleIn(field, value)
+    });
+
+    if (isGame) {
+      const studioOpts = s.companies.map(c => ({ v: c.id, label: c.name + (c.legal ? " (" + c.legal + ")" : "") }));
+      return {
+        editorOpen: true,
+        editName: cur.name || "თამაში",
+        editSectionLabel: "თამაშის მონაცემები",
+        editSelects: [
+          { k: "სტუდია (სავალდებულო)", v: cur.studioId, options: studioOpts, onChange: e => this.patch({ studioId: e.target.value }) },
+          { k: "გამომცემელი", v: cur.publisherId, options: [{ v: "", label: "—" }].concat(studioOpts), onChange: e => this.patch({ publisherId: e.target.value }) },
+          { k: "სტატუსი", v: cur.status, options: [{ v: "upcoming", label: "მოსალოდნელი" }, { v: "released", label: "გამოსული" }], onChange: e => this.patch({ status: e.target.value }) }
+        ],
+        editFields: [
+          text("name", "სახელი", "Dumbriel"),
+          text("id", "ID", "dumbriel"),
+          text("releaseDate", "გამოშვების თარიღი", "2026-04-20 ან ცარიელი = TBD"),
+          num("year", "წელი", "2026"),
+          csv("genres", "ჟანრი", "metroidvania, action"),
+          text("engine", "ძრავი", "Unity"),
+          text("price", "ფასი", "₾25"),
+          text("langs", "ენები", "ქართული, English"),
+          text("localArt", "ლოკალური არტი", "images/games/dumbriel.jpg"),
+          text("validated", "ვალიდაცია", "2026-01-31")
+        ],
+        editAreas: [text("about", "აღწერა", "")],
+        editToggles: [toggle("verified", "ვერიფიცირებული"), toggle("mobile", "მობაილი")],
+        editChips: [{ label: "პლატფორმები", items: PLATFORMS.map(p => chip("platforms", p)) }],
+        editLinks: STORE_KEYS.map(k => ({
+          k: U.STORE_LABEL[k] || k, v: (cur.stores || {})[k] || "",
+          ph: k === "steam" ? "https://store.steampowered.com/app/…" : "",
+          onInput: e => this.patchLink("stores", k, e.target.value)
+        })),
+        linkBoxShow: "block", linkBoxTitle: "მაღაზიის ბმულები",
+        editGames: [], gamesBoxShow: "none", syncBoxShow: "block",
+        syncLabel: s.syncing === cur.id ? "იკითხება…" : "ახლა წაკითხვა",
+        syncText: cur.parsedAt ? "ბოლო სინქი " + U.fmtDate(cur.parsedAt.slice(0, 10)) + " · " + (U.STORE_LABEL[cur.source] || cur.source) : "ჯერ არ წაკითხულა",
+        syncDot: cur.parsedAt ? "#4c9a5e" : "#5d666e"
+      };
+    }
+
+    const attached = s.games.filter(g => g.studioId === cur.id);
+    return {
+      editorOpen: true,
+      editName: cur.legal || cur.name || "ჩანაწერი",
+      editSectionLabel: "იდენტიფიკაცია",
+      editSelects: [
+        { k: "ტიპი", v: cur.kind, options: [
+          { v: "company", label: "რეგისტრირებული კომპანია" },
+          { v: "team", label: "გუნდი" },
+          { v: "solo", label: "სოლო დეველოპერი" }
+        ], onChange: e => { this.patch({ kind: e.target.value }); this.setState({ editKind: e.target.value }); } }
+      ],
+      editFields: [
+        text("legal", "ოფიციალური სახელი", "MadMoa LLC"),
+        text("regId", "საიდენტიფიკაციო ნომერი", "404123456"),
+        text("name", "საჯარო სახელი", "MadMoa"),
+        text("id", "ID", "madmoa"),
+        text("city", "ქალაქი", "თბილისი"),
+        num("founded", "დაფუძნება", "2019"),
+        text("size", "გუნდის ზომა", "6-10"),
+        text("website", "ვებსაიტი", "https://…"),
+        text("email", "ელფოსტა", ""),
+        text("logo", "ლოგო", "images/logos/madmoa.jpg"),
+        text("validated", "ვალიდაცია", "2026-01-31")
+      ],
+      editAreas: [text("about", "აღწერა", "")],
+      editToggles: [toggle("verified", "ვერიფიცირებული"), toggle("active", "აქტიური")],
+      editChips: [{ label: "როლები", items: ROLES.map(r => chip("roles", r)) }],
+      editLinks: SOCIALS.map(k => ({
+        k: U.SOC[k] || k, v: (cur.links || {})[k] || "", ph: "",
+        onInput: e => this.patchLink("links", k, e.target.value)
+      })),
+      linkBoxShow: "block", linkBoxTitle: "სოციალური ქსელები",
+      editGames: attached.map(g => {
+        const art = D.gameArt(g);
+        return {
+          name: g.name,
+          meta: [D.releaseLabel(g), (g.platforms || []).join(", ")].filter(Boolean).join(" · "),
+          art: art ? 'url("' + art + '") center/cover no-repeat' : "#2f353c",
+          open: () => this.setState({ edit: g.id, editKind: "game" })
+        };
+      }),
+      gamesBoxShow: "block", syncBoxShow: "none",
+      syncLabel: "ახლა წაკითხვა", syncText: "", syncDot: "#5d666e"
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const pending = s.queue.filter(q => !s.decisions[q.number]).length;
+    const isGames = s.tab === "games";
+    const cur = this.current();
+
+    const v = Object.assign({
+      needsAuth: !s.authed && !s.browse,
+      showPanel: s.authed || s.browse,
+      authedShow: s.authed ? "inline-block" : "none",
+      userShow: s.authed ? "inline" : "none",
+      userLabel: s.authed ? "@" + s.user : "",
+      repoLabel: C.owner + "/" + C.repo,
+      repoUrl: "https://github.com/" + C.owner + "/" + C.repo,
+      actionsUrl: "https://github.com/" + C.owner + "/" + C.repo + "/actions",
+      issuesUrl: "https://github.com/" + C.owner + "/" + C.repo + "/issues?q=is%3Aopen+label%3A" + C.label,
+      tokenUrl: "https://github.com/settings/personal-access-tokens/new",
+      tokenInput: s.tokenInput,
+      onToken: e => this.setState({ tokenInput: e.target.value }),
+      signIn: () => this.doSignIn(),
+      signInLabel: s.signing ? "მოწმდება…" : "შესვლა",
+      signOut: () => { GH.signOut(); this.setState({ authed: false, browse: false, user: "", queue: [] }); },
+      browseOnly: () => this.setState({ browse: true }),
+      authErr: s.authErr,
+      authErrShow: s.authErr ? "block" : "none",
+
+      statusText: s.status,
+      statusShow: s.status ? "block" : "none",
+      statusColor: s.statusColor,
+      dirtyShow: s.dirty ? "inline" : "none",
+      dirtyLabel: s.dirty + " შენახვის მოლოდინში",
+      publishLabel: s.publishing ? "იტვირთება…" : "GitHub-ზე ატვირთვა",
+      publishBg: s.dirty ? "#1d96d3" : "#2a3138",
+      publish: () => this.publish(),
+      exportJson: () => this.exportJson(),
+      reload: () => { this.loadQueue(); D.load(true).then(() => this.setState({ ready: true })); },
+
+      nav: NAV.map(([id, label]) => {
+        const badge = id === "queue" ? pending
+          : id === "games" ? s.games.length
+          : KIND_OF_TAB[id] ? s.companies.filter(c => c.kind === KIND_OF_TAB[id]).length : 0;
+        return {
+        label: label,
+        badge: badge,
+        badgeShow: badge ? "inline" : "none",
+        badgeBg: id === "queue" ? "#ee2626" : "#333941",
+        bg: s.tab === id ? "#2b3138" : "transparent",
+        fg: s.tab === id ? "#fff" : "#a9b1b9",
+        click: () => this.setState({ tab: id, edit: null, q: "", sort: "" })
+        };
+      }),
+
+      isQueue: s.tab === "queue",
+      isList: s.tab !== "queue" && s.tab !== "settings",
+      isSettings: s.tab === "settings",
+
+      queueCount: pending,
+      queue: this.queueRows(),
+      queueEmpty: s.queue.length ? "none" : "block",
+      queueEmptyText: s.authed ? "რიგი ცარიელია" : "შემოსული მოთხოვნების სანახავად საჭიროა შესვლა",
+
+      listTitle: TITLES[s.tab] || "",
+      q: s.q,
+      sort: s.sort || (isGames ? "year" : "games"),
+      onSearch: e => this.setState({ q: e.target.value }),
+      onSort: e => this.setState({ sort: e.target.value }),
+      sortOptions: isGames
+        ? [{ v: "year", label: "წელი" }, { v: "status", label: "სტატუსი" }, { v: "name", label: "სახელი" }]
+        : [{ v: "games", label: "თამაშები" }, { v: "year", label: "დაფუძნების წელი" }, { v: "name", label: "სახელი" }],
+      addNew: () => this.addEntry(),
+      rows: this.listRows(),
+      rowsEmpty: this.listRows().length ? "none" : "block",
+      closeEditor: () => this.setState({ edit: null }),
+      deleteEntry: () => this.removeEntry(),
+      addGame: () => {
+        if (!cur) return;
+        const now = U.today();
+        const g = D.normGame({
+          id: this.nextId(cur.name + "-game", s.games), name: "ახალი თამაში",
+          studioId: cur.id, status: "upcoming", created: now, updated: now
+        });
+        this.setState(st => ({ games: st.games.concat([g]), edit: g.id, editKind: "game", dirty: st.dirty + 1 }));
+      },
+      syncNow: () => { if (cur && s.editKind === "game") this.syncGame(cur); },
+      syncAll: () => this.syncAll(),
+      syncAllLabel: s.syncing === "all" ? "იკითხება…" : "ყველა თამაშის განახლება",
+
+      settings: [
+        { k: "რეპოზიტორია", v: C.owner + "/" + C.repo },
+        { k: "ბრენჩი", v: C.branch },
+        { k: "შესული", v: s.authed ? "@" + s.user : "არა" },
+        { k: "კომპანია / გუნდი / სოლო", v: s.companies.filter(c => c.kind === "company").length + " / " + s.companies.filter(c => c.kind === "team").length + " / " + s.companies.filter(c => c.kind === "solo").length },
+        { k: "თამაში", v: String(s.games.length) },
+        { k: "შენახვის მოლოდინში", v: String(s.dirty) },
+        { k: "მოთხოვნის მიღება", v: C.submitEndpoint ? "endpoint + GitHub issue" : "GitHub issue" },
+        { k: "ბოლო განახლება", v: U.fmtDate((D.raw().games || {}).updated || "") }
+      ]
+    }, this.editor());
+    return v;
+  }
+}
+</script>
+</body>
+</html>

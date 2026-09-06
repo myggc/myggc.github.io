@@ -1,0 +1,51 @@
+name: Refresh store data
+
+# Keeps data/games.json in step with Steam / itch.io / App Store / Google Play
+# so nobody has to re-enter a price, a release date or a capsule by hand.
+
+on:
+  schedule:
+    - cron: "17 4,16 * * *"   # twice a day, UTC
+  workflow_dispatch:
+    inputs:
+      id:
+        description: "Refresh a single game id (blank = all)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-stores
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Read the stores
+        run: |
+          if [ -n "${{ inputs.id }}" ]; then
+            node scripts/refresh-stores.mjs --id "${{ inputs.id }}"
+          else
+            node scripts/refresh-stores.mjs
+          fi
+
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet -- data/games.json; then
+            echo "nothing changed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/games.json
+          git commit -m "data: refresh store fields"
+          git push

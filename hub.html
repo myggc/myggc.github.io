@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="assets/js/ggc-core.js"></script>
+<script src="assets/js/i18n.js"></script>
+<style>
+  html { overflow-x:clip; }
+  body { margin:0; overflow-x:clip; min-height:100vh; background:#e9ebe7; color:#16181b; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  #root, #dc-root, body > div, #dc-root > div { display:flex; flex-direction:column; min-height:100vh; }
+  #dc-root > div > * { flex:none; width:100%; }
+  footer { margin-top:auto; }
+  * { box-sizing:border-box; }
+  a { color:#146590; text-decoration:none; }
+  a:hover { color:#0f5273; }
+  @keyframes ggcSpin { to { transform:rotate(360deg) } }
+  @keyframes ggcFade { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:translateY(0) } }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important } }
+</style>
+</helmet>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(240,241,238,.94);backdrop-filter:blur(10px);border-bottom:1px solid #dcdfd9">
+  <div style="max-width:1220px;margin:0 auto;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;flex:none"><img src="assets/brand/ggc-logo.svg" alt="GGC" style="height:30px;width:auto;display:block"></a>
+    <nav style="display:flex;flex-wrap:wrap;gap:2px;margin-left:auto;font-size:14px;font-weight:500">
+      <a href="hub.html" style="padding:9px 12px;border-radius:9px;background:#e2e5df;color:#16181b;font-weight:600" style-hover="background:#e2e5df;color:#16181b">ჰაბი</a>
+      <a href="companies.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">კომპანიები</a>
+      <a href="games.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">თამაშები</a>
+      <a href="about.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">ჩვენ შესახებ</a>
+    </nav>
+    <div style="display:flex;gap:2px;padding:3px;background:#e2e5df;border-radius:9px;flex:none">
+      <button type="button" data-ggc-lang="ka" style="border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:7px;padding:7px 10px;font-family:inherit;font-size:13px;font-weight:600">ქარ</button>
+      <button type="button" data-ggc-lang="en" style="border:0;cursor:pointer;background:transparent;color:#5a5f65;border-radius:7px;padding:7px 10px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600">EN</button>
+    </div>
+    <a href="donate.html" style="display:flex;align-items:center;gap:8px;background:#83c341;color:#16181b;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:700;flex:none" style-hover="background:#6ba22f;color:#fff">დონაცია</a>
+  </div>
+</header>
+
+<section style="position:relative;padding:clamp(30px,4.5vw,64px) 0 0">
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;overflow:hidden">
+    <div style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:{{ heroBg }}"></div>
+    <div style="position:absolute;right:0;top:-30%;width:min(46vw,520px);aspect-ratio:1;opacity:.09;animation:ggcSpin 78s linear infinite"><img src="assets/brand/ggc-mark.svg" alt="" style="width:100%;display:block"></div>
+  </div>
+  <div style="position:relative;max-width:1220px;margin:0 auto;padding:0 20px">
+    <h1 style="margin:0;max-width:22ch;font-size:clamp(30px,5vw,56px);line-height:1.03;font-weight:800;letter-spacing:-.03em;text-wrap:balance">ოთხი მიმართულება, ერთ ადგილას</h1>
+    <p style="margin:16px 0 0;max-width:52ch;font-size:clamp(16px,1.9vw,19px);line-height:1.55;color:#3c4147">GGC-ის საქმიანობა ოთხ ნაწილად იყოფა. აირჩიე მიმართულება — ქვემოთ სრული კონტენტი გამოჩნდება.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));gap:0;margin-top:clamp(22px,3vw,34px);border-radius:20px;overflow:hidden;box-shadow:0 12px 30px rgba(20,22,26,.13)">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+        <button type="button" onClick="{{ t.click }}" style="position:relative;overflow:hidden;text-align:left;cursor:pointer;font-family:inherit;background:{{ t.bg }};color:{{ t.fg }};border:0;border-radius:0;padding:clamp(18px,2.4vw,26px);transition:background .2s ease;box-shadow:{{ t.shadow }}">
+          <div aria-hidden="true" style="position:absolute;right:-26px;bottom:-34px;width:110px;height:110px;border-radius:50%;background:{{ t.blob }}"></div>
+          <div style="position:relative;display:flex;align-items:flex-start;gap:12px">
+            <span style="flex:1 1 auto;min-width:0;font-size:clamp(17px,2.2vw,25px);font-weight:700;letter-spacing:-.025em;line-height:1.15;overflow-wrap:anywhere;hyphens:auto">{{ t.title }}</span>
+            <span style="flex:none;width:14px;height:14px;border-radius:4px;background:{{ t.dot }};margin-top:6px"></span>
+          </div>
+          <div style="position:relative;margin-top:10px;font-size:14px;line-height:1.5;color:{{ t.subFg }}">{{ t.sub }}</div>
+        </button>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<sc-if value="{{ isCommunity }}" hint-placeholder-val="{{ true }}">
+  <div style="animation:ggcFade .35s ease both">
+    <section style="max-width:1220px;margin:0 auto;padding:clamp(26px,4vw,48px) 20px clamp(18px,2.5vw,28px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:12px">
+        <sc-for list="{{ formats }}" as="f" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #dbe2e6;border-top:4px solid #1d96d3;border-radius:15px;padding:20px">
+            <div style="font-size:18px;font-weight:600">{{ f.t }}</div>
+            <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">{{ f.d }}</p>
+            <div style="margin-top:12px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#146590">{{ f.freq }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1220px;margin:0 auto;padding:0 20px clamp(18px,2.5vw,28px)">
+      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:16px">
+        <h2 style="margin:0;font-size:clamp(21px,2.8vw,28px);font-weight:700;letter-spacing:-.02em">2026 კალენდარი</h2>
+        <span style="font-size:15px;color:#4d5258">თარიღები შესაძლოა შეიცვალოს</span>
+      </div>
+      <div style="background:#fff;border:1px solid #dbe2e6;border-radius:16px;overflow:hidden">
+        <sc-for list="{{ events }}" as="e" hint-placeholder-count="6">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:13px;padding:15px 18px;border-bottom:1px solid #eef2f4">
+            <div style="flex:none;width:70px;text-align:center;background:{{ e.dateBg }};color:{{ e.dateFg }};border-radius:10px;padding:9px 7px">
+              <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;line-height:1">{{ e.day }}</div>
+              <div style="margin-top:2px;font-size:12px;letter-spacing:.06em;text-transform:uppercase">{{ e.month }}</div>
+            </div>
+            <div style="flex:1 1 180px;min-width:0">
+              <div style="font-size:16px;font-weight:600">{{ e.title }}</div>
+              <div style="margin-top:3px;font-size:14px;color:#4d5258">{{ e.where }}</div>
+            </div>
+            <span style="flex:none;background:{{ e.tagBg }};color:{{ e.tagFg }};border-radius:7px;padding:6px 11px;font-size:13px;font-weight:600">{{ e.tag }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="position:relative;padding:clamp(26px,4vw,48px) 0">
+      <div aria-hidden="true" style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:#16181b"></div>
+      <div style="position:relative;max-width:1220px;margin:0 auto;padding:0 20px">
+        <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:18px">
+          <h2 style="margin:0;font-size:clamp(21px,2.8vw,28px);font-weight:700;letter-spacing:-.02em;color:#fff">გასული ივენთები</h2>
+          <span style="font-size:15px;color:#a7aeb6">Facebook-ის გვერდიდან</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr));gap:12px">
+          <sc-for list="{{ shots }}" as="p" hint-placeholder-count="6">
+            <a href="{{ p.fb }}" style="position:relative;display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:4/3;background:#22262b;border:1px solid #2c3137;border-radius:12px;padding:14px;overflow:hidden" style-hover="border-color:#3e454d">
+              <div aria-hidden="true" style="position:absolute;inset:0;background:{{ p.bg }}"></div>
+              <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,24,27,0) 40%,rgba(22,24,27,.88) 100%)"></div>
+              <div style="position:relative;font-size:15px;font-weight:600;color:#fff;text-wrap:pretty">{{ p.title }}</div>
+              <div style="position:relative;margin-top:4px;display:flex;align-items:center;gap:7px;font-size:13px;color:#c6ccd3">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="#c6ccd3" style="flex:none"><path d="M13 22v-8h3l1-4h-4V8c0-1 .3-1.6 1.7-1.6H17V2.8c-.6-.1-1.7-.2-3-.2-3 0-5 1.8-5 5.2V10H6v4h3v8h4z"/></svg>
+                {{ p.date }}
+              </div>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:1220px;margin:0 auto;padding:clamp(26px,4vw,48px) 20px">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:18px;background:linear-gradient(140deg,#229ED9,#146590);border-radius:20px;padding:clamp(22px,3vw,34px);color:#fff">
+        <div style="flex:1 1 260px;min-width:0">
+          <h2 style="margin:0;font-size:clamp(21px,2.8vw,28px);font-weight:700;letter-spacing:-.02em">ყველაფერი Telegram-ში ხდება</h2>
+          <p style="margin:12px 0 0;max-width:48ch;font-size:16px;line-height:1.6;opacity:.94">ივენთების გამოცხადება, ვაკანსიები, ერთმანეთის დახმარება და ის შუადღის კითხვები, რომლებზეც ფორუმზე ვერავინ გიპასუხებდა.</p>
+        </div>
+        <a href="https://t.me/ggcgeorgia" style="flex:none;display:flex;align-items:center;gap:10px;background:#fff;color:#146590;border-radius:12px;padding:14px 22px;font-size:16px;font-weight:600" style-hover="background:#eaf3f8;color:#0f5273">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="#146590" style="flex:none"><path d="M21.9 4.3 18.9 19c-.2.9-.8 1.2-1.6.7l-4.4-3.2-2.1 2c-.2.2-.4.4-.9.4l.3-4.4 8-7.2c.3-.3-.1-.4-.5-.2L7.9 12.4 3.6 11c-.9-.3-.9-.9.2-1.3l16.7-6.4c.8-.3 1.5.2 1.4 1z"/></svg>
+          შემოგვიერთდი
+        </a>
+      </div>
+    </section>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isPublishing }}">
+  <div style="animation:ggcFade .35s ease both">
+    <section style="max-width:1220px;margin:0 auto;padding:clamp(26px,4vw,48px) 20px clamp(18px,2.5vw,28px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:12px">
+        <sc-for list="{{ pubOffer }}" as="o" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #e6dcdc;border-top:4px solid #ee2626;border-radius:15px;padding:20px">
+            <div style="font-size:18px;font-weight:600">{{ o.t }}</div>
+            <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">{{ o.d }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1220px;margin:0 auto;padding:0 20px clamp(18px,2.5vw,28px)">
+      <h2 style="margin:0 0 16px;font-size:clamp(21px,2.8vw,28px);font-weight:700;letter-spacing:-.02em">პორტფელი</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr));gap:12px">
+        <sc-for list="{{ titles }}" as="g" hint-placeholder-count="3">
+          <a href="{{ g.href }}" style="display:flex;flex-direction:column;background:#fff;border:1px solid #e6dcdc;border-radius:14px;overflow:hidden" style-hover="border-color:#d9baba">
+            <div style="position:relative;aspect-ratio:460/215;background:#e8eaec;display:flex;align-items:center;justify-content:center">
+              <div aria-hidden="true" style="position:absolute;inset:0;background:{{ g.artImg }}"></div>
+              <span style="position:relative;font-family:'Space Grotesk',sans-serif;font-size:12px;color:#5a5f65">{{ g.art }}</span>
+            </div>
+            <div style="padding:14px 15px 16px">
+              <div style="font-size:17px;font-weight:600;color:#16181b">{{ g.name }}</div>
+              <div style="margin-top:4px;font-size:14px;color:#4d5258">{{ g.studio }}</div>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1220px;margin:0 auto;padding:0 20px clamp(26px,4vw,48px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:12px">
+        <div style="background:#16181b;border-radius:20px;padding:clamp(22px,3vw,32px);color:#fff">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#ff8a8a">Investors</div>
+          <h2 style="margin:13px 0 0;font-size:clamp(21px,2.8vw,28px);font-weight:700;letter-spacing:-.02em">ინვესტორებისთვის</h2>
+          <p style="margin:13px 0 0;max-width:44ch;font-size:16px;line-height:1.65;color:#c6ccd3">შესაძლებელია ინვესტიციის ჩადება როგორც კონკრეტულ თამაშში, ისე სტუდიაში. მოგვწერე და გამოგიგზავნით პროექტების მოკლე მიმოხილვას.</p>
+          <a href="mailto:info@ggc.ge" style="display:inline-block;margin-top:20px;background:#ee2626;color:#fff;border-radius:11px;padding:14px 22px;font-size:16px;font-weight:700" style-hover="background:#cf1c1c">დაგვიკავშირდი</a>
+        </div>
+        <div style="background:#fff;border:1px solid #e6dcdc;border-radius:20px;padding:clamp(22px,3vw,32px)">
+          <h2 style="margin:0;font-size:clamp(20px,2.6vw,26px);font-weight:700;letter-spacing:-.02em">გამოგვიგზავნე თამაში</h2>
+          <p style="margin:13px 0 0;font-size:16px;line-height:1.65;color:#41464c">პიჩ-დეკი, ბილდი ან უბრალოდ იდეა — ყველაფერს ვუყურებთ. პასუხს ორ კვირაში იღებ.</p>
+          <a href="mailto:info@ggc.ge" style="display:inline-block;margin-top:20px;background:#16181b;color:#fff;border-radius:11px;padding:14px 22px;font-size:16px;font-weight:600" style-hover="background:#000">info@ggc.ge</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isAccel }}">
+  <div style="animation:ggcFade .35s ease both">
+    <section style="max-width:1220px;margin:0 auto;padding:clamp(26px,4vw,48px) 20px">
+      <div style="display:inline-flex;align-items:center;gap:9px;background:#eaf3e2;color:#3d5e19;border-radius:10px;padding:11px 16px;font-size:15px;font-weight:600">
+        <span style="width:8px;height:8px;border-radius:50%;background:#83c341"></span>მალე განახლდება
+      </div>
+      <p style="margin:20px 0 0;max-width:54ch;font-size:clamp(16px,1.9vw,19px);line-height:1.6;color:#41464c;text-wrap:pretty">ინკუბატორი და აქსელერატორი ქართული სტუდიებისთვის, რომლებიც უკვე მზად არიან გაზრდისთვის. პროგრამა ჯერ იწერება — ქვემოთ ის მიმართულებებია, რომლებზეც ვმუშაობთ.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px;margin-top:26px">
+        <div style="background:#fff;border:1px solid #dfe4d8;border-top:4px solid #83c341;border-radius:15px;padding:20px">
+          <div style="font-size:17px;font-weight:600">კოჰორტები</div>
+          <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">3-6 სტუდია ერთ ნაკადში, ფიქსირებული ხანგრძლივობა და ეტაპები.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #dfe4d8;border-top:4px solid #83c341;border-radius:15px;padding:20px">
+          <div style="font-size:17px;font-weight:600">დაფინანსება</div>
+          <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">გრანტი ან თანადაფინანსება კონკრეტულ ეტაპზე, გამჭვირვალე პირობებით.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #dfe4d8;border-top:4px solid #83c341;border-radius:15px;padding:20px">
+          <div style="font-size:17px;font-weight:600">რელოკაცია</div>
+          <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">უცხოური სტუდიების საქართველოში გადმოსვლის მხარდაჭერა.</p>
+        </div>
+      </div>
+      <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:12px">
+        <a href="https://t.me/ggcgeorgia" style="background:#83c341;color:#16181b;border-radius:11px;padding:15px 24px;font-size:16px;font-weight:700" style-hover="background:#6ba22f;color:#fff">მაინტერესებს — შემატყობინეთ</a>
+        <button type="button" onClick="{{ goPub }}" style="border:1px solid #dfe4d8;cursor:pointer;background:#fff;color:#16181b;border-radius:11px;padding:15px 24px;font-family:inherit;font-size:16px;font-weight:600" style-hover="border-color:#16181b">სანამ — გამომცემლობა</button>
+      </div>
+    </section>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isReport }}">
+  <div style="animation:ggcFade .35s ease both">
+    <section style="max-width:1220px;margin:0 auto;padding:clamp(26px,4vw,48px) 20px clamp(16px,2vw,24px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr));gap:1px;background:#e6e0d3;border:1px solid #e6e0d3;border-radius:16px;overflow:hidden">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <a href="{{ s.href }}" style="display:block;background:#fff;padding:20px 18px;border-top:4px solid #fdb813" style-hover="background:#fdfbf6">
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.6vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#16181b">{{ s.n }}</div>
+            <div style="margin-top:8px;font-size:14px;color:#4d5258">{{ s.label }}</div>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1220px;margin:0 auto;padding:0 20px clamp(16px,2vw,24px)">
+      <div style="background:#fff;border:1px solid #e6e0d3;border-radius:16px;padding:clamp(18px,3vw,26px)">
+        <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px">
+          <h2 style="margin:0;font-size:clamp(20px,2.6vw,26px);font-weight:700;letter-spacing:-.02em">გამოშვებები წლების მიხედვით</h2>
+          <span style="font-size:14px;color:#5a5f65">n = {{ total }}</span>
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:clamp(8px,2vw,20px);height:200px;margin-top:24px">
+          <sc-for list="{{ bars }}" as="b" hint-placeholder-count="6">
+            <div style="flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end">
+              <div style="font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600">{{ b.v }}</div>
+              <div style="width:100%;background:{{ b.color }};border-radius:8px 8px 3px 3px;height:{{ b.h }}"></div>
+              <div style="font-family:'Space Grotesk',sans-serif;font-size:13px;color:#5a5f65">{{ b.year }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:1220px;margin:0 auto;padding:0 20px clamp(16px,2vw,24px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:12px">
+        <sc-for list="{{ splits }}" as="s" hint-placeholder-count="4">
+          <div style="background:#fff;border:1px solid #e6e0d3;border-radius:16px;padding:20px">
+            <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:10px">
+              <h3 style="margin:0;font-size:18px;font-weight:600">{{ s.title }}</h3>
+              <span style="font-size:13px;color:#5a5f65">n = {{ s.n }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+              <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="4">
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+                  <span style="flex:1 1 90px;min-width:0;font-size:15px;color:#41464c">{{ r.k }}</span>
+                  <span style="flex:1 1 100px;min-width:0;height:8px;background:#f3efe6;border-radius:20px;overflow:hidden"><span style="display:block;height:100%;width:{{ r.pct }};background:{{ r.color }}"></span></span>
+                  <span style="flex:none;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600">{{ r.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <a href="{{ s.href }}" style="display:inline-block;margin-top:14px;font-size:15px;font-weight:600;color:#8a6100">კატალოგში ნახვა →</a>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="max-width:1220px;margin:0 auto;padding:0 20px clamp(26px,4vw,48px)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:12px">
+        <div style="background:#16181b;border-radius:20px;padding:clamp(22px,3vw,32px);color:#fff">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#fdb813">Investors</div>
+          <h2 style="margin:13px 0 0;font-size:clamp(21px,2.8vw,28px);font-weight:700;letter-spacing:-.02em">ინვესტორებისთვის</h2>
+          <p style="margin:13px 0 0;max-width:44ch;font-size:16px;line-height:1.65;color:#c6ccd3">თუ ეძებ, სად შედის ფული ქართულ გეიმდევში — ეს გვერდი საწყისი წერტილია. სრული პორტფელი, ეტაპები და გუნდები მოთხოვნისთანავე.</p>
+          <a href="mailto:info@ggc.ge" style="display:inline-block;margin-top:20px;background:#fdb813;color:#16181b;border-radius:11px;padding:14px 22px;font-size:16px;font-weight:700" style-hover="background:#e0a30f">დაგვიკავშირდი</a>
+        </div>
+        <div style="background:#fff;border:1px solid #e6e0d3;border-radius:20px;padding:clamp(22px,3vw,32px)">
+          <h2 style="margin:0;font-size:clamp(20px,2.6vw,26px);font-weight:700;letter-spacing:-.02em">წლიური რეპორტები</h2>
+          <div style="display:flex;flex-direction:column;gap:9px;margin-top:16px">
+            <sc-for list="{{ reports }}" as="r" hint-placeholder-count="3">
+              <a href="{{ r.href }}" style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:#faf8f3;border:1px solid #ece6da;border-radius:12px;padding:13px 15px" style-hover="border-color:#fdb813">
+                <span style="flex:1 1 120px;min-width:0;font-size:16px;font-weight:600;color:#16181b">{{ r.title }}</span>
+                <span style="flex:none;font-family:'Space Grotesk',sans-serif;font-size:13px;color:#5a5f65">{{ r.meta }}</span>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</sc-if>
+
+<footer style="background:#1b1e22;color:#e8eaec">
+  <div style="max-width:1220px;margin:0 auto;padding:clamp(26px,4vw,42px) 20px;display:flex;flex-wrap:wrap;align-items:center;gap:18px">
+    <div style="display:flex;align-items:center;gap:12px;flex:none">
+      <img src="assets/brand/ggc-mark.svg" alt="" style="height:32px;width:32px;display:block">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:.04em;color:#fff">GGC</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:15px">
+      <a href="companies.html" style="color:#c6ccd3">კომპანიები</a>
+      <a href="games.html" style="color:#c6ccd3">თამაშები</a>
+      <a href="about.html" style="color:#c6ccd3">ჩვენ შესახებ</a>
+      <a href="donate.html" style="color:#c6ccd3">დონაცია</a>
+      <a href="submit.html" style="color:#c6ccd3">მონაცემების გაგზავნა</a>
+    </div>
+    <a href="https://t.me/ggcgeorgia" style="margin-left:auto;display:flex;align-items:center;gap:9px;background:#229ED9;color:#fff;border-radius:11px;padding:11px 16px;font-size:15px;font-weight:600;flex:none" style-hover="background:#1b8dc4">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff" style="flex:none"><path d="M21.9 4.3 18.9 19c-.2.9-.8 1.2-1.6.7l-4.4-3.2-2.1 2c-.2.2-.4.4-.9.4l.3-4.4 8-7.2c.3-.3-.1-.4-.5-.2L7.9 12.4 3.6 11c-.9-.3-.9-.9.2-1.3l16.7-6.4c.8-.3 1.5.2 1.4 1z"/></svg>
+      Telegram
+    </a>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const TABS = [
+  { id: "community", title: "საზოგადოება", sub: "მითაფები, ჯემები, მასტერკლასები",
+    on: "#1580b7", onFg: "#fff", off: "#cfe1ee", offFg: "#0f5273", dotOn: "rgba(255,255,255,.5)", dotOff: "#1d96d3",
+    hero: "radial-gradient(110% 120% at 86% 0%,#c3dcec 0%,rgba(195,220,236,0) 66%),linear-gradient(180deg,#dae7ef,#cfdde5)" },
+  { id: "publishing", title: "გამომცემლობა", sub: "დაფინანსება, პორტინგი, გამოშვება",
+    on: "#d81f1f", onFg: "#fff", off: "#f4d6d6", offFg: "#9e1414", dotOn: "rgba(255,255,255,.5)", dotOff: "#ee2626",
+    hero: "radial-gradient(110% 120% at 86% 0%,#f0cfcf 0%,rgba(240,207,207,0) 66%),linear-gradient(180deg,#eeddda,#e4d2cf)" },
+  { id: "acceleration", title: "აქსელერაცია", sub: "ინკუბატორი და ზრდის პროგრამა",
+    on: "#5f9527", onFg: "#fff", off: "#dbecc7", offFg: "#3d5e19", dotOn: "rgba(255,255,255,.5)", dotOff: "#83c341",
+    hero: "radial-gradient(110% 120% at 86% 0%,#d3e9be 0%,rgba(211,233,190,0) 66%),linear-gradient(180deg,#dfead2,#d4e0c5)" },
+  { id: "report", title: "რეპორტი", sub: "ინდუსტრიის მონაცემები რიცხვებში",
+    on: "#e9a406", onFg: "#16181b", off: "#f8e6bd", offFg: "#7a5500", dotOn: "rgba(22,24,27,.35)", dotOff: "#fdb813",
+    hero: "radial-gradient(110% 120% at 86% 0%,#f4e2b6 0%,rgba(244,226,182,0) 66%),linear-gradient(180deg,#efe4cd,#e5d8bd)" }
+];
+
+class Component extends DCLogic {
+  state = { tab: "community", ready: false };
+
+  componentDidMount() {
+    this.readHash();
+    this.onHash = () => this.readHash();
+    window.addEventListener("hashchange", this.onHash);
+    GGC.data.load().then(() => this.setState({ ready: true }));
+  }
+
+  /* One breakdown row set: count by key, sort, keep the top few, and scale the
+     bars against the largest so the shape reads even with small numbers. */
+  tally(pairs, colors, total) {
+    const counts = {};
+    pairs.forEach(k => { if (k) counts[k] = (counts[k] || 0) + 1; });
+    const rows = Object.keys(counts).map(k => ({ k, v: counts[k] }))
+      .sort((a, b) => b.v - a.v).slice(0, 4);
+    const top = rows.length ? rows[0].v : 1;
+    return rows.map((r, i) => Object.assign(r, {
+      pct: Math.max(8, Math.round(r.v / top * 92)) + "%",
+      color: colors[i] || colors[colors.length - 1]
+    }));
+  }
+  componentWillUnmount() { window.removeEventListener("hashchange", this.onHash); }
+  readHash() {
+    const h = (location.hash || "").replace("#", "");
+    if (h && TABS.filter(t => t.id === h).length) this.setState({ tab: h });
+  }
+  go(id) { if (location.hash.replace("#", "") !== id) location.hash = id; this.setState({ tab: id }); }
+
+  renderVals() {
+    const s = this.state;
+    const active = TABS.filter(t => t.id === s.tab)[0] || TABS[0];
+    // Everything in the report tab is counted from the catalogue, so the
+    // numbers can never drift away from what the site actually lists.
+    const D = GGC.data;
+    const st = D.stats();
+    const games = D.games();
+    const companies = D.companies().filter(c => c.active);
+    const thisYear = new Date().getFullYear();
+    const yearCounts = {};
+    games.forEach(g => { if (g.year) yearCounts[g.year] = (yearCounts[g.year] || 0) + 1; });
+    const years = [];
+    for (let y = thisYear - 5; y <= thisYear; y++) years.push([String(y), yearCounts[y] || 0]);
+    const peak = Math.max(1, ...years.map(y => y[1]));
+
+    return {
+      heroBg: active.hero,
+      tabs: TABS.map(t => {
+        const on = t.id === s.tab;
+        return {
+          title: t.title, sub: t.sub,
+          bg: on ? t.on : t.off,
+          fg: on ? t.onFg : t.offFg,
+          dot: on ? t.dotOn : t.dotOff,
+          subFg: on ? (t.onFg === "#fff" ? "rgba(255,255,255,.92)" : "rgba(22,24,27,.78)") : t.offFg,
+          blob: on ? "rgba(255,255,255,.14)" : "rgba(255,255,255,.5)",
+          shadow: on ? "inset 0 0 0 1px rgba(255,255,255,.25)" : "inset -1px 0 0 rgba(22,24,27,.08)",
+          click: () => this.go(t.id)
+        };
+      }),
+      isCommunity: s.tab === "community",
+      isPublishing: s.tab === "publishing",
+      isAccel: s.tab === "acceleration",
+      isReport: s.tab === "report",
+      goPub: () => this.go("publishing"),
+
+      formats: [
+        { t: "მითაფი", d: "ერთი თემა, ორი მოხსენება, ერთი საათი კითხვები. უფასო, დარეგისტრირების გარეშე.", freq: "თვეში ერთხელ" },
+        { t: "გეიმჯემი", d: "48 საათი, გუნდები ადგილზე იკრიბება, ბოლოს ყველა თამაშობს ერთმანეთის თამაშს.", freq: "წელიწადში ორჯერ" },
+        { t: "მასტერკლასი", d: "პრაქტიკული სესია კონკრეტულ უნარზე — 2D, 3D, პროგრამირება, ბიზნესი.", freq: "სეზონურად" },
+        { t: "შემაჯამებელი ივენთი", d: "წლის შედეგები, ახალი თამაშების ჩვენება და ინდუსტრიის შეხვედრა.", freq: "დეკემბერში" }
+      ],
+      events: [
+        { day: "24", month: "თებ", title: "2D არტი თამაშებში", where: "მითაფი #1 · თბილისი", tag: "ჩატარდა", live: false },
+        { day: "18", month: "აპრ", title: "GameJam 2026", where: "48 საათი · ტექნოპარკი", tag: "რეგისტრაცია", live: true },
+        { day: "22", month: "მაი", title: "3D არტი თამაშებში", where: "მითაფი #2 · თბილისი", tag: "მალე", live: true },
+        { day: "12", month: "ივნ", title: "პროგრამირება თამაშებში", where: "მითაფი #3 · ონლაინ", tag: "მალე", live: true },
+        { day: "09", month: "ივლ", title: "საერთაშორისო მითაფი", where: "სტუმრები საზღვარგარეთიდან", tag: "მალე", live: true },
+        { day: "05", month: "დეკ", title: "შემაჯამებელი ივენთი", where: "წლის შედეგები", tag: "მალე", live: true }
+      ].map(e => Object.assign({}, e, {
+        dateBg: e.live ? "#1d96d3" : "#eef2f4",
+        dateFg: e.live ? "#fff" : "#5a5f65",
+        tagBg: e.live ? "#e2f0f8" : "#f1f4f5",
+        tagFg: e.live ? "#146590" : "#5a5f65"
+      })),
+      shots: [
+        { title: "GameJam 2025 — შემაჯამებელი", date: "დეკემბერი 2025" },
+        { title: "მითაფი: 2D არტი თამაშებში", date: "თებერვალი 2025" },
+        { title: "მასტერკლასი: Unity-ს ოპტიმიზაცია", date: "ნოემბერი 2024" },
+        { title: "საერთაშორისო მითაფი", date: "ივლისი 2024" },
+        { title: "GameJam 2024", date: "აპრილი 2024" },
+        { title: "GGC კონფერენცია", date: "დეკემბერი 2023" }
+      ].map((e, i) => Object.assign({}, e, {
+        fb: "https://www.facebook.com/ggcgeorgia",
+        bg: 'url("images/events/event-' + (i + 1) + '.jpg") center/cover no-repeat'
+      })),
+
+      pubOffer: [
+        { t: "დაფინანსება", d: "პროდაქშენის ბიუჯეტი ან თანადაფინანსება კონკრეტულ ეტაპზე." },
+        { t: "პორტინგი", d: "კონსოლებზე და მაღაზიებზე გამოშვების ტექნიკური ნაწილი." },
+        { t: "მარკეტინგი", d: "ვიშლისტები, სტრიმერები, ფესტივალები, პრეს-კიტი." },
+        { t: "ბიზნეს-განვითარება", d: "კონტრაქტები, პლატფორმებთან ურთიერთობა, გარიგებები." }
+      ],
+      titles: D.sortGames(games).slice(0, 3).map(g => {
+        const art = D.gameArt(g);
+        const studio = D.company(g.studioId);
+        return {
+          name: g.name,
+          studio: studio ? studio.name : "",
+          href: "games.html#" + g.id,
+          artImg: art ? 'url("' + art + '") center/cover no-repeat' : "none"
+        };
+      }),
+
+      total: st.games,
+      stats: [
+        { n: String(st.studios), label: "ვერიფიცირებული სტუდია", href: "companies.html" },
+        { n: String(st.games), label: "თამაში კატალოგში", href: "games.html" },
+        { n: String(st.solo), label: "სოლო დეველოპერი", href: "companies.html#solo" },
+        { n: String(st.upcoming), label: "მოსალოდნელი გამოშვება", href: "games.html" }
+      ],
+      bars: years.map(([year, v], i) => ({
+        year, v, h: Math.round(v / peak * 100) + "%",
+        color: i === years.length - 1 ? "#fdb813" : "#e8d7ac"
+      })),
+      splits: [
+        { title: "ჟანრები", n: st.games, href: "games.html",
+          rows: this.tally([].concat.apply([], games.map(g => g.genres || [])), ["#fdb813", "#fdb813", "#e8d7ac", "#e8d7ac"]) },
+        { title: "პლატფორმები", n: st.games, href: "games.html",
+          rows: this.tally([].concat.apply([], games.map(g => g.platforms || [])), ["#1d96d3", "#83c341", "#ee2626", "#e8d7ac"]) },
+        { title: "სტუდიები ქალაქების მიხედვით", n: companies.length, href: "companies.html",
+          rows: this.tally(companies.map(c => c.city), ["#fdb813", "#e8d7ac", "#e8d7ac", "#e8d7ac"]) },
+        { title: "გუნდის ზომა", n: companies.length, href: "companies.html",
+          rows: this.tally(companies.map(c => c.size), ["#fdb813", "#e8d7ac", "#e8d7ac", "#e8d7ac"]) }
+      ],
+      reports: [
+        { title: "ქართული გეიმდევი 2025", meta: "PDF · მალე", href: "#" },
+        { title: "ქართული გეიმდევი 2024", meta: "PDF · მალე", href: "#" },
+        { title: "სტუდიების გამოკითხვა 2024", meta: "PDF · მალე", href: "#" }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

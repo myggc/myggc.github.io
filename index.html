@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script src="assets/js/support.js"></script>
 </head>
 <body>
 <x-dc>
@@ -11,10 +11,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="assets/js/ggc-core.js"></script>
+<script src="assets/js/i18n.js"></script>
 <style>
   html { overflow-x:clip; }
   body { margin:0; overflow-x:clip; background:#f1f1ed; color:#16181b; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
   * { box-sizing:border-box; }
+  body { min-height:100vh; }
+  #root, #dc-root, body > div, #dc-root > div { display:flex; flex-direction:column; min-height:100vh; }
+  #dc-root > div > * { flex:none; width:100%; }
+  footer { margin-top:auto; }
   a { color:#146590; text-decoration:none; }
   a:hover { color:#0f5273; }
   @keyframes ggcSpin { to { transform:rotate(360deg) } }
@@ -25,20 +31,20 @@
 </style>
 </helmet>
 
-<header style="position:sticky;top:0;z-index:40;background:rgba(251,251,250,.92);backdrop-filter:blur(10px);border-bottom:1px solid #ececea">
+<header style="position:sticky;top:0;z-index:40;background:rgba(240,241,238,.94);backdrop-filter:blur(10px);border-bottom:1px solid #dcdfd9">
   <div style="max-width:1220px;margin:0 auto;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px">
-    <a href="#top" style="display:flex;align-items:center;gap:10px;flex:none"><img src="ggc-logo.svg" alt="GGC" style="height:30px;width:auto;display:block"></a>
-    <nav style="display:flex;flex-wrap:wrap;gap:4px;margin-left:auto;font-size:14px;font-weight:500">
-      <a href="#directions" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#f0f0ee;color:#16181b">მიმართულებები</a>
-      <a href="GGC Companies.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#f0f0ee;color:#16181b">კომპანიები</a>
-      <a href="GGC Games.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#f0f0ee;color:#16181b">თამაშები</a>
-      <a href="GGC Data.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#f0f0ee;color:#16181b">მონაცემები</a>
-      <a href="GGC About.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#f0f0ee;color:#16181b">ჩვენ შესახებ</a>
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;flex:none"><img src="assets/brand/ggc-logo.svg" alt="GGC" style="height:30px;width:auto;display:block"></a>
+    <nav style="display:flex;flex-wrap:wrap;gap:2px;margin-left:auto;font-size:14px;font-weight:500">
+      <a href="hub.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">ჰაბი</a>
+      <a href="companies.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">კომპანიები</a>
+      <a href="games.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">თამაშები</a>
+      <a href="about.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">ჩვენ შესახებ</a>
     </nav>
-    <div style="display:flex;align-items:center;gap:8px;flex:none">
-      <button type="button" onClick="{{ toggleLang }}" style="border:1px solid #e2e2df;background:#fff;border-radius:9px;padding:8px 11px;font-family:inherit;font-size:13px;font-weight:600;color:#41464c;cursor:pointer" style-hover="border-color:#c9c9c5">{{ langLabel }}</button>
-      <a href="GGC Donate.dc.html" style="background:#16181b;color:#fff;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:600" style-hover="background:#000">მხარდაჭერა</a>
+    <div style="display:flex;gap:2px;padding:3px;background:#e2e5df;border-radius:9px;flex:none">
+      <button type="button" data-ggc-lang="ka" style="border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:7px;padding:7px 10px;font-family:inherit;font-size:13px;font-weight:600">ქარ</button>
+      <button type="button" data-ggc-lang="en" style="border:0;cursor:pointer;background:transparent;color:#5a5f65;border-radius:7px;padding:7px 10px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600">EN</button>
     </div>
+    <a href="donate.html" style="display:flex;align-items:center;gap:8px;background:#83c341;color:#16181b;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:700;flex:none" style-hover="background:#6ba22f;color:#fff">დონაცია</a>
   </div>
 </header>
 
@@ -48,7 +54,7 @@
     <div aria-hidden="true" style="position:absolute;inset:-1px 0 0;pointer-events:none">
       <div style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:radial-gradient(120% 90% at 82% 8%,#e3f1fa 0%,rgba(227,241,250,0) 58%),radial-gradient(90% 80% at 4% 96%,#eef6e6 0%,rgba(238,246,230,0) 60%),linear-gradient(180deg,#fafaf8 0%,#f1f1ed 100%)"></div>
       <div style="position:absolute;right:0;top:-16%;width:min(52vw,600px);aspect-ratio:1;opacity:.07;animation:ggcSpin 75s linear infinite">
-        <img src="ggc-mark.svg" alt="" style="width:100%;height:100%;display:block">
+        <img src="assets/brand/ggc-mark.svg" alt="" style="width:100%;height:100%;display:block">
       </div>
       <div style="position:absolute;left:6vw;bottom:8%;width:74px;height:74px;border:7px solid #1d96d3;border-radius:22px;opacity:.13;animation:ggcSpin 90s linear infinite"></div>
       <div style="position:absolute;right:30vw;bottom:14%;width:58px;height:58px;border:7px solid #ee2626;border-radius:50%;opacity:.12;animation:ggcBob 14s ease-in-out infinite"></div>
@@ -64,24 +70,24 @@
       <h1 style="margin:0;font-size:clamp(38px,7.4vw,86px);line-height:1;font-weight:800;letter-spacing:-.03em;text-wrap:balance">თამაშები იქმნება აქ</h1>
       <p style="margin:22px 0 0;max-width:56ch;font-size:clamp(17px,2vw,21px);line-height:1.55;color:#41464c;text-wrap:pretty">GGC აერთიანებს ქართულ გეიმდევ ინდუსტრიას — სტუდიებს, გუნდებს, სოლო დეველოპერებს და მათ თამაშებს. ერთ ადგილას, ვერიფიცირებულად.</p>
       <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:30px">
-        <a href="GGC Submit.dc.html" style="background:#1d96d3;color:#fff;border-radius:11px;padding:15px 24px;font-size:16px;font-weight:600" style-hover="background:#1580b7">დაამატე შენი სტუდია</a>
-        <a href="GGC Companies.dc.html" style="background:#fff;border:1px solid #e2e2df;color:#16181b;border-radius:11px;padding:15px 24px;font-size:16px;font-weight:600" style-hover="border-color:#16181b">ნახე ყველა</a>
+        <a href="submit.html" style="background:#1d96d3;color:#fff;border-radius:11px;padding:15px 24px;font-size:16px;font-weight:600" style-hover="background:#1580b7">დაამატე შენი სტუდია</a>
+        <a href="companies.html" style="background:#fff;border:1px solid #e2e2df;color:#16181b;border-radius:11px;padding:15px 24px;font-size:16px;font-weight:600" style-hover="border-color:#16181b">ნახე ყველა</a>
       </div>
     </div>
     <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:1px;margin-top:clamp(40px,6vw,64px);background:#e4e5e1;border:1px solid #e4e5e1;border-radius:16px;overflow:hidden">
-      <a href="GGC Companies.dc.html" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #1d96d3;transition:background .25s ease" style-hover="background:#fafbf8">
+      <a href="companies.html" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #1d96d3;transition:background .25s ease" style-hover="background:#fafbf8">
         <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#1d96d3">{{ nCompanies }}</div>
         <div style="margin-top:8px;font-size:14px;color:#4d5258">ვერიფიცირებული კომპანია</div>
       </a>
-      <a href="GGC Companies.dc.html#teams" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #83c341;transition:background .25s ease" style-hover="background:#fafbf8">
+      <a href="companies.html#teams" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #83c341;transition:background .25s ease" style-hover="background:#fafbf8">
         <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#83c341">{{ nTeams }}</div>
         <div style="margin-top:8px;font-size:14px;color:#4d5258">გუნდი</div>
       </a>
-      <a href="GGC Companies.dc.html#solo" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #fdb813;transition:background .25s ease" style-hover="background:#fafbf8">
+      <a href="companies.html#solo" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #fdb813;transition:background .25s ease" style-hover="background:#fafbf8">
         <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#fdb813">{{ nSolo }}</div>
         <div style="margin-top:8px;font-size:14px;color:#4d5258">სოლო დეველოპერი</div>
       </a>
-      <a href="GGC Games.dc.html" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #ee2626;transition:background .25s ease" style-hover="background:#fafbf8">
+      <a href="games.html" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #ee2626;transition:background .25s ease" style-hover="background:#fafbf8">
         <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#ee2626">{{ nGames }}</div>
         <div style="margin-top:8px;font-size:14px;color:#4d5258">თამაში</div>
       </a>
@@ -129,7 +135,7 @@
                 <span style="background:#eaf5fb;color:#0f5273;border-radius:8px;padding:8px 12px;font-size:14px">Meetup</span>
                 <span style="background:#eaf5fb;color:#0f5273;border-radius:8px;padding:8px 12px;font-size:14px">მასტერკლასი</span>
               </div>
-              <a href="GGC Community.dc.html" style="display:inline-block;margin-top:24px;font-size:16px;font-weight:600;color:#146590">გაიგე მეტი →</a>
+              <a href="hub.html#community" style="display:inline-block;margin-top:24px;font-size:16px;font-weight:600;color:#146590">გაიგე მეტი →</a>
             </div>
             <div style="grid-area:1/1;transition:opacity .5s ease,transform .5s ease;opacity:{{ opT1 }};transform:translateY({{ tyT1 }});pointer-events:{{ pe1 }}">
               <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px"><span style="width:10px;height:10px;border-radius:3px;background:#ee2626"></span><span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#bf1a1a">მიმართულება 02</span></div>
@@ -140,7 +146,7 @@
                 <span style="background:#fdecec;color:#a01616;border-radius:8px;padding:8px 12px;font-size:14px">მენტორშიპი</span>
                 <span style="background:#fdecec;color:#a01616;border-radius:8px;padding:8px 12px;font-size:14px">ინვესტორები</span>
               </div>
-              <a href="GGC Publishing.dc.html" style="display:inline-block;margin-top:24px;font-size:16px;font-weight:600;color:#bf1a1a">გაიგე მეტი →</a>
+              <a href="hub.html#publishing" style="display:inline-block;margin-top:24px;font-size:16px;font-weight:600;color:#bf1a1a">გაიგე მეტი →</a>
             </div>
             <div style="grid-area:1/1;transition:opacity .5s ease,transform .5s ease;opacity:{{ opT2 }};transform:translateY({{ tyT2 }});pointer-events:{{ pe2 }}">
               <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px"><span style="width:10px;height:10px;border-radius:3px;background:#83c341"></span><span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#4b7320">მიმართულება 03</span></div>
@@ -149,7 +155,7 @@
               <div style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:#f0f6e9;color:#3d5e19;border-radius:8px;padding:9px 13px;font-size:14px;font-weight:600">
                 <span style="width:7px;height:7px;border-radius:50%;background:#83c341"></span>მალე განახლდება
               </div>
-              <a href="GGC Acceleration.dc.html" style="display:inline-block;margin-top:24px;font-size:16px;font-weight:600;color:#4b7320">რა იგეგმება →</a>
+              <a href="hub.html#acceleration" style="display:inline-block;margin-top:24px;font-size:16px;font-weight:600;color:#4b7320">რა იგეგმება →</a>
             </div>
             <div style="grid-area:1/1;transition:opacity .5s ease,transform .5s ease;opacity:{{ opT3 }};transform:translateY({{ tyT3 }});pointer-events:{{ pe3 }}">
               <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px"><span style="width:10px;height:10px;border-radius:3px;background:#fdb813"></span><span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#8a6100">მიმართულება 04</span></div>
@@ -158,7 +164,7 @@
               <div style="display:inline-flex;align-items:center;gap:8px;margin-top:20px;background:#fdf4e0;color:#7a5500;border-radius:8px;padding:9px 13px;font-size:14px;font-weight:600">
                 <span style="width:7px;height:7px;border-radius:50%;background:#fdb813"></span>მალე განახლდება
               </div>
-              <a href="GGC Data.dc.html" style="display:inline-block;margin-top:24px;font-size:16px;font-weight:600;color:#8a6100">ნახე მონაცემები →</a>
+              <a href="hub.html#report" style="display:inline-block;margin-top:24px;font-size:16px;font-weight:600;color:#8a6100">ნახე მონაცემები →</a>
             </div>
           </div>
         </div>
@@ -179,7 +185,7 @@
         <h2 style="margin:0;font-size:clamp(24px,3.4vw,34px);font-weight:700;letter-spacing:-.02em">მოსალოდნელი და ახლად გამოსული</h2>
         <p style="margin:10px 0 0;font-size:16px;color:#4d5258">ქართული თამაშები — მონაცემები პლატფორმებიდან ავტომატურად განახლდება.</p>
       </div>
-      <a href="GGC Games.dc.html" style="margin-left:auto;font-size:16px;font-weight:600;flex:none">ყველა თამაში →</a>
+      <a href="games.html" style="margin-left:auto;font-size:16px;font-weight:600;flex:none">ყველა თამაში →</a>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(240px,100%),1fr));gap:16px">
       <sc-for list="{{ games }}" as="g" hint-placeholder-count="6">
@@ -218,7 +224,7 @@
   <div style="max-width:1220px;margin:0 auto;padding:clamp(36px,5vw,56px) 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:32px">
     <div>
       <div style="display:flex;align-items:center;gap:12px">
-        <img src="ggc-mark.svg" alt="" style="height:36px;width:36px;display:block">
+        <img src="assets/brand/ggc-mark.svg" alt="" style="height:36px;width:36px;display:block">
         <span style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;letter-spacing:.04em;color:#fff">GGC</span>
       </div>
       <p style="margin:16px 0 0;max-width:34ch;font-size:15px;line-height:1.6;color:#9aa1a9">ქართული თამაშების საზოგადოება.</p>
@@ -234,29 +240,29 @@
     <div>
       <div style="font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8c949c;margin-bottom:14px">კატალოგი</div>
       <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
-        <a href="GGC Companies.dc.html" style="color:#c6ccd3">კომპანიები</a>
-        <a href="GGC Companies.dc.html#teams" style="color:#c6ccd3">გუნდები</a>
-        <a href="GGC Companies.dc.html#solo" style="color:#c6ccd3">სოლო დეველოპერები</a>
-        <a href="GGC Games.dc.html" style="color:#c6ccd3">თამაშები</a>
+        <a href="companies.html" style="color:#c6ccd3">კომპანიები</a>
+        <a href="companies.html#teams" style="color:#c6ccd3">გუნდები</a>
+        <a href="companies.html#solo" style="color:#c6ccd3">სოლო დეველოპერები</a>
+        <a href="games.html" style="color:#c6ccd3">თამაშები</a>
       </div>
     </div>
     <div>
       <div style="font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8c949c;margin-bottom:14px">მიმართულებები</div>
       <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
-        <a href="GGC Community.dc.html" style="color:#c6ccd3">საზოგადოება</a>
-        <a href="GGC Publishing.dc.html" style="color:#c6ccd3">გამომცემლობა</a>
-        <a href="GGC Acceleration.dc.html" style="color:#c6ccd3">აქსელერაცია</a>
-        <a href="GGC Data.dc.html" style="color:#c6ccd3">ინდუსტრიის მონაცემები</a>
+        <a href="hub.html#community" style="color:#c6ccd3">საზოგადოება</a>
+        <a href="hub.html#publishing" style="color:#c6ccd3">გამომცემლობა</a>
+        <a href="hub.html#acceleration" style="color:#c6ccd3">აქსელერაცია</a>
+        <a href="hub.html#report" style="color:#c6ccd3">ინდუსტრიის მონაცემები</a>
       </div>
     </div>
     <div>
       <div style="font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8c949c;margin-bottom:14px">GGC</div>
       <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
-        <a href="GGC About.dc.html" style="color:#c6ccd3">ჩვენ შესახებ</a>
-        <a href="GGC Submit.dc.html" style="color:#c6ccd3">მონაცემების გაგზავნა</a>
-        <a href="GGC Donate.dc.html" style="color:#c6ccd3">მხარდაჭერა</a>
+        <a href="about.html" style="color:#c6ccd3">ჩვენ შესახებ</a>
+        <a href="submit.html" style="color:#c6ccd3">მონაცემების გაგზავნა</a>
+        <a href="donate.html" style="color:#c6ccd3">მხარდაჭერა</a>
         <a href="https://github.com/myggc/myggc.github.io" style="color:#c6ccd3">GitHub</a>
-        <a href="GGC Admin.dc.html" style="color:#8b939b">ადმინი</a>
+        <a href="admin.html" style="color:#8b939b">ადმინი</a>
       </div>
     </div>
   </div>
@@ -279,12 +285,13 @@ const DIM  = ["#dbe9cb", "#f7d3d3", "#cfe4f1", "#fbeac4"];
 
 class Component extends DCLogic {
   state = {
-    i: 0, cycle: 0, lang: "ka",
+    ready: false, i: 0, cycle: 0, lang: "ka",
     seq: [], step: 0, playing: false, showing: false, lit: -1,
     round: 0, best: 0, msg: ""
   };
 
   componentDidMount() {
+    GGC.data.load().then(() => this.setState({ ready: true }));
     setTimeout(() => this.start(), 1200);
     const calm = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (this.props.autoRotate !== false && !calm) {
@@ -345,27 +352,33 @@ class Component extends DCLogic {
 
   renderVals() {
     const s = this.state, p = this.props;
+    const D = GGC.data;
+    // The counters and the shelf read the catalogue; the props stay as the
+    // fallback for the very first paint, before data/*.json lands.
+    const st = D.stats();
+    const shelf = D.sortGames(D.games()).slice(0, 6).map(g => {
+      const studio = D.company(g.studioId);
+      const art = D.gameArt(g);
+      const badge = g.status === "upcoming" ? (g.year ? String(g.year) : "TBD") : String(g.year || "");
+      return {
+        id: g.id, name: g.name, studio: studio ? studio.name : "", badge: badge,
+        mobile: g.mobile, platforms: g.platforms || [],
+        href: "games.html#" + g.id,
+        slot: art ? "" : (g.mobile ? "portrait" : "460×215"),
+        artImg: art ? 'url("' + art + '") center/' + (g.mobile ? "contain" : "cover") + ' no-repeat' : "none",
+        badgeBg: badge === "TBD" ? "#f4f4f2" : (g.status === "upcoming" ? "#1d96d3" : "#16181b"),
+        badgeFg: badge === "TBD" ? "#41464c" : "#fff"
+      };
+    });
     const v = {
       haloColor: DIRS[s.i].color,
-      nCompanies: p.companies ?? "15",
-      nTeams: p.teams ?? "8",
-      nSolo: p.solo ?? "24",
-      nGames: p.games ?? "37",
+      nCompanies: s.ready ? st.companies : (p.companies ?? "—"),
+      nTeams: s.ready ? st.teams : (p.teams ?? "—"),
+      nSolo: s.ready ? st.solo : (p.solo ?? "—"),
+      nGames: s.ready ? st.games : (p.games ?? "—"),
       langLabel: s.lang === "ka" ? "EN" : "ქარ",
-      toggleLang: () => this.setState(st => ({ lang: st.lang === "ka" ? "en" : "ka" })),
-      games: [
-        { id: "dumbriel", name: "Dumbriel", studio: "MadMoa", badge: "მალე", art: "images/games/dumbriel.jpg", slot: "images/games/dumbriel.jpg", platforms: ["Steam", "Switch", "Xbox"], mobile: false },
-        { id: "g2", name: "თამაშის სახელი", studio: "სტუდია", badge: "2026", art: "images/games/game-2.jpg", slot: "images/games/game-2.jpg", platforms: ["Steam"], mobile: false },
-        { id: "g3", name: "თამაშის სახელი", studio: "სტუდია", badge: "მალე", art: "images/games/game-3.jpg", slot: "images/games/game-3.jpg", platforms: ["App Store", "Google Play"], mobile: true },
-        { id: "g4", name: "თამაშის სახელი", studio: "სტუდია", badge: "2025", art: "images/games/game-4.jpg", slot: "images/games/game-4.jpg", platforms: ["Steam", "itch.io"], mobile: false },
-        { id: "g5", name: "თამაშის სახელი", studio: "სტუდია", badge: "TBD", art: "images/games/game-5.jpg", slot: "images/games/game-5.jpg", platforms: ["PC"], mobile: false },
-        { id: "g6", name: "თამაშის სახელი", studio: "სტუდია", badge: "2024", art: "images/games/game-6.jpg", slot: "images/games/game-6.jpg", platforms: ["Google Play"], mobile: true }
-      ].map(g => Object.assign({}, g, {
-        href: "GGC Games.dc.html#" + g.id,
-        artImg: 'url("' + g.art + '") center/' + (g.mobile ? "contain" : "cover") + ' no-repeat',
-        badgeBg: g.badge === "TBD" ? "#f4f4f2" : (/^\d/.test(g.badge) ? "#16181b" : "#1d96d3"),
-        badgeFg: g.badge === "TBD" ? "#41464c" : "#fff"
-      }))
+      toggleLang: () => this.setState(st2 => ({ lang: st2.lang === "ka" ? "en" : "ka" })),
+      games: shelf
     };
     for (let n = 0; n < 4; n++) {
       const active = n === s.i;

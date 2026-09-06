@@ -1,35 +1,32 @@
-[
-  {
-    "id": "dumbriel",
-    "name": {
-      "en": "Dumbriel",
-      "ka": "დამბრიელი"
-    },
-    "logo": "",
-    "verified": true,
-    "developer": {
-      "en": "MadMoa LLC",
-      "ka": "მედმოა"
-    },
-    "developerId": "madmoa",
-    "roles": [
-      "metroidvania",
-      "action",
-      "platformer"
-    ],
-    "platforms": [
-      "pc",
-      "steam",
-      "switch",
-      "xbox"
-    ],
-    "status": "development",
-    "released": "",
-    "about": {
-      "en": "A hand-drawn 2D metroidvania. Placeholder entry — edit it in the admin.",
-      "ka": "ხელით დახატული 2D მეტროიდვანია. სანიმუშო ჩანაწერი — შეასწორე ადმინში."
-    },
-    "website": "",
-    "links": {}
-  }
-]
+{
+  "$schema": "./schema.md",
+  "version": 1,
+  "updated": "2026-09-06",
+  "items": [
+    {
+      "id": "dumbriel",
+      "name": "Dumbriel",
+      "studioId": "madmoa",
+      "publisherId": "madmoa",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": ["metroidvania", "action"],
+      "platforms": ["Steam", "Switch", "Xbox"],
+      "engine": "Unity",
+      "price": "",
+      "langs": "ქართული, English",
+      "about": "",
+      "stores": { "steam": "" },
+      "art": { "capsule": "", "hero": "", "portrait": "" },
+      "localArt": "images/games/dumbriel.jpg",
+      "source": "manual",
+      "parsedAt": "",
+      "verified": true,
+      "validated": "2025-03-12",
+      "created": "2025-03-12",
+      "updated": "2025-03-12"
+    }
+  ]
+}

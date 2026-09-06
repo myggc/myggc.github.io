@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+Georgian:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#f2f2f0; color:#191b1e; font-family:"Space Grotesk","Noto Sans Georgian",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  a { color:#146590; text-decoration:none; }
+  a:hover { color:#0f5273; text-decoration:underline; }
+  * { box-sizing:border-box; }
+</style>
+</helmet>
+
+<div style="max-width:1180px;margin:0 auto;padding:56px 22px 120px">
+
+  <header style="display:flex;flex-direction:column;gap:18px;padding-bottom:36px;border-bottom:1px solid #dcdcd8">
+    <div style="display:flex;align-items:center;gap:14px">
+      <img src="assets/brand/ggc-logo.svg" alt="GGC" style="height:36px;width:auto;display:block">
+      <span style="font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5c6167">Georgian Game Community</span>
+    </div>
+    <h1 style="margin:0;font-size:clamp(30px,5vw,52px);line-height:1.04;font-weight:700;letter-spacing:-.02em;max-width:16ch;text-wrap:pretty">საიტის სტრუქტურა და ვაირფრეიმები</h1>
+    <p style="margin:0;max-width:62ch;font-size:17px;line-height:1.6;color:#4c5157;text-wrap:pretty">Sitemap and grey-box wireframes for the full redesign. Structure, content order and responsive behaviour only — no final visuals. Once you sign off on the shape, I build each screen at full fidelity, starting with Home.</p>
+    <p style="margin:0;font-size:13px;color:#5d6369">Source: <a href="https://github.com/myggc/myggc.github.io">myggc/myggc.github.io</a> · 16 pages · GE primary / EN secondary</p>
+  </header>
+
+  <section style="padding:44px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:8px">
+      <span style="font-size:12px;font-weight:600;letter-spacing:.14em;color:#5f646a">01</span>
+      <h2 style="margin:0;font-size:26px;font-weight:600;letter-spacing:-.01em">Colour as direction, not as decoration</h2>
+    </div>
+    <p style="margin:0 0 26px;max-width:66ch;font-size:16px;line-height:1.65;color:#4c5157;text-wrap:pretty">The site sits on a near-white ground everywhere. A direction's colour appears only when you are inside that direction: as the section marker, the active nav underline, headings' accent, buttons and chart fills. Home passes through all four as you scroll, but never shows more than one at a time.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));gap:16px">
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:20px;border-top:4px solid #1d96d3">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#146590;margin-bottom:8px">Blue</div>
+        <div style="font-size:17px;font-weight:600;margin-bottom:6px">საზოგადოება</div>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:#5c6167">Meetups, gamejams, masterclasses, socials, the Telegram, everything that gathers people.</p>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:20px;border-top:4px solid #ee2626">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#bf1a1a;margin-bottom:8px">Red</div>
+        <div style="font-size:17px;font-weight:600;margin-bottom:6px">გამომცემლობა</div>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:#5c6167">Publishing: strategy, business, Steam launch, mentorship, genre and market analysis, creator and publisher databases.</p>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:20px;border-top:4px solid #83c341">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#4b7320;margin-bottom:8px">Green</div>
+        <div style="font-size:17px;font-weight:600;margin-bottom:6px">აქსელერაცია</div>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:#5c6167">Incubator, accelerator, cohorts, funding, relocation, the large multi-year programmes.</p>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:20px;border-top:4px solid #fdb813">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#8a6100;margin-bottom:8px">Yellow</div>
+        <div style="font-size:17px;font-weight:600;margin-bottom:6px">მონაცემები</div>
+        <p style="margin:0;font-size:14px;line-height:1.55;color:#5c6167">Industry data and insights: the Georgian games database, studio and market stats, yearly reports.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:8px">
+      <span style="font-size:12px;font-weight:600;letter-spacing:.14em;color:#5f646a">02</span>
+      <h2 style="margin:0;font-size:26px;font-weight:600;letter-spacing:-.01em">Sitemap</h2>
+    </div>
+    <p style="margin:0 0 26px;max-width:66ch;font-size:16px;line-height:1.65;color:#4c5157">Five top-level groups. Everything a visitor needs is two clicks deep; everything a studio needs to update itself is one click from any page.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:18px">
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:22px">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:14px">Entry</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">მთავარი</span><span style="font-size:13px;color:#5d6369">Home · /</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">ჩვენ შესახებ</span><span style="font-size:13px;color:#5d6369">About · /about</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">კონტაქტი</span><span style="font-size:13px;color:#5d6369">Contact · /contact</span></div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:22px">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:14px">Directions</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;flex-direction:column;gap:2px;border-left:3px solid #1d96d3;padding-left:10px"><span style="font-size:16px;font-weight:600">საზოგადოება</span><span style="font-size:13px;color:#5d6369">Community &amp; events · /community</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px;border-left:3px solid #ee2626;padding-left:10px"><span style="font-size:16px;font-weight:600">გამომცემლობა</span><span style="font-size:13px;color:#5d6369">Publishing · /publishing</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px;border-left:3px solid #83c341;padding-left:10px"><span style="font-size:16px;font-weight:600">აქსელერაცია</span><span style="font-size:13px;color:#5d6369">Acceleration · /acceleration</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px;border-left:3px solid #fdb813;padding-left:10px"><span style="font-size:16px;font-weight:600">მონაცემები</span><span style="font-size:13px;color:#5d6369">Industry data · /data</span></div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:22px">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:14px">Catalog</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">კომპანიები</span><span style="font-size:13px;color:#5d6369">Companies &amp; teams · /companies</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px;padding-left:16px;border-left:1px dashed #d5d6d2"><span style="font-size:15px;font-weight:600">კომპანიის პროფილი</span><span style="font-size:13px;color:#5d6369">/companies/:id</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">თამაშები</span><span style="font-size:13px;color:#5d6369">Games · /games</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px;padding-left:16px;border-left:1px dashed #d5d6d2"><span style="font-size:15px;font-weight:600">თამაშის გვერდი</span><span style="font-size:13px;color:#5d6369">/games/:id</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">ადამიანები</span><span style="font-size:13px;color:#5d6369">People / talent · /people</span></div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:22px">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:14px">Participate</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">მონაცემების გაგზავნა</span><span style="font-size:13px;color:#5d6369">Submit / edit your data · /submit</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">მხარდაჭერა</span><span style="font-size:13px;color:#5d6369">Donate · /donate</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">სიახლეები</span><span style="font-size:13px;color:#5d6369">News &amp; blog · /news</span></div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:22px">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:14px">Admin (not in nav)</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">Dashboard</span><span style="font-size:13px;color:#5d6369">/admin</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px;padding-left:16px;border-left:1px dashed #d5d6d2"><span style="font-size:15px;font-weight:600">Companies &amp; games editor</span><span style="font-size:13px;color:#5d6369">/admin#companies</span></div>
+          <div style="display:flex;flex-direction:column;gap:2px;padding-left:16px;border-left:1px dashed #d5d6d2"><span style="font-size:15px;font-weight:600">Validation queue</span><span style="font-size:13px;color:#5d6369">/admin#queue</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:8px">
+      <span style="font-size:12px;font-weight:600;letter-spacing:.14em;color:#5f646a">03</span>
+      <h2 style="margin:0;font-size:26px;font-weight:600;letter-spacing:-.01em">Wireframes</h2>
+    </div>
+    <p style="margin:0 0 30px;max-width:66ch;font-size:16px;line-height:1.65;color:#4c5157">Each frame is desktop stacking order. Notes on the right cover behaviour, motion and what collapses on mobile.</p>
+
+    <div style="display:flex;flex-direction:column;gap:22px">
+
+      <article id="w-home" style="background:#fff;border:1px solid #e3e3df;border-radius:14px;padding:24px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid #ecece8;margin-bottom:22px">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#191b1e;color:#fff;font-size:13px;font-weight:600">1</span>
+          <span style="font-size:20px;font-weight:600">მთავარი</span>
+          <span style="font-size:14px;color:#5d6369">Home · /</span>
+          <span style="margin-left:auto;display:flex;gap:5px">
+            <span style="width:10px;height:10px;border-radius:3px;background:#1d96d3"></span>
+            <span style="width:10px;height:10px;border-radius:3px;background:#ee2626"></span>
+            <span style="width:10px;height:10px;border-radius:3px;background:#83c341"></span>
+            <span style="width:10px;height:10px;border-radius:3px;background:#fdb813"></span>
+          </span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:26px">
+          <div style="display:flex;flex-direction:column;gap:8px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#e4e5e7;border-radius:6px;padding:12px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e"><span style="font-weight:600">Sticky header</span><span style="margin-left:auto;font-size:11px">logo · directions · catalog · Telegram · GE/EN · donate</span></div>
+            <div style="background:#e9eaec;border-radius:6px;padding:44px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;text-align:center;line-height:1.9">Hero — „თამაშები იქმნება აქ“<br><span style="font-size:11px;text-transform:none;letter-spacing:0">GGC აერთიანებს ამ ყველაფერს · ვერიფიცირებული რიცხვები ქვემოთ · ლოგო ნელა ტრიალდება უკან</span></div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(105px,100%),1fr));gap:8px">
+              <div style="background:#e9eaec;border-radius:6px;padding:18px 8px;font-size:11px;text-align:center;color:#54585e">ვერიფიც. კომპანიები</div>
+              <div style="background:#e9eaec;border-radius:6px;padding:18px 8px;font-size:11px;text-align:center;color:#54585e">ვერიფიც. გუნდები</div>
+              <div style="background:#e9eaec;border-radius:6px;padding:18px 8px;font-size:11px;text-align:center;color:#54585e">სოლო დეველოპერები</div>
+              <div style="background:#e9eaec;border-radius:6px;padding:18px 8px;font-size:11px;text-align:center;color:#54585e">თამაშები</div>
+            </div>
+            <div style="background:#e9eaec;border-radius:6px;padding:18px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">მიმართულებები — ერთი ინტერაქციული კონტეინერი, არა ოთხი</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:16px;display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+              <div style="flex:none;width:96px;height:96px;border-radius:14px;background:#dedfe1;display:flex;align-items:center;justify-content:center;font-size:11px;color:#4d5258;text-align:center;line-height:1.4">logo<br>rotates<br>← →</div>
+              <div style="flex:1 1 200px;min-width:0;display:flex;flex-direction:column;gap:7px">
+                <div style="height:11px;width:40%;background:#cbccd0;border-radius:3px"></div>
+                <div style="height:8px;width:92%;background:#d5d6da;border-radius:3px"></div>
+                <div style="height:8px;width:78%;background:#d5d6da;border-radius:3px"></div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">
+                  <span style="background:#1d96d3;color:#fff;border-radius:20px;padding:5px 11px;font-size:11px">საზოგადოება</span>
+                  <span style="background:#d6d7da;border-radius:20px;padding:5px 11px;font-size:11px;color:#4d5258">გამომცემლობა</span>
+                  <span style="background:#d6d7da;border-radius:20px;padding:5px 11px;font-size:11px;color:#4d5258">აქსელერაცია · მალე</span>
+                  <span style="background:#d6d7da;border-radius:20px;padding:5px 11px;font-size:11px;color:#4d5258">მონაცემები · მალე</span>
+                </div>
+              </div>
+            </div>
+            <div style="background:#e9eaec;border-radius:6px;padding:16px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Upcoming &amp; newly released — capsule rail</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(105px,100%),1fr));gap:8px">
+              <div style="background:#dedfe1;border-radius:4px;aspect-ratio:460/215"></div>
+              <div style="background:#dedfe1;border-radius:4px;aspect-ratio:460/215"></div>
+              <div style="background:#dedfe1;border-radius:4px;aspect-ratio:460/215"></div>
+              <div style="background:#dedfe1;border-radius:4px;aspect-ratio:460/215"></div>
+            </div>
+            <div style="background:#e9eaec;border-radius:6px;padding:34px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;text-align:center">Playable — GGC mini game</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:20px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Next event · Telegram (persistent, also in header + sticky button)</div>
+            <div style="background:#e4e5e7;border-radius:6px;padding:26px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Footer — social icons, partners, donate, open source</div>
+          </div>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:11px;font-size:14px;line-height:1.55;color:#4c5157">
+            <li>One scroll narrative. The page ground stays near-white; the accent swaps as each direction enters, so at any moment exactly one colour is live.</li>
+            <li>One interactive container instead of four blocks: click a direction and the logo spins left or right, that petal’s colour takes over, and its detail swaps in. Directions that do not exist yet (acceleration, data) say <b>მალე განახლდება</b> rather than pretending.</li>
+            <li>Telegram follows you everywhere — in the header and as a small sticky button — never buried at the bottom.</li>
+            <li>Game sits after the directions so it never blocks the pitch. Colour-coded to the logo, scored, hard enough to retry.</li>
+            <li>Numbers come from <code style="font-size:13px">data/*.json</code> so they can never go stale.</li>
+            <li>Mobile: directions become full-width stacked panels; capsule rail becomes a horizontal snap-scroller; header collapses to logo + menu + GE/EN.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="w-direction" style="background:#fff;border:1px solid #e3e3df;border-radius:14px;padding:24px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid #ecece8;margin-bottom:22px">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#191b1e;color:#fff;font-size:13px;font-weight:600">2</span>
+          <span style="font-size:20px;font-weight:600">გამომცემლობა</span>
+          <span style="font-size:14px;color:#5d6369">Publishing · /publishing — template shared by all four directions</span>
+          <span style="margin-left:auto;width:10px;height:10px;border-radius:3px;background:#ee2626"></span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:26px">
+          <div style="display:flex;flex-direction:column;gap:8px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="background:#e4e5e7;border-radius:6px;padding:12px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Header — active direction underlined red</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:34px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;border-top:4px solid #ee2626">Direction hero — logo lockup with „გამომცემლობა“ under the mark, in red · one CTA</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">What we help with</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(120px,100%),1fr));gap:8px">
+              <div style="background:#dedfe1;border-radius:5px;padding:22px 10px;font-size:11px;color:#4d5258;text-align:center">Strategy &amp; business model</div>
+              <div style="background:#dedfe1;border-radius:5px;padding:22px 10px;font-size:11px;color:#4d5258;text-align:center">Steam launch &amp; store page</div>
+              <div style="background:#dedfe1;border-radius:5px;padding:22px 10px;font-size:11px;color:#4d5258;text-align:center">Genre &amp; market analysis</div>
+              <div style="background:#dedfe1;border-radius:5px;padding:22px 10px;font-size:11px;color:#4d5258;text-align:center">Mentorship</div>
+              <div style="background:#dedfe1;border-radius:5px;padding:22px 10px;font-size:11px;color:#4d5258;text-align:center">Creator &amp; press database access</div>
+              <div style="background:#dedfe1;border-radius:5px;padding:22px 10px;font-size:11px;color:#4d5258;text-align:center">Publisher &amp; org intros</div>
+            </div>
+            <div style="background:#e9eaec;border-radius:6px;padding:22px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">How it works — numbered 4-step timeline</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:22px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Games we work with — capsule rail, pulls from catalog</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:22px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">ინვესტორებისთვის — invest in a studio or a single game, contact us</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:22px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">FAQ — what we do not do, what it costs, rights</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:26px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;text-align:center">Apply — pitch your game form</div>
+            <div style="background:#e4e5e7;border-radius:6px;padding:20px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Footer</div>
+          </div>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:11px;font-size:14px;line-height:1.55;color:#4c5157">
+            <li>One template, four fills. Community swaps the six help-cards for an event calendar and past-event archive; Acceleration for cohorts and programme phases; Industry data for the database and charts.</li>
+            <li>The FAQ is where the friendly tone does the most work — it answers the awkward questions plainly instead of burying them.</li>
+            <li>Apply form writes into the same validation queue as studio submissions, so nothing arrives by email only.</li>
+            <li>Mobile: 3-col help grid → 1 col; timeline flips vertical with the rail on the left.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="w-companies" style="background:#fff;border:1px solid #e3e3df;border-radius:14px;padding:24px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid #ecece8;margin-bottom:22px">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#191b1e;color:#fff;font-size:13px;font-weight:600">3</span>
+          <span style="font-size:20px;font-weight:600">კომპანიები</span>
+          <span style="font-size:14px;color:#5d6369">Companies &amp; teams · /companies</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:26px">
+          <div style="display:flex;flex-direction:column;gap:8px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="background:#e4e5e7;border-radius:6px;padding:12px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Header</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:18px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Master filter — კომპანიები / გუნდები / სოლო დეველოპერები · total count · sort by</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;display:flex;flex-wrap:wrap;gap:6px">
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">search</span>
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">role</span>
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">city</span>
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">size</span>
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">founded year</span>
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">verified</span>
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">show inactive</span>
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">sort: name / year / games</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(120px,100%),1fr));gap:8px">
+              <div style="background:#dedfe1;border-radius:5px;padding:14px;display:flex;flex-direction:column;gap:8px"><div style="width:44px;height:44px;border-radius:50%;background:#cbccd0"></div><div style="height:9px;width:70%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:50%;background:#d5d6da;border-radius:3px"></div><div style="height:7px;width:85%;background:#d5d6da;border-radius:3px"></div></div>
+              <div style="background:#dedfe1;border-radius:5px;padding:14px;display:flex;flex-direction:column;gap:8px"><div style="width:44px;height:44px;border-radius:50%;background:#cbccd0"></div><div style="height:9px;width:60%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:44%;background:#d5d6da;border-radius:3px"></div><div style="height:7px;width:80%;background:#d5d6da;border-radius:3px"></div></div>
+              <div style="background:#dedfe1;border-radius:5px;padding:14px;display:flex;flex-direction:column;gap:8px"><div style="width:44px;height:44px;border-radius:50%;background:#cbccd0"></div><div style="height:9px;width:66%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:52%;background:#d5d6da;border-radius:3px"></div><div style="height:7px;width:76%;background:#d5d6da;border-radius:3px"></div></div>
+              <div style="background:#dedfe1;border-radius:5px;padding:14px;display:flex;flex-direction:column;gap:8px"><div style="width:44px;height:44px;border-radius:50%;background:#cbccd0"></div><div style="height:9px;width:72%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:40%;background:#d5d6da;border-radius:3px"></div><div style="height:7px;width:88%;background:#d5d6da;border-radius:3px"></div></div>
+              <div style="background:#dedfe1;border-radius:5px;padding:14px;display:flex;flex-direction:column;gap:8px"><div style="width:44px;height:44px;border-radius:50%;background:#cbccd0"></div><div style="height:9px;width:58%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:56%;background:#d5d6da;border-radius:3px"></div><div style="height:7px;width:70%;background:#d5d6da;border-radius:3px"></div></div>
+              <div style="background:#dedfe1;border-radius:5px;padding:14px;display:flex;flex-direction:column;gap:8px"><div style="width:44px;height:44px;border-radius:50%;background:#cbccd0"></div><div style="height:9px;width:64%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:48%;background:#d5d6da;border-radius:3px"></div><div style="height:7px;width:82%;background:#d5d6da;border-radius:3px"></div></div>
+            </div>
+            <div style="background:#e9eaec;border-radius:6px;padding:16px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;text-align:center">Missing? Add your studio →</div>
+          </div>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:11px;font-size:14px;line-height:1.55;color:#4c5157">
+            <li>The master filter splits the catalog three ways — companies, teams, solo devs — because each needs different sub-filters. Registered companies are the default and the priority list.</li>
+            <li>Every studio carries a status: <b>active</b> by default, or <b>inactive</b> for studios that shipped and then stopped. Inactive is filtered out unless the visitor asks for it, and their games stay listed either way.</li>
+            <li>Card shows logo in a circle, name in both languages, roles, city, verified tick, and how many games — so the card is worth clicking.</li>
+            <li>Filters live in the URL so a filtered list can be shared.</li>
+            <li>Mobile: 3 cols → 1; filter chips collapse into a bottom sheet.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="w-company" style="background:#fff;border:1px solid #e3e3df;border-radius:14px;padding:24px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid #ecece8;margin-bottom:22px">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#191b1e;color:#fff;font-size:13px;font-weight:600">4</span>
+          <span style="font-size:20px;font-weight:600">კომპანიის პროფილი</span>
+          <span style="font-size:14px;color:#5d6369">Company profile · /companies/:id</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:26px">
+          <div style="display:flex;flex-direction:column;gap:8px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="background:#e4e5e7;border-radius:6px;padding:12px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Header</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:14px;display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+              <div style="width:64px;height:64px;border-radius:50%;background:#cbccd0;flex:none"></div>
+              <div style="display:flex;flex-direction:column;gap:7px;flex:1 1 160px;min-width:0">
+                <div style="height:12px;width:44%;background:#cbccd0;border-radius:3px"></div>
+                <div style="height:8px;width:64%;background:#d5d6da;border-radius:3px"></div>
+                <div style="display:flex;flex-wrap:wrap;gap:5px"><span style="background:#d3d4d8;border-radius:20px;padding:4px 9px;font-size:11px;color:#4d5258">developer</span><span style="background:#d3d4d8;border-radius:20px;padding:4px 9px;font-size:11px;color:#4d5258">publisher</span><span style="background:#d3d4d8;border-radius:20px;padding:4px 9px;font-size:11px;color:#4d5258">✔ verified</span><span style="background:#d3d4d8;border-radius:20px;padding:4px 9px;font-size:11px;color:#4d5258">● active</span><span style="background:#d3d4d8;border-radius:20px;padding:4px 9px;font-size:11px;color:#4d5258">suggest an edit</span></div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:5px;flex:none"><span style="width:22px;height:22px;border-radius:6px;background:#cbccd0"></span><span style="width:22px;height:22px;border-radius:6px;background:#cbccd0"></span><span style="width:22px;height:22px;border-radius:6px;background:#cbccd0"></span><span style="width:22px;height:22px;border-radius:6px;background:#cbccd0"></span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(215px,100%),1fr));gap:8px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="background:#e9eaec;border-radius:6px;padding:22px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">About — GE / EN</div>
+                <div style="background:#e9eaec;border-radius:6px;padding:12px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;display:flex;flex-wrap:wrap;gap:8px;align-items:center">Games <span style="margin-left:auto;font-size:11px">sort: year ↓ · filter: published / upcoming</span></div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#dedfe1;border-radius:5px;padding:10px"><div style="width:100px;aspect-ratio:460/215;background:#cbccd0;border-radius:3px;flex:none"></div><div style="display:flex;flex-direction:column;gap:6px;flex:1 1 120px;min-width:0"><div style="height:9px;width:52%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:34%;background:#d5d6da;border-radius:3px"></div></div><span style="font-size:11px;color:#4d5258;flex:none">2024 · Steam</span></div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#dedfe1;border-radius:5px;padding:10px"><div style="width:100px;aspect-ratio:460/215;background:#cbccd0;border-radius:3px;flex:none"></div><div style="display:flex;flex-direction:column;gap:6px;flex:1 1 120px;min-width:0"><div style="height:9px;width:44%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:40%;background:#d5d6da;border-radius:3px"></div></div><span style="font-size:11px;color:#4d5258;flex:none">TBD · upcoming</span></div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#dedfe1;border-radius:5px;padding:10px"><div style="width:100px;aspect-ratio:460/215;background:#cbccd0;border-radius:3px;flex:none"></div><div style="display:flex;flex-direction:column;gap:6px;flex:1 1 120px;min-width:0"><div style="height:9px;width:58%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:30%;background:#d5d6da;border-radius:3px"></div></div><span style="font-size:11px;color:#4d5258;flex:none">2021 · itch</span></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="background:#e9eaec;border-radius:6px;padding:14px;font-size:11px;color:#54585e;line-height:2.1">Facts — empty fields are not rendered at all<br>Registration ID<br>Legal name<br>Founded<br>City<br>Team size<br>Website<br>Email<br>Status<br>Validated on</div>
+                <div style="background:#e9eaec;border-radius:6px;padding:14px;font-size:11px;color:#54585e;text-align:center">GGC validated: 12.03.2025</div>
+              </div>
+            </div>
+            <div style="background:#e4e5e7;border-radius:6px;padding:20px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Footer</div>
+          </div>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:11px;font-size:14px;line-height:1.55;color:#4c5157">
+            <li>Games are attached to the company by <code style="font-size:13px">developerId</code> / <code style="font-size:13px">publisherId</code>, so the profile always lists what they shipped, the year, platform and store links — sortable by year, filterable published / upcoming.</li>
+            <li>Facts panel carries the government registration ID and legal name — that is the identity anchor for a registered company. Teams and solo devs use team name or personal name instead.</li>
+            <li>Game rows use the same card box everywhere: landscape 460×215 capsule for PC/console, native portrait art centred for mobile titles.</li>
+            <li>Verified tick, active/inactive dot and the GGC validation date all sit in the header. "Suggest an edit" is a top-right action, not its own section. Any field with no data is omitted entirely — no empty labels.</li>
+            <li>Mobile: facts panel moves above the games list; game rows keep the capsule on top.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="w-games" style="background:#fff;border:1px solid #e3e3df;border-radius:14px;padding:24px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid #ecece8;margin-bottom:22px">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#191b1e;color:#fff;font-size:13px;font-weight:600">5</span>
+          <span style="font-size:20px;font-weight:600">თამაშები</span>
+          <span style="font-size:14px;color:#5d6369">Games · /games</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:26px">
+          <div style="display:flex;flex-direction:column;gap:8px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="background:#e4e5e7;border-radius:6px;padding:12px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Header</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;display:flex;flex-wrap:wrap;gap:6px">
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">search</span>
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">published / upcoming / TBD</span>
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">year</span>
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">genre</span>
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">platform</span>
+              <span style="background:#d6d7da;border-radius:20px;padding:6px 12px;font-size:11px">studio</span>
+            </div>
+            <div style="background:#e9eaec;border-radius:6px;padding:12px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Default order: upcoming / TBD first, then newest → oldest</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(120px,100%),1fr));gap:8px">
+              <div style="background:#dedfe1;border-radius:5px;overflow:hidden"><div style="aspect-ratio:460/215;background:#cbccd0"></div><div style="padding:10px;display:flex;flex-direction:column;gap:6px"><div style="height:9px;width:70%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:46%;background:#d5d6da;border-radius:3px"></div></div></div>
+              <div style="background:#dedfe1;border-radius:5px;overflow:hidden"><div style="aspect-ratio:460/215;background:#cbccd0"></div><div style="padding:10px;display:flex;flex-direction:column;gap:6px"><div style="height:9px;width:60%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:52%;background:#d5d6da;border-radius:3px"></div></div></div>
+              <div style="background:#dedfe1;border-radius:5px;overflow:hidden"><div style="aspect-ratio:460/215;background:#cbccd0"></div><div style="padding:10px;display:flex;flex-direction:column;gap:6px"><div style="height:9px;width:66%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:40%;background:#d5d6da;border-radius:3px"></div></div></div>
+              <div style="background:#dedfe1;border-radius:5px;overflow:hidden"><div style="aspect-ratio:460/215;background:#cbccd0"></div><div style="padding:10px;display:flex;flex-direction:column;gap:6px"><div style="height:9px;width:56%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:48%;background:#d5d6da;border-radius:3px"></div></div></div>
+              <div style="background:#dedfe1;border-radius:5px;overflow:hidden"><div style="aspect-ratio:460/215;background:#cbccd0"></div><div style="padding:10px;display:flex;flex-direction:column;gap:6px"><div style="height:9px;width:72%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:44%;background:#d5d6da;border-radius:3px"></div></div></div>
+              <div style="background:#dedfe1;border-radius:5px;overflow:hidden"><div style="aspect-ratio:460/215;background:#cbccd0"></div><div style="padding:10px;display:flex;flex-direction:column;gap:6px"><div style="height:9px;width:62%;background:#cbccd0;border-radius:3px"></div><div style="height:7px;width:50%;background:#d5d6da;border-radius:3px"></div></div></div>
+            </div>
+          </div>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:11px;font-size:14px;line-height:1.55;color:#4c5157">
+            <li>Two art shapes, one card size. PC/console games use the 460×215 landscape capsule and fill the card; mobile games use their native portrait/square art, shown smaller and centred inside the same card, so the grid never goes ragged. Platform icons sit on the card and link straight to the store.</li>
+            <li>Default order is upcoming and TBD first, then newest back to oldest. Every card carries the studio name as a link — a game cannot exist without a company record, so that link is always there.</li>
+            <li>Platform chips use the real store marks — Steam, itch, App Store, Play, console — and link out directly.</li>
+            <li>Games from inactive studios stay visible here; the history is the point.</li>
+            <li>Mobile: 3 cols → 2 at 700px → 1 at 460px; capsules never crop below full width.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="w-game" style="background:#fff;border:1px solid #e3e3df;border-radius:14px;padding:24px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid #ecece8;margin-bottom:22px">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#191b1e;color:#fff;font-size:13px;font-weight:600">6</span>
+          <span style="font-size:20px;font-weight:600">თამაშის გვერდი</span>
+          <span style="font-size:14px;color:#5d6369">Game page · /games/:id</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:26px">
+          <div style="display:flex;flex-direction:column;gap:8px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="background:#e4e5e7;border-radius:6px;padding:12px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Header</div>
+            <div style="background:#cbccd0;border-radius:6px;aspect-ratio:1920/620;display:flex;align-items:flex-end;padding:14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#4d5258">Hero capsule / trailer</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(215px,100%),1fr));gap:8px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="background:#e9eaec;border-radius:6px;padding:16px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Title · studio link · status badge</div>
+                <div style="background:#e9eaec;border-radius:6px;padding:26px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Description — parsed live from the store on page load</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(105px,100%),1fr));gap:8px">
+                  <div style="background:#dedfe1;border-radius:4px;aspect-ratio:16/9"></div>
+                  <div style="background:#dedfe1;border-radius:4px;aspect-ratio:16/9"></div>
+                  <div style="background:#dedfe1;border-radius:4px;aspect-ratio:16/9"></div>
+                  <div style="background:#dedfe1;border-radius:4px;aspect-ratio:16/9"></div>
+                </div>
+                <div style="background:#e9eaec;border-radius:6px;padding:18px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">More from this studio</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="background:#e9eaec;border-radius:6px;padding:14px;font-size:11px;color:#54585e;line-height:2.1">Release date / TBD<br>Genres<br>Platforms<br>Languages<br>Engine<br>Price<br>Store links</div>
+                <div style="background:#e9eaec;border-radius:6px;padding:12px;font-size:11px;color:#54585e;text-align:center">Live from Steam / itch / App Store / Play — refreshed on load</div>
+              </div>
+            </div>
+            <div style="background:#e4e5e7;border-radius:6px;padding:20px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Footer</div>
+          </div>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:11px;font-size:14px;line-height:1.55;color:#4c5157">
+            <li>Fully automatic: paste a store URL once and every field, screenshot and price is pulled on each page load — no manual upkeep. Manual entry exists only for games with no store page. Internal references (studio, other games) link inside the site; external ones use the official platform icons.</li>
+            <li>Screenshots come from the store's own media, normalised to 16:9.</li>
+            <li>A game with no store page yet still gets a full page — TBD release, platforms marked as planned.</li>
+            <li>Mobile: facts panel drops below the description; screenshots become a snap-scroller.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="w-data" style="background:#fff;border:1px solid #e3e3df;border-radius:14px;padding:24px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid #ecece8;margin-bottom:22px">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#191b1e;color:#fff;font-size:13px;font-weight:600">7</span>
+          <span style="font-size:20px;font-weight:600">ინდუსტრიის მონაცემები</span>
+          <span style="font-size:14px;color:#5d6369">Industry data · /data</span>
+          <span style="margin-left:auto;width:10px;height:10px;border-radius:3px;background:#fdb813"></span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:26px">
+          <div style="display:flex;flex-direction:column;gap:8px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="background:#e4e5e7;border-radius:6px;padding:12px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Header — active direction underlined yellow</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:26px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;border-top:4px solid #fdb813">The state of Georgian game development</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(105px,100%),1fr));gap:8px">
+              <div style="background:#dedfe1;border-radius:5px;padding:20px 10px;font-size:11px;text-align:center;color:#4d5258">studios</div>
+              <div style="background:#dedfe1;border-radius:5px;padding:20px 10px;font-size:11px;text-align:center;color:#4d5258">games shipped</div>
+              <div style="background:#dedfe1;border-radius:5px;padding:20px 10px;font-size:11px;text-align:center;color:#4d5258">people</div>
+              <div style="background:#dedfe1;border-radius:5px;padding:20px 10px;font-size:11px;text-align:center;color:#4d5258">upcoming</div>
+            </div>
+            <div style="background:#e9eaec;border-radius:6px;padding:44px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;text-align:center">Releases per year — bar chart from games.json</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:8px">
+              <div style="background:#dedfe1;border-radius:5px;padding:30px 12px;font-size:11px;text-align:center;color:#4d5258">Genre split</div>
+              <div style="background:#dedfe1;border-radius:5px;padding:30px 12px;font-size:11px;text-align:center;color:#4d5258">Platform split</div>
+              <div style="background:#dedfe1;border-radius:5px;padding:30px 12px;font-size:11px;text-align:center;color:#4d5258">Studios by city</div>
+              <div style="background:#dedfe1;border-radius:5px;padding:30px 12px;font-size:11px;text-align:center;color:#4d5258">Studio size distribution</div>
+            </div>
+            <div style="background:#e9eaec;border-radius:6px;padding:20px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Yearly reports — download PDF</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:16px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">ინვესტორებისთვის — where the opportunities are, get in touch</div>
+            <div style="background:#e4e5e7;border-radius:6px;padding:20px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Footer</div>
+          </div>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:11px;font-size:14px;line-height:1.55;color:#4c5157">
+            <li>Every chart is computed from the catalog you already maintain — no separate spreadsheet, no numbers that can contradict the companies page.</li>
+            <li>This is what makes the yellow direction real rather than a label: it is the page journalists, ministries and foreign publishers will cite.</li>
+            <li>Each chart links to the filtered catalog view behind it. No methodology section.</li>
+            <li>Mobile: 4-up stats → 2×2; charts get their own horizontal scroll rather than shrinking illegibly.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="w-submit" style="background:#fff;border:1px solid #e3e3df;border-radius:14px;padding:24px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid #ecece8;margin-bottom:22px">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#191b1e;color:#fff;font-size:13px;font-weight:600">8</span>
+          <span style="font-size:20px;font-weight:600">მონაცემების გაგზავნა</span>
+          <span style="font-size:14px;color:#5d6369">Submit / edit your data · /submit</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:26px">
+          <div style="display:flex;flex-direction:column;gap:8px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="background:#e4e5e7;border-radius:6px;padding:12px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Header</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:20px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Step 1 — what do you want to do: add a studio · add a game · fix existing data</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:14px;font-size:11px;color:#54585e;line-height:2.1">Step 2 — find yourself first<br>Type the official company name (e.g. MadMoa LLC) → if it exists, you get its record and can request an edit<br>If not, you create it: registration ID + legal name, contact, city, founded, size, status</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:14px;font-size:11px;color:#54585e;line-height:2.1">Step 3 — games, inside that studio (repeatable)<br>„has a store page?“ → yes: paste URL, parser fills everything<br>no: short manual form only<br>custom images are compressed and cropped to the card box, never bleeding past the edges</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:14px;font-size:11px;color:#54585e;line-height:2.1">Step 4 — socials<br>Facebook · Telegram · LinkedIn · Instagram · YouTube · X · Discord · Steam · itch</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:20px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;text-align:center">Review — live preview of the real company / game page, side by side with the form</div>
+            <div style="background:#dfe6df;border:1px solid #cfdcc9;border-radius:6px;padding:18px 14px;font-size:11px;letter-spacing:.06em;color:#4f6b3d;text-align:center">Sent — GGC will validate it and it goes live after review</div>
+          </div>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:11px;font-size:14px;line-height:1.55;color:#4c5157">
+            <li>The form is driven by the action, not shown all at once: asking "do you already have a store page?" up front means the parser handles the rest and nobody gets lost.</li>
+            <li>The identifier is the official registration name, not the public brand name — that is what links a studio to its games and prevents duplicates. A company must exist before a game can be attached to it.</li>
+            <li>The confirmation states plainly that the data was sent to GGC administration and will be validated — friendly, no bureaucratic tone.</li>
+            <li>Everything is kept as a draft in the browser as you type, so a reload or a wrong click never loses filled data. Sending it plays a small animation — the logo folds into a paper plane and flies off — then confirms it went to GGC for validation.</li>
+            <li>Mobile: one step per screen with a progress bar; no side-by-side fields.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="w-admin" style="background:#fff;border:1px solid #e3e3df;border-radius:14px;padding:24px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid #ecece8;margin-bottom:22px">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#191b1e;color:#fff;font-size:13px;font-weight:600">9</span>
+          <span style="font-size:20px;font-weight:600">ადმინი</span>
+          <span style="font-size:14px;color:#5d6369">Admin · /admin — dashboard, editor, validation queue</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:26px">
+          <div style="display:flex;flex-direction:column;gap:8px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="background:#e4e5e7;border-radius:6px;padding:12px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;display:flex;flex-wrap:wrap;gap:8px">Admin bar <span style="margin-left:auto;font-size:11px">export JSON · commit to GitHub</span></div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(175px,100%),1fr));gap:8px">
+              <div style="background:#e9eaec;border-radius:6px;padding:14px;font-size:11px;color:#54585e;line-height:2.2">Queue <b>3</b><br>Companies<br>Teams<br>Games<br>People<br>Events<br>Settings</div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="background:#e9eaec;border-radius:6px;padding:12px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;display:flex;flex-wrap:wrap;gap:6px">
+                  <span style="background:#d6d7da;border-radius:20px;padding:5px 10px;font-size:11px">search</span>
+                  <span style="background:#d6d7da;border-radius:20px;padding:5px 10px;font-size:11px">year</span>
+                  <span style="background:#d6d7da;border-radius:20px;padding:5px 10px;font-size:11px">status</span>
+                  <span style="background:#d6d7da;border-radius:20px;padding:5px 10px;font-size:11px">entity</span>
+                  <span style="background:#d6d7da;border-radius:20px;padding:5px 10px;font-size:11px">verified</span>
+                  <span style="margin-left:auto;background:#c9cacd;border-radius:6px;padding:5px 10px;font-size:11px;color:#3f4348">+ new</span>
+                </div>
+                <div style="background:#dedfe1;border-radius:5px;padding:10px 12px;font-size:11px;color:#4d5258;display:flex;flex-wrap:wrap;gap:10px"><span style="width:18px;height:18px;border-radius:50%;background:#cbccd0;flex:none"></span><span style="flex:1 1 140px;min-width:0">Company row — name · reg. ID · city · 3 games · active · validated 12.03.25</span><span>edit</span></div>
+                <div style="background:#dedfe1;border-radius:5px;padding:10px 12px;font-size:11px;color:#4d5258;display:flex;flex-wrap:wrap;gap:10px"><span style="width:18px;height:18px;border-radius:50%;background:#cbccd0;flex:none"></span><span style="flex:1 1 140px;min-width:0">Company row</span><span>edit</span></div>
+                <div style="background:#dedfe1;border-radius:5px;padding:10px 12px;font-size:11px;color:#4d5258;display:flex;flex-wrap:wrap;gap:10px"><span style="width:18px;height:18px;border-radius:50%;background:#cbccd0;flex:none"></span><span style="flex:1 1 140px;min-width:0">Company row — inactive</span><span>edit</span></div>
+                <div style="background:#e9eaec;border-radius:6px;padding:14px;font-size:11px;color:#54585e;line-height:2.1">Edit drawer — identity, socials, status, games attached to this company<br>Paste store URL → parse → diff against current values → accept per field</div>
+                <div style="background:#e9eaec;border-radius:6px;padding:14px;font-size:11px;color:#54585e;line-height:2.1">Capsule normaliser — crop / centre uploaded art to 460×215, logo to 1:1</div>
+                <div style="background:#e9eaec;border-radius:6px;padding:14px;font-size:11px;color:#54585e;line-height:2.1">Validation queue — for edits: old value vs new value, field by field. For a brand-new studio: no diff, just review. Approve → live</div>
+              </div>
+            </div>
+          </div>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:11px;font-size:14px;line-height:1.55;color:#4c5157">
+            <li>Games are edited from inside the company they belong to as well as from the games list — the relation is created by picking a company, never by typing a name twice.</li>
+            <li>Year sort on the games list, plus a year column on the company rows, so "what came out in 2023" is one click.</li>
+            <li>Store parsing surfaces as a diff, not an overwrite: you see what Steam says versus what is stored and accept field by field.</li>
+            <li>Image normalisation happens at add time so the main page and catalogs get uniform capsules by construction.</li>
+            <li>Everything still ends as JSON committed to the public repo — the admin stays a static tool, nothing to host.</li>
+            <li>Mobile: sidebar collapses; edit drawer becomes a full screen. Admin is desktop-first, but usable on a phone for approving a queue item.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="w-donate" style="background:#fff;border:1px solid #e3e3df;border-radius:14px;padding:24px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid #ecece8;margin-bottom:22px">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#191b1e;color:#fff;font-size:13px;font-weight:600">10</span>
+          <span style="font-size:20px;font-weight:600">მხარდაჭერა</span>
+          <span style="font-size:14px;color:#5d6369">Donate · /donate</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(290px,100%),1fr));gap:26px">
+          <div style="display:flex;flex-direction:column;gap:8px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="background:#e4e5e7;border-radius:6px;padding:12px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Header</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:30px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Why we ask — plain, friendly, first person</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(120px,100%),1fr));gap:8px">
+              <div style="background:#dedfe1;border-radius:5px;padding:22px 10px;font-size:11px;text-align:center;color:#4d5258">Gamejam prizes</div>
+              <div style="background:#dedfe1;border-radius:5px;padding:22px 10px;font-size:11px;text-align:center;color:#4d5258">Meetup venue &amp; gear</div>
+              <div style="background:#dedfe1;border-radius:5px;padding:22px 10px;font-size:11px;text-align:center;color:#4d5258">Getting studios to expos</div>
+            </div>
+            <div style="background:#e9eaec;border-radius:6px;padding:24px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e;text-align:center">kisa.ge/donate/ggc — button + QR (two colours), the only route</div>
+            <div style="background:#e9eaec;border-radius:6px;padding:18px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Where last year's money went — short honest breakdown</div>
+            <div style="background:#e4e5e7;border-radius:6px;padding:20px 14px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#54585e">Footer</div>
+          </div>
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:11px;font-size:14px;line-height:1.55;color:#4c5157">
+            <li>Tone here is the whole design: a big community talking to its own people, not an NGO writing a grant application. Short sentences, no "we humbly request".</li>
+            <li>Three concrete things the money buys beats one abstract mission paragraph.</li>
+            <li>Spending transparency directly under the donate button is what makes a second donation happen.</li>
+            <li>One route only: <a href="https://www.kisa.ge/donate/ggc">kisa.ge/donate/ggc</a>, with your QR in both colour versions. No bank-transfer list competing with it.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article id="w-rest" style="background:#fff;border:1px solid #e3e3df;border-radius:14px;padding:24px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-bottom:18px;border-bottom:1px solid #ecece8;margin-bottom:22px">
+          <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#191b1e;color:#fff;font-size:13px;font-weight:600">11</span>
+          <span style="font-size:20px;font-weight:600">დანარჩენი გვერდები</span>
+          <span style="font-size:14px;color:#5d6369">About · People · News · Contact — light templates</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:14px">
+          <div style="display:flex;flex-direction:column;gap:7px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="font-size:12px;font-weight:600;margin-bottom:2px">ჩვენ შესახებ · About</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">Who we are + mission, one screen</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">GGC in numbers — the stats table</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">Timeline 2022 → today</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">Team grid</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">Partners</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="font-size:12px;font-weight:600;margin-bottom:2px">ადამიანები · People</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">Filters — role, city, available for work</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">Person cards, square avatar</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">Studio + credited games per person</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">Add yourself →</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="font-size:12px;font-weight:600;margin-bottom:2px">სიახლეები · News</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">Featured post</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">List by date, tagged by direction colour</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">Post page — markdown from the repo</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;background:#f7f7f5;border:1px solid #e8e8e4;border-radius:10px;padding:12px">
+            <div style="font-size:12px;font-weight:600;margin-bottom:2px">კონტაქტი · Contact</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">Who to write to for what — three routes</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">Telegram first, then email</div>
+            <div style="background:#e9eaec;border-radius:5px;padding:16px 10px;font-size:11px;color:#54585e">Social icon row</div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:8px">
+      <span style="font-size:12px;font-weight:600;letter-spacing:.14em;color:#5f646a">04</span>
+      <h2 style="margin:0;font-size:26px;font-weight:600;letter-spacing:-.01em">Responsive rules</h2>
+    </div>
+    <p style="margin:0 0 24px;max-width:66ch;font-size:16px;line-height:1.65;color:#4c5157">Fixing the responsive problem means deciding these once and applying them everywhere, instead of per page.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:16px">
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:20px">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:10px">Grid</div>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#5c6167">One fluid container, <code style="font-size:13px">max-width</code> 1180px, side padding that grows with the viewport. All card grids are <code style="font-size:13px">auto-fit / minmax</code> — they reflow at any width instead of at three fixed breakpoints.</p>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:20px">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:10px">Type</div>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#5c6167">Headings use <code style="font-size:13px">clamp()</code> so nothing needs a mobile override. Body never below 16px. Georgian and Latin share one scale — Noto Sans Georgian for both.</p>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:20px">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:10px">Touch</div>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#5c6167">Every tap target at least 44px. Filter chips become a bottom sheet, not a cramped row. Long rails become snap-scrollers with visible overflow.</p>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:20px">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:10px">Motion</div>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#5c6167">Scroll-driven accent changes and the drifting logo are decorative — all disabled under <code style="font-size:13px">prefers-reduced-motion</code> and on low-power devices. The mini game never autoplays.</p>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:20px">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:10px">Images</div>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#5c6167">Two ratios only: 460×215 for game capsules, 1:1 for logos and avatars. Missing art renders as a neutral block with the name set in it — never a broken image.</p>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:20px">
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:10px">Language</div>
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#5c6167">Georgian is the default; the EN toggle stays in the header on every breakpoint. All record names, descriptions and statuses are bilingual in the data, as they already are.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:8px">
+      <span style="font-size:12px;font-weight:600;letter-spacing:.14em;color:#5f646a">05</span>
+      <h2 style="margin:0;font-size:26px;font-weight:600;letter-spacing:-.01em">Data model — what has to be added</h2>
+    </div>
+    <p style="margin:0 0 24px;max-width:66ch;font-size:16px;line-height:1.65;color:#4c5157">Against the current <code style="font-size:14px">data/companies.json</code>, <code style="font-size:14px">games.json</code> and <code style="font-size:14px">developers.json</code>. Everything below is additive — existing records stay valid.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:16px">
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:22px">
+        <div style="font-size:15px;font-weight:600;margin-bottom:12px">Company / team</div>
+        <div style="font-size:14px;line-height:2;color:#5c6167;font-family:ui-monospace,monospace">registrationId<br>legalName<br>status: active | inactive<br>activeYears: [from, to]<br>publisherOf: [gameId]<br>people: [personId]<br>links.telegram<br>links.discord</div>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:22px">
+        <div style="font-size:15px;font-weight:600;margin-bottom:12px">Game</div>
+        <div style="font-size:14px;line-height:2;color:#5c6167;font-family:ui-monospace,monospace">publisherId<br>status: released | upcoming | tbd | cancelled<br>releaseDate | releaseYear | "TBD"<br>capsule (460×215)<br>screenshots: []<br>engine · price · languages<br>storeIds: {steam, itch, appstore, play}<br>parsedFrom · parsedAt<br>manualFields: []</div>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:22px">
+        <div style="font-size:15px;font-weight:600;margin-bottom:12px">Person</div>
+        <div style="font-size:14px;line-height:2;color:#5c6167;font-family:ui-monospace,monospace">companyId<br>credits: [gameId]<br>openToWork<br>links.telegram<br>links.artstation</div>
+      </div>
+      <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:22px">
+        <div style="font-size:15px;font-weight:600;margin-bottom:12px">Submission (new file)</div>
+        <div style="font-size:14px;line-height:2;color:#5c6167;font-family:ui-monospace,monospace">type: new | edit<br>target: {kind, id}<br>payload<br>submittedBy · submittedAt<br>state: pending | approved | rejected<br>reviewNote</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:56px 0 0">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:8px">
+      <span style="font-size:12px;font-weight:600;letter-spacing:.14em;color:#5f646a">06</span>
+      <h2 style="margin:0;font-size:26px;font-weight:600;letter-spacing:-.01em">Decisions from your review</h2>
+    </div>
+    <div style="background:#fff;border:1px solid #e3e3df;border-radius:12px;padding:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:22px">
+      <div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:10px">Settled</div>
+        <ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.7;color:#5c6167"><li>Photos stay as placeholders you swap by dropping a file in one folder — one line per image, nothing else to touch</li><li>Numbers and all studio / game data are yours to fill; the site asks people to submit their own</li><li>Donations go only to <a href="https://www.kisa.ge/donate/ggc">kisa.ge/donate/ggc</a>, with your QR in both colours</li><li>Partners move off Donate into About</li></ul>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:10px">Steam parsing, plainly</div>
+        <ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.7;color:#5c6167"><li>Steam blocks a browser from reading its pages directly, so "on every load" needs a middleman</li><li>Plan: a small job inside your own GitHub repo refreshes every game from Steam / itch / App Store / Play a few times a day and stores the result — visitors then always see current data instantly, with no server to pay for and nothing manual</li><li>The store page itself is still read live where the platform allows it</li></ul>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5f646a;margin-bottom:10px">The mini game — my pick</div>
+        <ul style="margin:0;padding-left:18px;font-size:14px;line-height:1.7;color:#5c6167"><li>Four petals of the logo orbit a centre; colour-coded targets arrive and you rotate the mark to catch the matching colour</li><li>One control, three seconds to understand, speeds up fast — difficult, as you asked, and built out of the brand itself</li><li>The same logo character does the small interaction animations: it folds into a paper plane when a form is sent</li></ul>
+      </div>
+    </div>
+    <p style="margin:26px 0 0;font-size:16px;line-height:1.65;color:#4c5157;max-width:66ch">Next, one screen at a time: <b>Home</b> at full fidelity — the single interactive direction container, the persistent Telegram, upcoming and newly released games, and the playable logo game. Then Publishing (with the investor block), then the catalog, then submit + admin.</p>
+  </section>
+
+</div>
+</x-dc>
+</body>
+</html>

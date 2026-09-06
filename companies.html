@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script src="assets/js/support.js"></script>
 </head>
 <body>
 <x-dc>
@@ -11,10 +11,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="assets/js/ggc-core.js"></script>
+<script src="assets/js/i18n.js"></script>
 <style>
   html { overflow-x:clip; }
   body { margin:0; overflow-x:clip; background:#eff1f1; color:#16181b; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
   * { box-sizing:border-box; }
+  body { min-height:100vh; }
+  #root, #dc-root, body > div, #dc-root > div { display:flex; flex-direction:column; min-height:100vh; }
+  #dc-root > div > * { flex:none; width:100%; }
+  footer { margin-top:auto; }
   a { color:#146590; text-decoration:none; }
   a:hover { color:#0f5273; }
   @keyframes ggcSpin { to { transform:rotate(360deg) } }
@@ -22,23 +28,27 @@
 </style>
 </helmet>
 
-<header style="position:sticky;top:0;z-index:40;background:rgba(239,241,241,.92);backdrop-filter:blur(10px);border-bottom:1px solid #e0e4e4">
+<header style="position:sticky;top:0;z-index:40;background:rgba(240,241,238,.94);backdrop-filter:blur(10px);border-bottom:1px solid #dcdfd9">
   <div style="max-width:1220px;margin:0 auto;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px">
-    <a href="index.html" style="display:flex;align-items:center;gap:10px;flex:none"><img src="ggc-logo.svg" alt="GGC" style="height:30px;width:auto;display:block"></a>
-    <nav style="display:flex;flex-wrap:wrap;gap:4px;margin-left:auto;font-size:14px;font-weight:500">
-      <a href="GGC Publishing.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e4e8e8;color:#16181b">გამომცემლობა</a>
-      <a href="#" style="padding:9px 12px;border-radius:9px;background:#e6f2f9;color:#146590;font-weight:600">კომპანიები</a>
-      <a href="GGC Games.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e4e8e8;color:#16181b">თამაშები</a>
-      <a href="GGC Data.dc.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e4e8e8;color:#16181b">მონაცემები</a>
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;flex:none"><img src="assets/brand/ggc-logo.svg" alt="GGC" style="height:30px;width:auto;display:block"></a>
+    <nav style="display:flex;flex-wrap:wrap;gap:2px;margin-left:auto;font-size:14px;font-weight:500">
+      <a href="hub.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">ჰაბი</a>
+      <a href="companies.html" style="padding:9px 12px;border-radius:9px;background:#e2e5df;color:#16181b;font-weight:600" style-hover="background:#e2e5df;color:#16181b">კომპანიები</a>
+      <a href="games.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">თამაშები</a>
+      <a href="about.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">ჩვენ შესახებ</a>
     </nav>
-    <a href="GGC Submit.dc.html" style="background:#1d96d3;color:#fff;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:600;flex:none" style-hover="background:#1580b7">დაამატე სტუდია</a>
+    <div style="display:flex;gap:2px;padding:3px;background:#e2e5df;border-radius:9px;flex:none">
+      <button type="button" data-ggc-lang="ka" style="border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:7px;padding:7px 10px;font-family:inherit;font-size:13px;font-weight:600">ქარ</button>
+      <button type="button" data-ggc-lang="en" style="border:0;cursor:pointer;background:transparent;color:#5a5f65;border-radius:7px;padding:7px 10px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600">EN</button>
+    </div>
+    <a href="donate.html" style="display:flex;align-items:center;gap:8px;background:#83c341;color:#16181b;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:700;flex:none" style-hover="background:#6ba22f;color:#fff">დონაცია</a>
   </div>
 </header>
 
 <section style="position:relative;padding:clamp(30px,4vw,56px) 0 clamp(18px,3vw,28px)">
   <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none">
     <div style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:radial-gradient(100% 100% at 90% 0%,#dceef8 0%,rgba(220,238,248,0) 62%),linear-gradient(180deg,#f8fafa,#eff1f1)"></div>
-    <div style="position:absolute;right:0;top:-40%;width:min(40vw,440px);aspect-ratio:1;opacity:.06;animation:ggcSpin 80s linear infinite"><img src="ggc-mark.svg" alt="" style="width:100%;display:block"></div>
+    <div style="position:absolute;right:0;top:-40%;width:min(40vw,440px);aspect-ratio:1;opacity:.06;animation:ggcSpin 80s linear infinite"><img src="assets/brand/ggc-mark.svg" alt="" style="width:100%;display:block"></div>
   </div>
   <div style="position:relative;max-width:1220px;margin:0 auto;padding:0 20px">
     <h1 style="margin:0;font-size:clamp(30px,5vw,54px);line-height:1.04;font-weight:800;letter-spacing:-.03em">კატალოგი</h1>
@@ -103,7 +113,7 @@
 
   <div style="display:{{ emptyShow }};padding:44px 20px;text-align:center;background:#fff;border:1px dashed #cdd4d4;border-radius:16px">
     <div style="font-size:18px;font-weight:600">ვერაფერი მოიძებნა</div>
-    <p style="margin:10px 0 0;font-size:16px;color:#4d5258">სცადე სხვა ფილტრი, ან <a href="GGC Submit.dc.html">დაამატე სტუდია</a>.</p>
+    <p style="margin:10px 0 0;font-size:16px;color:#4d5258">სცადე სხვა ფილტრი, ან <a href="submit.html">დაამატე სტუდია</a>.</p>
   </div>
 
   <div style="margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:linear-gradient(140deg,#1d96d3,#146590);border-radius:18px;padding:24px;color:#fff">
@@ -111,21 +121,21 @@
       <div style="font-size:19px;font-weight:600">შენი სტუდია სიაში არაა?</div>
       <p style="margin:8px 0 0;font-size:16px;line-height:1.55;opacity:.9">დაამატე ოფიციალური სახელით, მიამაგრე თამაშები და გამოგზავნე — ჩვენ დავავალიდირებთ.</p>
     </div>
-    <a href="GGC Submit.dc.html" style="flex:none;background:#fff;color:#146590;border-radius:11px;padding:14px 22px;font-size:16px;font-weight:600" style-hover="background:#eaf3f8;color:#0f5273">დამატება</a>
+    <a href="submit.html" style="flex:none;background:#fff;color:#146590;border-radius:11px;padding:14px 22px;font-size:16px;font-weight:600" style-hover="background:#eaf3f8;color:#0f5273">დამატება</a>
   </div>
 </section>
 
 <footer style="background:#1b1e22;color:#e8eaec">
   <div style="max-width:1220px;margin:0 auto;padding:clamp(28px,4vw,44px) 20px;display:flex;flex-wrap:wrap;align-items:center;gap:20px">
     <div style="display:flex;align-items:center;gap:12px;flex:none">
-      <img src="ggc-mark.svg" alt="" style="height:32px;width:32px;display:block">
+      <img src="assets/brand/ggc-mark.svg" alt="" style="height:32px;width:32px;display:block">
       <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:.04em;color:#fff">GGC</span>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:15px">
-      <a href="GGC Publishing.dc.html" style="color:#c6ccd3">გამომცემლობა</a>
-      <a href="GGC Games.dc.html" style="color:#c6ccd3">თამაშები</a>
-      <a href="GGC Submit.dc.html" style="color:#c6ccd3">მონაცემების გაგზავნა</a>
-      <a href="GGC Donate.dc.html" style="color:#c6ccd3">მხარდაჭერა</a>
+      <a href="hub.html#publishing" style="color:#c6ccd3">გამომცემლობა</a>
+      <a href="games.html" style="color:#c6ccd3">თამაშები</a>
+      <a href="submit.html" style="color:#c6ccd3">მონაცემების გაგზავნა</a>
+      <a href="donate.html" style="color:#c6ccd3">მხარდაჭერა</a>
     </div>
     <a href="https://t.me/ggcgeorgia" style="margin-left:auto;display:flex;align-items:center;gap:9px;background:#229ED9;color:#fff;border-radius:11px;padding:11px 16px;font-size:15px;font-weight:600;flex:none" style-hover="background:#1b8dc4">
       <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff" style="flex:none"><path d="M21.9 4.3 18.9 19c-.2.9-.8 1.2-1.6.7l-4.4-3.2-2.1 2c-.2.2-.4.4-.9.4l.3-4.4 8-7.2c.3-.3-.1-.4-.5-.2L7.9 12.4 3.6 11c-.9-.3-.9-.9.2-1.3l16.7-6.4c.8-.3 1.5.2 1.4 1z"/></svg>
@@ -152,7 +162,7 @@
           <div style="margin-top:6px;font-size:15px;color:#4d5258">{{ p.sub }}</div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;flex:none">
-          <a href="GGC Submit.dc.html" style="background:#fff;border:1px solid #e0e4e4;color:#16181b;border-radius:10px;padding:11px 15px;font-size:14px;font-weight:600" style-hover="border-color:#16181b">შესწორების მოთხოვნა</a>
+          <a href="submit.html" style="background:#fff;border:1px solid #e0e4e4;color:#16181b;border-radius:10px;padding:11px 15px;font-size:14px;font-weight:600" style-hover="border-color:#16181b">შესწორების მოთხოვნა</a>
         </div>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:16px">
@@ -175,7 +185,7 @@
         <div style="display:flex;flex-direction:column;gap:8px">
           <sc-for list="{{ p.games }}" as="g" hint-placeholder-count="3">
             <a href="{{ g.href }}" style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:#fff;border:1px solid #e6eaeb;border-radius:12px;padding:12px" style-hover="border-color:#c9cfcf">
-              <div style="width:96px;aspect-ratio:460/215;background:#e8eaec;border-radius:6px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;color:#5a5f65">{{ g.shape }}</div>
+              <div style="width:96px;aspect-ratio:460/215;background:{{ g.art }};border-radius:6px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;color:#5a5f65">{{ g.shape }}</div>
               <div style="flex:1 1 110px;min-width:0">
                 <div style="font-size:16px;font-weight:600;color:#16181b">{{ g.name }}</div>
                 <div style="margin-top:3px;font-size:14px;color:#4d5258">{{ g.platforms }}</div>
@@ -205,93 +215,107 @@
   </div>
 </div></x-dc>
 <script type="text/x-dc" data-dc-script data-props="{}">
-const ACCENT = { company: "#1d96d3", team: "#83c341", solo: "#fdb813" };
-const ROLES = ["developer", "publisher", "art", "audio", "porting"];
-const DATA = [
-  { id:"madmoa", name:"MadMoa", legal:"MadMoa LLC", regId:"404123456", size:"6-10", kind:"company", city:"თბილისი", founded:2019, roles:["developer","publisher","porting"], games:3, verified:true, active:true, validated:"12.03.2025", logo:"images/logos/madmoa.jpg", links:{ facebook:"https://www.facebook.com/share/1KbdgtUYMv/", linkedin:"https://www.linkedin.com/company/madmoa/", instagram:"https://www.instagram.com/madmoastudio", youtube:"https://youtube.com/@madmoastudio", steam:"https://store.steampowered.com/publisher/madmoa", x:"https://x.com/MadMoaStudio" } },
-  { id:"studio-2", name:"სტუდიის სახელი", legal:"Studio LLC", regId:"405111222", size:"1-5", kind:"company", city:"თბილისი", founded:2021, roles:["developer","art"], games:2, verified:true, active:true, validated:"04.02.2025", logo:"images/logos/studio-2.jpg" },
-  { id:"studio-3", name:"სტუდიის სახელი", legal:"Studio LLC", regId:"400333444", size:"11-20", kind:"company", city:"ბათუმი", founded:2017, roles:["developer","audio"], games:5, verified:true, active:false, validated:"22.11.2024", logo:"images/logos/studio-3.jpg" },
-  { id:"studio-4", name:"სტუდიის სახელი", legal:"Studio LLC", regId:"406555666", size:"1-5", kind:"company", city:"ქუთაისი", founded:2023, roles:["developer"], games:1, verified:false, active:true, validated:"", logo:"images/logos/studio-4.jpg" },
-  { id:"team-1", name:"გუნდის სახელი", legal:"", kind:"team", city:"თბილისი", founded:2022, roles:["developer","art"], games:2, verified:true, active:true, validated:"18.01.2025", logo:"" },
-  { id:"team-2", name:"გუნდის სახელი", legal:"", kind:"team", city:"ბათუმი", founded:2024, roles:["developer"], games:1, verified:false, active:true, validated:"", logo:"" },
-  { id:"solo-1", name:"სახელი გვარი", legal:"", kind:"solo", city:"თბილისი", founded:2020, roles:["developer","audio"], games:4, verified:true, active:true, validated:"07.03.2025", logo:"" },
-  { id:"solo-2", name:"სახელი გვარი", legal:"", kind:"solo", city:"რუსთავი", founded:2023, roles:["art"], games:1, verified:false, active:true, validated:"", logo:"" }
-];
+const D = GGC.data, U = GGC.util;
+const ROLES = ["developer", "publisher", "art", "audio", "porting", "outsourcing", "codev"];
 const KINDS = ["company", "team", "solo"];
-const CO_GAMES = [
-  { id:"dumbriel", name:"Dumbriel", dev:"madmoa", year:0, status:"upcoming", mobile:false, platforms:["Steam","Switch","Xbox"] },
-  { id:"g4", name:"თამაშის სახელი", dev:"madmoa", year:2025, status:"released", mobile:false, platforms:["Steam","itch.io"] },
-  { id:"g8", name:"თამაშის სახელი", dev:"madmoa", year:2021, status:"released", mobile:false, platforms:["itch.io"] },
-  { id:"g2", name:"თამაშის სახელი", dev:"studio-2", year:2026, status:"upcoming", mobile:false, platforms:["Steam"] },
-  { id:"g5", name:"თამაშის სახელი", dev:"studio-2", year:2025, status:"released", mobile:false, platforms:["Steam"] },
-  { id:"g3", name:"მობაილ თამაში", dev:"studio-3", year:0, status:"upcoming", mobile:true, platforms:["App Store","Google Play"] },
-  { id:"g6", name:"მობაილ თამაში", dev:"solo-1", year:2024, status:"released", mobile:true, platforms:["Google Play"] },
-  { id:"g7", name:"თამაშის სახელი", dev:"studio-4", year:2024, status:"released", mobile:false, platforms:["itch.io"] }
+const FACT_LABELS = [
+  ["legal", "ოფიციალური სახელი"], ["regId", "საიდენტიფიკაციო"], ["city", "ქალაქი"],
+  ["founded", "დაფუძნება"], ["size", "გუნდის ზომა"], ["status", "სტატუსი"],
+  ["validated", "GGC ვალიდაცია"]
 ];
-const SOC = { facebook:"Facebook", telegram:"Telegram", linkedin:"LinkedIn", instagram:"Instagram", youtube:"YouTube", steam:"Steam", x:"X", itch:"itch.io" };
-const ABOUT = "აღწერა მოდის კატალოგის ჩანაწერიდან. ცარიელი ველები საერთოდ არ ჩანს.";
-const LABEL = { company:"რეგისტრირებული კომპანია", team:"გუნდი", solo:"სოლო დეველოპერი" };
 
 class Component extends DCLogic {
-  state = { kind: 0, q: "", sort: "games", role: "", inactive: false, open: null, gf: 0 };
+  state = { ready: false, kind: 0, q: "", sort: "games", role: "", inactive: false, open: null, gf: 0 };
 
-  componentDidMount() { this.readHash(); this.onHash = () => this.readHash(); window.addEventListener("hashchange", this.onHash); }
+  componentDidMount() {
+    this.onHash = () => this.readHash();
+    window.addEventListener("hashchange", this.onHash);
+    D.load().then(() => this.setState({ ready: true }, () => this.readHash()));
+  }
   componentWillUnmount() { window.removeEventListener("hashchange", this.onHash); }
+
   readHash() {
-    const h = (location.hash || "").replace("#", "");
+    const h = decodeURIComponent((location.hash || "").replace("#", ""));
     if (!h) return;
     if (h === "teams") return this.setState({ kind: 1, open: null });
     if (h === "solo") return this.setState({ kind: 2, open: null });
     if (h === "companies") return this.setState({ kind: 0, open: null });
-    const rec = DATA.filter(d => d.id === h)[0];
+    const rec = D.company(h);
     if (rec) this.setState({ kind: Math.max(0, KINDS.indexOf(rec.kind)), open: rec.id, inactive: !rec.active });
+  }
+
+  /* Roles actually present in the catalogue, so the chip row never offers a
+     filter that returns nothing. */
+  roleList() {
+    const used = {};
+    D.companies().forEach(c => (c.roles || []).forEach(r => { used[r] = 1; }));
+    const known = ROLES.filter(r => used[r]);
+    const extra = Object.keys(used).filter(r => ROLES.indexOf(r) < 0);
+    return known.concat(extra);
+  }
+
+  gameRow(g) {
+    const art = D.gameArt(g);
+    return {
+      name: g.name,
+      href: "games.html#" + g.id,
+      platforms: (g.platforms || []).join(", "),
+      art: art ? 'url("' + art + '") center/' + (g.mobile ? "contain" : "cover") + ' no-repeat #e8eaec' : "#e8eaec",
+      shape: art ? "" : (g.mobile ? "mobile" : "460×215"),
+      badge: g.status === "upcoming" ? (g.year ? "მალე " + g.year : "TBD") : String(g.year || ""),
+      badgeBg: g.status === "upcoming" ? "#ee2626" : "#16181b",
+      badgeFg: "#fff"
+    };
   }
 
   profile() {
     const s = this.state;
-    const d = DATA.filter(x => x.id === s.open)[0];
-    if (!d) return { games: [], facts: [], links: [], roles: [], noGames: "none", initials: "", name: "", sub: "", about: "", status: "", statusDot: "#83c341", verifiedShow: "none", gamesCount: 0, logoBg: "none" };
+    const d = s.open ? D.company(s.open) : null;
+    if (!d) {
+      return { games: [], facts: [], links: [], roles: [], noGames: "none", initials: "", name: "",
+        sub: "", about: "", status: "", statusDot: "#83c341", verifiedShow: "none", gamesCount: 0, logoBg: "none" };
+    }
+    const all = D.gamesOf(d.id);
     const want = ["", "upcoming", "released"][s.gf];
-    const games = CO_GAMES.filter(g => g.dev === d.id).filter(g => !want || g.status === want)
-      .sort((a, b) => a.status !== b.status ? (a.status === "upcoming" ? -1 : 1) : (a.status === "upcoming" ? (a.year || 9999) - (b.year || 9999) : b.year - a.year))
-      .map(g => ({
-        name: g.name, href: "GGC Games.dc.html#" + g.id,
-        platforms: g.platforms.join(", "),
-        shape: g.mobile ? "mobile art" : "460×215",
-        badge: g.status === "upcoming" ? (g.year ? "მალე " + g.year : "TBD") : String(g.year),
-        badgeBg: g.status === "upcoming" ? "#ee2626" : "#16181b", badgeFg: "#fff"
-      }));
-    const facts = [
-      { k: "ოფიციალური სახელი", v: d.legal },
-      { k: "საიდენტიფიკაციო", v: d.regId || "" },
-      { k: "ქალაქი", v: d.city },
-      { k: "დაფუძნება", v: d.founded ? String(d.founded) : "" },
-      { k: "გუნდის ზომა", v: d.size || "" },
-      { k: "სტატუსი", v: d.active ? "აქტიური" : "არააქტიური" },
-      { k: "GGC ვალიდაცია", v: d.validated || "" }
-    ].filter(f => f.v);
+    const games = D.sortGames(all.filter(g => !want || g.status === want)).map(g => this.gameRow(g));
+    const src = Object.assign({}, d, {
+      founded: d.founded ? String(d.founded) : "",
+      status: d.active ? "აქტიური" : "არააქტიური",
+      validated: U.fmtDate(d.validated)
+    });
+    // Empty fields disappear from the profile entirely.
+    const facts = FACT_LABELS.map(([k, label]) => ({ k: label, v: src[k] || "" })).filter(f => f.v);
+    const links = Object.keys(d.links || {})
+      .filter(k => d.links[k])
+      .map(k => ({ name: U.SOC[k] || k, url: d.links[k] }));
+    if (d.website) links.unshift({ name: "ვებსაიტი", url: d.website });
     return {
-      name: d.name, logoBg: 'url("' + (d.logo || "images/logos/" + d.id + ".jpg") + '") center/cover no-repeat',
-      initials: d.name.trim().split(/\s+/).slice(0, 2).map(w => w[0]).join(""),
-      sub: [d.legal, d.city, d.founded].filter(Boolean).join(" · "),
-      about: ABOUT, roles: d.roles, facts, games,
-      gamesCount: CO_GAMES.filter(g => g.dev === d.id).length,
+      name: d.name,
+      logoBg: d.logo ? 'url("' + d.logo + '") center/cover no-repeat' : "none",
+      initials: U.initials(d.name),
+      sub: [d.legal, d.city, d.founded || ""].filter(Boolean).join(" · "),
+      about: d.about || "",
+      roles: d.roles, facts, games, links,
+      gamesCount: all.length,
       noGames: games.length ? "none" : "block",
       verifiedShow: d.verified ? "flex" : "none",
       status: d.active ? "აქტიური" : "არააქტიური",
-      statusDot: d.active ? "#83c341" : "#b9c0c0",
-      links: Object.keys(d.links || {}).map(k => ({ name: SOC[k] || k, url: d.links[k] }))
+      statusDot: d.active ? "#83c341" : "#b9c0c0"
     };
   }
 
   renderVals() {
     const s = this.state, kind = KINDS[s.kind];
-    let list = DATA.filter(d => d.kind === kind)
-      .filter(d => s.inactive || d.active)
-      .filter(d => !s.role || d.roles.indexOf(s.role) >= 0)
-      .filter(d => !s.q || (d.name + " " + d.legal).toLowerCase().indexOf(s.q.toLowerCase()) >= 0);
+    const roles = this.roleList();
+    const visible = D.companies().filter(c => s.inactive || c.active);
+    let list = visible
+      .filter(c => c.kind === kind)
+      .filter(c => !s.role || c.roles.indexOf(s.role) >= 0)
+      .filter(c => !s.q || (c.name + " " + c.legal + " " + c.city).toLowerCase().indexOf(s.q.toLowerCase()) >= 0)
+      .map(c => Object.assign({}, c, { gamesCount: D.gamesOf(c.id).length }));
     list.sort((a, b) => s.sort === "name" ? a.name.localeCompare(b.name)
-      : s.sort === "founded" ? b.founded - a.founded : b.games - a.games);
+      : s.sort === "founded" ? b.founded - a.founded
+      : b.gamesCount - a.gamesCount || a.name.localeCompare(b.name));
 
     const v = {
       q: s.q,
@@ -301,13 +325,13 @@ class Component extends DCLogic {
       inactiveBg: s.inactive ? "#16181b" : "#f8fafa",
       inactiveFg: s.inactive ? "#fff" : "#41464c",
       inactiveBorder: s.inactive ? "#16181b" : "#e0e4e4",
-      cCompanies: DATA.filter(d => d.kind === "company" && (s.inactive || d.active)).length,
-      cTeams: DATA.filter(d => d.kind === "team" && (s.inactive || d.active)).length,
-      cSolo: DATA.filter(d => d.kind === "solo" && (s.inactive || d.active)).length,
+      cCompanies: visible.filter(c => c.kind === "company").length,
+      cTeams: visible.filter(c => c.kind === "team").length,
+      cSolo: visible.filter(c => c.kind === "solo").length,
       shown: list.length,
-      shownLabel: LABEL[kind] + (list.length === 1 ? "" : " — ნაჩვენებია სულ"),
-      emptyShow: list.length ? "none" : "block",
-      roleChips: ROLES.map(r => ({
+      shownLabel: U.KIND_LABEL[kind] + (list.length === 1 ? "" : " — ნაჩვენებია სულ"),
+      emptyShow: !s.ready || list.length ? "none" : "block",
+      roleChips: roles.map(r => ({
         label: r,
         bg: s.role === r ? "#1d96d3" : "#f8fafa",
         fg: s.role === r ? "#fff" : "#41464c",
@@ -315,21 +339,24 @@ class Component extends DCLogic {
         click: () => this.setState(st => ({ role: st.role === r ? "" : r }))
       })),
       detailShow: s.open ? "block" : "none",
-      closeDetail: () => { if (location.hash) location.hash = ""; this.setState({ open: null }); },
+      closeDetail: () => {
+        if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+        this.setState({ open: null });
+      },
       p: this.profile(),
-      list: list.map(d => ({
-        name: d.name,
-        open: () => this.setState({ open: d.id }),
-        logoBg: 'url("' + (d.logo || "images/logos/" + d.id + ".jpg") + '") center/cover no-repeat',
-        initials: d.name.trim().split(/\s+/).slice(0, 2).map(w => w[0]).join(""),
-        sub: (d.legal ? d.legal + " · " : "") + d.city + " · " + d.founded,
-        roles: d.roles,
-        gamesCount: d.games,
-        accent: ACCENT[d.kind],
-        verifiedShow: d.verified ? "inline" : "none",
-        status: d.active ? "აქტიური" : "არააქტიური",
-        statusDot: d.active ? "#83c341" : "#b9c0c0",
-        validated: d.validated ? "ვალიდაცია " + d.validated : "ვალიდაციის მოლოდინში"
+      list: list.map(c => ({
+        name: c.name,
+        open: () => this.setState({ open: c.id }),
+        logoBg: c.logo ? 'url("' + c.logo + '") center/cover no-repeat' : "none",
+        initials: U.initials(c.name),
+        sub: [c.legal, c.city, c.founded || ""].filter(Boolean).join(" · "),
+        roles: c.roles,
+        gamesCount: c.gamesCount,
+        accent: U.ACCENT[c.kind],
+        verifiedShow: c.verified ? "inline" : "none",
+        status: c.active ? "აქტიური" : "არააქტიური",
+        statusDot: c.active ? "#83c341" : "#b9c0c0",
+        validated: c.validated ? "ვალიდაცია " + U.fmtDate(c.validated) : "ვალიდაციის მოლოდინში"
       }))
     };
     for (let n = 0; n < 3; n++) {
