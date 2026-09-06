@@ -46,6 +46,49 @@
       "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "besos-shawarma",
+      "name": "Beso's Shawarma",
+      "studioId": "mtatsminda-studio",
+      "publisherId": "mtatsminda-studio",
+      "status": "released",
+      "releaseDate": "Jun 30, 2026",
+      "year": 2026,
+      "mobile": false,
+      "genres": [
+        "adventure",
+        "indie"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "Unity",
+      "price": "$2.99",
+      "langs": "English, Georgian",
+      "about": "Beso's Shawarma is a short, narrative-driven horror game. A late-night call lures you on a surreal journey through empty streets to a sketchy shawarma shop. Talk to a cast of strange characters, make a terrifying choice, and try to escape a disjointed, looping nightmare.",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/4186870/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4186870/2ae13ba641af7d5835de0076a21489712f5689b2/header.jpg?t=1782824234",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/4186870?t=1782824234",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4186870/03bc7883bc91a8d3b4b0d3909156fe69bd552701/ss_03bc7883bc91a8d3b4b0d3909156fe69bd552701.600x338.jpg?t=1782824234",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4186870/39b966fb08968a6c6e801cb029687f0d94ab8949/ss_39b966fb08968a6c6e801cb029687f0d94ab8949.600x338.jpg?t=1782824234",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4186870/014c520815a882b6da4796f789e2f895e8fb6175/ss_014c520815a882b6da4796f789e2f895e8fb6175.600x338.jpg?t=1782824234"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-09-06T20:12:24.873Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
     }
   ]
 }

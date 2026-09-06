@@ -36,6 +36,34 @@
       "validated": "2026-09-06",
       "created": "2025-03-12",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "mtatsminda-studio",
+      "kind": "team",
+      "name": "Mtatsminda Studio",
+      "legal": "Mtatsminda Studio",
+      "regId": "5764",
+      "city": "თბილისი",
+      "founded": 2025,
+      "size": "1-2",
+      "roles": [
+        "developer"
+      ],
+      "website": "",
+      "email": "mtatsmindastudio@gmail.com",
+      "about": "სოლო დეველოპერი",
+      "aboutEn": "",
+      "logo": "https://avatars.akamai.steamstatic.com/8f4ecf23f60fd7f45d2db8e2172658bea36e96d1_full.jpg",
+      "links": {
+        "discord": "https://discord.gg/bKMjgUx2yT",
+        "tiktok": "https://www.tiktok.com/@besosshaurma",
+        "steam": "https://store.steampowered.com/curator/45881856"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
     }
   ]
 }
