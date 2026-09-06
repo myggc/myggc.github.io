@@ -58,7 +58,12 @@ async function readSteam(appid, url) {
     year,
     price: d.is_free ? "უფასო" : (d.price_overview?.final_formatted || ""),
     langs: strip(d.supported_languages).replace(/\*/g, "").trim(),
-    art: { capsule: `${cdn}capsule_616x353.jpg`, hero: d.header_image || `${cdn}header.jpg`, portrait: `${cdn}library_600x900.jpg` },
+    art: {
+      capsule: `${cdn}capsule_616x353.jpg`,
+      hero: d.header_image || `${cdn}header.jpg`,
+      portrait: `${cdn}library_600x900.jpg`,
+      shots: (d.screenshots || []).slice(0, 3).map((s) => s.path_thumbnail || s.path_full).filter(Boolean)
+    },
     platforms: ["Steam"],
     mobile: false,
     source: "steam"

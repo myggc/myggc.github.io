@@ -338,11 +338,32 @@ class Component extends DCLogic {
   };
 
   componentDidMount() {
-    D.load().then(() => this.setState({ ready: true }));
+    D.load().then(() => {
+      this.setState({ ready: true });
+      this.openFromHash();
+    });
     try {
       const d = JSON.parse(localStorage.getItem(DRAFT) || "null");
       if (d && d.step) this.setState(Object.assign({ saved: true }, d));
     } catch (e) {}
+  }
+
+  /* "submit.html#edit=madmoa" arrives from a profile's შესწორების მოთხოვნა
+     button — open the edit form already filled with the published record. */
+  openFromHash() {
+    const m = /^#edit=(.+)$/.exec(location.hash || "");
+    if (!m) return;
+    const c = D.company(decodeURIComponent(m[1]));
+    if (!c) return;
+    this.save({
+      mode: "edit", picked: c.id, step: 2, kind: c.kind, roles: c.roles || [],
+      lookup: c.legal || c.name,
+      f: Object.assign({
+        legal: c.legal, regId: c.regId, name: c.name, city: c.city,
+        founded: c.founded ? String(c.founded) : "", size: c.size,
+        about: c.about, aboutEn: c.aboutEn, website: c.website, email: c.email
+      }, c.links || {})
+    });
   }
 
   /* Every step writes the draft back, so a closed tab never loses the form. */

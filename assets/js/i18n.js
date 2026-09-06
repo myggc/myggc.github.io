@@ -204,7 +204,32 @@
     "ლოგოებს ჩაანაცვლებ — ": "Replace the logos — ",
     "დაწერე Telegram-ზე — ყველაზე სწრაფი გზაა.": "Write on Telegram — it's the fastest way.",
     "თამაშის პიჩი, ინვესტიცია, სპონსორობა.": "Game pitches, investment, sponsorship.",
-    "შენი სტუდიის დამატება ან შესწორება.": "Add or correct your studio."
+    "შენი სტუდიის დამატება ან შესწორება.": "Add or correct your studio.",
+    // live data — catalogue fields
+    "საჯარო სახელი": "Public name", "აღწერა": "About", "გამომცემელი": "Publisher",
+    "აღწერა (English)": "About (English)", "საკონტაქტო პირი და კავშირი": "Contact person and handle",
+    "დაფუძნების წელი": "Founded", "თამაშის სახელი": "Game title",
+    "პლატფორმა": "Platform", "ჟანრი": "Genre",
+    "მონაცემები შევსებულია ხელით": "Filled in by hand",
+    "თამაში ჯერ არ არის მიმაგრებული": "No games attached yet",
+    "ვალიდაციის მოლოდინში": "Awaiting validation",
+    "მოსალოდნელი": "Upcoming", "გამოსული": "Released",
+    "ვერიფიცირებული სტუდია": "verified studios",
+    // submit — delivery step
+    "თითქმის მზადაა": "Almost there",
+    "დაასრულე გაგზავნა": "Finish sending",
+    "აირჩიე ერთი გზა — ორივე ერთსა და იმავე ადგილას მოდის.": "Pick either one — they both reach the same place.",
+    "ფორმა შევსებულია. დარჩა ერთი ღილაკი — აირჩიე, როგორ მოგვაწოდო, და ჩვენ გადავამოწმებთ.":
+      "The form is filled in. One button left — pick how to send it and we'll review it.",
+    "GitHub-ით გაგზავნა ↗": "Send via GitHub ↗",
+    "JSON-ის კოპირება": "Copy the JSON", "დაკოპირდა ✔": "Copied ✔",
+    "ჩასვი მაღაზიის ბმული": "Paste the store link",
+    "იკითხება…": "reading…", "წაკითხვა": "Read", "ხელახლა წაკითხვა": "Read again",
+    "ავტომატურად ვერ წავიკითხეთ — შეავსე ხელით, ბმულს ჩვენ თვითონ დავამუშავებთ":
+      "Couldn't read it automatically — fill it in by hand, we'll process the link ourselves",
+    "ამ გვერდიდან მონაცემები ვერ წაიკითხა": "Nothing could be read from that page",
+    "პასუხი JSON არ არის": "The response is not JSON",
+    "ცარიელი ბმული": "Empty link"
   };
   var ATTRS = ["placeholder", "aria-label", "title"];
   // Whole-node matching only. Composites (word + number/date) get narrow patterns —
@@ -214,7 +239,11 @@
     [/^\u10d5\u10d0\u10da\u10d8\u10d3\u10d0\u10ea\u10d8\u10d0 (.+)$/, function (m, a) { return "validated " + a; }],
     [/^\u10db\u10d0\u10da\u10d4 (\d{4})$/, function (m, a) { return "soon " + a; }],
     [/^(\d+) \u10d7\u10d0\u10db\u10d0\u10e8\u10d8$/, function (m, a) { return a + " games"; }],
-    [/^\u10db\u10d8\u10d7\u10d0\u10e4\u10d8 #(\d+) \u00b7 (.+)$/, function (m, a, b) { return "Meetup #" + a + " \u00b7 " + (DICT[b] || b); }]
+    [/^\u10db\u10d8\u10d7\u10d0\u10e4\u10d8 #(\d+) \u00b7 (.+)$/, function (m, a, b) { return "Meetup #" + a + " \u00b7 " + (DICT[b] || b); }],
+    // "\u10db\u10dd\u10dc\u10d0\u10ea\u10d4\u10db\u10d4\u10d1\u10d8 \u10d0\u10d5\u10e2\u10dd\u10db\u10d0\u10e2\u10e3\u10e0\u10d0\u10d3 \u10db\u10dd\u10d3\u10d8\u10e1 Steam-\u10d8\u10d3\u10d0\u10dc \u00b7 12.03.2026"
+    [/^\u10db\u10dd\u10dc\u10d0\u10ea\u10d4\u10db\u10d4\u10d1\u10d8 \u10d0\u10d5\u10e2\u10dd\u10db\u10d0\u10e2\u10e3\u10e0\u10d0\u10d3 \u10db\u10dd\u10d3\u10d8\u10e1 (.+?)-\u10d8\u10d3\u10d0\u10dc(.*)$/, function (m, a, b) { return "Data comes automatically from " + a + b; }],
+    // "\u10d5\u10d0\u10da\u10d8\u10d3\u10d0\u10ea\u10d8\u10d0 12.03.2026" already handled above; this covers the counter row
+    [/^(\d+) \u10db\u10dd\u10d7\u10ee\u10dd\u10d5\u10dc\u10d0$/, function (m, a) { return a + " submissions"; }]
   ];
   function tr(text) {
     var k = text.trim();

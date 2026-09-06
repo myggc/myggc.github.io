@@ -124,10 +124,11 @@
         <a href="{{ d.studioHref }}" style="display:inline-block;margin-top:8px;font-size:16px;font-weight:600">{{ d.studio }} →</a>
         <p style="margin:16px 0 0;font-size:16px;line-height:1.65;color:#41464c;text-wrap:pretty">{{ d.about }}</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(120px,100%),1fr));gap:8px;margin-top:20px">
-          <div style="aspect-ratio:16/9;background:#dfe4e5;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#5a5f65">screenshot</div>
-          <div style="aspect-ratio:16/9;background:#dfe4e5;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#5a5f65">screenshot</div>
-          <div style="aspect-ratio:16/9;background:#dfe4e5;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#5a5f65">screenshot</div>
+          <sc-for list="{{ d.shots }}" as="s" hint-placeholder-count="3">
+            <div style="aspect-ratio:16/9;background:{{ s.bg }};border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#5a5f65">{{ s.label }}</div>
+          </sc-for>
         </div>
+        <a href="{{ d.editHref }}" style="display:inline-block;margin-top:18px;background:#fff;border:1px solid #dee2e3;color:#16181b;border-radius:10px;padding:11px 15px;font-size:14px;font-weight:600" style-hover="border-color:#16181b">შესწორების მოთხოვნა</a>
       </div>
       <div style="min-width:0;display:flex;flex-direction:column;gap:10px">
         <div style="background:#fff;border:1px solid #dee2e3;border-radius:14px;padding:18px">
@@ -174,9 +175,9 @@
 const D = GGC.data, U = GGC.util;
 const PLATS = ["Steam", "itch.io", "App Store", "Google Play", "Switch", "Xbox", "PlayStation", "Epic Games"];
 const EMPTY = {
-  facts: [], platforms: [], artBg: "#e8eaec", artImg: "none", heroImg: "none", hero: "",
+  facts: [], platforms: [], shots: [], artBg: "#e8eaec", artImg: "none", heroImg: "none", hero: "",
   name: "", studio: "", studioHref: "#", about: "", parsed: "", badge: "",
-  badgeBg: "#16181b", badgeFg: "#fff", art: ""
+  badgeBg: "#16181b", badgeFg: "#fff", art: "", editHref: "submit.html"
 };
 
 class Component extends DCLogic {
@@ -232,7 +233,15 @@ class Component extends DCLogic {
       { k: "GGC ვალიდაცია", v: U.fmtDate(g.validated) }
     ].filter(f => f.v);
     const src = g.source && g.source !== "manual" ? (U.STORE_LABEL[g.source] || g.source) : "";
+    // Store screenshots when we have them; three empty slots otherwise, so the
+    // block keeps its shape while a game is still waiting on a store page.
+    const shotUrls = ((g.art && g.art.shots) || []).slice(0, 3);
+    const shots = shotUrls.length
+      ? shotUrls.map(u => ({ bg: 'url("' + u + '") center/cover no-repeat #dfe4e5', label: "" }))
+      : [0, 1, 2].map(() => ({ bg: "#dfe4e5", label: "screenshot" }));
     return Object.assign({}, this.card(g), {
+      shots,
+      editHref: "submit.html#edit=" + encodeURIComponent(g.studioId || ""),
       hero: hero ? "" : "hero",
       heroImg: hero ? 'url("' + hero + '") center/cover no-repeat' : "none",
       about: g.about || "",

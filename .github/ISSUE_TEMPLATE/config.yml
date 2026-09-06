@@ -1,0 +1,10 @@
+blank_issues_enabled: true
+contact_links:
+  - name: სტუდიის ან თამაშის დამატება / შესწორება
+    url: https://myggc.github.io/submit.html
+    about: >-
+      კატალოგის ცვლილება ფორმიდან გაგზავნე — მაღაზიის ლინკიდან მონაცემები
+      ავტომატურად ივსება და ჩვენც სწორ ფორმატში მოგვდის.
+  - name: Telegram
+    url: https://t.me/gamedevgeorgia
+    about: სწრაფი კითხვა ან დაზუსტება.

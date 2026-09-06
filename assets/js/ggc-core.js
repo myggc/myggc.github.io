@@ -320,7 +320,10 @@
       art: {
         capsule: cdn + "capsule_616x353.jpg",
         hero: d.header_image || (cdn + "header.jpg"),
-        portrait: cdn + "library_600x900.jpg"
+        portrait: cdn + "library_600x900.jpg",
+        shots: (d.screenshots || []).slice(0, 3).map(function (s) {
+          return s.path_thumbnail || s.path_full;
+        }).filter(Boolean)
       },
       platforms: ["Steam"],
       stores: { steam: url || ("https://store.steampowered.com/app/" + appid + "/") },

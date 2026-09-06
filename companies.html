@@ -162,7 +162,7 @@
           <div style="margin-top:6px;font-size:15px;color:#4d5258">{{ p.sub }}</div>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;flex:none">
-          <a href="submit.html" style="background:#fff;border:1px solid #e0e4e4;color:#16181b;border-radius:10px;padding:11px 15px;font-size:14px;font-weight:600" style-hover="border-color:#16181b">შესწორების მოთხოვნა</a>
+          <a href="{{ p.editHref }}" style="background:#fff;border:1px solid #e0e4e4;color:#16181b;border-radius:10px;padding:11px 15px;font-size:14px;font-weight:600" style-hover="border-color:#16181b">შესწორების მოთხოვნა</a>
         </div>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:16px">
@@ -273,7 +273,8 @@ class Component extends DCLogic {
     const d = s.open ? D.company(s.open) : null;
     if (!d) {
       return { games: [], facts: [], links: [], roles: [], noGames: "none", initials: "", name: "",
-        sub: "", about: "", status: "", statusDot: "#83c341", verifiedShow: "none", gamesCount: 0, logoBg: "none" };
+        sub: "", about: "", status: "", statusDot: "#83c341", verifiedShow: "none", gamesCount: 0,
+        logoBg: "none", editHref: "submit.html" };
     }
     const all = D.gamesOf(d.id);
     const want = ["", "upcoming", "released"][s.gf];
@@ -291,6 +292,9 @@ class Component extends DCLogic {
     if (d.website) links.unshift({ name: "ვებსაიტი", url: d.website });
     return {
       name: d.name,
+      // Hands the form this exact record, so the visitor edits what is
+      // published instead of retyping it from scratch.
+      editHref: "submit.html#edit=" + encodeURIComponent(d.id),
       logoBg: d.logo ? 'url("' + d.logo + '") center/cover no-repeat' : "none",
       initials: U.initials(d.name),
       sub: [d.legal, d.city, d.founded || ""].filter(Boolean).join(" · "),
