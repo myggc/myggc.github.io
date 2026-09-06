@@ -627,6 +627,11 @@
       price: d.is_free ? "უფასო" : ((d.price_overview && d.price_overview.final_formatted) || ""),
       langs: (d.supported_languages || "").replace(/<[^>]+>/g, "").replace(/\*/g, "").trim(),
       website: d.website || "",
+      /* Steam asks every studio for a support address and shows it on the page.
+         For a small studio it is the studio's own address — and it is one of the
+         fields the form insists on, so lifting it here is one less thing to
+         type. Mtatsminda's arrived this way. */
+      email: (d.support_info && d.support_info.email) || "",
       developers: d.developers || [],
       publishers: d.publishers || [],
       art: steamArt(d),
@@ -1154,10 +1159,37 @@
             if (games[i].website) { prof.website = games[i].website; break; }
           }
         }
-        return {
+        // The support address on a small studio's own title is the studio's.
+        if (!prof.email) {
+          for (var e = 0; e < games.length; e++) {
+            if (games[e].email) { prof.email = games[e].email; break; }
+          }
+        }
+        var result = {
           source: d.kind, found: list.length, skipped: out.length - games.length,
           games: games, profile: prof, reason: reason
         };
+        /* A studio page is not always where a studio keeps its links. Steam's
+           curator pages carry almost nothing — Mtatsminda's had one TikTok —
+           while the studio's own game page listed TikTok and Discord both. The
+           game page is read only when the studio page came back thin, and only
+           the first one, so this costs a single request and only in the case
+           where it is the difference between two links and none.
+
+           Steam wraps outbound links in steamcommunity.com/linkfilter/?u=…;
+           the decoded form sits beside it in the markup, so the same patterns
+           find it without unwrapping anything. */
+        var thin = Object.keys(prof.links).length < 3;
+        var firstUrl = games.length && games[0].stores ? games[0].stores[d.kind] : "";
+        if (!thin || !firstUrl) return result;
+        return fetchVia(firstUrl, function (html) { return studioProfile(html, d.kind); })
+          .then(function (p) {
+            Object.keys(p.links || {}).forEach(function (k) {
+              if (!prof.links[k]) prof.links[k] = p.links[k];
+            });
+            if (!prof.website && p.website) prof.website = p.website;
+            return result;
+          }, function () { return result; });
       });
     });
   }

@@ -1171,6 +1171,8 @@ class Component extends DCLogic {
       if (prof.name && !cur.name) coPatch.name = prof.name;
       if (prof.name && !cur.legal) coPatch.legal = prof.name;
       if (prof.logo && !cur.logo) coPatch.logo = prof.logo;
+      // Required to publish, and Steam has it on the page as the support address.
+      if (prof.email && !cur.email) coPatch.email = prof.email;
       const links = Object.assign({}, cur.links);
       let addedLinks = 0;
       Object.keys(prof.links || {}).forEach(k => {
@@ -1187,7 +1189,7 @@ class Component extends DCLogic {
       // Count the fields actually written, not the patch keys — "links" is one
       // key holding seven accounts, which read as "1 field filled".
       const filled = (coPatch.website ? 1 : 0) + (coPatch.name ? 1 : 0) +
-        (coPatch.logo ? 1 : 0) + addedLinks;
+        (coPatch.logo ? 1 : 0) + (coPatch.email ? 1 : 0) + addedLinks;
       const extra = (filled ? " + პროფილის " + filled + " ველი" : "") +
         (res.skipped ? " (" + res.skipped + " დემო/DLC გამოტოვდა)" : "");
       if (!fresh.length) {

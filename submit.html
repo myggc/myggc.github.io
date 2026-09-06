@@ -157,9 +157,28 @@
         </sc-for>
       </div>
       <div style="margin-top:22px;padding-top:20px;border-top:1px solid #eef1f1">
-        <div style="font-size:14px;color:#5a5f65;margin-bottom:10px">ლინკები და სოციალური ქსელები</div>
+        <div style="font-size:14px;color:#5a5f65;margin-bottom:10px">სოციალური ქსელები</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:10px">
-          <sc-for list="{{ socialFields }}" as="f" hint-placeholder-count="8">
+          <sc-for list="{{ socialFields }}" as="f" hint-placeholder-count="9">
+            <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#5a5f65">{{ f.label }}
+              <input type="text" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:11px 13px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
+            </label>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:{{ logoShow }};margin-top:22px;padding-top:20px;border-top:1px solid #eef1f1">
+        <div style="font-size:14px;color:#5a5f65;margin-bottom:10px">ლოგო მაღაზიიდან</div>
+        <div style="display:flex;align-items:center;gap:14px">
+          <img src="{{ logoUrl }}" alt="" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:1px solid #dfe3e4;background:#f7f9f9">
+          <div style="flex:1 1 180px;min-width:0;font-size:14px;line-height:1.55;color:#4d5258">ეს სურათი შენი მაღაზიის გვერდიდანაა და ჩანაწერს თან გაჰყვება. სხვა ლოგო თუ გინდა, მიწერე შენიშვნებში.</div>
+        </div>
+      </div>
+
+      <div style="margin-top:22px;padding-top:20px;border-top:1px solid #eef1f1">
+        <div style="font-size:14px;color:#5a5f65;margin-bottom:10px">მაღაზიები</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:10px">
+          <sc-for list="{{ storeFields }}" as="f" hint-placeholder-count="4">
             <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#5a5f65">{{ f.label }}
               <input type="text" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:11px 13px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
             </label>
@@ -379,11 +398,23 @@ const SIZES = ["1-2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-250", "251
 const CITIES = ["თბილისი", "ბათუმი", "ქუთაისი", "რუსთავი", "გორი", "ზუგდიდი", "ფოთი", "თელავი", "ახალციხე", "ოზურგეთი", "სხვა", "საზღვარგარეთ"];
 const TEAM_SKIP = ["regId"];
 const SOLO_SKIP = ["regId"];
+/* Kept in step with the admin panel's own list. It had drifted, and the drift
+   was visible: the importer reads a studio's TikTok and Discord off its store
+   page, and this form had no field for either, so they were found and then
+   silently dropped — which reads, from the other side, as "the socials still
+   don't come through". */
 const SOCIALS = [
   ["telegram", "Telegram", "@studio"], ["facebook", "Facebook", "fb.com/studio"],
   ["instagram", "Instagram", "instagram.com/studio"], ["linkedin", "LinkedIn", "linkedin.com/company/studio"],
   ["youtube", "YouTube", "youtube.com/@studio"], ["x", "X", "x.com/studio"],
-  ["steam", "Steam", "store.steampowered.com/publisher/…"], ["itch", "itch.io", "studio.itch.io"]
+  ["discord", "Discord", "discord.gg/studio"], ["tiktok", "TikTok", "tiktok.com/@studio"],
+  ["twitch", "Twitch", "twitch.tv/studio"]
+];
+// A storefront is not a social network — the same separation the admin makes.
+const CO_STORES = [
+  ["steam", "Steam", "store.steampowered.com/developer/…"], ["itch", "itch.io", "studio.itch.io"],
+  ["appstore", "App Store", "apps.apple.com/developer/…"],
+  ["googleplay", "Google Play", "play.google.com/store/apps/dev?id=…"]
 ];
 const ROLES = {
   company: ["developer", "publisher", "outsourcing", "codev", "porting", "art", "audio"],
@@ -561,6 +592,9 @@ class Component extends DCLogic {
       let filled = 0;
       if (prof.name && !f2.name) { f2.name = prof.name; filled++; }
       if (prof.website && !f2.website) { f2.website = prof.website; filled++; }
+      // Both are required to send, and both are sitting on the store page.
+      if (prof.email && !f2.email) { f2.email = prof.email; filled++; }
+      if (prof.logo && !f2.logoUrl) { f2.logoUrl = prof.logo; filled++; }
       Object.keys(prof.links || {}).forEach(key => {
         if (!f2[key]) { f2[key] = prof.links[key]; filled++; }
       });
@@ -644,9 +678,14 @@ class Component extends DCLogic {
     if (company.founded) company.founded = Number(company.founded) || 0;
     company.kind = s.kind;
     if (s.roles.length) company.roles = s.roles;
+    // Socials and storefronts are asked for separately but travel together —
+    // one `links` object is what the catalogue and the admin queue both read.
     const links = {};
-    SOCIALS.forEach(([k]) => { if (f[k]) links[k] = f[k]; });
+    SOCIALS.concat(CO_STORES).forEach(([k]) => { if (f[k]) links[k] = f[k]; });
     if (Object.keys(links).length) company.links = links;
+    // The mark the store already has, so the admin does not hunt for a logo
+    // that was sitting on the page the whole time.
+    if (f.logoUrl) company.logo = f.logoUrl;
 
     const games = s.drafts
       .map(d => this.gameFrom(d))
@@ -857,6 +896,11 @@ class Component extends DCLogic {
       socialFields: SOCIALS.map(([k, label, ph]) => ({
         label, ph, value: f[k] || "", onInput: e => this.set(k, e.target.value)
       })),
+      storeFields: CO_STORES.map(([k, label, ph]) => ({
+        label, ph, value: f[k] || "", onInput: e => this.set(k, e.target.value)
+      })),
+      logoShow: f.logoUrl ? "block" : "none",
+      logoUrl: f.logoUrl || "",
 
       next: () => this.save({ step: Math.min(4, s.step + 1) }),
       back: () => this.save({ step: Math.max(0, s.step - 1) }),
