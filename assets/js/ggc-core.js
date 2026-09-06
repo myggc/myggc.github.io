@@ -485,6 +485,7 @@
       year: Number(year) || 0,
       price: d.is_free ? "უფასო" : ((d.price_overview && d.price_overview.final_formatted) || ""),
       langs: (d.supported_languages || "").replace(/<[^>]+>/g, "").replace(/\*/g, "").trim(),
+      website: d.website || "",
       developers: d.developers || [],
       publishers: d.publishers || [],
       art: steamArt(d),
@@ -588,6 +589,12 @@
      profile too. Only keys the page actually links are returned. */
   function studioProfile(html) {
     var out = { links: {} };
+    /* Steam's studio pages are a JavaScript shell — no og:title, no og:image,
+       not even a <title> in the HTML that can be fetched. The partner avatar is
+       one of the few real things in it; the studio's name and site come from
+       its games instead, which parseStudio fills in afterwards. */
+    var avatar = /https?:\/\/avatars[^"'\s]*?_full\.(?:jpg|png)/i.exec(html);
+    if (avatar) out.logo = avatar[0];
     var m = /<meta[^>]+property=["']og:title["'][^>]*content=["']([^"']+)/i.exec(html) ||
       /<title[^>]*>([^<]+)/i.exec(html);
     if (m) {
@@ -764,6 +771,28 @@
         var prof = profile || { links: {} };
         prof.links = prof.links || {};
         if (!prof.links[d.kind]) prof.links[d.kind] = d.url;
+
+        /* The studio page could not tell us its own name, but every game it
+           published names it. Take the credit that appears on the most titles,
+           and the first official site any of them lists. */
+        if (!prof.name) {
+          var tally = {};
+          games.forEach(function (g) {
+            (g.developers || []).concat(g.publishers || []).forEach(function (n) {
+              if (n) tally[n] = (tally[n] || 0) + 1;
+            });
+          });
+          var best = "";
+          Object.keys(tally).forEach(function (n) {
+            if (!best || tally[n] > tally[best]) best = n;
+          });
+          if (best) prof.name = best;
+        }
+        if (!prof.website) {
+          for (var i = 0; i < games.length; i++) {
+            if (games[i].website) { prof.website = games[i].website; break; }
+          }
+        }
         return {
           source: d.kind, found: list.length, skipped: out.length - games.length,
           games: games, profile: prof, reason: reason

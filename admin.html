@@ -364,6 +364,23 @@
 
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:14px;margin-top:18px">
         <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
+
+      <div style="background:#14293a;border:1px solid #1d4a68;border-radius:12px;padding:16px;margin-top:16px">
+        <div style="font-size:15px;font-weight:600;color:#8ccbe9">დაიწყე მაღაზიის ბმულით</div>
+        <p style="margin:8px 0 0;font-size:14px;line-height:1.6;color:#c6ccd3">ჩასვი Steam-ის (სასურველია), itch.io-ს, App Store-ის ან Google Play-ის გვერდი და დააჭირე წაკითხვას — სახელი, აღწერა, ჟანრი, თარიღი, ფასი, პლატფორმა და capsule ავტომატურად შეივსება.</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+          <sc-for list="{{ gmLinks }}" as="f" hint-placeholder-count="4">
+            <label style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px;color:#8b949c">
+              <span style="flex:0 0 92px">{{ f.k }}</span>
+              <input type="text" value="{{ f.v }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="flex:1 1 140px;min-width:0;border:1px solid #1d4a68;border-radius:9px;padding:9px 12px;font-size:14px;background:#0f1c26;color:#e9ecee">
+            </label>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center">
+          <button type="button" onClick="{{ gmSync }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:10px 16px;font-family:inherit;font-size:14px;font-weight:600">{{ gmSyncLabel }}</button>
+          <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#8b949c"><span style="width:8px;height:8px;border-radius:50%;background:{{ gmSyncDot }}"></span>{{ gmSyncText }}</span>
+        </div>
+      </div>
           <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">თამაშის მონაცემები</div>
           <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
             <sc-for list="{{ gmSelects }}" as="f" hint-placeholder-count="3">
@@ -432,24 +449,6 @@
             </div>
           </div>
 
-          <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:16px">
-            <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">მაღაზიის ბმულები</div>
-            <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
-              <sc-for list="{{ gmLinks }}" as="f" hint-placeholder-count="4">
-                <label style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px;color:#8b949c">
-                  <span style="flex:0 0 92px">{{ f.k }}</span>
-                  <input type="text" value="{{ f.v }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="flex:1 1 140px;min-width:0;border:1px solid #333941;border-radius:9px;padding:9px 12px;font-size:14px;background:#1d2126;color:#e9ecee">
-                </label>
-              </sc-for>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center">
-              <button type="button" onClick="{{ gmSync }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ gmSyncLabel }}</button>
-              <span style="display:flex;align-items:center;gap:8px;font-size:13px;color:#8b949c"><span style="width:8px;height:8px;border-radius:50%;background:{{ gmSyncDot }}"></span>{{ gmSyncText }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{}">
@@ -893,11 +892,32 @@ class Component extends DCLogic {
         price: p.price || g.price,
         langs: p.langs || g.langs,
         art: Object.assign({}, g.art, p.art),
+        // Reading a game from Steam proves it is on Steam — the platform the
+        // link came from was being dropped, leaving the chips unset after a
+        // sync that had just established it.
+        platforms: (g.platforms || []).concat(
+          (p.platforms || []).filter(x => (g.platforms || []).indexOf(x) < 0)
+        ),
+        stores: Object.assign({}, g.stores, p.stores),
         source: p.source,
         parsedAt: new Date().toISOString()
       };
       // Store art replaces the hand-uploaded file so nothing stale is left behind.
       if (patch.art && (patch.art.capsule || patch.art.hero)) patch.localArt = "";
+      /* The store names who made it, so a game read from a link can find its own
+         studio instead of staying attached to whichever one happened to be
+         first in the list. Matched on letters and digits only. */
+      const credits = (p.developers || []).concat(p.publishers || []);
+      if (credits.length) {
+        const norm = x => String(x || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+        const wanted = credits.map(norm);
+        const hit = this.state.companies.filter(c =>
+          wanted.indexOf(norm(c.name)) >= 0 || wanted.indexOf(norm(c.legal)) >= 0)[0];
+        if (hit && hit.id !== g.studioId) {
+          patch.studioId = hit.id;
+          this.say("სტუდია ამოცნობილია: " + hit.name, "#9ede9e");
+        }
+      }
       this.patchGame(g.id, patch);
       this.setState({ syncing: "" });
       this.say("წაკითხულია " + (U.STORE_LABEL[p.source] || p.source) + "-იდან", "#9ede9e");
@@ -921,6 +941,8 @@ class Component extends DCLogic {
           status: p.status || g.status, releaseDate: p.releaseDate || g.releaseDate,
           year: p.year || g.year, price: p.price || g.price, langs: p.langs || g.langs,
           art: Object.assign({}, g.art, p.art), source: p.source,
+          platforms: (g.platforms || []).concat((p.platforms || []).filter(x => (g.platforms || []).indexOf(x) < 0)),
+          stores: Object.assign({}, g.stores, p.stores),
           parsedAt: new Date().toISOString()
         };
         if (patch.art && (patch.art.capsule || patch.art.hero)) patch.localArt = "";
@@ -1072,6 +1094,8 @@ class Component extends DCLogic {
       const coPatch = {};
       if (prof.website && !cur.website) coPatch.website = prof.website;
       if (prof.name && !cur.name) coPatch.name = prof.name;
+      if (prof.name && !cur.legal) coPatch.legal = prof.name;
+      if (prof.logo && !cur.logo) coPatch.logo = prof.logo;
       const links = Object.assign({}, cur.links);
       let addedLinks = 0;
       Object.keys(prof.links || {}).forEach(k => {
@@ -1080,13 +1104,21 @@ class Component extends DCLogic {
       if (addedLinks) coPatch.links = links;
       if (Object.keys(coPatch).length) this.patchCompany(cur.id, coPatch);
 
-      const filled = Object.keys(coPatch).length;
+      // Count the fields actually written, not the patch keys — "links" is one
+      // key holding seven accounts, which read as "1 field filled".
+      const filled = (coPatch.website ? 1 : 0) + (coPatch.name ? 1 : 0) +
+        (coPatch.logo ? 1 : 0) + addedLinks;
       const extra = (filled ? " + პროფილის " + filled + " ველი" : "") +
         (res.skipped ? " (" + res.skipped + " დემო/DLC გამოტოვდა)" : "");
       if (!fresh.length) {
+        // Naming the titles that were already here is the difference between
+        // "nothing happened" and "these are already in, edit them instead".
+        const already = res.games.map(g => g.name).slice(0, 4).join(", ");
         return this.setState({
           importing: false,
-          importMsg: (res.reason || "ყველა ნაპოვნი თამაში უკვე კატალოგშია") + extra,
+          importMsg: (res.reason || (already
+            ? "უკვე კატალოგშია: " + already + " — შესასწორებლად გახსენი ქვემოთ"
+            : "ახალი თამაში ვერ მოიძებნა")) + extra,
           importMsgColor: filled ? "#9ede9e" : "#f4cd77"
         });
       }
