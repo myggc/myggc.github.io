@@ -102,10 +102,13 @@
       <div style="position:relative;display:flex;align-items:center;justify-content:center;padding:10px">
         <div style="position:absolute;width:64%;aspect-ratio:1;border-radius:50%;background:{{ haloColor }};opacity:.12;filter:blur(30px);transition:background 1s ease"></div>
         <svg viewBox="98 65 312 312" style="width:100%;max-width:420px;height:auto;display:block;position:relative">
-          <g>
+          <!-- New wrapper group for the rotation -->
+          <g style="transform-origin: 254px 221px; transform: rotateZ({{ svgRot }}deg); transition: transform .55s ease">
+            
             <g onClick="{{ go0 }}" style="cursor:pointer;transform-box:view-box;transform-origin:254px 221px;transition:opacity .55s ease,transform .55s ease;opacity:{{ op0 }};transform:scale({{ sc0 }})">
               <path transform="matrix(1,0,0,-1,167.8581,239.11351)" d="M0 0-34.683-34.683-44.234-44.234-44.277-44.277-44.276-44.278C-57.397-57.446-57.384-78.756-44.234-91.906L-24.578-111.562C-11.428-124.712 9.882-124.725 23.05-111.604L23.051-111.605 23.094-111.562 32.645-102.011 67.139-67.517 80.273-54.383 80.341-54.315C80.367-53.966 80.392-53.617 80.392-53.262V-.627C80.392 6.84 74.339 12.893 66.872 12.893H14.236C13.838 12.893 13.447 12.866 13.057 12.834L12.945 12.945 12.822 12.822Z" fill="#1d96d3"></path>
               <path transform="matrix(1,0,0,-1,164.5905,322.40144)" d="M0 0 22.375 5.995C30.081 8.06 32.661 17.692 27.02 23.333L10.641 39.713C5 45.354-4.632 42.773-6.697 35.067L-12.692 12.692C-14.757 4.987-7.706-2.065 0 0" fill="#ffffff"></path>
+            
             </g>
             <g onClick="{{ go1 }}" style="cursor:pointer;transform-box:view-box;transform-origin:254px 221px;transition:opacity .55s ease,transform .55s ease;opacity:{{ op1 }};transform:scale({{ sc1 }})">
               <path transform="matrix(1,0,0,-1,339.6424,201.9851)" d="M0 0 34.683 34.683 44.234 44.234 44.277 44.277 44.276 44.278C57.397 57.446 57.384 78.756 44.234 91.906L24.578 111.562C11.428 124.712-9.882 124.725-23.05 111.604L-23.051 111.605-23.094 111.562-32.645 102.011-67.139 67.517-80.273 54.383-80.341 54.315C-80.367 53.966-80.392 53.617-80.392 53.262V.627C-80.392-6.84-74.339-12.893-66.872-12.893H-14.236C-13.838-12.893-13.447-12.866-13.057-12.834L-12.945-12.945-12.822-12.822Z" fill="#ee2626"></path>
@@ -282,12 +285,13 @@ const DIRS = [
 ];
 const PADS = ["#83c341", "#ee2626", "#1d96d3", "#fdb813"];
 const DIM  = ["#dbe9cb", "#f7d3d3", "#cfe4f1", "#fbeac4"];
+const TARGET_ANGLES = [180, 0, 90, -90]; 
 
 class Component extends DCLogic {
   state = {
     ready: false, i: 0, cycle: 0, lang: "ka",
     seq: [], step: 0, playing: false, showing: false, lit: -1,
-    round: 0, best: 0, msg: ""
+    round: 0, best: 0, msg: "", rot: 180
   };
 
   componentDidMount() {
@@ -302,7 +306,13 @@ class Component extends DCLogic {
 
   advance() { this.go((this.state.i + 1) % 4); }
   go(n) {
-    this.setState(s => ({ i: n, cycle: n <= s.i ? s.cycle + 1 : s.cycle }));
+    this.setState(s => {
+      let currentRot = s.rot !== undefined ? s.rot : 180;
+      let diff = (TARGET_ANGLES[n] - (currentRot % 360)) % 360;
+      if (diff > 180) diff -= 360;
+      if (diff < -180) diff += 360;
+      return { i: n, cycle: n <= s.i ? s.cycle + 1 : s.cycle, rot: currentRot + diff };
+    });
   }
   hold() { clearInterval(this.timer); this.timer = null; }
 
@@ -353,8 +363,6 @@ class Component extends DCLogic {
   renderVals() {
     const s = this.state, p = this.props;
     const D = GGC.data;
-    // The counters and the shelf read the catalogue; the props stay as the
-    // fallback for the very first paint, before data/*.json lands.
     const st = D.stats();
     const shelf = D.sortGames(D.games()).slice(0, 6).map(g => {
       const studio = D.company(g.studioId);
@@ -370,8 +378,10 @@ class Component extends DCLogic {
         badgeFg: badge === "TBD" ? "#41464c" : "#fff"
       };
     });
+    
     const v = {
       haloColor: DIRS[s.i].color,
+      svgRot: s.rot !== undefined ? s.rot : 180,
       nCompanies: s.ready ? st.companies : (p.companies ?? "—"),
       nTeams: s.ready ? st.teams : (p.teams ?? "—"),
       nSolo: s.ready ? st.solo : (p.solo ?? "—"),
@@ -380,13 +390,14 @@ class Component extends DCLogic {
       toggleLang: () => this.setState(st2 => ({ lang: st2.lang === "ka" ? "en" : "ka" })),
       games: shelf
     };
+    
     for (let n = 0; n < 4; n++) {
       const active = n === s.i;
       v["opT" + n] = active ? 1 : 0;
       v["tyT" + n] = active ? "0px" : "12px";
       v["pe" + n] = active ? "auto" : "none";
       v["op" + n] = active ? 1 : 0.2;
-      v["sc" + n] = active ? 1.08 : 0.94;
+      v["sc" + n] = active ? 1.08 : 0.85;
       v["chip" + n] = active ? DIRS[n].color : "#fff";
       v["chipText" + n] = active ? "#fff" : "#41464c";
       v["go" + n] = () => { this.hold(); this.go(n); };
@@ -399,4 +410,4 @@ class Component extends DCLogic {
 }
 </script>
 </body>
-</html> 
+</html>
