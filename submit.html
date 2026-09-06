@@ -315,7 +315,10 @@
           <div style="font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5a5f65">ცოცხალი გადახედვა</div>
           <div style="margin-top:16px;display:flex;flex-direction:column;gap:14px;border:1px solid #e6eaeb;border-top:4px solid {{ pvAccent }};border-radius:16px;padding:20px">
             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:13px">
-              <div style="width:54px;height:54px;border-radius:50%;background:#e8ecec;flex:none;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:#5a5f65">{{ pvInitials }}</div>
+              <div style="width:54px;height:54px;border-radius:50%;background:#e8ecec;flex:none;display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:#5a5f65">
+                <span style="display:{{ pvInitialsShow }}">{{ pvInitials }}</span>
+                <img src="{{ pvLogo }}" alt="" style="display:{{ pvLogoShow }};width:100%;height:100%;object-fit:cover">
+              </div>
               <div style="flex:1 1 120px;min-width:0">
                 <div style="display:flex;align-items:center;gap:7px"><span style="font-size:18px;font-weight:600">{{ pvName }}</span><span style="color:#b9c0c0;font-size:15px">✔</span></div>
                 <div style="margin-top:3px;font-size:14px;color:#4d5258">{{ pvSub }}</div>
@@ -331,17 +334,39 @@
               <span style="margin-left:auto;font-size:13px;color:#6b7278">ვალიდაციის მოლოდინში</span>
             </div>
           </div>
-          <div style="margin-top:12px;display:flex;gap:12px;align-items:center;border:1px solid #e6eaeb;border-radius:14px;padding:12px">
-            <div style="width:92px;aspect-ratio:460/215;background:#e8eaec;border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;color:#5a5f65">460×215</div>
-            <div style="flex:1 1 100px;min-width:0">
-              <div style="font-size:16px;font-weight:600">{{ pvGameName }}</div>
-              <div style="margin-top:3px;font-size:14px;color:#4d5258">{{ pvGameMeta }}</div>
+          <sc-for list="{{ pvGameRows }}" as="g" hint-placeholder-count="2">
+            <div style="margin-top:12px;display:flex;gap:12px;align-items:center;border:1px solid #e6eaeb;border-radius:14px;padding:12px">
+              <div style="width:92px;aspect-ratio:460/215;background:#e8eaec;border-radius:7px;flex:none;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:11px;color:#5a5f65">
+                <span style="display:{{ g.placeholderShow }}">460×215</span>
+                <img src="{{ g.art }}" alt="" style="display:{{ g.artShow }};width:100%;height:100%;object-fit:cover">
+              </div>
+              <div style="flex:1 1 100px;min-width:0">
+                <div style="font-size:16px;font-weight:600">{{ g.name }}</div>
+                <div style="margin-top:3px;font-size:14px;color:#4d5258">{{ g.meta }}</div>
+              </div>
             </div>
-          </div>
+          </sc-for>
         </div>
         <div style="background:#fff;border:1px solid #dfe3e4;border-radius:18px;padding:22px">
           <div style="font-size:20px;font-weight:600">გაგზავნამდე</div>
           <p style="margin:10px 0 0;font-size:15px;line-height:1.65;color:#4d5258">შევსებული მონაცემი ინახება ბრაუზერში — გვერდის განახლებაც არაფერს შლის. გაგზავნის შემდეგ GGC-ის ადმინისტრაცია გადაამოწმებს და გამოქვეყნდება.</p>
+
+          <div style="margin-top:20px;padding-top:18px;border-top:1px solid #eef1f1">
+            <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px">
+              <div style="font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#5a5f65">რა იგზავნება</div>
+              <span style="margin-left:auto;font-size:13px;color:#6b7278">{{ sendCount }}</span>
+            </div>
+            <div style="margin-top:12px;display:flex;flex-direction:column;gap:1px;background:#eef1f1;border:1px solid #eef1f1;border-radius:12px;overflow:hidden">
+              <sc-for list="{{ sendRows }}" as="r" hint-placeholder-count="10">
+                <div style="display:flex;flex-wrap:wrap;gap:10px;background:#fff;padding:10px 13px">
+                  <span style="flex:0 0 132px;font-size:13px;color:#5a5f65">{{ r.k }}</span>
+                  <span style="flex:1 1 120px;min-width:0;font-size:14px;color:{{ r.color }};word-break:break-word">{{ r.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <p style="display:{{ emptyShow }};margin:10px 0 0;font-size:14px;line-height:1.55;color:#6b7278">დაუსრულებელი ველები არ იგზავნება — ადმინისტრაცია მათ ჩვენს მხარეს შეავსებს.</p>
+          </div>
+
           <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px">
             <button type="button" onClick="{{ send }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:11px;padding:14px 24px;font-family:inherit;font-size:16px;font-weight:600">გაგზავნა</button>
             <button type="button" onClick="{{ back }}" style="border:1px solid #dfe3e4;cursor:pointer;background:#fff;color:#41464c;border-radius:11px;padding:14px 22px;font-family:inherit;font-size:16px;font-weight:600">უკან</button>
@@ -854,7 +879,55 @@ class Component extends DCLogic {
     const drafts = this.draftRows();
     const firstDraft = s.drafts[0];
     const pvName = picked ? picked.name : (f.name || f.legal || s.lookup || "სტუდიის სახელი");
-    const pvGame = firstDraft ? (firstDraft.parsed || null) : null;
+    const pvLogo = f.logoUrl || (picked && picked.logo) || "";
+
+    /* One row per game actually being submitted — the studio's existing titles
+       when this is an edit, plus every draft added here — each with the art it
+       really carries rather than a grey box. */
+    const pvGameRows = (picked ? ownedGames : []).map(g => {
+      const art = D.gameArt(g);
+      return {
+        name: g.name,
+        meta: [(g.genres || []).join(", "), (g.platforms || []).join(", "), D.releaseLabel(g)].filter(Boolean).join(" · "),
+        art: art || "", artShow: art ? "block" : "none", placeholderShow: art ? "none" : "flex"
+      };
+    }).concat(s.drafts.filter(d => !d.gameId).map(d => {
+      const p = d.parsed, art = (p && p.art && p.art.capsule) || "";
+      return {
+        name: (p && p.name) || d.f.gName || "თამაშის სახელი",
+        meta: p
+          ? [(p.genres || []).join(", "), (p.platforms || []).join(", "), p.releaseDate || "TBD"].filter(Boolean).join(" · ")
+          : ([d.f.gGenre, d.f.gPlatforms, d.f.gDate].filter(Boolean).join(" · ") || "ჟანრი · პლატფორმა · თარიღი"),
+        art: art, artShow: art ? "block" : "none", placeholderShow: art ? "none" : "flex"
+      };
+    }));
+
+    /* The itemised account of what leaves the browser, built from the payload
+       itself rather than from the form — so anything the payload drops is
+       visibly absent here too, instead of looking sent because it was typed. */
+    const pay = this.payload();
+    const co = pay.company || {};
+    const sendRows = [];
+    const row = (k, v, muted) => { if (v) sendRows.push({ k, v: String(v), color: muted ? "#6b7278" : "#16181b" }); };
+    row("ქმედება", s.mode === "edit" ? "არსებულის შესწორება" : s.mode === "game" ? "თამაშის მიმაგრება" : "ახალი სტუდია");
+    if (picked) row("სტუდია", picked.legal || picked.name);
+    row("ტიპი", U.KIND_LABEL[co.kind] || "");
+    row("ოფიციალური სახელი", co.legal);
+    row("საიდენტიფიკაციო ნომერი", co.regId);
+    row("საჯარო სახელი", co.name);
+    row("ქალაქი", co.city);
+    row("გუნდის ზომა", co.size);
+    row("დაფუძნების წელი", co.founded);
+    row("ელფოსტა", co.email);
+    row("ვებსაიტი", co.website);
+    row("როლები", (co.roles || []).join(", "));
+    row("აღწერა", co.about ? co.about.slice(0, 90) + (co.about.length > 90 ? "…" : "") : "", true);
+    row("ლოგო", co.logo ? "მაღაზიიდან" : "");
+    Object.keys(co.links || {}).forEach(k => row(U.SOC[k] || U.STORE_LABEL[k] || k, co.links[k]));
+    (pay.games || []).forEach((g, i) => row("თამაში " + (i + 1),
+      [g.name || g.gameId, (g.platforms || []).join(", ")].filter(Boolean).join(" · ")));
+    row("კონტაქტი", pay.contact);
+    row("შენიშვნა", pay.note, true);
 
     return {
       draftNote: s.step > 0 ? "დრაფტი ინახება" : "",
@@ -982,16 +1055,29 @@ class Component extends DCLogic {
         ? [picked.legal, picked.city, picked.founded || ""].filter(Boolean).join(" · ")
         : ([f.legal, f.city, f.founded].filter(Boolean).join(" · ") || "ოფიციალური სახელი · ქალაქი · წელი"),
       pvInitials: U.initials(pvName).toUpperCase(),
+      /* The preview stood in for the record with a grey circle and the words
+         "460×215" while the real logo and the real capsule were already in
+         hand. The point of a last look is to see what is actually going. */
+      pvLogo: pvLogo,
+      pvLogoShow: pvLogo ? "block" : "none",
+      pvInitialsShow: pvLogo ? "none" : "block",
       pvAccent: ACC[s.kind],
       pvKind: U.KIND_LABEL[s.kind],
       pvRoles: s.roles.length ? s.roles.join(", ") : "როლები არ არის მითითებული",
       pvGames: (picked ? ownedGames.length : 0) + s.drafts.filter(d => !d.gameId).length,
-      pvGameName: pvGame ? pvGame.name : ((firstDraft && firstDraft.f.gName) || "თამაშის სახელი"),
-      pvGameMeta: pvGame
-        ? [(pvGame.genres || []).join(", "), (pvGame.platforms || []).join(", "), pvGame.releaseDate || "TBD"].filter(Boolean).join(" · ")
-        : (firstDraft
-          ? ([firstDraft.f.gGenre, firstDraft.f.gPlatforms, firstDraft.f.gDate].filter(Boolean).join(" · ") || "ჟანრი · პლატფორმა · თარიღი")
-          : "თამაში არ დაგიმატებია"),
+      // Every game being sent, not only the first one.
+      pvGameRows: pvGameRows.length ? pvGameRows : [{
+        name: "თამაშის სახელი", meta: "თამაში არ დაგიმატებია",
+        art: "", artShow: "none", placeholderShow: "flex"
+      }],
+
+      /* An itemised account of the submission. Someone who has just watched a
+         form fill itself in from a store page has no way to tell what of it is
+         actually leaving the browser — and the city, which was silently being
+         dropped, is exactly the kind of thing this makes visible. */
+      sendRows: sendRows,
+      sendCount: sendRows.length + " ჩანაწერი",
+      emptyShow: sendRows.length < 12 ? "block" : "none",
 
       kind0: () => this.save({ kind: "company", roles: [] }),
       kind1: () => this.save({ kind: "team", roles: [] }),
