@@ -438,16 +438,17 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "my-flower-shop",
-      "name": "My Flower Shop",
-      "studioId": "dasi-games",
+      "id": "baby-games-for-1-3-year-olds",
+      "name": "Baby Games for 1-3 Year Olds",
+      "studioId": "შპს-ბაბი-2007",
       "publisherId": "",
       "status": "released",
-      "releaseDate": "Dec 27, 2023",
-      "year": 2023,
+      "releaseDate": "Aug 27, 2019",
+      "year": 2019,
       "mobile": true,
       "genres": [
-        "simulation"
+        "educational",
+        "casual"
       ],
       "platforms": [
         "Google Play"
@@ -455,15 +456,15 @@
       "engine": "",
       "price": "უფასო",
       "langs": "",
-      "about": "Play the coolest flower game ever! Manage your shop!",
+      "about": "Play educational games for preschool toddlers—plus more to discover ►AdsFree◄",
       "aboutEn": "",
       "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr58.flowershop"
+        "googleplay": "https://play.google.com/store/apps/details?id=com.educational.baby.games"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/sWqm72CKWgCNpJgZA8duhugpEYXq6h8DR2nLHWMaiVZctuT8Fv4tbVDbSFcstdkJUl5vy_a3gCA-mwHxDh28rw",
-        "hero": "https://play-lh.googleusercontent.com/sWqm72CKWgCNpJgZA8duhugpEYXq6h8DR2nLHWMaiVZctuT8Fv4tbVDbSFcstdkJUl5vy_a3gCA-mwHxDh28rw",
-        "portrait": "https://play-lh.googleusercontent.com/sWqm72CKWgCNpJgZA8duhugpEYXq6h8DR2nLHWMaiVZctuT8Fv4tbVDbSFcstdkJUl5vy_a3gCA-mwHxDh28rw",
+        "capsule": "https://play-lh.googleusercontent.com/Ip5nr0LizkQsgjS3gaiETgGQ5475hGdEZpHwNtWuhs9CNYLN4-rdDcVhFXiNkZEyp_uCXxT5HPiNf8tJYCn2",
+        "hero": "https://play-lh.googleusercontent.com/Ip5nr0LizkQsgjS3gaiETgGQ5475hGdEZpHwNtWuhs9CNYLN4-rdDcVhFXiNkZEyp_uCXxT5HPiNf8tJYCn2",
+        "portrait": "https://play-lh.googleusercontent.com/Ip5nr0LizkQsgjS3gaiETgGQ5475hGdEZpHwNtWuhs9CNYLN4-rdDcVhFXiNkZEyp_uCXxT5HPiNf8tJYCn2",
         "shots": []
       },
       "localArt": "",
@@ -476,16 +477,16 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "my-spa-resort",
-      "name": "My Spa Resort",
-      "studioId": "dasi-games",
+      "id": "bebi-baby-games-for-2-4y-kids",
+      "name": "Bebi: Baby Games for 2-4y kids",
+      "studioId": "შპს-ბაბი-2007",
       "publisherId": "",
       "status": "released",
-      "releaseDate": "Jan 26, 2024",
-      "year": 2024,
+      "releaseDate": "Jul 17, 2019",
+      "year": 2019,
       "mobile": true,
       "genres": [
-        "simulation"
+        "educational"
       ],
       "platforms": [
         "Google Play"
@@ -493,15 +494,15 @@
       "engine": "",
       "price": "უფასო",
       "langs": "",
-      "about": "Start your journey in the Spa Resort business! Build your dream Spa Resort",
+      "about": "Toddler Learning Games, Learn: Colors, Shapes, Puzzles, ABC ... ►NoAds!◄",
       "aboutEn": "",
       "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr63.mysparesort"
+        "googleplay": "https://play.google.com/store/apps/details?id=com.happytools.learning.kids.games"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/AxIO3uQFt8to6fTX3B9h7XMkdOmYs5XOPf2BCKL4bSLeIba_CxrE5w7ArVq1eI3ja0l35C8Xs7ROHMFhpBrIOQ",
-        "hero": "https://play-lh.googleusercontent.com/AxIO3uQFt8to6fTX3B9h7XMkdOmYs5XOPf2BCKL4bSLeIba_CxrE5w7ArVq1eI3ja0l35C8Xs7ROHMFhpBrIOQ",
-        "portrait": "https://play-lh.googleusercontent.com/AxIO3uQFt8to6fTX3B9h7XMkdOmYs5XOPf2BCKL4bSLeIba_CxrE5w7ArVq1eI3ja0l35C8Xs7ROHMFhpBrIOQ",
+        "capsule": "https://play-lh.googleusercontent.com/Pf413xL8FZGWuNG7ljvWcTS4lVD5jGhBqUB451oB6NkfmXctF53KVphb6s8F3vmFdffeNCx7xtrOtZwdTasM",
+        "hero": "https://play-lh.googleusercontent.com/Pf413xL8FZGWuNG7ljvWcTS4lVD5jGhBqUB451oB6NkfmXctF53KVphb6s8F3vmFdffeNCx7xtrOtZwdTasM",
+        "portrait": "https://play-lh.googleusercontent.com/Pf413xL8FZGWuNG7ljvWcTS4lVD5jGhBqUB451oB6NkfmXctF53KVphb6s8F3vmFdffeNCx7xtrOtZwdTasM",
         "shots": []
       },
       "localArt": "",
@@ -514,16 +515,17 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "space-adventure",
-      "name": "Space Adventure",
-      "studioId": "dasi-games",
+      "id": "coloring-games-for-kids-2-5-y",
+      "name": "Coloring games for kids: 2-5 y",
+      "studioId": "შპს-ბაბი-2007",
       "publisherId": "",
       "status": "released",
-      "releaseDate": "Nov 27, 2023",
-      "year": 2023,
+      "releaseDate": "Dec 25, 2020",
+      "year": 2020,
       "mobile": true,
       "genres": [
-        "adventure"
+        "educational",
+        "casual"
       ],
       "platforms": [
         "Google Play"
@@ -531,15 +533,15 @@
       "engine": "",
       "price": "უფასო",
       "langs": "",
-      "about": "Play and create your own Space",
+      "about": "Glow Doodle! Baby Coloring & Drawing games for toddlers: Color and Learn! NoAds!",
       "aboutEn": "",
       "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr57.spaceadventure"
+        "googleplay": "https://play.google.com/store/apps/details?id=com.bebi.family.baby.coloring"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/NUOyjM6ciKaNdd8eWshEh1AWhW3Dx-_lLfP43RwXbyKacqFRcTdqRkXitIR3Ws0E365f6tRXwGS0TMdvy9TXmQ",
-        "hero": "https://play-lh.googleusercontent.com/NUOyjM6ciKaNdd8eWshEh1AWhW3Dx-_lLfP43RwXbyKacqFRcTdqRkXitIR3Ws0E365f6tRXwGS0TMdvy9TXmQ",
-        "portrait": "https://play-lh.googleusercontent.com/NUOyjM6ciKaNdd8eWshEh1AWhW3Dx-_lLfP43RwXbyKacqFRcTdqRkXitIR3Ws0E365f6tRXwGS0TMdvy9TXmQ",
+        "capsule": "https://play-lh.googleusercontent.com/3MrircWldm9IvgsnKB4QiWUOvZicQkm_mVZcCho-G3rYjznOw8YE6nXKI5SUnraXmQOtC00cnxw2Yu4O0CM-",
+        "hero": "https://play-lh.googleusercontent.com/3MrircWldm9IvgsnKB4QiWUOvZicQkm_mVZcCho-G3rYjznOw8YE6nXKI5SUnraXmQOtC00cnxw2Yu4O0CM-",
+        "portrait": "https://play-lh.googleusercontent.com/3MrircWldm9IvgsnKB4QiWUOvZicQkm_mVZcCho-G3rYjznOw8YE6nXKI5SUnraXmQOtC00cnxw2Yu4O0CM-",
         "shots": []
       },
       "localArt": "",
@@ -552,16 +554,16 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "wild-west-adventure",
-      "name": "Wild West: Adventure",
-      "studioId": "dasi-games",
+      "id": "abc-games-phonics-tracing",
+      "name": "ABC Games: Phonics & Tracing",
+      "studioId": "შპს-ბაბი-2007",
       "publisherId": "",
       "status": "released",
-      "releaseDate": "Oct 23, 2023",
-      "year": 2023,
+      "releaseDate": "Oct 30, 2019",
+      "year": 2019,
       "mobile": true,
       "genres": [
-        "adventure"
+        "educational"
       ],
       "platforms": [
         "Google Play"
@@ -569,15 +571,15 @@
       "engine": "",
       "price": "უფასო",
       "langs": "",
-      "about": "Gather resources, Upgrade your tools to Survive in Wild West",
+      "about": "NoAds! ABC Kids Game, Learn: Alphabet letters, Read & Write. 2+ Toddlers",
       "aboutEn": "",
       "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr44.wildwest"
+        "googleplay": "https://play.google.com/store/apps/details?id=com.kids.learn.reading.app"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/aMyLMdAYbO9MQ38OI6dwFkXEn5Usy76hXcZbEv3du7WAvd2Z4J-jDae0roM3beIA3-Q2Z2wy1EXvVNl_AV75-Q",
-        "hero": "https://play-lh.googleusercontent.com/aMyLMdAYbO9MQ38OI6dwFkXEn5Usy76hXcZbEv3du7WAvd2Z4J-jDae0roM3beIA3-Q2Z2wy1EXvVNl_AV75-Q",
-        "portrait": "https://play-lh.googleusercontent.com/aMyLMdAYbO9MQ38OI6dwFkXEn5Usy76hXcZbEv3du7WAvd2Z4J-jDae0roM3beIA3-Q2Z2wy1EXvVNl_AV75-Q",
+        "capsule": "https://play-lh.googleusercontent.com/JuLMOB9jrav6nhCJZmdXI-1TGqeu76wIWOPXwwi9LhWZJ1N3vteesB3cPBZJROsZ6Z_1RH86VqwfiDup-RJpvg",
+        "hero": "https://play-lh.googleusercontent.com/JuLMOB9jrav6nhCJZmdXI-1TGqeu76wIWOPXwwi9LhWZJ1N3vteesB3cPBZJROsZ6Z_1RH86VqwfiDup-RJpvg",
+        "portrait": "https://play-lh.googleusercontent.com/JuLMOB9jrav6nhCJZmdXI-1TGqeu76wIWOPXwwi9LhWZJ1N3vteesB3cPBZJROsZ6Z_1RH86VqwfiDup-RJpvg",
         "shots": []
       },
       "localArt": "",
@@ -590,16 +592,17 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "jurassic-explorer",
-      "name": "Jurassic Explorer",
-      "studioId": "dasi-games",
+      "id": "baby-puzzle-games-for-toddlers",
+      "name": "Baby Puzzle Games for Toddlers",
+      "studioId": "შპს-ბაბი-2007",
       "publisherId": "",
       "status": "released",
-      "releaseDate": "Oct 23, 2023",
-      "year": 2023,
+      "releaseDate": "Sep 11, 2020",
+      "year": 2020,
       "mobile": true,
       "genres": [
-        "adventure"
+        "educational",
+        "casual"
       ],
       "platforms": [
         "Google Play"
@@ -607,15 +610,15 @@
       "engine": "",
       "price": "უფასო",
       "langs": "",
-      "about": "Gather different resources, Upgrade your tools and Explore new Dinosaurs",
+      "about": "100+ jigsaw puzzle games for pre-k kids aged 2, 3, 4 & 5 ►AdsFree◄",
       "aboutEn": "",
       "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=dasi.PR52.jurassicexplorer"
+        "googleplay": "https://play.google.com/store/apps/details?id=com.pzl1.toddler.puzzles"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/kzV4vVGyg1hjm79yL-gUYLVo2JtyBb5_4WRe-ZfYzVNX1erAeQ--xSaw5wU_jJjbra_13zI8KqMAqdqyXqqNzA",
-        "hero": "https://play-lh.googleusercontent.com/kzV4vVGyg1hjm79yL-gUYLVo2JtyBb5_4WRe-ZfYzVNX1erAeQ--xSaw5wU_jJjbra_13zI8KqMAqdqyXqqNzA",
-        "portrait": "https://play-lh.googleusercontent.com/kzV4vVGyg1hjm79yL-gUYLVo2JtyBb5_4WRe-ZfYzVNX1erAeQ--xSaw5wU_jJjbra_13zI8KqMAqdqyXqqNzA",
+        "capsule": "https://play-lh.googleusercontent.com/k6CTwzuMIBldWMGTbn1ZF5hG7Uj29VhImRczv8NyAShmlpiVV8BCo_0vf5No2lc3FbBXlOskzDYzZ-uDQGx8NK0",
+        "hero": "https://play-lh.googleusercontent.com/k6CTwzuMIBldWMGTbn1ZF5hG7Uj29VhImRczv8NyAShmlpiVV8BCo_0vf5No2lc3FbBXlOskzDYzZ-uDQGx8NK0",
+        "portrait": "https://play-lh.googleusercontent.com/k6CTwzuMIBldWMGTbn1ZF5hG7Uj29VhImRczv8NyAShmlpiVV8BCo_0vf5No2lc3FbBXlOskzDYzZ-uDQGx8NK0",
         "shots": []
       },
       "localArt": "",
@@ -628,16 +631,16 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "alien-invader-ufo-game",
-      "name": "Alien Invader: UFO Game",
-      "studioId": "dasi-games",
+      "id": "balloon-pop-kids-learning-game",
+      "name": "Balloon Pop Kids Learning Game",
+      "studioId": "შპს-ბაბი-2007",
       "publisherId": "",
       "status": "released",
-      "releaseDate": "Sep 22, 2023",
-      "year": 2023,
+      "releaseDate": "Jan 24, 2020",
+      "year": 2020,
       "mobile": true,
       "genres": [
-        "simulation"
+        "educational"
       ],
       "platforms": [
         "Google Play"
@@ -645,15 +648,15 @@
       "engine": "",
       "price": "უფასო",
       "langs": "",
-      "about": "😍 A GAME TO KEEP YOU FULLY OCCUPIED. Suck up everything in your path",
+      "about": "Learn numbers, letters, and shapes playing toddler balloon pop games ►NoAds◄",
       "aboutEn": "",
       "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr50.spaceinvader"
+        "googleplay": "https://play.google.com/store/apps/details?id=ge.bebi.balloon.pop.game"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/fN8MVTAYBAi8mplWO6egRZ89Y9M3VdSl2Fb5V2TgYGM_5qPooF8cS9bRsZx6EQmajVWKVcwGGY6G5So1jgWkPw",
-        "hero": "https://play-lh.googleusercontent.com/fN8MVTAYBAi8mplWO6egRZ89Y9M3VdSl2Fb5V2TgYGM_5qPooF8cS9bRsZx6EQmajVWKVcwGGY6G5So1jgWkPw",
-        "portrait": "https://play-lh.googleusercontent.com/fN8MVTAYBAi8mplWO6egRZ89Y9M3VdSl2Fb5V2TgYGM_5qPooF8cS9bRsZx6EQmajVWKVcwGGY6G5So1jgWkPw",
+        "capsule": "https://play-lh.googleusercontent.com/rXQwo61l7zpxag0_3AgSrvka3RZmHxLosOFp37fImvSZo8IJvnQGPK1czeYndrcOPjyWM0zWfuJ-5M-kEC11",
+        "hero": "https://play-lh.googleusercontent.com/rXQwo61l7zpxag0_3AgSrvka3RZmHxLosOFp37fImvSZo8IJvnQGPK1czeYndrcOPjyWM0zWfuJ-5M-kEC11",
+        "portrait": "https://play-lh.googleusercontent.com/rXQwo61l7zpxag0_3AgSrvka3RZmHxLosOFp37fImvSZo8IJvnQGPK1czeYndrcOPjyWM0zWfuJ-5M-kEC11",
         "shots": []
       },
       "localArt": "",
@@ -666,16 +669,16 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "hospital-fever",
-      "name": "Hospital Fever",
-      "studioId": "dasi-games",
+      "id": "kids-cooking-games-for-2-5",
+      "name": "Kids Cooking Games For 2-5",
+      "studioId": "შპს-ბაბი-2007",
       "publisherId": "",
       "status": "released",
-      "releaseDate": "Aug 25, 2023",
-      "year": 2023,
+      "releaseDate": "Oct 25, 2025",
+      "year": 2025,
       "mobile": true,
       "genres": [
-        "simulation"
+        "educational"
       ],
       "platforms": [
         "Google Play"
@@ -683,15 +686,15 @@
       "engine": "",
       "price": "უფასო",
       "langs": "",
-      "about": "Manage your hospital. Play as a doctor and heal your patients",
+      "about": "Cook food games for Boys & Girls. Toddler pizza game with learning for ages 3–4",
       "aboutEn": "",
       "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr47.hospitalmanager2"
+        "googleplay": "https://play.google.com/store/apps/details?id=bebi.family.games.cooking"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/67QVA3MCbQEA4Syn3taPHCk7Zkl_GV1zzWXvEATDHbWgZ6bv-xxsO-mA5Y40ZaFpiA_wV9xybUz-mT-OmB72yw",
-        "hero": "https://play-lh.googleusercontent.com/67QVA3MCbQEA4Syn3taPHCk7Zkl_GV1zzWXvEATDHbWgZ6bv-xxsO-mA5Y40ZaFpiA_wV9xybUz-mT-OmB72yw",
-        "portrait": "https://play-lh.googleusercontent.com/67QVA3MCbQEA4Syn3taPHCk7Zkl_GV1zzWXvEATDHbWgZ6bv-xxsO-mA5Y40ZaFpiA_wV9xybUz-mT-OmB72yw",
+        "capsule": "https://play-lh.googleusercontent.com/suzFuvZ-xVPs2KAcqRRsuhrOqeQ3UXIYRfEJ6bFEKoKaOikUIhyMlUrkn4ek7Jkh_Hqz42rRTcc_5nv57OTK",
+        "hero": "https://play-lh.googleusercontent.com/suzFuvZ-xVPs2KAcqRRsuhrOqeQ3UXIYRfEJ6bFEKoKaOikUIhyMlUrkn4ek7Jkh_Hqz42rRTcc_5nv57OTK",
+        "portrait": "https://play-lh.googleusercontent.com/suzFuvZ-xVPs2KAcqRRsuhrOqeQ3UXIYRfEJ6bFEKoKaOikUIhyMlUrkn4ek7Jkh_Hqz42rRTcc_5nv57OTK",
         "shots": []
       },
       "localArt": "",
@@ -704,32 +707,30 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "gold-miner",
-      "name": "Gold Miner",
-      "studioId": "dasi-games",
+      "id": "baby-piano-drums-xylo-more",
+      "name": "Baby Piano, Drums, Xylo & more",
+      "studioId": "შპს-ბაბი-2007",
       "publisherId": "",
       "status": "released",
-      "releaseDate": "Aug 25, 2023",
-      "year": 2023,
+      "releaseDate": "Jul 1, 2021",
+      "year": 2021,
       "mobile": true,
-      "genres": [
-        "adventure"
-      ],
+      "genres": [],
       "platforms": [
         "Google Play"
       ],
       "engine": "",
       "price": "უფასო",
       "langs": "",
-      "about": "Mine Gold, Diamond and other Jams, Sell them and become rich.",
+      "about": "Create a musical playground for your toddler with 5 interactive instrument games",
       "aboutEn": "",
       "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr48.goldrusher"
+        "googleplay": "https://play.google.com/store/apps/details?id=bebi.kids.music.instruments"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/UpJnku1vj-wAMuk1TqNLu_znowpR5nDhVM_X1fKnFPRuN-TWlaac3Gi6fhV5ZoZm-Cws9mPzoo93A95IjIgtzA",
-        "hero": "https://play-lh.googleusercontent.com/UpJnku1vj-wAMuk1TqNLu_znowpR5nDhVM_X1fKnFPRuN-TWlaac3Gi6fhV5ZoZm-Cws9mPzoo93A95IjIgtzA",
-        "portrait": "https://play-lh.googleusercontent.com/UpJnku1vj-wAMuk1TqNLu_znowpR5nDhVM_X1fKnFPRuN-TWlaac3Gi6fhV5ZoZm-Cws9mPzoo93A95IjIgtzA",
+        "capsule": "https://play-lh.googleusercontent.com/gWE9SZoGGTRsvjvwKmxH-jwzlZ5FRGmanPKpX4A-IJlXCVceOwwLsI0VRf42LwF5Brn_5RUdxQhHHXSjzOV4eok",
+        "hero": "https://play-lh.googleusercontent.com/gWE9SZoGGTRsvjvwKmxH-jwzlZ5FRGmanPKpX4A-IJlXCVceOwwLsI0VRf42LwF5Brn_5RUdxQhHHXSjzOV4eok",
+        "portrait": "https://play-lh.googleusercontent.com/gWE9SZoGGTRsvjvwKmxH-jwzlZ5FRGmanPKpX4A-IJlXCVceOwwLsI0VRf42LwF5Brn_5RUdxQhHHXSjzOV4eok",
         "shots": []
       },
       "localArt": "",
@@ -742,16 +743,16 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "taxi-manager",
-      "name": "Taxi Manager",
-      "studioId": "dasi-games",
+      "id": "fun-dinosaur-games-for-kids",
+      "name": "Fun Dinosaur Games for Kids",
+      "studioId": "შპს-ბაბი-2007",
       "publisherId": "",
       "status": "released",
-      "releaseDate": "Jul 26, 2023",
-      "year": 2023,
+      "releaseDate": "Oct 17, 2025",
+      "year": 2025,
       "mobile": true,
       "genres": [
-        "simulation"
+        "educational"
       ],
       "platforms": [
         "Google Play"
@@ -759,15 +760,15 @@
       "engine": "",
       "price": "უფასო",
       "langs": "",
-      "about": "Fix the cars and meeting client needs. Build the best Taxi company in the city",
+      "about": "Dinosaur games for kids-play & learn; games for toddlers; dino puzzles, matching",
       "aboutEn": "",
       "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=dasi.pr46.taximanager"
+        "googleplay": "https://play.google.com/store/apps/details?id=bebi.family.games.dino.world"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/xhO1ananiu8aE7vdWY-YACWdqwffctpwbh5gdu0K1s0SnwdMf3XqUTOW9t_aeRLXCpTxdj05ve8HrPCbpLlBVA",
-        "hero": "https://play-lh.googleusercontent.com/xhO1ananiu8aE7vdWY-YACWdqwffctpwbh5gdu0K1s0SnwdMf3XqUTOW9t_aeRLXCpTxdj05ve8HrPCbpLlBVA",
-        "portrait": "https://play-lh.googleusercontent.com/xhO1ananiu8aE7vdWY-YACWdqwffctpwbh5gdu0K1s0SnwdMf3XqUTOW9t_aeRLXCpTxdj05ve8HrPCbpLlBVA",
+        "capsule": "https://play-lh.googleusercontent.com/Z3H87TsKhIZEydhESMUBf3-saYFwvzabAPQfHlvwZbH1tKmrvDFdA7cIbkyA6gIBIe_AV-bKX95AO-PT20ADew",
+        "hero": "https://play-lh.googleusercontent.com/Z3H87TsKhIZEydhESMUBf3-saYFwvzabAPQfHlvwZbH1tKmrvDFdA7cIbkyA6gIBIe_AV-bKX95AO-PT20ADew",
+        "portrait": "https://play-lh.googleusercontent.com/Z3H87TsKhIZEydhESMUBf3-saYFwvzabAPQfHlvwZbH1tKmrvDFdA7cIbkyA6gIBIe_AV-bKX95AO-PT20ADew",
         "shots": []
       },
       "localArt": "",
@@ -780,16 +781,16 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "attack-and-loot",
-      "name": "Attack and Loot",
-      "studioId": "dasi-games",
+      "id": "toy-phone-baby-learning-games",
+      "name": "Toy Phone Baby Learning games",
+      "studioId": "შპს-ბაბი-2007",
       "publisherId": "",
       "status": "released",
-      "releaseDate": "Jul 4, 2023",
-      "year": 2023,
+      "releaseDate": "May 26, 2021",
+      "year": 2021,
       "mobile": true,
       "genres": [
-        "action"
+        "educational"
       ],
       "platforms": [
         "Google Play"
@@ -797,15 +798,15 @@
       "engine": "",
       "price": "უფასო",
       "langs": "",
-      "about": "Ready for challenge? Jump in the action, Attack and Loot!",
+      "about": "Kids can Video call: animals, professions and characters. Learn numbers & more",
       "aboutEn": "",
       "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=dasi.prm1.attackloot"
+        "googleplay": "https://play.google.com/store/apps/details?id=bebi.family.baby.phone"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/JdXjH_nybZe4B_OVxVZf4qL0fBMsxRtzQ3s6vj7MZE_dmbjjC50WnlII-UkT0nB9BODqOKdEuN67lPTfdPXh7w",
-        "hero": "https://play-lh.googleusercontent.com/JdXjH_nybZe4B_OVxVZf4qL0fBMsxRtzQ3s6vj7MZE_dmbjjC50WnlII-UkT0nB9BODqOKdEuN67lPTfdPXh7w",
-        "portrait": "https://play-lh.googleusercontent.com/JdXjH_nybZe4B_OVxVZf4qL0fBMsxRtzQ3s6vj7MZE_dmbjjC50WnlII-UkT0nB9BODqOKdEuN67lPTfdPXh7w",
+        "capsule": "https://play-lh.googleusercontent.com/TmvTtJm4EqKKEjCCaEMZ6v41nhKIXB_bxEbHGhHTcpc3F0rBR1FFpjUguSWs-2zquB7O09QOYKKyLIjEuPZE",
+        "hero": "https://play-lh.googleusercontent.com/TmvTtJm4EqKKEjCCaEMZ6v41nhKIXB_bxEbHGhHTcpc3F0rBR1FFpjUguSWs-2zquB7O09QOYKKyLIjEuPZE",
+        "portrait": "https://play-lh.googleusercontent.com/TmvTtJm4EqKKEjCCaEMZ6v41nhKIXB_bxEbHGhHTcpc3F0rBR1FFpjUguSWs-2zquB7O09QOYKKyLIjEuPZE",
         "shots": []
       },
       "localArt": "",
