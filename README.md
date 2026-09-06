@@ -21,27 +21,30 @@ the folder from any static host (it is built for GitHub Pages).
 ## How the data flows
 
 ```
-visitor fills submit.html
-        │
-        ├─ endpoint configured? ──► POST ──┐
-        └─ otherwise ─► prefilled issue ───┤
-                        Telegram / copy    │
-                                           ▼
-                        GitHub issue labelled "submission"
-                                           │
-                        admin.html reads the queue, shows now-vs-new
-                                           │
-                        approve ──► data/*.json committed, issue closed
-                                           │
-                        every page reads data/*.json on load
+visitor fills submit.html and presses send
+                    │
+                    ▼
+        POST to config.submitEndpoint      ← the relay in worker/ (required)
+                    │
+        GitHub issue labelled "submission"
+                    │
+        admin.html reads the queue, shows now-vs-new
+                    │
+        approve ──► data/*.json committed, issue closed
+                    │
+        every page reads data/*.json on load
 ```
 
 Nothing is stored anywhere except this repository, so every change to the
 catalogue is a normal, reviewable commit.
 
 - **[`data/schema.md`](data/schema.md)** — what a company and a game record hold.
-- **[`worker/README.md`](worker/README.md)** — optional relay so visitors without
-  a GitHub account can submit in one click.
+- **[`worker/README.md`](worker/README.md)** — the submission relay. **Deploy one
+  before launch**: a page on GitHub Pages cannot create an issue without a
+  secret to sign it, so until `config.submitEndpoint` is set the form has
+  nowhere to send to. The Apps Script option takes about three minutes in a
+  browser with nothing installed. The admin panel's settings tab shows whether
+  the receiver is configured and can ping it.
 
 ## Admin panel
 

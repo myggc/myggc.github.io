@@ -1,17 +1,16 @@
-# Submission relay — so visitors need no account at all
+# Submission relay — required
 
-The goal is that someone can fill in `submit.html` and press send. No GitHub
-account, no signup, no leaving the site.
+Someone fills in `submit.html` and presses send. That is the whole flow: no
+GitHub account, no signup, no leaving the site, nothing to finish by hand.
 
-A page served from GitHub Pages cannot do that on its own: creating an issue
+A page served from GitHub Pages cannot do that on its own. Creating an issue
 needs a GitHub token, and a token shipped inside the page would let anyone post
-as GGC. So exactly one small thing has to hold that secret. Pick whichever of
-the two is easier for you — they behave identically and the site cannot tell
-them apart.
+as GGC. So exactly one small thing has to hold that secret.
 
-Until one is deployed the form still works, but it ends by asking the visitor
-to finish the delivery themselves (Telegram, copy the JSON, or GitHub if they
-happen to have an account). That is the fallback, not the goal.
+**Until one of these is deployed and its URL is in `config.submitEndpoint`, the
+form cannot deliver anything and nothing reaches the admin queue.** Pick
+whichever is easier — they behave identically and the site cannot tell them
+apart. Option A needs nothing installed.
 
 ---
 

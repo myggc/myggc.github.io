@@ -18,9 +18,11 @@
     branch: "main",
     // Label carried by every submission issue.
     label: "submission",
-    // Optional POST endpoint that accepts a submission without the visitor
-    // needing a GitHub account (see worker/README.md). Empty = disabled, and
-    // the submit page falls back to a prefilled GitHub issue + copy/Telegram.
+    // REQUIRED before launch. Where submit.html POSTs a submission; the relay
+    // behind it holds the GitHub token and opens the issue. Deploy one from
+    // worker/ (the Apps Script option needs nothing installed) and paste its
+    // URL here. While this is empty the form has nowhere to send and nothing
+    // reaches the admin queue.
     submitEndpoint: "",
     telegram: "https://t.me/ggcgeorgia",
     // CORS proxies used for live (browser side) store reads, tried in order.
