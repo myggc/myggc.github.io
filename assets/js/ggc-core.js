@@ -521,6 +521,11 @@
   var relayWorks = false;
   // How many times the relay answered but gave us nothing a reader could use.
   var relayMisses = 0;
+  /* Ceiling on how many titles one import will read. High enough that no real
+     studio hits it — the largest Georgian catalogue is a handful — and low
+     enough that pasting a page belonging to Devolver does not spend an hour of
+     someone else's proxy allowance. */
+  var MAX_TITLES = 120;
 
   function fetchOnce(tpl, target, read) {
     var url = tpl.replace("{url}", encodeURIComponent(target)).replace("{raw}", target);
@@ -1181,7 +1186,7 @@
       if (!urls.length && !profile) throw new Error("ამ გვერდზე არაფერი მოიძებნა");
       var out = [], done = 0, total = 0;
       var seenUrl = {};
-      var list = urls.slice(0, 40);
+      var list = urls.slice(0, MAX_TITLES);
       list.forEach(function (u) { seenUrl[u] = 1; });
       /* Read several titles at once. One at a time made the import cost the sum
          of every proxy round trip — minutes for a studio with a handful of
@@ -1282,34 +1287,79 @@
            So once the name is known, the search runs again with it. That is the
            difference between a studio page showing an upcoming title and only
            showing it when its own link is pasted separately. */
+        /* Every storefront shows a studio a slice of its own catalogue and
+           loads the rest as you scroll, which is invisible to anything that
+           only reads the HTML:
+
+             Steam's search is 25 to a page, and pages past the first exist only
+             if you ask for them by number;
+             Google Play's developer page renders about a dozen — the cap people
+             hit as "it only brought ten" — while a search for the same
+             developer's name returns nearly three times as many;
+             a Steam studio page renders almost nothing at all, and a curator
+             page cannot be searched for until its games have named the studio.
+
+           So the first answer is treated as a start, not as the catalogue.
+           Every other place this studio's titles are listed is asked as well
+           and the results merged; whatever comes back is still held to the
+           credit check, so a search widening the net cannot file someone else's
+           game under this studio. */
+        function collect(url, into) {
+          return fetchVia(url, function (html) { return studioGameUrls(html, d); })
+            .then(function (found) {
+              var added = 0;
+              found.forEach(function (u) {
+                if (into[u]) return;
+                into[u] = 1;
+                added++;
+              });
+              return added;
+            }, function () { return 0; });
+        }
+        /* Steam hands back a page at a time; a full page means there is another
+           behind it. Stops as soon as a page adds nothing new, so a studio with
+           three games costs one request and one with sixty costs three. */
+        function collectPaged(base, into, page) {
+          page = page || 1;
+          if (page > 4) return Promise.resolve();
+          return collect(base + "&page=" + page, into).then(function (added) {
+            if (added < 20) return;
+            return collectPaged(base, into, page + 1);
+          });
+        }
+
         function secondPass(games) {
-          var sources = [];
-          /* The asking stopped at the first source that answered, so the page
-             that was actually pasted may never have been read for its games —
-             and it is the one place a title the search does not surface can
-             still be listed. It was read for the profile a moment ago, so this
-             costs nothing but a cache lookup. */
-          if (!seenListing[d.url]) sources.push(d.url);
           var name = prof.name || "";
           var slug = String(d.id || "");
-          var already = slug && name.toLowerCase().replace(/[^a-z0-9]/g, "") ===
-            slug.toLowerCase().replace(/[^a-z0-9]/g, "");
-          if (d.kind === "steam" && name && !already) {
-            sources.push("https://store.steampowered.com/search/?term=" +
-              encodeURIComponent(name) + "&ndl=1&ignore_preferences=1");
+          var norm = function (s) { return String(s).toLowerCase().replace(/[^a-z0-9]/g, ""); };
+          var found = {};
+          var jobs = [];
+          // The page that was pasted, if the asking stopped before reaching it.
+          if (!seenListing[d.url]) jobs.push(collect(d.url, found));
+          if (d.kind === "steam" && name) {
+            var q = "&ndl=1&ignore_preferences=1";
+            if (norm(name) !== norm(slug)) {
+              jobs.push(collectPaged("https://store.steampowered.com/search/?term=" +
+                encodeURIComponent(name) + q, found));
+            }
+            if (slug) {
+              jobs.push(collectPaged("https://store.steampowered.com/search/?term=" +
+                encodeURIComponent(slug) + q, found));
+            }
           }
-          if (!sources.length) return Promise.resolve(games);
-          return Promise.all(sources.map(function (u) {
-            return fetchVia(u, function (html) { return studioGameUrls(html, d); })
-              .catch(function () { return []; });
-          })).then(function (lists) {
+          if (d.kind === "googleplay" && name) {
+            jobs.push(collect("https://play.google.com/store/search?q=" +
+              encodeURIComponent(name) + "&c=apps&hl=en&gl=US", found));
+            jobs.push(collect("https://play.google.com/store/apps/developer?id=" +
+              encodeURIComponent(name) + "&hl=en&gl=US", found));
+          }
+          if (!jobs.length) return Promise.resolve(games);
+          return Promise.all(jobs).then(function () {
             var fresh = [];
-            lists.forEach(function (l) {
-              l.forEach(function (u) {
-                if (seenUrl[u] || fresh.length >= 20) return;
-                seenUrl[u] = 1;
-                fresh.push(u);
-              });
+            Object.keys(found).forEach(function (u) {
+              if (seenUrl[u] || total + fresh.length >= MAX_TITLES) return;
+              seenUrl[u] = 1;
+              fresh.push(u);
             });
             if (!fresh.length) return games;
             return readAll(fresh).then(function () { return harvest(); });
