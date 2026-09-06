@@ -405,50 +405,62 @@ class Component extends DCLogic {
 
   /* Takes the arrays to work from rather than reading state, so two approvals
      in quick succession both build on the previous one instead of racing. */
+  /* Every submission is "an optional company change, plus any number of games".
+     A game entry carrying gameId corrects one already in the catalogue; without
+     it, a new one is created against whichever company the payload resolved to.
+     The older one-game shapes are still read, so submissions already sitting in
+     the queue when this changed still apply. */
+  payloadGames(p) {
+    if (Array.isArray(p.games)) return p.games;
+    if (p.pendingGame && p.pendingGame.name) return [p.pendingGame];
+    if (p.game) return [Object.assign({}, p.game, p.gameId ? { gameId: p.gameId } : {})];
+    return [];
+  }
+
   applyPayload(p, fromCompanies, fromGames) {
     const companies = fromCompanies.slice();
     const games = fromGames.slice();
     const now = U.today();
+    const known = ["new-company", "edit-company", "games", "new-game", "edit-game"];
+    if (known.indexOf(p.action) < 0) throw new Error("უცნობი ტიპი: " + p.action);
+
+    let companyId = p.companyId || "";
 
     if (p.action === "new-company") {
       const c = D.normCompany(Object.assign({}, p.company, {
-        id: this.nextId(p.company.legal || p.company.name, companies),
+        id: this.nextId((p.company && (p.company.legal || p.company.name)) || "studio", companies),
         validated: now, created: now, updated: now, verified: true
       }));
       companies.push(c);
+      companyId = c.id;
       p.appliedId = c.id;
-      // A studio that submitted its first game in the same form: the game has
-      // no id yet and nothing to hang off until the company exists, so it is
-      // created here rather than quietly dropped.
-      if (p.pendingGame && p.pendingGame.name) {
-        games.push(D.normGame(Object.assign({}, p.pendingGame, {
-          id: this.nextId(p.pendingGame.name, games),
-          studioId: c.id,
-          validated: now, created: now, updated: now, verified: true
-        })));
-      }
     } else if (p.action === "edit-company") {
       const i = companies.findIndex(c => c.id === p.companyId);
       if (i < 0) throw new Error("კომპანია ვერ მოიძებნა: " + p.companyId);
       companies[i] = D.normCompany(Object.assign({}, companies[i], p.company, { updated: now, validated: now }));
+      companyId = companies[i].id;
       p.appliedId = companies[i].id;
-    } else if (p.action === "new-game") {
-      if (!companies.some(c => c.id === p.companyId)) throw new Error("თამაშს სტუდია არ აქვს მიბმული");
-      const g = D.normGame(Object.assign({}, p.game, {
-        id: this.nextId(p.game.name, games),
-        studioId: p.companyId,
-        validated: now, created: now, updated: now, verified: true
-      }));
-      games.push(g);
-      p.appliedId = g.id;
-    } else if (p.action === "edit-game") {
-      const i = games.findIndex(g => g.id === p.gameId);
-      if (i < 0) throw new Error("თამაში ვერ მოიძებნა: " + p.gameId);
-      games[i] = D.normGame(Object.assign({}, games[i], p.game, { updated: now, validated: now }));
-      p.appliedId = games[i].id;
-    } else {
-      throw new Error("უცნობი ტიპი: " + p.action);
     }
+
+    this.payloadGames(p).forEach(entry => {
+      const fields = Object.assign({}, entry);
+      const gameId = fields.gameId;
+      delete fields.gameId;
+      if (gameId) {
+        const i = games.findIndex(g => g.id === gameId);
+        if (i < 0) throw new Error("თამაში ვერ მოიძებნა: " + gameId);
+        games[i] = D.normGame(Object.assign({}, games[i], fields, { updated: now, validated: now }));
+        return;
+      }
+      if (!companyId) throw new Error("თამაშს სტუდია არ აქვს მიბმული");
+      if (!companies.some(c => c.id === companyId)) throw new Error("კომპანია ვერ მოიძებნა: " + companyId);
+      games.push(D.normGame(Object.assign({}, fields, {
+        id: this.nextId(fields.name || "game", games),
+        studioId: companyId,
+        validated: now, created: now, updated: now, verified: true
+      })));
+    });
+
     return { companies, games };
   }
 
@@ -779,25 +791,28 @@ class Component extends DCLogic {
       const p = item.payload || {};
       const decided = s.decisions[item.number];
       const isEdit = p.action === "edit-company" || p.action === "edit-game";
-      const isGame = p.action === "new-game" || p.action === "edit-game";
+      const entries = item.malformed ? [] : this.payloadGames(p);
+      const isGame = !p.company && entries.length > 0;
       let diff = [];
       if (item.malformed) {
         diff = [{ k: "შენიშვნა", old: "—", "new": "JSON ვერ წაიკითხა — გახსენი GitHub-ზე" }];
-      } else if (isGame) {
-        const cur = isEdit ? D.game(p.gameId) : null;
-        diff = GGC.submit.diff(cur, p.game || {}, GAME_LABELS);
       } else {
-        const cur = isEdit ? D.company(p.companyId) : null;
-        diff = GGC.submit.diff(cur, p.company || {}, CO_LABELS);
-        // A first game submitted alongside a new studio is approved with it,
-        // so it has to be visible before anyone presses დადასტურება.
-        if (p.pendingGame && p.pendingGame.name) {
-          diff = diff.concat([{
-            key: "pendingGame", k: "თანდართული თამაში", old: "—",
-            "new": [p.pendingGame.name, (p.pendingGame.platforms || []).join(", "),
-              p.pendingGame.releaseDate || "TBD"].filter(Boolean).join(" · ")
-          }]);
+        if (p.company) {
+          diff = GGC.submit.diff(isEdit ? D.company(p.companyId) : null, p.company, CO_LABELS);
         }
+        // Every game the submission carries gets its own rows, so nothing is
+        // approved sight unseen just because it came in a batch.
+        entries.forEach((entry, i) => {
+          const fields = Object.assign({}, entry);
+          delete fields.gameId;
+          const cur = entry.gameId ? D.game(entry.gameId) : null;
+          const label = (cur ? "შესწორება: " + cur.name : "ახალი თამაში: " + (fields.name || "?")) +
+            (entries.length > 1 ? " (" + (i + 1) + "/" + entries.length + ")" : "");
+          diff = diff.concat(
+            [{ key: "g" + i, k: "—", old: "—", "new": label }],
+            GGC.submit.diff(cur, fields, GAME_LABELS)
+          );
+        });
       }
       const kind = item.malformed ? "შემოწმება" : isEdit ? "ედიტი" : isGame ? "თამაში" : "ახალი";
       const accent = isEdit ? "#fdb813" : isGame ? "#ee2626" : "#1d96d3";

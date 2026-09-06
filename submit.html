@@ -129,6 +129,15 @@
             <input type="text" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
           </label>
         </sc-for>
+        <sc-for list="{{ selectFields }}" as="f" hint-placeholder-count="1">
+          <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:#5a5f65">{{ f.label }}
+            <select value="{{ f.value }}" onChange="{{ f.onChange }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
+              <sc-for list="{{ f.options }}" as="o" hint-placeholder-count="8">
+                <option value="{{ o.v }}">{{ o.label }}</option>
+              </sc-for>
+            </select>
+          </label>
+        </sc-for>
       </div>
       <div style="margin-top:22px;padding-top:20px;border-top:1px solid #eef1f1">
         <div style="font-size:14px;color:#5a5f65;margin-bottom:10px">ლინკები და სოციალური ქსელები</div>
@@ -150,47 +159,83 @@
 
   <sc-if value="{{ isStep3 }}">
     <div style="background:#fff;border:1px solid #dfe3e4;border-radius:18px;padding:clamp(18px,3vw,28px);animation:ggcPop .4s ease both">
-      <div style="font-size:20px;font-weight:600">თამაში</div>
-      <p style="margin:8px 0 18px;font-size:15px;color:#4d5258">გვერდი აქვს რომელიმე პლატფორმაზე?</p>
-      <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <button type="button" onClick="{{ hasStoreYes }}" style="border:1px solid {{ yesBorder }};cursor:pointer;background:{{ yesBg }};color:{{ yesFg }};border-radius:11px;padding:13px 20px;font-family:inherit;font-size:15px;font-weight:600">კი, გვერდი მაქვს</button>
-        <button type="button" onClick="{{ hasStoreNo }}" style="border:1px solid {{ noBorder }};cursor:pointer;background:{{ noBg }};color:{{ noFg }};border-radius:11px;padding:13px 20px;font-family:inherit;font-size:15px;font-weight:600">არა, ხელით შევავსებ</button>
+      <div style="font-size:20px;font-weight:600">თამაშები</div>
+      <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#4d5258">{{ gamesIntro }}</p>
+
+      <div style="display:{{ ownedShow }};margin-top:20px">
+        <div style="font-size:14px;color:#5a5f65;margin-bottom:10px">უკვე კატალოგშია — {{ ownedCount }}</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ owned }}" as="g" hint-placeholder-count="3">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:#f7f9f9;border:1px solid #e6eaeb;border-radius:12px;padding:12px 14px">
+              <div style="width:84px;aspect-ratio:460/215;border-radius:7px;flex:none;background:{{ g.art }}"></div>
+              <div style="flex:1 1 130px;min-width:0">
+                <div style="font-size:15px;font-weight:600;color:#16181b">{{ g.name }}</div>
+                <div style="margin-top:3px;font-size:13px;color:#5a5f65">{{ g.meta }}</div>
+              </div>
+              <button type="button" onClick="{{ g.edit }}" style="flex:none;border:1px solid {{ g.btnBorder }};cursor:pointer;background:{{ g.btnBg }};color:{{ g.btnFg }};border-radius:10px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ g.btnLabel }}</button>
+            </div>
+          </sc-for>
+        </div>
       </div>
 
-      <sc-if value="{{ storeYes }}">
-        <div style="margin-top:20px;background:#f7f9f9;border:1px solid #e6eaeb;border-radius:14px;padding:18px">
-          <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:#5a5f65">მაღაზიის ლინკი (Steam, itch.io, App Store, Google Play)
-            <input type="url" placeholder="https://store.steampowered.com/app/..." value="{{ storeUrl }}" onInput="{{ onStoreUrl }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#fff;color:#16181b">
-          </label>
-          <button type="button" onClick="{{ parse }}" style="margin-top:14px;border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:10px;padding:12px 18px;font-family:inherit;font-size:15px;font-weight:600">{{ parseLabel }}</button>
-          <div style="display:{{ parsedShow }};margin-top:16px">
-            <div style="display:flex;align-items:center;gap:9px;background:#e9f5ec;border:1px solid #d3e8d9;border-radius:11px;padding:12px 14px;font-size:14px;color:#2f5c3c">
-              <span style="width:8px;height:8px;border-radius:50%;background:#4c9a5e;flex:none"></span>ყველაფერი წამოვიდა მაღაზიიდან — შემდეგში ავტომატურად განახლდება
+      <div style="display:flex;flex-direction:column;gap:14px;margin-top:20px">
+        <sc-for list="{{ drafts }}" as="g" hint-placeholder-count="1">
+          <div style="border:1px solid {{ g.border }};border-radius:16px;padding:18px;background:{{ g.bg }}">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+              <span style="flex:1 1 160px;min-width:0;font-size:16px;font-weight:600;color:#16181b">{{ g.title }}</span>
+              <button type="button" onClick="{{ g.remove }}" style="flex:none;border:1px solid #dfe3e4;cursor:pointer;background:#fff;color:#8c2f2f;border-radius:9px;padding:8px 13px;font-family:inherit;font-size:13px;font-weight:600">მოხსნა</button>
             </div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr));gap:8px;margin-top:12px">
-              <sc-for list="{{ parsedFields }}" as="f" hint-placeholder-count="6">
-                <div style="background:#fff;border:1px solid #e6eaeb;border-radius:10px;padding:12px 14px">
-                  <div style="font-size:13px;color:#5a5f65">{{ f.k }}</div>
-                  <div style="margin-top:4px;font-size:15px;font-weight:600">{{ f.v }}</div>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-        </div>
-      </sc-if>
 
-      <sc-if value="{{ storeNo }}">
-        <div style="margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px">
-          <sc-for list="{{ gameFields }}" as="f" hint-placeholder-count="4">
-            <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:#5a5f65">{{ f.label }}
-              <input type="text" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
-            </label>
-          </sc-for>
-          <div style="grid-column:1/-1;display:flex;align-items:center;gap:12px;background:#fff8e7;border:1px solid #f3e2b8;border-radius:11px;padding:12px 14px;font-size:14px;color:#7a5500">
-            ატვირთული სურათი ავტომატურად შეიკვეცება 460×215-ზე და შეიკუმშება — კიდეებს არ გასცდება.
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+              <button type="button" onClick="{{ g.pickStore }}" style="border:1px solid {{ g.yesBorder }};cursor:pointer;background:{{ g.yesBg }};color:{{ g.yesFg }};border-radius:11px;padding:11px 17px;font-family:inherit;font-size:14px;font-weight:600">მაღაზიის ლინკი მაქვს</button>
+              <button type="button" onClick="{{ g.pickManual }}" style="border:1px solid {{ g.noBorder }};cursor:pointer;background:{{ g.noBg }};color:{{ g.noFg }};border-radius:11px;padding:11px 17px;font-family:inherit;font-size:14px;font-weight:600">ხელით შევავსებ</button>
+            </div>
+
+            <div style="display:{{ g.storeShow }};margin-top:16px;background:#f7f9f9;border:1px solid #e6eaeb;border-radius:14px;padding:16px">
+              <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:#5a5f65">მაღაზიის ლინკი (Steam, itch.io, App Store, Google Play)
+                <input type="url" placeholder="https://store.steampowered.com/app/..." value="{{ g.storeUrl }}" onInput="{{ g.onStoreUrl }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#fff;color:#16181b">
+              </label>
+              <button type="button" onClick="{{ g.parse }}" style="margin-top:14px;border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:10px;padding:12px 18px;font-family:inherit;font-size:15px;font-weight:600">{{ g.parseLabel }}</button>
+
+              <div style="display:{{ g.busyShow }};align-items:center;gap:12px;margin-top:14px;background:#eaf3f8;border:1px solid #cfe3ef;border-radius:11px;padding:14px">
+                <span style="width:18px;height:18px;border-radius:50%;border:3px solid #cfe3ef;border-top-color:#146590;animation:ggcSpin 900ms linear infinite;flex:none"></span>
+                <div style="flex:1 1 160px;min-width:0;font-size:14px;line-height:1.55;color:#14536f">ვკითხულობთ მაღაზიის გვერდს — ეს ნახევარ წუთამდე შეიძლება გაგრძელდეს. გვერდი ღია დატოვე.</div>
+              </div>
+
+              <div style="display:{{ g.okShow }};margin-top:14px">
+                <div style="display:flex;align-items:center;gap:9px;background:#e9f5ec;border:1px solid #d3e8d9;border-radius:11px;padding:12px 14px;font-size:14px;color:#2f5c3c">
+                  <span style="width:8px;height:8px;border-radius:50%;background:#4c9a5e;flex:none"></span>ყველაფერი წამოვიდა მაღაზიიდან — შემდეგში ავტომატურად განახლდება
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr));gap:8px;margin-top:12px">
+                  <sc-for list="{{ g.parsedFields }}" as="p" hint-placeholder-count="5">
+                    <div style="background:#fff;border:1px solid #e6eaeb;border-radius:10px;padding:12px 14px">
+                      <div style="font-size:13px;color:#5a5f65">{{ p.k }}</div>
+                      <div style="margin-top:4px;font-size:15px;font-weight:600">{{ p.v }}</div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+
+              <div style="display:{{ g.errShow }};margin-top:14px;background:#fff8e7;border:1px solid #f3e2b8;border-radius:11px;padding:12px 14px;font-size:14px;line-height:1.55;color:#7a5500">{{ g.parseErr }}</div>
+            </div>
+
+            <div style="display:{{ g.manualShow }};margin-top:16px">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px">
+                <sc-for list="{{ g.fields }}" as="f" hint-placeholder-count="6">
+                  <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:#5a5f65">{{ f.label }}
+                    <input type="text" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
+                  </label>
+                </sc-for>
+              </div>
+              <div style="margin-top:12px;display:flex;align-items:center;gap:12px;background:#fff8e7;border:1px solid #f3e2b8;border-radius:11px;padding:12px 14px;font-size:14px;color:#7a5500">
+                ატვირთული სურათი ავტომატურად შეიკვეცება 460×215-ზე და შეიკუმშება — კიდეებს არ გასცდება.
+              </div>
+            </div>
           </div>
-        </div>
-      </sc-if>
+        </sc-for>
+      </div>
+
+      <button type="button" onClick="{{ addGame }}" style="width:100%;margin-top:14px;border:1px dashed #cdd4d4;cursor:pointer;background:#fff;color:#41464c;border-radius:13px;padding:15px;font-family:inherit;font-size:15px;font-weight:600">+ კიდევ ერთი თამაშის დამატება</button>
 
       <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px">
         <button type="button" onClick="{{ next }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:11px;padding:14px 22px;font-family:inherit;font-size:16px;font-weight:600">გადახედვა</button>
@@ -287,15 +332,17 @@ const CO_FIELDS = [
   ["name", "საჯარო სახელი", "MadMoa"],
   ["city", "ქალაქი", "თბილისი"],
   ["founded", "დაფუძნების წელი", "2019"],
-  ["size", "გუნდის ზომა", "6-10"],
   ["about", "აღწერა", "ინდი სტუდია…"],
   ["aboutEn", "აღწერა (English)", "Indie studio…"],
   ["website", "ვებსაიტი", "https://madmoa.com"],
   ["email", "ელფოსტა", "info@madmoa.com"],
   ["contact", "საკონტაქტო პირი და კავშირი", "სახელი გვარი · @telegram"]
 ];
+/* One choice from a fixed list, so the catalogue can group and count sizes
+   instead of holding a dozen spellings of the same range. */
+const SIZES = ["1-2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-250", "251+"];
 const TEAM_SKIP = ["regId"];
-const SOLO_SKIP = ["regId", "size"];
+const SOLO_SKIP = ["regId"];
 const SOCIALS = [
   ["telegram", "Telegram", "@studio"], ["facebook", "Facebook", "fb.com/studio"],
   ["instagram", "Instagram", "instagram.com/studio"], ["linkedin", "LinkedIn", "linkedin.com/company/studio"],
@@ -307,7 +354,6 @@ const ROLES = {
   team: ["developer", "art", "audio", "codev"],
   solo: ["developer", "art", "audio", "porting"]
 };
-const KINDS = ["company", "team", "solo"];
 const KIND_HINT = {
   company: "ოფიციალურად რეგისტრირებული კომპანია — პრიორიტეტული ჩანაწერი, სჭირდება საიდენტიფიკაციო ნომერი.",
   team: "არარეგისტრირებული გუნდი — იდენტიფიკატორი გუნდის სახელია.",
@@ -324,12 +370,16 @@ const GAME_FIELDS = [
 ];
 const ACC = { company: "#1d96d3", team: "#83c341", solo: "#fdb813" };
 const DRAFT = "ggc.submit.draft";
+let seq = 0;
 
 class Component extends DCLogic {
   state = {
-    ready: false, step: 0, mode: "", lookup: "", picked: null, store: "", storeUrl: "",
-    parsing: false, parsed: null, parseErr: "", sent: false, sending: false, f: {}, saved: false,
-    kind: "company", roles: [], result: null
+    ready: false, step: 0, mode: "", lookup: "", picked: null,
+    sent: false, sending: false, f: {}, saved: false,
+    kind: "company", roles: [], result: null,
+    // Every game being added or corrected, each with its own store URL and
+    // parse state — one submission can carry as many as the studio has.
+    drafts: []
   };
 
   componentDidMount() {
@@ -344,56 +394,140 @@ class Component extends DCLogic {
   }
 
   /* "submit.html#edit=madmoa" arrives from a profile's შესწორების მოთხოვნა
-     button — open the edit form already filled with the published record. */
+     button — open the edit form already filled with the published record, so
+     nobody has to search for a studio they just came from. */
   openFromHash() {
     const m = /^#edit=(.+)$/.exec(location.hash || "");
     if (!m) return;
     const c = D.company(decodeURIComponent(m[1]));
     if (!c) return;
-    this.save({
-      mode: "edit", picked: c.id, step: 2, kind: c.kind, roles: c.roles || [],
+    this.save(Object.assign({ mode: "edit", step: 2 }, this.fillFrom(c)));
+  }
+
+  /* Everything needed to continue from an existing catalogue record. */
+  fillFrom(c) {
+    return {
+      picked: c.id,
+      kind: c.kind,
+      roles: c.roles || [],
       lookup: c.legal || c.name,
       f: Object.assign({
         legal: c.legal, regId: c.regId, name: c.name, city: c.city,
         founded: c.founded ? String(c.founded) : "", size: c.size,
         about: c.about, aboutEn: c.aboutEn, website: c.website, email: c.email
       }, c.links || {})
-    });
+    };
   }
 
-  /* Every step writes the draft back, so a closed tab never loses the form. */
   save(patch) {
     this.setState(patch, () => {
       const s = this.state;
       try {
         localStorage.setItem(DRAFT, JSON.stringify({
-          step: s.step, mode: s.mode, lookup: s.lookup, picked: s.picked, store: s.store,
-          storeUrl: s.storeUrl, parsed: s.parsed, f: s.f, kind: s.kind, roles: s.roles
+          step: s.step, mode: s.mode, lookup: s.lookup, picked: s.picked,
+          f: s.f, kind: s.kind, roles: s.roles,
+          drafts: s.drafts.map(d => Object.assign({}, d, { parsing: false }))
         }));
       } catch (e) {}
     });
   }
   set(k, v) { this.save({ f: Object.assign({}, this.state.f, { [k]: v }) }); }
 
-  runParse() {
-    const url = this.state.storeUrl.trim();
-    if (!url) return this.setState({ parseErr: "ჩასვი მაღაზიის ბმული" });
-    this.setState({ parsing: true, parseErr: "" });
-    GGC.stores.parse(url).then(p => {
-      this.save({ parsing: false, parsed: p, parseErr: "" });
-    }).catch(() => {
-      this.setState({
-        parsing: false, parsed: null,
-        parseErr: "ავტომატურად ვერ წავიკითხეთ — შეავსე ხელით, ბმულს ჩვენ თვითონ დავამუშავებთ"
-      });
+  /* ------------------------------------------------------------ game drafts */
+
+  addDraft(prefill) {
+    const d = Object.assign({
+      key: "d" + (++seq), gameId: "", store: "", storeUrl: "",
+      parsed: null, parsing: false, parseErr: "", f: {}
+    }, prefill || {});
+    this.save({ drafts: this.state.drafts.concat([d]) });
+    return d;
+  }
+  patchDraft(key, patch) {
+    this.save({ drafts: this.state.drafts.map(d => d.key === key ? Object.assign({}, d, patch) : d) });
+  }
+  setDraftField(key, k, v) {
+    const d = this.state.drafts.filter(x => x.key === key)[0];
+    if (d) this.patchDraft(key, { f: Object.assign({}, d.f, { [k]: v }) });
+  }
+  removeDraft(key) {
+    this.save({ drafts: this.state.drafts.filter(d => d.key !== key) });
+  }
+
+  /* Correcting a game already in the catalogue: open it as a draft carrying its
+     id, pre-filled with what is published. */
+  editOwned(g) {
+    const existing = this.state.drafts.filter(d => d.gameId === g.id)[0];
+    if (existing) return this.removeDraft(existing.key);
+    const store = Object.keys(g.stores || {}).map(k => g.stores[k]).filter(Boolean)[0] || "";
+    this.addDraft({
+      gameId: g.id,
+      store: store ? "yes" : "no",
+      storeUrl: store,
+      f: {
+        gName: g.name,
+        gGenre: (g.genres || []).join(", "),
+        gPlatforms: (g.platforms || []).join(", "),
+        gDate: g.releaseDate || (g.year ? String(g.year) : "TBD"),
+        gEngine: g.engine, gPrice: g.price, gAbout: g.about
+      }
     });
   }
 
-  /* Turns the wizard state into the payload the admin queue understands. */
+  parseDraft(key) {
+    const d = this.state.drafts.filter(x => x.key === key)[0];
+    if (!d) return;
+    const url = (d.storeUrl || "").trim();
+    if (!url) return this.patchDraft(key, { parseErr: "ჩასვი მაღაზიის ბმული" });
+    this.patchDraft(key, { parsing: true, parseErr: "", parsed: null });
+    GGC.stores.parse(url).then(
+      p => this.patchDraft(key, { parsing: false, parsed: p, parseErr: "" }),
+      () => this.patchDraft(key, {
+        parsing: false, parsed: null,
+        parseErr: "ავტომატურად ვერ წავიკითხეთ — შეავსე ხელით, ბმულს ჩვენ თვითონ დავამუშავებთ"
+      })
+    );
+  }
+
+  /* ---------------------------------------------------------------- payload */
+
+  gameFrom(d) {
+    const p = d.parsed, f = d.f, out = {};
+    if (d.gameId) out.gameId = d.gameId;
+    if (p) {
+      Object.assign(out, {
+        name: p.name, about: p.about, genres: p.genres, platforms: p.platforms,
+        status: p.status, releaseDate: p.releaseDate, year: p.year,
+        price: p.price, langs: p.langs, art: p.art, stores: p.stores,
+        mobile: !!p.mobile, source: p.source, parsedAt: new Date().toISOString()
+      });
+      return out;
+    }
+    if (f.gName) out.name = f.gName;
+    if (f.gGenre) out.genres = f.gGenre.split(",").map(x => x.trim()).filter(Boolean);
+    if (f.gPlatforms) out.platforms = f.gPlatforms.split(",").map(x => x.trim()).filter(Boolean);
+    if (f.gEngine) out.engine = f.gEngine;
+    if (f.gPrice) out.price = f.gPrice;
+    if (f.gAbout) out.about = f.gAbout;
+    if (f.gDate && !/tbd/i.test(f.gDate)) {
+      out.releaseDate = f.gDate;
+      out.year = Number((/(\d{4})/.exec(f.gDate) || [])[1]) || 0;
+      out.status = "released";
+    } else {
+      out.status = "upcoming";
+    }
+    if (d.storeUrl) {
+      const det = GGC.stores.detect(d.storeUrl);
+      if (det) out.stores = { [det.kind]: det.url };
+    }
+    return out;
+  }
+
   payload() {
-    const s = this.state, f = s.f, p = s.parsed;
+    const s = this.state, f = s.f;
     const company = {};
     CO_FIELDS.forEach(([k]) => { if (f[k]) company[k] = f[k]; });
+    if (f.size) company.size = f.size;
     if (company.founded) company.founded = Number(company.founded) || 0;
     company.kind = s.kind;
     if (s.roles.length) company.roles = s.roles;
@@ -401,48 +535,12 @@ class Component extends DCLogic {
     SOCIALS.forEach(([k]) => { if (f[k]) links[k] = f[k]; });
     if (Object.keys(links).length) company.links = links;
 
-    const game = {};
-    if (p) {
-      game.name = p.name;
-      game.about = p.about;
-      game.genres = p.genres;
-      game.platforms = p.platforms;
-      game.status = p.status;
-      game.releaseDate = p.releaseDate;
-      game.year = p.year;
-      game.price = p.price;
-      game.langs = p.langs;
-      game.art = p.art;
-      game.stores = p.stores;
-      game.mobile = !!p.mobile;
-      game.source = p.source;
-      game.parsedAt = new Date().toISOString();
-    } else {
-      if (f.gName) game.name = f.gName;
-      if (f.gGenre) game.genres = f.gGenre.split(",").map(x => x.trim()).filter(Boolean);
-      if (f.gPlatforms) game.platforms = f.gPlatforms.split(",").map(x => x.trim()).filter(Boolean);
-      if (f.gEngine) game.engine = f.gEngine;
-      if (f.gPrice) game.price = f.gPrice;
-      if (f.gAbout) game.about = f.gAbout;
-      if (f.gDate && !/tbd/i.test(f.gDate)) {
-        game.releaseDate = f.gDate;
-        game.year = Number((/(\d{4})/.exec(f.gDate) || [])[1]) || 0;
-        game.status = "released";
-      } else {
-        game.status = "upcoming";
-      }
-      if (s.storeUrl) {
-        const det = GGC.stores.detect(s.storeUrl);
-        if (det) game.stores = { [det.kind]: det.url };
-      }
-    }
+    const games = s.drafts
+      .map(d => this.gameFrom(d))
+      .filter(g => g.name || g.gameId);
 
     const picked = s.picked ? D.company(s.picked) : null;
-    const hasGame = s.mode === "game" || (s.mode === "new" && (p || f.gName));
-    const action = s.mode === "game" ? "new-game"
-      : s.mode === "edit" ? "edit-company"
-      : "new-company";
-
+    const action = s.mode === "new" ? "new-company" : s.mode === "edit" ? "edit-company" : "games";
     const out = {
       action: action,
       subject: picked ? (picked.legal || picked.name) : (company.legal || company.name || s.lookup),
@@ -450,14 +548,9 @@ class Component extends DCLogic {
       note: f.note || "",
       site: "myggc"
     };
-    if (action === "new-game") {
-      out.companyId = s.picked;
-      out.game = game;
-    } else {
-      out.company = company;
-      if (action === "edit-company") out.companyId = s.picked;
-      if (hasGame && Object.keys(game).length) out.pendingGame = game;
-    }
+    if (s.picked) out.companyId = s.picked;
+    if (action !== "games") out.company = company;
+    if (games.length) out.games = games;
     return out;
   }
 
@@ -472,8 +565,50 @@ class Component extends DCLogic {
     });
   }
 
+  /* ----------------------------------------------------------------- render */
+
+  draftRows() {
+    const s = this.state;
+    return s.drafts.map((d, i) => {
+      const yes = d.store === "yes", no = d.store === "no";
+      const editing = !!d.gameId;
+      return {
+        title: d.f.gName || (editing ? "თამაშის შესწორება" : "ახალი თამაში " + (i + 1)),
+        border: editing ? "#f3e2b8" : "#dfe3e4",
+        bg: editing ? "#fffdf7" : "#fff",
+        remove: () => this.removeDraft(d.key),
+        pickStore: () => this.patchDraft(d.key, { store: "yes" }),
+        pickManual: () => this.patchDraft(d.key, { store: "no" }),
+        yesBg: yes ? "#16181b" : "#fff", yesFg: yes ? "#fff" : "#41464c", yesBorder: yes ? "#16181b" : "#dfe3e4",
+        noBg: no ? "#16181b" : "#fff", noFg: no ? "#fff" : "#41464c", noBorder: no ? "#16181b" : "#dfe3e4",
+        storeShow: yes ? "block" : "none",
+        manualShow: no ? "block" : "none",
+        storeUrl: d.storeUrl,
+        onStoreUrl: e => this.patchDraft(d.key, { storeUrl: e.target.value, parsed: null, parseErr: "" }),
+        parse: () => this.parseDraft(d.key),
+        parseLabel: d.parsing ? "იკითხება…" : (d.parsed ? "ხელახლა წაკითხვა" : "წაკითხვა"),
+        busyShow: d.parsing ? "flex" : "none",
+        okShow: d.parsed && !d.parsing ? "block" : "none",
+        errShow: d.parseErr && !d.parsing ? "block" : "none",
+        parseErr: d.parseErr,
+        parsedFields: d.parsed ? [
+          { k: "სახელი", v: d.parsed.name },
+          { k: "ჟანრი", v: (d.parsed.genres || []).join(", ") },
+          { k: "პლატფორმა", v: (d.parsed.platforms || []).join(", ") },
+          { k: "გამოშვება", v: d.parsed.releaseDate || (d.parsed.status === "upcoming" ? "TBD" : "") },
+          { k: "ფასი", v: d.parsed.price },
+          { k: "capsule", v: d.parsed.art && d.parsed.art.capsule ? "მაღაზიიდან" : "" }
+        ].filter(x => x.v) : [],
+        fields: GAME_FIELDS.map(([k, label, ph]) => ({
+          label, ph, value: d.f[k] || "",
+          onInput: e => this.setDraftField(d.key, k, e.target.value)
+        }))
+      };
+    });
+  }
+
   renderVals() {
-    const s = this.state, f = s.f, p = s.parsed;
+    const s = this.state, f = s.f;
     const term = s.lookup.trim().toLowerCase();
     const matches = term.length > 1
       ? D.companies().filter(c => (c.name + " " + c.legal + " " + c.regId).toLowerCase().indexOf(term) >= 0).slice(0, 6)
@@ -487,17 +622,32 @@ class Component extends DCLogic {
     const picked = s.picked ? D.company(s.picked) : null;
     const res = s.result;
 
-    // Live preview of the card the entry will produce, from whichever source
-    // filled it in — the parser or the form.
+    // Everything the studio already has, so nothing is invisible at the point
+    // where someone is deciding what to add or correct.
+    const ownedGames = picked ? D.sortGames(D.gamesOf(picked.id)) : [];
+    const owned = ownedGames.map(g => {
+      const art = D.gameArt(g);
+      const open = s.drafts.some(d => d.gameId === g.id);
+      return {
+        name: g.name,
+        meta: [D.releaseLabel(g), (g.platforms || []).join(", ")].filter(Boolean).join(" · "),
+        art: art ? 'url("' + art + '") center/cover no-repeat #e8eaec' : "#e8eaec",
+        btnLabel: open ? "შესწორება მიმდინარეობს" : "შესწორება",
+        btnBg: open ? "#fdb813" : "#fff",
+        btnFg: open ? "#16181b" : "#41464c",
+        btnBorder: open ? "#fdb813" : "#dfe3e4",
+        edit: () => this.editOwned(g)
+      };
+    });
+
+    const drafts = this.draftRows();
+    const firstDraft = s.drafts[0];
     const pvName = picked ? picked.name : (f.name || f.legal || s.lookup || "სტუდიის სახელი");
-    const pvGameName = p ? p.name : (f.gName || "თამაშის სახელი");
-    const pvGameMeta = p
-      ? [(p.genres || []).join(", "), (p.platforms || []).join(", "), p.releaseDate || "TBD"].filter(Boolean).join(" · ")
-      : ([f.gGenre, f.gPlatforms, f.gDate].filter(Boolean).join(" · ") || "ჟანრი · პლატფორმა · თარიღი");
+    const pvGame = firstDraft ? (firstDraft.parsed || null) : null;
 
     return {
       draftNote: s.step > 0 ? "დრაფტი ინახება" : "",
-      crumbs: ["ქმედება", "იდენტიფიკაცია", "დეტალები", "თამაში", "გადახედვა"].map((t, i) => ({
+      crumbs: ["ქმედება", "იდენტიფიკაცია", "დეტალები", "თამაშები", "გადახედვა"].map((t, i) => ({
         n: "0" + (i + 1), t,
         bg: s.step === i ? "#16181b" : (s.step > i ? "#e6f2f9" : "#fff"),
         fg: s.step === i ? "#fff" : (s.step > i ? "#146590" : "#5a5f65"),
@@ -520,25 +670,33 @@ class Component extends DCLogic {
         name: m.legal || m.name,
         sub: [U.KIND_LABEL[m.kind], m.city, D.gamesOf(m.id).length + " თამაში"].filter(Boolean).join(" · "),
         action: s.mode === "game" ? "თამაშის მიმაგრება" : "ედიტის მოთხოვნა",
-        // Attaching a game jumps straight to the game step; an edit opens the
-        // form pre-filled with what the catalogue already holds.
-        pick: () => this.save({
-          picked: m.id,
-          step: s.mode === "game" ? 3 : 2,
-          kind: m.kind,
-          roles: s.mode === "game" ? s.roles : (m.roles || []),
-          f: s.mode === "game" ? s.f : Object.assign({}, s.f, {
-            legal: m.legal, regId: m.regId, name: m.name, city: m.city,
-            founded: m.founded ? String(m.founded) : "", size: m.size,
-            about: m.about, website: m.website, email: m.email
-          }, m.links || {})
-        })
+        // Attaching games jumps to the games step with one blank draft open;
+        // an edit opens the details already filled in.
+        pick: () => {
+          const base = this.fillFrom(m);
+          if (s.mode === "game") {
+            this.save(Object.assign({ step: 3 }, base, {
+              drafts: s.drafts.length ? s.drafts : [{
+                key: "d" + (++seq), gameId: "", store: "", storeUrl: "",
+                parsed: null, parsing: false, parseErr: "", f: {}
+              }]
+            }));
+          } else {
+            this.save(Object.assign({ step: 2 }, base));
+          }
+        }
       })),
       noMatchShow: term.length > 1 && !matches.length ? "block" : "none",
       createNew: () => this.save({ mode: "new", step: 2, f: Object.assign({}, f, { legal: s.lookup }) }),
 
       step2Title: isNew ? "სტუდიის მონაცემები" : "შესწორებული მონაცემები",
       fields,
+      selectFields: s.kind === "solo" ? [] : [{
+        label: "გუნდის ზომა",
+        value: f.size || "",
+        options: [{ v: "", label: "აირჩიე" }].concat(SIZES.map(v => ({ v, label: v }))),
+        onChange: e => this.set("size", e.target.value)
+      }],
       kindHint: KIND_HINT[s.kind],
       rolesLabel: s.kind === "solo" ? "რას აკეთებ" : "რას აკეთებთ",
       roleChips: roleList.map(r => ({
@@ -555,30 +713,14 @@ class Component extends DCLogic {
       next: () => this.save({ step: Math.min(4, s.step + 1) }),
       back: () => this.save({ step: Math.max(0, s.step - 1) }),
 
-      storeYes: s.store === "yes",
-      storeNo: s.store === "no",
-      hasStoreYes: () => this.save({ store: "yes" }),
-      hasStoreNo: () => this.save({ store: "no" }),
-      yesBg: s.store === "yes" ? "#16181b" : "#fff", yesFg: s.store === "yes" ? "#fff" : "#41464c",
-      yesBorder: s.store === "yes" ? "#16181b" : "#dfe3e4",
-      noBg: s.store === "no" ? "#16181b" : "#fff", noFg: s.store === "no" ? "#fff" : "#41464c",
-      noBorder: s.store === "no" ? "#16181b" : "#dfe3e4",
-      storeUrl: s.storeUrl,
-      onStoreUrl: e => this.save({ storeUrl: e.target.value, parsed: null, parseErr: "" }),
-      parse: () => this.runParse(),
-      parseLabel: s.parsing ? "იკითხება…" : (p ? "ხელახლა წაკითხვა" : "წაკითხვა"),
-      parsedShow: p || s.parseErr ? "block" : "none",
-      parsedFields: p ? [
-        { k: "სახელი", v: p.name },
-        { k: "ჟანრი", v: (p.genres || []).join(", ") },
-        { k: "პლატფორმა", v: (p.platforms || []).join(", ") },
-        { k: "გამოშვება", v: p.releaseDate || (p.status === "upcoming" ? "TBD" : "") },
-        { k: "ფასი", v: p.price },
-        { k: "capsule", v: p.art && p.art.capsule ? "მაღაზიიდან" : "" }
-      ].filter(x => x.v) : [{ k: "შენიშვნა", v: s.parseErr }],
-      gameFields: GAME_FIELDS.map(([k, label, ph]) => ({
-        label, ph, value: f[k] || "", onInput: e => this.set(k, e.target.value)
-      })),
+      gamesIntro: picked
+        ? "ამ სტუდიის ყველა თამაში ქვემოთაა. შეგიძლია რომელიმე შეასწორო, ან დაამატო რამდენიც გინდა."
+        : "დაამატე იმდენი თამაში, რამდენიც გაქვს. მაღაზიის ლინკიდან ყველაფერი ავტომატურად ივსება.",
+      ownedShow: owned.length ? "block" : "none",
+      ownedCount: owned.length,
+      owned,
+      drafts,
+      addGame: () => this.addDraft(),
 
       pvName: pvName,
       pvSub: picked
@@ -588,9 +730,13 @@ class Component extends DCLogic {
       pvAccent: ACC[s.kind],
       pvKind: U.KIND_LABEL[s.kind],
       pvRoles: s.roles.length ? s.roles.join(", ") : "როლები არ არის მითითებული",
-      pvGames: (p || f.gName) ? 1 : (picked ? D.gamesOf(picked.id).length : 0),
-      pvGameName: pvGameName,
-      pvGameMeta: pvGameMeta,
+      pvGames: (picked ? ownedGames.length : 0) + s.drafts.filter(d => !d.gameId).length,
+      pvGameName: pvGame ? pvGame.name : ((firstDraft && firstDraft.f.gName) || "თამაშის სახელი"),
+      pvGameMeta: pvGame
+        ? [(pvGame.genres || []).join(", "), (pvGame.platforms || []).join(", "), pvGame.releaseDate || "TBD"].filter(Boolean).join(" · ")
+        : (firstDraft
+          ? ([firstDraft.f.gGenre, firstDraft.f.gPlatforms, firstDraft.f.gDate].filter(Boolean).join(" · ") || "ჟანრი · პლატფორმა · თარიღი")
+          : "თამაში არ დაგიმატებია"),
 
       kind0: () => this.save({ kind: "company", roles: [] }),
       kind1: () => this.save({ kind: "team", roles: [] }),
@@ -612,9 +758,8 @@ class Component extends DCLogic {
       retryLabel: s.sending ? "იგზავნება…" : "ხელახლა გაგზავნა",
 
       restart: () => this.setState({
-        step: 0, mode: "", lookup: "", picked: null, store: "", storeUrl: "",
-        parsed: null, parseErr: "", sent: false, f: {}, kind: "company", roles: [],
-        result: null, sending: false
+        step: 0, mode: "", lookup: "", picked: null, drafts: [],
+        sent: false, sending: false, f: {}, kind: "company", roles: [], result: null
       })
     };
   }
