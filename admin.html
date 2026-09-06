@@ -123,6 +123,7 @@
                   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center">
                     <button type="button" onClick="{{ q.approve }}" style="display:{{ q.actShow }};border:0;cursor:pointer;background:#4c9a5e;color:#fff;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">დადასტურება</button>
                     <button type="button" onClick="{{ q.reject }}" style="display:{{ q.actShow }};border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">უარი</button>
+                    <button type="button" onClick="{{ q.ask }}" style="display:{{ q.actShow }};border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 18px;font-family:inherit;font-size:15px;font-weight:600">{{ q.askLabel }}</button>
                     <a href="{{ q.url }}" target="_blank" rel="noopener" style="border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 18px;font-size:15px;font-weight:600">GitHub-ზე გახსნა ↗</a>
                     <span style="display:{{ q.stateShow }};font-size:14px;color:#9ede9e">{{ q.stateText }}</span>
                   </div>
@@ -334,7 +335,7 @@ class Component extends DCLogic {
     tab: "queue", open: null, q: "", sort: "", edit: null, editKind: "company",
     queue: [], decisions: {}, companies: [], games: [], dirty: 0,
     status: "", statusColor: "#8b949c", publishing: false, syncing: "",
-    pending: null, uploading: false
+    pending: null, uploading: false, asking: 0
   };
 
   componentDidMount() {
@@ -385,9 +386,11 @@ class Component extends DCLogic {
     return id;
   }
 
-  applyPayload(p) {
-    const companies = this.state.companies.slice();
-    const games = this.state.games.slice();
+  /* Takes the arrays to work from rather than reading state, so two approvals
+     in quick succession both build on the previous one instead of racing. */
+  applyPayload(p, fromCompanies, fromGames) {
+    const companies = fromCompanies.slice();
+    const games = fromGames.slice();
     const now = U.today();
 
     if (p.action === "new-company") {
@@ -397,6 +400,16 @@ class Component extends DCLogic {
       }));
       companies.push(c);
       p.appliedId = c.id;
+      // A studio that submitted its first game in the same form: the game has
+      // no id yet and nothing to hang off until the company exists, so it is
+      // created here rather than quietly dropped.
+      if (p.pendingGame && p.pendingGame.name) {
+        games.push(D.normGame(Object.assign({}, p.pendingGame, {
+          id: this.nextId(p.pendingGame.name, games),
+          studioId: c.id,
+          validated: now, created: now, updated: now, verified: true
+        })));
+      }
     } else if (p.action === "edit-company") {
       const i = companies.findIndex(c => c.id === p.companyId);
       if (i < 0) throw new Error("კომპანია ვერ მოიძებნა: " + p.companyId);
@@ -423,18 +436,21 @@ class Component extends DCLogic {
   }
 
   approve(item) {
-    try {
-      const next = this.applyPayload(item.payload);
-      this.setState(s => ({
-        companies: next.companies,
-        games: next.games,
-        dirty: s.dirty + 1,
-        decisions: Object.assign({}, s.decisions, { [item.number]: "approved" })
-      }));
-      this.say("დადასტურდა — დარჩა ატვირთვა", "#9ede9e");
-    } catch (e) {
-      this.say(e.message, "#f0a8a8");
-    }
+    let failed = "";
+    this.setState(s => {
+      try {
+        const next = this.applyPayload(item.payload, s.companies, s.games);
+        return {
+          companies: next.companies,
+          games: next.games,
+          dirty: s.dirty + 1,
+          decisions: Object.assign({}, s.decisions, { [item.number]: "approved" })
+        };
+      } catch (e) {
+        failed = e.message;
+        return null;
+      }
+    }, () => this.say(failed || "დადასტურდა — დარჩა ატვირთვა", failed ? "#f0a8a8" : "#9ede9e"));
   }
 
   reject(item) {
@@ -443,6 +459,23 @@ class Component extends DCLogic {
       decisions: Object.assign({}, s.decisions, { [item.number]: "rejected" })
     }));
     this.say("მონიშნულია უარით — დარჩა ატვირთვა", "#f4cd77");
+  }
+
+  /* Posts straight away and leaves the issue open — the point is to keep
+     talking to the submitter, not to decide yet. */
+  ask(item) {
+    const text = window.prompt("რა უნდა დააზუსტოს?", "გამარჯობა! ერთი დეტალი გვჭირდება: ");
+    if (!text) return;
+    this.setState({ asking: item.number });
+    GH.comment(item.number, text)
+      .then(() => {
+        this.setState({ asking: 0 });
+        this.say("კითხვა გაიგზავნა #" + item.number + "-ზე", "#9ede9e");
+      })
+      .catch(e => {
+        this.setState({ asking: 0 });
+        this.say("ვერ გაიგზავნა: " + e.message, "#f0a8a8");
+      });
   }
 
   /* ------------------------------------------------- commit + close the issues */
@@ -672,6 +705,15 @@ class Component extends DCLogic {
       } else {
         const cur = isEdit ? D.company(p.companyId) : null;
         diff = GGC.submit.diff(cur, p.company || {}, CO_LABELS);
+        // A first game submitted alongside a new studio is approved with it,
+        // so it has to be visible before anyone presses დადასტურება.
+        if (p.pendingGame && p.pendingGame.name) {
+          diff = diff.concat([{
+            key: "pendingGame", k: "თანდართული თამაში", old: "—",
+            "new": [p.pendingGame.name, (p.pendingGame.platforms || []).join(", "),
+              p.pendingGame.releaseDate || "TBD"].filter(Boolean).join(" · ")
+          }]);
+        }
       }
       const kind = item.malformed ? "შემოწმება" : isEdit ? "ედიტი" : isGame ? "თამაში" : "ახალი";
       const accent = isEdit ? "#fdb813" : isGame ? "#ee2626" : "#1d96d3";
@@ -694,7 +736,9 @@ class Component extends DCLogic {
         stateText: decided === "approved" ? "✔ დადასტურებული — ატვირთვის მოლოდინში" : decided ? "უარყოფილი — ატვირთვის მოლოდინში" : "",
         toggle: () => this.setState(st => ({ open: st.open === item.number ? null : item.number })),
         approve: () => this.approve(item),
-        reject: () => this.reject(item)
+        reject: () => this.reject(item),
+        ask: () => this.ask(item),
+        askLabel: s.asking === item.number ? "იგზავნება…" : "დაზუსტების თხოვნა"
       };
     });
   }

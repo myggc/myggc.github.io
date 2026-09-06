@@ -1,13 +1,35 @@
-# Optional submission relay
+# Submission relay — so visitors need no account at all
 
-The site does **not** need this. Without it, `submit.html` finishes by handing
-the visitor a prefilled GitHub issue, a Telegram link and a copy-JSON button —
-all three land in the same place the admin panel reads.
+The goal is that someone can fill in `submit.html` and press send. No GitHub
+account, no signup, no leaving the site.
 
-Deploy this worker only to remove that last step for people who have no GitHub
-account: the form then POSTs straight through and the visitor sees "გაიგზავნა".
+A page served from GitHub Pages cannot do that on its own: creating an issue
+needs a GitHub token, and a token shipped inside the page would let anyone post
+as GGC. So exactly one small thing has to hold that secret. Pick whichever of
+the two is easier for you — they behave identically and the site cannot tell
+them apart.
 
-## Deploy (Cloudflare Workers, free tier)
+Until one is deployed the form still works, but it ends by asking the visitor
+to finish the delivery themselves (Telegram, copy the JSON, or GitHub if they
+happen to have an account). That is the fallback, not the goal.
+
+---
+
+## Option A — Google Apps Script (no installs, ~3 minutes)
+
+Deploys from a browser. Use this one if you do not want to touch a terminal.
+
+1. Open [script.google.com](https://script.google.com) → **New project**
+2. Paste [`apps-script.gs`](apps-script.gs) over `Code.gs`
+3. **Project Settings → Script Properties → Add script property**
+   - `GITHUB_TOKEN` = a fine-grained token for `myggc/myggc.github.io` with
+     **Issues: Read and write** and nothing else
+4. **Deploy → New deployment → Web app**
+   - *Execute as*: **Me**
+   - *Who has access*: **Anyone**
+5. Copy the `/exec` URL
+
+## Option B — Cloudflare Worker (needs npm)
 
 ```bash
 npm create cloudflare@latest ggc-submit -- --type hello-world
@@ -17,25 +39,31 @@ npx wrangler secret put GITHUB_TOKEN
 npx wrangler deploy
 ```
 
-`GITHUB_TOKEN` is a fine-grained personal access token limited to
-`myggc/myggc.github.io` with **Issues: Read and write**. Nothing else.
+Optional bindings: `OWNER`, `REPO`, `LABEL` as vars; bind a KV namespace as
+`RATE` to throttle one IP to 5 submissions an hour.
 
-Then set the URL in [`assets/js/ggc-core.js`](../assets/js/ggc-core.js):
+---
+
+## Then, either way
+
+Put the URL in [`assets/js/ggc-core.js`](../assets/js/ggc-core.js):
 
 ```js
-submitEndpoint: "https://ggc-submit.<your-subdomain>.workers.dev",
+submitEndpoint: "https://…",
 ```
 
-## Optional bindings
+That is the only change the site needs. Reload `submit.html`, send a test
+submission, and it should appear in `admin.html` → ვალიდაციის რიგი.
 
-| binding | type | effect |
-| --- | --- | --- |
-| `OWNER`, `REPO`, `LABEL` | vars | override the defaults baked into the worker |
-| `RATE` | KV namespace | throttles one IP to 5 submissions per hour |
+## Notes
 
-## Why a relay at all
-
-The token has to stay server side — a token shipped in the page would let
-anyone open issues as GGC. The worker is the smallest thing that can hold it.
-Any other host works the same way; the site only cares that the endpoint
-accepts `POST` with a JSON body and answers `2xx`.
+- The site posts the payload as `text/plain` on purpose. That keeps it a
+  "simple" CORS request so the browser sends no preflight — which is what makes
+  Apps Script usable as an endpoint. Both relays read the raw body, so the
+  header costs nothing.
+- Both relays validate the action and subject, cap the body at 24 KB and
+  throttle, so an open endpoint cannot be used to spam the issue tracker.
+- Both produce the same issue body the site would have produced by hand, so a
+  submission looks identical to the admin queue however it arrived.
+- Rotate the token by replacing the secret; nothing in the repository needs to
+  change.

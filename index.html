@@ -24,8 +24,6 @@
   a { color:#146590; text-decoration:none; }
   a:hover { color:#0f5273; }
   @keyframes ggcSpin { to { transform:rotate(360deg) } }
-  @keyframes ggcSpinSlow { to { transform:rotate(360deg) } }
-  @keyframes ggcBob { 0%{transform:translateY(0)} 50%{transform:translateY(-16px)} 100%{transform:translateY(0)} }
   @keyframes ggcFade { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
   @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important; } }
 </style>
@@ -55,11 +53,6 @@
       <div style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:radial-gradient(120% 90% at 82% 8%,#e3f1fa 0%,rgba(227,241,250,0) 58%),radial-gradient(90% 80% at 4% 96%,#eef6e6 0%,rgba(238,246,230,0) 60%),linear-gradient(180deg,#fafaf8 0%,#f1f1ed 100%)"></div>
       <div style="position:absolute;right:0;top:-16%;width:min(52vw,600px);aspect-ratio:1;opacity:.07;animation:ggcSpin 75s linear infinite">
         <img src="assets/brand/ggc-mark.svg" alt="" style="width:100%;height:100%;display:block">
-      </div>
-      <div style="position:absolute;left:6vw;bottom:8%;width:74px;height:74px;border:7px solid #1d96d3;border-radius:22px;opacity:.13;animation:ggcSpin 90s linear infinite"></div>
-      <div style="position:absolute;right:30vw;bottom:14%;width:58px;height:58px;border:7px solid #ee2626;border-radius:50%;opacity:.12;animation:ggcBob 14s ease-in-out infinite"></div>
-      <div style="position:absolute;left:34vw;top:9%;width:52px;height:52px;opacity:.14;animation:ggcSpin 74s linear infinite reverse">
-        <div style="position:absolute;inset:0;clip-path:polygon(50% 0,100% 100%,0 100%);border:0;background:#fdb813;-webkit-mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);padding:7px"></div>
       </div>
     </div>
     <div style="position:relative;max-width:900px">

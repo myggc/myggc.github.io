@@ -427,6 +427,22 @@
 
   /* ------------------------------------------------------------------ submit */
 
+  /* Renders a field for a human reading the queue, not for a machine: a list
+     becomes "a, b", a links object becomes "telegram: @x", a kind becomes its
+     Georgian label. Anything unrecognised still falls back to its text. */
+  function fmtVal(v) {
+    if (v === undefined || v === null) return "";
+    if (Array.isArray(v)) return v.join(", ");
+    if (typeof v === "boolean") return v ? "კი" : "არა";
+    if (typeof v === "object") {
+      return Object.keys(v)
+        .filter(function (k) { return v[k]; })
+        .map(function (k) { return (SOC[k] || STORE_LABEL[k] || k) + ": " + v[k]; })
+        .join(", ");
+    }
+    return KIND_LABEL[v] || String(v);
+  }
+
   /* Field-by-field comparison against the published record, so the admin queue
      can show "now" vs "new" instead of a wall of values. */
   function diff(current, next, labels) {
@@ -434,12 +450,9 @@
     Object.keys(next || {}).forEach(function (k) {
       var b = next[k];
       if (b === undefined || b === null || b === "") return;
-      var a = current ? current[k] : "";
-      var sa = Array.isArray(a) ? a.join(", ")
-        : (a && typeof a === "object" ? JSON.stringify(a) : String(a == null ? "" : a));
-      var sb = Array.isArray(b) ? b.join(", ")
-        : (b && typeof b === "object" ? JSON.stringify(b) : String(b));
-      if (sa === sb) return;
+      var sa = fmtVal(current ? current[k] : "");
+      var sb = fmtVal(b);
+      if (sa === sb || sb === "") return;
       out.push({ key: k, k: (labels && labels[k]) || k, old: sa || "—", "new": sb });
     });
     return out;
@@ -468,22 +481,33 @@
       "&body=" + encodeURIComponent(i.body);
   }
 
-  /* Delivery ladder: the configured endpoint first (no GitHub account needed
-     on the visitor's side), otherwise a prefilled issue plus copy/Telegram. */
+  /* Delivery ladder: the configured endpoint first — that is the path where the
+     visitor needs no account of any kind — and only if it is missing or down do
+     we fall back to something they have to finish by hand.
+
+     The POST deliberately uses text/plain. That keeps it a "simple" CORS
+     request, so the browser sends no preflight, which is what lets a Google
+     Apps Script web app work as the endpoint without any extra plumbing. Both
+     recipes in worker/ read the raw body, so the header costs nothing. */
   function deliver(p) {
     p.submittedAt = new Date().toISOString();
-    var manual = function () {
-      return { via: "manual", url: issueUrl(p), json: JSON.stringify(p, null, 2) };
+    var manual = function (reason) {
+      return { via: "manual", url: issueUrl(p), json: JSON.stringify(p, null, 2), reason: reason || "" };
     };
-    if (!config.submitEndpoint) return Promise.resolve(manual());
+    if (!config.submitEndpoint) return Promise.resolve(manual("no-endpoint"));
     return fetch(config.submitEndpoint, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(p)
     }).then(function (r) {
       if (!r.ok) throw new Error("endpoint " + r.status);
-      return { via: "endpoint" };
-    }).catch(manual);
+      return r.json().catch(function () { return {}; });
+    }).then(function (j) {
+      if (j && j.error) throw new Error(j.error);
+      return { via: "endpoint", url: (j && j.url) || "" };
+    }).catch(function (e) {
+      return manual(e && e.message ? e.message : "endpoint unreachable");
+    });
   }
 
   window.GGC = {
@@ -503,6 +527,6 @@
       raw: function () { return cache.raw || {}; }
     },
     stores: { detect: detect, parse: parseStore, steamFromJson: steamFromJson, viaProxy: viaProxy, fetchVia: fetchVia, jsonFrom: jsonFrom },
-    submit: { diff: diff, deliver: deliver, issueUrl: issueUrl, payloadToIssue: payloadToIssue }
+    submit: { diff: diff, deliver: deliver, issueUrl: issueUrl, payloadToIssue: payloadToIssue, fmtVal: fmtVal }
   };
 })();
