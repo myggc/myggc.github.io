@@ -98,30 +98,35 @@
                   <span style="flex:none;font-family:'Space Grotesk',sans-serif;font-size:18px;color:#6cc0e8">{{ q.chevron }}</span>
                 </button>
                 <div style="display:{{ q.show }};padding:0 18px 18px">
-                  <div style="display:{{ q.diffShow }};background:#171a1e;border:1px solid #2f353c;border-radius:11px;overflow:hidden">
-                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:1px;background:#2f353c;font-size:13px;font-weight:600;color:#8b949c">
-                      <div style="background:#1d2126;padding:10px 14px">ველი</div>
-                      <div style="background:#1d2126;padding:10px 14px">ახლა</div>
-                      <div style="background:#1d2126;padding:10px 14px">ახალი</div>
-                    </div>
-                    <sc-for list="{{ q.diff }}" as="d" hint-placeholder-count="3">
-                      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:1px;background:#2f353c;font-size:14px">
-                        <div style="background:#171a1e;padding:11px 14px;color:#8b949c;word-break:break-word;overflow-wrap:anywhere">{{ d.k }}</div>
-                        <div style="background:#171a1e;padding:11px 14px;color:#c6ccd3;text-decoration:line-through;word-break:break-word;overflow-wrap:anywhere">{{ d.old }}</div>
-                        <div style="background:#16221a;padding:11px 14px;color:#9ede9e;font-weight:600;word-break:break-word;overflow-wrap:anywhere">{{ d.new }}</div>
+                  <div style="display:{{ q.sectionsShow }}">
+                    <sc-for list="{{ q.sections }}" as="sec" hint-placeholder-count="2">
+                      <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;overflow:hidden;margin-bottom:12px">
+                        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:14px 16px;background:#1d2126;border-bottom:1px solid #2f353c">
+                          <img src="{{ sec.pic }}" alt="" style="display:{{ sec.picShow }};width:{{ sec.picW }};aspect-ratio:{{ sec.picRatio }};border-radius:{{ sec.picRadius }};object-fit:cover;background:#20242a;flex:none">
+                          <div style="flex:1 1 160px;min-width:0">
+                            <div style="font-size:16px;font-weight:600;color:#fff;word-break:break-word">{{ sec.title }}</div>
+                            <div style="margin-top:3px;font-size:13px;color:#8b949c">{{ sec.sub }}</div>
+                          </div>
+                          <span style="flex:none;font-size:13px;color:#6a737c">{{ sec.count }}</span>
+                        </div>
+                        <div style="display:{{ sec.shotsShow }};flex-wrap:wrap;gap:7px;padding:12px 16px;border-bottom:1px solid #2f353c">
+                          <sc-for list="{{ sec.shots }}" as="sh" hint-placeholder-count="3">
+                            <img src="{{ sh.u }}" alt="" style="width:112px;aspect-ratio:16/9;object-fit:cover;border-radius:7px;background:#20242a">
+                          </sc-for>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:1px;background:#2f353c">
+                          <sc-for list="{{ sec.rows }}" as="r" hint-placeholder-count="6">
+                            <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;background:#171a1e;padding:11px 16px;font-size:14px;line-height:1.6">
+                              <span style="flex:0 0 148px;font-size:13px;color:#8b949c">{{ r.k }}</span>
+                              <span style="display:{{ r.oldShow }};flex:0 1 auto;color:#6a737c;text-decoration:line-through;word-break:break-word;overflow-wrap:anywhere">{{ r.old }}</span>
+                              <span style="display:{{ r.textShow }};flex:1 1 200px;min-width:0;color:{{ r.color }};word-break:break-word;overflow-wrap:anywhere">{{ r.new }}</span>
+                              <a href="{{ r.href }}" target="_blank" rel="noopener" style="display:{{ r.linkShow }};flex:1 1 200px;min-width:0;color:#6cc0e8;word-break:break-all">{{ r.new }}</a>
+                            </div>
+                          </sc-for>
+                        </div>
+                        <div style="display:{{ sec.emptyShow }};padding:14px 16px;font-size:14px;color:#8b949c">ცვლილება არ არის — მხოლოდ სურათი.</div>
                       </div>
                     </sc-for>
-                  </div>
-                  <div style="display:{{ q.newShow }};background:#171a1e;border:1px solid #2f353c;border-radius:11px;padding:16px">
-                    <div style="font-size:14px;color:#8b949c;margin-bottom:12px">ახალი ჩანაწერი — შედარება არ არის</div>
-                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr));gap:8px">
-                      <sc-for list="{{ q.diff }}" as="d" hint-placeholder-count="3">
-                        <div style="background:#1d2126;border-radius:9px;padding:12px 14px">
-                          <div style="font-size:13px;color:#8b949c">{{ d.k }}</div>
-                          <div style="margin-top:4px;font-size:15px;font-weight:600;color:#fff;word-break:break-word;overflow-wrap:anywhere">{{ d.new }}</div>
-                        </div>
-                      </sc-for>
-                    </div>
                   </div>
                   <div style="display:{{ q.emptyShow }};background:#171a1e;border:1px solid #2f353c;border-radius:11px;padding:16px;font-size:14px;line-height:1.65;color:#c6ccd3">ამ მოთხოვნაში ცვლილება აღარ არის — ყველაფერი უკვე გამოქვეყნებულია. დახურვისთვის დააჭირე „უარს“.</div>
                   <div style="display:{{ q.noteShow }};margin-top:12px;background:#171a1e;border:1px solid #2f353c;border-radius:11px;padding:14px;font-size:14px;line-height:1.6;color:#c6ccd3">{{ q.note }}</div>
@@ -487,7 +492,14 @@ const GAME_LABELS = {
   name: "სახელი", studioId: "სტუდია", publisherId: "გამომცემელი", status: "სტატუსი",
   releaseDate: "გამოშვების თარიღი", year: "წელი", genres: "ჟანრი", platforms: "პლატფორმა",
   engine: "ძრავი", price: "ფასი", langs: "ენები", about: "აღწერა", stores: "მაღაზიები",
-  localArt: "ლოკალური არტი", mobile: "მობაილი", verified: "ვერიფიცირებული", validated: "ვალიდაცია"
+  localArt: "ლოკალური არტი", mobile: "მობაილი", verified: "ვერიფიცირებული", validated: "ვალიდაცია",
+  /* A payload can carry more than the form asks for — the store parser fills
+     credits and bookkeeping too. Without a label these showed up in the review
+     as raw English keys, which is the one place everything should be readable. */
+  aboutEn: "აღწერა (English)", developers: "დეველოპერი", publishers: "გამომცემელი",
+  website: "ვებსაიტი", email: "ელფოსტა", type: "ჩანაწერის ტიპი", source: "წყარო",
+  parsedAt: "წაკითხვის დრო", active: "აქტიური", created: "შექმნილი", updated: "განახლებული",
+  art: "სურათები", id: "ID", studio: "სტუდია"
 };
 
 class Component extends DCLogic {
@@ -1241,6 +1253,92 @@ class Component extends DCLogic {
 
   /* ------------------------------------------------------------------- render */
 
+  /* A submission used to be reviewed as one flat grid of equal boxes: the
+     studio's fields, a "—" spacer, and the game's fields, all the same size and
+     in whatever order the payload happened to list them. A description filled a
+     column the height of the screen while the picture beside it was a hundred
+     characters of URL, and nothing said where the studio ended and the game
+     began. Nobody can approve what they cannot read.
+
+     So the payload is laid out the way it is shaped: the studio, then a card per
+     game. Pictures are shown as pictures, links are links, and the values sit in
+     a label-and-value list rather than a grid of tiles. */
+  queueSections(item, p, isEdit, entries) {
+    if (item.malformed) return [];
+    const IMG = { logo: "logo", "art.capsule": "capsule", "art.hero": "hero", "art.portrait": "portrait" };
+    const build = (title, sub, cur, next, labels, isGameSec) => {
+      const rows = GGC.submit.diff(cur, next, labels);
+      const art = {};
+      const shots = [];
+      const shown = [];
+      rows.forEach(r => {
+        const key = r.key || "";
+        if (IMG[key]) { art[IMG[key]] = r["new"]; return; }
+        if (key === "art.shots") {
+          String(r["new"]).split(/,\s*/).filter(Boolean).slice(0, 6).forEach(u => shots.push({ u }));
+          return;
+        }
+        const v = String(r["new"] || "");
+        const href = /^https?:\/\//.test(v) ? v : (/^(www\.|[\w-]+\.[a-z]{2,}\/)/i.test(v) ? "https://" + v : "");
+        shown.push({
+          /* "სოც. ქსელები · Discord" wrapped onto two lines in a column that
+             already sits inside the studio's own card. The group name is what
+             the card is; the platform is what the row is. */
+          k: /^(links|stores)\./.test(key) ? r.k.split(" · ").pop() : r.k,
+          old: r.old,
+          "new": v,
+          // Only an edit has a "before"; a new record has nothing to strike out.
+          oldShow: isEdit && r.old && r.old !== "—" ? "inline" : "none",
+          // Green only where there is an old value to compare against, so on an
+          // edit the eye lands on what actually moved.
+          color: isEdit && r.old && r.old !== "—" ? "#9ede9e" : "#e9ecee",
+          linkShow: href ? "inline" : "none",
+          textShow: href ? "none" : "inline",
+          href: href
+        });
+      });
+      const pic = isGameSec ? (art.capsule || art.hero || "") : (art.logo || "");
+      return {
+        title: title,
+        sub: sub,
+        count: shown.length + " ველი",
+        picShow: pic ? "block" : "none",
+        pic: pic,
+        picW: isGameSec ? "184px" : "64px",
+        picRatio: isGameSec ? "460/215" : "1/1",
+        picRadius: isGameSec ? "9px" : "50%",
+        heroShow: isGameSec && art.hero && art.hero !== pic ? "block" : "none",
+        hero: art.hero || "",
+        shotsShow: shots.length ? "flex" : "none",
+        shots: shots,
+        rows: shown,
+        emptyShow: shown.length ? "none" : "block"
+      };
+    };
+
+    const out = [];
+    if (p.company) {
+      const cur = isEdit ? D.company(p.companyId) : null;
+      const sec = build(
+        p.company.legal || p.company.name || p.subject || "სტუდია",
+        isEdit ? "არსებული ჩანაწერის შესწორება" : "ახალი სტუდია",
+        cur, p.company, CO_LABELS, false);
+      if (sec.rows.length || sec.pic) out.push(sec);
+    }
+    entries.forEach((entry, i) => {
+      const fields = Object.assign({}, entry);
+      delete fields.gameId;
+      const cur = entry.gameId ? D.game(entry.gameId) : null;
+      const sec = build(
+        cur ? cur.name : (fields.name || "უსახელო თამაში"),
+        (cur ? "თამაშის შესწორება" : "ახალი თამაში") +
+          (entries.length > 1 ? " · " + (i + 1) + "/" + entries.length : ""),
+        cur, fields, GAME_LABELS, true);
+      if (sec.rows.length || sec.pic) out.push(sec);
+    });
+    return out;
+  }
+
   queueRows() {
     const s = this.state;
     return s.queue.map(item => {
@@ -1270,6 +1368,7 @@ class Component extends DCLogic {
           );
         });
       }
+      const sections = this.queueSections(item, p, isEdit, entries);
       const kind = item.malformed ? "შემოწმება" : isEdit ? "ედიტი" : isGame ? "თამაში" : "ახალი";
       const accent = isEdit ? "#fdb813" : isGame ? "#ee2626" : "#1d96d3";
       return {
@@ -1284,8 +1383,8 @@ class Component extends DCLogic {
         // A submission whose values already match what is published leaves an
         // empty table, which read as a broken card. Say so instead.
         emptyShow: !item.malformed && !diff.length ? "block" : "none",
-        diffShow: isEdit && !item.malformed && diff.length ? "block" : "none",
-        newShow: (!isEdit || item.malformed) && diff.length ? "block" : "none",
+        sections: sections,
+        sectionsShow: sections.length ? "block" : "none",
         note: p.note || "",
         noteShow: p.note ? "block" : "none",
         url: item.url,
