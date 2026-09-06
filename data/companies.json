@@ -241,6 +241,34 @@
       "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "black-room-games",
+      "kind": "company",
+      "name": "Black Room Games",
+      "legal": "შპს ბლექ რუმ გეიმს",
+      "regId": "405158779",
+      "city": "თბილისი",
+      "founded": "2016-07-15",
+      "size": "3-5",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://blackroomgames.com/",
+      "email": "info@blackroomgames.com",
+      "phone": "",
+      "contact": "",
+      "about": "ინდი სტუდია",
+      "aboutEn": "Indie studio",
+      "logo": "https://play-lh.googleusercontent.com/79Ul9b4SAYLDSRRtvfdVqAZZ38h6Pi5RBRzkTdkBM-5V7eFm0rSRnJQF0vKYUIRMtA",
+      "links": {
+        "googleplay": "https://play.google.com/store/apps/dev?id=4869302861934416363&hl=en"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-06",
+      "created": "2026-09-06",
+      "updated": "2026-09-06"
     }
   ]
 }
