@@ -12,9 +12,15 @@
       "city": "თბილისი",
       "founded": 2019,
       "size": "6-10",
-      "roles": ["developer", "publisher", "porting"],
+      "roles": [
+        "developer",
+        "publisher",
+        "porting"
+      ],
       "website": "",
+      "email": "",
       "about": "",
+      "aboutEn": "",
       "logo": "images/logos/madmoa.jpg",
       "links": {
         "facebook": "https://www.facebook.com/share/1KbdgtUYMv/",

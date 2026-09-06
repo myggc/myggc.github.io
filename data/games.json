@@ -12,21 +12,36 @@
       "releaseDate": "",
       "year": 0,
       "mobile": false,
-      "genres": ["metroidvania", "action"],
-      "platforms": ["Steam", "Switch", "Xbox"],
+      "genres": [
+        "metroidvania",
+        "action"
+      ],
+      "platforms": [
+        "Steam",
+        "Switch",
+        "Xbox"
+      ],
       "engine": "Unity",
       "price": "",
       "langs": "ქართული, English",
       "about": "",
-      "stores": { "steam": "" },
-      "art": { "capsule": "", "hero": "", "portrait": "" },
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/2500690/Dumbriel_Magnificent_Adventure_in_Hell/"
+      },
+      "art": {
+        "capsule": "",
+        "hero": "",
+        "portrait": ""
+      },
       "localArt": "images/games/dumbriel.jpg",
       "source": "manual",
       "parsedAt": "",
       "verified": true,
+      "active": true,
       "validated": "2025-03-12",
       "created": "2025-03-12",
-      "updated": "2025-03-12"
+      "updated": "2026-09-06"
     }
   ]
 }
