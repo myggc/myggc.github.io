@@ -50,29 +50,46 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "სახელი-საჯარო-game",
-      "name": "ახალი თამაში",
-      "studioId": "mad 1",
+      "id": "draft",
+      "name": "Dumbriel: Magnificent Adventure in Hell",
+      "studioId": "madmoa",
       "publisherId": "",
       "status": "upcoming",
-      "releaseDate": "",
-      "year": 0,
+      "releaseDate": "October 2026",
+      "year": 2026,
       "mobile": false,
-      "genres": [],
-      "platforms": [],
+      "genres": [
+        "action",
+        "adventure",
+        "indie"
+      ],
+      "platforms": [
+        "Steam"
+      ],
       "engine": "",
       "price": "",
-      "langs": "",
-      "about": "",
+      "langs": "English, Japanese, Korean, Simplified Chinese, French, Italian, German, Spanish - Spain, Polish, Portuguese - Brazil, Portuguese - Portugal, Russian, Spanish - Latin America, Thai, Turkish, Ukrainian, Vietnamese, Georgian, Hindi",
+      "about": "Dumbriel is a 2D metroidvania action-adventure set in Hell. Play as a clumsy fallen angel in a twisted underworld. Slash, craft, and dodge through deadly arenas, weird monsters, and hellish traps. Die, upgrade, and dive back in.",
       "aboutEn": "",
-      "stores": {},
-      "art": {},
+      "stores": {
+        "steam": "https://store.steampowered.com/app/2500690/Dumbriel_Magnificent_Adventure_in_Hell/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/0d9eb4d1ea21411876857b6883cce6db80fc5d2f/header.jpg?t=1788358384",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/36d50647c47d383fd2b19dc0146b20f0eee236d3/page_bg_raw.jpg?t=1788358384",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/7e5061910bb165e86a701b9ec26dcca9273b10fb/ss_7e5061910bb165e86a701b9ec26dcca9273b10fb.600x338.jpg?t=1788358384",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/8578e5e3aa1cab045d7610487f153a7cd5ef676b/ss_8578e5e3aa1cab045d7610487f153a7cd5ef676b.600x338.jpg?t=1788358384",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2500690/adb2bf5b033bb6d5ab9941e67ee2e17017cb74cb/ss_adb2bf5b033bb6d5ab9941e67ee2e17017cb74cb.600x338.jpg?t=1788358384"
+        ]
+      },
       "localArt": "",
-      "source": "manual",
-      "parsedAt": "",
+      "source": "steam",
+      "parsedAt": "2026-09-06T15:09:03.852Z",
       "verified": false,
       "active": true,
-      "validated": "",
+      "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
     }

@@ -36,30 +36,6 @@
       "validated": "2026-09-06",
       "created": "2025-03-12",
       "updated": "2026-09-06"
-    },
-    {
-      "id": "mad 1",
-      "kind": "company",
-      "name": "სახელი - საჯარო",
-      "legal": "",
-      "regId": "",
-      "city": "თბილისი",
-      "founded": 0,
-      "size": "11-20",
-      "roles": [],
-      "website": "",
-      "email": "",
-      "about": "test text about ",
-      "aboutEn": "",
-      "logo": "",
-      "links": {
-        "steam": "https://store.steampowered.com/developer/teamcherry/"
-      },
-      "verified": true,
-      "active": true,
-      "validated": "",
-      "created": "2026-09-06",
-      "updated": "2026-09-06"
     }
   ]
 }
