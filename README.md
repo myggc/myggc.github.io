@@ -51,8 +51,11 @@ kept in that browser's `localStorage` and only ever sent to `api.github.com`.
 
 What it does:
 
-- **Queue** — every open `submission` issue, with a field-by-field *now → new*
-  diff for edits and a plain field list for new entries.
+- **Queue** — every open submission issue, with a field-by-field *now → new*
+  diff for edits and a plain field list for new entries. GitHub drops the label
+  from a prefilled issue opened by someone without write access, so the queue
+  recognises submissions by their payload marker and title too, not only by the
+  `submission` label.
 - **Approve / reject** — changes collect in a working copy; **GitHub-ზე ატვირთვა**
   writes `companies.json` and `games.json` in a single commit, then comments on
   and closes each issue it handled.

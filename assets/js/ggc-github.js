@@ -94,10 +94,26 @@
     };
   }
 
+  /* GitHub silently drops ?labels= for anyone without write access, so a
+     visitor's prefilled issue arrives unlabelled. Read every open issue and
+     keep the ones that carry the marker, the label, or the title prefix. */
+  var MARKER = "<!-- ggc:payload -->";
+  var TITLE_RE = /^\[(new|edit)-(company|game)\]/;
+
+  function isSubmission(issue) {
+    if ((issue.body || "").indexOf(MARKER) >= 0) return true;
+    if (TITLE_RE.test(issue.title || "")) return true;
+    return (issue.labels || []).some(function (l) {
+      return (l && (l.name || l)) === C.label;
+    });
+  }
+
   function listSubmissions() {
-    return req(R + "/issues?state=open&labels=" + encodeURIComponent(C.label) + "&per_page=100")
+    return req(R + "/issues?state=open&per_page=100&sort=created&direction=desc")
       .then(function (list) {
-        return (list || []).filter(function (i) { return !i.pull_request; }).map(parseIssue);
+        return (list || [])
+          .filter(function (i) { return !i.pull_request && isSubmission(i); })
+          .map(parseIssue);
       });
   }
 
