@@ -413,7 +413,7 @@
       "engine": "",
       "price": "",
       "langs": "Englishlanguages with full audio support",
-      "about": "&quot;Mother Dear&quot; is a heartwarming game where you play as a deer and follow a father's story told to his daughter about the childhood trauma that changed his life. Experience nature's beauty and uncover secrets of the father's past. With an emotional story, you'll have an unforgettable adventure",
+      "about": "\"Mother Dear\" is a heartwarming game where you play as a deer and follow a father's story told to his daughter about the childhood trauma that changed his life. Experience nature's beauty and uncover secrets of the father's past. With an emotional story, you'll have an unforgettable adventure",
       "aboutEn": "",
       "stores": {
         "steam": "https://store.steampowered.com/app/2292700/"
@@ -430,12 +430,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "",
+      "parsedAt": "2026-09-07T19:57:42.720Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-09-07"
     },
     {
       "id": "baby-games-for-1-3-year-olds",
@@ -2013,7 +2013,7 @@
       "engine": "",
       "price": "",
       "langs": "English, French, Italian, German, Spanish - Spain, Arabic, Bulgarian, Czech, Danish, Dutch, Finnish, Greek, Hungarian, Japanese, Korean, Norwegian, Polish, Portuguese - Brazil, Portuguese - Portugal, Romanian, Russian, Simplified Chinese, Spanish - Latin America, Swedish, Thai, Traditional Chinese, Turkish, Ukrainian, Vietnamese, Afrikaans, Albanian, Amharic, Armenian, Assamese, Azerbaijani, Bangla, Basque, Belarusian, Bosnian, Catalan, Cherokee, Croatian, Dari, Estonian, Filipino, Galician, Georgian, Gujarati, Hausa, Hebrew, Hindi, Icelandic, Igbo, Indonesian, Irish, K'iche', Kannada, Kazakh, Khmer, Kinyarwanda, Konkani, Kyrgyz, Latvian, Lithuanian, Luxembourgish, Macedonian, Malay, Malayalam, Maltese, Maori, Marathi, Mongolian, Nepali, Odia, Persian, Punjabi (Gurmukhi), Punjabi (Shahmukhi), Quechua, Scots, Serbian, Sindhi, Sinhala, Slovak, Slovenian, Sorani, Sotho, Swahili, Tajik, Tamil, Tatar, Telugu, Tigrinya, Tswana, Turkmen, Urdu, Uyghur, Uzbek, Valencian, Welsh, Wolof, Xhosa, Yoruba, Zululanguages with full audio support",
-      "about": "Back To The Collis is a story-rich, fully hand-drawn 2D Point &amp; Click adventure puzzle. Embark on a journey alongside the main character, Benjamin, to solve lots of engaging puzzles and explore the town of Collis, outstanding by its memorable populace.",
+      "about": "Back To The Collis is a story-rich, fully hand-drawn 2D Point & Click adventure puzzle. Embark on a journey alongside the main character, Benjamin, to solve lots of engaging puzzles and explore the town of Collis, outstanding by its memorable populace.",
       "aboutEn": "",
       "stores": {
         "steam": "https://store.steampowered.com/app/2333220/"
@@ -2030,12 +2030,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-09-06T23:52:40.841Z",
+      "parsedAt": "2026-09-07T19:58:39.155Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-09-07"
     },
     {
       "id": "slapper-battle-cheek-slap",
@@ -2270,16 +2270,19 @@
       "name": "Halloween Room: Sinister Tales",
       "studioId": "black-room-games",
       "publisherId": "",
-      "status": "upcoming",
-      "releaseDate": "",
-      "year": 0,
+      "status": "released",
+      "releaseDate": "Oct 18, 2018",
+      "year": 2018,
       "mobile": true,
-      "genres": [],
+      "genres": [
+        "puzzle",
+        "casual"
+      ],
       "platforms": [
         "Google Play"
       ],
       "engine": "",
-      "price": "",
+      "price": "უფასო",
       "langs": "",
       "about": "Solve twisted puzzles, uncover haunting secrets of a living nightmare",
       "aboutEn": "",
@@ -2287,13 +2290,13 @@
         "googleplay": "https://play.google.com/store/apps/details?id=air.com.hfg.sinister"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/4ghtpYjPszHrBzP7DbnCPNCMYffs-79yJuWzE5-zfIGoo32lTee0Nu-9E8eGnKqpKwO_ITJizIKQ1kafBder=s0-br30",
-        "hero": "https://play-lh.googleusercontent.com/4ghtpYjPszHrBzP7DbnCPNCMYffs-79yJuWzE5-zfIGoo32lTee0Nu-9E8eGnKqpKwO_ITJizIKQ1kafBder=s0-br30",
-        "portrait": ""
+        "capsule": "https://play-lh.googleusercontent.com/4ghtpYjPszHrBzP7DbnCPNCMYffs-79yJuWzE5-zfIGoo32lTee0Nu-9E8eGnKqpKwO_ITJizIKQ1kafBder",
+        "hero": "https://play-lh.googleusercontent.com/4ghtpYjPszHrBzP7DbnCPNCMYffs-79yJuWzE5-zfIGoo32lTee0Nu-9E8eGnKqpKwO_ITJizIKQ1kafBder",
+        "portrait": "https://play-lh.googleusercontent.com/4ghtpYjPszHrBzP7DbnCPNCMYffs-79yJuWzE5-zfIGoo32lTee0Nu-9E8eGnKqpKwO_ITJizIKQ1kafBder"
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "",
+      "parsedAt": "2026-09-07T19:58:48.584Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-07",
@@ -2305,16 +2308,18 @@
       "name": "Project Dark",
       "studioId": "black-room-games",
       "publisherId": "",
-      "status": "upcoming",
-      "releaseDate": "",
-      "year": 0,
+      "status": "released",
+      "releaseDate": "Mar 10, 2023",
+      "year": 2023,
       "mobile": true,
-      "genres": [],
+      "genres": [
+        "role playing"
+      ],
       "platforms": [
         "Google Play"
       ],
       "engine": "",
-      "price": "",
+      "price": "უფასო",
       "langs": "",
       "about": "Narrative-driven, immersive audio game with interactive branching storylines",
       "aboutEn": "",
@@ -2322,13 +2327,13 @@
         "googleplay": "https://play.google.com/store/apps/details?id=com.RedMeatGames.ProjectDark"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/i0pJ0pIL_K3sMqxhxCWI-Sx1zYgLTTd7v7lmzw1cPk2NO2n_4ANAXJUzdTErxfbJlXyX2pApaYft_sqwSTLrpEA=s0-br30",
-        "hero": "https://play-lh.googleusercontent.com/i0pJ0pIL_K3sMqxhxCWI-Sx1zYgLTTd7v7lmzw1cPk2NO2n_4ANAXJUzdTErxfbJlXyX2pApaYft_sqwSTLrpEA=s0-br30",
-        "portrait": ""
+        "capsule": "https://play-lh.googleusercontent.com/i0pJ0pIL_K3sMqxhxCWI-Sx1zYgLTTd7v7lmzw1cPk2NO2n_4ANAXJUzdTErxfbJlXyX2pApaYft_sqwSTLrpEA",
+        "hero": "https://play-lh.googleusercontent.com/i0pJ0pIL_K3sMqxhxCWI-Sx1zYgLTTd7v7lmzw1cPk2NO2n_4ANAXJUzdTErxfbJlXyX2pApaYft_sqwSTLrpEA",
+        "portrait": "https://play-lh.googleusercontent.com/i0pJ0pIL_K3sMqxhxCWI-Sx1zYgLTTd7v7lmzw1cPk2NO2n_4ANAXJUzdTErxfbJlXyX2pApaYft_sqwSTLrpEA"
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "",
+      "parsedAt": "2026-09-07T19:58:49.925Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-07",
