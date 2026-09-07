@@ -218,7 +218,7 @@
         </div>
       </div>
 
-      <div style="margin-top:20px;background:#eef6fb;border:1px solid #cfe3ef;border-radius:16px;padding:18px">
+      <div style="display:{{ bulkShow }};margin-top:20px;background:#eef6fb;border:1px solid #cfe3ef;border-radius:16px;padding:18px">
         <div style="font-size:16px;font-weight:600;color:#14536f">ყველა თამაში ერთბაშად</div>
         <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#2c5f7d">ჩასვი შენი სტუდიის გვერდი — Steam-ის publisher/developer გვერდი, itch.io-ს პროფილი, App Store-ის ან Google Play-ის დეველოპერის გვერდი. ჩვენ თვითონ ვიპოვით ყველა თამაშს და შევავსებთ თითოეულის მონაცემებს.</p>
         <label style="display:flex;flex-direction:column;gap:7px;margin-top:14px;font-size:14px;color:#2c5f7d">სტუდიის გვერდი
@@ -234,9 +234,10 @@
 
       <div style="display:flex;flex-direction:column;gap:14px;margin-top:20px">
         <sc-for list="{{ drafts }}" as="g" hint-placeholder-count="1">
-          <div style="border:1px solid {{ g.border }};border-radius:16px;padding:18px;background:{{ g.bg }}">
+          <div id="{{ g.domId }}" style="border:1px solid {{ g.border }};border-radius:16px;padding:18px;background:{{ g.bg }}">
             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
               <span style="flex:1 1 160px;min-width:0;font-size:16px;font-weight:600;color:#16181b">{{ g.title }}</span>
+              <button type="button" onClick="{{ g.drop }}" style="display:{{ g.dropShow }};flex:none;border:1px solid #e8c4c4;cursor:pointer;background:{{ g.dropBg }};color:{{ g.dropFg }};border-radius:9px;padding:8px 13px;font-family:inherit;font-size:13px;font-weight:600">{{ g.dropLabel }}</button>
               <button type="button" onClick="{{ g.remove }}" style="flex:none;border:1px solid #dfe3e4;cursor:pointer;background:#fff;color:#8c2f2f;border-radius:9px;padding:8px 13px;font-family:inherit;font-size:13px;font-weight:600">მოხსნა</button>
             </div>
 
@@ -282,6 +283,8 @@
               <div style="display:{{ g.errShow }};margin-top:14px;background:#fff8e7;border:1px solid #f3e2b8;border-radius:11px;padding:12px 14px;font-size:14px;line-height:1.55;color:#7a5500">{{ g.parseErr }}</div>
             </div>
 
+            <div style="display:{{ g.removeNoteShow }};align-items:center;gap:10px;margin-top:14px;background:#fdeaea;border:1px solid #f0cccc;border-radius:11px;padding:12px 14px;font-size:14px;line-height:1.5;color:#8c2f2f">ეს თამაში წაშლისთვის არის მონიშნული. გაგზავნის შემდეგ ადმინისტრაცია გადაამოწმებს.</div>
+
             <div style="display:{{ g.detailsShow }};margin-top:16px">
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px">
                 <sc-for list="{{ g.fields }}" as="f" hint-placeholder-count="6">
@@ -307,6 +310,12 @@
                   <input type="text" placeholder="Custom: …" value="{{ g.engineCustom }}" onInput="{{ g.onEngineCustom }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
                 </label>
               </div>
+
+              <sc-for list="{{ g.areas }}" as="f" hint-placeholder-count="1">
+                <label style="display:flex;flex-direction:column;gap:7px;margin-top:12px;font-size:14px;color:#5a5f65">{{ f.label }}
+                  <textarea rows="6" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid #dfe3e4;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;line-height:1.6;background:#f7f9f9;color:#16181b;resize:vertical"></textarea>
+                </label>
+              </sc-for>
 
               <div style="display:{{ g.rawDateShow }};align-items:center;gap:10px;margin-top:12px;background:#eef6fb;border:1px solid #cfe3ef;border-radius:11px;padding:11px 13px;font-size:14px;line-height:1.5;color:#14536f">{{ g.rawDate }}</div>
 
@@ -548,10 +557,13 @@ const GAME_FIELDS = [
   ["name", "თამაშის სახელი", "Dumbriel", "text"],
   ["genres", "ჟანრი", "metroidvania, action", "text"],
   ["releaseDate", "გამოშვების თარიღი", "", "date"],
-  ["price", "ფასი", "₾25", "text"],
-  ["langs", "ენები", "ქართული, English", "text"],
-  ["about", "აღწერა", "მოკლე აღწერა…", "text"]
+  // Stores quote in dollars, so the example does too — a lari example next to a
+  // field the store fills with "$14.99" only invites a mismatched entry.
+  ["price", "ფასი", "$14.99", "text"],
+  ["langs", "ენები", "ქართული, English", "text"]
 ];
+// A description is paragraphs, not a line — it had one line's worth of room.
+const GAME_AREAS = [["about", "აღწერა", "მოკლე აღწერა…"]];
 const GAME_STORES = [
   ["steam", "Steam", "store.steampowered.com/app/…"],
   ["itch", "itch.io", "studio.itch.io/game"],
@@ -596,6 +608,18 @@ class Component extends DCLogic {
      nobody has to search for a studio they just came from. */
   openFromHash() {
     const hash = location.hash || "";
+    /* "Add your studio" and "Add your game" mean starting, so they start —
+       at the first step, with nothing carried over. Without this the restored
+       draft decided where an arriving visitor landed, which for someone adding
+       a second studio was the middle of the first one. */
+    if (hash === "#new-studio" || hash === "#new-game") {
+      const mode = hash === "#new-game" ? "game" : "new";
+      try { localStorage.removeItem(DRAFT); } catch (e) {}
+      return this.setState({
+        saved: false, sent: false, result: null, missing: [],
+        mode: mode, step: 0, picked: null, lookup: "", roles: [], f: {}, drafts: []
+      });
+    }
     /* A game's own შესწორების მოთხოვნა used to open its studio's details form,
        which is not what was asked for and not where the wrong value is. It now
        opens that game, on the games step, with its record already loaded. */
@@ -657,6 +681,13 @@ class Component extends DCLogic {
       parsed: null, parsing: false, parseErr: "", f: {}
     }, prefill || {});
     this.save({ drafts: this.state.drafts.concat([d]) });
+    /* The form for a game opens below every other game the studio has, which
+       with a dozen titles is a screen and a half away — pressing "correct" and
+       being left where you were reads as nothing having happened. */
+    setTimeout(() => {
+      const el = document.getElementById("draft-" + d.key);
+      if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 120);
     return d;
   }
   patchDraft(key, patch) {
@@ -684,13 +715,13 @@ class Component extends DCLogic {
         name: g.name,
         genres: (g.genres || []).join(", "),
         platforms: (g.platforms || []).join(", "),
-        releaseDate: /^\d{4}-\d{2}-\d{2}$/.test(g.releaseDate || "") ? g.releaseDate : "",
+        releaseDate: U.toISODate(g.releaseDate),
         status: g.status || "released",
         engine: g.engine || "", price: g.price || "", langs: g.langs || "",
         about: g.about || "",
         stores: Object.assign({}, g.stores)
       },
-      rawDate: /^\d{4}-\d{2}-\d{2}$/.test(g.releaseDate || "") ? "" : (g.releaseDate || "")
+      rawDate: U.toISODate(g.releaseDate) ? "" : (g.releaseDate || "")
     });
   }
 
@@ -736,12 +767,12 @@ class Component extends DCLogic {
           name: g.name || "",
           genres: (g.genres || []).join(", "),
           platforms: (g.platforms || []).join(", "),
-          releaseDate: /^\d{4}-\d{2}-\d{2}$/.test(g.releaseDate || "") ? g.releaseDate : "",
+          releaseDate: U.toISODate(g.releaseDate),
           status: g.status || "released",
           price: g.price || "", langs: g.langs || "", about: g.about || "",
           engine: "", stores: Object.assign({}, g.stores)
         },
-        rawDate: /^\d{4}-\d{2}-\d{2}$/.test(g.releaseDate || "") ? "" : (g.releaseDate || "")
+        rawDate: U.toISODate(g.releaseDate) ? "" : (g.releaseDate || "")
       }));
       // The same page carries the studio's own details. Fill only what is still
       // blank, so an import never overwrites something already typed.
@@ -816,6 +847,8 @@ class Component extends DCLogic {
   gameFrom(d) {
     const p = d.parsed, f = d.f, out = {};
     if (d.gameId) out.gameId = d.gameId;
+    // A removal request carries nothing else — there is nothing to update.
+    if (d.gameId && d.remove) { out.remove = true; return out; }
     const list = (v) => String(v || "").split(",").map(x => x.trim()).filter(Boolean);
     if (f.name) out.name = f.name;
     if (f.genres) out.genres = list(f.genres);
@@ -853,7 +886,7 @@ class Component extends DCLogic {
       name: p.name || d.f.name || "",
       genres: (p.genres || []).join(", ") || d.f.genres || "",
       platforms: (p.platforms || []).join(", ") || d.f.platforms || "",
-      releaseDate: /^\d{4}-\d{2}-\d{2}$/.test(p.releaseDate || "") ? p.releaseDate : (d.f.releaseDate || ""),
+      releaseDate: U.toISODate(p.releaseDate) || d.f.releaseDate || "",
       status: p.status || d.f.status || "released",
       price: p.price || d.f.price || "",
       langs: p.langs || d.f.langs || "",
@@ -864,7 +897,7 @@ class Component extends DCLogic {
     /* A store's own wording for a date — "October 2026", "Dec 6, 2025" — is not
        what a date input can hold, so it is kept as the release text while the
        picker stays empty and asks for the exact day. */
-    this.patchDraft(key, { f: f, rawDate: /^\d{4}-\d{2}-\d{2}$/.test(p.releaseDate || "") ? "" : (p.releaseDate || "") });
+    this.patchDraft(key, { f: f, rawDate: U.toISODate(p.releaseDate) ? "" : (p.releaseDate || "") });
   }
 
   payload() {
@@ -949,6 +982,7 @@ class Component extends DCLogic {
       const engineIsListed = U.ENGINES.indexOf(d.f.engine) >= 0;
       const engineChoice = d.f.engine ? (engineIsListed ? d.f.engine : "Custom") : "";
       return {
+        domId: "draft-" + d.key,
         title: d.f.name || (editing ? "თამაშის შესწორება" : "ახალი თამაში " + (i + 1)),
         border: editing ? "#f3e2b8" : "#dfe3e4",
         bg: editing ? "#fffdf7" : "#fff",
@@ -991,6 +1025,20 @@ class Component extends DCLogic {
           label, ph, type: type || "text", value: d.f[k] || "",
           onInput: e => this.setDraftField(d.key, k, e.target.value)
         })),
+        areas: GAME_AREAS.map(([k, label, ph]) => ({
+          label, ph, value: d.f[k] || "",
+          onInput: e => this.setDraftField(d.key, k, e.target.value)
+        })),
+        /* Asking for a game to come off the catalogue is an edit like any
+           other — it goes through validation rather than happening at once —
+           but there was no way to ask at all. */
+        dropShow: d.gameId ? "inline-block" : "none",
+        dropLabel: d.remove ? "✔ წაშლა მოთხოვნილია — დააბრუნე" : "წაშლის მოთხოვნა",
+        dropBg: d.remove ? "#8c2f2f" : "#fff",
+        dropFg: d.remove ? "#fff" : "#8c2f2f",
+        drop: () => this.patchDraft(d.key, { remove: !d.remove }),
+        bodyShow: d.remove ? "none" : "block",
+        removeNoteShow: d.remove ? "flex" : "none",
         /* A store's own wording for a date — "October 2026", "Dec 6, 2025" — is
            not something a date input can hold, so it is shown as it was written
            and the picker is left asking for the exact day. */
@@ -1217,6 +1265,10 @@ class Component extends DCLogic {
       },
       back: () => this.save({ step: Math.max(0, s.step - 1) }),
 
+      /* Correcting one game is not the moment to offer importing a whole
+         studio's catalogue — arriving from a game's page, that box was the
+         first thing on screen and the game being corrected was below it. */
+      bulkShow: s.drafts.some(d => d.gameId) && s.drafts.length === 1 ? "none" : "block",
       gamesIntro: picked
         ? "ამ სტუდიის ყველა თამაში ქვემოთაა. შეგიძლია რომელიმე შეასწორო, ან დაამატო რამდენიც გინდა."
         : "დაამატე იმდენი თამაში, რამდენიც გაქვს. მაღაზიის ლინკიდან ყველაფერი ავტომატურად ივსება.",

@@ -508,6 +508,7 @@ const GAME_LABELS = {
   releaseDate: "გამოშვების თარიღი", year: "წელი", genres: "ჟანრი", platforms: "პლატფორმა",
   engine: "ძრავი", price: "ფასი", langs: "ენები", about: "აღწერა", stores: "მაღაზიები",
   localArt: "ლოკალური არტი", mobile: "მობაილი", verified: "ვერიფიცირებული", validated: "ვალიდაცია",
+  remove: "წაშლის მოთხოვნა",
   /* A payload can carry more than the form asks for — the store parser fills
      credits and bookkeeping too. Without a label these showed up in the review
      as raw English keys, which is the one place everything should be readable. */
@@ -749,6 +750,9 @@ class Component extends DCLogic {
       if (gameId) {
         const i = games.findIndex(g => g.id === gameId);
         if (i < 0) throw new Error("თამაში ვერ მოიძებნა: " + gameId);
+        // A submitter can ask for a game to come off the catalogue; approving
+        // the request is what carries it out.
+        if (fields.remove) { games.splice(i, 1); return; }
         games[i] = D.normGame(Object.assign({}, games[i], fields, { updated: now, validated: now }));
         p.appliedGameIds.push(gameId);
         return;
@@ -1704,7 +1708,7 @@ class Component extends DCLogic {
         /* A solo developer has no colleague to nominate as a contact — they are
            the contact — so the phone stands in for it. Never shown publicly. */
         k.text("phone", "ტელეფონი (არასავალდებულო)", "+995 555 00 00 00"),
-        k.text("validated", "პირველი ვალიდაცია", U.today()),
+        k.date("validated", "პირველი ვალიდაცია"),
         k.readOnly("updated", "ბოლო განახლება")
       ].filter(Boolean),
       editAreas: [
@@ -1807,9 +1811,9 @@ class Component extends DCLogic {
         k.csv("genres", "ჟანრი", "metroidvania, action"),
         // Only asked when the select above says the engine is not on the list.
         engineChoice === "Custom" ? k.text("engine", "რომელი ძრავი", "Custom: …") : null,
-        k.text("price", "ფასი", "₾25"),
+        k.text("price", "ფასი", "$14.99"),
         k.text("langs", "ენები", "ქართული, English"),
-        k.text("validated", "პირველი ვალიდაცია", U.today()),
+        k.date("validated", "პირველი ვალიდაცია"),
         k.readOnly("updated", "ბოლო განახლება")
       ].filter(Boolean),
       gmAreas: [k.text("about", "აღწერა", "")],

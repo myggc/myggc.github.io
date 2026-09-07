@@ -148,11 +148,36 @@
   function initials(s) {
     return String(s || "").trim().split(/\s+/).slice(0, 2).map(function (w) { return w[0] || ""; }).join("");
   }
-  /* "2025-03-12" -> "12.03.2025"; anything else passes through untouched. */
+  /* "2025-03-12" -> "12/03/2025". One format for every date the site prints,
+     because it had been showing dots in one place, ISO in another and the
+     store's own wording in a third. */
   function fmtDate(iso) {
     if (!iso) return "";
     var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso));
-    return m ? m[3] + "." + m[2] + "." + m[1] : String(iso);
+    return m ? m[3] + "/" + m[2] + "/" + m[1] : String(iso);
+  }
+
+  var MONTHS = {
+    jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6,
+    jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12
+  };
+  /* Stores write release dates in their own words — "Jun 30, 2026", "6 Dec,
+     2025", "October 2026". A date input can hold none of those, so the exact
+     ones are converted and the vague ones are left alone for a person to
+     resolve. Returns "" when the text names no single day. */
+  function toISODate(text) {
+    var s = String(text || "").trim();
+    if (!s) return "";
+    if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+    var pad = function (n) { return (n < 10 ? "0" : "") + n; };
+    var m = /^([A-Za-z]{3,9})\.?\s+(\d{1,2}),?\s+(\d{4})$/.exec(s);      // Jun 30, 2026
+    if (!m) m = /^(\d{1,2})\s+([A-Za-z]{3,9})\.?,?\s+(\d{4})$/.exec(s)   // 30 Jun, 2026
+      && (function (x) { return [x[0], x[2], x[1], x[3]]; })(/^(\d{1,2})\s+([A-Za-z]{3,9})\.?,?\s+(\d{4})$/.exec(s));
+    if (!m) return "";
+    var mo = MONTHS[String(m[1]).slice(0, 3).toLowerCase()];
+    var day = Number(m[2]), year = Number(m[3]);
+    if (!mo || !day || day > 31 || !year) return "";
+    return year + "-" + pad(mo) + "-" + pad(day);
   }
   function today() { return new Date().toISOString().slice(0, 10); }
   /* `founded` may be a year or a full date; lists and sorts want the year. */
@@ -432,7 +457,8 @@
   }
   function releaseLabel(g) {
     if (g.status === "released") return g.year ? String(g.year) : "გამოსული";
-    if (g.releaseDate && g.releaseDate.length > 4) return g.releaseDate;
+    // An exact date is printed the way every other date on the site is.
+    if (g.releaseDate && g.releaseDate.length > 4) return fmtDate(g.releaseDate);
     return g.year ? String(g.year) : "TBD";
   }
 
@@ -1600,7 +1626,7 @@
       slug: slug, initials: initials, fmtDate: fmtDate, today: today, clone: clone,
       prepareImage: prepareImage, IMAGE_SIZES: IMAGE_SIZES, iconUrl: iconUrl,
       KIND_LABEL: KIND_LABEL, ACCENT: ACCENT, SOC: SOC, STORE_LABEL: STORE_LABEL,
-      foundedYear: foundedYear,
+      foundedYear: foundedYear, toISODate: toISODate,
       PLATFORM_HOME: PLATFORM_HOME, ENGINES: ENGINES
     },
     data: {
