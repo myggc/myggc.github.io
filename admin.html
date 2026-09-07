@@ -39,6 +39,7 @@
       <span style="display:{{ dirtyShow }};flex:none;background:#3a2f14;color:#f4cd77;border-radius:7px;padding:5px 10px;font-size:13px;font-weight:600">{{ dirtyLabel }}</span>
       <span style="display:{{ statusShow }};flex:1 1 160px;min-width:0;font-size:14px;color:{{ statusColor }}">{{ statusText }}</span>
       <div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:auto;flex:none">
+        <button type="button" onClick="{{ discard }}" style="display:{{ dirtyShow }};border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">ცვლილებების გაუქმება</button>
         <button type="button" onClick="{{ exportJson }}" style="border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">JSON ექსპორტი</button>
         <button type="button" onClick="{{ publish }}" style="display:{{ authedShow }};border:0;cursor:pointer;background:{{ publishBg }};color:#fff;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ publishLabel }}</button>
         <button type="button" onClick="{{ signOut }}" style="display:{{ authedShow }};border:1px solid #333941;cursor:pointer;background:#20242a;color:#8b949c;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px">გასვლა</button>
@@ -62,8 +63,7 @@
         </label>
         <div style="display:{{ authErrShow }};margin-top:12px;background:#2a1f1f;border:1px solid #4a3232;border-radius:10px;padding:12px 14px;font-size:14px;color:#f0a8a8">{{ authErr }}</div>
         <button type="button" onClick="{{ signIn }}" style="width:100%;margin-top:16px;border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:10px;padding:13px;font-family:inherit;font-size:15px;font-weight:600">{{ signInLabel }}</button>
-        <p style="margin:16px 0 0;font-size:13px;line-height:1.6;color:#6a737c">ტოკენის გარეშეც შეგიძლია მონაცემების ნახვა — მხოლოდ დადასტურება და ჩაწერა საჭიროებს უფლებას.</p>
-        <button type="button" onClick="{{ browseOnly }}" style="width:100%;margin-top:10px;border:1px solid #333941;cursor:pointer;background:transparent;color:#8b949c;border-radius:10px;padding:11px;font-family:inherit;font-size:14px">მხოლოდ დათვალიერება</button>
+        <p style="margin:16px 0 0;font-size:13px;line-height:1.6;color:#6a737c">კატალოგის სანახავად საიტია — ეს პანელი რედაქტირებისთვისაა და ტოკენს საჭიროებს.</p>
       </div>
     </div>
   </sc-if>
@@ -584,7 +584,7 @@ const GAME_LABELS = {
 
 class Component extends DCLogic {
   state = {
-    ready: false, authed: false, browse: false, user: "", tokenInput: "", authErr: "", signing: false,
+    ready: false, authed: false, user: "", tokenInput: "", authErr: "", signing: false,
     tab: "queue", open: null, q: "", sort: "", edit: null, editKind: "company",
     queue: [], decisions: {}, companies: [], games: [], events: [], spending: [], previews: {}, audit: [], audited: false,
     status: "", statusColor: "#8b949c", publishing: false, syncing: "",
@@ -780,6 +780,27 @@ class Component extends DCLogic {
       out.length ? "#f4cd77" : "#9ede9e");
   }
 
+  /* Throws away everything this browser is holding and goes back to what is
+     published. There was no way out of a half-finished edit: the draft is
+     restored on every load, so a change made by mistake followed you from
+     session to session and the only escape was to undo it by hand. */
+  discardLocal() {
+    const n = this.dirtyCount();
+    if (!n) return;
+    const ok = window.confirm(
+      "გაუქმდება " + n + " შენახვის მოლოდინში მყოფი ცვლილება და დაბრუნდება ის, რაც GitHub-ზეა.\n\n" +
+      "ატვირთული მონაცემები არ იშლება. გავაგრძელო?");
+    if (!ok) return;
+    try { localStorage.removeItem(ADMIN_DRAFT); } catch (e) {}
+    this.setState({
+      companies: U.clone(D.companies()),
+      games: U.clone(D.games()),
+      events: U.clone(D.events()),
+      spending: U.clone(D.spending()),
+      edit: null, gameEdit: null, pending: null, audit: [], audited: false
+    }, () => this.say("ლოკალური ცვლილებები გაუქმდა", "#9ede9e"));
+  }
+
   dirtyCount() { return this.dirtyKeys().length; }
   isTouched(kind, id) { return this.dirtyKeys().indexOf(kind + ":" + id) >= 0; }
 
@@ -806,7 +827,7 @@ class Component extends DCLogic {
     if (!t) return this.setState({ authErr: "ჩასვი ტოკენი" });
     this.setState({ signing: true, authErr: "" });
     GH.signIn(t).then(u => {
-      this.setState({ authed: true, browse: false, user: u.login, tokenInput: "", signing: false });
+      this.setState({ authed: true, user: u.login, tokenInput: "", signing: false });
       this.loadQueue();
       GH.markBaseline();
     }).catch(e => this.setState({ authErr: e.message, signing: false }));
@@ -1980,8 +2001,8 @@ class Component extends DCLogic {
     const cur = this.current();
 
     const v = Object.assign({
-      needsAuth: !s.authed && !s.browse,
-      showPanel: s.authed || s.browse,
+      needsAuth: !s.authed,
+      showPanel: s.authed,
       authedShow: s.authed ? "inline-block" : "none",
       userShow: s.authed ? "inline" : "none",
       userLabel: s.authed ? "@" + s.user : "",
@@ -1994,8 +2015,7 @@ class Component extends DCLogic {
       onToken: e => this.setState({ tokenInput: e.target.value }),
       signIn: () => this.doSignIn(),
       signInLabel: s.signing ? "მოწმდება…" : "შესვლა",
-      signOut: () => { GH.signOut(); this.setState({ authed: false, browse: false, user: "", queue: [] }); },
-      browseOnly: () => this.setState({ browse: true }),
+      signOut: () => { GH.signOut(); this.setState({ authed: false, user: "", queue: [] }); },
       authErr: s.authErr,
       authErrShow: s.authErr ? "block" : "none",
 
@@ -2008,6 +2028,7 @@ class Component extends DCLogic {
       busyShow: this.busyLabel() ? "inline-flex" : "none",
       busyLabel: this.busyLabel(),
       dirtyShow: this.dirtyCount() ? "inline" : "none",
+      discard: () => this.discardLocal(),
       dirtyLabel: this.dirtyCount() + " ჩანაწერი შენახვის მოლოდინში",
       publishLabel: s.publishing ? "იტვირთება…" : "GitHub-ზე ატვირთვა",
       publishBg: this.dirtyCount() ? "#1d96d3" : "#2a3138",
