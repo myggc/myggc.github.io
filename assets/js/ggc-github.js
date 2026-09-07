@@ -270,15 +270,17 @@
      nobody should have to hold an unfinished record to fix a word, so this
      commit does not go through the baseline check that guards the data files —
      it writes one file and touches nothing else. */
-  function saveI18n(strings, message) {
-    var keys = Object.keys(strings || {}).sort();
-    var out = {};
-    keys.forEach(function (k) { out[k] = strings[k]; });
+  function saveI18n(strings, ka, message) {
+    var sorted = function (m) {
+      var out = {};
+      Object.keys(m || {}).sort().forEach(function (k) { out[k] = m[k]; });
+      return out;
+    };
     return getFile(C.paths.i18n)
       .then(function (f) { return f.json; })
       .catch(function () { return { version: 1 }; })
       .then(function (doc) {
-        var next = Object.assign({}, doc, { strings: out });
+        var next = Object.assign({}, doc, { strings: sorted(strings), ka: sorted(ka) });
         return commit([{ path: C.paths.i18n, content: stringify(next) }], message);
       });
   }

@@ -107,19 +107,29 @@ under **საიტის შიგთავსი** and published in the same 
 Both used to be written into the HTML, which is why they went stale: keeping
 them current meant editing a page.
 
-## Translations — `data/i18n.json`
+## Wording — `data/i18n.json`
 
-The English half of the site. `assets/js/i18n.js` ships a dictionary of Georgian
-→ English pairs; this file is the layer on top of it, edited in the panel under
-**ლოკალიზაცია** and published on its own.
+Both languages of the site, as far as either can be corrected without a commit.
+`assets/js/i18n.js` ships a dictionary of Georgian → English pairs; this file is
+the layer on top of it, edited in the panel under **ლოკალიზაცია** and published
+on its own.
 
 | field | meaning |
 | --- | --- |
 | `strings` | `{ "<Georgian, exactly as the page says it>": "<English>" }` |
+| `ka` | `{ "<Georgian, as the page says it>": "<Georgian, as it should say it>" }` |
 
-A key here overrides the shipped pair of the same name; a key the shipped
-dictionary has never seen is simply added. Nothing is required — a string with
-no entry in either place stays in Georgian, which is the honest failure. The
-panel's scan opens every page in turn and lists what it finds, so the list of
-what is still untranslated comes from the pages themselves rather than from
-memory.
+A key in `strings` overrides the shipped pair of the same name; a key the
+shipped dictionary has never seen is simply added. Nothing is required — a
+string with no entry in either place stays in Georgian, which is the honest
+failure.
+
+`ka` corrects the Georgian itself, which is otherwise authored in the pages and
+could only be changed by editing one. It applies in both languages, because a
+string with no English is Georgian on the English page too. Both maps are keyed
+by the original text as the markup says it, so correcting a string twice does
+not create a second entry for it, and a correction whose result is itself a key
+is ignored rather than chained.
+
+The scan opens every page in turn and lists what it finds, so the list of what
+is still untranslated comes from the pages themselves rather than from memory.

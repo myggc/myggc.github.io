@@ -395,7 +395,7 @@
             <span style="font-size:15px;color:#8b949c">{{ i18nCount }}</span>
             <button type="button" onClick="{{ scan }}" style="margin-left:auto;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ scanLabel }}</button>
           </div>
-          <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#8b949c">ქართული თვითონ გვერდებზე წერია — აქ მხოლოდ ინგლისურს ასწორებ. ცარიელი ველი ნიშნავს, რომ ტექსტი ინგლისურ ვერსიაშიც ქართულად დარჩება.</p>
+          <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#8b949c">ორივე ენა აქედან სწორდება. ქართული გვერდზე დაწერილს ცვლის, ინგლისური — თარგმანს; ცარიელი ინგლისური ნიშნავს, რომ ტექსტი ინგლისურ ვერსიაშიც ქართულად დარჩება.</p>
 
           <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:18px">
             <input type="search" value="{{ i18nQ }}" onInput="{{ onI18nSearch }}" placeholder="ძებნა ქართულში ან ინგლისურში" style="flex:1 1 220px;min-width:0;border:1px solid #333941;border-radius:10px;padding:10px 13px;font-family:inherit;font-size:14px;background:#171a1e;color:#e9ecee">
@@ -409,15 +409,22 @@
           <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
             <sc-for list="{{ i18nRows }}" as="r" hint-placeholder-count="4">
               <div style="background:#171a1e;border:1px solid {{ r.border }};border-radius:12px;padding:12px 14px">
-                <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:10px">
-                  <span style="flex:1 1 240px;min-width:0;font-size:14px;line-height:1.55;color:#e9ecee;overflow-wrap:anywhere">{{ r.ka }}</span>
-                  <span style="display:{{ r.tagShow }};flex:none;background:{{ r.tagBg }};color:{{ r.tagFg }};border-radius:20px;padding:3px 10px;font-size:12px;font-weight:600">{{ r.tag }}</span>
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+                  <span style="display:{{ r.originShow }};flex:1 1 200px;min-width:0;font-size:12px;line-height:1.5;color:#6a737c;overflow-wrap:anywhere">{{ r.origin }}</span>
+                  <span style="display:{{ r.tagShow }};flex:none;margin-left:auto;background:{{ r.tagBg }};color:{{ r.tagFg }};border-radius:20px;padding:3px 10px;font-size:12px;font-weight:600">{{ r.tag }}</span>
                 </div>
-                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:9px">
-                  <input type="text" value="{{ r.en }}" onInput="{{ r.onInput }}" placeholder="English" style="flex:1 1 240px;min-width:0;border:1px solid #333941;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;background:#1d2126;color:#e9ecee">
-                  <button type="button" onClick="{{ r.revert }}" title="დაბრუნება საწყისზე" style="display:{{ r.revertShow }};flex:none;align-items:center;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:10px 13px;font-family:inherit;font-size:14px">↺</button>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:9px;margin-top:8px">
+                  <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:#8b949c">ქართული
+                    <textarea rows="2" value="{{ r.kaNow }}" onInput="{{ r.onKa }}" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;line-height:1.5;background:#1d2126;color:#e9ecee;resize:vertical"></textarea>
+                  </label>
+                  <label style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:#8b949c">English
+                    <textarea rows="2" value="{{ r.en }}" onInput="{{ r.onInput }}" placeholder="English" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;line-height:1.5;background:#1d2126;color:#e9ecee;resize:vertical"></textarea>
+                  </label>
                 </div>
-                <div style="display:{{ r.pagesShow }};margin-top:7px;font-size:12px;line-height:1.5;color:#6a737c;overflow-wrap:anywhere">{{ r.pages }}</div>
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:8px">
+                  <span style="display:{{ r.pagesShow }};flex:1 1 160px;min-width:0;font-size:12px;line-height:1.5;color:#6a737c;overflow-wrap:anywhere">{{ r.pages }}</span>
+                  <button type="button" onClick="{{ r.revert }}" title="დაბრუნება საწყისზე" style="display:{{ r.revertShow }};flex:none;margin-left:auto;align-items:center;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:8px 13px;font-family:inherit;font-size:14px">↺</button>
+                </div>
               </div>
             </sc-for>
           </div>
@@ -654,7 +661,7 @@ class Component extends DCLogic {
     endpointInput: (window.GGC && GGC.config.submitEndpoint) || "", savingEndpoint: false,
     endpointMsg: "", endpointMsgColor: "#c6ccd3",
     studioUrl: "", importing: false, importMsg: "", importMsgColor: "#8b949c",
-    i18nOver: {}, i18nQ: "", i18nFilter: "missing", i18nFound: null, scanning: "", i18nSaving: false
+    i18nOver: {}, i18nKa: {}, i18nQ: "", i18nFilter: "missing", i18nFound: null, scanning: "", i18nSaving: false
   };
 
   /* Staged work outlives the tab. Everything approved, imported or typed lives
@@ -671,9 +678,12 @@ class Component extends DCLogic {
        own draft: an unfinished catalogue edit must not hold up a fixed word,
        and a fixed word must not drag a half-typed studio into a commit. */
     try {
-      const over = this.state.i18nOver || {}, pub = this.i18nPublished(), delta = {};
-      Object.keys(over).forEach(k => { if (over[k] !== pub[k]) delta[k] = over[k]; });
-      if (Object.keys(delta).length) localStorage.setItem(I18N_DRAFT, JSON.stringify(delta));
+      const over = this.state.i18nOver || {}, pub = this.i18nPublished();
+      const ka = this.state.i18nKa || {}, pubKa = this.i18nPublishedKa();
+      const d = { over: {}, ka: {} };
+      Object.keys(over).forEach(k => { if (over[k] !== pub[k]) d.over[k] = over[k]; });
+      Object.keys(ka).forEach(k => { if (ka[k] !== pubKa[k]) d.ka[k] = ka[k]; });
+      if (Object.keys(d.over).length || Object.keys(d.ka).length) localStorage.setItem(I18N_DRAFT, JSON.stringify(d));
       else localStorage.removeItem(I18N_DRAFT);
     } catch (e) {}
     if (!this.state.ready) return;
@@ -707,8 +717,10 @@ class Component extends DCLogic {
     }
     let draft = null;
     try { draft = JSON.parse(localStorage.getItem(I18N_DRAFT) || "null"); } catch (e) {}
+    draft = draft && typeof draft === "object" ? draft : {};
     this.setState({
-      i18nOver: Object.assign({}, GGCI18n.over, draft && typeof draft === "object" ? draft : null)
+      i18nOver: Object.assign({}, GGCI18n.over, draft.over || null),
+      i18nKa: Object.assign({}, GGCI18n.ka, draft.ka || null)
     });
   }
 
@@ -895,7 +907,12 @@ class Component extends DCLogic {
      is not an override — it is the absence of one — so neither is published. */
   i18nBase() { return (window.GGCI18n && GGCI18n.base) || {}; }
   i18nPublished() { return (window.GGCI18n && GGCI18n.over) || {}; }
+  i18nPublishedKa() { return (window.GGCI18n && GGCI18n.ka) || {}; }
 
+  /* An entry equal to what ships, or emptied, is not an override but the absence
+     of one — neither is published. For Georgian there is nothing shipped to
+     compare against: the page itself is the original, so an entry equal to the
+     key is the same absence. */
   i18nPayload() {
     const base = this.i18nBase(), over = this.state.i18nOver || {}, out = {};
     Object.keys(over).forEach(k => {
@@ -906,11 +923,24 @@ class Component extends DCLogic {
     return out;
   }
 
+  i18nKaPayload() {
+    const ka = this.state.i18nKa || {}, out = {};
+    Object.keys(ka).forEach(k => {
+      const v = String(ka[k] == null ? "" : ka[k]).trim();
+      if (!v || v === k) return;
+      out[k] = v;
+    });
+    return out;
+  }
+
   i18nDirty() {
-    const now = this.i18nPayload(), pub = this.i18nPublished(), seen = {};
-    Object.keys(now).forEach(k => { seen[k] = 1; });
-    Object.keys(pub).forEach(k => { seen[k] = 1; });
-    return Object.keys(seen).filter(k => now[k] !== pub[k]).length;
+    const pairs = [[this.i18nPayload(), this.i18nPublished()], [this.i18nKaPayload(), this.i18nPublishedKa()]];
+    return pairs.reduce((n, [now, pub]) => {
+      const seen = {};
+      Object.keys(now).forEach(k => { seen[k] = 1; });
+      Object.keys(pub).forEach(k => { seen[k] = 1; });
+      return n + Object.keys(seen).filter(k => now[k] !== pub[k]).length;
+    }, 0);
   }
 
   setTr(ka, en) {
@@ -921,44 +951,58 @@ class Component extends DCLogic {
     });
   }
 
+  setKa(ka, next) {
+    this.setState(st => {
+      const m = Object.assign({}, st.i18nKa);
+      m[ka] = next;
+      return { i18nKa: m };
+    });
+  }
+
   /* Back to whatever the site ships with — which, for a string the dictionary
-     has never seen, means back to Georgian. */
+     has never seen, means back to Georgian; and for the Georgian column means
+     back to what the page itself says. */
   revertTr(ka) {
     this.setState(st => {
-      const over = Object.assign({}, st.i18nOver);
+      const over = Object.assign({}, st.i18nOver), m = Object.assign({}, st.i18nKa);
       delete over[ka];
-      return { i18nOver: over };
+      delete m[ka];
+      return { i18nOver: over, i18nKa: m };
     });
   }
 
   i18nRows() {
     const s = this.state;
-    const base = this.i18nBase(), over = s.i18nOver || {}, found = s.i18nFound || {};
+    const base = this.i18nBase(), over = s.i18nOver || {}, kaMap = s.i18nKa || {}, found = s.i18nFound || {};
     const tr = (window.GGCI18n && GGCI18n.tr) || (() => null);
     const seen = {};
     Object.keys(base).forEach(k => { seen[k] = 1; });
     Object.keys(over).forEach(k => { seen[k] = 1; });
+    Object.keys(kaMap).forEach(k => { seen[k] = 1; });
     Object.keys(found).forEach(k => { seen[k] = 1; });
     const q = (s.i18nQ || "").trim().toLowerCase();
     const rows = Object.keys(seen).map(ka => {
       const has = over[ka] !== undefined;
       const en = has ? String(over[ka]) : (base[ka] || "");
+      const kaNow = kaMap[ka] !== undefined ? String(kaMap[ka]) : ka;
       /* A composite — "3 ჩანაწერი", a month and a year, a label and its star —
          is translated by a pattern rather than by a pair, so it counts as
          covered even with nothing typed against it. */
       const covered = !!en.trim() || !!tr(ka);
+      const kaChanged = kaNow.trim() !== ka;
       return {
-        ka: ka, en: en,
+        ka: ka, en: en, kaNow: kaNow,
         pages: (found[ka] || []).join(" · "),
         onSite: !!found[ka],
-        changed: has && String(over[ka]).trim() !== (base[ka] || ""),
+        changed: (has && String(over[ka]).trim() !== (base[ka] || "")) || kaChanged,
+        kaChanged: kaChanged,
         missing: !covered
       };
     }).filter(r => {
       if (s.i18nFilter === "missing" && !r.missing) return false;
       if (s.i18nFilter === "site" && !r.onSite) return false;
       if (s.i18nFilter === "changed" && !r.changed) return false;
-      if (q && (r.ka + " " + r.en).toLowerCase().indexOf(q) < 0) return false;
+      if (q && (r.ka + " " + r.kaNow + " " + r.en).toLowerCase().indexOf(q) < 0) return false;
       return true;
     });
     /* What is on a page and untranslated is what somebody opened this tab for. */
@@ -1034,11 +1078,21 @@ class Component extends DCLogic {
       return one(url);
     }), Promise.resolve()).then(() => {
       restore();
+      /* A page shows the corrected Georgian, not the original the dictionary is
+         keyed by, so anything already corrected is mapped back to its key —
+         otherwise fixing a string twice would create a second entry for it. */
+      const applied = (window.GGCI18n && GGCI18n.kaApplied) || {};
+      const keyed = {};
+      Object.keys(found).forEach(k => {
+        const orig = applied[k] || k;
+        if (!keyed[orig]) keyed[orig] = [];
+        found[k].forEach(u => { if (keyed[orig].indexOf(u) < 0) keyed[orig].push(u); });
+      });
       const tr = (window.GGCI18n && GGCI18n.tr) || (() => null);
       const over = this.state.i18nOver || {};
-      const miss = Object.keys(found).filter(k => !tr(k) && !String(over[k] || "").trim()).length;
-      this.setState({ scanning: "", i18nFound: found, i18nFilter: miss ? "missing" : "site" });
-      this.say(Object.keys(found).length + " ქართული სტრიქონი, " + miss + " უთარგმნელი",
+      const miss = Object.keys(keyed).filter(k => !tr(k) && !String(over[k] || "").trim()).length;
+      this.setState({ scanning: "", i18nFound: keyed, i18nFilter: miss ? "missing" : "site" });
+      this.say(Object.keys(keyed).length + " ქართული სტრიქონი, " + miss + " უთარგმნელი",
         miss ? "#f4cd77" : "#9ede9e");
     }).catch(e => {
       restore();
@@ -1055,19 +1109,20 @@ class Component extends DCLogic {
     if (!n) return this.say("შესაცვლელი არაფერია", "#8b949c");
     this.setState({ i18nSaving: true });
     this.say("იტვირთება…", "#6cc0e8");
-    const payload = this.i18nPayload();
-    GH.saveI18n(payload, "i18n: " + n + " თარგმანი ადმინიდან")
+    const payload = this.i18nPayload(), kaPayload = this.i18nKaPayload();
+    GH.saveI18n(payload, kaPayload, "i18n: " + n + " შესწორება ადმინიდან")
       .then(() => {
         /* What was just sent is now what is published, so the tab stops calling
            itself unsaved without waiting for the file to come back down. */
         if (window.GGCI18n) {
-          const over = GGCI18n.over;
-          Object.keys(over).forEach(k => { delete over[k]; });
+          const over = GGCI18n.over, ka = GGCI18n.ka, applied = GGCI18n.kaApplied;
+          [over, ka, applied].forEach(m => Object.keys(m).forEach(k => { delete m[k]; }));
           Object.keys(payload).forEach(k => { over[k] = payload[k]; GGCI18n.dict[k] = payload[k]; });
+          Object.keys(kaPayload).forEach(k => { ka[k] = kaPayload[k]; applied[kaPayload[k]] = k; });
         }
         try { localStorage.removeItem(I18N_DRAFT); } catch (e) {}
         this.setState({ i18nSaving: false });
-        this.say("თარგმანები გამოქვეყნდა — საიტზე ერთ წუთში", "#9ede9e");
+        this.say("შესწორებები გამოქვეყნდა — საიტზე ერთ წუთში", "#9ede9e");
       })
       .catch(e => {
         this.setState({ i18nSaving: false });
@@ -1078,10 +1133,12 @@ class Component extends DCLogic {
   discardI18n() {
     const n = this.i18nDirty();
     if (!n) return;
-    if (!window.confirm("გაუქმდება " + n + " შეუნახავი თარგმანი და დაბრუნდება ის, რაც საიტზეა. გავაგრძელო?")) return;
+    if (!window.confirm("გაუქმდება " + n + " შეუნახავი შესწორება და დაბრუნდება ის, რაც საიტზეა. გავაგრძელო?")) return;
     try { localStorage.removeItem(I18N_DRAFT); } catch (e) {}
-    this.setState({ i18nOver: Object.assign({}, this.i18nPublished()) },
-      () => this.say("თარგმანების ცვლილებები გაუქმდა", "#9ede9e"));
+    this.setState({
+      i18nOver: Object.assign({}, this.i18nPublished()),
+      i18nKa: Object.assign({}, this.i18nPublishedKa())
+    }, () => this.say("ლოკალიზაციის ცვლილებები გაუქმდა", "#9ede9e"));
   }
 
   dirtyCount() { return this.dirtyKeys().length; }
@@ -2284,6 +2341,11 @@ class Component extends DCLogic {
     return rows.slice(0, I18N_MAX).map(r => ({
       ka: r.ka,
       en: r.en,
+      kaNow: r.kaNow,
+      /* What the page itself says, shown only once it is no longer what the
+         page will show — otherwise the field above it already says it. */
+      origin: r.kaChanged ? "გვერდზე წერია: " + r.ka : "",
+      originShow: r.kaChanged ? "block" : "none",
       pages: r.pages,
       pagesShow: r.pages ? "block" : "none",
       border: r.missing ? "#4a3d1e" : (r.changed ? "#2c4453" : "#2f353c"),
@@ -2292,6 +2354,7 @@ class Component extends DCLogic {
       tagBg: r.missing ? "#2a2318" : "#172a33",
       tagFg: r.missing ? "#f4cd77" : "#6cc0e8",
       revertShow: r.changed ? "inline-flex" : "none",
+      onKa: e => this.setKa(r.ka, e.target.value),
       onInput: e => this.setTr(r.ka, e.target.value),
       revert: () => this.revertTr(r.ka)
     }));
@@ -2438,13 +2501,13 @@ class Component extends DCLogic {
       scan: () => this.scanPages(),
       scanLabel: s.scanning ? "სკანირება " + s.scanning : (s.i18nFound ? "ხელახლა სკანირება" : "გვერდების სკანირება"),
       i18nUnsavedText: i18nUnsaved
-        ? i18nUnsaved + " შეუნახავი თარგმანი"
+        ? i18nUnsaved + " შეუნახავი შესწორება"
         : "ყველაფერი გამოქვეყნებულია",
       i18nUnsavedColor: i18nUnsaved ? "#f4cd77" : "#8b949c",
       i18nDiscardShow: i18nUnsaved ? "inline-flex" : "none",
       discardI18n: () => this.discardI18n(),
       publishI18n: () => this.publishI18n(),
-      i18nSaveLabel: s.i18nSaving ? "იტვირთება…" : "თარგმანების ატვირთვა",
+      i18nSaveLabel: s.i18nSaving ? "იტვირთება…" : "ცვლილებების ატვირთვა",
       i18nSaveBg: i18nUnsaved && s.authed && !s.i18nSaving ? "#4c9a5e" : "#2b3138",
       i18nSaveFg: i18nUnsaved && s.authed && !s.i18nSaving ? "#fff" : "#6a737c",
       isSite: s.tab === "site",
