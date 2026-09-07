@@ -106,3 +106,20 @@ under **საიტის შიგთავსი** and published in the same 
 
 Both used to be written into the HTML, which is why they went stale: keeping
 them current meant editing a page.
+
+## Translations — `data/i18n.json`
+
+The English half of the site. `assets/js/i18n.js` ships a dictionary of Georgian
+→ English pairs; this file is the layer on top of it, edited in the panel under
+**ლოკალიზაცია** and published on its own.
+
+| field | meaning |
+| --- | --- |
+| `strings` | `{ "<Georgian, exactly as the page says it>": "<English>" }` |
+
+A key here overrides the shipped pair of the same name; a key the shipped
+dictionary has never seen is simply added. Nothing is required — a string with
+no entry in either place stays in Georgian, which is the honest failure. The
+panel's scan opens every page in turn and lists what it finds, so the list of
+what is still untranslated comes from the pages themselves rather than from
+memory.

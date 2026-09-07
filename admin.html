@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-ggc-no-i18n>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="assets/js/ggc-core.js?v=4335819f59"></script>
 <script src="assets/js/ggc-github.js?v=4335819f59"></script>
+<script src="assets/js/i18n.js?v=4335819f59"></script>
 <style>
   html { overflow-x:clip; }
   body { margin:0; overflow-x:clip; background:#171a1e; color:#e9ecee; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
@@ -387,6 +388,50 @@
         </div>
       </sc-if>
 
+      <sc-if value="{{ isI18n }}">
+        <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
+          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px">
+            <h1 style="margin:0;font-size:22px;font-weight:600;color:#fff">ლოკალიზაცია</h1>
+            <span style="font-size:15px;color:#8b949c">{{ i18nCount }}</span>
+            <button type="button" onClick="{{ scan }}" style="margin-left:auto;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ scanLabel }}</button>
+          </div>
+          <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#8b949c">ქართული თვითონ გვერდებზე წერია — აქ მხოლოდ ინგლისურს ასწორებ. ცარიელი ველი ნიშნავს, რომ ტექსტი ინგლისურ ვერსიაშიც ქართულად დარჩება.</p>
+
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:18px">
+            <input type="search" value="{{ i18nQ }}" onInput="{{ onI18nSearch }}" placeholder="ძებნა ქართულში ან ინგლისურში" style="flex:1 1 220px;min-width:0;border:1px solid #333941;border-radius:10px;padding:10px 13px;font-family:inherit;font-size:14px;background:#171a1e;color:#e9ecee">
+            <select value="{{ i18nFilter }}" onChange="{{ onI18nFilter }}" style="flex:none;border:1px solid #333941;border-radius:10px;padding:10px 13px;font-family:inherit;font-size:14px;background:#171a1e;color:#e9ecee">
+              <sc-for list="{{ i18nFilters }}" as="f" hint-placeholder-count="4">
+                <option value="{{ f.v }}">{{ f.label }}</option>
+              </sc-for>
+            </select>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+            <sc-for list="{{ i18nRows }}" as="r" hint-placeholder-count="4">
+              <div style="background:#171a1e;border:1px solid {{ r.border }};border-radius:12px;padding:12px 14px">
+                <div style="display:flex;flex-wrap:wrap;align-items:flex-start;gap:10px">
+                  <span style="flex:1 1 240px;min-width:0;font-size:14px;line-height:1.55;color:#e9ecee;overflow-wrap:anywhere">{{ r.ka }}</span>
+                  <span style="display:{{ r.tagShow }};flex:none;background:{{ r.tagBg }};color:{{ r.tagFg }};border-radius:20px;padding:3px 10px;font-size:12px;font-weight:600">{{ r.tag }}</span>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:9px">
+                  <input type="text" value="{{ r.en }}" onInput="{{ r.onInput }}" placeholder="English" style="flex:1 1 240px;min-width:0;border:1px solid #333941;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;background:#1d2126;color:#e9ecee">
+                  <button type="button" onClick="{{ r.revert }}" title="დაბრუნება საწყისზე" style="display:{{ r.revertShow }};flex:none;align-items:center;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:10px 13px;font-family:inherit;font-size:14px">↺</button>
+                </div>
+                <div style="display:{{ r.pagesShow }};margin-top:7px;font-size:12px;line-height:1.5;color:#6a737c;overflow-wrap:anywhere">{{ r.pages }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:{{ i18nEmptyShow }};margin-top:12px;padding:22px;text-align:center;border:1px dashed #333941;border-radius:12px;color:#8b949c;font-size:15px;line-height:1.6">{{ i18nEmptyText }}</div>
+          <div style="display:{{ i18nMoreShow }};margin-top:10px;font-size:13px;color:#6a737c">{{ i18nMore }}</div>
+
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:22px;padding-top:18px;border-top:1px solid #2a2f35">
+            <span style="flex:1 1 180px;font-size:14px;color:{{ i18nUnsavedColor }}">{{ i18nUnsavedText }}</span>
+            <button type="button" onClick="{{ discardI18n }}" style="display:{{ i18nDiscardShow }};flex:none;align-items:center;border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:9px;padding:11px 16px;font-family:inherit;font-size:14px;font-weight:600">გაუქმება</button>
+            <button type="button" onClick="{{ publishI18n }}" style="flex:none;border:0;cursor:pointer;background:{{ i18nSaveBg }};color:{{ i18nSaveFg }};border-radius:9px;padding:11px 18px;font-family:inherit;font-size:14px;font-weight:600">{{ i18nSaveLabel }}</button>
+          </div>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isSettings }}">
         <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
           <h1 style="margin:0;font-size:22px;font-weight:600;color:#fff">პარამეტრები</h1>
@@ -530,7 +575,7 @@ const D = GGC.data, U = GGC.util, GH = window.GGCGitHub, C = GGC.config;
 
 const NAV = [
   ["queue", "ვალიდაციის რიგი"], ["companies", "კომპანიები"], ["teams", "გუნდები"],
-  ["solo", "სოლო დეველოპერები"], ["games", "თამაშები"], ["site", "საიტის შიგთავსი"], ["settings", "პარამეტრები"]
+  ["solo", "სოლო დეველოპერები"], ["games", "თამაშები"], ["site", "საიტის შიგთავსი"], ["i18n", "ლოკალიზაცია"], ["settings", "პარამეტრები"]
 ];
 const TITLES = { companies: "კომპანიები", teams: "გუნდები", solo: "სოლო დეველოპერები", games: "თამაშები" };
 const KIND_OF_TAB = { companies: "company", teams: "team", solo: "solo" };
@@ -544,6 +589,22 @@ const SOCIAL_PH = { telegram: "@ggcgeorgia", facebook: "facebook.com/ggc", insta
 /* The studio's own shop pages — a storefront is not a social account. */
 const CO_STORES = ["steam", "itch", "appstore", "googleplay"];
 const ADMIN_DRAFT = "ggc.admin.draft";
+const I18N_DRAFT = "ggc.admin.i18n";
+/* Every page in Georgian, plus the hub's four tabs and one of each detail view,
+   because a hash is all that separates them. Scanning these is how the panel
+   learns what the site actually says — the list of untranslated strings comes
+   from the pages rather than from anyone's memory of them. */
+const SCAN_PAGES = [
+  "index.html", "hub.html#community", "hub.html#acceleration", "hub.html#publishing",
+  "hub.html#report", "companies.html", "games.html", "submit.html", "donate.html", "about.html"
+];
+const I18N_FILTERS = [
+  { v: "missing", label: "უთარგმნელი" },
+  { v: "site", label: "გვერდებზე ნაპოვნი" },
+  { v: "changed", label: "შეცვლილი" },
+  { v: "all", label: "ყველა" }
+];
+const I18N_MAX = 200;
 const FIELD_LABEL = { kind: "ტიპი", city: "ქალაქი", size: "გუნდის ზომა", legal: "ოფიციალური სახელი", regId: "საიდენტიფიკაციო ნომერი", name: "საჯარო სახელი", founded: "დაფუძნების თარიღი", email: "ელფოსტა", about: "აღწერა" };
 /* The three kinds are not the same thing, and the panel had been calling all of
    them a company. A person is born rather than founded, has a name rather than
@@ -592,7 +653,8 @@ class Component extends DCLogic {
     gameEdit: null, loadingQueue: false,
     endpointInput: (window.GGC && GGC.config.submitEndpoint) || "", savingEndpoint: false,
     endpointMsg: "", endpointMsgColor: "#c6ccd3",
-    studioUrl: "", importing: false, importMsg: "", importMsgColor: "#8b949c"
+    studioUrl: "", importing: false, importMsg: "", importMsgColor: "#8b949c",
+    i18nOver: {}, i18nQ: "", i18nFilter: "missing", i18nFound: null, scanning: "", i18nSaving: false
   };
 
   /* Staged work outlives the tab. Everything approved, imported or typed lives
@@ -605,6 +667,15 @@ class Component extends DCLogic {
      the stale copy was restored wholesale over the fresh data and then looked
      like a local addition. */
   componentDidUpdate() {
+    /* Translations are their own file and their own commit, so they keep their
+       own draft: an unfinished catalogue edit must not hold up a fixed word,
+       and a fixed word must not drag a half-typed studio into a commit. */
+    try {
+      const over = this.state.i18nOver || {}, pub = this.i18nPublished(), delta = {};
+      Object.keys(over).forEach(k => { if (over[k] !== pub[k]) delta[k] = over[k]; });
+      if (Object.keys(delta).length) localStorage.setItem(I18N_DRAFT, JSON.stringify(delta));
+      else localStorage.removeItem(I18N_DRAFT);
+    } catch (e) {}
     if (!this.state.ready) return;
     try {
       const keys = this.dirtyKeys();
@@ -626,7 +697,23 @@ class Component extends DCLogic {
     } catch (e) {}
   }
 
+  /* The published overrides arrive with data/i18n.json, a moment after the page
+     itself. Wait for them, then lay this browser's unpublished edits on top —
+     the same replay the catalogue does, for the same reason. */
+  loadI18n(tries) {
+    if (!window.GGCI18n) return;
+    if (!GGCI18n.loaded && (tries || 0) < 60) {
+      return setTimeout(() => this.loadI18n((tries || 0) + 1), 100);
+    }
+    let draft = null;
+    try { draft = JSON.parse(localStorage.getItem(I18N_DRAFT) || "null"); } catch (e) {}
+    this.setState({
+      i18nOver: Object.assign({}, GGCI18n.over, draft && typeof draft === "object" ? draft : null)
+    });
+  }
+
   componentDidMount() {
+    this.loadI18n(0);
     D.load().then(() => {
       /* Restoring means replaying the delta onto whatever is published now, so
          work done elsewhere in the meantime survives and a record removed there
@@ -799,6 +886,202 @@ class Component extends DCLogic {
       spending: U.clone(D.spending()),
       edit: null, gameEdit: null, pending: null, audit: [], audited: false
     }, () => this.say("ლოკალური ცვლილებები გაუქმდა", "#9ede9e"));
+  }
+
+  /* ------------------------------------------------------------ translations */
+
+  /* The dictionary that ships with the site is the floor; data/i18n.json is what
+     this tab writes on top of it. An entry equal to the shipped one, or empty,
+     is not an override — it is the absence of one — so neither is published. */
+  i18nBase() { return (window.GGCI18n && GGCI18n.base) || {}; }
+  i18nPublished() { return (window.GGCI18n && GGCI18n.over) || {}; }
+
+  i18nPayload() {
+    const base = this.i18nBase(), over = this.state.i18nOver || {}, out = {};
+    Object.keys(over).forEach(k => {
+      const v = String(over[k] == null ? "" : over[k]).trim();
+      if (!v || v === base[k]) return;
+      out[k] = v;
+    });
+    return out;
+  }
+
+  i18nDirty() {
+    const now = this.i18nPayload(), pub = this.i18nPublished(), seen = {};
+    Object.keys(now).forEach(k => { seen[k] = 1; });
+    Object.keys(pub).forEach(k => { seen[k] = 1; });
+    return Object.keys(seen).filter(k => now[k] !== pub[k]).length;
+  }
+
+  setTr(ka, en) {
+    this.setState(st => {
+      const over = Object.assign({}, st.i18nOver);
+      over[ka] = en;
+      return { i18nOver: over };
+    });
+  }
+
+  /* Back to whatever the site ships with — which, for a string the dictionary
+     has never seen, means back to Georgian. */
+  revertTr(ka) {
+    this.setState(st => {
+      const over = Object.assign({}, st.i18nOver);
+      delete over[ka];
+      return { i18nOver: over };
+    });
+  }
+
+  i18nRows() {
+    const s = this.state;
+    const base = this.i18nBase(), over = s.i18nOver || {}, found = s.i18nFound || {};
+    const tr = (window.GGCI18n && GGCI18n.tr) || (() => null);
+    const seen = {};
+    Object.keys(base).forEach(k => { seen[k] = 1; });
+    Object.keys(over).forEach(k => { seen[k] = 1; });
+    Object.keys(found).forEach(k => { seen[k] = 1; });
+    const q = (s.i18nQ || "").trim().toLowerCase();
+    const rows = Object.keys(seen).map(ka => {
+      const has = over[ka] !== undefined;
+      const en = has ? String(over[ka]) : (base[ka] || "");
+      /* A composite — "3 ჩანაწერი", a month and a year, a label and its star —
+         is translated by a pattern rather than by a pair, so it counts as
+         covered even with nothing typed against it. */
+      const covered = !!en.trim() || !!tr(ka);
+      return {
+        ka: ka, en: en,
+        pages: (found[ka] || []).join(" · "),
+        onSite: !!found[ka],
+        changed: has && String(over[ka]).trim() !== (base[ka] || ""),
+        missing: !covered
+      };
+    }).filter(r => {
+      if (s.i18nFilter === "missing" && !r.missing) return false;
+      if (s.i18nFilter === "site" && !r.onSite) return false;
+      if (s.i18nFilter === "changed" && !r.changed) return false;
+      if (q && (r.ka + " " + r.en).toLowerCase().indexOf(q) < 0) return false;
+      return true;
+    });
+    /* What is on a page and untranslated is what somebody opened this tab for. */
+    rows.sort((a, b) => (b.missing - a.missing) || (b.onSite - a.onSite) || a.ka.localeCompare(b.ka, "ka"));
+    return rows;
+  }
+
+  /* Opens every page in turn in a hidden frame and collects the Georgian it
+     finds. The pages translate themselves from this same dictionary, so a scan
+     run while the site is set to English would only ever find what is already
+     broken — Georgian is forced for the duration and the switch put back. */
+  scanPages() {
+    if (this.state.scanning) return;
+    const urls = SCAN_PAGES.slice();
+    const co = (D.companies() || [])[0], g = (D.games() || [])[0];
+    if (co) urls.push("companies.html#" + co.id);
+    if (g) urls.push("games.html#" + g.id);
+
+    let prev = null, had = false;
+    try {
+      had = localStorage.getItem("ggc.lang") !== null;
+      prev = localStorage.getItem("ggc.lang");
+      localStorage.setItem("ggc.lang", "ka");
+    } catch (e) {}
+    const restore = () => {
+      try { had ? localStorage.setItem("ggc.lang", prev) : localStorage.removeItem("ggc.lang"); } catch (e) {}
+    };
+
+    const KA = /[Ⴀ-ჿ]/;
+    const found = {};
+    const one = url => new Promise(resolve => {
+      const f = document.createElement("iframe");
+      f.setAttribute("aria-hidden", "true");
+      f.style.cssText = "position:fixed;left:-10000px;top:0;width:1280px;height:1000px;border:0;visibility:hidden";
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        let doc = null;
+        try { doc = f.contentDocument; } catch (e) { doc = null; }
+        if (doc && doc.body) {
+          const add = t => {
+            const k = String(t == null ? "" : t).replace(/\s+/g, " ").trim();
+            if (!k || k.length > 400 || !KA.test(k)) return;
+            if (!found[k]) found[k] = [];
+            if (found[k].indexOf(url) < 0) found[k].push(url);
+          };
+          const w = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, null);
+          let n;
+          while ((n = w.nextNode())) {
+            if (n.parentNode && /SCRIPT|STYLE/.test(n.parentNode.nodeName)) continue;
+            add(n.nodeValue);
+          }
+          const els = doc.querySelectorAll("[placeholder],[aria-label],[title]");
+          for (let i = 0; i < els.length; i++) {
+            ["placeholder", "aria-label", "title"].forEach(a => add(els[i].getAttribute(a)));
+          }
+        }
+        if (f.parentNode) f.remove();
+        resolve();
+      };
+      // The page has to render before there is anything to read, and a page that
+      // never fires load must not stall the rest of the scan.
+      f.onload = () => setTimeout(finish, 2200);
+      setTimeout(finish, 10000);
+      document.body.appendChild(f);
+      f.src = url;
+    });
+
+    this.setState({ scanning: "1/" + urls.length });
+    urls.reduce((chain, url, i) => chain.then(() => {
+      this.setState({ scanning: (i + 1) + "/" + urls.length + " · " + url });
+      return one(url);
+    }), Promise.resolve()).then(() => {
+      restore();
+      const tr = (window.GGCI18n && GGCI18n.tr) || (() => null);
+      const over = this.state.i18nOver || {};
+      const miss = Object.keys(found).filter(k => !tr(k) && !String(over[k] || "").trim()).length;
+      this.setState({ scanning: "", i18nFound: found, i18nFilter: miss ? "missing" : "site" });
+      this.say(Object.keys(found).length + " ქართული სტრიქონი, " + miss + " უთარგმნელი",
+        miss ? "#f4cd77" : "#9ede9e");
+    }).catch(e => {
+      restore();
+      this.setState({ scanning: "" });
+      this.say("სკანირება შეწყდა: " + e.message, "#f0a8a8");
+    });
+  }
+
+  publishI18n() {
+    const s = this.state;
+    if (!s.authed) return this.say("ატვირთვას ტოკენი სჭირდება", "#f0a8a8");
+    if (s.i18nSaving) return;
+    const n = this.i18nDirty();
+    if (!n) return this.say("შესაცვლელი არაფერია", "#8b949c");
+    this.setState({ i18nSaving: true });
+    this.say("იტვირთება…", "#6cc0e8");
+    const payload = this.i18nPayload();
+    GH.saveI18n(payload, "i18n: " + n + " თარგმანი ადმინიდან")
+      .then(() => {
+        /* What was just sent is now what is published, so the tab stops calling
+           itself unsaved without waiting for the file to come back down. */
+        if (window.GGCI18n) {
+          const over = GGCI18n.over;
+          Object.keys(over).forEach(k => { delete over[k]; });
+          Object.keys(payload).forEach(k => { over[k] = payload[k]; GGCI18n.dict[k] = payload[k]; });
+        }
+        try { localStorage.removeItem(I18N_DRAFT); } catch (e) {}
+        this.setState({ i18nSaving: false });
+        this.say("თარგმანები გამოქვეყნდა — საიტზე ერთ წუთში", "#9ede9e");
+      })
+      .catch(e => {
+        this.setState({ i18nSaving: false });
+        this.say("ატვირთვა ვერ მოხერხდა: " + e.message, "#f0a8a8");
+      });
+  }
+
+  discardI18n() {
+    const n = this.i18nDirty();
+    if (!n) return;
+    if (!window.confirm("გაუქმდება " + n + " შეუნახავი თარგმანი და დაბრუნდება ის, რაც საიტზეა. გავაგრძელო?")) return;
+    try { localStorage.removeItem(I18N_DRAFT); } catch (e) {}
+    this.setState({ i18nOver: Object.assign({}, this.i18nPublished()) },
+      () => this.say("თარგმანების ცვლილებები გაუქმდა", "#9ede9e"));
   }
 
   dirtyCount() { return this.dirtyKeys().length; }
@@ -1994,8 +2277,30 @@ class Component extends DCLogic {
     };
   }
 
+  /* One row per string: the Georgian as the page says it, the English as it will
+     be published, and where it was seen. A row is only ever as wide as the
+     panel, so long sentences wrap rather than scroll. */
+  i18nView(rows) {
+    return rows.slice(0, I18N_MAX).map(r => ({
+      ka: r.ka,
+      en: r.en,
+      pages: r.pages,
+      pagesShow: r.pages ? "block" : "none",
+      border: r.missing ? "#4a3d1e" : (r.changed ? "#2c4453" : "#2f353c"),
+      tag: r.missing ? "უთარგმნელი" : "შეცვლილი",
+      tagShow: (r.missing || r.changed) ? "inline-block" : "none",
+      tagBg: r.missing ? "#2a2318" : "#172a33",
+      tagFg: r.missing ? "#f4cd77" : "#6cc0e8",
+      revertShow: r.changed ? "inline-flex" : "none",
+      onInput: e => this.setTr(r.ka, e.target.value),
+      revert: () => this.revertTr(r.ka)
+    }));
+  }
+
   renderVals() {
     const s = this.state;
+    const i18nAll = this.i18nRows();
+    const i18nUnsaved = this.i18nDirty();
     const pending = s.queue.filter(q => !s.decisions[q.number]).length;
     const isGames = s.tab === "games";
     const cur = this.current();
@@ -2047,13 +2352,14 @@ class Component extends DCLogic {
 
       nav: NAV.map(([id, label]) => {
         const badge = id === "queue" ? pending
+          : id === "i18n" ? i18nUnsaved
           : id === "games" ? s.games.length
           : KIND_OF_TAB[id] ? s.companies.filter(c => c.kind === KIND_OF_TAB[id]).length : 0;
         return {
         label: label,
         badge: badge,
         badgeShow: badge ? "inline" : "none",
-        badgeBg: id === "queue" ? "#ee2626" : "#333941",
+        badgeBg: id === "queue" ? "#ee2626" : id === "i18n" ? "#8a6d1e" : "#333941",
         bg: s.tab === id ? "#2b3138" : "transparent",
         fg: s.tab === id ? "#fff" : "#a9b1b9",
         click: () => this.setState({ tab: id, edit: null, gameEdit: null, q: "", sort: "" })
@@ -2111,7 +2417,36 @@ class Component extends DCLogic {
       spendTotal: s.spending.reduce((n, r) => n + (Number(r.amount) || 0), 0).toLocaleString("en-US") + "₾",
 
       isQueue: s.tab === "queue",
-      isList: s.tab !== "queue" && s.tab !== "settings" && s.tab !== "site",
+      isList: s.tab !== "queue" && s.tab !== "settings" && s.tab !== "site" && s.tab !== "i18n",
+      isI18n: s.tab === "i18n",
+
+      /* Translations tab. Georgian is written into the pages; English lives in
+         the dictionary and in data/i18n.json, and this is where it is typed. */
+      i18nRows: this.i18nView(i18nAll),
+      i18nCount: i18nAll.length + " სტრიქონი",
+      i18nMoreShow: i18nAll.length > I18N_MAX ? "block" : "none",
+      i18nMore: "ნაჩვენებია პირველი " + I18N_MAX + " — დანარჩენის სანახავად მოძებნე ან შეცვალე ფილტრი.",
+      i18nEmptyShow: i18nAll.length ? "none" : "block",
+      i18nEmptyText: s.i18nFound
+        ? "ამ ფილტრში არაფერია."
+        : "დააჭირე „გვერდების სკანირებას“ — გაიხსნება ყველა გვერდი რიგრიგობით და ჩამოთვლის, რა წერია ქართულად და რას აკლია ინგლისური.",
+      i18nQ: s.i18nQ,
+      onI18nSearch: e => this.setState({ i18nQ: e.target.value }),
+      i18nFilter: s.i18nFilter,
+      i18nFilters: I18N_FILTERS,
+      onI18nFilter: e => this.setState({ i18nFilter: e.target.value }),
+      scan: () => this.scanPages(),
+      scanLabel: s.scanning ? "სკანირება " + s.scanning : (s.i18nFound ? "ხელახლა სკანირება" : "გვერდების სკანირება"),
+      i18nUnsavedText: i18nUnsaved
+        ? i18nUnsaved + " შეუნახავი თარგმანი"
+        : "ყველაფერი გამოქვეყნებულია",
+      i18nUnsavedColor: i18nUnsaved ? "#f4cd77" : "#8b949c",
+      i18nDiscardShow: i18nUnsaved ? "inline-flex" : "none",
+      discardI18n: () => this.discardI18n(),
+      publishI18n: () => this.publishI18n(),
+      i18nSaveLabel: s.i18nSaving ? "იტვირთება…" : "თარგმანების ატვირთვა",
+      i18nSaveBg: i18nUnsaved && s.authed && !s.i18nSaving ? "#4c9a5e" : "#2b3138",
+      i18nSaveFg: i18nUnsaved && s.authed && !s.i18nSaving ? "#fff" : "#6a737c",
       isSite: s.tab === "site",
       isSettings: s.tab === "settings",
 

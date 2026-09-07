@@ -59,7 +59,7 @@
       "https://api.allorigins.win/get?url={url}",
       "https://api.codetabs.com/v1/proxy?quest={url}"
     ],
-    paths: { companies: "data/companies.json", games: "data/games.json", site: "data/site.json" }
+    paths: { companies: "data/companies.json", games: "data/games.json", site: "data/site.json", i18n: "data/i18n.json" }
   };
   config.raw = "https://raw.githubusercontent.com/" + config.owner + "/" + config.repo + "/" + config.branch + "/";
   config.issueNew = "https://github.com/" + config.owner + "/" + config.repo + "/issues/new";

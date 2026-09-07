@@ -404,6 +404,12 @@
     "ჩვენ შესახებ · About": "About", "ადამიანები · People": "People",
     "სიახლეები · News": "News", "კონტაქტი · Contact": "Contact"
   };
+  /* What ships with the site, kept apart from what the panel adds on top of it
+     so the panel can show which pairs have been changed and publish only those. */
+  var BASE = {};
+  Object.keys(DICT).forEach(function (k) { BASE[k] = DICT[k]; });
+  var OVER = {};
+
   var ATTRS = ["placeholder", "aria-label", "title"];
 
   /* Whole-node matching only. Composites (a word plus a number, a date, or a
@@ -446,8 +452,14 @@
   var lang = "ka";
   try { lang = localStorage.getItem("ggc.lang") || "ka"; } catch (e) {}
 
+  /* The admin panel loads this file for the dictionary and for tr(), not to be
+     translated by it: its own labels overlap the site's, and a panel that
+     half-translated itself while its language switch lives elsewhere is worse
+     than one that stays in Georgian. */
+  var OFF = document.documentElement.hasAttribute("data-ggc-no-i18n");
+
   function walk(root) {
-    if (lang !== "en") return;
+    if (OFF || lang !== "en") return;
     var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
     var n, hits = [];
     while ((n = w.nextNode())) {
@@ -509,5 +521,34 @@
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
   else run();
-  window.GGCI18n = { lang: lang, dict: DICT, apply: run };
+  window.GGCI18n = { lang: lang, dict: DICT, base: BASE, over: OVER, tr: tr, apply: run };
+
+  /* data/i18n.json is the same dictionary, editable without a commit to this
+     file: the panel writes it, a key here replaces the shipped pair of the same
+     name, and a key nobody has seen before is simply added. The page has
+     already rendered in Georgian by the time it lands, so a slow or missing
+     file costs nothing — it only means the English is one file behind. */
+  (function () {
+    var path = (window.GGC && GGC.config.paths.i18n) || "data/i18n.json";
+    var local = path + "?t=" + Date.now();
+    var remote = (window.GGC && GGC.config.raw ? GGC.config.raw : "") + path;
+    var order = location.protocol === "file:" ? [remote, local] : [local, remote];
+    order.reduce(function (chain, url) {
+      return chain.catch(function () {
+        return fetch(url, { cache: "no-store" }).then(function (r) {
+          if (!r.ok) throw new Error(url + " -> " + r.status);
+          return r.json();
+        });
+      });
+    }, Promise.reject(new Error("start"))).then(function (doc) {
+      var strings = (doc && doc.strings) || {};
+      Object.keys(strings).forEach(function (k) {
+        if (typeof strings[k] !== "string" || !strings[k].trim()) return;
+        OVER[k] = strings[k];
+        DICT[k] = strings[k];
+      });
+      window.GGCI18n.loaded = true;
+      if (Object.keys(OVER).length) run();
+    }).catch(function () { window.GGCI18n.loaded = true; });
+  })();
 })();

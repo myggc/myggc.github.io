@@ -266,11 +266,28 @@
       .then(function (r) { return markBaseline().then(function () { return r; }); });
   }
 
+  /* Translations publish on their own. They are not part of the catalogue and
+     nobody should have to hold an unfinished record to fix a word, so this
+     commit does not go through the baseline check that guards the data files —
+     it writes one file and touches nothing else. */
+  function saveI18n(strings, message) {
+    var keys = Object.keys(strings || {}).sort();
+    var out = {};
+    keys.forEach(function (k) { out[k] = strings[k]; });
+    return getFile(C.paths.i18n)
+      .then(function (f) { return f.json; })
+      .catch(function () { return { version: 1 }; })
+      .then(function (doc) {
+        var next = Object.assign({}, doc, { strings: out });
+        return commit([{ path: C.paths.i18n, content: stringify(next) }], message);
+      });
+  }
+
   window.GGCGitHub = {
     hasToken: hasToken, setToken: setToken, signIn: signIn, me: me,
     listSubmissions: listSubmissions, comment: comment, closeIssue: closeIssue,
     getFile: getFile, getText: getText, commit: commit, saveData: saveData, parseIssue: parseIssue,
-    markBaseline: markBaseline,
+    markBaseline: markBaseline, saveI18n: saveI18n,
     putImage: putImage,
     signOut: function () { setToken(""); }
   };
