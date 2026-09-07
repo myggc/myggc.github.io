@@ -237,8 +237,9 @@
       });
   }
 
-  /* Writes both catalogue files in a single commit. Pass the full item arrays. */
-  function saveData(companies, games, message) {
+  /* Writes the data files in a single commit. Pass the full item arrays; `site`
+     carries the events and spending the community and donate pages read. */
+  function saveData(companies, games, message, site) {
     return Promise.all([fileSha(C.paths.companies), fileSha(C.paths.games)])
       .then(function (shas) {
         if (baseline && (shas[0] !== baseline.companies || shas[1] !== baseline.games)) {
@@ -250,10 +251,17 @@
         var raw = window.GGC.data.raw();
         var cDoc = Object.assign({}, raw.companies || { version: 1 }, { items: companies });
         var gDoc = Object.assign({}, raw.games || { version: 1 }, { items: games });
-        return commit([
+        var files = [
           { path: C.paths.companies, content: stringify(cDoc) },
           { path: C.paths.games, content: stringify(gDoc) }
-        ], message);
+        ];
+        if (site) {
+          var sDoc = Object.assign({}, raw.site || { version: 1 }, {
+            events: site.events || [], spending: site.spending || []
+          });
+          files.push({ path: C.paths.site, content: stringify(sDoc) });
+        }
+        return commit(files, message);
       })
       .then(function (r) { return markBaseline().then(function () { return r; }); });
   }

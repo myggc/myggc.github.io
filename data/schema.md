@@ -93,3 +93,16 @@ day; the admin panel can also run it per game or for everything at once.
 node scripts/refresh-stores.mjs            # all games
 node scripts/refresh-stores.mjs --id dumbriel --dry
 ```
+
+## Site content — `data/site.json`
+
+Everything on the site that is neither a studio nor a game. Edited in the panel
+under **საიტის შიგთავსი** and published in the same commit as the catalogue.
+
+| field | meaning |
+| --- | --- |
+| `events[]` | `{ id, title, date, image, link }` — the hub's community page; newest first, and the section is empty rather than invented when the list is |
+| `spending[]` | `{ label, amount }` in lari — the donate page's breakdown; the whole section is hidden while this is empty |
+
+Both used to be written into the HTML, which is why they went stale: keeping
+them current meant editing a page.

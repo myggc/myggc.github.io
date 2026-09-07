@@ -48,7 +48,7 @@
   </div>
 </header>
 
-<section style="position:relative;padding:clamp(30px,4.5vw,64px) 0 0">
+<section style="position:relative;padding:clamp(30px,4.5vw,64px) 0 clamp(24px,3.5vw,44px)">
   <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;overflow:hidden">
     <div style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:{{ heroBg }}"></div>
     <div style="position:absolute;right:0;top:-30%;width:min(46vw,520px);aspect-ratio:1;opacity:.09;animation:ggcSpin 78s linear infinite"><img src="assets/brand/ggc-mark.svg" alt="" style="width:100%;display:block"></div>
@@ -57,7 +57,7 @@
     <h1 style="margin:0;max-width:22ch;font-size:clamp(30px,5vw,56px);line-height:1.03;font-weight:800;letter-spacing:-.03em;text-wrap:balance">ოთხი მიმართულება, ერთ ადგილას</h1>
     <p style="margin:16px 0 0;max-width:52ch;font-size:clamp(16px,1.9vw,19px);line-height:1.55;color:#3c4147">GGC-ის საქმიანობა ოთხ ნაწილად იყოფა. აირჩიე მიმართულება — ქვემოთ სრული კონტენტი გამოჩნდება.</p>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));gap:0;margin-top:clamp(22px,3vw,34px);border-radius:20px;overflow:hidden;box-shadow:0 12px 30px rgba(20,22,26,.13)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));gap:0;margin-top:clamp(26px,3.4vw,40px);border-radius:20px;overflow:hidden;box-shadow:0 12px 30px rgba(20,22,26,.13)">
       <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
         <button type="button" onClick="{{ t.click }}" style="position:relative;overflow:hidden;text-align:left;cursor:pointer;font-family:inherit;background:{{ t.bg }};color:{{ t.fg }};border:0;border-radius:0;padding:clamp(18px,2.4vw,26px);transition:background .2s ease;box-shadow:{{ t.shadow }}">
           <div aria-hidden="true" style="position:absolute;right:-26px;bottom:-34px;width:110px;height:110px;border-radius:50%;background:{{ t.blob }}"></div>
@@ -85,49 +85,27 @@
         </sc-for>
       </div>
     </section>
-
-    <section style="max-width:1220px;margin:0 auto;padding:0 20px clamp(18px,2.5vw,28px)">
-      <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:16px">
-        <h2 style="margin:0;font-size:clamp(21px,2.8vw,28px);font-weight:700;letter-spacing:-.02em">2026 კალენდარი</h2>
-        <span style="font-size:15px;color:#4d5258">თარიღები შესაძლოა შეიცვალოს</span>
-      </div>
-      <div style="background:#fff;border:1px solid #dbe2e6;border-radius:16px;overflow:hidden">
-        <sc-for list="{{ events }}" as="e" hint-placeholder-count="6">
-          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:13px;padding:15px 18px;border-bottom:1px solid #eef2f4">
-            <div style="flex:none;width:70px;text-align:center;background:{{ e.dateBg }};color:{{ e.dateFg }};border-radius:10px;padding:9px 7px">
-              <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;line-height:1">{{ e.day }}</div>
-              <div style="margin-top:2px;font-size:12px;letter-spacing:.06em;text-transform:uppercase">{{ e.month }}</div>
-            </div>
-            <div style="flex:1 1 180px;min-width:0">
-              <div style="font-size:16px;font-weight:600">{{ e.title }}</div>
-              <div style="margin-top:3px;font-size:14px;color:#4d5258">{{ e.where }}</div>
-            </div>
-            <span style="flex:none;background:{{ e.tagBg }};color:{{ e.tagFg }};border-radius:7px;padding:6px 11px;font-size:13px;font-weight:600">{{ e.tag }}</span>
-          </div>
-        </sc-for>
-      </div>
-    </section>
-
     <section style="position:relative;padding:clamp(26px,4vw,48px) 0">
       <div aria-hidden="true" style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:#16181b"></div>
       <div style="position:relative;max-width:1220px;margin:0 auto;padding:0 20px">
         <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:18px">
-          <h2 style="margin:0;font-size:clamp(21px,2.8vw,28px);font-weight:700;letter-spacing:-.02em;color:#fff">გასული ივენთები</h2>
-          <span style="font-size:15px;color:#a7aeb6">Facebook-ის გვერდიდან</span>
+          <h2 style="margin:0;font-size:clamp(21px,2.8vw,28px);font-weight:700;letter-spacing:-.02em;color:#fff">ივენთები</h2>
+          <span style="font-size:15px;color:#a7aeb6">{{ eventsNote }}</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr));gap:12px">
           <sc-for list="{{ shots }}" as="p" hint-placeholder-count="6">
-            <a href="{{ p.fb }}" style="position:relative;display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:4/3;background:#22262b;border:1px solid #2c3137;border-radius:12px;padding:14px;overflow:hidden" style-hover="border-color:#3e454d">
+            <a href="{{ p.link }}" target="{{ p.target }}" rel="noopener" style="position:relative;display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:4/3;background:#22262b;border:1px solid #2c3137;border-radius:12px;padding:14px;overflow:hidden" style-hover="border-color:#3e454d">
               <div aria-hidden="true" style="position:absolute;inset:0;background:{{ p.bg }}"></div>
               <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,24,27,0) 40%,rgba(22,24,27,.88) 100%)"></div>
               <div style="position:relative;font-size:15px;font-weight:600;color:#fff;text-wrap:pretty">{{ p.title }}</div>
               <div style="position:relative;margin-top:4px;display:flex;align-items:center;gap:7px;font-size:13px;color:#c6ccd3">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="#c6ccd3" style="flex:none"><path d="M13 22v-8h3l1-4h-4V8c0-1 .3-1.6 1.7-1.6H17V2.8c-.6-.1-1.7-.2-3-.2-3 0-5 1.8-5 5.2V10H6v4h3v8h4z"/></svg>
+                <img src="{{ p.icon }}" alt="" width="14" height="14" style="display:{{ p.iconShow }};flex:none">
                 {{ p.date }}
               </div>
             </a>
           </sc-for>
         </div>
+        <div style="display:{{ eventsEmptyShow }};padding:34px 20px;text-align:center;border:1px dashed #3e454d;border-radius:14px;color:#a7aeb6;font-size:16px">ივენთები ჯერ არ დამატებულა.</div>
       </div>
     </section>
 
@@ -149,6 +127,7 @@
 <sc-if value="{{ isPublishing }}">
   <div style="animation:ggcFade .35s ease both">
     <section style="max-width:1220px;margin:0 auto;padding:clamp(26px,4vw,48px) 20px clamp(18px,2.5vw,28px)">
+      <p style="margin:0 0 22px;max-width:62ch;font-size:clamp(16px,1.9vw,19px);line-height:1.6;color:#41464c;text-wrap:pretty">ვეძებთ გუნდებს და ვდგავართ მათ გვერდით პროცესიდან რელიზამდე. ჩვენ თავს არაფერს ვიბამთ — ვაძლევთ წვდომას ბაზებზე და კონტაქტებზე, ვუზიარებთ გამოცდილებას და ვეხმარებით იმ კარების გაღებაში, რომლებიც მარტო ძნელად იღება.</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:12px">
         <sc-for list="{{ pubOffer }}" as="o" hint-placeholder-count="4">
           <div style="background:#fff;border:1px solid #e6dcdc;border-top:4px solid #ee2626;border-radius:15px;padding:20px">
@@ -175,6 +154,7 @@
           </a>
         </sc-for>
       </div>
+      <div style="display:{{ titlesEmptyShow }};padding:30px 20px;text-align:center;border:1px dashed #ddd0d0;border-radius:14px;color:#7a6a6a;font-size:16px">პორტფელი ჯერ ცარიელია — აქ ის თამაშები გამოჩნდება, სადაც GGC გამომცემელია.</div>
     </section>
 
     <section style="max-width:1220px;margin:0 auto;padding:0 20px clamp(26px,4vw,48px)">
@@ -202,19 +182,19 @@
       <div style="display:inline-flex;align-items:center;gap:9px;background:#eaf3e2;color:#3d5e19;border-radius:10px;padding:11px 16px;font-size:15px;font-weight:600">
         <span style="width:8px;height:8px;border-radius:50%;background:#83c341"></span>მალე განახლდება
       </div>
-      <p style="margin:20px 0 0;max-width:54ch;font-size:clamp(16px,1.9vw,19px);line-height:1.6;color:#41464c;text-wrap:pretty">ინკუბატორი და აქსელერატორი ქართული სტუდიებისთვის, რომლებიც უკვე მზად არიან გაზრდისთვის. პროგრამა ჯერ იწერება — ქვემოთ ის მიმართულებებია, რომლებზეც ვმუშაობთ.</p>
+      <p style="margin:20px 0 0;max-width:54ch;font-size:clamp(16px,1.9vw,19px);line-height:1.6;color:#41464c;text-wrap:pretty">ამჟამად ვმუშაობთ იმაზე, რომ შევქმნათ შესაძლებლობები, რომლებიც ქართულ სტუდიებსა და სოლო დეველოპერებს გლობალურ ბაზარზე გასვლაში დაეხმარება.</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px;margin-top:26px">
         <div style="background:#fff;border:1px solid #dfe4d8;border-top:4px solid #83c341;border-radius:15px;padding:20px">
           <div style="font-size:17px;font-weight:600">კოჰორტები</div>
-          <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">3-6 სტუდია ერთ ნაკადში, ფიქსირებული ხანგრძლივობა და ეტაპები.</p>
+          <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">რამდენიმე სტუდია ერთ ნაკადში, ფიქსირებული ხანგრძლივობით და ეტაპებით.</p>
         </div>
         <div style="background:#fff;border:1px solid #dfe4d8;border-top:4px solid #83c341;border-radius:15px;padding:20px">
-          <div style="font-size:17px;font-weight:600">დაფინანსება</div>
-          <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">გრანტი ან თანადაფინანსება კონკრეტულ ეტაპზე, გამჭვირვალე პირობებით.</p>
+          <div style="font-size:17px;font-weight:600">შესაძლებლობებზე წვდომა</div>
+          <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">გრანტები, კონკურსები და პარტნიორები — ვეხმარებით მოძებნაში და განაცხადის მომზადებაში.</p>
         </div>
         <div style="background:#fff;border:1px solid #dfe4d8;border-top:4px solid #83c341;border-radius:15px;padding:20px">
-          <div style="font-size:17px;font-weight:600">რელოკაცია</div>
-          <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">უცხოური სტუდიების საქართველოში გადმოსვლის მხარდაჭერა.</p>
+          <div style="font-size:17px;font-weight:600">გლობალური ბაზარი</div>
+          <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">საერთაშორისო ბაზარზე გასვლის და უცხოური სტუდიების საქართველოში გადმოსვლის მხარდაჭერა.</p>
         </div>
       </div>
       <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:12px">
@@ -230,10 +210,10 @@
     <section style="max-width:1220px;margin:0 auto;padding:clamp(26px,4vw,48px) 20px clamp(16px,2vw,24px)">
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr));gap:1px;background:#e6e0d3;border:1px solid #e6e0d3;border-radius:16px;overflow:hidden">
         <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
-          <a href="{{ s.href }}" style="display:block;background:#fff;padding:20px 18px;border-top:4px solid #fdb813" style-hover="background:#fdfbf6">
+          <div style="background:#fff;padding:20px 18px;border-top:4px solid #fdb813">
             <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(26px,3.6vw,36px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#16181b">{{ s.n }}</div>
             <div style="margin-top:8px;font-size:14px;color:#4d5258">{{ s.label }}</div>
-          </a>
+          </div>
         </sc-for>
       </div>
     </section>
@@ -273,7 +253,6 @@
                 </div>
               </sc-for>
             </div>
-            <a href="{{ s.href }}" style="display:inline-block;margin-top:14px;font-size:15px;font-weight:600;color:#8a6100">კატალოგში ნახვა →</a>
           </div>
         </sc-for>
       </div>
@@ -378,6 +357,7 @@ class Component extends DCLogic {
     const D = GGC.data;
     const st = D.stats();
     const games = D.games();
+    const evts = D.events();
     const companies = D.companies().filter(c => c.active);
     const thisYear = new Date().getFullYear();
     const yearCounts = {};
@@ -413,38 +393,38 @@ class Component extends DCLogic {
         { t: "მასტერკლასი", d: "პრაქტიკული სესია კონკრეტულ უნარზე — 2D, 3D, პროგრამირება, ბიზნესი.", freq: "სეზონურად" },
         { t: "შემაჯამებელი ივენთი", d: "წლის შედეგები, ახალი თამაშების ჩვენება და ინდუსტრიის შეხვედრა.", freq: "დეკემბერში" }
       ],
-      events: [
-        { day: "24", month: "თებ", title: "2D არტი თამაშებში", where: "მითაფი #1 · თბილისი", tag: "ჩატარდა", live: false },
-        { day: "18", month: "აპრ", title: "GameJam 2026", where: "48 საათი · ტექნოპარკი", tag: "რეგისტრაცია", live: true },
-        { day: "22", month: "მაი", title: "3D არტი თამაშებში", where: "მითაფი #2 · თბილისი", tag: "მალე", live: true },
-        { day: "12", month: "ივნ", title: "პროგრამირება თამაშებში", where: "მითაფი #3 · ონლაინ", tag: "მალე", live: true },
-        { day: "09", month: "ივლ", title: "საერთაშორისო მითაფი", where: "სტუმრები საზღვარგარეთიდან", tag: "მალე", live: true },
-        { day: "05", month: "დეკ", title: "შემაჯამებელი ივენთი", where: "წლის შედეგები", tag: "მალე", live: true }
-      ].map(e => Object.assign({}, e, {
-        dateBg: e.live ? "#1d96d3" : "#eef2f4",
-        dateFg: e.live ? "#fff" : "#5a5f65",
-        tagBg: e.live ? "#e2f0f8" : "#f1f4f5",
-        tagFg: e.live ? "#146590" : "#5a5f65"
-      })),
-      shots: [
-        { title: "GameJam 2025 — შემაჯამებელი", date: "დეკემბერი 2025" },
-        { title: "მითაფი: 2D არტი თამაშებში", date: "თებერვალი 2025" },
-        { title: "მასტერკლასი: Unity-ს ოპტიმიზაცია", date: "ნოემბერი 2024" },
-        { title: "საერთაშორისო მითაფი", date: "ივლისი 2024" },
-        { title: "GameJam 2024", date: "აპრილი 2024" },
-        { title: "GGC კონფერენცია", date: "დეკემბერი 2023" }
-      ].map((e, i) => Object.assign({}, e, {
-        fb: "https://www.facebook.com/ggcgeorgia",
-        bg: 'url("images/events/event-' + (i + 1) + '.jpg") center/cover no-repeat'
-      })),
-
+      /* Events come from data/site.json, which the panel edits. They had been
+         written into this page — a calendar of fixed dates and a grid of
+         screenshots all linking to the same Facebook page — so keeping them
+         current meant editing HTML, and they went stale. */
+      eventsNote: evts.length ? evts.length + " ჩანაწერი" : "",
+      eventsEmptyShow: evts.length ? "none" : "block",
+      shots: evts.map(e => {
+        const host = /^https?:\/\/([^/]+)/i.exec(e.link || "");
+        const key = host ? Object.keys(U.SOC).filter(k => host[1].indexOf(k) >= 0)[0] : "";
+        return {
+          title: e.title,
+          date: e.date ? U.fmtDate(e.date) : "",
+          link: e.link || "hub.html#community",
+          target: e.link ? "_blank" : "_self",
+          // Whichever service the link points at, rather than Facebook always.
+          icon: key ? U.iconUrl(key, "c6ccd3") : "",
+          iconShow: key ? "block" : "none",
+          bg: e.image ? 'url("' + e.image + '") center/cover no-repeat' : "#22262b"
+        };
+      }),
       pubOffer: [
-        { t: "დაფინანსება", d: "პროდაქშენის ბიუჯეტი ან თანადაფინანსება კონკრეტულ ეტაპზე." },
-        { t: "პორტინგი", d: "კონსოლებზე და მაღაზიებზე გამოშვების ტექნიკური ნაწილი." },
-        { t: "მარკეტინგი", d: "ვიშლისტები, სტრიმერები, ფესტივალები, პრეს-კიტი." },
-        { t: "ბიზნეს-განვითარება", d: "კონტრაქტები, პლატფორმებთან ურთიერთობა, გარიგებები." }
+        { t: "დაფინანსების მოძიება", d: "ვეხმარებით გრანტებისა და ინვესტორების პოვნაში და განაცხადის მომზადებაში. თანხას ჩვენ არ გაძლევთ — გზას გიმოკლებთ." },
+        { t: "პორტინგი და გამოშვება", d: "ვუზიარებთ გამოცდილებას კონსოლებსა და მაღაზიებზე გამოშვებაში და გაკავშირებთ მათთან, ვისაც ეს უკვე გაუკეთებია." },
+        { t: "მარკეტინგი", d: "წვდომა კონტენტ-კრეატორების და პრესის ბაზაზე, ვიშლისტების სტრატეგია, ფესტივალები და პრეს-კიტი." },
+        { t: "ბიზნეს-განვითარება", d: "პლატფორმებთან და გამომცემლებთან დაკავშირება, კონტრაქტის განხილვა, მოლაპარაკებაში მხარდაჭერა." },
+        { t: "საერთაშორისო ივენთები", d: "გეხმარებით, რომ შენი თამაში უცხოურ ექსპოებზე საქართველოს სახელით გამოჩნდეს." }
       ],
-      titles: D.sortGames(games).slice(0, 3).map(g => {
+      /* The portfolio is what GGC published, not the three newest games in the
+         catalogue — which is what it was showing, so titles nobody at GGC had
+         touched were being presented as its own work. A game belongs here when
+         GGC is named as its publisher. */
+      titles: D.sortGames(games.filter(g => /^ggc/i.test(g.publisherId || ""))).slice(0, 6).map(g => {
         const art = D.gameArt(g);
         const studio = D.company(g.studioId);
         return {
@@ -455,12 +435,13 @@ class Component extends DCLogic {
         };
       }),
 
+      titlesEmptyShow: games.filter(g => /^ggc/i.test(g.publisherId || "")).length ? "none" : "block",
       total: st.games,
       stats: [
-        { n: String(st.studios), label: "ვერიფიცირებული სტუდია", href: "companies.html" },
-        { n: String(st.games), label: "თამაში კატალოგში", href: "games.html" },
-        { n: String(st.solo), label: "სოლო დეველოპერი", href: "companies.html#solo" },
-        { n: String(st.upcoming), label: "მოსალოდნელი გამოშვება", href: "games.html" }
+        { n: String(st.studios), label: "ვერიფიცირებული სტუდია"  },
+        { n: String(st.games), label: "თამაში კატალოგში"  },
+        { n: String(st.solo), label: "სოლო დეველოპერი"  },
+        { n: String(st.upcoming), label: "მოსალოდნელი გამოშვება"  }
       ],
       bars: years.map(([year, v], i) => ({
         year, v, h: Math.round(v / peak * 100) + "%",
@@ -476,10 +457,11 @@ class Component extends DCLogic {
         { title: "გუნდის ზომა", n: companies.length, href: "companies.html",
           rows: this.tally(companies.map(c => c.size), ["#fdb813", "#e8d7ac", "#e8d7ac", "#e8d7ac"]) }
       ],
+      // One line, for the report that is actually coming. The two named years
+      // that were listed here do not exist, and a list of links to "#" is not a
+      // list of reports.
       reports: [
-        { title: "ქართული გეიმდევი 2025", meta: "PDF · მალე", href: "#" },
-        { title: "ქართული გეიმდევი 2024", meta: "PDF · მალე", href: "#" },
-        { title: "სტუდიების გამოკითხვა 2024", meta: "PDF · მალე", href: "#" }
+        { title: "ქართული გეიმდევი 2026", meta: "PDF · მალე", href: "#" }
       ]
     };
   }

@@ -94,18 +94,13 @@
         <div style="background:#f7f9f5;border:1px solid #e2e6de;border-radius:18px;padding:16px">
           <div role="img" aria-label="Kisa.ge QR" style="width:min(58vw,240px);aspect-ratio:1;border-radius:10px;background:{{ qrBg }}"></div>
         </div>
-        <div style="display:flex;gap:6px;padding:5px;background:#f1f4ee;border-radius:11px">
-          <button type="button" onClick="{{ qr1 }}" style="border:0;cursor:pointer;background:{{ qrBg1 }};color:{{ qrFg1 }};border-radius:8px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:600">მწვანე</button>
-          <button type="button" onClick="{{ qr2 }}" style="border:0;cursor:pointer;background:{{ qrBg2 }};color:{{ qrFg2 }};border-radius:8px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:600">შავ-თეთრი</button>
-        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section style="max-width:1220px;margin:0 auto;padding:clamp(28px,4vw,52px) 20px">
-  <h2 style="margin:0 0 6px;font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:-.02em">სად წავიდა შარშანდელი ფული</h2>
-  <p style="margin:0 0 22px;font-size:16px;color:#4d5258">რიცხვები შეიცვლება რეალურით — სტრუქტურა ასეთი რჩება.</p>
+<section style="display:{{ spendShow }};max-width:1220px;margin:0 auto;padding:clamp(28px,4vw,52px) 20px">
+  <h2 style="margin:0 0 6px;font-size:clamp(22px,3vw,30px);font-weight:700;letter-spacing:-.02em">სად დაიხარჯა შეგროვებული თანხა</h2>
   <div style="background:#fff;border:1px solid #e2e6de;border-radius:16px;overflow:hidden">
     <sc-for list="{{ spend }}" as="s" hint-placeholder-count="4">
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid #f0f2ee">
@@ -116,7 +111,7 @@
     </sc-for>
     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:16px 20px;background:#f7f9f5">
       <span style="flex:1 1 140px;min-width:0;font-size:16px;font-weight:700">სულ</span>
-      <span style="flex:none;font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700">70,000₾</span>
+      <span style="flex:none;font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700">{{ spendTotal }}</span>
     </div>
   </div>
 </section>
@@ -141,24 +136,30 @@
 </footer>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{}">
+const D = GGC.data;
 class Component extends DCLogic {
-  state = { qr: 1 };
+  state = { ready: false };
+
+  componentDidMount() { D.load().then(() => this.setState({ ready: true })); }
+
   renderVals() {
-    const s = this.state;
+    const rows = D.spending();
+    const total = rows.reduce((n, r) => n + (Number(r.amount) || 0), 0);
+    const fmt = (n) => Number(n).toLocaleString("en-US") + "₾";
     return {
-      qrBg: 'url("images/qr/qr-' + (s.qr === 1 ? 1 : 2) + '.png") center/contain no-repeat',
-      qr1: () => this.setState({ qr: 1 }),
-      qr2: () => this.setState({ qr: 2 }),
-      qrBg1: s.qr === 1 ? "#16181b" : "transparent",
-      qrFg1: s.qr === 1 ? "#fff" : "#41464c",
-      qrBg2: s.qr === 2 ? "#16181b" : "transparent",
-      qrFg2: s.qr === 2 ? "#fff" : "#41464c",
-      spend: [
-        { what: "გეიმჯემები და პრიზები", sum: "40,000₾", pct: "57%" },
-        { what: "შემაჯამებელი ივენთი", sum: "15,000₾", pct: "21%" },
-        { what: "საერთაშორისო მითაფი", sum: "7,000₾", pct: "10%" },
-        { what: "მითაფები და მასტერკლასები", sum: "8,000₾", pct: "12%" }
-      ]
+      // One QR, in black. A colour picker for a QR code is a choice nobody
+      // came here to make.
+      qrBg: 'url("images/qr/qr-2.png") center/contain no-repeat',
+      /* Where the money went comes from data/site.json, which the panel edits.
+         It had been four invented figures with a note admitting they were
+         invented; until there are real ones the section is simply not there. */
+      spendShow: rows.length ? "block" : "none",
+      spend: rows.map(r => ({
+        what: r.label,
+        sum: fmt(r.amount),
+        pct: total ? Math.round((Number(r.amount) || 0) / total * 100) + "%" : "0%"
+      })),
+      spendTotal: fmt(total)
     };
   }
 }

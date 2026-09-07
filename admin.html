@@ -323,6 +323,70 @@
         </sc-if>
       </sc-if>
 
+      <sc-if value="{{ isSite }}">
+        <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
+          <h1 style="margin:0;font-size:22px;font-weight:600;color:#fff">საიტის შიგთავსი</h1>
+          <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#8b949c">ივენთები ჰაბის „საზოგადოების“ გვერდზე ჩანს, ხარჯები — დონაციის გვერდზე. თუ ცარიელია, სექცია საერთოდ არ გამოჩნდება.</p>
+
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:22px">
+            <h2 style="margin:0;flex:1 1 160px;font-size:18px;font-weight:600;color:#fff">ივენთები</h2>
+            <button type="button" onClick="{{ addEvent }}" style="flex:none;border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:9px 15px;font-family:inherit;font-size:14px;font-weight:600">+ ივენთი</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
+            <sc-for list="{{ siteEvents }}" as="e" hint-placeholder-count="2">
+              <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:14px 16px">
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+                  <img src="{{ e.image }}" alt="" style="display:{{ e.imgShow }};width:78px;aspect-ratio:4/3;object-fit:cover;border-radius:8px;background:#20242a;flex:none">
+                  <span style="flex:1 1 140px;min-width:0;font-size:15px;font-weight:600;color:#fff">{{ e.title }}</span>
+                  <button type="button" onClick="{{ e.remove }}" style="flex:none;border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:9px;padding:8px 13px;font-family:inherit;font-size:13px;font-weight:600">წაშლა</button>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:10px;margin-top:12px">
+                  <sc-for list="{{ e.fields }}" as="f" hint-placeholder-count="4">
+                    <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8b949c">{{ f.k }}
+                      <input type="{{ f.type }}" value="{{ f.v }}" onInput="{{ f.onInput }}" placeholder="{{ f.ph }}" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;background:#1d2126;color:#e9ecee">
+                    </label>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:{{ noEventsShow }};margin-top:12px;padding:22px;text-align:center;border:1px dashed #333941;border-radius:12px;color:#8b949c;font-size:15px">ივენთი ჯერ არ დამატებულა.</div>
+
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid #2a2f35">
+            <h2 style="margin:0;flex:1 1 160px;font-size:18px;font-weight:600;color:#fff">სად დაიხარჯა თანხა</h2>
+            <span style="flex:none;font-size:14px;color:#8b949c">{{ spendTotal }}</span>
+            <button type="button" onClick="{{ addSpend }}" style="flex:none;border:0;cursor:pointer;background:#4c9a5e;color:#fff;border-radius:9px;padding:9px 15px;font-family:inherit;font-size:14px;font-weight:600">+ გრაფა</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+            <sc-for list="{{ siteSpend }}" as="r" hint-placeholder-count="2">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:#171a1e;border:1px solid #2f353c;border-radius:11px;padding:11px 14px">
+                <input type="text" value="{{ r.label }}" onInput="{{ r.onLabel }}" placeholder="მაგ. გეიმჯემები და პრიზები" style="flex:1 1 200px;min-width:0;border:1px solid #333941;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;background:#1d2126;color:#e9ecee">
+                <input type="text" value="{{ r.amount }}" onInput="{{ r.onAmount }}" placeholder="40000" style="flex:0 1 130px;min-width:0;border:1px solid #333941;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;background:#1d2126;color:#e9ecee">
+                <button type="button" onClick="{{ r.remove }}" style="flex:none;border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:9px;padding:9px 13px;font-family:inherit;font-size:13px;font-weight:600">წაშლა</button>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:{{ noSpendShow }};margin-top:12px;padding:22px;text-align:center;border:1px dashed #333941;border-radius:12px;color:#8b949c;font-size:15px">ხარჯი ჯერ არ დამატებულა — დონაციის გვერდზე ეს სექცია არ ჩანს.</div>
+
+          <div style="margin-top:28px;padding-top:20px;border-top:1px solid #2a2f35">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+              <h2 style="margin:0;flex:1 1 200px;font-size:18px;font-weight:600;color:#fff">კატალოგის შემოწმება</h2>
+              <button type="button" onClick="{{ runAudit }}" style="flex:none;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ auditLabel }}</button>
+            </div>
+            <p style="margin:10px 0 0;font-size:14px;line-height:1.6;color:{{ auditNoteColor }}">{{ auditNote }}</p>
+            <div style="display:{{ auditShow }};flex-direction:column;gap:8px;margin-top:12px">
+              <sc-for list="{{ auditRows }}" as="a" hint-placeholder-count="2">
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:#2a2318;border:1px solid #4a3d1e;border-radius:11px;padding:11px 14px">
+                  <span style="flex:1 1 160px;min-width:0;font-size:15px;font-weight:600;color:#f4cd77">{{ a.name }}</span>
+                  <span style="flex:1 1 200px;min-width:0;font-size:13px;color:#c6b78c">{{ a.why }}</span>
+                  <button type="button" onClick="{{ a.open }}" style="flex:none;border:1px solid #4a3d1e;cursor:pointer;background:#20242a;color:#f4cd77;border-radius:9px;padding:8px 13px;font-family:inherit;font-size:13px;font-weight:600">გახსნა</button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isSettings }}">
         <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
           <h1 style="margin:0;font-size:22px;font-weight:600;color:#fff">პარამეტრები</h1>
@@ -466,7 +530,7 @@ const D = GGC.data, U = GGC.util, GH = window.GGCGitHub, C = GGC.config;
 
 const NAV = [
   ["queue", "ვალიდაციის რიგი"], ["companies", "კომპანიები"], ["teams", "გუნდები"],
-  ["solo", "სოლო დეველოპერები"], ["games", "თამაშები"], ["settings", "პარამეტრები"]
+  ["solo", "სოლო დეველოპერები"], ["games", "თამაშები"], ["site", "საიტის შიგთავსი"], ["settings", "პარამეტრები"]
 ];
 const TITLES = { companies: "კომპანიები", teams: "გუნდები", solo: "სოლო დეველოპერები", games: "თამაშები" };
 const KIND_OF_TAB = { companies: "company", teams: "team", solo: "solo" };
@@ -522,7 +586,7 @@ class Component extends DCLogic {
   state = {
     ready: false, authed: false, browse: false, user: "", tokenInput: "", authErr: "", signing: false,
     tab: "queue", open: null, q: "", sort: "", edit: null, editKind: "company",
-    queue: [], decisions: {}, companies: [], games: [],
+    queue: [], decisions: {}, companies: [], games: [], events: [], spending: [], previews: {}, audit: [], audited: false,
     status: "", statusColor: "#8b949c", publishing: false, syncing: "",
     pending: null, uploading: false, asking: 0, busy: 0, testing: false, endpointOk: "",
     gameEdit: null, loadingQueue: false,
@@ -571,6 +635,9 @@ class Component extends DCLogic {
       try { draft = JSON.parse(localStorage.getItem(ADMIN_DRAFT) || "null"); } catch (e) {}
       const companies = U.clone(D.companies());
       const games = U.clone(D.games());
+      // Events and spending ride along with the catalogue, published together.
+      const events = U.clone(D.events());
+      const spending = U.clone(D.spending());
       let replayed = 0;
       if (draft && Array.isArray(draft.companies) && Array.isArray(draft.games)) {
         (draft.deleted || []).forEach(k => {
@@ -587,7 +654,7 @@ class Component extends DCLogic {
         draft.companies.forEach(c => merge(companies, c, D.normCompany));
         draft.games.forEach(g => merge(games, g, D.normGame));
       }
-      this.setState({ ready: true, companies, games }, () => {
+      this.setState({ ready: true, companies, games, events, spending }, () => {
         if (replayed) {
           this.say("აღდგა " + this.dirtyKeys().length + " შენახული ცვლილება ამ ბრაუზერიდან", "#f4cd77");
         }
@@ -638,11 +705,17 @@ class Component extends DCLogic {
     const keys = {};
     Object.keys(pub).forEach(k => { keys[k] = 1; });
     Object.keys(now).forEach(k => { keys[k] = 1; });
-    return Object.keys(keys).filter(k => {
+    const changed = Object.keys(keys).filter(k => {
       const a = pub[k], b = now[k];
       if (!a || !b) return true;
       return this.stable(a) !== this.stable(b);
     });
+    /* Events and spending are published in the same commit, so an edit to
+       either has to count as pending work — otherwise the upload button stays
+       grey and the change never leaves the browser. */
+    if (JSON.stringify(D.events()) !== JSON.stringify(this.state.events)) changed.push("site:events");
+    if (JSON.stringify(D.spending()) !== JSON.stringify(this.state.spending)) changed.push("site:spending");
+    return changed;
   }
 
   /* Whatever the panel is currently doing, in the words the operation itself
@@ -660,6 +733,51 @@ class Component extends DCLogic {
     if (s.busy) return "მოთხოვნა იხურება…";
     if (s.loadingQueue) return "რიგი იტვირთება…";
     return "";
+  }
+
+  /* An import that widened its net could attach a game the studio never made —
+     Zynga's Wizard of Oz Slots ended up under a Georgian studio because a
+     search matched the words. The importer refuses those now, but the ones
+     already filed are still filed, and nothing on the site says so.
+
+     Two things give it away without asking a storefront anything: a store link
+     whose own address belongs to another developer — Play package ids are
+     prefixed by their publisher — and a title whose stored credits name someone
+     else. Reported, never removed on its own. */
+  auditGames() {
+    const s = this.state;
+    const norm = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const out = [];
+    s.games.forEach(g => {
+      const co = s.companies.filter(c => c.id === g.studioId)[0];
+      if (!co) {
+        out.push({ id: g.id, name: g.name, why: "სტუდია არ არის მიბმული" });
+        return;
+      }
+      const want = [norm(co.name), norm(co.legal), norm(co.id)].filter(Boolean);
+      const play = (g.stores || {}).googleplay || "";
+      const pkg = norm((/[?&]id=([\w.]+)/.exec(play) || [])[1] || "");
+      /* A package id is the publisher's own namespace, so a studio's other
+         titles share its opening word. Only judged when the studio has more
+         than one title to compare against — one game proves no pattern. */
+      const siblings = s.games.filter(x => x.studioId === co.id && x.id !== g.id);
+      const sibPkgs = siblings.map(x => norm((/[?&]id=([\w.]+)/.exec((x.stores || {}).googleplay || "") || [])[1] || "")).filter(Boolean);
+      if (pkg && sibPkgs.length >= 2) {
+        const stem = sibPkgs[0].slice(0, 4);
+        const shared = sibPkgs.filter(p => p.slice(0, 4) === stem).length;
+        if (shared >= 2 && pkg.slice(0, 4) !== stem && !want.some(w => w && pkg.indexOf(w.slice(0, 4)) >= 0)) {
+          out.push({ id: g.id, name: g.name, why: "Google Play-ის პაკეტი სხვა დეველოპერისაა: " + ((/[?&]id=([\w.]+)/.exec(play) || [])[1] || "") });
+          return;
+        }
+      }
+      const credits = norm((g.developers || []).concat(g.publishers || []).join(" "));
+      if (credits && want.length && !want.some(w => w && credits.indexOf(w) >= 0)) {
+        out.push({ id: g.id, name: g.name, why: "მაღაზია სხვა დეველოპერს ასახელებს" });
+      }
+    });
+    this.setState({ audit: out, audited: true });
+    this.say(out.length ? out.length + " საეჭვო თამაში მოინიშნა" : "საეჭვო არაფერი მოიძებნა",
+      out.length ? "#f4cd77" : "#9ede9e");
   }
 
   dirtyCount() { return this.dirtyKeys().length; }
@@ -870,7 +988,7 @@ class Component extends DCLogic {
     // Only approvals reach here — a rejection closed itself when it was made.
     const approved = Object.keys(s.decisions);
     const msg = "data: " + this.dirtyCount() + " განახლება ადმინიდან";
-    GH.saveData(s.companies, s.games, msg)
+    GH.saveData(s.companies, s.games, msg, { events: s.events, spending: s.spending })
       .then(() => Promise.all(approved.map(n =>
         GH.comment(n, "დადასტურდა და გამოქვეყნდა კატალოგში. მადლობა!")
           .then(() => GH.closeIssue(n, "approved"))
@@ -1116,8 +1234,12 @@ class Component extends DCLogic {
         const href = path + "?v=" + Date.now();
         if (p.forGame) this.patchGame(p.id, { localArt: href });
         else this.patchCompany(p.id, { logo: href });
-        this.setState({ pending: null, uploading: false });
-        this.say("ატვირთულია " + path, "#9ede9e");
+        // Keep showing the file we just sent until Pages catches up with it.
+        this.setState(st => ({
+          pending: null, uploading: false,
+          previews: Object.assign({}, st.previews, { [(p.forGame ? "g:" : "c:") + p.id]: p.img.url })
+        }));
+        this.say("ატვირთულია " + path + " — საიტზე ერთ წუთში გამოჩნდება", "#9ede9e");
       })
       .catch(e => {
         this.setState({ uploading: false });
@@ -1601,7 +1723,13 @@ class Component extends DCLogic {
     // thrown away by the next refresh, so say so instead of offering upload.
     const storeArt = isGame && cur.art && (cur.art.capsule || cur.art.hero);
     const size = U.IMAGE_SIZES[!isGame ? "logo" : (cur.mobile ? "portrait" : "capsule")];
-    const currentArt = isGame ? D.gameArt(cur) : cur.logo;
+    /* A file uploaded a moment ago is committed but not yet served: GitHub
+       Pages takes about a minute to publish it, and until then the record
+       points at a URL that answers 404 — so the picture vanished and came back
+       on its own later. The copy that was just uploaded is kept in memory and
+       shown in its place until the page is reloaded. */
+    const justUploaded = (s.previews || {})[(isGame ? "g:" : "c:") + cur.id];
+    const currentArt = justUploaded || (isGame ? D.gameArt(cur) : cur.logo);
     return {
       show: "block",
       title: isGame ? "თამაშის არტი" : "ლოგო",
@@ -1911,8 +2039,59 @@ class Component extends DCLogic {
         };
       }),
 
+      /* The community page's events and the donate page's spending, edited
+         here rather than in the HTML they used to be written into. */
+      runAudit: () => this.auditGames(),
+      auditLabel: s.audited ? "ხელახლა შემოწმება" : "თამაშების შემოწმება",
+      auditNote: !s.audited ? "" : ((s.audit || []).length
+        ? (s.audit || []).length + " საეჭვო ჩანაწერი — გახსენი და წაშალე, თუ მართლა სხვისია"
+        : "ყველა თამაში თავის სტუდიაზეა მიბმული"),
+      auditNoteColor: !s.audited ? "#8b949c" : ((s.audit || []).length ? "#f4cd77" : "#9ede9e"),
+      auditRows: (s.audit || []).map(a => ({
+        name: a.name || a.id,
+        why: a.why,
+        open: () => this.setState({ tab: "games", gameEdit: a.id })
+      })),
+      auditShow: (s.audit || []).length ? "flex" : "none",
+
+      siteEvents: s.events.map((e, i) => ({
+        title: e.title || "ახალი ივენთი",
+        image: e.image || "",
+        imgShow: e.image ? "block" : "none",
+        remove: () => this.setState(st => ({ events: st.events.filter((_, j) => j !== i) })),
+        fields: [
+          ["title", "სათაური", "text", "მაგ. GameJam 2026"],
+          ["date", "თარიღი", "date", ""],
+          ["image", "ფოტოს მისამართი", "text", "images/events/…"],
+          ["link", "ლინკი", "text", "https://…"]
+        ].map(([k, label, type, ph]) => ({
+          k: label, type, ph, v: e[k] || "",
+          onInput: ev => {
+            const v = ev.target.value;
+            this.setState(st => ({
+              events: st.events.map((x, j) => j === i ? Object.assign({}, x, { [k]: v }) : x)
+            }));
+          }
+        }))
+      })),
+      noEventsShow: s.events.length ? "none" : "block",
+      addEvent: () => this.setState(st => ({
+        events: st.events.concat([{ id: "e" + Date.now(), title: "", date: "", image: "", link: "" }])
+      })),
+      siteSpend: s.spending.map((r, i) => ({
+        label: r.label || "",
+        amount: r.amount == null ? "" : String(r.amount),
+        onLabel: ev => { const v = ev.target.value; this.setState(st => ({ spending: st.spending.map((x, j) => j === i ? Object.assign({}, x, { label: v }) : x) })); },
+        onAmount: ev => { const v = Number(String(ev.target.value).replace(/[^\d]/g, "")) || 0; this.setState(st => ({ spending: st.spending.map((x, j) => j === i ? Object.assign({}, x, { amount: v }) : x) })); },
+        remove: () => this.setState(st => ({ spending: st.spending.filter((_, j) => j !== i) }))
+      })),
+      noSpendShow: s.spending.length ? "none" : "block",
+      addSpend: () => this.setState(st => ({ spending: st.spending.concat([{ label: "", amount: 0 }]) })),
+      spendTotal: s.spending.reduce((n, r) => n + (Number(r.amount) || 0), 0).toLocaleString("en-US") + "₾",
+
       isQueue: s.tab === "queue",
-      isList: s.tab !== "queue" && s.tab !== "settings",
+      isList: s.tab !== "queue" && s.tab !== "settings" && s.tab !== "site",
+      isSite: s.tab === "site",
       isSettings: s.tab === "settings",
 
       queueCount: pending,

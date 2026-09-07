@@ -59,7 +59,7 @@
       "https://api.allorigins.win/get?url={url}",
       "https://api.codetabs.com/v1/proxy?quest={url}"
     ],
-    paths: { companies: "data/companies.json", games: "data/games.json" }
+    paths: { companies: "data/companies.json", games: "data/games.json", site: "data/site.json" }
   };
   config.raw = "https://raw.githubusercontent.com/" + config.owner + "/" + config.repo + "/" + config.branch + "/";
   config.issueNew = "https://github.com/" + config.owner + "/" + config.repo + "/issues/new";
@@ -372,15 +372,42 @@
     if (cache.promise && !force) return cache.promise;
     cache.promise = Promise.all([
       fetchJSON(config.paths.companies).catch(function () { return { items: [] }; }),
-      fetchJSON(config.paths.games).catch(function () { return { items: [] }; })
+      fetchJSON(config.paths.games).catch(function () { return { items: [] }; }),
+      /* Everything on the site that is neither a studio nor a game: the events
+         the community page lists and where the donations went. Both used to be
+         written into the page, so keeping them current meant editing HTML. */
+      fetchJSON(config.paths.site).catch(function () { return { events: [], spending: [] }; })
     ]).then(function (r) {
-      cache.raw = { companies: r[0], games: r[1] };
+      cache.raw = { companies: r[0], games: r[1], site: r[2] };
       cache.companies = (r[0].items || r[0] || []).map(normCompany);
       cache.games = (r[1].items || r[1] || []).map(normGame);
-      return { companies: cache.companies, games: cache.games };
+      cache.site = {
+        events: (r[2].events || []).map(normEvent),
+        spending: (r[2].spending || []).filter(function (s) { return s && s.label; })
+      };
+      return { companies: cache.companies, games: cache.games, site: cache.site };
     });
     return cache.promise;
   }
+
+  function normEvent(e) {
+    e = e || {};
+    return {
+      id: e.id || slug(e.title),
+      title: e.title || "",
+      date: e.date || "",
+      image: e.image || "",
+      link: e.link || ""
+    };
+  }
+  /* Newest first — a community page is a record of what happened, and what
+     happened most recently is what people came to see. */
+  function events() {
+    return (cache.site && cache.site.events || []).slice().sort(function (a, b) {
+      return String(b.date).localeCompare(String(a.date));
+    });
+  }
+  function spending() { return (cache.site && cache.site.spending) || []; }
 
   function companies() { return cache.companies || []; }
   function games() { return cache.games || []; }
@@ -1736,6 +1763,7 @@
       load: load, companies: companies, games: games, company: company, game: game,
       gamesOf: gamesOf, studioName: studioName, sortGames: sortGames, stats: stats,
       gameArt: gameArt, gameHero: gameHero, platformLinks: platformLinks,
+      events: events, spending: spending, normEvent: normEvent,
       releaseLabel: releaseLabel, normCompany: normCompany, normGame: normGame,
       raw: function () { return cache.raw || {}; }
     },
