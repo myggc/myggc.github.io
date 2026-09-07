@@ -37,7 +37,11 @@ function meta(html, prop) {
   const b = new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]*(?:property|name)=["']${prop}["']`, "i").exec(html);
   return b ? b[1] : "";
 }
-const strip = (s) => String(s || "").replace(/<[^>]+>/g, "").trim();
+const strip = (s) => String(s || "").replace(/<[^>]+>/g, "")
+  .replace(/&quot;/g, '"').replace(/&#0?39;|&apos;/g, "'")
+  .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&nbsp;/g, " ")
+  .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(n))
+  .replace(/&amp;/g, "&").trim();
 
 /* Only ever use URLs the store API itself returned.
    The guessable path — cdn.*.steamstatic.com/steam/apps/<id>/capsule_616x353.jpg
@@ -100,7 +104,7 @@ async function readOG(url, extra) {
       .replace(/\s*[-–—|]\s*itch\.io\s*$/i, "")
       .replace(/\s+by\s+[^|]*$/i, "")
       .trim(),
-    about: meta(html, "og:description") || meta(html, "description") || "",
+    about: strip(meta(html, "og:description") || meta(html, "description")),
     art: { capsule: img, hero: img, portrait: "" },
     genres: [], platforms: [], mobile: false, source: "og",
     ...extra
@@ -167,7 +171,7 @@ async function readPlay(url) {
   const img = ld?.image || meta(html, "og:image") || "";
   return {
     name,
-    about: strip((ld && ld.description) || meta(html, "og:description") || ""),
+    about: strip((ld && ld.description) || meta(html, "og:description")),
     genres,
     status: released && released.at * 1000 > Date.now() ? "upcoming" : "released",
     releaseDate: released ? released.text : "",

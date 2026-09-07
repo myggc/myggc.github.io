@@ -18,7 +18,10 @@
   body { margin:0; overflow-x:clip; background:#edf0f1; color:#16181b; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
   * { box-sizing:border-box; }
   body { min-height:100vh; }
-  #root, #dc-root, body > div, #dc-root > div { display:flex; flex-direction:column; min-height:100vh; }
+  /* Not "body > div": a browser extension that appends its own element to the
+     body — a translate button, a password manager — was being made a
+     full-height flex column by this rule and stretched across the page. */
+  #root, #dc-root, #dc-root > div { display:flex; flex-direction:column; min-height:100vh; }
   #dc-root > div > * { flex:none; width:100%; }
   footer { margin-top:auto; }
   a { color:#146590; text-decoration:none; }
@@ -307,13 +310,9 @@
 
               <div style="display:{{ g.rawDateShow }};align-items:center;gap:10px;margin-top:12px;background:#eef6fb;border:1px solid #cfe3ef;border-radius:11px;padding:11px 13px;font-size:14px;line-height:1.5;color:#14536f">{{ g.rawDate }}</div>
 
-              <div style="margin-top:16px">
-                <div style="font-size:14px;color:#5a5f65;margin-bottom:8px">პლატფორმები</div>
-                <div style="display:flex;flex-wrap:wrap;gap:8px">
-                  <sc-for list="{{ g.platformChips }}" as="p" hint-placeholder-count="10">
-                    <button type="button" onClick="{{ p.click }}" style="border:1px solid {{ p.border }};cursor:pointer;background:{{ p.bg }};color:{{ p.fg }};border-radius:20px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:500">{{ p.label }}</button>
-                  </sc-for>
-                </div>
+              <div style="margin-top:16px;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px">
+                <span style="font-size:14px;color:#5a5f65">პლატფორმები</span>
+                <span style="font-size:15px;font-weight:600;color:#16181b">{{ g.platformList }}</span>
               </div>
 
               <div style="margin-top:16px">
@@ -553,7 +552,6 @@ const GAME_FIELDS = [
   ["langs", "ენები", "ქართული, English", "text"],
   ["about", "აღწერა", "მოკლე აღწერა…", "text"]
 ];
-const GAME_PLATFORMS = ["Steam", "itch.io", "App Store", "Google Play", "Switch", "Xbox", "PlayStation", "Epic Games", "GOG", "Web"];
 const GAME_STORES = [
   ["steam", "Steam", "store.steampowered.com/app/…"],
   ["itch", "itch.io", "studio.itch.io/game"],
@@ -821,7 +819,6 @@ class Component extends DCLogic {
     const list = (v) => String(v || "").split(",").map(x => x.trim()).filter(Boolean);
     if (f.name) out.name = f.name;
     if (f.genres) out.genres = list(f.genres);
-    if (f.platforms) out.platforms = list(f.platforms);
     if (f.engine) out.engine = f.engine;
     if (f.price) out.price = f.price;
     if (f.langs) out.langs = f.langs;
@@ -947,7 +944,8 @@ class Component extends DCLogic {
     return s.drafts.map((d, i) => {
       const yes = d.store === "yes", no = d.store === "no";
       const editing = !!d.gameId;
-      const plat = String(d.f.platforms || "").split(/,\s*/).filter(Boolean);
+      // Derived from the store links, never kept as a list of its own.
+      const plat = GAME_STORES.filter(s => (d.f.stores || {})[s[0]]).map(s => s[1]);
       const engineIsListed = U.ENGINES.indexOf(d.f.engine) >= 0;
       const engineChoice = d.f.engine ? (engineIsListed ? d.f.engine : "Custom") : "";
       return {
@@ -1010,17 +1008,10 @@ class Component extends DCLogic {
         engineCustomShow: engineChoice === "Custom" ? "flex" : "none",
         engineCustom: d.f.engine || "",
         onEngineCustom: e => this.setDraftField(d.key, "engine", e.target.value),
-        // Clicked, not typed — the same buttons the panel has.
-        platformChips: GAME_PLATFORMS.map(p => {
-          const on = plat.indexOf(p) >= 0;
-          return {
-            label: p,
-            bg: on ? "#1d96d3" : "#fff", fg: on ? "#fff" : "#41464c",
-            border: on ? "#1d96d3" : "#dfe3e4",
-            click: () => this.setDraftField(d.key, "platforms",
-              on ? plat.filter(x => x !== p).join(", ") : plat.concat([p]).join(", "))
-          };
-        }),
+        /* The platforms are read off the store links rather than ticked. A
+           ticked platform with no link promised a place to buy the game that
+           did not exist; the link is the promise, so it is also the list. */
+        platformList: plat.length ? plat.join(" · ") : "მაღაზიის ბმული ჯერ არ არის",
         storeFields: GAME_STORES.map(([k, label, ph]) => ({
           label, ph, value: (d.f.stores || {})[k] || "",
           onInput: e => this.setDraftField(d.key, "stores",

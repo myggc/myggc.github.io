@@ -166,6 +166,19 @@
   }
   function clone(o) { return JSON.parse(JSON.stringify(o)); }
 
+  /* Store descriptions arrive HTML-escaped — Steam sends a game whose title is
+     in quotes as &quot;Mother Dear&quot;. Stripping the tags left the entities
+     behind, and the page prints text rather than markup, so they showed as
+     themselves. Decoded once, on the way in. */
+  function unescapeHtml(s) {
+    if (!s || s.indexOf("&") < 0) return s || "";
+    return String(s)
+      .replace(/&quot;/g, '"').replace(/&#0?39;|&apos;/g, "'")
+      .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&nbsp;/g, " ")
+      .replace(/&#(\d+);/g, function (_, n) { return String.fromCharCode(n); })
+      .replace(/&amp;/g, "&");
+  }
+
   /* Target sizes for hand-uploaded art, so every card in a row lines up.
      Logos are square (shown in a circle), store-style capsules are 460×215 at
      2×, phone titles keep the tall store shape. */
@@ -270,8 +283,8 @@
       // who has no office address and no colleague to nominate as a contact.
       phone: c.phone || "",
       contact: c.contact || "",
-      about: c.about || "",
-      aboutEn: c.aboutEn || "",
+      about: unescapeHtml(c.about || ""),
+      aboutEn: unescapeHtml(c.aboutEn || ""),
       logo: c.logo || "",
       links: c.links || {},
       verified: !!c.verified,
@@ -284,11 +297,13 @@
 
   function normGame(g) {
     g = g || {};
-    var stores = g.stores || {};
-    var plats = Array.isArray(g.platforms) && g.platforms.length
-      ? g.platforms
-      : Object.keys(stores).filter(function (k) { return stores[k]; })
-        .map(function (k) { return STORE_LABEL[k] || k; });
+    var stores = {};
+    Object.keys(g.stores || {}).forEach(function (k) { if (g.stores[k]) stores[k] = g.stores[k]; });
+    /* A store link is what makes a platform. Keeping a separate list of ticked
+       platforms meant a game could claim to be on Switch with no Switch link —
+       which is a promise the catalogue then had to break. The links are the
+       list, so there is nothing to keep in step and nothing to tick. */
+    var plats = Object.keys(stores).map(function (k) { return STORE_LABEL[k] || k; });
     var out = {
       id: g.id || slug(g.name),
       name: g.name || "",
@@ -303,8 +318,9 @@
       engine: g.engine || "",
       price: g.price || "",
       langs: g.langs || "",
-      about: g.about || "",
-      aboutEn: g.aboutEn || "",
+      // Records written before the parsers decoded entities still carry them.
+      about: unescapeHtml(g.about || ""),
+      aboutEn: unescapeHtml(g.aboutEn || ""),
       stores: stores,
       art: g.art || {},
       localArt: g.localArt || "",
@@ -391,17 +407,22 @@
   function gameHero(g) {
     return (g.art && (g.art.hero || g.art.capsule)) || g.localArt || "";
   }
+  /* Only the storefronts this game actually has a link to. It used to fall back
+     to the storefront's home page, so a game marked "Switch" with no Switch URL
+     offered a button that dropped you on nintendo.com — a dead end wearing the
+     clothes of a link to the game. A platform with no link is not a place you
+     can buy this game, so it is not shown. */
   function platformLinks(g) {
     var stores = g.stores || {};
     var byLabel = {};
     Object.keys(stores).forEach(function (k) {
       if (stores[k]) byLabel[STORE_LABEL[k] || k] = stores[k];
     });
-    return (g.platforms || []).map(function (p) {
+    return Object.keys(byLabel).map(function (p) {
       return {
         name: p,
-        url: byLabel[p] || PLATFORM_HOME[p] || "",
-        external: !!byLabel[p],
+        url: byLabel[p],
+        external: true,
         // Two fills, because the same list is drawn on a dark pill in the game
         // page and on a light chip in the card.
         icon: iconUrl(p, "ffffff"),
@@ -665,7 +686,7 @@
     var year = (/(\d{4})/.exec(date) || [])[1];
     return {
       name: d.name || "",
-      about: (d.short_description || "").replace(/<[^>]+>/g, "").trim(),
+      about: unescapeHtml((d.short_description || "").replace(/<[^>]+>/g, "")).trim(),
       genres: (d.genres || []).map(function (g) { return String(g.description).toLowerCase(); }),
       status: rel.coming_soon ? "upcoming" : "released",
       releaseDate: date,
@@ -720,7 +741,7 @@
           .replace(/\s*[-–—|]\s*itch\.io\s*$/i, "")
           .replace(/\s+by\s+[^|]*$/i, "")
           .trim(),
-        about: meta("og:description") || meta("description") || "",
+        about: unescapeHtml(meta("og:description") || meta("description") || ""),
         art: { capsule: img, hero: img, portrait: "" },
         genres: [], platforms: [], stores: {}, source: "og"
       };
@@ -782,7 +803,7 @@
       var img = (ld && ld.image) || og("og:image") || "";
       return {
         name: name,
-        about: ((ld && ld.description) || og("og:description") || "").trim(),
+        about: unescapeHtml((ld && ld.description) || og("og:description") || "").trim(),
         genres: genres,
         status: released && released.at * 1000 > Date.now() ? "upcoming" : "released",
         releaseDate: released ? released.text : "",
@@ -833,7 +854,7 @@
     var shots = (r.screenshotUrls || []).concat(r.ipadScreenshotUrls || []).slice(0, 6);
     return {
       name: String(r.trackName || "").trim(),
-      about: String(r.description || "").replace(/<[^>]+>/g, "").trim(),
+      about: unescapeHtml(String(r.description || "").replace(/<[^>]+>/g, "")).trim(),
       genres: (r.genres || [])
         .filter(function (g) { return !/^games$/i.test(g); })
         .map(function (g) { return String(g).toLowerCase(); }),

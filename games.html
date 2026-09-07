@@ -18,7 +18,10 @@
   body { margin:0; overflow-x:clip; background:#eceff0; color:#16181b; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
   * { box-sizing:border-box; }
   body { min-height:100vh; }
-  #root, #dc-root, body > div, #dc-root > div { display:flex; flex-direction:column; min-height:100vh; }
+  /* Not "body > div": a browser extension that appends its own element to the
+     body — a translate button, a password manager — was being made a
+     full-height flex column by this rule and stretched across the page. */
+  #root, #dc-root, #dc-root > div { display:flex; flex-direction:column; min-height:100vh; }
   #dc-root > div > * { flex:none; width:100%; }
   footer { margin-top:auto; }
   a { color:#146590; text-decoration:none; }
@@ -88,6 +91,7 @@
           <div aria-hidden="true" style="position:absolute;inset:0;background:{{ g.artImg }}"></div>
           <span style="position:relative;font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.08em;color:#5a5f65">{{ g.art }}</span>
           <span style="position:absolute;top:10px;left:10px;background:{{ g.badgeBg }};color:{{ g.badgeFg }};border-radius:7px;padding:5px 9px;font-size:12px;font-weight:600">{{ g.badge }}</span>
+          <span style="display:{{ g.priceShow }};position:absolute;top:10px;right:10px;background:rgba(255,255,255,.94);color:#16181b;border-radius:7px;padding:5px 9px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600">{{ g.price }}</span>
         </button>
         <div style="padding:14px 15px 16px;display:flex;flex-direction:column;gap:9px;flex:1">
           <button type="button" onClick="{{ g.open }}" style="border:0;background:transparent;padding:0;text-align:left;cursor:pointer;font-family:inherit;font-size:17px;font-weight:600;letter-spacing:-.01em;color:#16181b">{{ g.name }}</button>
@@ -108,9 +112,17 @@
     <div style="font-size:18px;font-weight:600">ვერაფერი მოიძებნა</div>
     <p style="margin:10px 0 0;font-size:16px;color:#4d5258">გაასუფთავე ფილტრები, ან <a href="submit.html">დაამატე თამაში</a>.</p>
   </div>
+
+  <div style="margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:linear-gradient(140deg,#ee2626,#a81616);border-radius:18px;padding:24px;color:#fff">
+    <div style="flex:1 1 260px;min-width:0">
+      <div style="font-size:19px;font-weight:600">შენი თამაში სიაში არაა?</div>
+      <p style="margin:8px 0 0;font-size:16px;line-height:1.55;opacity:.9">ჩასვი მაღაზიის ბმული — სახელს, ჟანრს, თარიღს, ფასს და სურათებს ავტომატურად წამოვიღებთ.</p>
+    </div>
+    <a href="submit.html" style="flex:none;background:#fff;color:#a81616;border-radius:11px;padding:14px 22px;font-size:16px;font-weight:600" style-hover="background:#fdeaea">დაამატე შენი თამაში</a>
+  </div>
 </section>
 
-<div style="display:{{ detailShow }};position:fixed;inset:0;z-index:70;background:rgba(18,20,23,.55);padding:clamp(10px,3vw,40px);overflow:auto">
+<div onMouseDown="{{ backdropDown }}" onMouseUp="{{ backdropUp }}" style="display:{{ detailShow }};position:fixed;inset:0;z-index:70;background:rgba(18,20,23,.55);padding:clamp(10px,3vw,40px);overflow:auto">
   <div style="max-width:960px;margin:0 auto;background:#f7f9f9;border-radius:20px;overflow:hidden">
     <div style="position:relative;aspect-ratio:1920/620;background:{{ d.artBg }};display:flex;align-items:center;justify-content:center">
       <div aria-hidden="true" style="position:absolute;inset:0;background:{{ d.heroImg }}"></div>
@@ -127,7 +139,7 @@
         <p style="margin:16px 0 0;font-size:16px;line-height:1.65;color:#41464c;text-wrap:pretty">{{ d.about }}</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(120px,100%),1fr));gap:8px;margin-top:20px">
           <sc-for list="{{ d.shots }}" as="s" hint-placeholder-count="3">
-            <div style="aspect-ratio:16/9;background:{{ s.bg }};border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#5a5f65">{{ s.label }}</div>
+            <button type="button" onClick="{{ s.open }}" style="border:0;padding:0;aspect-ratio:16/9;background:{{ s.bg }};border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:inherit;font-size:12px;color:#5a5f65;cursor:{{ s.cursor }}">{{ s.label }}</button>
           </sc-for>
         </div>
         <a href="{{ d.editHref }}" style="display:inline-block;margin-top:18px;background:#fff;border:1px solid #dee2e3;color:#16181b;border-radius:10px;padding:11px 15px;font-size:14px;font-weight:600" style-hover="border-color:#16181b">შესწორების მოთხოვნა</a>
@@ -154,6 +166,11 @@
       </div>
     </div>
   </div>
+</div>
+
+<div onClick="{{ closeShot }}" style="display:{{ shotShow }};position:fixed;inset:0;z-index:80;background:rgba(12,14,16,.88);align-items:center;justify-content:center;padding:clamp(12px,3vw,44px);cursor:zoom-out">
+  <img src="{{ shotOpen }}" alt="" style="max-width:100%;max-height:100%;border-radius:12px;display:block">
+  <button type="button" onClick="{{ closeShot }}" aria-label="დახურვა" style="position:absolute;top:16px;right:16px;width:40px;height:40px;border:0;border-radius:11px;background:rgba(255,255,255,.92);font-size:20px;line-height:1;cursor:pointer;color:#16181b">×</button>
 </div>
 
 <footer style="background:#1b1e22;color:#e8eaec">
@@ -185,14 +202,35 @@ const EMPTY = {
 };
 
 class Component extends DCLogic {
-  state = { ready: false, q: "", status: 0, plat: "", year: "", open: null };
+  state = { ready: false, q: "", status: 0, plat: "", year: "", open: null, shot: null };
 
   componentDidMount() {
     this.onHash = () => this.readHash();
     window.addEventListener("hashchange", this.onHash);
+    /* Escape closes whatever is on top — the screenshot first, then the card. */
+    this.onKey = e => {
+      if (e.key !== "Escape") return;
+      if (this.state.shot) return this.setState({ shot: null });
+      if (this.state.open) this.close();
+    };
+    window.addEventListener("keydown", this.onKey);
     D.load().then(() => this.setState({ ready: true }, () => this.readHash()));
   }
-  componentWillUnmount() { window.removeEventListener("hashchange", this.onHash); }
+  componentWillUnmount() {
+    window.removeEventListener("hashchange", this.onHash);
+    window.removeEventListener("keydown", this.onKey);
+    document.body.style.overflow = "";
+  }
+  /* The page behind an open card kept scrolling under it, so a flick of the
+     wheel moved the catalogue instead of the card's own contents. */
+  componentDidUpdate() {
+    document.body.style.overflow = (this.state.open || this.state.shot) ? "hidden" : "";
+  }
+
+  close() {
+    if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+    this.setState({ open: null, shot: null });
+  }
 
   readHash() {
     const h = decodeURIComponent((location.hash || "").replace("#", ""));
@@ -217,6 +255,10 @@ class Component extends DCLogic {
       badgeBg: g.status === "upcoming" ? "#ee2626" : "#16181b",
       badgeFg: "#fff",
       platforms: D.platformLinks(g),
+      // What a game costs is one of the two things anyone scanning a list wants
+      // to know, and it was only visible after opening the card.
+      price: g.price || "",
+      priceShow: g.price ? "inline-block" : "none",
       open: () => this.setState({ open: g.id })
     };
   }
@@ -241,8 +283,13 @@ class Component extends DCLogic {
     // block keeps its shape while a game is still waiting on a store page.
     const shotUrls = ((g.art && g.art.shots) || []).slice(0, 3);
     const shots = shotUrls.length
-      ? shotUrls.map(u => ({ bg: 'url("' + u + '") center/cover no-repeat #dfe4e5', label: "" }))
-      : [0, 1, 2].map(() => ({ bg: "#dfe4e5", label: "screenshot" }));
+      ? shotUrls.map(u => ({
+        bg: 'url("' + u + '") center/cover no-repeat #dfe4e5', label: "",
+        cursor: "zoom-in",
+        // A thumbnail of a screenshot is not a screenshot; clicking one opens it.
+        open: () => this.setState({ shot: u })
+      }))
+      : [0, 1, 2].map(() => ({ bg: "#dfe4e5", label: "screenshot", cursor: "default", open: () => {} }));
     return Object.assign({}, this.card(g), {
       shots,
       editHref: "submit.html#game=" + encodeURIComponent(g.id),
@@ -295,10 +342,18 @@ class Component extends DCLogic {
         click: () => this.setState(st => ({ plat: st.plat === p ? "" : p }))
       })),
       detailShow: s.open ? "block" : "none",
-      closeDetail: () => {
-        if (location.hash) history.replaceState(null, "", location.pathname + location.search);
-        this.setState({ open: null });
+      closeDetail: () => this.close(),
+      /* Closing on a click outside means closing on a click that both started
+         and ended outside — otherwise selecting text inside the card and
+         releasing past its edge shuts the card you were reading from. */
+      backdropDown: e => { this.downOnBackdrop = e.target === e.currentTarget; },
+      backdropUp: e => {
+        if (this.downOnBackdrop && e.target === e.currentTarget) this.close();
+        this.downOnBackdrop = false;
       },
+      shotOpen: s.shot || "",
+      shotShow: s.shot ? "flex" : "none",
+      closeShot: () => this.setState({ shot: null }),
       d: this.detail(s.open ? D.game(s.open) : null)
     };
     for (let n = 0; n < 3; n++) {

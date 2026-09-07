@@ -18,7 +18,10 @@
   body { margin:0; overflow-x:clip; background:#eff0ee; color:#16181b; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
   * { box-sizing:border-box; }
   body { min-height:100vh; }
-  #root, #dc-root, body > div, #dc-root > div { display:flex; flex-direction:column; min-height:100vh; }
+  /* Not "body > div": a browser extension that appends its own element to the
+     body — a translate button, a password manager — was being made a
+     full-height flex column by this rule and stretched across the page. */
+  #root, #dc-root, #dc-root > div { display:flex; flex-direction:column; min-height:100vh; }
   #dc-root > div > * { flex:none; width:100%; }
   footer { margin-top:auto; }
   a { color:#146590; text-decoration:none; }

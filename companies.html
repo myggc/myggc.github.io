@@ -18,7 +18,10 @@
   body { margin:0; overflow-x:clip; background:#eff1f1; color:#16181b; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
   * { box-sizing:border-box; }
   body { min-height:100vh; }
-  #root, #dc-root, body > div, #dc-root > div { display:flex; flex-direction:column; min-height:100vh; }
+  /* Not "body > div": a browser extension that appends its own element to the
+     body — a translate button, a password manager — was being made a
+     full-height flex column by this rule and stretched across the page. */
+  #root, #dc-root, #dc-root > div { display:flex; flex-direction:column; min-height:100vh; }
   #dc-root > div > * { flex:none; width:100%; }
   footer { margin-top:auto; }
   a { color:#146590; text-decoration:none; }
@@ -86,7 +89,7 @@
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:13px">
           <div style="position:relative;width:54px;height:54px;border-radius:50%;background:#e8ecec;flex:none;overflow:hidden;display:flex;align-items:center;justify-content:center">
             <div aria-hidden="true" style="position:absolute;inset:0;background:{{ c.logoBg }}"></div>
-            <span style="position:relative;font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:#5a5f65">{{ c.initials }}</span>
+            <span style="display:{{ c.initialsShow }};position:relative;font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:#5a5f65">{{ c.initials }}</span>
           </div>
           <div style="flex:1 1 120px;min-width:0">
             <div style="display:flex;align-items:center;gap:7px">
@@ -144,14 +147,14 @@
   </div>
 </footer>
 
-<div style="display:{{ detailShow }};position:fixed;inset:0;z-index:70;background:rgba(18,20,23,.55);padding:clamp(10px,3vw,40px);overflow:auto">
+<div onMouseDown="{{ backdropDown }}" onMouseUp="{{ backdropUp }}" style="display:{{ detailShow }};position:fixed;inset:0;z-index:70;background:rgba(18,20,23,.55);padding:clamp(10px,3vw,40px);overflow:auto">
   <div style="max-width:900px;margin:0 auto;background:#f7f9f9;border-radius:20px;overflow:hidden">
     <div style="position:relative;background:#fff;border-bottom:1px solid #e6eaeb;padding:clamp(18px,3vw,28px)">
       <button type="button" onClick="{{ closeDetail }}" aria-label="დახურვა" style="position:absolute;top:14px;right:14px;width:38px;height:38px;border:1px solid #e0e4e4;border-radius:11px;background:#fff;font-size:19px;line-height:1;cursor:pointer;color:#16181b">×</button>
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px;padding-right:46px">
         <div style="position:relative;width:66px;height:66px;border-radius:50%;background:#e8ecec;flex:none;overflow:hidden;display:flex;align-items:center;justify-content:center">
           <div aria-hidden="true" style="position:absolute;inset:0;background:{{ p.logoBg }}"></div>
-          <span style="position:relative;font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:600;color:#5a5f65">{{ p.initials }}</span>
+          <span style="display:{{ p.initialsShow }};position:relative;font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:600;color:#5a5f65">{{ p.initials }}</span>
         </div>
         <div style="flex:1 1 180px;min-width:0">
           <div style="display:flex;flex-wrap:wrap;align-items:center;gap:9px">
@@ -232,9 +235,22 @@ class Component extends DCLogic {
   componentDidMount() {
     this.onHash = () => this.readHash();
     window.addEventListener("hashchange", this.onHash);
+    this.onKey = e => { if (e.key === "Escape" && this.state.open) this.close(); };
+    window.addEventListener("keydown", this.onKey);
     D.load().then(() => this.setState({ ready: true }, () => this.readHash()));
   }
-  componentWillUnmount() { window.removeEventListener("hashchange", this.onHash); }
+  componentWillUnmount() {
+    window.removeEventListener("hashchange", this.onHash);
+    window.removeEventListener("keydown", this.onKey);
+    document.body.style.overflow = "";
+  }
+  // The catalogue behind an open profile kept scrolling under it.
+  componentDidUpdate() { document.body.style.overflow = this.state.open ? "hidden" : ""; }
+
+  close() {
+    if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+    this.setState({ open: null });
+  }
 
   readHash() {
     const h = decodeURIComponent((location.hash || "").replace("#", ""));
@@ -298,7 +314,9 @@ class Component extends DCLogic {
       // published instead of retyping it from scratch.
       editHref: "submit.html#edit=" + encodeURIComponent(d.id),
       logoBg: d.logo ? 'url("' + d.logo + '") center/cover no-repeat' : "none",
-      initials: U.initials(d.name),
+      // Initials stand in for a logo; printed over one they are just graffiti.
+      initials: d.logo ? "" : U.initials(d.name),
+      initialsShow: d.logo ? "none" : "block",
       sub: [d.legal, d.city, U.foundedYear(d) || ""].filter(Boolean).join(" · "),
       about: d.about || "",
       roles: d.roles, facts, games, links,
@@ -345,16 +363,21 @@ class Component extends DCLogic {
         click: () => this.setState(st => ({ role: st.role === r ? "" : r }))
       })),
       detailShow: s.open ? "block" : "none",
-      closeDetail: () => {
-        if (location.hash) history.replaceState(null, "", location.pathname + location.search);
-        this.setState({ open: null });
+      closeDetail: () => this.close(),
+      /* A click outside has to start and end outside; otherwise selecting text
+         inside the profile and releasing past its edge closes it. */
+      backdropDown: e => { this.downOnBackdrop = e.target === e.currentTarget; },
+      backdropUp: e => {
+        if (this.downOnBackdrop && e.target === e.currentTarget) this.close();
+        this.downOnBackdrop = false;
       },
       p: this.profile(),
       list: list.map(c => ({
         name: c.name,
         open: () => this.setState({ open: c.id }),
         logoBg: c.logo ? 'url("' + c.logo + '") center/cover no-repeat' : "none",
-        initials: U.initials(c.name),
+        initials: c.logo ? "" : U.initials(c.name),
+        initialsShow: c.logo ? "none" : "block",
         sub: [c.legal, c.city, U.foundedYear(c) || ""].filter(Boolean).join(" · "),
         roles: c.roles,
         gamesCount: c.gamesCount,

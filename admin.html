@@ -1817,7 +1817,10 @@ class Component extends DCLogic {
       // is on phones, on PC, or on both, and a second control that can disagree
       // with them is just another thing to get wrong.
       gmToggles: [],
-      gmChips: [{ label: "პლატფორმები", items: PLATFORMS.map(p => k.chip("platforms", p)) }],
+      /* No platform chips. A store link is what makes a platform — ticking
+         "Switch" without a Switch link only promised something the catalogue
+         then had to break, so the links below are the list. */
+      gmChips: [],
       gmLinks: STORE_KEYS.map(key => ({
         k: U.STORE_LABEL[key] || key, v: (cur.stores || {})[key] || "",
         ph: key === "steam" ? "https://store.steampowered.com/app/…" : "",
