@@ -2036,6 +2036,304 @@
       "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "slapper-battle-cheek-slap",
+      "name": "Slapper Battle: Cheek Slap",
+      "studioId": "black-room-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Sep 7, 2021",
+      "year": 2021,
+      "mobile": true,
+      "genres": [
+        "casual"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Fun slap battle game! Upgrade your power and smack your way to victory!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=bum.slapper.swing"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/p-QwYoSzhjNg2JWU6mOJ3dZMiCAKUTrfUcdlTcycbLloa94ve_LmdYJpXuT99WYsc1SIMhWf_rp0jrbznvjVjQ",
+        "hero": "https://play-lh.googleusercontent.com/p-QwYoSzhjNg2JWU6mOJ3dZMiCAKUTrfUcdlTcycbLloa94ve_LmdYJpXuT99WYsc1SIMhWf_rp0jrbznvjVjQ",
+        "portrait": "https://play-lh.googleusercontent.com/p-QwYoSzhjNg2JWU6mOJ3dZMiCAKUTrfUcdlTcycbLloa94ve_LmdYJpXuT99WYsc1SIMhWf_rp0jrbznvjVjQ",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-07",
+      "created": "2026-09-07",
+      "updated": "2026-09-07"
+    },
+    {
+      "id": "kingdom-siege",
+      "name": "Kingdom Siege",
+      "studioId": "black-room-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Nov 22, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "casual"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "You are defender of your town. Release and upgrade soldiers by merging them",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.Kingdom.Siege"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/7Q_g3gEXt7tQyZevaAdjvXqMr10BHMbzayYAFjZuJrwJsS87KEXkln5suxw5U0O7n1qav0xKAL-A3vOLqgvl",
+        "hero": "https://play-lh.googleusercontent.com/7Q_g3gEXt7tQyZevaAdjvXqMr10BHMbzayYAFjZuJrwJsS87KEXkln5suxw5U0O7n1qav0xKAL-A3vOLqgvl",
+        "portrait": "https://play-lh.googleusercontent.com/7Q_g3gEXt7tQyZevaAdjvXqMr10BHMbzayYAFjZuJrwJsS87KEXkln5suxw5U0O7n1qav0xKAL-A3vOLqgvl",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-07",
+      "created": "2026-09-07",
+      "updated": "2026-09-07"
+    },
+    {
+      "id": "dark-room",
+      "name": "Dark Room",
+      "studioId": "black-room-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Nov 22, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "casual"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Dark rooms and corridors are full of zombies, lets see if you can go through",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.DarkRoom.Zombies"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/cCAFuEovOV6uOTlAOfkWchAe_b_wXe92MDZodn0py0Kc0duNYixvbcSlh3j5rMyoNhT98X4XqEiIdYR34iPQRw",
+        "hero": "https://play-lh.googleusercontent.com/cCAFuEovOV6uOTlAOfkWchAe_b_wXe92MDZodn0py0Kc0duNYixvbcSlh3j5rMyoNhT98X4XqEiIdYR34iPQRw",
+        "portrait": "https://play-lh.googleusercontent.com/cCAFuEovOV6uOTlAOfkWchAe_b_wXe92MDZodn0py0Kc0duNYixvbcSlh3j5rMyoNhT98X4XqEiIdYR34iPQRw",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-07",
+      "created": "2026-09-07",
+      "updated": "2026-09-07"
+    },
+    {
+      "id": "drown-land",
+      "name": "Drown Land",
+      "studioId": "black-room-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jan 31, 2022",
+      "year": 2022,
+      "mobile": true,
+      "genres": [
+        "arcade"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Due to global warming your of land is drowning slowly and only you can save it!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=drown.land.idle"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/_bJrA06Hq4zhMTcQj77iEVaSEX27BYup2KvuQ0H3Jz3fbNqhX2g_TSfzBRQ8HUy3duzclGgjhz818A0_CojiCA",
+        "hero": "https://play-lh.googleusercontent.com/_bJrA06Hq4zhMTcQj77iEVaSEX27BYup2KvuQ0H3Jz3fbNqhX2g_TSfzBRQ8HUy3duzclGgjhz818A0_CojiCA",
+        "portrait": "https://play-lh.googleusercontent.com/_bJrA06Hq4zhMTcQj77iEVaSEX27BYup2KvuQ0H3Jz3fbNqhX2g_TSfzBRQ8HUy3duzclGgjhz818A0_CojiCA",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-07",
+      "created": "2026-09-07",
+      "updated": "2026-09-07"
+    },
+    {
+      "id": "nuts-and-bolts",
+      "name": "Nuts and Bolts",
+      "studioId": "black-room-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Mar 29, 2021",
+      "year": 2021,
+      "mobile": true,
+      "genres": [
+        "casual"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Here is all about constructing and assembling different machines or devices.",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.BlackRoomGames.Bolts_And_Nuts"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/0ZM6AWTBAYJrUNm_BgzHu3Wdaq7-TCDHahbxXfR9ixjcdG0I3SQIjIwtJSE1ADXQvxDWc3UX3Uk7RmmtpDpMrg",
+        "hero": "https://play-lh.googleusercontent.com/0ZM6AWTBAYJrUNm_BgzHu3Wdaq7-TCDHahbxXfR9ixjcdG0I3SQIjIwtJSE1ADXQvxDWc3UX3Uk7RmmtpDpMrg",
+        "portrait": "https://play-lh.googleusercontent.com/0ZM6AWTBAYJrUNm_BgzHu3Wdaq7-TCDHahbxXfR9ixjcdG0I3SQIjIwtJSE1ADXQvxDWc3UX3Uk7RmmtpDpMrg",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-07",
+      "created": "2026-09-07",
+      "updated": "2026-09-07"
+    },
+    {
+      "id": "geogap",
+      "name": "GeoGap",
+      "studioId": "black-room-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Dec 29, 2019",
+      "year": 2019,
+      "mobile": true,
+      "genres": [
+        "educational"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Agro-simulation game designed to help players gain basic agricultural knowledge",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.BlackRoomGames.AgroGap"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/RUb1HRf2JlhGSU50JAgYoBITMZZzX37XRB3LZFAlyosDjWllTONgn1qYru5tTa3kK3BSC7no0N57PjRdxUgKyxs",
+        "hero": "https://play-lh.googleusercontent.com/RUb1HRf2JlhGSU50JAgYoBITMZZzX37XRB3LZFAlyosDjWllTONgn1qYru5tTa3kK3BSC7no0N57PjRdxUgKyxs",
+        "portrait": "https://play-lh.googleusercontent.com/RUb1HRf2JlhGSU50JAgYoBITMZZzX37XRB3LZFAlyosDjWllTONgn1qYru5tTa3kK3BSC7no0N57PjRdxUgKyxs",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-07",
+      "created": "2026-09-07",
+      "updated": "2026-09-07"
+    },
+    {
+      "id": "halloween-room-sinister-tales",
+      "name": "Halloween Room: Sinister Tales",
+      "studioId": "black-room-games",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Solve twisted puzzles, uncover haunting secrets of a living nightmare",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=air.com.hfg.sinister"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/4ghtpYjPszHrBzP7DbnCPNCMYffs-79yJuWzE5-zfIGoo32lTee0Nu-9E8eGnKqpKwO_ITJizIKQ1kafBder=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/4ghtpYjPszHrBzP7DbnCPNCMYffs-79yJuWzE5-zfIGoo32lTee0Nu-9E8eGnKqpKwO_ITJizIKQ1kafBder=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-07",
+      "created": "2026-09-07",
+      "updated": "2026-09-07"
+    },
+    {
+      "id": "project-dark",
+      "name": "Project Dark",
+      "studioId": "black-room-games",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": true,
+      "genres": [],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Narrative-driven, immersive audio game with interactive branching storylines",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.RedMeatGames.ProjectDark"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/i0pJ0pIL_K3sMqxhxCWI-Sx1zYgLTTd7v7lmzw1cPk2NO2n_4ANAXJUzdTErxfbJlXyX2pApaYft_sqwSTLrpEA=s0-br30",
+        "hero": "https://play-lh.googleusercontent.com/i0pJ0pIL_K3sMqxhxCWI-Sx1zYgLTTd7v7lmzw1cPk2NO2n_4ANAXJUzdTErxfbJlXyX2pApaYft_sqwSTLrpEA=s0-br30",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-07",
+      "created": "2026-09-07",
+      "updated": "2026-09-07"
     }
   ]
 }
