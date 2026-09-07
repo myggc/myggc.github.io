@@ -116,15 +116,15 @@
 
   <div style="display:{{ emptyShow }};padding:44px 20px;text-align:center;background:#fff;border:1px dashed #cdd4d4;border-radius:16px">
     <div style="font-size:18px;font-weight:600">ვერაფერი მოიძებნა</div>
-    <p style="margin:10px 0 0;font-size:16px;color:#4d5258">სცადე სხვა ფილტრი, ან <a href="submit.html#new-studio">დაამატე სტუდია</a>.</p>
+    <p style="margin:10px 0 0;font-size:16px;color:#4d5258">სცადე სხვა ფილტრი, ან <a href="{{ addHref }}">{{ addEmptyLink }}</a>.</p>
   </div>
 
   <div style="margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:linear-gradient(140deg,#1d96d3,#146590);border-radius:18px;padding:24px;color:#fff">
     <div style="flex:1 1 260px;min-width:0">
-      <div style="font-size:19px;font-weight:600">შენი სტუდია სიაში არაა?</div>
-      <p style="margin:8px 0 0;font-size:16px;line-height:1.55;opacity:.9">დაამატე ოფიციალური სახელით, მიამაგრე თამაშები და გამოგზავნე — ჩვენ დავავალიდირებთ.</p>
+      <div style="font-size:19px;font-weight:600">{{ addTitle }}</div>
+      <p style="margin:8px 0 0;font-size:16px;line-height:1.55;opacity:.9">{{ addText }}</p>
     </div>
-    <a href="submit.html#new-studio" style="flex:none;background:#fff;color:#146590;border-radius:11px;padding:14px 22px;font-size:16px;font-weight:600" style-hover="background:#eaf3f8;color:#0f5273">დამატება</a>
+    <a href="{{ addHref }}" style="flex:none;background:#fff;color:#146590;border-radius:11px;padding:14px 22px;font-size:16px;font-weight:600" style-hover="background:#eaf3f8;color:#0f5273">{{ addLabel }}</a>
   </div>
 </section>
 
@@ -223,6 +223,35 @@
 const D = GGC.data, U = GGC.util;
 const ROLES = ["developer", "publisher", "art", "audio", "porting", "outsourcing", "codev"];
 const KINDS = ["company", "team", "solo"];
+/* Whichever tab is open is what the banner underneath offers to add. It used to
+   say "your studio" to everyone, and sent all three to the same generic form —
+   so a two-person team with no registration read an invitation to add a company
+   and a solo developer read an invitation to add neither. A team is what you
+   register as when there is no company behind the name; a solo developer
+   registers as themselves. */
+const ADD_CTA = {
+  company: {
+    title: "შენი კომპანია სიაში არაა?",
+    text: "დაამატე ოფიციალური სახელით, მიამაგრე თამაშები და გამოგზავნე — ჩვენ დავავალიდირებთ.",
+    label: "კომპანიის დამატება",
+    link: "დაამატე კომპანია",
+    href: "submit.html#new-company"
+  },
+  team: {
+    title: "შენი გუნდი სიაში არაა?",
+    text: "თუ ოფიციალურად რეგისტრირებული არ ხართ, გუნდად დაემატეთ — ბრენდის სახელით, თამაშებით და გამოგზავნეთ.",
+    label: "გუნდის დამატება",
+    link: "დაამატე გუნდი",
+    href: "submit.html#new-team"
+  },
+  solo: {
+    title: "სიაში არ ხარ?",
+    text: "თუ მარტო აკეთებ თამაშებს, დაემატე სოლო დეველოპერად — სახელით, თამაშებით და გამოგზავნე.",
+    label: "სოლო დეველოპერის დამატება",
+    link: "დაემატე სოლო დეველოპერად",
+    href: "submit.html#new-solo"
+  }
+};
 const FACT_LABELS = [
   ["legal", "ოფიციალური სახელი"], ["regId", "საიდენტიფიკაციო"], ["city", "ქალაქი"],
   ["founded", "დაფუძნება"], ["size", "გუნდის ზომა"], ["status", "სტატუსი"],
@@ -353,6 +382,11 @@ class Component extends DCLogic {
       cTeams: visible.filter(c => c.kind === "team").length,
       cSolo: visible.filter(c => c.kind === "solo").length,
       shown: list.length,
+      addTitle: ADD_CTA[kind].title,
+      addText: ADD_CTA[kind].text,
+      addLabel: ADD_CTA[kind].label,
+      addEmptyLink: ADD_CTA[kind].link,
+      addHref: ADD_CTA[kind].href,
       shownLabel: U.KIND_LABEL[kind] + (list.length === 1 ? "" : " — ნაჩვენებია სულ"),
       emptyShow: !s.ready || list.length ? "none" : "block",
       roleChips: roles.map(r => ({

@@ -611,13 +611,22 @@ class Component extends DCLogic {
     /* "Add your studio" and "Add your game" mean starting, so they start —
        at the first step, with nothing carried over. Without this the restored
        draft decided where an arriving visitor landed, which for someone adding
-       a second studio was the middle of the first one. */
-    if (hash === "#new-studio" || hash === "#new-game") {
-      const mode = hash === "#new-game" ? "game" : "new";
+       a second studio was the middle of the first one.
+
+       The catalogue's three tabs each offer to add their own kind, so the link
+       carries it: arriving from the teams tab starts on a team rather than on a
+       company somebody then has to notice and change. #new-studio stays the
+       generic entrance and keeps the default. */
+    const start = /^#new-(studio|company|team|solo|game)$/.exec(hash);
+    if (start) {
+      const what = start[1];
+      const mode = what === "game" ? "game" : "new";
+      const kind = what === "team" || what === "solo" ? what : "company";
       try { localStorage.removeItem(DRAFT); } catch (e) {}
       return this.setState({
         saved: false, sent: false, result: null, missing: [],
-        mode: mode, step: 0, picked: null, lookup: "", roles: [], f: {}, drafts: []
+        mode: mode, step: 0, picked: null, lookup: "", roles: [], f: {}, drafts: [],
+        kind: kind
       });
     }
     /* A game's own შესწორების მოთხოვნა used to open its studio's details form,

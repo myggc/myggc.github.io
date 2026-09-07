@@ -52,6 +52,23 @@
     "მენტორშიპი": "Mentorship", "ინვესტორები": "Investors",
     "ინდუსტრიის მონაცემები": "Industry data",
 
+    /* The catalogue's add-banner, which says a different thing on each tab. */
+    "შენი კომპანია სიაში არაა?": "Is your company missing?",
+    "შენი გუნდი სიაში არაა?": "Is your team missing?",
+    "სიაში არ ხარ?": "Not on the list?",
+    "დაამატე ოფიციალური სახელით, მიამაგრე თამაშები და გამოგზავნე — ჩვენ დავავალიდირებთ.":
+      "Add it under its official name, attach the games and send it in — we validate it.",
+    "თუ ოფიციალურად რეგისტრირებული არ ხართ, გუნდად დაემატეთ — ბრენდის სახელით, თამაშებით და გამოგზავნეთ.":
+      "If you are not officially registered, add yourselves as a team — under the name you go by, with your games, and send it in.",
+    "თუ მარტო აკეთებ თამაშებს, დაემატე სოლო დეველოპერად — სახელით, თამაშებით და გამოგზავნე.":
+      "If you make games on your own, add yourself as a solo developer — your name, your games, and send it in.",
+    "კომპანიის დამატება": "Add a company",
+    "გუნდის დამატება": "Add a team",
+    "სოლო დეველოპერის დამატება": "Add a solo developer",
+    "დაამატე კომპანია": "add a company",
+    "დაამატე გუნდი": "add a team",
+    "დაემატე სოლო დეველოპერად": "add yourself as a solo developer",
+
     /* --------------------------------------------------------------- hub */
     "ოთხი მიმართულება, ერთ ადგილას": "Four directions, one place",
     "მიმართულება 01": "Direction 01", "მიმართულება 02": "Direction 02",
@@ -409,6 +426,15 @@
   var BASE = {};
   Object.keys(DICT).forEach(function (k) { BASE[k] = DICT[k]; });
   var OVER = {};
+  /* Georgian is authored in the pages, so correcting a word used to mean editing
+     a page. This is the same idea as OVER, one language earlier: the original
+     text as the markup says it, mapped to what it should say. It applies in both
+     languages, because a string with no English stays Georgian on the English
+     page too and should be the corrected Georgian there as well. */
+  var KA = {};
+  /* Corrected text back to the original, so the panel can still find the key for
+     something it reads off a rendered page. */
+  var KA_APPLIED = {};
 
   var ATTRS = ["placeholder", "aria-label", "title"];
 
@@ -449,6 +475,20 @@
     }
     return null;
   }
+  function trKa(text) {
+    var k = text.trim();
+    var v = KA[k];
+    if (!v || v === k) return null;
+    return text.replace(k, v);
+  }
+
+  /* English if there is any, and the corrected Georgian otherwise — including on
+     the English page, where an untranslated string is Georgian by definition. */
+  function apply(text) {
+    var next = lang === "en" ? tr(text) : null;
+    return next == null ? trKa(text) : next;
+  }
+
   var lang = "ka";
   try { lang = localStorage.getItem("ggc.lang") || "ka"; } catch (e) {}
 
@@ -459,14 +499,16 @@
   var OFF = document.documentElement.hasAttribute("data-ggc-no-i18n");
 
   function walk(root) {
-    if (OFF || lang !== "en") return;
+    if (OFF) return;
+    // Nothing to do in Georgian until there is a correction to make.
+    if (lang !== "en" && !Object.keys(KA).length) return;
     var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
     var n, hits = [];
     while ((n = w.nextNode())) {
       var t = n.nodeValue;
       if (!t.trim()) continue;
       if (n.parentNode && /SCRIPT|STYLE/.test(n.parentNode.nodeName)) continue;
-      var next = tr(t);
+      var next = apply(t);
       if (next && next !== t) hits.push([n, next]);
     }
     hits.forEach(function (h) { h[0].nodeValue = h[1]; });
@@ -475,7 +517,7 @@
       for (var a = 0; a < ATTRS.length; a++) {
         var v = els[i].getAttribute(ATTRS[a]);
         if (!v) continue;
-        var nv = tr(v);
+        var nv = apply(v);
         if (nv && nv !== v) els[i].setAttribute(ATTRS[a], nv);
       }
     }
@@ -521,7 +563,7 @@
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
   else run();
-  window.GGCI18n = { lang: lang, dict: DICT, base: BASE, over: OVER, tr: tr, apply: run };
+  window.GGCI18n = { lang: lang, dict: DICT, base: BASE, over: OVER, ka: KA, kaApplied: KA_APPLIED, tr: tr, apply: run };
 
   /* data/i18n.json is the same dictionary, editable without a commit to this
      file: the panel writes it, a key here replaces the shipped pair of the same
@@ -547,8 +589,19 @@
         OVER[k] = strings[k];
         DICT[k] = strings[k];
       });
+      /* A correction whose result is itself something to be corrected would
+         chain, and a pair of them would never settle, so those are ignored
+         rather than half-applied. */
+      var ka = (doc && doc.ka) || {};
+      Object.keys(ka).forEach(function (k) {
+        var v = ka[k];
+        if (typeof v !== "string" || !v.trim() || v === k) return;
+        if (ka[v] !== undefined) return;
+        KA[k] = v;
+        KA_APPLIED[v] = k;
+      });
       window.GGCI18n.loaded = true;
-      if (Object.keys(OVER).length) run();
+      if (Object.keys(OVER).length || Object.keys(KA).length) run();
     }).catch(function () { window.GGCI18n.loaded = true; });
   })();
 })();
