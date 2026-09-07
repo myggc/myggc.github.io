@@ -183,24 +183,6 @@
         <span style="width:8px;height:8px;border-radius:50%;background:#83c341"></span>მალე განახლდება
       </div>
       <p style="margin:20px 0 0;max-width:54ch;font-size:clamp(16px,1.9vw,19px);line-height:1.6;color:#41464c;text-wrap:pretty">ამჟამად ვმუშაობთ იმაზე, რომ შევქმნათ შესაძლებლობები, რომლებიც ქართულ სტუდიებსა და სოლო დეველოპერებს გლობალურ ბაზარზე გასვლაში დაეხმარება.</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr));gap:12px;margin-top:26px">
-        <div style="background:#fff;border:1px solid #dfe4d8;border-top:4px solid #83c341;border-radius:15px;padding:20px">
-          <div style="font-size:17px;font-weight:600">კოჰორტები</div>
-          <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">რამდენიმე სტუდია ერთ ნაკადში, ფიქსირებული ხანგრძლივობით და ეტაპებით.</p>
-        </div>
-        <div style="background:#fff;border:1px solid #dfe4d8;border-top:4px solid #83c341;border-radius:15px;padding:20px">
-          <div style="font-size:17px;font-weight:600">შესაძლებლობებზე წვდომა</div>
-          <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">გრანტები, კონკურსები და პარტნიორები — ვეხმარებით მოძებნაში და განაცხადის მომზადებაში.</p>
-        </div>
-        <div style="background:#fff;border:1px solid #dfe4d8;border-top:4px solid #83c341;border-radius:15px;padding:20px">
-          <div style="font-size:17px;font-weight:600">გლობალური ბაზარი</div>
-          <p style="margin:9px 0 0;font-size:15px;line-height:1.6;color:#4d5258">საერთაშორისო ბაზარზე გასვლის და უცხოური სტუდიების საქართველოში გადმოსვლის მხარდაჭერა.</p>
-        </div>
-      </div>
-      <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:12px">
-        <a href="https://t.me/ggcgeorgia" style="background:#83c341;color:#16181b;border-radius:11px;padding:15px 24px;font-size:16px;font-weight:700" style-hover="background:#6ba22f;color:#fff">მაინტერესებს — შემატყობინეთ</a>
-        <button type="button" onClick="{{ goPub }}" style="border:1px solid #dfe4d8;cursor:pointer;background:#fff;color:#16181b;border-radius:11px;padding:15px 24px;font-family:inherit;font-size:16px;font-weight:600" style-hover="border-color:#16181b">სანამ — გამომცემლობა</button>
-      </div>
     </section>
   </div>
 </sc-if>
@@ -385,7 +367,6 @@ class Component extends DCLogic {
       isPublishing: s.tab === "publishing",
       isAccel: s.tab === "acceleration",
       isReport: s.tab === "report",
-      goPub: () => this.go("publishing"),
 
       formats: [
         { t: "მითაფი", d: "ერთი თემა, ორი მოხსენება, ერთი საათი კითხვები. უფასო, დარეგისტრირების გარეშე.", freq: "თვეში ერთხელ" },
