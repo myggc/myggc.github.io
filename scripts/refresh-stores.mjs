@@ -184,6 +184,40 @@ async function readPlay(url) {
   };
 }
 
+/* An itch page keeps the useful part in a small table under the description —
+   author, genre, engine, status — and the price beside the buy button. Reading
+   only the og tags brought back a name, a picture and nothing else. Same reader
+   as the site's importer; keep the two in step. */
+async function readItch(url) {
+  const html = await get(url, false);
+  const og = (p) => (new RegExp(`<meta[^>]+(?:property|name)="${p}"[^>]*content="([^"]*)`, "i").exec(html) || [])[1] || "";
+  const title = og("og:title") || /<title[^>]*>([^<]+)/i.exec(html)?.[1] || "";
+  const name = title.replace(/\s+by\s+[^|]*$/i, "").replace(/\s*[-–—|]\s*itch\.io\s*$/i, "").trim();
+  if (!name || /^itch\.io$/i.test(name)) throw new Error(`no metadata at ${url}`);
+
+  const row = (label) =>
+    (new RegExp(`<td>\\s*${label}\\s*</td>\\s*<td>([\\s\\S]*?)</td>`, "i").exec(html) || [])[1] || "";
+  const links = (cell) => [...cell.matchAll(/>([^<>]+)<\/a>/g)].map((m) => m[1].trim()).filter(Boolean);
+
+  const statusCell = links(row("Status"))[0] || "";
+  const priceHit = /itemprop="price"[^>]*>([^<]+)/i.exec(html);
+  let price = priceHit ? priceHit[1].trim() : "";
+  if (/\bFree\b/i.test(price)) price = "უფასო";
+  const img = og("og:image");
+  return {
+    name,
+    about: strip(og("og:description")),
+    genres: links(row("Genre")).map((g) => g.toLowerCase()),
+    status: /in development|prototype|on hold/i.test(statusCell) ? "upcoming" : "released",
+    price,
+    engine: links(row("Made with"))[0] || "",
+    art: { capsule: img, hero: img, portrait: "" },
+    platforms: ["itch.io"],
+    mobile: false,
+    source: "itch"
+  };
+}
+
 function detect(url) {
   const u = String(url || "").trim();
   if (!u) return null;
@@ -205,7 +239,7 @@ async function readStore(url) {
   const d = detect(url);
   if (!d) throw new Error(`unrecognised store url: ${url}`);
   if (d.kind === "steam") return readSteam(d.id, d.url);
-  if (d.kind === "itch") return readOG(d.url, { platforms: ["itch.io"], source: "itch" });
+  if (d.kind === "itch") return readItch(d.url);
   if (d.kind === "appstore") return readApple(d.id).catch(() => readOG(d.url, { platforms: ["App Store"], mobile: true, source: "appstore" }));
   if (d.kind === "googleplay") return readPlay(d.url).catch(() => readOG(d.url, { platforms: ["Google Play"], mobile: true, source: "googleplay" }));
   return readOG(d.url, { platforms: [STORE_LABEL[d.kind] || "Web"], source: d.kind });
@@ -213,7 +247,7 @@ async function readStore(url) {
 
 /* The store owns these fields; anything listed in a game's `locked` array is
    left exactly as the admin set it. */
-const OWNED = ["name", "about", "genres", "status", "releaseDate", "year", "price", "langs", "art"];
+const OWNED = ["name", "about", "genres", "status", "releaseDate", "year", "price", "langs", "engine", "art"];
 
 function merge(game, parsed) {
   const locked = new Set(game.locked || []);

@@ -776,6 +776,91 @@
     });
   }
 
+  /* ---------------------------------------------------------------- itch.io */
+
+  /* An itch page keeps the useful part in a small table under the description —
+     author, genre, release date, tags — and the price beside the buy button.
+     Reading only the og tags, which is what this did, brought back a name, a
+     picture and nothing else: no genre, no date, no price. */
+  function parseItch(url) {
+    return fetchVia(url, function (html) {
+      var og = function (p) {
+        var hit = new RegExp('<meta[^>]+(?:property|name)="' + p + '"[^>]*content="([^"]*)', "i").exec(html);
+        return hit ? hit[1] : "";
+      };
+      var title = og("og:title") || (/<title[^>]*>([^<]+)/i.exec(html) || [])[1] || "";
+      var name = title.replace(/\s+by\s+[^|]*$/i, "").replace(/\s*[-–—|]\s*itch\.io\s*$/i, "").trim();
+      // A missing page still answers, with the store's own name as the title.
+      if (!name || /^itch\.io$/i.test(name)) throw new Error("ამ გვერდიდან მონაცემები ვერ წაიკითხა");
+
+      // <tr><td>Genre</td><td><a …>Simulation</a>, <a …>Puzzle</a></td></tr>
+      var row = function (label) {
+        var re = new RegExp("<td>\\s*" + label + "\\s*</td>\\s*<td>([\\s\\S]*?)</td>", "i");
+        var hit = re.exec(html);
+        return hit ? hit[1] : "";
+      };
+      var links = function (cell) {
+        var out = [], re = />([^<>]+)<\/a>/g, m;
+        while ((m = re.exec(cell))) { var t = m[1].trim(); if (t) out.push(t); }
+        return out;
+      };
+
+      var genres = links(row("Genre")).map(function (g) { return g.toLowerCase(); });
+      var devs = links(row("Authors")).concat(links(row("Author")));
+      // "Made with" is the engine, in the store's own words: Unity, Godot, Haxe.
+      var engine = links(row("Made with"))[0] || "";
+      var statusCell = links(row("Status"))[0] || "";
+      /* When a date row exists it is written as <abbr title="21 September 2021
+         @ 15:00 UTC">. Most itch pages do not carry one at all — the panel that
+         shows it is filled in by JavaScript — so this is often simply empty,
+         and an empty date is better than a guessed one. */
+      var dateCell = row("Release date") || row("Published");
+      var abbr = /title="([^"]+)"/i.exec(dateCell);
+      var dateText = (abbr ? abbr[1] : dateCell.replace(/<[^>]+>/g, "")).split("@")[0].trim();
+      var iso = toISODate(dateText);
+
+      var priceHit = /itemprop="price"[^>]*>([^<]+)/i.exec(html);
+      var price = priceHit ? priceHit[1].trim() : "";
+      if (!price && /class="button (?:download_btn|buy_btn)"[^>]*>\s*(?:Download|Play)/i.test(html)) price = "უფასო";
+      if (/\bFree\b/.test(price)) price = "უფასო";
+
+      /* itch's own "Links" row is where a studio points at the same game on
+         other stores, so a page pasted here can fill in its Steam link too. */
+      var stores = { itch: url };
+      var linkCell = row("Links");
+      if (linkCell) {
+        var lre = /href="(https?:\/\/[^"]+)"/gi, lm;
+        while ((lm = lre.exec(linkCell))) {
+          var det = detect(lm[1]);
+          if (det && det.kind !== "web" && !stores[det.kind]) stores[det.kind] = det.url;
+        }
+      }
+
+      var img = og("og:image");
+      return {
+        name: name,
+        about: unescapeHtml(og("og:description")),
+        genres: genres,
+        status: /in development|prototype|on hold/i.test(statusCell) ? "upcoming"
+          : (iso && iso > new Date().toISOString().slice(0, 10) ? "upcoming" : "released"),
+        releaseDate: iso || dateText || "",
+        year: Number(String(iso || dateText).replace(/.*?(\d{4}).*/, "$1")) || 0,
+        price: price,
+        langs: "",
+        engine: engine,
+        website: "",
+        developers: devs,
+        publishers: [],
+        art: { capsule: img, hero: img, portrait: "", shots: [] },
+        platforms: ["itch.io"],
+        stores: stores,
+        mobile: false,
+        type: "game",
+        source: "itch"
+      };
+    });
+  }
+
   /* ----------------------------------------------------------- google play */
 
   /* A Play page carries far more than its og tags, and reading only those was
@@ -1250,6 +1335,8 @@
       if (!urls.length && !profile) throw new Error("ამ გვერდზე არაფერი მოიძებნა");
       var out = [], done = 0, total = 0;
       var seenUrl = {};
+      // Titles a search suggested, which have to prove their credit to be kept.
+      var needsCredit = {};
       var list = urls.slice(0, MAX_TITLES);
       list.forEach(function (u) { seenUrl[u] = 1; });
       /* Read several titles at once. One at a time made the import cost the sum
@@ -1303,10 +1390,17 @@
           var want = String(d.id || prof.name || "").toLowerCase().replace(/[^a-z0-9]/g, "");
           var mine = out.filter(function (g) {
             if (g.type && g.type !== "game") return false;
+            var url = (g.stores && g.stores[d.kind]) || "";
+            var credits = (g.developers || []).concat(g.publishers || []).join(" ")
+              .toLowerCase().replace(/[^a-z0-9]/g, "");
             if (want) {
-              var credits = (g.developers || []).concat(g.publishers || []).join(" ")
-                .toLowerCase().replace(/[^a-z0-9]/g, "");
-              // No credits at all means a non-Steam source, which was not searched.
+              /* A title a search suggested has to be credited to this studio.
+                 Letting an unknown credit through is how Zynga's Wizard of Oz
+                 Slots and a title by Come And See ended up filed under a
+                 Georgian studio: the words matched, nothing checked who made
+                 them. On the studio's own page the page is the proof, so a
+                 title with no credit at all is still kept there. */
+              if (needsCredit[url] && credits.indexOf(want) < 0) return false;
               if (credits && credits.indexOf(want) < 0) return false;
             }
             return !/\bdemo\b|\bplaytest\b|soundtrack|\bost\b/i.test(g.name || "");
@@ -1369,12 +1463,18 @@
            credit check, so a search widening the net cannot file someone else's
            game under this studio. */
         function collect(url, into) {
+          /* Anything a search turns up has to prove it belongs to this studio.
+             A studio's own page vouches for what is on it; a search for a name
+             vouches for nothing — it returned Zynga's Wizard of Oz Slots for a
+             Georgian studio because the words matched. */
+          var fromSearch = /\/search\b|\/store\/search/i.test(url);
           return fetchVia(url, function (html) { return studioGameUrls(html, d); })
             .then(function (found) {
               var added = 0;
               found.forEach(function (u) {
                 if (into[u]) return;
                 into[u] = 1;
+                if (fromSearch) needsCredit[u] = 1;
                 added++;
               });
               return added;
@@ -1476,7 +1576,10 @@
     var d = detect(url);
     if (!d) return Promise.reject(new Error("ცარიელი ბმული"));
     if (d.kind === "steam") return parseSteam(d.id, d.url);
-    if (d.kind === "itch") return parseOG(d.url, { platforms: ["itch.io"], stores: { itch: d.url }, source: "itch" });
+    /* No og fallback for itch: parseItch reads everything the og tags carry and
+       more, so falling back could only ever produce a thinner record — and for
+       a URL that does not exist it produced one named "itch.io". */
+    if (d.kind === "itch") return parseItch(d.url);
     if (d.kind === "appstore") {
       return appleJson("lookup?id=" + d.id + "&country=us").then(function (rows) {
         if (!rows.length) throw new Error("empty");
