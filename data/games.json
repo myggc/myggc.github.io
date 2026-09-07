@@ -363,9 +363,7 @@
         "indie"
       ],
       "platforms": [
-        "Steam",
-        "Switch",
-        "Epic Games"
+        "Steam"
       ],
       "engine": "",
       "price": "",
@@ -1656,116 +1654,6 @@
       "updated": "2026-09-06"
     },
     {
-      "id": "busyboard-games-for-kids-2-5",
-      "name": "BusyBoard Games for Kids 2-5",
-      "studioId": "dasi-games",
-      "publisherId": "",
-      "status": "released",
-      "releaseDate": "Dec 3, 2024",
-      "year": 2024,
-      "mobile": true,
-      "genres": [
-        "educational"
-      ],
-      "platforms": [
-        "Google Play"
-      ],
-      "engine": "",
-      "price": "უფასო",
-      "langs": "",
-      "about": "Sensory play games for kids, baby & toddlers. Busy board - games for kids!",
-      "aboutEn": "",
-      "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=com.iz.busyboard.baby.sensory.kids.toddler.games"
-      },
-      "art": {
-        "capsule": "https://play-lh.googleusercontent.com/aJTNG5IgYUNuCzN_-n4ZyE2TeMfuSetNLdxlY_ljDIriDZCGBJP0DvnBD4uKvSY20yKkmMoS3MwRLcRFA3ltc6M",
-        "hero": "https://play-lh.googleusercontent.com/aJTNG5IgYUNuCzN_-n4ZyE2TeMfuSetNLdxlY_ljDIriDZCGBJP0DvnBD4uKvSY20yKkmMoS3MwRLcRFA3ltc6M",
-        "portrait": "https://play-lh.googleusercontent.com/aJTNG5IgYUNuCzN_-n4ZyE2TeMfuSetNLdxlY_ljDIriDZCGBJP0DvnBD4uKvSY20yKkmMoS3MwRLcRFA3ltc6M"
-      },
-      "localArt": "",
-      "source": "googleplay",
-      "parsedAt": "2026-09-07T09:21:38.935Z",
-      "verified": true,
-      "active": true,
-      "validated": "2026-09-06",
-      "created": "2026-09-06",
-      "updated": "2026-09-07"
-    },
-    {
-      "id": "the-chosen",
-      "name": "The Chosen",
-      "studioId": "dasi-games",
-      "publisherId": "",
-      "status": "released",
-      "releaseDate": "Nov 18, 2022",
-      "year": 2022,
-      "mobile": true,
-      "genres": [],
-      "platforms": [
-        "Google Play"
-      ],
-      "engine": "",
-      "price": "უფასო",
-      "langs": "",
-      "about": "Watch The Chosen. Every episode. Nothing required. Come and see for yourself.",
-      "aboutEn": "",
-      "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=net.comeandsee.thechosen"
-      },
-      "art": {
-        "capsule": "https://play-lh.googleusercontent.com/Mx0NgoUrp8J8YKEMJD35YkiyrvGi3NhIk8vjqrcXfj4a1fimCUNMJkqqKe8MMuf51Q3k-5tWXNRc3XTM2uZIDQ",
-        "hero": "https://play-lh.googleusercontent.com/Mx0NgoUrp8J8YKEMJD35YkiyrvGi3NhIk8vjqrcXfj4a1fimCUNMJkqqKe8MMuf51Q3k-5tWXNRc3XTM2uZIDQ",
-        "portrait": "https://play-lh.googleusercontent.com/Mx0NgoUrp8J8YKEMJD35YkiyrvGi3NhIk8vjqrcXfj4a1fimCUNMJkqqKe8MMuf51Q3k-5tWXNRc3XTM2uZIDQ"
-      },
-      "localArt": "",
-      "source": "googleplay",
-      "parsedAt": "2026-09-07T09:21:40.253Z",
-      "verified": true,
-      "active": true,
-      "validated": "2026-09-06",
-      "created": "2026-09-06",
-      "updated": "2026-09-07"
-    },
-    {
-      "id": "wizard-of-oz-slots-games",
-      "name": "Wizard of Oz Slots Games",
-      "studioId": "dasi-games",
-      "publisherId": "",
-      "status": "released",
-      "releaseDate": "Nov 9, 2014",
-      "year": 2014,
-      "mobile": true,
-      "genres": [
-        "casino",
-        "casual"
-      ],
-      "platforms": [
-        "Google Play"
-      ],
-      "engine": "",
-      "price": "უფასო",
-      "langs": "",
-      "about": "Play casino games from the Emerald City & win huge slot machine bonuses!",
-      "aboutEn": "",
-      "stores": {
-        "googleplay": "https://play.google.com/store/apps/details?id=com.zynga.wizardofoz"
-      },
-      "art": {
-        "capsule": "https://play-lh.googleusercontent.com/2jc1pA7kg35j19HQjLJkFxU0m1TWHhPCgJfqIjnycYI67Jt_Qqhh7rvp_GoXg6exWjN8aWDLbcHE5RhCL2Q5Lg",
-        "hero": "https://play-lh.googleusercontent.com/2jc1pA7kg35j19HQjLJkFxU0m1TWHhPCgJfqIjnycYI67Jt_Qqhh7rvp_GoXg6exWjN8aWDLbcHE5RhCL2Q5Lg",
-        "portrait": "https://play-lh.googleusercontent.com/2jc1pA7kg35j19HQjLJkFxU0m1TWHhPCgJfqIjnycYI67Jt_Qqhh7rvp_GoXg6exWjN8aWDLbcHE5RhCL2Q5Lg"
-      },
-      "localArt": "",
-      "source": "googleplay",
-      "parsedAt": "2026-09-07T09:21:41.600Z",
-      "verified": true,
-      "active": true,
-      "validated": "2026-09-06",
-      "created": "2026-09-06",
-      "updated": "2026-09-07"
-    },
-    {
       "id": "pet-games-for-kids",
       "name": "Pet Games for kids",
       "studioId": "შპს-ბაბი-2007",
@@ -2334,6 +2222,38 @@
       "localArt": "",
       "source": "googleplay",
       "parsedAt": "2026-09-07T19:58:49.925Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-07",
+      "created": "2026-09-07",
+      "updated": "2026-09-07"
+    },
+    {
+      "id": "painted-away",
+      "name": "Painted Away",
+      "studioId": "you-more",
+      "publisherId": "შპს-ჯორჯიან-გეიმ-ქომიუნითი",
+      "status": "upcoming",
+      "releaseDate": "2026-12-31",
+      "year": 2026,
+      "mobile": false,
+      "genres": [
+        "Adventure",
+        "2.5D",
+        "Puzzle",
+        "Action"
+      ],
+      "platforms": [],
+      "engine": "Unity",
+      "price": "",
+      "langs": "English",
+      "about": "Painted Away არის Action-Adventure თამაში ახალგაზრდა მხატვარზე, რომლის ერთადერთი იარაღი საკუთარი ფანტაზიაა. იმოგზაურე მონოქრომულ ქალაქსა და მის მიდამოებში, გააცოცხლე შენი ნახატები რეალურ ობიექტებად გარემოს პაზლების დასაძლევად და ებრძოლე ბოროტ მელნის არსებებს განსხვავებული ფერების გამოყენებით.",
+      "aboutEn": "",
+      "stores": {},
+      "art": {},
+      "localArt": "",
+      "source": "manual",
+      "parsedAt": "",
       "verified": true,
       "active": true,
       "validated": "2026-09-07",

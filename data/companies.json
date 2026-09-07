@@ -356,6 +356,32 @@
       "validated": "2026-09-07",
       "created": "2026-09-07",
       "updated": "2026-09-07"
+    },
+    {
+      "id": "you-more",
+      "kind": "team",
+      "name": "You More Games",
+      "legal": "You More",
+      "regId": "",
+      "city": "თბილისი",
+      "founded": 0,
+      "size": "3-5",
+      "roles": [
+        "developer"
+      ],
+      "website": "",
+      "email": "paintedaway123@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "სტუდენტების გუნდი რომელთაც თამაშებზე მუშაობა სურთ",
+      "aboutEn": "Bunch of Students Trying to make games",
+      "logo": "",
+      "links": {},
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-07",
+      "created": "2026-09-07",
+      "updated": "2026-09-07"
     }
   ]
 }
