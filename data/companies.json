@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-09-06",
+  "updated": "2026-09-07",
   "items": [
     {
       "id": "madmoa",
@@ -328,6 +328,34 @@
       "validated": "2026-09-06",
       "created": "2026-09-06",
       "updated": "2026-09-06"
+    },
+    {
+      "id": "შპს-ჯორჯიან-გეიმ-ქომიუნითი",
+      "kind": "company",
+      "name": "GGC",
+      "legal": "შპს ჯორჯიან გეიმ ქომიუნითი",
+      "regId": "406475835",
+      "city": "თბილისი",
+      "founded": "2024-06-26",
+      "size": "3-5",
+      "roles": [
+        "publisher"
+      ],
+      "website": "myggc.github.io",
+      "email": "georgiangamecommunity@gmail.com",
+      "phone": "511269831",
+      "contact": "",
+      "about": "GGC არის პლატფორმა რომელიც ეხმარება ქართველ თამაშების დეველოპერებს.",
+      "aboutEn": "",
+      "logo": "",
+      "links": {
+        "telegram": ""
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-07",
+      "created": "2026-09-07",
+      "updated": "2026-09-07"
     }
   ]
 }
