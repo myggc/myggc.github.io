@@ -25,6 +25,19 @@
     // reaches the admin queue.
     submitEndpoint: "https://script.google.com/macros/s/AKfycbycnJ6mfGDvH_ZXWMKXWKeyGRYu7KP-2n6tkN9hhOFla5KokwLGA7cjVO8XpJkw1V_x/exec",
     telegram: "https://t.me/ggcgeorgia",
+    /* One place for the addresses GGC is actually reachable at. They had been
+       typed into each page, which is how half the footer ended up pointing at
+       "#" and every "contact us" button at an address nobody reads. */
+    email: "georgiangamecommunity@gmail.com",
+    social: {
+      telegram: "https://t.me/ggcgeorgia",
+      facebook: "https://www.facebook.com/GeorgianGameCommunity",
+      instagram: "https://instagram.com/georgiangamecommunity",
+      tiktok: "https://tiktok.com/@georgiangamecommunity",
+      youtube: "https://www.youtube.com/@ggc_geo",
+      linkedin: "https://www.linkedin.com/company/georgian-game-community",
+      discord: "https://discord.gg/ZTh5tNedAh"
+    },
     // CORS proxies used for live (browser side) store reads, tried in order.
     // "{url}" gets the encoded target, "{raw}" the target as-is. The scheduled
     // GitHub Action does the same work server side without a proxy, so a proxy
