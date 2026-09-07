@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-09-06",
+  "updated": "2026-09-07",
   "items": [
     {
       "id": "besos-shawarma",
@@ -1660,16 +1660,18 @@
       "name": "BusyBoard Games for Kids 2-5",
       "studioId": "dasi-games",
       "publisherId": "",
-      "status": "upcoming",
-      "releaseDate": "",
-      "year": 0,
+      "status": "released",
+      "releaseDate": "Dec 3, 2024",
+      "year": 2024,
       "mobile": true,
-      "genres": [],
+      "genres": [
+        "educational"
+      ],
       "platforms": [
         "Google Play"
       ],
       "engine": "",
-      "price": "",
+      "price": "უფასო",
       "langs": "",
       "about": "Sensory play games for kids, baby & toddlers. Busy board - games for kids!",
       "aboutEn": "",
@@ -1677,34 +1679,34 @@
         "googleplay": "https://play.google.com/store/apps/details?id=com.iz.busyboard.baby.sensory.kids.toddler.games"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/aJTNG5IgYUNuCzN_-n4ZyE2TeMfuSetNLdxlY_ljDIriDZCGBJP0DvnBD4uKvSY20yKkmMoS3MwRLcRFA3ltc6M=s0-br30",
-        "hero": "https://play-lh.googleusercontent.com/aJTNG5IgYUNuCzN_-n4ZyE2TeMfuSetNLdxlY_ljDIriDZCGBJP0DvnBD4uKvSY20yKkmMoS3MwRLcRFA3ltc6M=s0-br30",
-        "portrait": ""
+        "capsule": "https://play-lh.googleusercontent.com/aJTNG5IgYUNuCzN_-n4ZyE2TeMfuSetNLdxlY_ljDIriDZCGBJP0DvnBD4uKvSY20yKkmMoS3MwRLcRFA3ltc6M",
+        "hero": "https://play-lh.googleusercontent.com/aJTNG5IgYUNuCzN_-n4ZyE2TeMfuSetNLdxlY_ljDIriDZCGBJP0DvnBD4uKvSY20yKkmMoS3MwRLcRFA3ltc6M",
+        "portrait": "https://play-lh.googleusercontent.com/aJTNG5IgYUNuCzN_-n4ZyE2TeMfuSetNLdxlY_ljDIriDZCGBJP0DvnBD4uKvSY20yKkmMoS3MwRLcRFA3ltc6M"
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "",
+      "parsedAt": "2026-09-07T09:21:38.935Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-09-07"
     },
     {
       "id": "the-chosen",
       "name": "The Chosen",
       "studioId": "dasi-games",
       "publisherId": "",
-      "status": "upcoming",
-      "releaseDate": "",
-      "year": 0,
+      "status": "released",
+      "releaseDate": "Nov 18, 2022",
+      "year": 2022,
       "mobile": true,
       "genres": [],
       "platforms": [
         "Google Play"
       ],
       "engine": "",
-      "price": "",
+      "price": "უფასო",
       "langs": "",
       "about": "Watch The Chosen. Every episode. Nothing required. Come and see for yourself.",
       "aboutEn": "",
@@ -1712,34 +1714,37 @@
         "googleplay": "https://play.google.com/store/apps/details?id=net.comeandsee.thechosen"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/Mx0NgoUrp8J8YKEMJD35YkiyrvGi3NhIk8vjqrcXfj4a1fimCUNMJkqqKe8MMuf51Q3k-5tWXNRc3XTM2uZIDQ=s0-br30",
-        "hero": "https://play-lh.googleusercontent.com/Mx0NgoUrp8J8YKEMJD35YkiyrvGi3NhIk8vjqrcXfj4a1fimCUNMJkqqKe8MMuf51Q3k-5tWXNRc3XTM2uZIDQ=s0-br30",
-        "portrait": ""
+        "capsule": "https://play-lh.googleusercontent.com/Mx0NgoUrp8J8YKEMJD35YkiyrvGi3NhIk8vjqrcXfj4a1fimCUNMJkqqKe8MMuf51Q3k-5tWXNRc3XTM2uZIDQ",
+        "hero": "https://play-lh.googleusercontent.com/Mx0NgoUrp8J8YKEMJD35YkiyrvGi3NhIk8vjqrcXfj4a1fimCUNMJkqqKe8MMuf51Q3k-5tWXNRc3XTM2uZIDQ",
+        "portrait": "https://play-lh.googleusercontent.com/Mx0NgoUrp8J8YKEMJD35YkiyrvGi3NhIk8vjqrcXfj4a1fimCUNMJkqqKe8MMuf51Q3k-5tWXNRc3XTM2uZIDQ"
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "",
+      "parsedAt": "2026-09-07T09:21:40.253Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-09-07"
     },
     {
       "id": "wizard-of-oz-slots-games",
       "name": "Wizard of Oz Slots Games",
       "studioId": "dasi-games",
       "publisherId": "",
-      "status": "upcoming",
-      "releaseDate": "",
-      "year": 0,
+      "status": "released",
+      "releaseDate": "Nov 9, 2014",
+      "year": 2014,
       "mobile": true,
-      "genres": [],
+      "genres": [
+        "casino",
+        "casual"
+      ],
       "platforms": [
         "Google Play"
       ],
       "engine": "",
-      "price": "",
+      "price": "უფასო",
       "langs": "",
       "about": "Play casino games from the Emerald City & win huge slot machine bonuses!",
       "aboutEn": "",
@@ -1747,18 +1752,18 @@
         "googleplay": "https://play.google.com/store/apps/details?id=com.zynga.wizardofoz"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/2jc1pA7kg35j19HQjLJkFxU0m1TWHhPCgJfqIjnycYI67Jt_Qqhh7rvp_GoXg6exWjN8aWDLbcHE5RhCL2Q5Lg=s0-br30",
-        "hero": "https://play-lh.googleusercontent.com/2jc1pA7kg35j19HQjLJkFxU0m1TWHhPCgJfqIjnycYI67Jt_Qqhh7rvp_GoXg6exWjN8aWDLbcHE5RhCL2Q5Lg=s0-br30",
-        "portrait": ""
+        "capsule": "https://play-lh.googleusercontent.com/2jc1pA7kg35j19HQjLJkFxU0m1TWHhPCgJfqIjnycYI67Jt_Qqhh7rvp_GoXg6exWjN8aWDLbcHE5RhCL2Q5Lg",
+        "hero": "https://play-lh.googleusercontent.com/2jc1pA7kg35j19HQjLJkFxU0m1TWHhPCgJfqIjnycYI67Jt_Qqhh7rvp_GoXg6exWjN8aWDLbcHE5RhCL2Q5Lg",
+        "portrait": "https://play-lh.googleusercontent.com/2jc1pA7kg35j19HQjLJkFxU0m1TWHhPCgJfqIjnycYI67Jt_Qqhh7rvp_GoXg6exWjN8aWDLbcHE5RhCL2Q5Lg"
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "",
+      "parsedAt": "2026-09-07T09:21:41.600Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-09-07"
     },
     {
       "id": "pet-games-for-kids",
@@ -1913,16 +1918,19 @@
       "name": "Baby learning games for kids",
       "studioId": "შპს-ბაბი-2007",
       "publisherId": "",
-      "status": "upcoming",
-      "releaseDate": "",
-      "year": 0,
+      "status": "released",
+      "releaseDate": "Oct 6, 2015",
+      "year": 2015,
       "mobile": true,
-      "genres": [],
+      "genres": [
+        "educational",
+        "casual"
+      ],
       "platforms": [
         "Google Play"
       ],
       "engine": "",
-      "price": "",
+      "price": "უფასო",
       "langs": "",
       "about": "Learning games for babies and toddlers: 30 games for boys and girls under 5",
       "aboutEn": "",
@@ -1930,18 +1938,18 @@
         "googleplay": "https://play.google.com/store/apps/details?id=com.bimiboo.adventure"
       },
       "art": {
-        "capsule": "https://play-lh.googleusercontent.com/hLJqlGQLM_kNx37rbweAlDKjY_lzRovklYzrrv2iBCrNjdWX2IuHachcA1AFrgLBl1JQWJq2DlL8MoE-gPetew=s0-br30",
-        "hero": "https://play-lh.googleusercontent.com/hLJqlGQLM_kNx37rbweAlDKjY_lzRovklYzrrv2iBCrNjdWX2IuHachcA1AFrgLBl1JQWJq2DlL8MoE-gPetew=s0-br30",
-        "portrait": ""
+        "capsule": "https://play-lh.googleusercontent.com/hLJqlGQLM_kNx37rbweAlDKjY_lzRovklYzrrv2iBCrNjdWX2IuHachcA1AFrgLBl1JQWJq2DlL8MoE-gPetew",
+        "hero": "https://play-lh.googleusercontent.com/hLJqlGQLM_kNx37rbweAlDKjY_lzRovklYzrrv2iBCrNjdWX2IuHachcA1AFrgLBl1JQWJq2DlL8MoE-gPetew",
+        "portrait": "https://play-lh.googleusercontent.com/hLJqlGQLM_kNx37rbweAlDKjY_lzRovklYzrrv2iBCrNjdWX2IuHachcA1AFrgLBl1JQWJq2DlL8MoE-gPetew"
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "",
+      "parsedAt": "2026-09-07T09:21:48.296Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-09-07"
     },
     {
       "id": "the-way-of-wrath",
