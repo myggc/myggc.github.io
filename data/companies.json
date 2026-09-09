@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-09-07",
+  "updated": "2026-09-09",
   "items": [
     {
       "id": "madmoa",
@@ -166,7 +166,9 @@
       "city": "თბილისი",
       "founded": 2017,
       "size": "6-10",
-      "roles": [],
+      "roles": [
+        "developer"
+      ],
       "website": "",
       "email": " ",
       "phone": "598614440",
@@ -175,14 +177,14 @@
       "aboutEn": "Indie game development studio with a grand vision to grow into a world-class AAA studio. Our passion for creating immersive gaming experiences drives us to push boundaries and deliver unforgettable adventures to players worldwide.",
       "logo": "https://avatars.fastly.steamstatic.com/0a6a0d6dec95f12579c92a63f3c6b5b2d5cbcace_full.jpg",
       "links": {
-        "steam": "https://store.steampowered.com/curator/45607140",
-        "linkedin": "https://www.linkedin.com/company/anti-gaming-studio/about/"
+        "linkedin": "https://www.linkedin.com/company/anti-gaming-studio/about/",
+        "steam": "https://store.steampowered.com/curator/45607140"
       },
       "verified": false,
       "active": true,
-      "validated": "2026-09-06",
+      "validated": "2026-09-09",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-09-09"
     },
     {
       "id": "zambara-studio",
