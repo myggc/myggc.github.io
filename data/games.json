@@ -1358,8 +1358,7 @@
       "year": 2023,
       "mobile": true,
       "genres": [
-        "simulation",
-        "casual"
+        "simulation"
       ],
       "platforms": [
         "Google Play"
@@ -1380,12 +1379,12 @@
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "",
+      "parsedAt": "2026-09-09T19:17:24.260Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-09-09"
     },
     {
       "id": "school-driver",
