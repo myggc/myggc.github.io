@@ -661,7 +661,8 @@ class Component extends DCLogic {
     endpointInput: (window.GGC && GGC.config.submitEndpoint) || "", savingEndpoint: false,
     endpointMsg: "", endpointMsgColor: "#c6ccd3",
     studioUrl: "", importing: false, importMsg: "", importMsgColor: "#8b949c",
-    i18nOver: {}, i18nKa: {}, i18nQ: "", i18nFilter: "missing", i18nFound: null, scanning: "", i18nSaving: false
+    i18nOver: {}, i18nKa: {}, i18nQ: "", i18nFilter: "missing", i18nFound: null, i18nKeys: null,
+    scanning: "", i18nSaving: false
   };
 
   /* Staged work outlives the tab. Everything approved, imported or typed lives
@@ -718,7 +719,7 @@ class Component extends DCLogic {
     let draft = null;
     try { draft = JSON.parse(localStorage.getItem(I18N_DRAFT) || "null"); } catch (e) {}
     draft = draft && typeof draft === "object" ? draft : {};
-    this.setState({
+    this.refreshI18nKeys({
       i18nOver: Object.assign({}, GGCI18n.over, draft.over || null),
       i18nKa: Object.assign({}, GGCI18n.ka, draft.ka || null)
     });
@@ -971,43 +972,71 @@ class Component extends DCLogic {
     });
   }
 
-  i18nRows() {
+  i18nCandidates() {
+    const s = this.state;
+    const seen = {};
+    [this.i18nBase(), s.i18nOver || {}, s.i18nKa || {}, s.i18nFound || {}]
+      .forEach(m => Object.keys(m).forEach(k => { seen[k] = 1; }));
+    return Object.keys(seen);
+  }
+
+  i18nRow(ka) {
     const s = this.state;
     const base = this.i18nBase(), over = s.i18nOver || {}, kaMap = s.i18nKa || {}, found = s.i18nFound || {};
     const tr = (window.GGCI18n && GGCI18n.tr) || (() => null);
-    const seen = {};
-    Object.keys(base).forEach(k => { seen[k] = 1; });
-    Object.keys(over).forEach(k => { seen[k] = 1; });
-    Object.keys(kaMap).forEach(k => { seen[k] = 1; });
-    Object.keys(found).forEach(k => { seen[k] = 1; });
+    const has = over[ka] !== undefined;
+    const en = has ? String(over[ka]) : (base[ka] || "");
+    const kaNow = kaMap[ka] !== undefined ? String(kaMap[ka]) : ka;
+    /* A composite — "3 ჩანაწერი", a month and a year, a label and its star — is
+       translated by a pattern rather than by a pair, so it counts as covered
+       even with nothing typed against it. */
+    const covered = !!en.trim() || !!tr(ka);
+    const kaChanged = kaNow.trim() !== ka;
+    return {
+      ka: ka, en: en, kaNow: kaNow,
+      pages: (found[ka] || []).join(" · "),
+      onSite: !!found[ka],
+      changed: (has && String(over[ka]).trim() !== (base[ka] || "")) || kaChanged,
+      kaChanged: kaChanged,
+      missing: !covered
+    };
+  }
+
+  i18nMatches(r) {
+    const s = this.state;
     const q = (s.i18nQ || "").trim().toLowerCase();
-    const rows = Object.keys(seen).map(ka => {
-      const has = over[ka] !== undefined;
-      const en = has ? String(over[ka]) : (base[ka] || "");
-      const kaNow = kaMap[ka] !== undefined ? String(kaMap[ka]) : ka;
-      /* A composite — "3 ჩანაწერი", a month and a year, a label and its star —
-         is translated by a pattern rather than by a pair, so it counts as
-         covered even with nothing typed against it. */
-      const covered = !!en.trim() || !!tr(ka);
-      const kaChanged = kaNow.trim() !== ka;
-      return {
-        ka: ka, en: en, kaNow: kaNow,
-        pages: (found[ka] || []).join(" · "),
-        onSite: !!found[ka],
-        changed: (has && String(over[ka]).trim() !== (base[ka] || "")) || kaChanged,
-        kaChanged: kaChanged,
-        missing: !covered
-      };
-    }).filter(r => {
-      if (s.i18nFilter === "missing" && !r.missing) return false;
-      if (s.i18nFilter === "site" && !r.onSite) return false;
-      if (s.i18nFilter === "changed" && !r.changed) return false;
-      if (q && (r.ka + " " + r.kaNow + " " + r.en).toLowerCase().indexOf(q) < 0) return false;
-      return true;
+    if (s.i18nFilter === "missing" && !r.missing) return false;
+    if (s.i18nFilter === "site" && !r.onSite) return false;
+    if (s.i18nFilter === "changed" && !r.changed) return false;
+    if (q && (r.ka + " " + r.kaNow + " " + r.en).toLowerCase().indexOf(q) < 0) return false;
+    return true;
+  }
+
+  /* Which rows the list holds is decided when the filter, the search or a scan
+     says so — never while somebody is typing. Deciding it per render meant the
+     first letter of a translation made its row stop being untranslated, and
+     under the უთარგმნელი filter the row vanished from under the cursor
+     mid-word. The row's own marks still follow what is typed; only its place in
+     the list is held still. */
+  refreshI18nKeys(patch, done) {
+    this.setState(patch || {}, () => {
+      const keys = this.i18nCandidates()
+        .map(k => this.i18nRow(k))
+        .filter(r => this.i18nMatches(r))
+        /* What is on a page and untranslated is what somebody opened this tab
+           for. Frozen with the list, so rows do not reorder while being typed
+           into either. */
+        .sort((a, b) => (b.missing - a.missing) || (b.onSite - a.onSite) || a.ka.localeCompare(b.ka, "ka"))
+        .map(r => r.ka);
+      this.setState({ i18nKeys: keys }, done);
     });
-    /* What is on a page and untranslated is what somebody opened this tab for. */
-    rows.sort((a, b) => (b.missing - a.missing) || (b.onSite - a.onSite) || a.ka.localeCompare(b.ka, "ka"));
-    return rows;
+  }
+
+  i18nRows() {
+    const keys = this.state.i18nKeys;
+    if (keys) return keys.map(k => this.i18nRow(k));
+    // Before the first pass — the overrides file is still on its way.
+    return this.i18nCandidates().map(k => this.i18nRow(k)).filter(r => this.i18nMatches(r));
   }
 
   /* Opens every page in turn in a hidden frame and collects the Georgian it
@@ -1091,7 +1120,7 @@ class Component extends DCLogic {
       const tr = (window.GGCI18n && GGCI18n.tr) || (() => null);
       const over = this.state.i18nOver || {};
       const miss = Object.keys(keyed).filter(k => !tr(k) && !String(over[k] || "").trim()).length;
-      this.setState({ scanning: "", i18nFound: keyed, i18nFilter: miss ? "missing" : "site" });
+      this.refreshI18nKeys({ scanning: "", i18nFound: keyed, i18nFilter: miss ? "missing" : "site" });
       this.say(Object.keys(keyed).length + " ქართული სტრიქონი, " + miss + " უთარგმნელი",
         miss ? "#f4cd77" : "#9ede9e");
     }).catch(e => {
@@ -1121,8 +1150,8 @@ class Component extends DCLogic {
           Object.keys(kaPayload).forEach(k => { ka[k] = kaPayload[k]; applied[kaPayload[k]] = k; });
         }
         try { localStorage.removeItem(I18N_DRAFT); } catch (e) {}
-        this.setState({ i18nSaving: false });
-        this.say("შესწორებები გამოქვეყნდა — საიტზე ერთ წუთში", "#9ede9e");
+        this.refreshI18nKeys({ i18nSaving: false },
+          () => this.say("შესწორებები გამოქვეყნდა — საიტზე ერთ წუთში", "#9ede9e"));
       })
       .catch(e => {
         this.setState({ i18nSaving: false });
@@ -1135,7 +1164,7 @@ class Component extends DCLogic {
     if (!n) return;
     if (!window.confirm("გაუქმდება " + n + " შეუნახავი შესწორება და დაბრუნდება ის, რაც საიტზეა. გავაგრძელო?")) return;
     try { localStorage.removeItem(I18N_DRAFT); } catch (e) {}
-    this.setState({
+    this.refreshI18nKeys({
       i18nOver: Object.assign({}, this.i18nPublished()),
       i18nKa: Object.assign({}, this.i18nPublishedKa())
     }, () => this.say("ლოკალიზაციის ცვლილებები გაუქმდა", "#9ede9e"));
@@ -2425,7 +2454,10 @@ class Component extends DCLogic {
         badgeBg: id === "queue" ? "#ee2626" : id === "i18n" ? "#8a6d1e" : "#333941",
         bg: s.tab === id ? "#2b3138" : "transparent",
         fg: s.tab === id ? "#fff" : "#a9b1b9",
-        click: () => this.setState({ tab: id, edit: null, gameEdit: null, q: "", sort: "" })
+        click: () => {
+          const patch = { tab: id, edit: null, gameEdit: null, q: "", sort: "" };
+          if (id === "i18n") this.refreshI18nKeys(patch); else this.setState(patch);
+        }
         };
       }),
 
@@ -2494,10 +2526,10 @@ class Component extends DCLogic {
         ? "ამ ფილტრში არაფერია."
         : "დააჭირე „გვერდების სკანირებას“ — გაიხსნება ყველა გვერდი რიგრიგობით და ჩამოთვლის, რა წერია ქართულად და რას აკლია ინგლისური.",
       i18nQ: s.i18nQ,
-      onI18nSearch: e => this.setState({ i18nQ: e.target.value }),
+      onI18nSearch: e => this.refreshI18nKeys({ i18nQ: e.target.value }),
       i18nFilter: s.i18nFilter,
       i18nFilters: I18N_FILTERS,
-      onI18nFilter: e => this.setState({ i18nFilter: e.target.value }),
+      onI18nFilter: e => this.refreshI18nKeys({ i18nFilter: e.target.value }),
       scan: () => this.scanPages(),
       scanLabel: s.scanning ? "სკანირება " + s.scanning : (s.i18nFound ? "ხელახლა სკანირება" : "გვერდების სკანირება"),
       i18nUnsavedText: i18nUnsaved
