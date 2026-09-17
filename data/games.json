@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-09-09",
+  "updated": "2026-09-17",
   "items": [
     {
       "id": "besos-shawarma",
@@ -1864,23 +1864,23 @@
         "steam": "https://store.steampowered.com/app/969330/The_Way_of_Wrath/?curator_clanid=34849725"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/header.jpg?t=1787907918",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/page_bg_raw.jpg?t=1787907918",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/header.jpg?t=1789670074",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/page_bg_raw.jpg?t=1789670074",
         "portrait": "",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/ss_b135bf0d12ff41c9f25c48d7130f70230e2b6a35.600x338.jpg?t=1787907918",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/ss_abd3655457363e5ec4e72d7be91e2385053151af.600x338.jpg?t=1787907918",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/ss_dda2eee5c0a25a36989f21bf0120abe0fd225e85.600x338.jpg?t=1787907918"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/ss_b135bf0d12ff41c9f25c48d7130f70230e2b6a35.600x338.jpg?t=1789670074",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/ss_abd3655457363e5ec4e72d7be91e2385053151af.600x338.jpg?t=1789670074",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/ss_dda2eee5c0a25a36989f21bf0120abe0fd225e85.600x338.jpg?t=1789670074"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-09-06T23:22:54.782Z",
+      "parsedAt": "2026-09-17T19:44:34.979Z",
       "verified": false,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-09-17"
     },
     {
       "id": "back-to-the-collis",
