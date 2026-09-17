@@ -662,6 +662,7 @@ class Component extends DCLogic {
     endpointMsg: "", endpointMsgColor: "#c6ccd3",
     studioUrl: "", importing: false, importMsg: "", importMsgColor: "#8b949c",
     i18nOver: {}, i18nKa: {}, i18nQ: "", i18nFilter: "missing", i18nFound: null, i18nKeys: null,
+    i18nReady: false,
     scanning: "", i18nSaving: false
   };
 
@@ -716,10 +717,19 @@ class Component extends DCLogic {
     if (!GGCI18n.loaded && (tries || 0) < 60) {
       return setTimeout(() => this.loadI18n((tries || 0) + 1), 100);
     }
+    /* Everything this tab publishes is the whole file, so it may only be opened
+       for editing on top of a copy that was actually read. Seeding from a map
+       that failed to load would make every published translation look deleted,
+       and publishing would make it so. */
+    if (!GGCI18n.ok) {
+      return this.setState({ i18nReady: false }, () => this.say(
+        "თარგმანების ფაილი ვერ ჩაიტვირთა — გადატვირთე გვერდი. რედაქტირება ახლა სახიფათოა.", "#f0a8a8"));
+    }
     let draft = null;
     try { draft = JSON.parse(localStorage.getItem(I18N_DRAFT) || "null"); } catch (e) {}
     draft = draft && typeof draft === "object" ? draft : {};
     this.refreshI18nKeys({
+      i18nReady: true,
       i18nOver: Object.assign({}, GGCI18n.over, draft.over || null),
       i18nKa: Object.assign({}, GGCI18n.ka, draft.ka || null)
     });
@@ -1130,12 +1140,26 @@ class Component extends DCLogic {
     });
   }
 
+  /* What this publish would take away. Removing a translation is a real thing to
+     want — that is what ↺ is for — but never twelve of them by accident, so the
+     count is named out loud before anything is written. */
+  i18nRemovals() {
+    const pairs = [[this.i18nPayload(), this.i18nPublished()], [this.i18nKaPayload(), this.i18nPublishedKa()]];
+    return pairs.reduce((n, [now, pub]) => n + Object.keys(pub).filter(k => now[k] === undefined).length, 0);
+  }
+
   publishI18n() {
     const s = this.state;
     if (!s.authed) return this.say("ატვირთვას ტოკენი სჭირდება", "#f0a8a8");
     if (s.i18nSaving) return;
+    if (!s.i18nReady) {
+      return this.say("თარგმანების ფაილი ვერ ჩაიტვირთა — გადატვირთე გვერდი და ისევ სცადე", "#f0a8a8");
+    }
     const n = this.i18nDirty();
     if (!n) return this.say("შესაცვლელი არაფერია", "#8b949c");
+    const gone = this.i18nRemovals();
+    if (gone && !window.confirm(
+      gone + " თარგმანი წაიშლება საიტიდან. თუ ამას არ აპირებ, გააუქმე და გადატვირთე გვერდი.\n\nგავაგრძელო?")) return;
     this.setState({ i18nSaving: true });
     this.say("იტვირთება…", "#6cc0e8");
     const payload = this.i18nPayload(), kaPayload = this.i18nKaPayload();
@@ -2532,16 +2556,18 @@ class Component extends DCLogic {
       onI18nFilter: e => this.refreshI18nKeys({ i18nFilter: e.target.value }),
       scan: () => this.scanPages(),
       scanLabel: s.scanning ? "სკანირება " + s.scanning : (s.i18nFound ? "ხელახლა სკანირება" : "გვერდების სკანირება"),
-      i18nUnsavedText: i18nUnsaved
-        ? i18nUnsaved + " შეუნახავი შესწორება"
-        : "ყველაფერი გამოქვეყნებულია",
-      i18nUnsavedColor: i18nUnsaved ? "#f4cd77" : "#8b949c",
+      i18nUnsavedText: !s.i18nReady
+        ? "თარგმანების ფაილი ვერ ჩაიტვირთა — გადატვირთე გვერდი"
+        : i18nUnsaved
+          ? i18nUnsaved + " შეუნახავი შესწორება"
+          : "ყველაფერი გამოქვეყნებულია",
+      i18nUnsavedColor: !s.i18nReady ? "#f0a8a8" : i18nUnsaved ? "#f4cd77" : "#8b949c",
       i18nDiscardShow: i18nUnsaved ? "inline-flex" : "none",
       discardI18n: () => this.discardI18n(),
       publishI18n: () => this.publishI18n(),
       i18nSaveLabel: s.i18nSaving ? "იტვირთება…" : "ცვლილებების ატვირთვა",
-      i18nSaveBg: i18nUnsaved && s.authed && !s.i18nSaving ? "#4c9a5e" : "#2b3138",
-      i18nSaveFg: i18nUnsaved && s.authed && !s.i18nSaving ? "#fff" : "#6a737c",
+      i18nSaveBg: i18nUnsaved && s.authed && s.i18nReady && !s.i18nSaving ? "#4c9a5e" : "#2b3138",
+      i18nSaveFg: i18nUnsaved && s.authed && s.i18nReady && !s.i18nSaving ? "#fff" : "#6a737c",
       isSite: s.tab === "site",
       isSettings: s.tab === "settings",
 

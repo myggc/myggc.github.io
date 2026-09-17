@@ -7,6 +7,15 @@
    English pages. The list below was rebuilt by walking every page and every step
    of the form in Georgian and collecting what was really on screen. */
 (function () {
+  /* The page runtime evaluates <helmet> scripts more than once — ggc-core and
+     ggc-github have guarded against it from the start; this file did not. The
+     second run built a second dictionary and put it in window.GGCI18n, while
+     the first run's fetch, already in flight, went on to fill the map nobody
+     could reach any more and set `loaded` on the new object. That left a window
+     where the overrides were announced as loaded and were not there yet, and
+     the admin panel read it: it took the empty map for what is published,
+     concluded every translation had been deleted, and published that. Twice. */
+  if (window.GGCI18n) return;
   var DICT = {
     /* ------------------------------------------------------------ chrome */
     "ჰაბი": "Hub", "კომპანიები": "Companies", "თამაშები": "Games", "ჩვენ შესახებ": "About",
@@ -563,7 +572,12 @@
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
   else run();
-  window.GGCI18n = { lang: lang, dict: DICT, base: BASE, over: OVER, ka: KA, kaApplied: KA_APPLIED, tr: tr, apply: run };
+  var api = window.GGCI18n = {
+    lang: lang, dict: DICT, base: BASE, over: OVER, ka: KA, kaApplied: KA_APPLIED,
+    tr: tr, apply: run,
+    // Has the overrides file been read, and did reading it work?
+    loaded: false, ok: false
+  };
 
   /* data/i18n.json is the same dictionary, editable without a commit to this
      file: the panel writes it, a key here replaces the shipped pair of the same
@@ -600,8 +614,15 @@
         KA[k] = v;
         KA_APPLIED[v] = k;
       });
-      window.GGCI18n.loaded = true;
+      api.ok = true;
+      api.loaded = true;
       if (Object.keys(OVER).length || Object.keys(KA).length) run();
-    }).catch(function () { window.GGCI18n.loaded = true; });
+    }).catch(function () {
+      /* Nothing was read. Announcing "loaded" alone would be the same lie in a
+         different shape — whoever is waiting would take an empty dictionary for
+         the published one — so the failure is recorded as such. */
+      api.ok = false;
+      api.loaded = true;
+    });
   })();
 })();
