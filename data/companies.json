@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-09-09",
+  "updated": "2026-09-20",
   "items": [
     {
       "id": "madmoa",
@@ -384,6 +384,45 @@
       "validated": "2026-09-07",
       "created": "2026-09-07",
       "updated": "2026-09-07"
+    },
+    {
+      "id": "lutor-games",
+      "kind": "company",
+      "name": "Lutor Games",
+      "legal": "Lutor Games",
+      "regId": "46289656",
+      "city": "თბილისი",
+      "founded": 0,
+      "size": "3-5",
+      "roles": [
+        "developer",
+        "outsourcing",
+        "art",
+        "codev"
+      ],
+      "website": "https://lutorgames.com/mountain-rescue-caucasus",
+      "email": "contact@lutorgames.com",
+      "phone": "+995 598 961 809",
+      "contact": "",
+      "about": "ქართული ინდი სტუდია",
+      "aboutEn": "Georgian Indie Studio",
+      "logo": "https://avatars.fastly.steamstatic.com/0bbb2e62955cf21c06192e04281aa4f18ae4785d_full.jpg",
+      "links": {
+        "facebook": "https://www.facebook.com/mountainrescuecaucasus/",
+        "instagram": "https://www.instagram.com/mountain_rescue_caucasus",
+        "linkedin": "https://www.linkedin.com/company/lutor-games",
+        "youtube": "https://www.youtube.com/@LutorGamesOfficial",
+        "discord": "https://discord.gg/hcnGT2nMfD",
+        "tiktok": "https://www.tiktok.com/@mountainrescuecaucasus",
+        "steam": "https://store.steampowered.com/curator/46289656",
+        "appstore": "https://apps.apple.com/kz/developer/tornike-khvedelidze/id1807950973",
+        "googleplay": "https://play.google.com/store/apps/dev?id=7804188497148664673"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-09-20",
+      "created": "2026-09-20",
+      "updated": "2026-09-20"
     }
   ]
 }
