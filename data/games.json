@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-09-20",
+  "updated": "2026-09-22",
   "items": [
     {
       "id": "besos-shawarma",
@@ -2286,23 +2286,23 @@
         "steam": "https://store.steampowered.com/app/5219000/"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/f9d1eef224875e464851759d05a3bfb3e1cc053e/header.jpg?t=1789906556",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/4fa708e13e9dde01c2f4aae924c76db4e7e1e95a/page_bg_raw.jpg?t=1789906556",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/f9d1eef224875e464851759d05a3bfb3e1cc053e/header.jpg?t=1790096939",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/4fa708e13e9dde01c2f4aae924c76db4e7e1e95a/page_bg_raw.jpg?t=1790096939",
         "portrait": "",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/99868199b9d6b3991bae03a87741d796c0abbd29/ss_99868199b9d6b3991bae03a87741d796c0abbd29.600x338.jpg?t=1789906556",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/7354be7caf54d0b14ce46ef9419baeb348cbfffc/ss_7354be7caf54d0b14ce46ef9419baeb348cbfffc.600x338.jpg?t=1789906556",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/b215c2ea734956d1ee48815cbda48b8ecdb40c87/ss_b215c2ea734956d1ee48815cbda48b8ecdb40c87.600x338.jpg?t=1789906556"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/99868199b9d6b3991bae03a87741d796c0abbd29/ss_99868199b9d6b3991bae03a87741d796c0abbd29.600x338.jpg?t=1790096939",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/7354be7caf54d0b14ce46ef9419baeb348cbfffc/ss_7354be7caf54d0b14ce46ef9419baeb348cbfffc.600x338.jpg?t=1790096939",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/b215c2ea734956d1ee48815cbda48b8ecdb40c87/ss_b215c2ea734956d1ee48815cbda48b8ecdb40c87.600x338.jpg?t=1790096939"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-09-20T18:49:01.244Z",
+      "parsedAt": "2026-09-22T19:45:56.435Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-20",
       "created": "2026-09-20",
-      "updated": "2026-09-20"
+      "updated": "2026-09-22"
     }
   ]
 }
