@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "items": [
     {
       "id": "besos-shawarma",
@@ -330,23 +330,23 @@
         "steam": "https://store.steampowered.com/app/3713680/Plague_Doctor_VS_The_Profane/?curator_clanid=45607140"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3713680/98c2b4439d6f353cbec840e9e717f4dd5567df04/header.jpg?t=1790256556",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3713680/69f6971f1b31b42f598372fdaa9ed96dea3b5c79/page_bg_raw.jpg?t=1790256556",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3713680/98c2b4439d6f353cbec840e9e717f4dd5567df04/header.jpg?t=1790342706",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3713680/69f6971f1b31b42f598372fdaa9ed96dea3b5c79/page_bg_raw.jpg?t=1790342706",
         "portrait": "",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3713680/a42c465454343dadf20e4ff263765696ef4c5bf2/ss_a42c465454343dadf20e4ff263765696ef4c5bf2.600x338.jpg?t=1790256556",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3713680/c64dcec61fdea2ace68d3524059428bb88afaaf1/ss_c64dcec61fdea2ace68d3524059428bb88afaaf1.600x338.jpg?t=1790256556",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3713680/d2a335fdd9ab7f313184721f18c9687daa01fec0/ss_d2a335fdd9ab7f313184721f18c9687daa01fec0.600x338.jpg?t=1790256556"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3713680/a42c465454343dadf20e4ff263765696ef4c5bf2/ss_a42c465454343dadf20e4ff263765696ef4c5bf2.600x338.jpg?t=1790342706",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3713680/c64dcec61fdea2ace68d3524059428bb88afaaf1/ss_c64dcec61fdea2ace68d3524059428bb88afaaf1.600x338.jpg?t=1790342706",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3713680/d2a335fdd9ab7f313184721f18c9687daa01fec0/ss_d2a335fdd9ab7f313184721f18c9687daa01fec0.600x338.jpg?t=1790342706"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-09-24T19:59:36.338Z",
+      "parsedAt": "2026-09-25T20:01:04.557Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-24"
+      "updated": "2026-09-25"
     },
     {
       "id": "dumbriel-magnificent-adventure-in-hell",
@@ -1906,23 +1906,23 @@
         "steam": "https://store.steampowered.com/app/2333220/"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/header.jpg?t=1777476193",
-        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/2333220?t=1777476193",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/a83c58c8d89c3e10a85e1c92d1656794f2460b0c/header.jpg?t=1790360575",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/2333220?t=1790360575",
         "portrait": "",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/ss_7fb0025e09a5e30f814835a754e13d0d189a26ac.600x338.jpg?t=1777476193",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/ss_3a450af6cc1c2b3d507167b4c039ead7fbc2b1ea.600x338.jpg?t=1777476193",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/ss_41148b0ece4e47d699f98d43c63de55bf02613bd.600x338.jpg?t=1777476193"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/1498952dcb29ef6e891611518b075481e9e0295e/ss_1498952dcb29ef6e891611518b075481e9e0295e.600x338.jpg?t=1790360575",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/808df67cecc7cdba5f20b03feb817cf588f0427b/ss_808df67cecc7cdba5f20b03feb817cf588f0427b.600x338.jpg?t=1790360575",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/1e0ac632fe33839297c3da4eb6ce979fe762fbb9/ss_1e0ac632fe33839297c3da4eb6ce979fe762fbb9.600x338.jpg?t=1790360575"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-09-07T19:58:39.155Z",
+      "parsedAt": "2026-09-25T20:02:10.628Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-07"
+      "updated": "2026-09-25"
     },
     {
       "id": "slapper-battle-cheek-slap",
@@ -2286,23 +2286,23 @@
         "steam": "https://store.steampowered.com/app/5219000/"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/f9d1eef224875e464851759d05a3bfb3e1cc053e/header.jpg?t=1790096939",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/4fa708e13e9dde01c2f4aae924c76db4e7e1e95a/page_bg_raw.jpg?t=1790096939",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/f9d1eef224875e464851759d05a3bfb3e1cc053e/header.jpg?t=1790347305",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/4fa708e13e9dde01c2f4aae924c76db4e7e1e95a/page_bg_raw.jpg?t=1790347305",
         "portrait": "",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/99868199b9d6b3991bae03a87741d796c0abbd29/ss_99868199b9d6b3991bae03a87741d796c0abbd29.600x338.jpg?t=1790096939",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/7354be7caf54d0b14ce46ef9419baeb348cbfffc/ss_7354be7caf54d0b14ce46ef9419baeb348cbfffc.600x338.jpg?t=1790096939",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/b215c2ea734956d1ee48815cbda48b8ecdb40c87/ss_b215c2ea734956d1ee48815cbda48b8ecdb40c87.600x338.jpg?t=1790096939"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/35a73bb18d8a23371d49b6d19582318daa982080/ss_35a73bb18d8a23371d49b6d19582318daa982080.600x338.jpg?t=1790347305",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/546871da28efffae5ffb810f6bdf075a16ecea39/ss_546871da28efffae5ffb810f6bdf075a16ecea39.600x338.jpg?t=1790347305",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/40f04e79f2b5f926364f52e7b7e66b178fce344c/ss_40f04e79f2b5f926364f52e7b7e66b178fce344c.600x338.jpg?t=1790347305"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-09-22T19:45:56.435Z",
+      "parsedAt": "2026-09-25T20:02:25.223Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-20",
       "created": "2026-09-20",
-      "updated": "2026-09-22"
+      "updated": "2026-09-25"
     }
   ]
 }
