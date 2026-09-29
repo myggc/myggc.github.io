@@ -123,3 +123,4 @@ images/partners/partner logos     images/qr/        kisa.ge QR codes
   `assets/js/ggc-core.js`.
 
 Pages load Google Fonts and React from a CDN, so they need a connection.
+ 
