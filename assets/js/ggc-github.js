@@ -164,7 +164,8 @@
   }
 
   /* One commit for however many files changed, so companies.json and
-     games.json never land in the history half-applied. */
+     games.json never land in the history half-applied. A file whose content is
+     null is removed in the same commit; `encoding: "base64"` carries a picture. */
   function commit(files, message) {
     var head, baseTree;
     return req(R + "/git/ref/heads/" + C.branch)
@@ -175,9 +176,12 @@
       .then(function (c) {
         baseTree = c.tree.sha;
         return Promise.all(files.map(function (f) {
+          if (f.content === null) {
+            return { path: f.path, mode: "100644", type: "blob", sha: null };
+          }
           return req(R + "/git/blobs", {
             method: "POST",
-            body: { content: f.content, encoding: "utf-8" }
+            body: { content: f.content, encoding: f.encoding || "utf-8" }
           }).then(function (b) {
             return { path: f.path, mode: "100644", type: "blob", sha: b.sha };
           });
@@ -285,12 +289,172 @@
       });
   }
 
+  /* -------------------------------------------------------------------- news */
+
+  /* News publishes on its own, a post at a time, like the translations do: a
+     post should not wait on a half-edited studio, and a studio should not ride
+     out with a half-written post. Each save re-reads the index and changes only
+     its own entry, so two admins writing two different posts cannot undo each
+     other. Writing the same post is caught by comparing the entry with what it
+     was when the editor opened it. */
+
+  // A compact form of an entry that ignores key order, for that comparison.
+  function stable(o) {
+    if (!o || typeof o !== "object") return JSON.stringify(o === undefined ? null : o);
+    return "{" + Object.keys(o).sort().map(function (k) {
+      return JSON.stringify(k) + ":" + JSON.stringify(o[k]);
+    }).join(",") + "}";
+  }
+
+  function loadNews() {
+    return getFile(C.paths.news)
+      .then(function (f) {
+        var doc = f.json && typeof f.json === "object" ? f.json : {};
+        return { sha: f.sha, doc: doc, items: Array.isArray(doc.items) ? doc.items : [] };
+      })
+      .catch(function (e) {
+        // No file yet is simply no news; the first post creates it.
+        if (e.status === 404) return { sha: null, doc: { version: 1 }, items: [] };
+        throw e;
+      });
+  }
+
+  function newest(a, b) {
+    return String(b.date || "").localeCompare(String(a.date || "")) ||
+      String(b.created || "").localeCompare(String(a.created || ""));
+  }
+
+  // A file this commit should remove — but only if it is actually there.
+  function removal(path) {
+    return fileSha(path).then(function (sha) { return sha ? { path: path, content: null } : null; });
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  /* posts/<id>.html — the address a post is shared by. A link preview (Facebook,
+     Telegram, X, LinkedIn) reads the tags of the page it is given without
+     running any script, and the site proper is one page that fills itself in
+     with JavaScript, so every post would otherwise show up as the same generic
+     card. This page is nothing but the post's own tags, and a person who opens
+     it is sent on to the post straight away. */
+  function newsStub(e) {
+    var site = C.site.replace(/\/?$/, "/");
+    var abs = function (u) { return /^https?:\/\//i.test(u) ? u : site + String(u).replace(/^\.?\//, ""); };
+    var target = "../news.html#" + encodeURIComponent(e.id);
+    var title = e.title, desc = e.excerpt || "";
+    return [
+      "<!DOCTYPE html>",
+      '<html lang="ka">',
+      "<head>",
+      '<meta charset="utf-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      "<title>" + esc(title) + " — GGC</title>",
+      '<meta name="description" content="' + esc(desc) + '">',
+      '<meta property="og:type" content="article">',
+      '<meta property="og:site_name" content="Georgian Game Community">',
+      '<meta property="og:title" content="' + esc(title) + '">',
+      '<meta property="og:description" content="' + esc(desc) + '">',
+      '<meta property="og:url" content="' + esc(site + C.paths.posts + e.id + ".html") + '">',
+      e.cover ? '<meta property="og:image" content="' + esc(abs(e.cover)) + '">' : "",
+      e.cover ? '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">' : "",
+      e.date ? '<meta property="article:published_time" content="' + esc(e.date) + '">' : "",
+      '<meta name="twitter:card" content="' + (e.cover ? "summary_large_image" : "summary") + '">',
+      "<script>location.replace(" + JSON.stringify(target) + ");</script>",
+      "</head>",
+      '<body style="margin:0;padding:48px 20px;font-family:system-ui,sans-serif;text-align:center">',
+      '<a href="' + esc(target) + '">' + esc(title) + "</a>",
+      "</body>",
+      "</html>",
+      ""
+    ].filter(Boolean).join("\n");
+  }
+
+  /* Writes one post: its index entry, its text in each language it has, and
+     its share page — one commit. `opts.isNew` gives a fresh post an id nobody
+     has taken; `opts.expect` is the entry as the editor first saw it, and a
+     different one on GitHub stops the save unless `opts.force`. A draft gets
+     no share page, and a post that loses its English loses the file. */
+  function saveNewsPost(entry, bodies, opts) {
+    opts = opts || {};
+    var dir = C.paths.posts;
+    var attempt = function () {
+      return loadNews().then(function (cur) {
+        var items = cur.items.slice();
+        var e = Object.assign({}, entry);
+        if (opts.isNew) {
+          var base = e.id, n = 2;
+          while (items.some(function (x) { return x.id === e.id; })) e.id = base + "-" + n++;
+        } else if (!opts.force) {
+          var remote = items.filter(function (x) { return x.id === e.id; })[0] || null;
+          if (stable(remote) !== stable(opts.expect || null)) {
+            var err = new Error("ეს პოსტი GitHub-ზე შეიცვალა მას შემდეგ, რაც გაიხსნა");
+            err.code = "conflict";
+            throw err;
+          }
+        }
+        // One post leads the news page; marking another one takes the mark off the last.
+        if (e.featured) {
+          items = items.map(function (x) {
+            return x.featured && x.id !== e.id ? Object.assign({}, x, { featured: false }) : x;
+          });
+        }
+        items = items.filter(function (x) { return x.id !== e.id; }).concat([e]).sort(newest);
+        var doc = Object.assign({}, cur.doc, { items: items });
+        if (!doc.version) doc.version = 1;
+        var files = [
+          { path: C.paths.news, content: stringify(doc) },
+          { path: dir + e.id + ".md", content: bodies.body }
+        ];
+        var gone = [];
+        if (e.en) files.push({ path: dir + e.id + ".en.md", content: bodies.bodyEn });
+        else gone.push(dir + e.id + ".en.md");
+        if (!e.draft) files.push({ path: dir + e.id + ".html", content: newsStub(e) });
+        else gone.push(dir + e.id + ".html");
+        return Promise.all(gone.map(removal)).then(function (dels) {
+          return commit(files.concat(dels.filter(Boolean)), opts.message || ("news: " + e.title));
+        }).then(function () { return { entry: e, items: items }; });
+      });
+    };
+    /* A commit made by someone else between reading the branch and moving it
+       — the store refresh runs twice a day — fails as "not a fast forward".
+       The whole save is re-read and rebuilt on top of it once. */
+    return attempt().catch(function (e) {
+      if (e && e.status === 422 && /fast.forward/i.test(e.message || "")) return attempt();
+      throw e;
+    });
+  }
+
+  function deleteNewsPost(id, message) {
+    var dir = C.paths.posts;
+    return loadNews().then(function (cur) {
+      var items = cur.items.filter(function (x) { return x.id !== id; });
+      var doc = Object.assign({}, cur.doc, { items: items });
+      return Promise.all([dir + id + ".md", dir + id + ".en.md", dir + id + ".html"].map(removal))
+        .then(function (dels) {
+          return commit([{ path: C.paths.news, content: stringify(doc) }].concat(dels.filter(Boolean)), message);
+        })
+        .then(function () { return { items: items }; });
+    });
+  }
+
+  /* Several pictures in one commit — a gallery dropped into a post is one
+     change in the history and one Pages rebuild, not six. */
+  function putFiles(files, message) {
+    return commit(files.map(function (f) {
+      return { path: f.path, content: f.base64, encoding: "base64" };
+    }), message);
+  }
+
   window.GGCGitHub = {
     hasToken: hasToken, setToken: setToken, signIn: signIn, me: me,
     listSubmissions: listSubmissions, comment: comment, closeIssue: closeIssue,
     getFile: getFile, getText: getText, commit: commit, saveData: saveData, parseIssue: parseIssue,
     markBaseline: markBaseline, saveI18n: saveI18n,
-    putImage: putImage,
+    putImage: putImage, putFiles: putFiles,
+    loadNews: loadNews, saveNewsPost: saveNewsPost, deleteNewsPost: deleteNewsPost,
     signOut: function () { setToken(""); }
   };
 })();

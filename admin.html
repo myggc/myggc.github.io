@@ -13,6 +13,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="assets/js/ggc-core.js?v=48ec3b53f3"></script>
 <script src="assets/js/ggc-github.js?v=48ec3b53f3"></script>
+<script src="assets/js/ggc-md.js?v=48ec3b53f3"></script>
 <script src="assets/js/i18n.js?v=48ec3b53f3"></script>
 <style>
   html { overflow-x:clip; }
@@ -324,6 +325,199 @@
         </sc-if>
       </sc-if>
 
+      <sc-if value="{{ isNews }}">
+        <sc-if value="{{ nwListShow }}">
+          <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+              <h1 style="margin:0;font-size:22px;font-weight:600;color:#fff;flex:1 1 160px;min-width:0">სიახლეები</h1>
+              <input type="search" placeholder="ძებნა" value="{{ nwQ }}" onInput="{{ nwOnSearch }}" style="flex:0 1 200px;min-width:0;border:1px solid #333941;border-radius:10px;padding:10px 13px;font-family:inherit;font-size:14px;background:#171a1e;color:#e9ecee">
+              <button type="button" onClick="{{ nwReload }}" style="flex:none;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:10px;padding:10px 14px;font-family:inherit;font-size:14px">განახლება</button>
+              <button type="button" onClick="{{ nwNew }}" style="flex:none;border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:10px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">+ ახალი პოსტი</button>
+            </div>
+            <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#8b949c">პოსტები ჩანს მთავარ გვერდზე და <a href="news.html" target="_blank" rel="noopener">სიახლეების გვერდზე ↗</a>. თითო პოსტი თავისით ინახება GitHub-ზე — კატალოგის ატვირთვას არ ელოდება. სანამ შეინახავ, რასაც წერ, ამ ბრაუზერში რჩება.</p>
+            <div style="display:{{ nwRowsShow }};flex-direction:column;gap:1px;margin-top:18px;background:#2a2f35;border:1px solid #2a2f35;border-radius:12px;overflow:hidden">
+              <sc-for list="{{ nwRows }}" as="r" hint-placeholder-count="4">
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;background:#20242a;padding:12px 16px;font-size:15px">
+                  <div style="position:relative;width:96px;aspect-ratio:1200/630;border-radius:7px;background:{{ r.coverBg }};flex:none;overflow:hidden;border:1px solid #2f353c">
+                    <div aria-hidden="true" style="position:absolute;inset:0;background:{{ r.cover }}"></div>
+                  </div>
+                  <div style="flex:1 1 220px;min-width:0">
+                    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:7px;color:#fff;font-weight:600;word-break:break-word">{{ r.title }}<span style="display:{{ r.featuredShow }};background:#14293a;color:#8ccbe9;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600">★ მთავარი</span><span style="display:{{ r.pendingShow }};background:#3a2f14;color:#f4cd77;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600">{{ r.pendingLabel }}</span></div>
+                    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin-top:4px;font-size:13px;color:#8b949c"><span style="width:8px;height:8px;border-radius:2px;background:{{ r.tagColor }};flex:none"></span>{{ r.sub }}</div>
+                  </div>
+                  <div style="flex:none;display:flex;align-items:center;gap:7px;font-size:14px;color:#c6ccd3"><span style="width:8px;height:8px;border-radius:50%;background:{{ r.dot }}"></span>{{ r.status }}</div>
+                  <span title="აქვს ინგლისური ვერსია" style="display:{{ r.enShow }};flex:none;border:1px solid #333941;border-radius:6px;padding:2px 7px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;color:#8b949c">EN</span>
+                  <button type="button" onClick="{{ r.edit }}" style="flex:none;border:1px solid #333941;cursor:pointer;background:#171a1e;color:#c6ccd3;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:600">რედაქტირება</button>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:{{ nwEmptyShow }};margin-top:18px;padding:34px;text-align:center;border:1px dashed #333941;border-radius:13px;color:{{ nwEmptyColor }};font-size:15px;line-height:1.6">{{ nwEmptyText }}</div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ nwLoadShow }}">
+          <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:44px 20px;text-align:center;color:#8b949c;font-size:15px">პოსტი იტვირთება…</div>
+        </sc-if>
+
+        <sc-if value="{{ nwEditShow }}">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(14px,2vw,20px)">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+                <button type="button" onClick="{{ nwBack }}" style="flex:none;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:600">← ყველა პოსტი</button>
+                <h2 style="margin:0;flex:1 1 220px;min-width:0;font-size:19px;font-weight:600;color:#fff;word-break:break-word">{{ nwHeading }}</h2>
+                <span style="flex:none;background:{{ nwStatusBg }};color:{{ nwStatusFg }};border-radius:7px;padding:5px 11px;font-size:13px;font-weight:600">{{ nwStatus }}</span>
+                <a href="{{ nwViewHref }}" target="_blank" rel="noopener" style="display:{{ nwViewShow }};flex:none;border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 14px;font-size:14px;font-weight:600">საიტზე ნახვა ↗</a>
+                <button type="button" onClick="{{ nwDelete }}" style="flex:none;border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px">წაშლა</button>
+              </div>
+              <div style="display:{{ nwShareShow }};flex-wrap:wrap;align-items:center;gap:8px 10px;margin-top:12px;font-size:13px;color:#8b949c">
+                <span>გასაზიარებელი ბმული — Facebook-სა და Telegram-ში ქავერით და სათაურით გამოჩნდება:</span>
+                <code style="flex:0 1 auto;min-width:0;overflow-wrap:anywhere;background:#171a1e;border:1px solid #2f353c;border-radius:7px;padding:4px 8px;color:#c6ccd3;font-size:12px">{{ nwShareUrl }}</code>
+                <button type="button" onClick="{{ nwCopyShare }}" style="flex:none;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:8px;padding:6px 11px;font-family:inherit;font-size:13px">{{ nwCopyLabel }}</button>
+              </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:14px;align-items:start">
+              <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:16px">
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+                  <div style="flex:1 1 auto;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">პოსტი</div>
+                  <div title="სათაური, აღწერა და ტექსტი ორივე ენაზე იწერება; ინგლისური არასავალდებულოა" style="display:flex;gap:2px;padding:3px;background:#171a1e;border:1px solid #2f353c;border-radius:9px;flex:none">
+                    <sc-for list="{{ nwLangs }}" as="l" hint-placeholder-count="2">
+                      <button type="button" onClick="{{ l.click }}" style="border:0;cursor:pointer;background:{{ l.bg }};color:{{ l.fg }};border-radius:7px;padding:7px 12px;font-family:inherit;font-size:13px;font-weight:600">{{ l.label }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+                  <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8b949c">{{ nwTitleLabel }}
+                    <input id="ggc-news-title" type="text" value="{{ nwTitle }}" onInput="{{ nwOnTitle }}" placeholder="{{ nwTitlePh }}" style="border:1px solid {{ nwTitleBorder }};border-radius:9px;padding:11px 12px;font-family:inherit;font-size:16px;font-weight:600;background:#171a1e;color:#fff">
+                  </label>
+                  <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8b949c">{{ nwExcerptLabel }}
+                    <textarea rows="3" value="{{ nwExcerpt }}" onInput="{{ nwOnExcerpt }}" placeholder="{{ nwExcerptPh }}" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;line-height:1.55;background:#171a1e;color:#e9ecee;resize:vertical"></textarea>
+                  </label>
+                  <div style="font-size:13px;color:#8b949c">მიმართულება
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+                      <sc-for list="{{ nwTags }}" as="t" hint-placeholder-count="5">
+                        <button type="button" onClick="{{ t.click }}" style="display:inline-flex;align-items:center;gap:7px;border:1px solid {{ t.border }};cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};border-radius:20px;padding:7px 12px;font-family:inherit;font-size:13px;font-weight:600"><span style="width:8px;height:8px;border-radius:2px;background:{{ t.dot }}"></span>{{ t.label }}</button>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:10px">
+                    <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8b949c">თარიღი
+                      <input type="{{ nwDateType }}" value="{{ nwDate }}" onInput="{{ nwOnDate }}" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;background:#171a1e;color:#e9ecee;color-scheme:dark">
+                    </label>
+                    <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8b949c">ავტორი
+                      <input type="text" value="{{ nwAuthor }}" onInput="{{ nwOnAuthor }}" placeholder="GGC" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;background:#171a1e;color:#e9ecee">
+                    </label>
+                  </div>
+                  <div style="display:{{ nwDateHintShow }};margin-top:-4px;font-size:12px;line-height:1.5;color:#8ccbe9">{{ nwDateHint }}</div>
+                  <label style="display:flex;flex-direction:column;gap:6px;font-size:13px;color:#8b949c">ბმული (ID)
+                    <input type="text" value="{{ nwId }}" onInput="{{ nwOnId }}" placeholder="{{ nwIdPh }}" readOnly="{{ nwIdLocked }}" style="border:1px solid #333941;border-radius:9px;padding:10px 12px;font-family:inherit;font-size:14px;background:{{ nwIdBg }};color:{{ nwIdFg }}">
+                    <span style="font-size:12px;line-height:1.5;color:#6a737c">{{ nwIdHint }}</span>
+                  </label>
+                  <div>
+                    <button type="button" onClick="{{ nwToggleFeatured }}" style="border:1px solid {{ nwFeatBorder }};cursor:pointer;background:{{ nwFeatBg }};color:{{ nwFeatFg }};border-radius:9px;padding:10px 14px;font-family:inherit;font-size:14px;font-weight:600">★ მთავარი სიახლე</button>
+                    <div style="margin-top:6px;font-size:12px;line-height:1.5;color:#6a737c">დიდად ჩანს სიახლეების გვერდის თავში და მთავარ გვერდზე. ერთდროულად ერთი — სხვას თავისით მოეხსნება.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:16px">
+                <div style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">ქავერი</div>
+                <div style="position:relative;margin-top:14px;aspect-ratio:1200/630;border-radius:10px;background:{{ nwCoverBg }};border:1px solid #2f353c;overflow:hidden;display:flex;align-items:center;justify-content:center">
+                  <div aria-hidden="true" style="position:absolute;inset:0;background:{{ nwCoverImg }}"></div>
+                  <span style="display:{{ nwCoverEmptyShow }};position:relative;font-family:'Space Grotesk',sans-serif;font-size:13px;color:#6a737c">1200 × 630</span>
+                </div>
+                <div style="margin-top:6px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#6a737c">{{ nwCoverCaption }}</div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+                  <label style="display:inline-block;cursor:pointer;border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:9px;padding:10px 14px;font-size:14px;font-weight:600">{{ nwCoverPickLabel }}
+                    <input type="file" accept="image/png,image/jpeg,image/webp" onChange="{{ nwOnCoverPick }}" style="display:none">
+                  </label>
+                  <button type="button" onClick="{{ nwCoverUpload }}" style="display:{{ nwCoverPendingShow }};border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ nwCoverUploadLabel }}</button>
+                  <button type="button" onClick="{{ nwCoverCancel }}" style="display:{{ nwCoverPendingShow }};border:1px solid #333941;cursor:pointer;background:#20242a;color:#8b949c;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px">გაუქმება</button>
+                  <button type="button" onClick="{{ nwCoverRemove }}" style="display:{{ nwCoverRemoveShow }};border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:9px;padding:10px 15px;font-family:inherit;font-size:14px">მოხსნა</button>
+                </div>
+                <div style="margin-top:8px;font-size:13px;line-height:1.55;color:#8b949c">1200×630 · ცენტრიდან იჭრება და იკუმშება. ჩანს ბარათზე, სტატიის თავში და Facebook-ის, Telegram-ის პრევიუში. ცარიელი ქავერის ნაცვლად მიმართულების ფერი გამოჩნდება.</div>
+              </div>
+            </div>
+
+            <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:16px">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+                <div style="flex:1 1 auto;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8b949c">{{ nwBodyTitle }}</div>
+                <div style="display:flex;gap:2px;padding:3px;background:#171a1e;border:1px solid #2f353c;border-radius:9px;flex:none">
+                  <sc-for list="{{ nwModes }}" as="m" hint-placeholder-count="3">
+                    <button type="button" onClick="{{ m.click }}" style="border:0;cursor:pointer;background:{{ m.bg }};color:{{ m.fg }};border-radius:7px;padding:7px 12px;font-family:inherit;font-size:13px;font-weight:600">{{ m.label }}</button>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:{{ nwCols }};gap:14px;margin-top:12px;align-items:start">
+                <div style="display:{{ nwWriteShow }};min-width:0">
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:2px;padding:6px;background:#20242a;border:1px solid #333941;border-bottom:0;border-radius:10px 10px 0 0">
+                    <sc-for list="{{ nwTools }}" as="t" hint-placeholder-count="16">
+                      <span style="display:{{ t.sepShow }};width:1px;height:22px;background:#333941;margin:0 5px"></span>
+                      <button type="button" title="{{ t.title }}" aria-label="{{ t.title }}" onMouseDown="{{ t.keep }}" onClick="{{ t.click }}" style="display:{{ t.btnShow }};align-items:center;justify-content:center;min-width:34px;height:34px;border:0;border-radius:8px;cursor:pointer;background:{{ t.bg }};color:{{ t.fg }};font-family:{{ t.font }};font-size:15px;font-weight:{{ t.weight }};font-style:{{ t.italic }};text-decoration:{{ t.deco }};padding:0 8px" style-hover="background:#2b3138;color:#fff">{{ t.icon }}</button>
+                    </sc-for>
+                  </div>
+                  <div style="display:{{ nwInsShow }};flex-wrap:wrap;align-items:center;gap:8px;padding:10px;background:#14293a;border:1px solid #1d4a68;border-bottom:0">
+                    <span style="flex:none;font-size:13px;font-weight:600;color:#8ccbe9">{{ nwInsTitle }}</span>
+                    <input id="ggc-news-ins-a" type="text" value="{{ nwInsA }}" onInput="{{ nwOnInsA }}" onKeyDown="{{ nwInsKey }}" placeholder="{{ nwInsAPh }}" style="flex:1 1 160px;min-width:0;border:1px solid #1d4a68;border-radius:8px;padding:9px 11px;font-family:inherit;font-size:14px;background:#0f1c26;color:#e9ecee">
+                    <input type="text" value="{{ nwInsB }}" onInput="{{ nwOnInsB }}" onKeyDown="{{ nwInsKey }}" placeholder="{{ nwInsBPh }}" style="display:{{ nwInsBShow }};flex:2 1 220px;min-width:0;border:1px solid #1d4a68;border-radius:8px;padding:9px 11px;font-family:inherit;font-size:14px;background:#0f1c26;color:#e9ecee">
+                    <button type="button" onClick="{{ nwInsGo }}" style="display:{{ nwInsGoShow }};flex:none;border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:8px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:600">ჩასმა</button>
+                    <button type="button" onClick="{{ nwInsClose }}" aria-label="დახურვა" style="flex:none;border:1px solid #1d4a68;cursor:pointer;background:transparent;color:#8ccbe9;border-radius:8px;padding:8px 11px;font-family:inherit;font-size:14px">✕</button>
+                    <div style="display:{{ nwInsErrShow }};flex:1 1 100%;font-size:13px;color:#f0a8a8">{{ nwInsErr }}</div>
+                    <div style="display:{{ nwPickShow }};flex:1 1 100%;flex-direction:column;gap:4px;max-height:280px;overflow:auto">
+                      <sc-for list="{{ nwPicks }}" as="c" hint-placeholder-count="4">
+                        <button type="button" onClick="{{ c.pick }}" style="display:flex;align-items:center;gap:10px;width:100%;border:1px solid #1d4a68;cursor:pointer;background:#0f1c26;color:#e9ecee;border-radius:9px;padding:7px 10px;font-family:inherit;font-size:14px;text-align:left" style-hover="border-color:#6cc0e8">
+                          <span style="flex:none;width:{{ c.w }};aspect-ratio:{{ c.ratio }};border-radius:{{ c.radius }};background:{{ c.art }}"></span>
+                          <span style="flex:1 1 auto;min-width:0;font-weight:600">{{ c.name }}</span>
+                          <span style="flex:none;font-size:12px;color:#8b949c">{{ c.sub }}</span>
+                        </button>
+                      </sc-for>
+                      <div style="display:{{ nwPickEmptyShow }};padding:6px 2px;font-size:13px;color:#8b949c">ვერაფერი მოიძებნა</div>
+                    </div>
+                  </div>
+                  <div style="display:{{ nwHelpShow }};padding:12px 14px;background:#171a1e;border:1px solid #333941;border-bottom:0;font-size:13px;line-height:1.6;color:#c6ccd3">
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(270px,100%),1fr));gap:6px 18px">
+                      <sc-for list="{{ nwHelp }}" as="x" hint-placeholder-count="10">
+                        <div style="display:flex;gap:10px;align-items:baseline"><code style="flex:0 1 auto;max-width:62%;overflow-wrap:anywhere;font-family:ui-monospace,Consolas,monospace;font-size:12px;color:#8ccbe9">{{ x.k }}</code><span style="flex:1 1 auto;min-width:0;color:#8b949c">{{ x.v }}</span></div>
+                      </sc-for>
+                    </div>
+                    <div style="margin-top:10px;color:#8b949c">სურათი შეგიძლია პირდაპირ ჩააგდო ტექსტში ან ჩასვა (Ctrl+V). Ctrl+B — სქელი, Ctrl+I — დახრილი, Ctrl+K — ბმული. Enter სიას თავისით აგრძელებს.</div>
+                  </div>
+                  <textarea id="ggc-news-body" value="{{ nwBody }}" onInput="{{ nwOnBody }}" onKeyDown="{{ nwOnKey }}" onPaste="{{ nwOnPaste }}" onDrop="{{ nwOnDrop }}" onDragOver="{{ nwOnDragOver }}" placeholder="{{ nwBodyPh }}" spellCheck="{{ true }}" style="display:block;width:100%;min-height:560px;border:1px solid {{ nwBodyBorder }};border-radius:0 0 10px 10px;padding:16px;font-family:inherit;font-size:15px;line-height:1.75;background:#171a1e;color:#e9ecee;resize:vertical"></textarea>
+                  <input id="ggc-news-files" type="file" accept="image/png,image/jpeg,image/webp,image/gif" multiple="{{ true }}" onChange="{{ nwOnFiles }}" style="display:none">
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin-top:8px;font-size:13px;color:#6a737c">
+                    <span>{{ nwStats }}</span>
+                    <span style="display:{{ nwUploadingShow }};color:#8ccbe9">{{ nwUploadingText }}</span>
+                    <span style="margin-left:auto">{{ nwLocalNote }}</span>
+                  </div>
+                </div>
+
+                <div style="display:{{ nwPreviewShow }};min-width:0;position:sticky;top:76px;max-height:calc(100vh - 96px);overflow:auto;background:#f1f1ed;border:1px solid #2f353c;border-radius:12px">
+                  <div style="padding:clamp(18px,3vw,32px);color:#16181b">
+                    <div style="display:{{ nwPvNoteShow }};margin-bottom:16px;background:#fff7e0;border:1px solid #f1dfa6;border-radius:10px;padding:10px 13px;font-size:13px;line-height:1.5;color:#7a5500">{{ nwPvNote }}</div>
+                    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:13px;color:#5a5f65">
+                      <span style="display:inline-flex;align-items:center;gap:6px;background:{{ nwPvTint }};color:{{ nwPvInk }};border-radius:8px;padding:5px 10px;font-size:13px;font-weight:600"><span style="width:8px;height:8px;border-radius:2px;background:{{ nwPvColor }}"></span>{{ nwPvTag }}</span>
+                      <span>{{ nwPvDate }}</span><span>·</span><span>{{ nwPvMinutes }}</span>
+                    </div>
+                    <h1 style="margin:14px 0 0;font-size:clamp(26px,3.4vw,40px);line-height:1.08;font-weight:800;letter-spacing:-.03em;color:{{ nwPvTitleFg }};text-wrap:balance">{{ nwPvTitle }}</h1>
+                    <p style="display:{{ nwPvLeadShow }};margin:14px 0 0;font-size:18px;line-height:1.55;color:#41464c">{{ nwPvLead }}</p>
+                    <div style="display:{{ nwPvCoverShow }};margin-top:20px;aspect-ratio:1200/630;border-radius:14px;background:{{ nwPvCover }}"></div>
+                    <div class="ggc-prose" style="margin-top:26px;--gp-accent:{{ nwPvAccent }};--gp-deep:{{ nwPvDeep }}">{{ nwPvBody }}</div>
+                    <div style="display:{{ nwPvEmptyShow }};margin-top:26px;padding:26px;text-align:center;border:1px dashed #d5d6d2;border-radius:12px;color:#5a5f65;font-size:14px;line-height:1.6">ტექსტი ჯერ ცარიელია — რასაც დაწერ, აქ ისე გამოჩნდება, როგორც საიტზე.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="position:sticky;bottom:12px;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:#1d2126;border:1px solid #333941;border-radius:14px;padding:12px 14px;box-shadow:0 14px 34px rgba(0,0,0,.45)">
+              <span style="flex:1 1 220px;min-width:0;font-size:14px;line-height:1.5;color:{{ nwNoteColor }}">{{ nwNote }}</span>
+              <button type="button" onClick="{{ nwDiscard }}" style="display:{{ nwDiscardShow }};flex:none;border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:9px;padding:11px 15px;font-family:inherit;font-size:14px;font-weight:600">გაუქმება</button>
+              <button type="button" onClick="{{ nwSecondary }}" style="flex:none;border:1px solid #333941;cursor:pointer;background:#20242a;color:{{ nwSecondaryFg }};border-radius:9px;padding:11px 15px;font-family:inherit;font-size:14px;font-weight:600">{{ nwSecondaryLabel }}</button>
+              <button type="button" onClick="{{ nwPrimary }}" style="flex:none;border:0;cursor:pointer;background:{{ nwPrimaryBg }};color:{{ nwPrimaryFg }};border-radius:9px;padding:11px 18px;font-family:inherit;font-size:14px;font-weight:600">{{ nwPrimaryLabel }}</button>
+            </div>
+          </div>
+        </sc-if>
+      </sc-if>
+
       <sc-if value="{{ isSite }}">
         <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
           <h1 style="margin:0;font-size:22px;font-weight:600;color:#fff">საიტის შიგთავსი</h1>
@@ -582,7 +776,7 @@ const D = GGC.data, U = GGC.util, GH = window.GGCGitHub, C = GGC.config;
 
 const NAV = [
   ["queue", "ვალიდაციის რიგი"], ["companies", "კომპანიები"], ["teams", "გუნდები"],
-  ["solo", "სოლო დეველოპერები"], ["games", "თამაშები"], ["site", "საიტის შიგთავსი"], ["i18n", "ლოკალიზაცია"], ["settings", "პარამეტრები"]
+  ["solo", "სოლო დეველოპერები"], ["games", "თამაშები"], ["news", "სიახლეები"], ["site", "საიტის შიგთავსი"], ["i18n", "ლოკალიზაცია"], ["settings", "პარამეტრები"]
 ];
 const TITLES = { companies: "კომპანიები", teams: "გუნდები", solo: "სოლო დეველოპერები", games: "თამაშები" };
 const KIND_OF_TAB = { companies: "company", teams: "team", solo: "solo" };
@@ -603,7 +797,7 @@ const I18N_DRAFT = "ggc.admin.i18n";
    from the pages rather than from anyone's memory of them. */
 const SCAN_PAGES = [
   "index.html", "hub.html#community", "hub.html#acceleration", "hub.html#publishing",
-  "hub.html#report", "companies.html", "games.html", "submit.html", "donate.html", "about.html"
+  "hub.html#report", "companies.html", "games.html", "news.html", "submit.html", "donate.html", "about.html"
 ];
 const I18N_FILTERS = [
   { v: "missing", label: "უთარგმნელი" },
@@ -627,6 +821,67 @@ const KIND_FIELD = {
 };
 const CO_STORE_PH = { steam: "store.steampowered.com/developer/…", itch: "studio.itch.io", appstore: "apps.apple.com/developer/…", googleplay: "play.google.com/store/apps/dev?id=…" };
 const STORE_KEYS = ["steam", "itch", "appstore", "googleplay", "switch", "xbox", "playstation", "epic", "gog", "web"];
+
+/* ------------------------------------------------------------------- news */
+
+const NEWS_DRAFT = "ggc.admin.news";
+/* What a post is, as far as "has it changed" goes. `draft` is not in it — that
+   only ever changes through the save buttons, and they save. */
+const POST_FIELDS = ["id", "title", "titleEn", "excerpt", "excerptEn", "tag", "date", "author", "featured", "cover", "body", "bodyEn"];
+function readNewsDrafts() {
+  try {
+    const d = JSON.parse(localStorage.getItem(NEWS_DRAFT) || "{}");
+    return d && typeof d === "object" ? d : {};
+  } catch (e) { return {}; }
+}
+/* url("…") for an inline style. A semicolon would end the declaration early
+   in the template's style parser, so it is written %3B, which means the same. */
+function cssBg(u) {
+  return 'url("' + String(u).replace(/["\\]/g, "\\$&").replace(/;/g, "%3B") + '") center/cover no-repeat';
+}
+// The four petals of the mark, which are also the four coloured boxes a post can use.
+const CALLOUTS = [
+  ["NOTE", "#1d96d3", "ცისფერი ბლოკი — შენიშვნა"],
+  ["TIP", "#83c341", "მწვანე ბლოკი — რჩევა"],
+  ["WARNING", "#fdb813", "ყვითელი ბლოკი — ყურადღება"],
+  ["CAUTION", "#ee2626", "წითელი ბლოკი — გაფრთხილება"]
+];
+const TABLE_MD = "| სვეტი | სვეტი | სვეტი |\n| --- | --- | --- |\n|  |  |  |\n|  |  |  |";
+const NEWS_HELP = [
+  ["## სათაური", "სათაური · ### — ქვესათაური"],
+  ["**სქელი**  *დახრილი*  ~~ხაზი~~", "ტექსტის სტილი"],
+  ["[ტექსტი](https://…)", "ბმული"],
+  ["- პუნქტი   1. პუნქტი", "სია და დანომრილი სია"],
+  ["> ციტატა", "ციტატა"],
+  ["> [!NOTE]  [!TIP]  [!WARNING]  [!CAUTION]", "ფერადი ბლოკი: ცისფერი, მწვანე, ყვითელი, წითელი"],
+  ["![წარწერა](images/news/…)", "სურათი; რამდენიმე ერთად — გალერეა"],
+  ["YouTube-ის ბმული ცალკე ხაზზე", "ვიდეო"],
+  ["[სახელი](games.html#id)", "ცალკე ხაზზე — თამაშის ბარათი; companies.html#id — სტუდიის"],
+  ['[ტექსტი](https://… "button")', "ღილაკი"],
+  ["---", "ოთხფერი გამყოფი"],
+  ["| ა | ბ |", "ცხრილი"]
+];
+// Toolbar icons: drawn once, reused on every render.
+const svgIcon = (paths, extra) => React.createElement("svg", {
+  viewBox: "0 0 24 24", width: 18, height: 18, fill: "none", stroke: "currentColor", strokeWidth: 1.8,
+  strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": "true", style: { display: "block" }
+}, paths.map((d, i) => React.createElement("path", { key: i, d: d })).concat(extra || []));
+const swatch = (colors, size) => React.createElement("span", { style: { display: "flex", gap: 3 }, "aria-hidden": "true" },
+  colors.map((c, i) => React.createElement("span", { key: i, style: { display: "block", width: size, height: size, borderRadius: size > 8 ? 4 : 2, background: c } })));
+const NEWS_ICONS = {
+  link: svgIcon(["M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1.1 1.1", "M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1.1-1.1"]),
+  quote: svgIcon(["M5 18c2.4-.7 3.8-2.6 3.8-5.4V7H4v5.5h4.8", "M14 18c2.4-.7 3.8-2.6 3.8-5.4V7H13v5.5h4.8"]),
+  ul: svgIcon(["M9 6.5h11", "M9 12h11", "M9 17.5h11", "M4.5 6.5h.01", "M4.5 12h.01", "M4.5 17.5h.01"]),
+  ol: svgIcon(["M10 6.5h10", "M10 12h10", "M10 17.5h10", "M4 5l1.5-1v5", "M3.5 13.4c.3-.9 2.7-1.1 2.7.3 0 1.1-2.7 2-2.7 3.3h2.9"]),
+  image: svgIcon(["M4 5h16v14H4z", "M4 16l4.5-4.5 3.5 3.5 2.5-2.5L20 17"], [React.createElement("circle", { key: "sun", cx: 9, cy: 9.5, r: 1.6 })]),
+  video: svgIcon(["M3.5 6h17v12h-17z", "M10.5 9.5v5l4.3-2.5z"]),
+  game: svgIcon(["M7 8.5h10a4 4 0 0 1 4 4v.5a3.5 3.5 0 0 1-6.3 2.1L14 14h-4l-.7 1.1A3.5 3.5 0 0 1 3 13v-.5a4 4 0 0 1 4-4z", "M8 11v3", "M6.5 12.5h3", "M15.5 11.5h.01", "M17.5 13.5h.01"]),
+  studio: svgIcon(["M4 20V9l6-4v15", "M10 20V9.5l10 3.5V20", "M3 20h18", "M7 10v.01", "M7 13v.01", "M7 16v.01", "M14 15.5v.01", "M17 16.5v.01"]),
+  button: svgIcon(["M4 8h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z", "M8 12h8"]),
+  table: svgIcon(["M4 5h16v14H4z", "M4 10h16", "M4 14.5h16", "M10 5v14"]),
+  code: svgIcon(["M9 8l-4 4 4 4", "M15 8l4 4-4 4"]),
+  divider: swatch(["#1d96d3", "#83c341", "#ee2626", "#fdb813"], 5)
+};
 
 const CO_LABELS = {
   legal: "ოფიციალური სახელი", regId: "საიდენტიფიკაციო", name: "საჯარო სახელი", kind: "ტიპი",
@@ -663,7 +918,13 @@ class Component extends DCLogic {
     studioUrl: "", importing: false, importMsg: "", importMsgColor: "#8b949c",
     i18nOver: {}, i18nKa: {}, i18nQ: "", i18nFilter: "missing", i18nFound: null, i18nKeys: null,
     i18nReady: false,
-    scanning: "", i18nSaving: false
+    scanning: "", i18nSaving: false,
+    // News: the index as GitHub has it, the post open in the editor and the
+    // saved version it is compared with, and this browser's unsaved posts.
+    news: null, newsLoading: false, newsErr: "", newsQ: "", newsDrafts: readNewsDrafts(),
+    post: null, postBase: null, postRemote: null, postLang: "ka", postView: "split", postBusy: "",
+    ins: null, help: false, coverPending: null, coverUploading: false, newsUploading: 0,
+    newsPreviews: {}, shareCopied: false
   };
 
   /* Staged work outlives the tab. Everything approved, imported or typed lives
@@ -774,6 +1035,7 @@ class Component extends DCLogic {
       GH.me().then(u => {
         this.setState({ authed: true, user: u.login });
         this.loadQueue();
+        this.loadNews();
         // Pin the version this session started from, so publishing cannot
         // quietly revert a commit made after this tab was opened.
         GH.markBaseline();
@@ -833,6 +1095,10 @@ class Component extends DCLogic {
   busyLabel() {
     const s = this.state;
     if (s.publishing) return "იტვირთება GitHub-ზე…";
+    if (s.postBusy === "saving") return "პოსტი ინახება GitHub-ზე…";
+    if (s.postBusy === "deleting") return "პოსტი იშლება…";
+    if (s.postBusy === "loading") return "პოსტი იტვირთება…";
+    if (s.newsUploading || s.coverUploading) return "სურათი იტვირთება…";
     if (s.importing) return s.importMsg && /წაკითხულია/.test(s.importMsg) ? s.importMsg : "მაღაზიის კითხვა…";
     if (s.syncing === "all") return "ყველა თამაშის განახლება…";
     if (s.syncing) return "მაღაზიის კითხვა…";
@@ -1059,6 +1325,9 @@ class Component extends DCLogic {
     const co = (D.companies() || [])[0], g = (D.games() || [])[0];
     if (co) urls.push("companies.html#" + co.id);
     if (g) urls.push("games.html#" + g.id);
+    // One article, for the words around a post; the post itself has its own English.
+    const post = (this.state.news || []).map(GGC.news.norm).filter(GGC.news.isLive).sort(GGC.news.byNewest)[0];
+    if (post) urls.push("news.html#" + post.id);
 
     let prev = null, had = false;
     try {
@@ -1089,7 +1358,14 @@ class Component extends DCLogic {
             if (!found[k]) found[k] = [];
             if (found[k].indexOf(url) < 0) found[k].push(url);
           };
-          const w = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT, null);
+          /* Content that carries its own English — a news post — is marked
+             data-ggc-no-i18n. Its sentences are not the site's wording, and
+             listing them here would bury the strings that do need translating. */
+          const w = doc.createTreeWalker(doc.body, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, {
+            acceptNode: x => x.nodeType === 1
+              ? (x.hasAttribute("data-ggc-no-i18n") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_SKIP)
+              : NodeFilter.FILTER_ACCEPT
+          });
           let n;
           while ((n = w.nextNode())) {
             if (n.parentNode && /SCRIPT|STYLE/.test(n.parentNode.nodeName)) continue;
@@ -1097,6 +1373,7 @@ class Component extends DCLogic {
           }
           const els = doc.querySelectorAll("[placeholder],[aria-label],[title]");
           for (let i = 0; i < els.length; i++) {
+            if (els[i].closest("[data-ggc-no-i18n]")) continue;
             ["placeholder", "aria-label", "title"].forEach(a => add(els[i].getAttribute(a)));
           }
         }
@@ -1222,6 +1499,7 @@ class Component extends DCLogic {
     GH.signIn(t).then(u => {
       this.setState({ authed: true, user: u.login, tokenInput: "", signing: false });
       this.loadQueue();
+      this.loadNews();
       GH.markBaseline();
     }).catch(e => this.setState({ authErr: e.message, signing: false }));
   }
@@ -1857,6 +2135,672 @@ class Component extends DCLogic {
     setTimeout(() => URL.revokeObjectURL(a.href), 4000);
   }
 
+  /* -------------------------------------------------------------------- news */
+
+  /* A post is saved one at a time, from its own editor, and never through the
+     catalogue's upload button: a post should not wait on a half-edited studio,
+     and a studio should not ride out with a half-written post. Until a post is
+     saved, whatever has been typed into it stays in this browser, like the rest
+     of the panel's unsaved work. */
+
+  loadNews() {
+    if (!GH.hasToken()) return;
+    this.setState({ newsLoading: true, newsErr: "" });
+    GH.loadNews()
+      .then(res => this.setState({ news: res.items, newsLoading: false }))
+      .catch(e => this.setState({ newsLoading: false, newsErr: e.message }));
+  }
+
+  persistNewsDrafts() {
+    try {
+      const d = this.state.newsDrafts || {};
+      if (Object.keys(d).length) localStorage.setItem(NEWS_DRAFT, JSON.stringify(d));
+      else localStorage.removeItem(NEWS_DRAFT);
+    } catch (e) {
+      // A private window or a full quota. Said once, rather than losing work quietly.
+      if (!this.warnedQuota) {
+        this.warnedQuota = true;
+        this.say("ბრაუზერმა დრაფტი ვეღარ შეინახა — შეინახე GitHub-ზე, სანამ გვერდს დახურავ", "#f0a8a8");
+      }
+    }
+  }
+
+  postDirty(p, base) {
+    if (!p) return false;
+    if (!base) return true;
+    return POST_FIELDS.some(k => (p[k] || "") !== (base[k] || ""));
+  }
+  pickPostFields(src) {
+    const o = {};
+    POST_FIELDS.forEach(k => { if (src[k] !== undefined) o[k] = src[k]; });
+    return o;
+  }
+
+  blankPost(key) {
+    return {
+      key: key || ("new-" + Date.now().toString(36)), isNew: true, draft: true,
+      id: "", title: "", titleEn: "", excerpt: "", excerptEn: "", tag: "ggc",
+      date: U.localToday(), author: "GGC", featured: false, cover: "", body: "", bodyEn: "",
+      created: "", updated: ""
+    };
+  }
+
+  /* Changes the post in the editor. `key` pins a change to one post — for work
+     that finishes later, like an upload, when the editor may have moved on. */
+  setPost(patch, key) {
+    this.setState(st => {
+      if (!st.post || (key && st.post.key !== key)) return null;
+      const post = Object.assign({}, st.post, patch);
+      const drafts = Object.assign({}, st.newsDrafts);
+      if (this.postDirty(post, st.postBase)) drafts[post.key] = Object.assign({}, post, { savedAt: Date.now() });
+      else delete drafts[post.key];
+      return { post: post, newsDrafts: drafts };
+    }, () => this.persistNewsDrafts());
+  }
+
+  editorReset(patch) {
+    this.setState(Object.assign({
+      ins: null, help: false, coverPending: null, postLang: "ka", shareCopied: false
+    }, patch));
+  }
+
+  newPost() {
+    const b = this.blankPost();
+    this.editorReset({ post: Object.assign({}, b), postBase: b, postRemote: null, postBusy: "" });
+    setTimeout(() => { const t = document.getElementById("ggc-news-title"); if (t) t.focus(); }, 60);
+  }
+
+  // A post that has never been saved exists only in this browser's drafts.
+  openLocalPost(key) {
+    const d = this.state.newsDrafts[key];
+    if (!d) return;
+    this.editorReset({ post: Object.assign({}, d), postBase: this.blankPost(key), postRemote: null, postBusy: "" });
+  }
+
+  /* Reads the post's text from GitHub rather than from the site: right after a
+     save, GitHub Pages is still a minute behind. */
+  openPost(id) {
+    const entry = (this.state.news || []).filter(p => p.id === id)[0];
+    if (!entry) return;
+    const draft = this.state.newsDrafts[id];
+    this.editorReset({ post: null, postBase: null, postRemote: entry, postBusy: "loading" });
+    const read = path => GH.getText(path).catch(e => { if (e.status === 404) return { text: "" }; throw e; });
+    Promise.all([
+      read(C.paths.posts + id + ".md"),
+      entry.en ? read(C.paths.posts + id + ".en.md") : Promise.resolve({ text: "" })
+    ]).then(([ka, en]) => {
+      if (this.state.postRemote !== entry) return;
+      const base = Object.assign(GGC.news.norm(entry), { key: id, isNew: false, body: ka.text, bodyEn: en.text });
+      const post = draft ? Object.assign({}, base, this.pickPostFields(draft)) : base;
+      this.setState({ post: post, postBase: base, postBusy: "" });
+      if (draft) this.say("აღდგა ამ ბრაუზერში დარჩენილი შეუნახავი ცვლილებები", "#f4cd77");
+    }).catch(e => {
+      this.setState({ postBusy: "", postRemote: null });
+      this.say("პოსტი ვერ ჩაიტვირთა: " + e.message, "#f0a8a8");
+    });
+  }
+
+  closePost() {
+    if (this.state.postBusy === "loading") this.setState({ postBusy: "" });
+    this.editorReset({ post: null, postBase: null, postRemote: null });
+  }
+
+  /* GitHub moves the branch one commit at a time. Two commits started together
+     — a picture still uploading while the post is saved — would have the second
+     refused, so every write from this tab waits for the one before it. */
+  queueWrite(fn) {
+    const next = (this.writeChain || Promise.resolve()).then(fn, fn);
+    this.writeChain = next.catch(() => null);
+    return next;
+  }
+
+  /* Publishes the post, or with `asDraft` saves it without putting it on the
+     site — which, for a post that is on the site, takes it off. A post dated in
+     the future appears on that date. */
+  savePost(asDraft) {
+    const s = this.state, p = s.post, M = window.GGCMarkdown;
+    if (!p || s.postBusy) return;
+    if (!s.authed) return this.say("შენახვას ტოკენი სჭირდება", "#f0a8a8");
+    const tidy = t => { const x = String(t || "").replace(/\s+$/, ""); return x ? x + "\n" : ""; };
+    const body = tidy(p.body), bodyEn = tidy(p.bodyEn);
+    const title = String(p.title || "").trim();
+    const dirty = this.postDirty(p, s.postBase);
+    const wasLive = !p.isNew && !s.postBase.draft;
+    if (!title) {
+      this.setState({ postLang: "ka" });
+      return this.say("სათაური აკლია — ქართული სათაური სავალდებულოა", "#f0a8a8");
+    }
+    if (!asDraft && !body.trim()) {
+      this.setState({ postLang: "ka" });
+      return this.say("ტექსტი ცარიელია — ცარიელ პოსტს ვერ გამოვაქვეყნებთ", "#f0a8a8");
+    }
+    // Nothing would change: the same status, the same words.
+    if (!dirty && !p.isNew && !!asDraft === !!s.postBase.draft) return this.say("შესანახი არაფერია", "#8b949c");
+    if (asDraft && wasLive && !window.confirm("პოსტი საიტიდან მოიხსნება და დრაფტად დარჩება — არ წაიშლება. გავაგრძელო?")) return;
+    const now = U.today();
+    const entry = {
+      id: p.isNew ? U.latinSlug(String(p.id || "").trim() || title) : p.id,
+      title: title,
+      titleEn: String(p.titleEn || "").trim(),
+      // Left empty, the summary is the first paragraph — cards need something to say.
+      excerpt: String(p.excerpt || "").trim() || M.excerpt(body),
+      excerptEn: String(p.excerptEn || "").trim() || (bodyEn ? M.excerpt(bodyEn) : ""),
+      tag: p.tag || "ggc",
+      date: p.date || U.localToday(),
+      cover: p.cover || "",
+      author: String(p.author || "").trim() || "GGC",
+      featured: !!p.featured,
+      draft: !!asDraft,
+      en: !!bodyEn,
+      minutes: body ? M.minutes(body) : 0,
+      created: p.created || now,
+      updated: now
+    };
+    const key = p.key;
+    const message = (asDraft ? "news: დრაფტი — " : "news: ") + title;
+    const run = force => this.queueWrite(() => GH.saveNewsPost(entry, { body: body, bodyEn: bodyEn },
+      { isNew: p.isNew, expect: s.postRemote, force: force, message: message }));
+    this.setState({ postBusy: "saving" });
+    run(false)
+      .catch(e => {
+        if (e.code !== "conflict") throw e;
+        if (!window.confirm("ეს პოსტი GitHub-ზე შეიცვალა მას შემდეგ, რაც აქ გახსენი — სხვა ადმინმა ან სხვა ფანჯრიდან.\n\nშენი ვერსიით გადავაწერო?")) {
+          const stop = new Error("შენახვა გაუქმდა — სხვისი ვერსიის სანახავად დაბრუნდი სიაში, დააჭირე „განახლებას“ და თავიდან გახსენი");
+          stop.quiet = true;
+          throw stop;
+        }
+        return run(true);
+      })
+      .then(res => {
+        const saved = Object.assign(GGC.news.norm(res.entry), { key: res.entry.id, isNew: false, body: body, bodyEn: bodyEn });
+        this.setState(st => {
+          const drafts = Object.assign({}, st.newsDrafts);
+          delete drafts[key];
+          delete drafts[res.entry.id];
+          const mine = !!st.post && st.post.key === key;
+          return {
+            news: res.items, newsDrafts: drafts, postBusy: "",
+            post: mine ? saved : st.post,
+            postBase: mine ? saved : st.postBase,
+            postRemote: mine ? res.entry : st.postRemote
+          };
+        }, () => this.persistNewsDrafts());
+        const live = !entry.draft && entry.date <= U.localToday();
+        this.say(entry.draft
+          ? (wasLive ? "პოსტი საიტიდან მოიხსნა — დრაფტად ინახება" : "დრაფტი შეინახა GitHub-ზე — საიტზე არ ჩანს")
+          : live ? "გამოქვეყნდა — საიტზე დაახლოებით ერთ წუთში გამოჩნდება"
+          : "დაგეგმილია — საიტზე " + U.fmtDate(entry.date) + "-ს გამოჩნდება", "#9ede9e");
+      })
+      .catch(e => {
+        this.setState({ postBusy: "" });
+        this.say(e.quiet ? e.message : "შენახვა ვერ მოხერხდა: " + e.message, e.quiet ? "#f4cd77" : "#f0a8a8");
+      });
+  }
+
+  deletePost() {
+    const s = this.state, p = s.post;
+    if (!p || s.postBusy) return;
+    const name = String(p.title || "").trim() || "უსათაურო პოსტი";
+    const forget = () => this.setState(st => {
+      const drafts = Object.assign({}, st.newsDrafts);
+      delete drafts[p.key];
+      return { newsDrafts: drafts };
+    }, () => this.persistNewsDrafts());
+    if (p.isNew) {
+      if (!window.confirm("„" + name + "“ ჯერ არსად შენახულა. გადავაგდო?")) return;
+      forget();
+      return this.closePost();
+    }
+    if (!window.confirm("წაიშლება „" + name + "“ — საიტიდანაც და რეპოზიტორიიდანაც. სურათები რეპოზიტორიაში დარჩება.\n\nგავაგრძელო?")) return;
+    this.setState({ postBusy: "deleting" });
+    this.queueWrite(() => GH.deleteNewsPost(p.id, "news: წაიშალა „" + name + "“"))
+      .then(res => {
+        forget();
+        this.setState(st => {
+          const mine = !!st.post && st.post.key === p.key;
+          return {
+            news: res.items, postBusy: "",
+            post: mine ? null : st.post, postBase: mine ? null : st.postBase, postRemote: mine ? null : st.postRemote
+          };
+        });
+        this.say("წაიშალა „" + name + "“", "#f4cd77");
+      })
+      .catch(e => {
+        this.setState({ postBusy: "" });
+        this.say("წაშლა ვერ მოხერხდა: " + e.message, "#f0a8a8");
+      });
+  }
+
+  discardPost() {
+    const s = this.state, p = s.post;
+    if (!p || !this.postDirty(p, s.postBase)) return;
+    if (!window.confirm(p.isNew
+      ? "გადაიყრება ეს დაუსრულებელი პოსტი. გავაგრძელო?"
+      : "გაუქმდება შეუნახავი ცვლილებები და დაბრუნდება ის, რაც GitHub-ზეა. გავაგრძელო?")) return;
+    this.setState(st => {
+      const drafts = Object.assign({}, st.newsDrafts);
+      delete drafts[p.key];
+      return p.isNew
+        ? { newsDrafts: drafts, post: null, postBase: null, postRemote: null }
+        : { newsDrafts: drafts, post: Object.assign({}, st.postBase) };
+    }, () => { this.persistNewsDrafts(); this.say("ცვლილებები გაუქმდა", "#9ede9e"); });
+  }
+
+  copyText(text, done) {
+    const ok = () => { if (done) done(); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, () => window.prompt("", text));
+    else window.prompt("", text);
+  }
+
+  /* ------------------------------------------------------------ the editor */
+
+  bodyEl() { return document.getElementById("ggc-news-body"); }
+
+  /* Types into the editor the way a person would, so Ctrl+Z still undoes a
+     toolbar press. execCommand is deprecated, but it is the one call every
+     browser still honours that goes through the textarea's own undo history;
+     setRangeText is the fallback. Either way the textarea fires its input event
+     and the post picks the text up from there. `from`/`to` pick what is
+     replaced (the selection, if left out); `a`/`b` place the cursor afterwards,
+     counted from the start of the new text. */
+  typeInto(text, from, to, a, b) {
+    const el = this.bodyEl();
+    if (!el) return;
+    el.focus();
+    if (from != null) el.setSelectionRange(from, to == null ? from : to);
+    const start = el.selectionStart;
+    let ok = false;
+    try {
+      ok = text ? document.execCommand("insertText", false, text)
+        : (el.selectionStart === el.selectionEnd || document.execCommand("delete", false));
+    } catch (e) { ok = false; }
+    if (!ok) {
+      el.setRangeText(text, el.selectionStart, el.selectionEnd, "end");
+      el.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+    if (a != null) el.setSelectionRange(start + a, start + (b == null ? a : b));
+  }
+
+  /* Bold, italic, strikethrough, code. Pressing the same one again takes it
+     off; a run of stars is read as the bold and italic it makes up, so italic
+     on a bold word adds italic rather than eating half the bold. */
+  wrap(mark) {
+    const el = this.bodyEl();
+    if (!el) return;
+    const v = el.value, a = el.selectionStart, b = el.selectionEnd, n = mark.length;
+    const sel = v.slice(a, b);
+    const runLeft = () => { let k = 0; while (v.charAt(a - 1 - k) === mark[0]) k++; return k; };
+    const runRight = () => { let k = 0; while (v.charAt(b + k) === mark[0]) k++; return k; };
+    const L = runLeft(), R = runRight();
+    const around = mark === "*" ? (L % 2 === 1 && R % 2 === 1) : (L >= n && R >= n);
+    if (around) return this.typeInto(sel, a - n, b + n, 0, sel.length);
+    if (sel.length >= 2 * n && sel.slice(0, n) === mark && sel.slice(-n) === mark) {
+      const inner = sel.slice(n, sel.length - n);
+      return this.typeInto(inner, a, b, 0, inner.length);
+    }
+    // A double-click takes the space after a word with it; keep that outside the marks.
+    const lead = /^\s*/.exec(sel)[0], rest = sel.slice(lead.length);
+    const trail = /\s*$/.exec(rest)[0], core = rest.slice(0, rest.length - trail.length);
+    this.typeInto(lead + mark + core + mark + trail, a, b, lead.length + n, lead.length + n + core.length);
+  }
+
+  codeTool() {
+    const el = this.bodyEl();
+    if (!el) return;
+    const sel = el.value.slice(el.selectionStart, el.selectionEnd);
+    if (sel.indexOf("\n") >= 0) return this.insertBlock("```\n" + sel.replace(/\n+$/, "") + "\n```");
+    this.wrap("`");
+  }
+
+  // The whole lines the selection touches.
+  lineRange() {
+    const el = this.bodyEl();
+    const v = el.value, a = el.selectionStart, b = el.selectionEnd;
+    const start = v.lastIndexOf("\n", a - 1) + 1;
+    let end = v.indexOf("\n", b > a && v.charAt(b - 1) === "\n" ? b - 1 : b);
+    if (end < 0) end = v.length;
+    return { v: v, start: start, end: end, lines: v.slice(start, end).split("\n") };
+  }
+
+  /* Headings, quotes and lists apply to every line the selection touches, and
+     pressing the same one again takes it off. */
+  prefixLines(kind) {
+    if (!this.bodyEl()) return;
+    const r = this.lineRange();
+    const test = {
+      h2: l => /^##\s/.test(l), h3: l => /^###\s/.test(l), quote: l => /^>\s?/.test(l),
+      ul: l => /^\s*[-*+]\s/.test(l), ol: l => /^\s*\d+[.)]\s/.test(l)
+    }[kind];
+    const filled = r.lines.filter(l => l.trim());
+    const off = filled.length > 0 && filled.every(test);
+    const bare = l => l.replace(/^#{1,6}\s+/, "").replace(/^\s*([-*+]|\d+[.)])\s+/, "");
+    let n = 0;
+    const out = r.lines.map(l => {
+      if (!l.trim() && r.lines.length > 1) return l;
+      if (off) return kind === "quote" ? l.replace(/^>\s?/, "") : bare(l);
+      if (kind === "quote") return "> " + l;
+      if (kind === "h2") return "## " + bare(l);
+      if (kind === "h3") return "### " + bare(l);
+      if (kind === "ul") return "- " + bare(l);
+      return (++n) + ". " + bare(l);
+    }).join("\n");
+    this.typeInto(out, r.start, r.end, out.length);
+  }
+
+  /* A coloured box around the lines the cursor is on. Inside a box already, it
+     recolours the whole box instead of starting another one in it. */
+  callout(type) {
+    if (!this.bodyEl()) return;
+    const r = this.lineRange();
+    let start = r.start, end = r.end;
+    if (/^>/.test(r.lines[0])) {
+      const all = r.v.split("\n");
+      let first = r.v.slice(0, start).split("\n").length - 1;
+      let last = first + r.lines.length - 1;
+      while (first > 0 && /^>/.test(all[first - 1])) first--;
+      while (last < all.length - 1 && /^>/.test(all[last + 1])) last++;
+      start = all.slice(0, first).join("\n").length + (first ? 1 : 0);
+      end = start + all.slice(first, last + 1).join("\n").length;
+    }
+    const lines = r.v.slice(start, end).split("\n").map(l => l.replace(/^>\s?/, ""));
+    if (/^\s*\[!\w+\]/.test(lines[0] || "")) lines.shift();
+    const inner = lines.join("\n").trim() ? lines.map(l => "> " + l).join("\n") : "> ";
+    const md = "> [!" + type + "]\n" + inner;
+    // The cursor stays in the box, at the end of what it holds.
+    this.insertBlock(md, start, end, md.length);
+  }
+
+  /* Something that stands on its own — a picture, a video, a card, a box — goes
+     on its own lines with a blank line either side, which is what makes it a
+     block rather than a word in a sentence. With nothing selected it goes after
+     the line the cursor is on, instead of cutting that line in two. The cursor
+     ends up below the block, ready for the next paragraph, unless `selA`/`selB`
+     say where inside it to go — a box is typed into, a table's first cell is
+     typed over. */
+  insertBlock(md, from, to, selA, selB) {
+    const el = this.bodyEl();
+    if (!el) return;
+    const v = el.value;
+    let a = from != null ? from : el.selectionStart, b = to != null ? to : el.selectionEnd;
+    if (from == null && a === b) {
+      const eol = v.indexOf("\n", a);
+      a = b = eol < 0 ? v.length : eol;
+    }
+    const before = v.slice(0, a), after = v.slice(b);
+    const pre = !before.trim() ? "" : /\n\n$/.test(before) ? "" : /\n$/.test(before) ? "\n" : "\n\n";
+    const post = !after.trim() ? "\n\n" : /^\n\n/.test(after) ? "" : /^\n/.test(after) ? "\n" : "\n\n";
+    if (selA != null) this.typeInto(pre + md + post, a, b, pre.length + selA, pre.length + (selB == null ? selA : selB));
+    else this.typeInto(pre + md + post, a, b, pre.length + md.length + post.length);
+  }
+
+  onBodyKey(e) {
+    const mod = e.ctrlKey || e.metaKey;
+    if (mod && !e.altKey && !e.shiftKey) {
+      const k = String(e.key || "").toLowerCase();
+      if (k === "b") { e.preventDefault(); return this.wrap("**"); }
+      if (k === "i") { e.preventDefault(); return this.wrap("*"); }
+      if (k === "k") { e.preventDefault(); return this.openInsert("link"); }
+    }
+    if (e.key !== "Enter" || e.shiftKey || mod || e.altKey || (e.nativeEvent && e.nativeEvent.isComposing)) return;
+    /* Enter carries a list, a numbered list or a quote on to the next line, the
+       way every editor does; on an empty item it ends the list instead — and
+       leaves a blank line behind, because text typed straight under a list is,
+       in markdown, still part of its last item. */
+    const el = e.target, v = el.value, a = el.selectionStart;
+    if (a !== el.selectionEnd) return;
+    const ls = v.lastIndexOf("\n", a - 1) + 1;
+    const line = v.slice(ls, a);
+    const m = /^(\s*)([-*+]|\d+[.)]|>)(\s+)/.exec(line);
+    if (!m) return;
+    e.preventDefault();
+    const eol = v.indexOf("\n", a);
+    if (line.length === m[0].length && !v.slice(a, eol < 0 ? v.length : eol).trim()) return this.typeInto("\n", ls, a);
+    let marker = m[2];
+    if (/^\d/.test(marker)) marker = (parseInt(marker, 10) + 1) + marker.slice(-1);
+    this.typeInto("\n" + m[1] + marker + m[3]);
+  }
+
+  onBodyPaste(e) {
+    const cd = e.clipboardData;
+    if (!cd) return;
+    const files = Array.prototype.filter.call(cd.files || [], f => /^image\//.test(f.type));
+    if (files.length) {
+      e.preventDefault();
+      return this.uploadBodyImages(files);
+    }
+    // An address pasted over selected words makes those words the link.
+    const text = String(cd.getData("text/plain") || "").trim();
+    const el = e.target, sel = el.value.slice(el.selectionStart, el.selectionEnd);
+    if (sel && sel.indexOf("\n") < 0 && /^https?:\/\/\S+$/.test(text)) {
+      e.preventDefault();
+      this.typeInto("[" + sel.replace(/[\[\]]/g, "\\$&") + "](" + text + ")");
+    }
+  }
+
+  onBodyDrop(e) {
+    const files = Array.prototype.filter.call((e.dataTransfer && e.dataTransfer.files) || [], f => /^image\//.test(f.type));
+    if (!files.length) return;
+    e.preventDefault();
+    this.uploadBodyImages(files);
+  }
+
+  // Without this a dropped file is opened by the browser instead, and the post is gone from the tab.
+  onBodyDragOver(e) {
+    const types = (e.dataTransfer && e.dataTransfer.types) || [];
+    if (Array.prototype.indexOf.call(types, "Files") >= 0) e.preventDefault();
+  }
+
+  pickBodyFiles() {
+    const f = document.getElementById("ggc-news-files");
+    if (f) f.click();
+  }
+
+  /* Pictures dropped, pasted or picked into the text. Each is scaled for a
+     reading column (a GIF is kept as it is), written into the text straight
+     away — shown from memory until GitHub Pages serves the file — and all of
+     them committed together, so a gallery is one change in the history. */
+  uploadBodyImages(files) {
+    const s = this.state, p = s.post;
+    if (!p) return;
+    if (!s.authed) return this.say("ატვირთვას ტოკენი სჭირდება", "#f0a8a8");
+    const list = Array.prototype.slice.call(files || []).filter(f => /^image\//.test(f.type)).slice(0, 12);
+    if (!list.length) return;
+    const key = p.key, field = s.postLang === "en" ? "bodyEn" : "body";
+    const stem = "images/news/" + U.latinSlug(p.id || p.title || "post") + "-" + Date.now().toString(36);
+    this.setState(st => ({ newsUploading: st.newsUploading + list.length }));
+    const finish = () => this.setState(st => ({ newsUploading: Math.max(0, st.newsUploading - list.length) }));
+    Promise.all(list.map(f => U.fitImage(f).then(img => ({ img: img }), err => ({ err: (f.name ? f.name + ": " : "") + err.message }))))
+      .then(res => {
+        const ok = res.filter(r => r.img);
+        const bad = res.filter(r => r.err).map(r => r.err);
+        if (!ok.length) throw new Error(bad.join("; "));
+        const items = ok.map((r, i) => ({ path: stem + (ok.length > 1 ? "-" + (i + 1) : "") + "." + r.img.ext, img: r.img }));
+        const md = items.map(it => "![](" + it.path + ")").join("\n");
+        this.setState(st => {
+          const pv = Object.assign({}, st.newsPreviews);
+          items.forEach(it => { pv[it.path] = it.img.url; });
+          return { newsPreviews: pv };
+        });
+        if (this.state.post && this.state.post.key === key && this.bodyEl()) this.insertBlock(md);
+        const kb = Math.round(items.reduce((n, it) => n + it.img.bytes, 0) / 1024);
+        return this.queueWrite(() => GH.putFiles(items.map(it => ({ path: it.path, base64: it.img.base64 })),
+          "images: " + (items.length === 1 ? items[0].path : items.length + " სურათი სიახლისთვის")))
+          .then(() => this.say((items.length === 1 ? "სურათი აიტვირთა" : items.length + " სურათი აიტვირთა — ერთად გალერეად ჩანს") +
+              " · " + kb + " KB" + (bad.length ? " · ვერ წაიკითხა: " + bad.join("; ") : ""), bad.length ? "#f4cd77" : "#9ede9e"),
+            err => {
+              // Take the pictures back out of the text rather than leave broken ones in it.
+              const cur = this.state.post;
+              if (cur && cur.key === key) this.setPost({ [field]: String(cur[field] || "").split(md).join("") }, key);
+              throw err;
+            });
+      })
+      .catch(err => this.say("სურათი ვერ აიტვირთა: " + err.message, "#f0a8a8"))
+      .then(finish, finish);
+  }
+
+  pickCover(file) {
+    if (!file) return;
+    U.prepareImage(file, "cover").then(img => {
+      this.setState({ coverPending: img });
+      this.say("მზადაა — " + img.width + "×" + img.height + ", " + Math.round(img.bytes / 1024) + " KB · დააჭირე ატვირთვას", "#9ede9e");
+    }).catch(e => this.say(e.message, "#f0a8a8"));
+  }
+
+  uploadCover() {
+    const s = this.state, img = s.coverPending, p = s.post;
+    if (!img || !p || s.coverUploading) return;
+    if (!s.authed) return this.say("ატვირთვას ტოკენი სჭირდება", "#f0a8a8");
+    const key = p.key;
+    const path = "images/news/" + U.latinSlug(p.id || p.title || "post") + "-cover-" + Date.now().toString(36) + ".jpg";
+    this.setState({ coverUploading: true });
+    this.queueWrite(() => GH.putFiles([{ path: path, base64: img.base64 }], "images: " + path))
+      .then(() => {
+        this.setState(st => ({
+          coverPending: null, coverUploading: false,
+          newsPreviews: Object.assign({}, st.newsPreviews, { [path]: img.url })
+        }));
+        this.setPost({ cover: path }, key);
+        this.say("ქავერი აიტვირთა — დარჩა პოსტის შენახვა", "#9ede9e");
+      })
+      .catch(e => {
+        this.setState({ coverUploading: false });
+        this.say("ატვირთვა ვერ მოხერხდა: " + e.message, "#f0a8a8");
+      });
+  }
+
+  /* The small form under the toolbar for anything that needs an address or a
+     choice: a link, a video, a button, a game or a studio from the catalogue.
+     It remembers where the cursor was, since typing into it moves the focus. */
+  openInsert(kind) {
+    const el = this.bodyEl();
+    const sel = el ? { start: el.selectionStart, end: el.selectionEnd } : { start: 0, end: 0 };
+    const text = el ? el.value.slice(sel.start, sel.end) : "";
+    const isUrl = /^https?:\/\/\S+$/.test(text.trim());
+    const pair = kind === "link" || kind === "button";
+    this.setState({
+      help: false,
+      ins: {
+        kind: kind, sel: sel, err: "",
+        a: kind === "video" ? (isUrl ? text.trim() : "") : pair && !isUrl ? text : "",
+        b: pair && isUrl ? text.trim() : ""
+      }
+    }, () => { const f = document.getElementById("ggc-news-ins-a"); if (f) f.focus(); });
+  }
+
+  setIns(patch) { this.setState(st => st.ins ? { ins: Object.assign({}, st.ins, patch) } : null); }
+
+  /* Puts the cursor back where it was when the form opened, writes, then
+     closes the form. The writing happens here, inside the click, and not in a
+     setState callback: there React is still committing, and it puts a
+     controlled textarea back to its old value under the text just typed. */
+  writeAtSaved(sel, fn) {
+    const el = this.bodyEl();
+    if (el) {
+      el.focus();
+      if (sel) el.setSelectionRange(sel.start, sel.end);
+      fn();
+    }
+    this.setState({ ins: null });
+  }
+
+  doInsert() {
+    const ins = this.state.ins;
+    if (!ins) return;
+    const a = String(ins.a || "").trim(), b = String(ins.b || "").trim();
+    const fix = u => /^(https?:|mailto:|tel:|#|\/|\.\/)/i.test(u) || /^[\w-]+\.html/i.test(u) ? u
+      : /^[\w-]+(\.[\w-]+)+/.test(u) ? "https://" + u : u;
+    const esc = t => t.replace(/[\[\]]/g, "\\$&");
+    if (ins.kind === "link") {
+      if (!b) return this.setIns({ err: "ჩასვი ბმული" });
+      const md = "[" + esc(a || b) + "](" + fix(b).replace(/ /g, "%20") + ")";
+      return this.writeAtSaved(ins.sel, () => this.typeInto(md));
+    }
+    if (ins.kind === "button") {
+      if (!a || !b) return this.setIns({ err: "ღილაკს ტექსტიც სჭირდება და ბმულიც" });
+      const md = "[" + esc(a) + "](" + fix(b).replace(/ /g, "%20") + ' "button")';
+      return this.writeAtSaved(ins.sel, () => this.insertBlock(md));
+    }
+    if (ins.kind === "video") {
+      if (!window.GGCMarkdown.video(a)) return this.setIns({ err: "ეს YouTube-ის ან Vimeo-ს ბმული არ არის" });
+      return this.writeAtSaved(ins.sel, () => this.insertBlock(a));
+    }
+  }
+
+  insertCard(href, name) {
+    const ins = this.state.ins;
+    this.writeAtSaved(ins && ins.sel, () => this.insertBlock("[" + String(name).replace(/[\[\]]/g, "\\$&") + "](" + href + ")"));
+  }
+
+  // The catalogue, searched from the insert form, for a game or studio card.
+  pickList() {
+    const s = this.state, ins = s.ins;
+    if (!ins || (ins.kind !== "game" && ins.kind !== "studio")) return [];
+    const q = String(ins.a || "").trim().toLowerCase();
+    if (ins.kind === "game") {
+      return s.games.filter(g => g.name).map(g => {
+        const st = s.companies.filter(c => c.id === g.studioId)[0];
+        return { g: g, st: st, hay: (g.name + " " + (st ? st.name : "")).toLowerCase() };
+      }).filter(x => !q || x.hay.indexOf(q) >= 0).slice(0, 40).map(x => {
+        const art = D.gameArt(x.g);
+        return {
+          name: x.g.name, sub: [x.st ? x.st.name : "", D.releaseLabel(x.g)].filter(Boolean).join(" · "),
+          art: art ? cssBg(art) : "#2f353c", w: "74px", ratio: "460/215", radius: "5px",
+          pick: () => this.insertCard("games.html#" + x.g.id, x.g.name)
+        };
+      });
+    }
+    return s.companies.filter(c => c.name && (!q || (c.name + " " + c.legal).toLowerCase().indexOf(q) >= 0))
+      .slice(0, 40).map(c => ({
+        name: c.name, sub: [U.KIND_LABEL[c.kind], c.city].filter(Boolean).join(" · "),
+        art: c.logo ? cssBg(c.logo) : "#2f353c", w: "30px", ratio: "1/1", radius: "50%",
+        pick: () => this.insertCard("companies.html#" + c.id, c.name)
+      }));
+  }
+
+  newsTools() {
+    const s = this.state;
+    const keep = e => e.preventDefault();
+    const T = (title, icon, click, style) => Object.assign({
+      sepShow: "none", btnShow: "inline-flex", title: title, icon: icon, click: click, keep: keep,
+      bg: "transparent", fg: "#c6ccd3", font: "inherit", weight: "600", italic: "normal", deco: "none"
+    }, style || {});
+    const SEP = { sepShow: "block", btnShow: "none", title: "", icon: "", click: () => {}, keep: keep,
+      bg: "transparent", fg: "#c6ccd3", font: "inherit", weight: "600", italic: "normal", deco: "none" };
+    const on = kind => s.ins && s.ins.kind === kind ? { bg: "#14293a", fg: "#8ccbe9" } : {};
+    const grotesk = { font: "'Space Grotesk',sans-serif", weight: "700" };
+    return [
+      T("სათაური", "H2", () => this.prefixLines("h2"), grotesk),
+      T("ქვესათაური", "H3", () => this.prefixLines("h3"), grotesk),
+      SEP,
+      T("სქელი (Ctrl+B)", "B", () => this.wrap("**"), { font: "Georgia,serif", weight: "800" }),
+      T("დახრილი (Ctrl+I)", "I", () => this.wrap("*"), { font: "Georgia,serif", italic: "italic" }),
+      T("გადახაზული", "S", () => this.wrap("~~"), { font: "Georgia,serif", deco: "line-through" }),
+      SEP,
+      T("ბმული (Ctrl+K)", NEWS_ICONS.link, () => this.openInsert("link"), on("link")),
+      T("ციტატა", NEWS_ICONS.quote, () => this.prefixLines("quote")),
+      T("სია", NEWS_ICONS.ul, () => this.prefixLines("ul")),
+      T("დანომრილი სია", NEWS_ICONS.ol, () => this.prefixLines("ol")),
+      SEP
+    ].concat(CALLOUTS.map(([type, color, label]) =>
+      T(label, swatch([color], 13), () => this.callout(type), { weight: "400" })
+    )).concat([
+      SEP,
+      T("სურათი ან გალერეა — შეგიძლია ტექსტშიც ჩააგდო ან ჩასვა", NEWS_ICONS.image, () => this.pickBodyFiles()),
+      T("YouTube / Vimeo ვიდეო", NEWS_ICONS.video, () => this.openInsert("video"), on("video")),
+      T("თამაშის ბარათი კატალოგიდან", NEWS_ICONS.game, () => this.openInsert("game"), on("game")),
+      T("სტუდიის ბარათი კატალოგიდან", NEWS_ICONS.studio, () => this.openInsert("studio"), on("studio")),
+      T("ღილაკი — მაგ. რეგისტრაცია", NEWS_ICONS.button, () => this.openInsert("button"), on("button")),
+      SEP,
+      T("ოთხფერი გამყოფი", NEWS_ICONS.divider, () => this.insertBlock("---")),
+      // The first heading comes selected, so typing replaces it.
+      T("ცხრილი", NEWS_ICONS.table, () => this.insertBlock(TABLE_MD, null, null, 2, TABLE_MD.indexOf(" |", 2))),
+      T("კოდი", NEWS_ICONS.code, () => this.codeTool()),
+      SEP,
+      T("რისი დაწერა შეიძლება", "?", () => this.setState(st => ({ help: !st.help, ins: null })),
+        Object.assign({ font: "'Space Grotesk',sans-serif", weight: "700" }, s.help ? { bg: "#14293a", fg: "#8ccbe9" } : {}))
+    ]);
+  }
+
   /* ------------------------------------------------------------------- render */
 
   /* A submission used to be reviewed as one flat grid of equal boxes: the
@@ -2413,6 +3357,273 @@ class Component extends DCLogic {
     }));
   }
 
+  /* Everything the news tab draws: the list of posts, or the editor for one. */
+  newsView() {
+    const s = this.state, NS = GGC.news, M = window.GGCMarkdown;
+    const p = s.post, drafts = s.newsDrafts || {}, today = U.localToday();
+    const loading = s.postBusy === "loading" && !p;
+    const v = {
+      nwListShow: !p && !loading,
+      nwLoadShow: loading,
+      nwEditShow: !!p,
+      nwQ: s.newsQ,
+      nwOnSearch: e => this.setState({ newsQ: e.target.value }),
+      nwReload: () => this.loadNews(),
+      nwNew: () => this.newPost()
+    };
+
+    if (!p) {
+      const q = String(s.newsQ || "").trim().toLowerCase();
+      const match = x => !q || [x.title, x.titleEn, x.excerpt].join(" ").toLowerCase().indexOf(q) >= 0;
+      const row = (x, isNew) => {
+        const d = isNew ? x : drafts[x.id];
+        const shown = d || x;
+        const t = NS.tag(shown.tag);
+        const st = isNew ? ["ჯერ არ არის შენახული", "#5d666e"]
+          : x.draft ? ["დრაფტი", "#5d666e"]
+          : x.date && x.date > today ? ["დაგეგმილი · " + U.fmtDate(x.date), "#1d96d3"]
+          : ["გამოქვეყნებული", "#4c9a5e"];
+        const cover = shown.cover ? (s.newsPreviews[shown.cover] || shown.cover) : "";
+        return {
+          title: shown.title || "(უსათაურო)",
+          sub: [t.label, U.fmtDate(shown.date), shown.author].filter(Boolean).join(" · "),
+          tagColor: t.color,
+          cover: cover ? cssBg(cover) : "none",
+          coverBg: cover ? "#2f353c" : "linear-gradient(135deg," + t.color + "44 0%,#20242a 100%)",
+          featuredShow: shown.featured ? "inline" : "none",
+          pendingShow: d ? "inline" : "none",
+          pendingLabel: isNew ? "მხოლოდ ამ ბრაუზერში" : "შეუნახავი ცვლილებები",
+          status: st[0], dot: st[1],
+          enShow: x.en || (d && String(d.bodyEn || "").trim()) ? "inline" : "none",
+          edit: () => isNew ? this.openLocalPost(x.key) : this.openPost(x.id)
+        };
+      };
+      const local = Object.keys(drafts).map(k => drafts[k]).filter(d => d && d.isNew)
+        .sort((x, y) => (y.savedAt || 0) - (x.savedAt || 0));
+      const remote = (s.news || []).map(NS.norm).sort(NS.byNewest);
+      const rows = local.filter(match).map(x => row(x, true)).concat(remote.filter(match).map(x => row(x, false)));
+      return Object.assign(v, {
+        nwRows: rows,
+        nwRowsShow: rows.length ? "flex" : "none",
+        nwEmptyShow: rows.length ? "none" : "block",
+        nwEmptyColor: s.newsErr ? "#f0a8a8" : "#8b949c",
+        nwEmptyText: s.newsErr ? "სიახლეები ვერ ჩაიტვირთა: " + s.newsErr
+          : s.newsLoading || s.news === null ? "იტვირთება…"
+          : q ? "ვერაფერი მოიძებნა"
+          : "ჯერ არცერთი პოსტი არ არის. დააჭირე „+ ახალი პოსტი“ — პირველი გამოქვეყნებისთანავე მთავარ გვერდზე სიახლეების ბლოკი გამოჩნდება."
+      });
+    }
+
+    const L = s.postLang === "en";
+    const base = s.postBase || p;
+    const dirty = this.postDirty(p, s.postBase);
+    const busy = s.postBusy;
+    const t = NS.tag(p.tag);
+    const live = !p.isNew && !base.draft;
+    const liveNow = live && (!base.date || base.date <= today);
+    const status = p.isNew ? ["ახალი · ჯერ არ არის შენახული", "#14293a", "#8ccbe9"]
+      : base.draft ? ["დრაფტი · საიტზე არ ჩანს", "#2b3138", "#c6ccd3"]
+      : !liveNow ? ["დაგეგმილი · " + U.fmtDate(base.date), "#14293a", "#8ccbe9"]
+      : ["გამოქვეყნებული", "#1e2a22", "#9ede9e"];
+    const hasEn = !!String(p.bodyEn || "").trim();
+    const bodyNow = L ? (p.bodyEn || "") : (p.body || "");
+    // What an English reader gets: the English text, or the Georgian when there is none.
+    const pvBody = L && !hasEn ? (p.body || "") : bodyNow;
+    const exKa = String(p.excerpt || "").trim() || M.excerpt(p.body || "");
+    const exEn = String(p.excerptEn || "").trim() || (hasEn ? M.excerpt(p.bodyEn) : "");
+    const pvTitle = L ? (p.titleEn || p.title) : p.title;
+    const slug = U.latinSlug(String(p.id || "").trim() || p.title || "");
+    const shareUrl = C.site + C.paths.posts + p.id + ".html";
+    const cover = p.cover ? (s.newsPreviews[p.cover] || p.cover) : "";
+    const words = M.words(bodyNow);
+    const ins = s.ins;
+    const picks = ins && (ins.kind === "game" || ins.kind === "studio") ? this.pickList() : [];
+    const INS = {
+      link: ["ბმული", "ტექსტი (არასავალდებულო)", "https://…"],
+      button: ["ღილაკი", "ტექსტი — მაგ. დარეგისტრირდი", "https://…"],
+      video: ["ვიდეო", "YouTube-ის ან Vimeo-ს ბმული", ""],
+      game: ["თამაში", "მოძებნე კატალოგში…", ""],
+      studio: ["სტუდია", "მოძებნე კატალოგში…", ""]
+    }[ins ? ins.kind : "link"];
+    const titleNow = L ? p.titleEn : p.title;
+    const lookup = {
+      lang: L && hasEn ? "en" : "ka",
+      resolve: src => s.newsPreviews[src] || src,
+      game: id => s.games.filter(g => g.id === id)[0] || null,
+      company: id => s.companies.filter(c => c.id === id)[0] || null,
+      gamesOf: id => s.games.filter(g => g.studioId === id || g.publisherId === id)
+    };
+    const split = s.postView === "split";
+
+    return Object.assign(v, {
+      nwBack: () => this.closePost(),
+      nwHeading: p.title || (p.isNew ? "ახალი პოსტი" : "(უსათაურო)"),
+      nwStatus: status[0], nwStatusBg: status[1], nwStatusFg: status[2],
+      nwViewShow: liveNow ? "inline-block" : "none",
+      nwViewHref: "news.html#" + encodeURIComponent(p.id),
+      nwDelete: () => this.deletePost(),
+      nwShareShow: live ? "flex" : "none",
+      nwShareUrl: shareUrl,
+      nwCopyShare: () => this.copyText(shareUrl, () => {
+        this.setState({ shareCopied: true });
+        clearTimeout(this.shareT);
+        this.shareT = setTimeout(() => this.setState({ shareCopied: false }), 2000);
+      }),
+      nwCopyLabel: s.shareCopied ? "✔ დაკოპირდა" : "კოპირება",
+
+      nwLangs: [["ka", "ქართული"], ["en", "English" + (hasEn || String(p.titleEn || "").trim() ? " ✔" : "")]].map(([id, label]) => ({
+        label: label,
+        bg: s.postLang === id ? "#2b3138" : "transparent",
+        fg: s.postLang === id ? "#fff" : "#8b949c",
+        click: () => this.setState({ postLang: id, ins: null })
+      })),
+      nwTitleLabel: L ? "სათაური (English)" : "სათაური *",
+      nwTitle: titleNow || "",
+      nwTitlePh: L ? p.title || "Title in English" : "მაგ. GameJam 2026 — შედეგები",
+      nwTitleBorder: !L && !String(p.title || "").trim() && !p.isNew ? "#7a3535" : "#333941",
+      nwOnTitle: e => this.setPost(L ? { titleEn: e.target.value } : { title: e.target.value }),
+      nwExcerptLabel: L ? "მოკლე აღწერა (English)" : "მოკლე აღწერა",
+      nwExcerpt: (L ? p.excerptEn : p.excerpt) || "",
+      nwExcerptPh: (L ? exEn : M.excerpt(p.body || "", 150))
+        ? "ცარიელს პირველი აბზაციდან შევავსებთ: " + (L ? exEn : M.excerpt(p.body || "", 150))
+        : "ერთი-ორი წინადადება ბარათისთვის. ცარიელს პირველი აბზაციდან შევავსებთ.",
+      nwOnExcerpt: e => this.setPost(L ? { excerptEn: e.target.value } : { excerpt: e.target.value }),
+      nwTags: NS.TAGS.map(tg => {
+        const on = p.tag === tg.id;
+        const ggc = tg.id === "ggc";
+        return {
+          label: tg.label, dot: ggc ? "#e9ecee" : tg.color,
+          bg: on ? (ggc ? "#e9ecee" : tg.color) : "transparent",
+          fg: on ? (ggc || tg.id === "report" ? "#16181b" : "#fff") : "#c6ccd3",
+          border: on ? (ggc ? "#e9ecee" : tg.color) : "#333941",
+          click: () => this.setPost({ tag: tg.id })
+        };
+      }),
+      // Bound rather than written as type="date", which the browser would check
+      // against the raw template text before the page has drawn itself.
+      nwDateType: "date",
+      nwDate: p.date || "",
+      nwOnDate: e => this.setPost({ date: e.target.value }),
+      nwDateHintShow: p.date && p.date > today ? "block" : "none",
+      nwDateHint: "მომავალი თარიღი — გამოქვეყნებული პოსტი საიტზე " + U.fmtDate(p.date) + "-დან გამოჩნდება.",
+      nwAuthor: p.author || "",
+      nwOnAuthor: e => this.setPost({ author: e.target.value }),
+      nwId: p.id || "",
+      nwIdPh: slug === "post" ? "gamejam-2026" : slug,
+      nwIdLocked: !p.isNew,
+      nwIdBg: p.isNew ? "#171a1e" : "#1d2126",
+      nwIdFg: p.isNew ? "#e9ecee" : "#8b949c",
+      nwOnId: e => { if (p.isNew) this.setPost({ id: e.target.value }); },
+      nwIdHint: p.isNew
+        ? "მისამართი: news.html#" + slug + " — სათაურიდან ლათინურად იქმნება. პირველი შენახვის შემდეგ აღარ შეიცვლება, რომ გაზიარებული ბმულები არ გაწყდეს."
+        : "მისამართი აღარ იცვლება — ის უკვე შეიძლება სადმე გაზიარებულია.",
+      nwToggleFeatured: () => this.setPost({ featured: !p.featured }),
+      nwFeatBg: p.featured ? "#1d96d3" : "transparent",
+      nwFeatFg: p.featured ? "#fff" : "#8b949c",
+      nwFeatBorder: p.featured ? "#1d96d3" : "#333941",
+
+      nwCoverBg: cover || s.coverPending ? "#20242a" : "linear-gradient(135deg," + t.color + "44 0%,#20242a 100%)",
+      nwCoverImg: s.coverPending ? cssBg(s.coverPending.url) : cover ? cssBg(cover) : "none",
+      nwCoverEmptyShow: cover || s.coverPending ? "none" : "block",
+      nwCoverCaption: s.coverPending ? "ასე გამოჩნდება — ჯერ არ არის ატვირთული" : cover ? "ამჟამინდელი" : "ქავერი არ არის",
+      nwCoverPickLabel: s.coverPending || cover ? "სხვა სურათი" : "სურათის არჩევა",
+      nwOnCoverPick: e => { const f = e.target.files && e.target.files[0]; e.target.value = ""; this.pickCover(f); },
+      nwCoverPendingShow: s.coverPending ? "inline-block" : "none",
+      nwCoverUpload: () => this.uploadCover(),
+      nwCoverUploadLabel: s.coverUploading ? "იტვირთება…" : "ატვირთვა",
+      nwCoverCancel: () => this.setState({ coverPending: null }),
+      nwCoverRemoveShow: cover && !s.coverPending ? "inline-block" : "none",
+      nwCoverRemove: () => this.setPost({ cover: "" }),
+
+      nwBodyTitle: L ? "ტექსტი · English" : "ტექსტი",
+      nwModes: [["write", "რედაქტორი"], ["split", "ორივე"], ["preview", "გადახედვა"]].map(([id, label]) => ({
+        label: label,
+        bg: s.postView === id ? "#2b3138" : "transparent",
+        fg: s.postView === id ? "#fff" : "#8b949c",
+        click: () => this.setState({ postView: id })
+      })),
+      nwCols: split ? "repeat(auto-fit,minmax(min(400px,100%),1fr))" : "minmax(0,1fr)",
+      nwWriteShow: s.postView === "preview" ? "none" : "block",
+      nwPreviewShow: s.postView === "write" ? "none" : "block",
+      nwTools: this.newsTools(),
+
+      nwInsShow: ins ? "flex" : "none",
+      nwInsTitle: INS[0],
+      nwInsA: ins ? ins.a : "",
+      nwInsAPh: INS[1],
+      nwOnInsA: e => this.setIns({ a: e.target.value, err: "" }),
+      nwInsB: ins ? ins.b : "",
+      nwInsBPh: INS[2],
+      nwInsBShow: ins && (ins.kind === "link" || ins.kind === "button") ? "block" : "none",
+      nwOnInsB: e => this.setIns({ b: e.target.value, err: "" }),
+      nwInsKey: e => {
+        if (e.key === "Escape") { e.preventDefault(); this.setState({ ins: null }); const el = this.bodyEl(); if (el) el.focus(); }
+        if (e.key === "Enter") {
+          e.preventDefault();
+          if (picks.length) picks[0].pick(); else this.doInsert();
+        }
+      },
+      nwInsGo: () => this.doInsert(),
+      nwInsGoShow: ins && ins.kind !== "game" && ins.kind !== "studio" ? "inline-block" : "none",
+      nwInsClose: () => this.setState({ ins: null }),
+      nwInsErr: ins ? ins.err : "",
+      nwInsErrShow: ins && ins.err ? "block" : "none",
+      nwPicks: picks,
+      nwPickShow: ins && (ins.kind === "game" || ins.kind === "studio") ? "flex" : "none",
+      nwPickEmptyShow: ins && (ins.kind === "game" || ins.kind === "studio") && !picks.length ? "block" : "none",
+      nwHelpShow: s.help ? "block" : "none",
+      nwHelp: NEWS_HELP.map(([k, d]) => ({ k: k, v: d })),
+
+      nwBody: bodyNow,
+      nwOnBody: e => this.setPost(L ? { bodyEn: e.target.value } : { body: e.target.value }),
+      nwOnKey: e => this.onBodyKey(e),
+      nwOnPaste: e => this.onBodyPaste(e),
+      nwOnDrop: e => this.onBodyDrop(e),
+      nwOnDragOver: e => this.onBodyDragOver(e),
+      nwOnFiles: e => { const f = Array.prototype.slice.call(e.target.files || []); e.target.value = ""; this.uploadBodyImages(f); },
+      nwBodyPh: L
+        ? "English version (optional). Left empty, English readers get the Georgian text."
+        : "დაწერე აქ. ზემოთ ხელსაწყოებია — სათაური, სია, ფერადი ბლოკი, სურათი, ვიდეო, თამაშის ბარათი. სურათი პირდაპირ აქ ჩააგდე.",
+      nwBodyBorder: "#333941",
+      nwStats: words + " სიტყვა · ~" + M.minutes(bodyNow) + " წთ საკითხავი",
+      nwUploadingShow: s.newsUploading ? "inline" : "none",
+      nwUploadingText: "იტვირთება " + s.newsUploading + " სურათი…",
+      nwLocalNote: dirty ? "ინახება ამ ბრაუზერში" : "",
+
+      nwPvNoteShow: L && !hasEn ? "block" : "none",
+      nwPvNote: "ინგლისური ტექსტი ცარიელია — ინგლისურენოვან საიტზე ეს ქართული ვერსია გამოჩნდება.",
+      nwPvTag: t.label, nwPvColor: t.color, nwPvTint: t.tint, nwPvInk: t.ink,
+      nwPvAccent: t.accent, nwPvDeep: t.deep,
+      nwPvDate: U.fmtDate(p.date) || "—",
+      nwPvMinutes: M.minutes(pvBody) + " წთ საკითხავი",
+      nwPvTitle: pvTitle || "სათაური",
+      nwPvTitleFg: pvTitle ? "#16181b" : "#b4b8bc",
+      nwPvLead: L ? (exEn || exKa) : exKa,
+      // As on the site: no summary above a text that opens with the same words.
+      nwPvLeadShow: (L ? (exEn || exKa) : exKa) && !M.opensWith(pvBody, L ? (exEn || exKa) : exKa) ? "block" : "none",
+      nwPvCoverShow: cover || s.coverPending ? "block" : "none",
+      nwPvCover: s.coverPending ? cssBg(s.coverPending.url) : cover ? cssBg(cover) : "none",
+      nwPvBody: M.render(pvBody, lookup),
+      nwPvEmptyShow: String(pvBody).trim() ? "none" : "block",
+
+      nwNote: busy === "saving" ? "ინახება GitHub-ზე…"
+        : busy === "deleting" ? "იშლება…"
+        : dirty ? "შეუნახავი ცვლილებები — ამ ბრაუზერში ინახება, სანამ GitHub-ზე არ შეინახავ"
+        : p.isNew ? "დაიწყე სათაურით — ტექსტი, სურათები და ვიდეო ქვემოთაა"
+        : "ყველაფერი შენახულია GitHub-ზე",
+      nwNoteColor: busy ? "#6cc0e8" : dirty ? "#f4cd77" : "#8b949c",
+      nwDiscardShow: dirty && !busy ? "inline-block" : "none",
+      nwDiscard: () => this.discardPost(),
+      nwSecondaryLabel: live ? "საიტიდან მოხსნა" : "დრაფტად შენახვა",
+      nwSecondaryFg: live ? "#f4cd77" : "#c6ccd3",
+      nwSecondary: () => this.savePost(true),
+      nwPrimaryLabel: busy === "saving" ? "ინახება…" : live ? "განახლება" : "გამოქვეყნება",
+      nwPrimaryBg: busy ? "#2b3138" : (live && !dirty ? "#2b3138" : "#4c9a5e"),
+      nwPrimaryFg: busy || (live && !dirty) ? "#8b949c" : "#fff",
+      nwPrimary: () => this.savePost(false)
+    });
+  }
+
   renderVals() {
     const s = this.state;
     const i18nAll = this.i18nRows();
@@ -2436,7 +3647,7 @@ class Component extends DCLogic {
       onToken: e => this.setState({ tokenInput: e.target.value }),
       signIn: () => this.doSignIn(),
       signInLabel: s.signing ? "მოწმდება…" : "შესვლა",
-      signOut: () => { GH.signOut(); this.setState({ authed: false, user: "", queue: [] }); },
+      signOut: () => { GH.signOut(); this.setState({ authed: false, user: "", queue: [], news: null, post: null, postBase: null, postRemote: null }); },
       authErr: s.authErr,
       authErrShow: s.authErr ? "block" : "none",
 
@@ -2467,19 +3678,25 @@ class Component extends DCLogic {
       },
 
       nav: NAV.map(([id, label]) => {
+        // News counts its unsaved posts when there are any, like the translations do.
+        const newsUnsaved = Object.keys(s.newsDrafts || {}).length;
         const badge = id === "queue" ? pending
           : id === "i18n" ? i18nUnsaved
+          : id === "news" ? (newsUnsaved || (s.news || []).length)
           : id === "games" ? s.games.length
           : KIND_OF_TAB[id] ? s.companies.filter(c => c.kind === KIND_OF_TAB[id]).length : 0;
         return {
         label: label,
         badge: badge,
         badgeShow: badge ? "inline" : "none",
-        badgeBg: id === "queue" ? "#ee2626" : id === "i18n" ? "#8a6d1e" : "#333941",
+        badgeBg: id === "queue" ? "#ee2626" : id === "i18n" || (id === "news" && newsUnsaved) ? "#8a6d1e" : "#333941",
         bg: s.tab === id ? "#2b3138" : "transparent",
         fg: s.tab === id ? "#fff" : "#a9b1b9",
         click: () => {
           const patch = { tab: id, edit: null, gameEdit: null, q: "", sort: "" };
+          // Leaving a post keeps what was typed in it: that is in the drafts already.
+          if (s.post || s.postBusy === "loading") this.closePost();
+          if (id === "news" && s.news === null && !s.newsLoading) this.loadNews();
           if (id === "i18n") this.refreshI18nKeys(patch); else this.setState(patch);
         }
         };
@@ -2536,8 +3753,9 @@ class Component extends DCLogic {
       spendTotal: s.spending.reduce((n, r) => n + (Number(r.amount) || 0), 0).toLocaleString("en-US") + "₾",
 
       isQueue: s.tab === "queue",
-      isList: s.tab !== "queue" && s.tab !== "settings" && s.tab !== "site" && s.tab !== "i18n",
+      isList: s.tab !== "queue" && s.tab !== "settings" && s.tab !== "site" && s.tab !== "i18n" && s.tab !== "news",
       isI18n: s.tab === "i18n",
+      isNews: s.tab === "news",
 
       /* Translations tab. Georgian is written into the pages; English lives in
          the dictionary and in data/i18n.json, and this is where it is typed. */
@@ -2637,7 +3855,7 @@ class Component extends DCLogic {
         { k: "ფორმის მიმღები", v: C.submitEndpoint ? (s.endpointOk || "კონფიგურირებულია") : "არ არის — ფორმა ვერაფერს გამოგზავნის" },
         { k: "ბოლო განახლება", v: U.fmtDate((D.raw().games || {}).updated || "") }
       ]
-    }, this.editor(), this.gameEditor());
+    }, this.editor(), this.gameEditor(), s.tab === "news" ? this.newsView() : {});
     return v;
   }
 }

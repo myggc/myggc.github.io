@@ -34,7 +34,7 @@ jobs:
           sha="${GITHUB_SHA::10}"
           for f in *.html; do
             [ -e "$f" ] || continue
-            sed -i -E "s#(assets/js/(ggc-core|ggc-github|i18n)\.js)(\?v=[A-Za-z0-9]+)?#\1?v=$sha#g" "$f"
+            sed -i -E "s#(assets/js/(ggc-core|ggc-github|ggc-md|i18n)\.js)(\?v=[A-Za-z0-9]+)?#\1?v=$sha#g" "$f"
           done
 
       - name: Commit if anything changed

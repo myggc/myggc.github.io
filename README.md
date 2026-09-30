@@ -12,6 +12,7 @@ the folder from any static host (it is built for GitHub Pages).
 | `hub.html` | Hub — four directions (`#community`, `#publishing`, `#acceleration`, `#report`) |
 | `companies.html` | Studio catalogue (`#companies`, `#teams`, `#solo`, or `#<studio-id>`) |
 | `games.html` | Game catalogue (`#<game-id>` opens a game) |
+| `news.html` | News — featured post, list by direction, `#<post-id>` opens a post |
 | `submit.html` | Submit / correct data |
 | `about.html` | About GGC |
 | `donate.html` | Donate (kisa.ge) |
@@ -71,6 +72,16 @@ What it does:
 - **Editor** — every field of a record, its attached games, social and store
   links, per-game store sync, and image upload.
 - **JSON ექსპორტი** — a full snapshot, no sign-in needed.
+- **სიახლეები** — news posts, written in markdown with a toolbar and a live
+  preview drawn exactly as the site draws it: headings, lists, quotes,
+  coloured boxes, links and buttons, pictures and galleries (pick, drag in or
+  paste), YouTube and Vimeo, cards for any game or studio in the catalogue,
+  tables. Georgian and English, a cover cut to the link-preview shape, a
+  direction colour, one featured post, drafts and future dates. Pictures go up
+  the moment they are added; the post itself — its index entry, its text in
+  each language and its share page — goes up in one commit when it is saved,
+  on its own rather than with the catalogue. Until then, what is typed stays in
+  that browser. See [`data/schema.md`](data/schema.md#news--datanewsjson-and-posts).
 
 Uploaded images are centre-cropped and re-encoded in the browser before they
 are committed — 512×512 for a logo, 920×430 for a capsule, 600×900 for a phone
@@ -100,15 +111,21 @@ stores are read from their Open Graph tags.
 assets/brand/   logo SVGs
 assets/js/      ggc-core.js    data, store parsing, submission delivery
                 ggc-github.js  admin ↔ GitHub (admin.html only)
+                ggc-md.js      a news post's markdown → the page
                 support.js     page runtime
                 i18n.js        Georgian → English dictionary
-data/           companies.json, games.json, schema.md
+data/           companies.json, games.json, site.json, news.json, i18n.json, schema.md
+posts/          one markdown file per news post, plus its share page
 scripts/        refresh-stores.mjs
 worker/         optional submission relay
 images/games/   game art          images/logos/     studio logos
 images/events/  past-event photos images/team/      team photos
 images/partners/partner logos     images/qr/        kisa.ge QR codes
+images/news/    news covers and pictures
 ```
+
+The empty `.nojekyll` at the root stops GitHub Pages from turning `posts/*.md`
+into web pages; the site does not use Jekyll for anything.
 
 ## Editing by hand
 
