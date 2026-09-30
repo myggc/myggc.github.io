@@ -59,7 +59,15 @@
       "https://api.allorigins.win/get?url={url}",
       "https://api.codetabs.com/v1/proxy?quest={url}"
     ],
-    paths: { companies: "data/companies.json", games: "data/games.json", site: "data/site.json", i18n: "data/i18n.json" }
+    paths: {
+      companies: "data/companies.json", games: "data/games.json", site: "data/site.json", i18n: "data/i18n.json",
+      // The news index, and the folder holding one markdown file per post.
+      news: "data/news.json", posts: "posts/"
+    },
+    /* Where the site is published. A shared post links here rather than to
+       whatever page the admin happened to press publish from, and a link
+       preview needs a picture it can fetch from anywhere. */
+    site: "https://myggc.github.io/"
   };
   config.raw = "https://raw.githubusercontent.com/" + config.owner + "/" + config.repo + "/" + config.branch + "/";
   config.issueNew = "https://github.com/" + config.owner + "/" + config.repo + "/issues/new";
@@ -210,8 +218,24 @@
   var IMAGE_SIZES = {
     logo: { w: 512, h: 512 },
     capsule: { w: 920, h: 430 },
-    portrait: { w: 600, h: 900 }
+    portrait: { w: 600, h: 900 },
+    // A post's cover is the shape every link preview draws, so a shared post
+    // shows the same picture on Facebook and Telegram as it does here.
+    cover: { w: 1200, h: 630 }
   };
+
+  /* The preview goes into an inline style, and a data URL carries a semicolon
+     in "image/jpeg;base64" — which the template's style parser treats as the
+     end of the declaration, leaving an empty box. A blob URL has no semicolon,
+     so preview and upload use different forms of the same bytes. */
+  function blobUrl(base64, type) {
+    try {
+      var bin = atob(base64);
+      var buf = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+      return URL.createObjectURL(new Blob([buf], { type: type || "image/jpeg" }));
+    } catch (e) { return ""; }
+  }
 
   /* Centre-crops to the target aspect and re-encodes as JPEG, so an upload can
      never overflow its frame or leave a blank band at the edges — and a 6 MB
@@ -239,20 +263,8 @@
           ctx.drawImage(img, (size.w - dw) / 2, (size.h - dh) / 2, dw, dh);
           var dataUrl = canvas.toDataURL("image/jpeg", quality || 0.82);
           var base64 = dataUrl.slice(dataUrl.indexOf(",") + 1);
-          /* The preview goes into an inline style, and a data URL carries a
-             semicolon in "image/jpeg;base64" — which the template's style
-             parser treats as the end of the declaration, leaving an empty box.
-             A blob URL has no semicolon, so preview and upload use different
-             forms of the same bytes. */
-          var blob = null;
-          try {
-            var bin = atob(base64);
-            var buf = new Uint8Array(bin.length);
-            for (var i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
-            blob = new Blob([buf], { type: "image/jpeg" });
-          } catch (e) { blob = null; }
           resolve({
-            url: blob ? URL.createObjectURL(blob) : dataUrl,
+            url: blobUrl(base64) || dataUrl,
             dataUrl: dataUrl,
             base64: base64,
             width: size.w,
@@ -266,11 +278,87 @@
     });
   }
 
+  /* A picture inside a post is not cropped — a screenshot, a poster and a group
+     photo each keep their own shape. It is only scaled down to what a reading
+     column can use and re-encoded, so a 12 MB phone photo does not land in the
+     repository as-is. A GIF is kept byte for byte: re-encoding would stop it
+     moving, and a moving screenshot is usually why it is a GIF. */
+  var GIF_MAX_BYTES = 8 * 1024 * 1024;
+  function fitImage(file, maxW, quality) {
+    maxW = maxW || 1600;
+    return new Promise(function (resolve, reject) {
+      if (!file || !/^image\/(png|jpe?g|webp|gif)$/i.test(file.type)) {
+        return reject(new Error("ეს სურათი არ არის (JPG, PNG, WebP ან GIF)"));
+      }
+      var gif = /gif$/i.test(file.type);
+      if (gif && file.size > GIF_MAX_BYTES) return reject(new Error("GIF ძალიან დიდია — მაქსიმუმ 8 MB"));
+      var reader = new FileReader();
+      reader.onerror = function () { reject(new Error("ფაილი ვერ წაიკითხა")); };
+      reader.onload = function () {
+        var img = new Image();
+        img.onerror = function () { reject(new Error("სურათი ვერ გაიხსნა")); };
+        img.onload = function () {
+          if (gif) {
+            var raw = String(reader.result);
+            return resolve({
+              url: URL.createObjectURL(file), base64: raw.slice(raw.indexOf(",") + 1),
+              width: img.width, height: img.height, bytes: file.size, ext: "gif"
+            });
+          }
+          var scale = Math.min(1, maxW / img.width);
+          var w = Math.max(1, Math.round(img.width * scale)), h = Math.max(1, Math.round(img.height * scale));
+          var canvas = document.createElement("canvas");
+          canvas.width = w;
+          canvas.height = h;
+          var ctx = canvas.getContext("2d");
+          // A transparent PNG would come out black as a JPEG; posts are read on white.
+          ctx.fillStyle = "#ffffff";
+          ctx.fillRect(0, 0, w, h);
+          ctx.imageSmoothingQuality = "high";
+          ctx.drawImage(img, 0, 0, w, h);
+          var dataUrl = canvas.toDataURL("image/jpeg", quality || 0.85);
+          var base64 = dataUrl.slice(dataUrl.indexOf(",") + 1);
+          resolve({
+            url: blobUrl(base64) || dataUrl, base64: base64,
+            width: w, height: h, bytes: Math.round(base64.length * 0.75), ext: "jpg"
+          });
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  /* A post's address gets typed, read aloud and pasted into chats, so it is
+     spelled in Latin letters — "gamejam-2026-shedegebi" rather than a run of
+     percent-escapes. Georgian is transliterated the way road signs do it. */
+  var KA_LATIN = {
+    "ა": "a", "ბ": "b", "გ": "g", "დ": "d", "ე": "e", "ვ": "v", "ზ": "z", "თ": "t", "ი": "i",
+    "კ": "k", "ლ": "l", "მ": "m", "ნ": "n", "ო": "o", "პ": "p", "ჟ": "zh", "რ": "r", "ს": "s",
+    "ტ": "t", "უ": "u", "ფ": "p", "ქ": "k", "ღ": "gh", "ყ": "q", "შ": "sh", "ჩ": "ch", "ც": "ts",
+    "ძ": "dz", "წ": "ts", "ჭ": "ch", "ხ": "kh", "ჯ": "j", "ჰ": "h"
+  };
+  function latinSlug(s) {
+    return String(s || "").toLowerCase()
+      .replace(/[ა-ჰ]/g, function (c) { return KA_LATIN[c] || ""; })
+      .replace(/['".,()!?:;«»„“”]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "").slice(0, 60).replace(/-+$/, "") || "post";
+  }
+
+  /* The reader's own calendar day. today() above is UTC, which in Tbilisi is
+     four hours behind — a post dated today would stay hidden until 4 a.m. */
+  function localToday() {
+    var d = new Date();
+    var pad = function (n) { return (n < 10 ? "0" : "") + n; };
+    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  }
+
   /* -------------------------------------------------------------------- data */
 
   var cache = { companies: null, games: null, promise: null, raw: null };
 
-  function fetchJSON(path) {
+  function fetchFile(path, asText) {
     var local = path + (path.indexOf("?") < 0 ? "?t=" : "&t=") + Date.now();
     var remote = config.raw + path;
     // file:// cannot read sibling JSON, so try the published copy first there.
@@ -279,11 +367,13 @@
       return chain.catch(function () {
         return fetch(url, { cache: "no-store" }).then(function (r) {
           if (!r.ok) throw new Error(url + " -> " + r.status);
-          return r.json();
+          return asText ? r.text() : r.json();
         });
       });
     }, Promise.reject(new Error("start")));
   }
+  function fetchJSON(path) { return fetchFile(path, false); }
+  function fetchText(path) { return fetchFile(path, true); }
 
   function normCompany(c) {
     c = c || {};
@@ -487,6 +577,93 @@
     // An exact date is printed the way every other date on the site is.
     if (g.releaseDate && g.releaseDate.length > 4) return fmtDate(g.releaseDate);
     return g.year ? String(g.year) : "TBD";
+  }
+
+  /* -------------------------------------------------------------------- news */
+
+  /* A post wears the colour of the direction it belongs to — the same four the
+     logo, the home page and the hub use — or plain GGC when it is about the
+     community as a whole. `tint`/`ink` are the pale chip and its text as the
+     home page draws them, `deep` the darker shade that carries white text, and
+     `accent` what a post's quotes and list markers are drawn in. */
+  var NEWS_TAGS = [
+    { id: "ggc", label: "GGC", color: "#16181b", tint: "#e8eae6", ink: "#16181b", deep: "#16181b", accent: "#1d96d3" },
+    { id: "community", label: "საზოგადოება", color: "#1d96d3", tint: "#eaf5fb", ink: "#0f5273", deep: "#146590", accent: "#1d96d3" },
+    { id: "acceleration", label: "აქსელერაცია", color: "#83c341", tint: "#f0f6e9", ink: "#3d5e19", deep: "#4b7320", accent: "#83c341" },
+    { id: "publishing", label: "გამომცემლობა", color: "#ee2626", tint: "#fdecec", ink: "#a01616", deep: "#bf1a1a", accent: "#ee2626" },
+    { id: "report", label: "მონაცემები", color: "#fdb813", tint: "#fdf4e0", ink: "#7a5500", deep: "#8a6100", accent: "#fdb813" }
+  ];
+  function newsTag(id) {
+    for (var i = 0; i < NEWS_TAGS.length; i++) if (NEWS_TAGS[i].id === id) return NEWS_TAGS[i];
+    return NEWS_TAGS[0];
+  }
+
+  /* One entry of data/news.json. The body is not in it — it lives in
+     posts/<id>.md, so the index every page downloads stays a few hundred bytes
+     per post however long the posts get. `en` says posts/<id>.en.md exists. */
+  function normPost(p) {
+    p = p || {};
+    return {
+      id: String(p.id || ""),
+      title: p.title || "",
+      titleEn: p.titleEn || "",
+      excerpt: p.excerpt || "",
+      excerptEn: p.excerptEn || "",
+      tag: newsTag(p.tag).id,
+      date: /^\d{4}-\d{2}-\d{2}$/.test(String(p.date || "")) ? p.date : "",
+      cover: p.cover || "",
+      author: p.author || "",
+      featured: !!p.featured,
+      draft: !!p.draft,
+      en: !!p.en,
+      minutes: Number(p.minutes) || 0,
+      created: p.created || "",
+      updated: p.updated || ""
+    };
+  }
+
+  var newsCache = { items: null, promise: null, bodies: {} };
+
+  /* Separate from load(): only the pages that show news pay for it, and a
+     missing file is simply no news rather than an error. */
+  function loadNews(force) {
+    if (newsCache.promise && !force) return newsCache.promise;
+    newsCache.promise = fetchJSON(config.paths.news)
+      .catch(function () { return { items: [] }; })
+      .then(function (doc) {
+        newsCache.items = ((doc && doc.items) || []).map(normPost)
+          .filter(function (p) { return p.id && p.title; });
+        return newsCache.items;
+      });
+    return newsCache.promise;
+  }
+
+  /* A post is on the site once it is not a draft and its date has come, so a
+     post can be written today and dated for Friday. */
+  function isLive(p) { return !!p && !p.draft && (!p.date || p.date <= localToday()); }
+  function byNewest(a, b) {
+    return String(b.date).localeCompare(String(a.date)) ||
+      String(b.created).localeCompare(String(a.created)) ||
+      String(a.title).localeCompare(String(b.title));
+  }
+  function posts() { return (newsCache.items || []).filter(isLive).sort(byNewest); }
+  function post(id) { return posts().filter(function (p) { return p.id === id; })[0] || null; }
+  function newsLang() { return (window.GGCI18n && window.GGCI18n.lang) || "ka"; }
+  /* The English of a field when the reader chose English and there is some;
+     the Georgian otherwise, which is the honest failure. */
+  function postText(p, key, lang) {
+    var en = p && p[key + "En"];
+    return (lang || newsLang()) === "en" && en ? en : ((p && p[key]) || "");
+  }
+  function postBody(p, lang) {
+    var en = (lang || newsLang()) === "en" && p.en;
+    var path = config.paths.posts + p.id + (en ? ".en" : "") + ".md";
+    var done = function (text) { return { text: text, lang: en ? "en" : "ka" }; };
+    if (newsCache.bodies[path] !== undefined) return Promise.resolve(done(newsCache.bodies[path]));
+    return fetchText(path).then(function (text) {
+      newsCache.bodies[path] = text;
+      return done(text);
+    });
   }
 
   /* ------------------------------------------------------------------ stores */
@@ -1757,7 +1934,13 @@
       prepareImage: prepareImage, IMAGE_SIZES: IMAGE_SIZES, iconUrl: iconUrl,
       KIND_LABEL: KIND_LABEL, ACCENT: ACCENT, SOC: SOC, STORE_LABEL: STORE_LABEL,
       foundedYear: foundedYear, toISODate: toISODate,
-      PLATFORM_HOME: PLATFORM_HOME, ENGINES: ENGINES
+      PLATFORM_HOME: PLATFORM_HOME, ENGINES: ENGINES,
+      fitImage: fitImage, latinSlug: latinSlug, localToday: localToday
+    },
+    news: {
+      TAGS: NEWS_TAGS, tag: newsTag, norm: normPost, load: loadNews,
+      posts: posts, post: post, isLive: isLive, byNewest: byNewest,
+      lang: newsLang, text: postText, body: postBody
     },
     data: {
       load: load, companies: companies, games: games, company: company, game: game,

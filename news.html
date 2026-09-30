@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="assets/js/ggc-core.js?v=48ec3b53f3"></script>
+<script src="assets/js/ggc-md.js?v=48ec3b53f3"></script>
+<script src="assets/js/i18n.js?v=48ec3b53f3"></script>
+<style>
+  html { overflow-x:clip; }
+  body { margin:0; overflow-x:clip; background:#f1f1ed; color:#16181b; font-family:"Noto Sans Georgian","Space Grotesk",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  body { min-height:100vh; }
+  /* Not "body > div": a browser extension that appends its own element to the
+     body — a translate button, a password manager — was being made a
+     full-height flex column by this rule and stretched across the page. */
+  #root, #dc-root, #dc-root > div { display:flex; flex-direction:column; min-height:100vh; }
+  #dc-root > div > * { flex:none; width:100%; }
+  footer { margin-top:auto; }
+  a { color:#146590; text-decoration:none; }
+  a:hover { color:#0f5273; }
+  @keyframes ggcSpin { to { transform:rotate(360deg) } }
+  @keyframes ggcFade { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes ggcPulse { 0%,100%{opacity:.5} 50%{opacity:1} }
+  @media (prefers-reduced-motion: reduce) { * { animation:none !important; transition:none !important } }
+</style>
+</helmet>
+
+<header style="position:sticky;top:0;z-index:40;background:rgba(240,241,238,.94);backdrop-filter:blur(10px);border-bottom:1px solid #dcdfd9">
+  <div style="max-width:1220px;margin:0 auto;padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px">
+    <a href="index.html" style="display:flex;align-items:center;gap:10px;flex:none"><img src="assets/brand/ggc-logo.svg" alt="GGC" style="height:30px;width:auto;display:block"></a>
+    <nav style="display:flex;flex-wrap:wrap;gap:2px;margin-left:auto;font-size:14px;font-weight:500">
+      <a href="hub.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">ჰაბი</a>
+      <a href="companies.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">კომპანიები</a>
+      <a href="games.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">თამაშები</a>
+      <a href="news.html" onClick="{{ back }}" style="padding:9px 12px;border-radius:9px;background:#e2e5df;color:#16181b;font-weight:600" style-hover="background:#e2e5df;color:#16181b">სიახლეები</a>
+      <a href="about.html" style="padding:9px 12px;border-radius:9px;color:#41464c" style-hover="background:#e2e5df;color:#16181b">ჩვენ შესახებ</a>
+    </nav>
+    <div style="display:flex;gap:2px;padding:3px;background:#e2e5df;border-radius:9px;flex:none">
+      <button type="button" data-ggc-lang="ka" style="border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:7px;padding:7px 10px;font-family:inherit;font-size:13px;font-weight:600">ქარ</button>
+      <button type="button" data-ggc-lang="en" style="border:0;cursor:pointer;background:transparent;color:#5a5f65;border-radius:7px;padding:7px 10px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600">EN</button>
+    </div>
+    <a href="donate.html" style="display:flex;align-items:center;gap:8px;background:#83c341;color:#16181b;border-radius:9px;padding:10px 16px;font-size:14px;font-weight:700;flex:none" style-hover="background:#6ba22f;color:#fff">დონაცია</a>
+  </div>
+</header>
+
+<sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+  <div style="animation:ggcFade .35s ease both">
+    <section style="position:relative;padding:clamp(30px,4.5vw,60px) 0 clamp(20px,3vw,32px)">
+      <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;overflow:hidden">
+        <div style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:radial-gradient(90% 110% at 88% 0%,#e3f1fa 0%,rgba(227,241,250,0) 60%),radial-gradient(70% 90% at 0% 100%,#eef6e6 0%,rgba(238,246,230,0) 60%),linear-gradient(180deg,#fafaf8 0%,#f1f1ed 100%)"></div>
+        <div style="position:absolute;right:0;top:-40%;width:min(40vw,440px);aspect-ratio:1;opacity:.07;animation:ggcSpin 80s linear infinite"><img src="assets/brand/ggc-mark.svg" alt="" style="width:100%;display:block"></div>
+      </div>
+      <div style="position:relative;max-width:1220px;margin:0 auto;padding:0 20px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <span aria-hidden="true" style="display:flex;gap:4px">
+            <span style="width:8px;height:8px;border-radius:2px;background:#1d96d3"></span>
+            <span style="width:8px;height:8px;border-radius:2px;background:#83c341"></span>
+            <span style="width:8px;height:8px;border-radius:2px;background:#ee2626"></span>
+            <span style="width:8px;height:8px;border-radius:2px;background:#fdb813"></span>
+          </span>
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#5c6167">GGC News</span>
+        </div>
+        <h1 style="margin:0;font-size:clamp(34px,6vw,64px);line-height:1.02;font-weight:800;letter-spacing:-.03em">სიახლეები</h1>
+        <p style="margin:16px 0 0;max-width:56ch;font-size:clamp(16px,1.9vw,19px);line-height:1.55;color:#41464c;text-wrap:pretty">ივენთები, ანონსები, გამოშვებები და ინდუსტრიის ამბები — ყველაფერი, რაც ქართულ გეიმდევში ხდება.</p>
+      </div>
+    </section>
+
+    <section style="max-width:1220px;margin:0 auto;padding:0 20px clamp(48px,7vw,88px)">
+      <div style="display:{{ barShow }};flex-wrap:wrap;gap:10px;align-items:center;padding:14px;background:#fff;border:1px solid #e2e2df;border-radius:16px;margin-bottom:18px">
+        <input type="search" placeholder="ძებნა სიახლეებში" value="{{ q }}" onInput="{{ onSearch }}" style="flex:1 1 220px;min-width:0;border:1px solid #e2e2df;border-radius:10px;padding:11px 14px;font-family:inherit;font-size:15px;color:#16181b;background:#f7f7f4">
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="5">
+            <button type="button" onClick="{{ c.click }}" style="display:inline-flex;align-items:center;gap:7px;border:1px solid {{ c.border }};cursor:pointer;background:{{ c.bg }};color:{{ c.fg }};border-radius:20px;padding:8px 13px;font-family:inherit;font-size:14px;font-weight:500;transition:background .2s ease">
+              <span style="display:{{ c.dotShow }};width:8px;height:8px;border-radius:2px;background:{{ c.dot }}"></span>
+              <span>{{ c.label }}</span>
+              <span style="font-family:'Space Grotesk',sans-serif;font-size:12px;opacity:.7">{{ c.count }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+
+      <sc-if value="{{ featuredShow }}">
+        <a href="{{ f.href }}" style="display:flex;flex-wrap:wrap;background:#fff;border:1px solid #e2e2df;border-radius:20px;overflow:hidden;color:#16181b;box-shadow:0 1px 2px rgba(20,22,26,.04);transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;margin-bottom:18px" style-hover="transform:translateY(-3px);border-color:#cfd1cc;box-shadow:0 14px 34px rgba(20,22,26,.08);color:#16181b">
+          <div style="position:relative;flex:1 1 540px;min-width:0;aspect-ratio:1200/630;background:{{ f.coverBg }};overflow:hidden">
+            <div aria-hidden="true" style="position:absolute;inset:0;background:{{ f.coverImg }}"></div>
+            <img src="assets/brand/ggc-mark.svg" alt="" aria-hidden="true" style="display:{{ f.markShow }};position:absolute;left:50%;top:50%;width:24%;transform:translate(-50%,-50%);opacity:.22">
+          </div>
+          <div style="flex:1 1 320px;min-width:0;padding:clamp(20px,3vw,36px);display:flex;flex-direction:column;justify-content:center;gap:14px">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+              <span style="font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5c6167">მთავარი სიახლე</span>
+              <span style="display:inline-flex;align-items:center;gap:6px;background:{{ f.tagTint }};color:{{ f.tagInk }};border-radius:8px;padding:5px 10px;font-size:13px;font-weight:600"><span style="width:8px;height:8px;border-radius:2px;background:{{ f.tagColor }}"></span><span>{{ f.tagLabel }}</span></span>
+            </div>
+            <h2 data-ggc-no-i18n style="margin:0;font-size:clamp(24px,3.2vw,38px);line-height:1.12;font-weight:800;letter-spacing:-.025em;text-wrap:balance">{{ f.title }}</h2>
+            <p data-ggc-no-i18n style="display:{{ f.excerptShow }};margin:0;font-size:17px;line-height:1.6;color:#41464c;text-wrap:pretty">{{ f.excerpt }}</p>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:4px;font-size:14px;color:#5a5f65">
+              <span>{{ f.date }}</span>
+              <span style="display:{{ f.minutesShow }}">·</span>
+              <span style="display:{{ f.minutesShow }}">{{ f.minutes }}</span>
+              <span style="display:{{ f.kaShow }};background:#eceee9;color:#41464c;border-radius:6px;padding:2px 7px;font-size:12px;font-weight:600">ქართულად</span>
+              <span style="margin-left:auto;font-weight:600;color:#146590">წაკითხვა →</span>
+            </div>
+          </div>
+        </a>
+      </sc-if>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:16px">
+        <sc-for list="{{ cards }}" as="p" hint-placeholder-count="6">
+          <a href="{{ p.href }}" style="display:flex;flex-direction:column;background:#fff;border:1px solid #e2e2df;border-radius:16px;overflow:hidden;color:#16181b;box-shadow:0 1px 2px rgba(20,22,26,.04);transition:transform .25s ease,border-color .25s ease" style-hover="transform:translateY(-3px);border-color:#cfd1cc;color:#16181b">
+            <div style="position:relative;aspect-ratio:1200/630;background:{{ p.coverBg }};overflow:hidden">
+              <div aria-hidden="true" style="position:absolute;inset:0;background:{{ p.coverImg }}"></div>
+              <img src="assets/brand/ggc-mark.svg" alt="" aria-hidden="true" style="display:{{ p.markShow }};position:absolute;left:50%;top:50%;width:22%;transform:translate(-50%,-50%);opacity:.22">
+              <span style="position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.95);color:{{ p.tagInk }};border-radius:8px;padding:5px 9px;font-size:12px;font-weight:600"><span style="width:7px;height:7px;border-radius:2px;background:{{ p.tagColor }}"></span><span>{{ p.tagLabel }}</span></span>
+            </div>
+            <div style="padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;font-size:13px;color:#5a5f65">
+                <span>{{ p.date }}</span>
+                <span style="display:{{ p.minutesShow }}">·</span>
+                <span style="display:{{ p.minutesShow }}">{{ p.minutes }}</span>
+                <span style="display:{{ p.kaShow }};background:#eceee9;color:#41464c;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:600">ქართულად</span>
+              </div>
+              <div data-ggc-no-i18n style="font-size:19px;font-weight:700;letter-spacing:-.015em;line-height:1.3;text-wrap:balance">{{ p.title }}</div>
+              <div data-ggc-no-i18n style="font-size:15px;line-height:1.6;color:#4d5258;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">{{ p.excerpt }}</div>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+
+      <div style="display:{{ skeletonShow }};grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:16px">
+        <div style="aspect-ratio:4/3;background:#e4e5e0;border-radius:16px;animation:ggcPulse 1.4s ease infinite"></div>
+        <div style="aspect-ratio:4/3;background:#e4e5e0;border-radius:16px;animation:ggcPulse 1.4s ease infinite"></div>
+        <div style="aspect-ratio:4/3;background:#e4e5e0;border-radius:16px;animation:ggcPulse 1.4s ease infinite"></div>
+      </div>
+
+      <div style="display:{{ noneShow }};padding:clamp(34px,5vw,56px) 20px;text-align:center;background:#fff;border:1px dashed #d5d6d2;border-radius:18px">
+        <div aria-hidden="true" style="display:flex;justify-content:center;gap:6px;margin-bottom:18px">
+          <span style="width:10px;height:10px;border-radius:3px;background:#1d96d3"></span>
+          <span style="width:10px;height:10px;border-radius:3px;background:#83c341"></span>
+          <span style="width:10px;height:10px;border-radius:3px;background:#ee2626"></span>
+          <span style="width:10px;height:10px;border-radius:3px;background:#fdb813"></span>
+        </div>
+        <div style="font-size:19px;font-weight:700">სიახლეები ჯერ არ გამოქვეყნებულა.</div>
+        <p style="margin:10px auto 0;max-width:46ch;font-size:16px;line-height:1.6;color:#4d5258">პირველი ამბები მალე გამოჩნდება — მანამდე ყველაფერი Telegram-ში ხდება.</p>
+        <a href="https://t.me/ggcgeorgia" style="display:inline-flex;align-items:center;gap:9px;margin-top:18px;background:#229ED9;color:#fff;border-radius:11px;padding:12px 18px;font-size:15px;font-weight:600" style-hover="background:#1b8dc4;color:#fff">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff" style="flex:none"><path d="M21.9 4.3 18.9 19c-.2.9-.8 1.2-1.6.7l-4.4-3.2-2.1 2c-.2.2-.4.4-.9.4l.3-4.4 8-7.2c.3-.3-.1-.4-.5-.2L7.9 12.4 3.6 11c-.9-.3-.9-.9.2-1.3l16.7-6.4c.8-.3 1.5.2 1.4 1z"/></svg>
+          Telegram
+        </a>
+      </div>
+
+      <div style="display:{{ noMatchShow }};padding:44px 20px;text-align:center;background:#fff;border:1px dashed #d5d6d2;border-radius:16px">
+        <div style="font-size:18px;font-weight:600">ვერაფერი მოიძებნა</div>
+        <p style="margin:10px 0 0;font-size:16px;color:#4d5258">გაასუფთავე ფილტრი ან სცადე სხვა სიტყვა.</p>
+      </div>
+    </section>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isPost }}">
+  <div aria-hidden="true" id="ggc-read-progress" style="position:fixed;left:0;top:0;right:0;height:3px;transform-origin:0 50%;transform:scaleX(0);background:{{ a.color }};z-index:80;pointer-events:none"></div>
+  <article id="ggc-article" style="padding-bottom:clamp(48px,7vw,88px);animation:ggcFade .35s ease both">
+    <section style="position:relative;padding:clamp(22px,3.5vw,40px) 0 0">
+      <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;overflow:hidden">
+        <div style="position:absolute;left:50%;top:0;width:100vw;height:100%;transform:translateX(-50%);background:{{ a.heroBg }}"></div>
+      </div>
+      <div style="position:relative;max-width:800px;margin:0 auto;padding:0 20px">
+        <a href="news.html" onClick="{{ back }}" style="display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:#41464c" style-hover="color:#16181b">← ყველა სიახლე</a>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:clamp(20px,3vw,30px);font-size:14px;color:#5a5f65">
+          <span style="display:inline-flex;align-items:center;gap:6px;background:{{ a.tint }};color:{{ a.ink }};border-radius:8px;padding:5px 10px;font-size:13px;font-weight:600"><span style="width:8px;height:8px;border-radius:2px;background:{{ a.color }}"></span><span>{{ a.tagLabel }}</span></span>
+          <span>{{ a.date }}</span>
+          <span style="display:{{ a.minutesShow }}">·</span>
+          <span style="display:{{ a.minutesShow }}">{{ a.minutes }}</span>
+        </div>
+        <h1 data-ggc-no-i18n style="margin:16px 0 0;font-size:clamp(30px,5.2vw,52px);line-height:1.06;font-weight:800;letter-spacing:-.03em;text-wrap:balance">{{ a.title }}</h1>
+        <p data-ggc-no-i18n style="display:{{ a.leadShow }};margin:18px 0 0;font-size:clamp(18px,2.1vw,21px);line-height:1.55;color:#41464c;text-wrap:pretty">{{ a.excerpt }}</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:24px;padding:16px 0;border-top:1px solid #dfe1dc;border-bottom:1px solid #dfe1dc">
+          <img src="assets/brand/ggc-mark.svg" alt="" style="width:38px;height:38px;flex:none;display:block">
+          <div style="flex:1 1 140px;min-width:0">
+            <div data-ggc-no-i18n style="font-size:15px;font-weight:600">{{ a.author }}</div>
+            <div style="font-size:13px;color:#5a5f65">Georgian Game Community</div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ a.shares }}" as="x" hint-placeholder-count="4">
+              <a href="{{ x.href }}" target="_blank" rel="noopener" title="{{ x.label }}" aria-label="{{ x.label }}" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#fff;border:1px solid #e2e2df" style-hover="border-color:#16181b"><img src="{{ x.icon }}" alt="" width="16" height="16" style="display:block"></a>
+            </sc-for>
+            <button type="button" onClick="{{ a.copy }}" style="display:inline-flex;align-items:center;height:38px;border:1px solid #e2e2df;cursor:pointer;background:#fff;color:#16181b;border-radius:10px;padding:0 13px;font-family:inherit;font-size:14px;font-weight:600" style-hover="border-color:#16181b">{{ a.copyLabel }}</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div style="display:{{ a.coverShow }};max-width:1080px;margin:clamp(22px,3vw,36px) auto 0;padding:0 20px">
+      <div style="aspect-ratio:1200/630;border-radius:clamp(14px,2vw,22px);background:{{ a.coverImg }};box-shadow:0 18px 44px rgba(20,22,26,.14)"></div>
+    </div>
+
+    <div style="max-width:800px;margin:0 auto;padding:clamp(26px,4vw,44px) 20px 0">
+      <div style="display:{{ a.onlyKaShow }};margin-bottom:22px;background:#fff;border:1px solid #e2e2df;border-radius:12px;padding:12px 16px;font-size:14px;color:#41464c">ეს სტატია ჯერ მხოლოდ ქართულადაა.</div>
+      <div class="ggc-prose" data-ggc-no-i18n style="--gp-accent:{{ a.accent }};--gp-deep:{{ a.deep }}">{{ a.body }}</div>
+      <div style="display:{{ a.loadingShow }};flex-direction:column;gap:14px">
+        <div style="height:17px;width:94%;border-radius:6px;background:#e3e5e0;animation:ggcPulse 1.4s ease infinite"></div>
+        <div style="height:17px;width:88%;border-radius:6px;background:#e3e5e0;animation:ggcPulse 1.4s ease infinite"></div>
+        <div style="height:17px;width:97%;border-radius:6px;background:#e3e5e0;animation:ggcPulse 1.4s ease infinite"></div>
+        <div style="height:17px;width:62%;border-radius:6px;background:#e3e5e0;animation:ggcPulse 1.4s ease infinite"></div>
+      </div>
+      <div style="display:{{ a.errorShow }};padding:26px 20px;text-align:center;background:#fff;border:1px dashed #d5d6d2;border-radius:14px">
+        <div style="font-size:16px;font-weight:600">სტატია ვერ ჩაიტვირთა.</div>
+        <button type="button" onClick="{{ a.retry }}" style="margin-top:12px;border:1px solid #e2e2df;cursor:pointer;background:#fff;color:#16181b;border-radius:10px;padding:10px 16px;font-family:inherit;font-size:14px;font-weight:600" style-hover="border-color:#16181b">ხელახლა ცდა</button>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:clamp(32px,4.5vw,48px);padding-top:20px;border-top:1px solid #dfe1dc">
+        <span style="font-size:14px;font-weight:600;color:#41464c;margin-right:6px">გაზიარება</span>
+        <sc-for list="{{ a.shares }}" as="x" hint-placeholder-count="4">
+          <a href="{{ x.href }}" target="_blank" rel="noopener" title="{{ x.label }}" aria-label="{{ x.label }}" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#fff;border:1px solid #e2e2df" style-hover="border-color:#16181b"><img src="{{ x.icon }}" alt="" width="16" height="16" style="display:block"></a>
+        </sc-for>
+        <button type="button" onClick="{{ a.copy }}" style="display:inline-flex;align-items:center;height:38px;border:1px solid #e2e2df;cursor:pointer;background:#fff;color:#16181b;border-radius:10px;padding:0 13px;font-family:inherit;font-size:14px;font-weight:600" style-hover="border-color:#16181b">{{ a.copyLabel }}</button>
+        <a href="news.html" onClick="{{ back }}" style="margin-left:auto;font-size:15px;font-weight:600">← ყველა სიახლე</a>
+      </div>
+    </div>
+
+    <section style="display:{{ moreShow }};max-width:1220px;margin:0 auto;padding:clamp(40px,6vw,72px) 20px 0">
+      <h2 style="margin:0 0 18px;font-size:clamp(22px,3vw,28px);font-weight:700;letter-spacing:-.02em">სხვა სიახლეები</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:16px">
+        <sc-for list="{{ more }}" as="p" hint-placeholder-count="3">
+          <a href="{{ p.href }}" style="display:flex;flex-direction:column;background:#fff;border:1px solid #e2e2df;border-radius:16px;overflow:hidden;color:#16181b;box-shadow:0 1px 2px rgba(20,22,26,.04);transition:transform .25s ease,border-color .25s ease" style-hover="transform:translateY(-3px);border-color:#cfd1cc;color:#16181b">
+            <div style="position:relative;aspect-ratio:1200/630;background:{{ p.coverBg }};overflow:hidden">
+              <div aria-hidden="true" style="position:absolute;inset:0;background:{{ p.coverImg }}"></div>
+              <img src="assets/brand/ggc-mark.svg" alt="" aria-hidden="true" style="display:{{ p.markShow }};position:absolute;left:50%;top:50%;width:22%;transform:translate(-50%,-50%);opacity:.22">
+              <span style="position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.95);color:{{ p.tagInk }};border-radius:8px;padding:5px 9px;font-size:12px;font-weight:600"><span style="width:7px;height:7px;border-radius:2px;background:{{ p.tagColor }}"></span><span>{{ p.tagLabel }}</span></span>
+            </div>
+            <div style="padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1">
+              <div style="font-size:13px;color:#5a5f65">{{ p.date }}</div>
+              <div data-ggc-no-i18n style="font-size:18px;font-weight:700;letter-spacing:-.015em;line-height:1.3;text-wrap:balance">{{ p.title }}</div>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+  </article>
+</sc-if>
+
+<sc-if value="{{ isWaiting }}">
+  <div style="max-width:800px;width:100%;margin:0 auto;padding:clamp(30px,5vw,56px) 20px;display:flex;flex-direction:column;gap:16px">
+    <div style="height:14px;width:120px;border-radius:6px;background:#e3e5e0;animation:ggcPulse 1.4s ease infinite"></div>
+    <div style="height:44px;width:86%;border-radius:10px;background:#e3e5e0;animation:ggcPulse 1.4s ease infinite"></div>
+    <div style="height:20px;width:70%;border-radius:6px;background:#e3e5e0;animation:ggcPulse 1.4s ease infinite"></div>
+    <div style="margin-top:12px;aspect-ratio:1200/630;border-radius:18px;background:#e3e5e0;animation:ggcPulse 1.4s ease infinite"></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isMissing }}">
+  <section style="max-width:800px;width:100%;margin:0 auto;padding:clamp(34px,6vw,72px) 20px">
+    <div style="padding:clamp(34px,5vw,56px) 24px;text-align:center;background:#fff;border:1px dashed #d5d6d2;border-radius:18px">
+      <div style="font-size:21px;font-weight:700">სტატია ვერ მოიძებნა</div>
+      <p style="margin:10px 0 0;font-size:16px;line-height:1.6;color:#4d5258">შეიძლება წაიშალა, ან ჯერ არ გამოქვეყნებულა.</p>
+      <a href="news.html" onClick="{{ back }}" style="display:inline-block;margin-top:18px;background:#16181b;color:#fff;border-radius:11px;padding:12px 18px;font-size:15px;font-weight:600" style-hover="background:#000;color:#fff">← ყველა სიახლე</a>
+    </div>
+  </section>
+</sc-if>
+
+<div onClick="{{ closeZoom }}" style="display:{{ zoomShow }};position:fixed;inset:0;z-index:90;background:rgba(12,14,16,.9);flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:clamp(12px,3vw,44px);cursor:zoom-out">
+  <img src="{{ zoomSrc }}" alt="{{ zoomAlt }}" style="max-width:100%;max-height:calc(100% - 44px);border-radius:12px;display:block">
+  <div data-ggc-no-i18n style="display:{{ zoomCapShow }};max-width:70ch;color:#e8eaec;font-size:15px;line-height:1.5;text-align:center">{{ zoomAlt }}</div>
+  <button type="button" onClick="{{ closeZoom }}" aria-label="სურათის დახურვა" style="position:absolute;top:16px;right:16px;width:40px;height:40px;border:0;border-radius:11px;background:rgba(255,255,255,.92);font-size:20px;line-height:1;cursor:pointer;color:#16181b">×</button>
+</div>
+
+<footer style="background:#1b1e22;color:#e8eaec">
+  <div style="max-width:1220px;margin:0 auto;padding:clamp(26px,4vw,42px) 20px;display:flex;flex-wrap:wrap;align-items:center;gap:18px">
+    <div style="display:flex;align-items:center;gap:12px;flex:none">
+      <img src="assets/brand/ggc-mark.svg" alt="" style="height:32px;width:32px;display:block">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:.04em;color:#fff">GGC</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;font-size:15px">
+      <a href="hub.html" style="color:#c6ccd3">ჰაბი</a>
+      <a href="companies.html" style="color:#c6ccd3">კომპანიები</a>
+      <a href="games.html" style="color:#c6ccd3">თამაშები</a>
+      <a href="about.html" style="color:#c6ccd3">ჩვენ შესახებ</a>
+      <a href="donate.html" style="color:#c6ccd3">დონაცია</a>
+    </div>
+    <a href="https://t.me/ggcgeorgia" style="margin-left:auto;align-self:center;display:inline-flex;align-items:center;gap:9px;background:#229ED9;color:#fff;border-radius:11px;padding:11px 16px;font-size:15px;font-weight:600;flex:none" style-hover="background:#1b8dc4">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff" style="flex:none"><path d="M21.9 4.3 18.9 19c-.2.9-.8 1.2-1.6.7l-4.4-3.2-2.1 2c-.2.2-.4.4-.9.4l.3-4.4 8-7.2c.3-.3-.1-.4-.5-.2L7.9 12.4 3.6 11c-.9-.3-.9-.9.2-1.3l16.7-6.4c.8-.3 1.5.2 1.4 1z"/></svg>
+      Telegram
+    </a>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const D = GGC.data, U = GGC.util, N = GGC.news, C = GGC.config;
+
+/* url("…") for an inline style. Quotes are escaped, and a semicolon — which
+   the template's style parser would take for the end of the declaration — is
+   written %3B, which means the same thing in an address. */
+function bg(u) {
+  return 'url("' + String(u).replace(/["\\]/g, "\\$&").replace(/;/g, "%3B") + '") center/cover no-repeat';
+}
+
+const NO_POST = {
+  title: "", excerpt: "", leadShow: "none", date: "", minutes: "", minutesShow: "none", author: "",
+  color: "#1d96d3", tint: "#eaf5fb", ink: "#0f5273", tagLabel: "", accent: "#1d96d3", deep: "#16181b",
+  heroBg: "none", coverShow: "none", coverImg: "none", body: [], loadingShow: "none", errorShow: "none",
+  onlyKaShow: "none", shares: [], copy: () => {}, copyLabel: "", retry: () => {}
+};
+
+class Component extends DCLogic {
+  state = {
+    ready: false, tag: "all", q: "", open: null,
+    body: null, bodyLang: "ka", bodyErr: false, loadingBody: false,
+    copied: false, zoom: null, zoomAlt: ""
+  };
+
+  componentDidMount() {
+    this.onHash = () => this.readHash();
+    window.addEventListener("hashchange", this.onHash);
+    this.onKey = e => { if (e.key === "Escape" && this.state.zoom) this.setState({ zoom: null }); };
+    window.addEventListener("keydown", this.onKey);
+    this.onScroll = () => this.progress();
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    // The catalogue is only needed for the game and studio cards inside a post.
+    Promise.all([N.load(), D.load().catch(() => null)])
+      .then(() => this.setState({ ready: true }, () => this.readHash()));
+  }
+  componentWillUnmount() {
+    window.removeEventListener("hashchange", this.onHash);
+    window.removeEventListener("keydown", this.onKey);
+    window.removeEventListener("scroll", this.onScroll);
+    document.body.style.overflow = "";
+  }
+  componentDidUpdate() {
+    document.body.style.overflow = this.state.zoom ? "hidden" : "";
+    const p = this.state.open ? N.post(this.state.open) : null;
+    const t = (p ? N.text(p, "title") + " — " : (N.lang() === "en" ? "News — " : "სიახლეები — ")) + "GGC";
+    if (document.title !== t) document.title = t;
+    this.progress();
+  }
+
+  /* news.html#<id> is a post, the bare page is the list — the same way a hash
+     opens a game on the games page, so a post has an address to share. */
+  readHash() {
+    let id = "";
+    try { id = decodeURIComponent((location.hash || "").replace(/^#/, "")); } catch (e) { id = ""; }
+    if (!id) {
+      if (this.state.open) this.setState({ open: null, body: null }, () => this.restoreScroll());
+      return;
+    }
+    if (id === this.state.open) return;
+    if (!this.state.open) this.listY = window.scrollY;
+    this.setState({ open: id, body: null, bodyErr: false, copied: false });
+    window.scrollTo(0, 0);
+    const p = N.post(id);
+    if (p) this.loadBody(p);
+  }
+
+  loadBody(p) {
+    this.setState({ loadingBody: true, bodyErr: false });
+    N.body(p).then(res => {
+      if (this.state.open !== p.id) return;
+      this.setState({ body: res.text, bodyLang: res.lang, loadingBody: false });
+    }, () => {
+      if (this.state.open !== p.id) return;
+      this.setState({ loadingBody: false, bodyErr: true });
+    });
+  }
+
+  /* Back to the list without a reload, and back to where the reader was in it. */
+  back(e) {
+    if (!this.state.open) return;
+    if (e) e.preventDefault();
+    history.pushState(null, "", location.pathname + location.search);
+    this.setState({ open: null, body: null }, () => this.restoreScroll());
+  }
+  // Called once the list is back in the page, so its height is already there to scroll into.
+  restoreScroll() { window.scrollTo(0, this.listY || 0); }
+
+  // How far through the article the reader is, drawn straight onto the bar —
+  // a re-render on every scroll event would be a lot of work for one line.
+  progress() {
+    const bar = document.getElementById("ggc-read-progress");
+    const art = document.getElementById("ggc-article");
+    if (!bar || !art) return;
+    const r = art.getBoundingClientRect();
+    const total = r.height - window.innerHeight;
+    const done = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 1;
+    bar.style.transform = "scaleX(" + done.toFixed(4) + ")";
+  }
+
+  copy(url) {
+    const done = () => {
+      this.setState({ copied: true });
+      clearTimeout(this.copyT);
+      this.copyT = setTimeout(() => this.setState({ copied: false }), 2200);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(done, () => window.prompt("", url));
+    } else {
+      window.prompt("", url);
+    }
+  }
+
+  card(p, lang) {
+    const t = N.tag(p.tag);
+    const excerpt = N.text(p, "excerpt", lang);
+    return {
+      id: p.id,
+      href: "#" + encodeURIComponent(p.id),
+      title: N.text(p, "title", lang),
+      excerpt: excerpt,
+      excerptShow: excerpt ? "block" : "none",
+      date: U.fmtDate(p.date),
+      minutes: p.minutes ? p.minutes + " წთ საკითხავი" : "",
+      minutesShow: p.minutes ? "inline" : "none",
+      tagLabel: t.label, tagColor: t.color, tagInk: t.ink, tagTint: t.tint,
+      coverImg: p.cover ? bg(p.cover) : "none",
+      // No cover: the post's own colour with the mark on it, rather than a grey box.
+      coverBg: p.cover ? "#e8eaec" : "linear-gradient(135deg," + t.tint + " 0%,#fbfbf9 100%)",
+      markShow: p.cover ? "none" : "block",
+      // An English reader is told up front which posts they will find in Georgian.
+      kaShow: lang === "en" && !p.en ? "inline" : "none"
+    };
+  }
+
+  article(p, lang) {
+    if (!p) return NO_POST;
+    const s = this.state;
+    const t = N.tag(p.tag);
+    const title = N.text(p, "title", lang);
+    const excerpt = N.text(p, "excerpt", lang);
+    // The share page carries this post's own title and picture into link previews.
+    const url = C.site + C.paths.posts + p.id + ".html";
+    const enc = encodeURIComponent;
+    /* The summary sits above the text — unless the text opens with it, as it
+       does when the summary was filled from the first paragraph. Held back
+       until the text is here, so it cannot appear and then vanish. */
+    const lead = excerpt && s.body != null && !GGCMarkdown.opensWith(s.body, excerpt);
+    return {
+      title: title,
+      excerpt: excerpt,
+      leadShow: lead ? "block" : "none",
+      date: U.fmtDate(p.date),
+      minutes: p.minutes ? p.minutes + " წთ საკითხავი" : "",
+      minutesShow: p.minutes ? "inline" : "none",
+      author: p.author || "GGC",
+      color: t.color, tint: t.tint, ink: t.ink, tagLabel: t.label, accent: t.accent, deep: t.deep,
+      heroBg: "radial-gradient(80% 120% at 92% 0%," + t.tint + " 0%,rgba(241,241,237,0) 62%),linear-gradient(180deg,#fafaf8 0%,#f1f1ed 100%)",
+      coverShow: p.cover ? "block" : "none",
+      coverImg: p.cover ? bg(p.cover) : "none",
+      body: s.body != null
+        ? GGCMarkdown.render(s.body, { lang: s.bodyLang, onImage: (src, alt) => this.setState({ zoom: src, zoomAlt: alt || "" }) })
+        : [],
+      loadingShow: s.loadingBody ? "flex" : "none",
+      errorShow: s.bodyErr ? "block" : "none",
+      onlyKaShow: lang === "en" && !p.en ? "block" : "none",
+      shares: [
+        { key: "telegram", label: "Telegram", href: "https://t.me/share/url?url=" + enc(url) + "&text=" + enc(title) },
+        { key: "facebook", label: "Facebook", href: "https://www.facebook.com/sharer/sharer.php?u=" + enc(url) },
+        { key: "x", label: "X", href: "https://x.com/intent/tweet?url=" + enc(url) + "&text=" + enc(title) },
+        { key: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/sharing/share-offsite/?url=" + enc(url) }
+      ].map(x => Object.assign(x, { icon: U.iconUrl(x.key, "41464c") })),
+      copy: () => this.copy(url),
+      copyLabel: s.copied ? "დაკოპირდა ✔" : "ლინკის კოპირება",
+      retry: () => this.loadBody(p)
+    };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const lang = N.lang();
+    const all = N.posts();
+    const count = {};
+    all.forEach(p => { count[p.tag] = (count[p.tag] || 0) + 1; });
+    const q = s.q.trim().toLowerCase();
+    const shown = all.filter(p =>
+      (s.tag === "all" || p.tag === s.tag) &&
+      (!q || [p.title, p.titleEn, p.excerpt, p.excerptEn].join(" ").toLowerCase().indexOf(q) >= 0));
+    /* The lead story is the one marked as such, or else the newest — and only
+       while browsing everything; a filtered list is just the list. */
+    const browsing = s.tag === "all" && !q;
+    const lead = browsing ? (all.filter(p => p.featured)[0] || all[0] || null) : null;
+    const rest = shown.filter(p => !lead || p.id !== lead.id);
+    const open = s.open ? N.post(s.open) : null;
+    const others = open ? all.filter(p => p.id !== open.id) : [];
+    const more = open
+      ? others.filter(p => p.tag === open.tag).concat(others.filter(p => p.tag !== open.tag)).slice(0, 3)
+      : [];
+    const used = N.TAGS.filter(t => count[t.id]);
+
+    return {
+      isList: !s.open,
+      isPost: !!open,
+      isWaiting: !!s.open && !s.ready,
+      isMissing: !!s.open && s.ready && !open,
+      back: e => this.back(e),
+
+      // Filtering four posts is not worth a toolbar.
+      barShow: all.length > 3 ? "flex" : "none",
+      q: s.q,
+      onSearch: e => this.setState({ q: e.target.value }),
+      chips: [{ id: "all", label: "ყველა", color: "#16181b" }].concat(used.length > 1 ? used : []).map(t => {
+        const on = s.tag === t.id;
+        const ink = t.id === "report" ? "#16181b" : "#fff";
+        return {
+          label: t.label,
+          count: String(t.id === "all" ? all.length : count[t.id]),
+          dot: t.color, dotShow: t.id === "all" ? "none" : "inline-block",
+          bg: on ? t.color : "#fff", fg: on ? ink : "#41464c", border: on ? t.color : "#e2e2df",
+          click: () => this.setState({ tag: t.id })
+        };
+      }),
+
+      featuredShow: !!lead,
+      f: lead ? this.card(lead, lang) : this.card(N.norm({}), lang),
+      cards: rest.map(p => this.card(p, lang)),
+      skeletonShow: s.ready ? "none" : "grid",
+      noneShow: s.ready && !all.length ? "block" : "none",
+      noMatchShow: s.ready && all.length && !shown.length ? "block" : "none",
+
+      a: this.article(open, lang),
+      more: more.map(p => this.card(p, lang)),
+      moreShow: more.length ? "block" : "none",
+
+      zoomShow: s.zoom ? "flex" : "none",
+      zoomSrc: s.zoom || "",
+      zoomAlt: s.zoomAlt,
+      zoomCapShow: s.zoomAlt ? "block" : "none",
+      closeZoom: () => this.setState({ zoom: null })
+    };
+  }
+}
+</script>
+</body>
+</html>

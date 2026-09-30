@@ -428,7 +428,27 @@
     "ვერიფიც. კომპანიები": "verified companies", "ვერიფიც. გუნდები": "verified teams",
     "აქსელერაცია · მალე": "Acceleration · soon", "მონაცემები · მალე": "Report · soon",
     "ჩვენ შესახებ · About": "About", "ადამიანები · People": "People",
-    "სიახლეები · News": "News", "კონტაქტი · Contact": "Contact"
+    "სიახლეები · News": "News", "კონტაქტი · Contact": "Contact",
+
+    /* -------------------------------------------------------------- news */
+    "რა ხდება GGC-ში — ივენთები, ანონსები და ინდუსტრიის ამბები.":
+      "What's happening at GGC — events, announcements and industry news.",
+    "ყველა სიახლე →": "All news →", "ყველა სიახლე": "All news", "← ყველა სიახლე": "← All news",
+    "ივენთები, ანონსები, გამოშვებები და ინდუსტრიის ამბები — ყველაფერი, რაც ქართულ გეიმდევში ხდება.":
+      "Events, announcements, releases and industry news — everything happening in Georgian game development.",
+    "მთავარი სიახლე": "Featured", "წაკითხვა →": "Read →",
+    "ძებნა სიახლეებში": "Search the news",
+    "სიახლეები ჯერ არ გამოქვეყნებულა.": "No news has been published yet.",
+    "პირველი ამბები მალე გამოჩნდება — მანამდე ყველაფერი Telegram-ში ხდება.":
+      "The first stories are on their way — until then, everything happens on Telegram.",
+    "გაასუფთავე ფილტრი ან სცადე სხვა სიტყვა.": "Clear the filter or try another word.",
+    "სტატია ვერ მოიძებნა": "Article not found",
+    "შეიძლება წაიშალა, ან ჯერ არ გამოქვეყნებულა.": "It may have been removed, or it is not published yet.",
+    "სტატია ვერ ჩაიტვირთა.": "The article could not be loaded.", "ხელახლა ცდა": "Try again",
+    "გაზიარება": "Share", "ლინკის კოპირება": "Copy link", "დაკოპირდა ✔": "Copied ✔",
+    "სხვა სიახლეები": "More news", "ქართულად": "In Georgian",
+    "ეს სტატია ჯერ მხოლოდ ქართულადაა.": "This article is only available in Georgian for now.",
+    "სურათის დახურვა": "Close the image"
   };
   /* What ships with the site, kept apart from what the panel adds on top of it
      so the panel can show which pairs have been changed and publish only those. */
@@ -474,7 +494,8 @@
     }],
     [/^(რეგისტრირებული კომპანია|გუნდი|სოლო დეველოპერი) — ნაჩვენებია სულ$/,
       function (m, a) { return (DICT[a] || a) + " — showing in total"; }],
-    [/^დაემატა (\d+) თამაში(.*)$/, function (m, a, b) { return "Added " + a + " game" + (a === "1" ? "" : "s") + b; }]
+    [/^დაემატა (\d+) თამაში(.*)$/, function (m, a, b) { return "Added " + a + " game" + (a === "1" ? "" : "s") + b; }],
+    [/^(\d+) წთ საკითხავი$/, function (m, a) { return a + " min read"; }]
   ];
   function tr(text) {
     var k = text.trim();
@@ -507,11 +528,24 @@
      than one that stays in Georgian. */
   var OFF = document.documentElement.hasAttribute("data-ggc-no-i18n");
 
+  /* Content that carries its own English — a news post's title and text — is
+     marked data-ggc-no-i18n and left alone. Run through the dictionary, a post
+     that has not been translated came out patchwork: every line that happened
+     to match a label on the site switched to English and the rest stayed
+     Georgian. */
+  var SKIP = "[data-ggc-no-i18n]";
+  var FILTER = {
+    acceptNode: function (n) {
+      if (n.nodeType === 1) return n.hasAttribute("data-ggc-no-i18n") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_SKIP;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  };
+
   function walk(root) {
     if (OFF) return;
     // Nothing to do in Georgian until there is a correction to make.
     if (lang !== "en" && !Object.keys(KA).length) return;
-    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, FILTER);
     var n, hits = [];
     while ((n = w.nextNode())) {
       var t = n.nodeValue;
@@ -523,6 +557,7 @@
     hits.forEach(function (h) { h[0].nodeValue = h[1]; });
     var els = root.querySelectorAll ? root.querySelectorAll("[placeholder],[aria-label],[title]") : [];
     for (var i = 0; i < els.length; i++) {
+      if (els[i].closest && els[i].closest(SKIP)) continue;
       for (var a = 0; a < ATTRS.length; a++) {
         var v = els[i].getAttribute(ATTRS[a]);
         if (!v) continue;
