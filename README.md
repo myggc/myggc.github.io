@@ -4,6 +4,17 @@ Static site, no build step. Every page is a plain HTML file; the catalogue
 lives in two JSON files in this repo. Open `index.html` in a browser or serve
 the folder from any static host (it is built for GitHub Pages).
 
+## Domain
+
+The site is served by GitHub Pages at **https://myggc.ge** (repository
+Settings → Pages → Custom domain). Two names are easy to confuse:
+
+- `config.site` in `assets/js/ggc-core.js` is the **domain**. Share links, link
+  previews and each post's share page are built from it.
+- `config.repo` is the **repository**, still called `myggc.github.io`. The
+  admin panel and the relay reach GitHub through it — do not change it. GitHub
+  redirects the old `myggc.github.io` address to the domain by itself.
+
 ## Pages
 
 | File | Page |

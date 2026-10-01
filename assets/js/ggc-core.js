@@ -66,8 +66,10 @@
     },
     /* Where the site is published. A shared post links here rather than to
        whatever page the admin happened to press publish from, and a link
-       preview needs a picture it can fetch from anywhere. */
-    site: "https://myggc.github.io/"
+       preview needs a picture it can fetch from anywhere. This is the domain,
+       not the repository: the repository is still named myggc.github.io
+       above, and GitHub keeps redirecting that old address here. */
+    site: "https://myggc.ge/"
   };
   config.raw = "https://raw.githubusercontent.com/" + config.owner + "/" + config.repo + "/" + config.branch + "/";
   config.issueNew = "https://github.com/" + config.owner + "/" + config.repo + "/issues/new";

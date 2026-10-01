@@ -18,7 +18,7 @@ const STORE_LABEL = {
   steam: "Steam", itch: "itch.io", appstore: "App Store", googleplay: "Google Play",
   switch: "Switch", xbox: "Xbox", playstation: "PlayStation", epic: "Epic Games", gog: "GOG"
 };
-const UA = "Mozilla/5.0 (compatible; GGCBot/1.0; +https://myggc.github.io)";
+const UA = "Mozilla/5.0 (compatible; GGCBot/1.0; +https://myggc.ge)";
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
