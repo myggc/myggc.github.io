@@ -75,8 +75,9 @@ What it does:
 - **სიახლეები** — news posts, written in markdown with a toolbar and a live
   preview drawn exactly as the site draws it: headings, lists, quotes,
   coloured boxes, links and buttons, pictures and galleries (pick, drag in or
-  paste), YouTube and Vimeo, cards for any game or studio in the catalogue,
-  tables. Georgian and English, a cover cut to the link-preview shape, a
+  paste), YouTube and Vimeo by link or by their embed code, widgets from Steam,
+  itch.io, Spotify, Google Forms and the like by their embed code, cards for
+  any game or studio in the catalogue, tables. Georgian and English, a cover cut to the link-preview shape, a
   direction colour, one featured post, drafts and future dates. Pictures go up
   the moment they are added; the post itself — its index entry, its text in
   each language and its share page — goes up in one commit when it is saved,

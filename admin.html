@@ -856,6 +856,7 @@ const NEWS_HELP = [
   ["> [!NOTE]  [!TIP]  [!WARNING]  [!CAUTION]", "ფერადი ბლოკი: ცისფერი, მწვანე, ყვითელი, წითელი"],
   ["![წარწერა](images/news/…)", "სურათი; რამდენიმე ერთად — გალერეა"],
   ["YouTube-ის ბმული ცალკე ხაზზე", "ვიდეო"],
+  ['<iframe src="…"></iframe>', "ჩაშენების კოდი ცალკე ხაზზე: ვიდეო ან Steam, itch.io, Spotify, SoundCloud, Twitch, Discord, Google Forms/Maps"],
   ["[სახელი](games.html#id)", "ცალკე ხაზზე — თამაშის ბარათი; companies.html#id — სტუდიის"],
   ['[ტექსტი](https://… "button")', "ღილაკი"],
   ["---", "ოთხფერი გამყოფი"],
@@ -2282,9 +2283,11 @@ class Component extends DCLogic {
       id: p.isNew ? U.latinSlug(String(p.id || "").trim() || title) : p.id,
       title: title,
       titleEn: String(p.titleEn || "").trim(),
-      // Left empty, the summary is the first paragraph — cards need something to say.
-      excerpt: String(p.excerpt || "").trim() || M.excerpt(body),
-      excerptEn: String(p.excerptEn || "").trim() || (bodyEn ? M.excerpt(bodyEn) : ""),
+      /* The summary is what was typed into it, and nothing when nothing was.
+         It used to be filled from the first paragraph on save, which put text
+         under every title that nobody had written for that place. */
+      excerpt: String(p.excerpt || "").trim(),
+      excerptEn: String(p.excerptEn || "").trim(),
       tag: p.tag || "ggc",
       date: p.date || U.localToday(),
       cover: p.cover || "",
@@ -2568,8 +2571,25 @@ class Component extends DCLogic {
       e.preventDefault();
       return this.uploadBodyImages(files);
     }
-    // An address pasted over selected words makes those words the link.
     const text = String(cd.getData("text/plain") || "").trim();
+    /* Embed code — what YouTube's Share → Embed hands out. A video is written
+       as its plain address under its own title, which the page turns into the
+       same player and which still reads as something in the text; a widget's
+       code is kept as pasted. Either way it goes on lines of its own, because
+       in the middle of a sentence it would be a sentence. */
+    const em = window.GGCMarkdown.embedOf(text);
+    if (em) {
+      e.preventDefault();
+      if (em.kind === "video") {
+        this.insertBlock(em.title ? "[" + em.title.replace(/[\[\]]/g, "\\$&") + "](" + em.url + ")" : em.url);
+        return this.say("ჩაშენების კოდი ვიდეოდ ჩაისვა", "#9ede9e");
+      }
+      this.insertBlock(em.code);
+      return em.kind === "frame"
+        ? this.say("ჩაშენების კოდი ჩაისვა", "#9ede9e")
+        : this.say("ეს სერვისი ჩასაშენებელ სიაში არ არის — საიტზე ბმულად გამოჩნდება", "#f4cd77");
+    }
+    // An address pasted over selected words makes those words the link.
     const el = e.target, sel = el.value.slice(el.selectionStart, el.selectionEnd);
     if (sel && sel.indexOf("\n") < 0 && /^https?:\/\/\S+$/.test(text)) {
       e.preventDefault();
@@ -2721,7 +2741,14 @@ class Component extends DCLogic {
       return this.writeAtSaved(ins.sel, () => this.insertBlock(md));
     }
     if (ins.kind === "video") {
-      if (!window.GGCMarkdown.video(a)) return this.setIns({ err: "ეს YouTube-ის ან Vimeo-ს ბმული არ არის" });
+      // The embed code YouTube offers works here as well as the plain address.
+      const em = window.GGCMarkdown.embedOf(a);
+      if (em && em.kind === "video") {
+        const md = em.title ? "[" + esc(em.title) + "](" + em.url + ")" : em.url;
+        return this.writeAtSaved(ins.sel, () => this.insertBlock(md));
+      }
+      if (em && em.kind === "frame") return this.writeAtSaved(ins.sel, () => this.insertBlock(em.code));
+      if (!window.GGCMarkdown.video(a)) return this.setIns({ err: "ეს არც YouTube-ის ან Vimeo-ს ბმულია და არც მათი ჩაშენების კოდი" });
       return this.writeAtSaved(ins.sel, () => this.insertBlock(a));
     }
   }
@@ -2786,7 +2813,7 @@ class Component extends DCLogic {
     )).concat([
       SEP,
       T("სურათი ან გალერეა — შეგიძლია ტექსტშიც ჩააგდო ან ჩასვა", NEWS_ICONS.image, () => this.pickBodyFiles()),
-      T("YouTube / Vimeo ვიდეო", NEWS_ICONS.video, () => this.openInsert("video"), on("video")),
+      T("ვიდეო — YouTube / Vimeo ბმული ან ჩაშენების კოდი", NEWS_ICONS.video, () => this.openInsert("video"), on("video")),
       T("თამაშის ბარათი კატალოგიდან", NEWS_ICONS.game, () => this.openInsert("game"), on("game")),
       T("სტუდიის ბარათი კატალოგიდან", NEWS_ICONS.studio, () => this.openInsert("studio"), on("studio")),
       T("ღილაკი — მაგ. რეგისტრაცია", NEWS_ICONS.button, () => this.openInsert("button"), on("button")),
@@ -3429,8 +3456,9 @@ class Component extends DCLogic {
     const bodyNow = L ? (p.bodyEn || "") : (p.body || "");
     // What an English reader gets: the English text, or the Georgian when there is none.
     const pvBody = L && !hasEn ? (p.body || "") : bodyNow;
-    const exKa = String(p.excerpt || "").trim() || M.excerpt(p.body || "");
-    const exEn = String(p.excerptEn || "").trim() || (hasEn ? M.excerpt(p.bodyEn) : "");
+    // Only what was typed: an empty summary stays empty on the site too.
+    const exKa = String(p.excerpt || "").trim();
+    const exEn = String(p.excerptEn || "").trim();
     const pvTitle = L ? (p.titleEn || p.title) : p.title;
     const slug = U.latinSlug(String(p.id || "").trim() || p.title || "");
     const shareUrl = C.site + C.paths.posts + p.id + ".html";
@@ -3441,7 +3469,7 @@ class Component extends DCLogic {
     const INS = {
       link: ["ბმული", "ტექსტი (არასავალდებულო)", "https://…"],
       button: ["ღილაკი", "ტექსტი — მაგ. დარეგისტრირდი", "https://…"],
-      video: ["ვიდეო", "YouTube-ის ან Vimeo-ს ბმული", ""],
+      video: ["ვიდეო", "YouTube-ის ან Vimeo-ს ბმული, ან ჩაშენების (embed) კოდი", ""],
       game: ["თამაში", "მოძებნე კატალოგში…", ""],
       studio: ["სტუდია", "მოძებნე კატალოგში…", ""]
     }[ins ? ins.kind : "link"];
@@ -3484,9 +3512,9 @@ class Component extends DCLogic {
       nwOnTitle: e => this.setPost(L ? { titleEn: e.target.value } : { title: e.target.value }),
       nwExcerptLabel: L ? "მოკლე აღწერა (English)" : "მოკლე აღწერა",
       nwExcerpt: (L ? p.excerptEn : p.excerpt) || "",
-      nwExcerptPh: (L ? exEn : M.excerpt(p.body || "", 150))
-        ? "ცარიელს პირველი აბზაციდან შევავსებთ: " + (L ? exEn : M.excerpt(p.body || "", 150))
-        : "ერთი-ორი წინადადება ბარათისთვის. ცარიელს პირველი აბზაციდან შევავსებთ.",
+      nwExcerptPh: L
+        ? "Optional. Left empty, English readers see the Georgian summary, or none if that is empty too."
+        : "არასავალდებულო — ერთი-ორი წინადადება ბარათზე და სათაურის ქვეშ. ცარიელი დარჩება ცარიელი.",
       nwOnExcerpt: e => this.setPost(L ? { excerptEn: e.target.value } : { excerpt: e.target.value }),
       nwTags: NS.TAGS.map(tg => {
         const on = p.tag === tg.id;

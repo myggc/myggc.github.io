@@ -15,6 +15,8 @@
      ![caption](images/news/x.jpg)          a picture with its caption;
                                             several in one paragraph, a gallery
      https://youtu.be/…      (own line)     a video
+     <iframe src="…">        (own line)     embed code as the service gives it:
+                                            a video, or a widget from FRAMES
      [Name](games.html#id)   (own line)     a card for a game in the catalogue
      [Name](companies.html#id) (own line)   …or for a studio
      [Register](https://… "button")         a button
@@ -68,6 +70,8 @@
   var LIST = /^(\s*)([-*+]|\d{1,9}[.)])\s+(.*)$/;
   var TABLE_SEP = /^\s*\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?\s*$/;
   var ALERT = /^\s*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*(.*)$/i;
+  // Embed code as YouTube, Steam, itch.io and the rest hand it out.
+  var IFRAME = /^\s{0,3}<iframe\b/i;
 
   function parse(src) {
     return blocksOf(String(src || "").replace(/\r\n?/g, "\n").replace(/\t/g, "    ").split("\n"));
@@ -98,6 +102,19 @@
         continue;
       }
       if (HR.test(line)) { out.push({ t: "hr" }); i++; continue; }
+      /* Pasted embed code stands on its own whatever is around it. A post
+         copied in from a document has no blank lines, so the code sat between
+         two lines of text — read as part of that paragraph, it was printed on
+         the page as code. Most services write it on one line; when one breaks
+         the opening tag over several, they are gathered up first. */
+      if (IFRAME.test(line)) {
+        var code = line;
+        while (!/<iframe\b[^>]*>/i.test(code) && i + 1 < n && lines[i + 1].trim() && code.length < 8000) code += " " + lines[++i];
+        if (!/<\/iframe\s*>/i.test(code) && i + 1 < n && /^\s*<\/iframe\s*>\s*$/i.test(lines[i + 1])) i++;
+        i++;
+        out.push(embedBlock(code));
+        continue;
+      }
       if (QUOTE.test(line)) {
         var q = [];
         while (i < n && lines[i].trim() && QUOTE.test(lines[i])) q.push(lines[i++].replace(QUOTE, ""));
@@ -131,7 +148,7 @@
       var para = [line];
       for (i++; i < n && lines[i].trim(); i++) {
         var l = lines[i];
-        if (FENCE.test(l) || HEADING.test(l) || HR.test(l) || QUOTE.test(l) || isTableAt(lines, i)) break;
+        if (FENCE.test(l) || HEADING.test(l) || HR.test(l) || QUOTE.test(l) || IFRAME.test(l) || isTableAt(lines, i)) break;
         /* A list may start straight under a line of text, but only with a
            bullet or a "1." — otherwise a sentence that happens to begin
            "2019. …" on a new line would turn into a numbered list. */
@@ -197,7 +214,8 @@
         i++;
         continue;
       }
-      if (!items.length || FENCE.test(line) || HEADING.test(line) || HR.test(line) || QUOTE.test(line)) break;
+      // Embed code under a numbered item ends the list, so the video gets the whole width.
+      if (!items.length || FENCE.test(line) || HEADING.test(line) || HR.test(line) || QUOTE.test(line) || IFRAME.test(line)) break;
       items[items.length - 1].lines.push(line.trim());
       i++;
     }
@@ -265,8 +283,12 @@
       }
       return { kind: "youtube", id: m[1], start: start, vertical: /\/shorts\//i.test(u) };
     }
-    var vm = /^(?:https?:)?\/\/(?:www\.)?(?:player\.)?vimeo\.com\/(?:video\/)?(\d+)/i.exec(u);
-    return vm ? { kind: "vimeo", id: vm[1], start: 0, vertical: false } : null;
+    /* An unlisted Vimeo video plays only with its hash — vimeo.com/<id>/<hash>,
+       or ?h=<hash> in embed code — so it is kept along with the id. */
+    var vm = /^(?:https?:)?\/\/(?:www\.)?(?:player\.)?vimeo\.com\/(?:video\/)?(\d+)(?:\/([0-9a-f]{6,}))?/i.exec(u);
+    if (!vm) return null;
+    var hash = vm[2] || ((/[?&]h=([0-9a-f]{6,})/i.exec(u) || [])[1]) || "";
+    return { kind: "vimeo", id: vm[1], hash: hash, start: 0, vertical: false };
   }
 
   // A link to a game or a studio on this site, relative or absolute.
@@ -277,6 +299,100 @@
     var id;
     try { id = decodeURIComponent(m[3]); } catch (e) { id = m[3]; }
     return { kind: m[2].toLowerCase() === "games" ? "game" : "studio", id: id };
+  }
+
+  /* ----------------------------------------------------------------- embeds */
+
+  /* Services whose embed code is framed as it is: a host, the path its embeds
+     live under — so a Google form can be framed but not any page Google serves
+     — and how it is drawn. A player keeps the shape of its picture; a widget
+     keeps the size its code asked for. YouTube and Vimeo are not here: they get
+     the site's own lighter player instead. */
+  var FRAMES = [
+    ["player.twitch.tv", /^\//, "player"],
+    ["clips.twitch.tv", /^\/embed/, "player"],
+    ["www.facebook.com", /^\/plugins\/video\.php/, "player"],
+    ["store.steampowered.com", /^\/widget\//, "widget"],
+    ["itch.io", /^\/embed(-upload)?\//, "widget"],
+    ["open.spotify.com", /^\/embed\//, "widget"],
+    ["w.soundcloud.com", /^\/player\//, "widget"],
+    ["bandcamp.com", /^\/EmbeddedPlayer\//, "widget"],
+    ["discord.com", /^\/widget/, "widget"],
+    ["docs.google.com", /^\/(forms|presentation|document|spreadsheets)\//, "widget"],
+    ["www.google.com", /^\/maps\/embed/, "widget"]
+  ];
+
+  function framed(src) {
+    var u;
+    try { u = new URL(String(src || "").trim(), "https://invalid.invalid/"); } catch (e) { return null; }
+    if (u.protocol !== "https:") return null;
+    var host = u.hostname.toLowerCase();
+    for (var i = 0; i < FRAMES.length; i++) {
+      if (host === FRAMES[i][0] && FRAMES[i][1].test(u.pathname)) return { src: u.href, kind: FRAMES[i][2] };
+    }
+    return null;
+  }
+
+  // An embed's attribute values arrive HTML-escaped — "Saba &amp; Shele".
+  function entities(s) {
+    return String(s).replace(/&(#x[0-9a-f]+|#\d+|amp|quot|apos|lt|gt|nbsp);/gi, function (all, e) {
+      e = e.toLowerCase();
+      if (e.charAt(0) === "#") {
+        var cp = e.charAt(1) === "x" ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10);
+        return cp > 0 && cp < 0x110000 ? String.fromCodePoint(cp) : all;
+      }
+      return { amp: "&", quot: '"', apos: "'", lt: "<", gt: ">", nbsp: " " }[e];
+    });
+  }
+  function attrs(s) {
+    var out = {}, re = /([^\s"'<>\/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g, m;
+    while ((m = re.exec(s))) {
+      out[m[1].toLowerCase()] = entities(m[2] != null ? m[2] : m[3] != null ? m[3] : m[4] != null ? m[4] : "");
+    }
+    return out;
+  }
+  // A size in pixels, or 0 when the code gives a percentage or nothing usable.
+  function pixels(v) {
+    var s = String(v || "").trim(), n = parseInt(s, 10);
+    return /%/.test(s) || !(n > 0) ? 0 : Math.min(n, 3000);
+  }
+
+  /* Embed code — the <iframe> YouTube, Vimeo, Steam, itch.io and the rest hand
+     out — pasted straight into a post. Nothing is taken from it but the
+     address, the title and the size: a video becomes the site's own player, a
+     service from the list above is framed at the size it asked for, and
+     anything else becomes a plain link to where it points rather than a frame
+     onto a page nobody has looked at. */
+  function embedBlock(code) {
+    var m = /<iframe\b([^>]*)>/i.exec(code);
+    var a = m ? attrs(m[1]) : {};
+    var src = String(a.src || "").trim(), title = String(a.title || "").trim();
+    var v = video(src);
+    if (v) return { t: "video", video: v, title: title };
+    var f = framed(src);
+    if (f) return { t: "frame", src: f.src, kind: f.kind, title: title, w: pixels(a.width), h: pixels(a.height) };
+    if (/^https:\/\//i.test(src)) return { t: "elink", href: src, title: title };
+    return { t: "p", text: String(code).trim() };
+  }
+
+  // The plain address of a video, for the editor to write in place of its code.
+  function videoUrl(v) {
+    if (v.kind === "vimeo") return "https://vimeo.com/" + v.id + (v.hash ? "/" + v.hash : "");
+    if (v.vertical) return "https://www.youtube.com/shorts/" + v.id;
+    return "https://www.youtube.com/watch?v=" + v.id + (v.start ? "&t=" + v.start + "s" : "");
+  }
+
+  /* What a piece of pasted text is, when it is embed code: a video (with the
+     address it can be written as), a framed widget, or a link to somewhere
+     that is not on the list. Null for anything that is not an <iframe>. */
+  function embedOf(text) {
+    var s = String(text || "").trim();
+    if (!IFRAME.test(s) || !/<iframe\b[^>]*>/i.test(s)) return null;
+    var b = embedBlock(s.replace(/\s*\n\s*/g, " "));
+    if (b.t === "video") return { kind: "video", title: b.title, url: videoUrl(b.video) };
+    if (b.t === "frame") return { kind: "frame", title: b.title, src: b.src, code: s.replace(/\s*\n\s*/g, " ") };
+    if (b.t === "elink") return { kind: "link", title: b.title, src: b.href, code: s.replace(/\s*\n\s*/g, " ") };
+    return null;
   }
 
   /* ---------------------------------------------------------------- inline */
@@ -443,6 +559,10 @@
         return h("div", { key: key, className: "gp-gallery" + (b.imgs.length === 3 || b.imgs.length > 4 ? " gp-n3" : "") },
           b.imgs.map(function (img, i) { return picture(img, ctx, key + "." + i); }));
       case "video": return h(Video, { key: key, video: b.video, title: b.title, lang: ctx.lang });
+      case "frame": return frameEl(b, ctx, key);
+      case "elink":
+        return h("p", { key: key, className: "gp-elink" },
+          anchor(b.href, [b.title || hostOf(b.href), h("span", { key: "go", "aria-hidden": "true" }, " ↗")], "", "a"));
       case "card": return card(b, ctx, key);
       case "button":
         return h("div", { key: key, className: "gp-cta" },
@@ -491,6 +611,29 @@
     return h("figure", { key: key }, el, img.alt ? h("figcaption", null, img.alt) : null);
   }
 
+  function hostOf(u) {
+    var m = /^https?:\/\/(?:www\.)?([^/?#]+)/i.exec(u);
+    return m ? m[1] : u;
+  }
+
+  /* A widget from one of the services in FRAMES. It may run its own scripts and
+     open windows — a Steam widget's buy button, a form's submit — but the
+     sandbox stops it from taking the page it sits in somewhere else. */
+  function frameEl(b, ctx, key) {
+    var player = b.kind === "player";
+    var style = player
+      ? { aspectRatio: b.w && b.h ? b.w + " / " + b.h : "16 / 9" }
+      : { maxWidth: b.w ? b.w + "px" : undefined, height: (b.h || 380) + "px" };
+    return h("div", { key: key, className: "gp-frame" + (player ? " gp-player" : ""), style: style },
+      h("iframe", {
+        src: b.src,
+        title: b.title || (ctx.lang === "en" ? "Embedded content" : "ჩაშენებული მასალა"),
+        loading: "lazy", allowFullScreen: true, referrerPolicy: "strict-origin-when-cross-origin",
+        allow: "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture; web-share",
+        sandbox: "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms allow-presentation"
+      }));
+  }
+
   /* A still and a play button until someone asks for the video. A YouTube
      player is about a megabyte of script, and a post with three trailers in it
      should not cost three of them before anyone presses play. */
@@ -501,7 +644,7 @@
     var cls = "gp-video" + (v.vertical ? " gp-vertical" : "");
     if (v.kind === "vimeo") {
       return h("div", { className: cls }, h("iframe", {
-        src: "https://player.vimeo.com/video/" + v.id + "?dnt=1", title: props.title || "Vimeo",
+        src: "https://player.vimeo.com/video/" + v.id + "?dnt=1" + (v.hash ? "&h=" + v.hash : ""), title: props.title || "Vimeo",
         loading: "lazy", allow: "autoplay; fullscreen; picture-in-picture", allowFullScreen: true
       }));
     }
@@ -707,6 +850,11 @@
     ".gp-play{position:absolute;left:50%;top:50%;width:72px;height:72px;margin:-36px 0 0 -36px;border-radius:50%;background:rgba(22,24,27,.8);display:flex;align-items:center;justify-content:center;transition:transform .2s ease,background .2s ease}",
     ".gp-facade:hover .gp-play{transform:scale(1.07);background:#ee2626}",
     ".gp-video-title{position:absolute;left:0;right:0;bottom:0;padding:32px 16px 12px;background:linear-gradient(180deg,rgba(22,24,27,0),rgba(22,24,27,.82));color:#fff;font-size:15px;font-weight:600;line-height:1.4;text-align:left}",
+    ".gp-frame{position:relative;width:100%;border-radius:14px;overflow:hidden}",
+    ".gp-frame.gp-player{background:#16181b}",
+    ".gp-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}",
+    ".gp-elink a{display:inline-flex;align-items:center;gap:6px;max-width:100%;background:#fff;border:1px solid #e2e4df;border-radius:12px;padding:12px 16px;font-weight:600;text-decoration:none!important;overflow-wrap:anywhere}",
+    ".gp-elink a:hover{border-color:#c9cdc6}",
     ".gp-card{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid #e2e4df;border-radius:16px;padding:12px;color:#16181b!important;text-decoration:none!important;box-shadow:0 1px 2px rgba(20,22,26,.04);transition:border-color .2s ease,transform .2s ease}",
     ".gp-card:hover{border-color:#c9cdc6;transform:translateY(-2px)}",
     ".gp-card-art{flex:none;width:min(184px,38%);aspect-ratio:460/215;border-radius:10px;background:#e8eaec center/cover no-repeat}",
@@ -741,6 +889,6 @@
 
   window.GGCMarkdown = {
     render: render, plain: plain, excerpt: excerpt, words: words, minutes: minutes,
-    video: video, safeHref: safeHref, opensWith: opensWith
+    video: video, videoUrl: videoUrl, embedOf: embedOf, safeHref: safeHref, opensWith: opensWith
   };
 })();

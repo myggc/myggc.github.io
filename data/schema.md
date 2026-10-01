@@ -125,7 +125,7 @@ images/news/              covers and pictures, uploaded from the editor
 | --- | --- |
 | `id` | url slug, `news.html#<id>` — spelled in Latin letters from the title, and fixed once the post is first saved so shared links keep working |
 | `title`, `titleEn` | the Georgian title is required; the English one is optional |
-| `excerpt`, `excerptEn` | the summary on cards and under the title; left empty, the first paragraph fills it on save |
+| `excerpt`, `excerptEn` | the summary on cards and under the title — optional, and left empty it stays empty: the card shows the title alone |
 | `tag` | the direction it belongs to, and the colour it wears: `ggc`, `community`, `acceleration`, `publishing`, `report` |
 | `date` | publication date, `YYYY-MM-DD` — a future date keeps a published post off the site until that day |
 | `cover` | 1200×630 picture, the shape link previews use; empty shows the direction's colour instead |
@@ -153,6 +153,7 @@ still reads sensibly on GitHub. The editor's toolbar writes all of them.
 | `> [!NOTE]` · `[!TIP]` · `[!WARNING]` · `[!CAUTION]` | a coloured box — blue, green, yellow, red (GitHub's own syntax) |
 | `![caption](images/news/x.jpg)` | a picture with its caption; several in one paragraph make a gallery |
 | a YouTube or Vimeo link on its own line | the video, loaded only when someone presses play |
+| `<iframe src="…"></iframe>` on its own line | embed code as the service hands it out. A YouTube or Vimeo video becomes the same player as above; a widget from Twitch, Steam, itch.io, Spotify, SoundCloud, Bandcamp, Discord, Google Forms, Docs or Maps, or a Facebook video, is framed at the size its code asks for. Anything else becomes a link to it. Only the address, the title and the size are read from the code — see `FRAMES` in `assets/js/ggc-md.js` to add a service |
 | `[Name](games.html#<id>)` on its own line | a card for that game; `companies.html#<id>` for a studio |
 | `[Text](https://… "button")` | a button |
 | `---` | the four-colour divider |
