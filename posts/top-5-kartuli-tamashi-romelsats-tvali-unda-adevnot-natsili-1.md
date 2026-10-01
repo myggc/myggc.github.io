@@ -11,6 +11,7 @@ Steam-ის გვერდი: https://store.steampowered.com/app/2500690/Dumb
 Steam-ის გვერდი: https://store.steampowered.com/app/3440890/A_Difficult_Game_About_Letters/
 დეტალურ ინფორმაციას და დეველოპმენტის პროცესს გაეცანით ჩვენს პოდკასტში ↓
 <iframe width="1182" height="665" src="https://www.youtube.com/embed/0P7zS6mGD6U" title="GGC Talks #4 - რას გასწავლის ერთ-ერთი ყველაზე გამოცდილი ქართველი გეიმ დეველოპერი" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 3. Mother Dear 
 Mother Dear არის ემოციური Story-Driven თამაში, სადაც მოთამაშე ირმის როლს ირგებს. თამაშის სიუჟეტი ვითარდება მამის მიერ თავისი ქალიშვილისთვის მოყოლილი ისტორიის ირგვლივ. ამბავი მოგვითხრობს ბავშვობის ტრავმაზე, რომელმაც მისი ცხოვრება სამუდამოდ შეცვალა.
 მოთამაშე მოგზაურობს ულამაზეს ბუნებაში, აღმოაჩენს მამის წარსულის საიდუმლოებებს და განიცდის უნიკალურ, ემოციურად დატვირთულ თავგადასავალს. თამაში გამოირჩევა უნიკალური, შთამბეჭდავი ვიზუალითა და მშვიდი, თუმცა ღრმა ატმოსფეროთი.
