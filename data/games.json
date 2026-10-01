@@ -20,7 +20,7 @@
         "Steam"
       ],
       "engine": "Unity",
-      "price": "$2.99",
+      "price": "$1.49",
       "langs": "English, Georgian",
       "about": "Beso's Shawarma is a short, narrative-driven horror game. A late-night call lures you on a surreal journey through empty streets to a sketchy shawarma shop. Talk to a cast of strange characters, make a terrifying choice, and try to escape a disjointed, looping nightmare.",
       "aboutEn": "",
@@ -39,12 +39,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-09-06T20:12:24.873Z",
+      "parsedAt": "2026-10-01T21:01:48.229Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-10-01"
     },
     {
       "id": "gatekeeper-simulator-inner-circle",
@@ -63,7 +63,7 @@
         "Steam"
       ],
       "engine": "",
-      "price": "$4.99",
+      "price": "$1.49",
       "langs": "Englishlanguages with full audio support",
       "about": "You guard the gate of a secret society. Every visitor lies, some better than others. Inspect, decide, and live with the consequences of who you let inside.",
       "aboutEn": "",
@@ -82,12 +82,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-09-06T21:12:47.364Z",
+      "parsedAt": "2026-10-01T21:01:49.539Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-10-01"
     },
     {
       "id": "the-seven-enchantments",
@@ -106,7 +106,7 @@
         "Steam"
       ],
       "engine": "",
-      "price": "$9.99",
+      "price": "$1.99",
       "langs": "English, Russian, Georgianlanguages with full audio support",
       "about": "A first-person folk horror story about a scammer exorcist priest trapped in a cursed 19th-century village. Investigate the seven deadly sins by day and survive the forest spirits that hunt you at night.",
       "aboutEn": "",
@@ -125,12 +125,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-09-06T21:12:47.364Z",
+      "parsedAt": "2026-10-01T21:01:50.827Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-10-01"
     },
     {
       "id": "glass-cannon",
