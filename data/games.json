@@ -2575,7 +2575,8 @@
         "indie"
       ],
       "platforms": [
-        "Steam"
+        "Steam",
+        "App Store"
       ],
       "engine": "",
       "price": "$3.74",
@@ -2583,7 +2584,8 @@
       "about": "Transform into letters to overcome platforming challenges and save your friend from evil King in this crayon-style adventure!",
       "aboutEn": "",
       "stores": {
-        "steam": "https://store.steampowered.com/app/3440890/"
+        "steam": "https://store.steampowered.com/app/3440890/",
+        "appstore": "https://apps.apple.com/us/app/difficult-game-about-letters/id6754199114"
       },
       "art": {
         "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3440890/86f735419e590981e721c46bc3867342f82da3ff/header.jpg?t=1763623752",
@@ -2648,6 +2650,1698 @@
       "verified": false,
       "active": true,
       "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "the-blade-of-scodfolia",
+      "name": "The Blade of Scodfolia",
+      "studioId": "საბა-სანიკიძე",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "adventure",
+        "platformer"
+      ],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "Unity",
+      "price": "",
+      "langs": "",
+      "about": "Explore and save an infected kingdom",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://sabexdev.itch.io/the-blade-of-scodfolia"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzEzNzMxMDU4LnBuZw==/original/9xo%2FCv.png",
+        "hero": "https://img.itch.zone/aW1nLzEzNzMxMDU4LnBuZw==/original/9xo%2FCv.png",
+        "portrait": "",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T10:39:51.509Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "cuberts-clean-sweep",
+      "name": "Cubert's Clean Sweep",
+      "studioId": "საბა-სანიკიძე",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "puzzle"
+      ],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "Unity",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Clean Up And Prepare The Dungeon For Next Adventurers.",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://sabexdev.itch.io/cuberts-clean-sweep"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzEyNzM4MjkwLnBuZw==/original/T5UivX.png",
+        "hero": "https://img.itch.zone/aW1nLzEyNzM4MjkwLnBuZw==/original/T5UivX.png",
+        "portrait": "",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T10:39:51.799Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "weird-boxing-the-game",
+      "name": "Weird Boxing The Game",
+      "studioId": "საბა-სანიკიძე",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "Unity",
+      "price": "",
+      "langs": "",
+      "about": "",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://sabexdev.itch.io/weird-boxing-the-game"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzE0MDM3NzM5LnBuZw==/original/WmqD3g.png",
+        "hero": "https://img.itch.zone/aW1nLzE0MDM3NzM5LnBuZw==/original/WmqD3g.png",
+        "portrait": "",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T10:39:52.071Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "another-top-down-game",
+      "name": "Another Top Down Game",
+      "studioId": "საბა-სანიკიძე",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Shoot Your Way Through The FOODGEON",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://sabexdev.itch.io/another-top-down-game"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzEyMzU4MjIxLnBuZw==/original/wJYzpe.png",
+        "hero": "https://img.itch.zone/aW1nLzEyMzU4MjIxLnBuZw==/original/wJYzpe.png",
+        "portrait": "",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T10:39:52.380Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "solar-system-2d",
+      "name": "Solar System 2D",
+      "studioId": "საბა-სანიკიძე",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "educational"
+      ],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "Unity",
+      "price": "",
+      "langs": "",
+      "about": "",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://sabexdev.itch.io/solar-system-2d"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzEzNTc0MDM2LnBuZw==/original/l%2FR5Eu.png",
+        "hero": "https://img.itch.zone/aW1nLzEzNTc0MDM2LnBuZw==/original/l%2FR5Eu.png",
+        "portrait": "",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T10:39:52.672Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "legends-forge",
+      "name": "Legends Forge",
+      "studioId": "maxhp-studio",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "action",
+        "role playing"
+      ],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Skill-Expressive Mobile Action RPG",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://maxhpstudio.itch.io/legends-forge"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzE2MDk1Mzk2LnBuZw==/original/b63v0t.png",
+        "hero": "https://img.itch.zone/aW1nLzE2MDk1Mzk2LnBuZw==/original/b63v0t.png",
+        "portrait": "",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T10:39:52.968Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "drift-king",
+      "name": "Drift King",
+      "studioId": "abelix-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "27 Jul, 2022",
+      "year": 2022,
+      "mobile": false,
+      "genres": [
+        "racing"
+      ],
+      "platforms": [
+        "App Store",
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$0.62 USD",
+      "langs": "English, French, Italian, German, Spanish - Spain, Dutch, Japanese, Polish, Portuguese - Portugal, Russian",
+      "about": "Grab your favorite car, tune it, challenge players in Online Drift battles and become a DRIFT KING!",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/drift-king-mobile/id1661461354",
+        "steam": "https://store.steampowered.com/app/1469690/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1469690/header.jpg?t=1774212626",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1469690/page_bg_raw.jpg?t=1774212626",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1469690/ss_243fe5963f82ef592d04d7969062a72c39df9b1c.600x338.jpg?t=1774212626",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1469690/ss_5f9cf44854ee5149223defea6a3a4fbf287340b5.600x338.jpg?t=1774212626",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1469690/ss_4f65191e28e70de751a021b3ffae219c4e27afd8.600x338.jpg?t=1774212626"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "alter-world",
+      "name": "Alter World",
+      "studioId": "abelix-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "29 May, 2015",
+      "year": 2015,
+      "mobile": false,
+      "genres": [
+        "indie"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$0.45 USD",
+      "langs": "English, French, Italian, German, Spanish - Spain, Czech, Dutch, Hungarian, Polish, Portuguese - Portugal, Russian, Romanianlanguages with full audio support",
+      "about": "Enter the Alter World, a mysterious parallel reality where the rules are different and every step brings new challenges. Inspired by Stephen King's The Dark Tower, Alter World is a 2D platformer built around a unique mechanic that allows you to switch between two realities at any time to overcome obstacles, solve puzzles, and progress...",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/357280/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/357280/header.jpg?t=1784050563",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/357280?t=1784050563",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/357280/ss_7a6db9d3bed041adc75c85314b7c5554a2fb1f68.600x338.jpg?t=1784050563",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/357280/ss_6c0b1667e2cd4ff34df4550a0eae4bb7e9e1c4f3.600x338.jpg?t=1784050563",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/357280/ss_b2b7df8932cc72e883963cc4f3af0112451d19c7.600x338.jpg?t=1784050563"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "circularity",
+      "name": "Circularity",
+      "studioId": "abelix-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "3 Oct, 2017",
+      "year": 2017,
+      "mobile": false,
+      "genres": [
+        "casual",
+        "indie"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$0.45 USD",
+      "langs": "Englishlanguages with full audio support",
+      "about": "Relaxing puzzle with interesting game mechanics - bring your character to the final portal which will transit you to the next level. You will need to move straight, avoid obstacles, jump through portals, ricochet from walls and a lot more.",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/709380/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/709380/header.jpg?t=1784075151",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/709380?t=1784075151",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/709380/ss_0109311eabc07dc7df8371700002211ceb00c433.600x338.jpg?t=1784075151",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/709380/ss_b5390221fd3f48d4025c91ea5002e841a6408735.600x338.jpg?t=1784075151",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/709380/ss_a5b451db2c25a3f9f03919b6d1b2fb252a53378a.600x338.jpg?t=1784075151"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "slice",
+      "name": "SLICE",
+      "studioId": "abelix-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "10 May, 2018",
+      "year": 2018,
+      "mobile": false,
+      "genres": [
+        "casual",
+        "indie"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$0.48 USD",
+      "langs": "English",
+      "about": "SLICE your way through the worlds of mind trials.",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/840310/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/840310/header.jpg?t=1635454552",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/840310?t=1635454552",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/840310/ss_7a4e28bcc1976c80a757fdf78990a2937462ea08.600x338.jpg?t=1635454552",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/840310/ss_6878790153d692b1de471ff9d6f949ac11a0008a.600x338.jpg?t=1635454552",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/840310/ss_514eead87a429b798f9b8e831909165e98819369.600x338.jpg?t=1635454552"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "water-planet",
+      "name": "Water Planet",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2017-04-25",
+      "year": 2017,
+      "mobile": true,
+      "genres": [
+        "entertainment",
+        "casual",
+        "adventure"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "AR, EN, FR, IT, JA, KO, PT, RU, ZH, ES, ZH, TR",
+      "about": "Deep within the galaxy many light years from Earth, a lone Andromedan spaceship is cruising towards home, passing by a seemingly uninhabited water planet. What they didn't know was that the great and evil Zharor has set his target sights on their ship with the intent to capture a human being for experimentation!\n\nWith destructive force, a giant laser emanated from the planet and struck the Andromedan pirate spaceship. All of her crew was forced to evacuate and landed in the water. Evil creature Zharor captured everyone except for one. Will the lone survivor fail in his quest to save his friends, or will he become a great hero that saves the day? It's up to you to decide!\n\nAn epic Waterworld adventure awaits! Join one hero in his ultimate quest to free his captive space mates from the nefarious clutches of Zharor! But first, he has to traverse unique, colorful watery worlds full of dangerous obstacles and fish and collect coins for upgrading his mini-spaceship. Each stage presents a different challenge, so in order to survive you must think fast and have lightning-quick reflexes.\n\nUpgrade your clunky basic spaceship into a super-ship that can stand against the might of the evil Zharor! Spend the coins towards more nitrous boosts, more engine power and torque. Replace your aging ship propellers and you might just have a fighting chance against electrifying jellyfishes, spiky creatures and massive monsters in a race to save your helpless and captive team!\n\nAcquire more powerful and varying ships each time you play. Different underwater ships present different ways to play. Power through the stage using a brawny spaceship, or zip through obstacles with ease using the speedy ship. What's important is to keep your eyes on the path ahead, and forge through increasingly difficult stages for a shot at becoming the legendary being who escaped the domain of the evil creature Zharor.\n\nSave your crew and you'll have a chance to use them for the later stage battles. You'll never be alone in your quest to save the day! Simply touch the game screen to go higher, and release it to get lower. Go forward and evade nasty creatures looking to end your mission, collect coins, and try to move forward and beat your own high score. Upgrade your ship for better maneuverability and better engine thrust, or complete missions to further your quest. It's up for you to decide!\n\nThe simple controls are easy to learn, but beware- you'll need all your skills to get to the end levels and face the evil Zharor. The one-touch controls make it easy to play in quick bursts during breaks, on commute or while you lay back on your bed. The gameplay is so addictive that you might spend sleepless nights racing through the obstacles in your quest to escape the watery world and to get home in one piece.\n\nSo don your air-breathing helmet, strap yourself in the spaceship and prepare for a wild ride. Make Zharor pay for what he did in capturing your friends. Immerse yourself in the watery world of Waterplanet and become the master of your own destiny!",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/water-planet/id1150428717"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/cc/cb/33/cccb33d8-c244-d398-e2b2-061355ebae74/AppIcon-0-1x_U007emarketing-0-0-85-220-7.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/3a/86/f3/3a86f3d2-74ad-067c-281a-aa81168fbd01/pr_source.jpg/406x228bb.jpg",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/cc/cb/33/cccb33d8-c244-d398-e2b2-061355ebae74/AppIcon-0-1x_U007emarketing-0-0-85-220-7.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/3a/86/f3/3a86f3d2-74ad-067c-281a-aa81168fbd01/pr_source.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/ca/3e/d9/ca3ed990-16da-9b5c-cab8-f08bbf473056/pr_source.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/6e/ee/ea/6eeeea22-35bc-cec6-98b5-b941a28eabb6/pr_source.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/eb/43/d5/eb43d5be-971a-1231-f6b0-ebe8d1c68f49/pr_source.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/20/55/b5/2055b526-df0a-72a3-56c5-977ff2234599/pr_source.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/2e/6b/7a/2e6b7ae3-f3f0-5a3e-5978-b62afa2988f4/pr_source.jpg/552x414bb.jpg"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "upperland",
+      "name": "Upperland",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2015-07-09",
+      "year": 2015,
+      "mobile": true,
+      "genres": [
+        "adventure",
+        "action",
+        "entertainment"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "AR, NL, EN, FR, DE, HU, ID, IT, JA, KO, MS, NB, FA, PL, PT, RO, RU, ZH, ES, TH, ZH, TR, UK, VI",
+      "about": "DESCRIPTION\n\nYou are taps away from owning a super fun and addictive adventure game.\nUpperland is an epic platform game full of incredible characters, fantastic landscapes to explore, and stacks of surprises!\nHelp two tiny creatures who are pulled into a city with skyscrapers, clocks, dangerous factories and terrifying amusement parks avoid all the obstacles and reunite with the family.   \nCustomize your creatures by buying super cool and cute headbands, wings, glasses, etc to match your style. Take photos of your stylish creatures and share the fun with friends instantly. Keep your eyes peeled: there are many surprises waiting for you!\n \nSTORY\nTwo kids of “tiny creatures” have been kidnapped by an evil spider and are being taken farther and farther away! Join the family on an amazing adventure across multiple settings and dozens of challenging stages. Reunite the lost family and discover new worlds to explore by following an evil spider!\nFEATURES\n- Eye-popping graphics!\n- Epic platform action!\n- Simple tap control designed to work perfectly with your touch screen!\n- Lots of stages over multiple worlds!\n- Hundreds of obstacles!\n- Bonus levels!\n- Hilarious & funky items for characters!\n- Mesmerizing music\n- Regular free updates!\n\nA BIT MORE…\nUpperland is a perfect choice for those who love games that have stories behind them; it is not often that such a simple game actually makes you feel compassionate towards the game characters. \nUpperland has something to offer to everyone; whatever your theme is  you can definitely find something relevant in this game: endless tricky traps, various mechanical obstacles and diverse locations full of crazy puzzles through all levels of this addictive adventure game. As you advance through the stages, the levels get tougher and the obstacles harder to avoid; they even start moving, rotating and disappearing. Reunite the tiny creatures’ family! Just remember that every object can harm your little creatures.\nStarting from the deep deep sewerage with dirty pipes and vents, you will move on to crawling skyscrapers and clock tower and later rush through the horror show of the amusement park; Once you survive the appearing ghosts and scary butchers, you will be excited to enter the elevator full of wires sticking out of broken boxes; then fly through the scientific lab with robot-hands that release fire, syringes and explosive chemical poisonous particles that are scattered all around. There also are different factories, but don’t get too excited, remember, you have to dodge all the saws, wood and metal pieces, and many more objects. Next on, you have to fly through dazzling forests, where while everything is charming to the eye, you’d rather not touch anything. And finally, what’s the better way to end the unforgettable adventure than to explore the rocket, the absence of gravity can puzzle you even more as random object and laser beams appear everywhere! \n\nWhy It’s Great\nWhen playing Upperland getting bored is not an option with a constant change of obstacles and surroundings. It is simple and challenging, fast paced and fulfilling, addictive, but easy to pause… The gameplay is completely unpredictable with more and more additions appearing in every single level. Equally great for both, expert gamers and beginners, Upperland can be played for hours!\n\nWARNING: Due to heavy graphics requirements, The Upperland is only compatible with the iPhone 4S & upwards, and iPod Touch 5th Generation - it is NOT compatible with the older iPhone 4 or iPod 4th Generation.",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/upperland/id995922287"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple49/v4/87/82/84/87828464-395e-08ca-1c0c-9d4c6d987e6b/mzl.btlslsnu.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/Purple4/v4/47/3c/cd/473ccdd2-497e-7532-1b22-70a862ea1dbb/mzl.oilkkkgg.jpg/392x696bb.jpg",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple49/v4/87/82/84/87828464-395e-08ca-1c0c-9d4c6d987e6b/mzl.btlslsnu.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple4/v4/47/3c/cd/473ccdd2-497e-7532-1b22-70a862ea1dbb/mzl.oilkkkgg.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple2/v4/8c/80/95/8c8095a5-2c5b-0c4c-f8d0-e3c57883ae4d/mzl.gyqquefr.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple7/v4/c5/a3/91/c5a3916f-0d9e-5f6b-77d4-d512066f8f20/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple1/v4/fc/c6/67/fcc667b7-1336-152a-503a-c31b70dd01e9/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple7/v4/ed/6d/8e/ed6d8ec9-01c1-f4cc-494d-c148ec292bde/mzl.iowjlzwo.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple7/v4/b1/ac/6d/b1ac6d5a-6b19-7498-4274-1d0dcc02a336/mzl.gyarccrf.jpg/360x480bb.jpg"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "jump-on-stack",
+      "name": "Jump on Stack",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2016-06-10",
+      "year": 2016,
+      "mobile": true,
+      "genres": [
+        "entertainment",
+        "family",
+        "adventure"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "Jump up the blocks as high as you can!\n\n◉ Tap on the screen to jump. Tap and hold to jump higher\n◉ Jump on the blue blocks and avoid (jump over) the red blocks.\n\nStay on the platform and do as many jumps as you can.\n\nCollect coins to unlock new characters.",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/jump-on-stack/id1121185635"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/9d/1a/ae/9d1aae23-1885-485d-1113-82f99802d5df/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/6b/f1/fd/6bf1fd5a-ea85-c18e-875e-3737bcaee7d7/pr_source.jpg/392x696bb.jpg",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/9d/1a/ae/9d1aae23-1885-485d-1113-82f99802d5df/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/6b/f1/fd/6bf1fd5a-ea85-c18e-875e-3737bcaee7d7/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/46/fc/96/46fc965c-be54-a248-005b-62c271daa905/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/c0/e9/04/c0e90493-6566-004a-9044-69c1e63f8360/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/07/c3/a7/07c3a7a7-c075-8af8-5a44-daad78a9bf97/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/7a/6b/fe/7a6bfe59-f109-a0f4-6298-6c033d552623/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/76/5c/cd/765ccd4c-a58b-2715-cd93-631506fbcbfb/pr_source.jpg/576x768bb.jpg"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "jelly-fish-bubble",
+      "name": "Jelly Fish Bubble",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2016-02-24",
+      "year": 2016,
+      "mobile": true,
+      "genres": [
+        "family",
+        "entertainment",
+        "adventure"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "Our curious characters want to see blue sky and white cloud-drift. Help your cutest, friendly character to get out from the depths of ocean to fly through the clouds.  Avoid all the obstacles, like enemy spiky fishes, angry airplanes, funny birds and get the power-ups, earn the highest score and enjoy!\n\n*** How to play ***\nTouch and hold your finger on the screen to move character to the right side. Release to move the character to the left side.\n***                     ***\nJelly Fish Bubble is a chromatic game with amazing characters and pleasurable gameplay. Join super fun ! (Easy and fun to play.)\nYou might find yourself getting addicted to this game as you go upper and upper.\n\nCollect the coins and increase power ups level. Choose your own character and evolve his different powers.\nJelly fish Bubble is a perfect choice for all. \n\nJelly fish Bubble includes HD graphics, super funny colors and environment.\nJelly fish Bubble is an easy choice for instant fun.",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/jelly-fish-bubble/id1070757714"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/b9/6b/79/b96b79b4-047d-3281-cf0e-491c82fa8b9c/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/cb/69/94/cb6994ab-b41d-daa1-70f8-66b7fb26c53e/mzl.gvzytefi.jpg/392x696bb.jpg",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/b9/6b/79/b96b79b4-047d-3281-cf0e-491c82fa8b9c/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/cb/69/94/cb6994ab-b41d-daa1-70f8-66b7fb26c53e/mzl.gvzytefi.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/a1/40/32/a14032cd-f91c-80da-100b-478903704388/mzl.jnknjnad.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/74/d9/bf/74d9bfca-d6d5-d69b-4410-2d1183642b4e/mzl.iijnoewk.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/ee/4c/bb/ee4cbbcf-ffef-b400-45c8-264a700d7424/mzl.pgvzydft.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/b5/37/c3/b537c353-e88e-3dcc-b8a2-129599b25ca9/mzl.qdqayrpc.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/de/15/d7/de15d789-eb24-009b-d9d1-3f85033de073/mzl.vcijcpip.jpg/576x768bb.jpg"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "geometry-men",
+      "name": "Geometry Men",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2016-07-21",
+      "year": 2016,
+      "mobile": true,
+      "genres": [
+        "puzzle",
+        "casual",
+        "entertainment"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "Geometry Men is a simple yet addictive puzzle runner game.\n\nRotate shapes and match them to create a road without obstacles in clear line.\n\nCollect Keys and unlock various characters with additional abilities. Each character has a unique ability in the game that provides new ways to play, compete, and earn your highest score yet!\n\nAim for a personal high score and then celebrate and brag as you fly past your friends on the game center leaderboard.\n\nEasy to play and pleasurable game for all age. Rotate the blocks with simply tap on screen.\n\nAs u mastered game becomes more challenging.\n\nHD graphics included which make the game very enjoyable on tablets !",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/geometry-men/id1134573999"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/97/8f/a0/978fa0c6-053b-ab5a-69a5-04ebc3490884/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/95/57/10/955710c8-0a51-5fde-96fd-69104cbeaf63/03a0efe9-ccc5-494e-9415-bba7c02b937f_First_3.png/392x696bb.png",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/97/8f/a0/978fa0c6-053b-ab5a-69a5-04ebc3490884/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/95/57/10/955710c8-0a51-5fde-96fd-69104cbeaf63/03a0efe9-ccc5-494e-9415-bba7c02b937f_First_3.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/8b/bb/db/8bbbdb01-ccc9-d52b-f3a1-65a15ebbc233/e8a320bb-2e56-4838-a833-0970ce2425ff_Second_3.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/b9/3e/02/b93e02e2-aeee-2a4c-cf52-2e8cfa3fb2e7/0f0c7d3d-84bd-4b2b-9fcd-f42cb7115295_Third_3.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/23/22/9b/23229b3f-7b94-f93d-70c5-bcdd1d9eaf18/d708436a-5f78-485c-a9e5-c17bcfd4eb9d_Fourth_3.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/29/82/bc/2982bce6-4899-66ee-8153-8f4f3acf0ab7/15ce064b-fbe8-47f4-8155-ae2eb3b8c1e9_Fifth_3.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/f0/fb/1f/f0fb1f8e-9c96-75b3-b450-e0b65da610a1/b12ef317-eb7c-4bc3-b91d-c4eb64e9ca49_First_4.png/576x768bb.png"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "i-am-ball",
+      "name": "I am Ball",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2015-10-20",
+      "year": 2015,
+      "mobile": true,
+      "genres": [
+        "entertainment",
+        "action",
+        "casual"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "The goal is simple! Try to collect the same color of jelly balls to increase your energy.\nSwipe your finger at any place on screen to move your ball in that direction. \nAvoid the balls of different color, they will decrease your energy. Hold your eye on energy bar, don't let it drop too low.  \nFind your peace of mind and relaxation at this simple game.\nGood Luck :) !!!",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/i-am-ball/id1046878354"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple62/v4/25/eb/e0/25ebe07f-92ac-f3c8-7b56-c750ca4c08e2/mzm.gxthnvyf.jpg/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/Purple6/v4/46/84/55/468455c4-5365-aa60-f851-b0b9a52802b3/pr_source.jpg/392x696bb.jpg",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple62/v4/25/eb/e0/25ebe07f-92ac-f3c8-7b56-c750ca4c08e2/mzm.gxthnvyf.jpg/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple6/v4/46/84/55/468455c4-5365-aa60-f851-b0b9a52802b3/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple6/v4/ed/28/c1/ed28c156-d79a-b1bb-963c-5835a34af9a9/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple22/v4/a9/ed/4e/a9ed4ee6-0bc8-3021-cefc-a53229ca4465/mzm.viofyrsq.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple32/v4/99/6d/22/996d22e5-64ae-cdbc-856f-ede316fabf58/mzm.azulxtbd.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple6/v4/fe/ff/2f/feff2f9a-75de-0920-8acb-4f38994a803b/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple62/v4/b1/03/f1/b103f19d-b5a3-09b2-7007-d0ca90dcd094/mzm.hisnisrm.jpg/360x480bb.jpg"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "hero-wings",
+      "name": "Hero Wings",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2020-05-27",
+      "year": 2020,
+      "mobile": true,
+      "genres": [
+        "action",
+        "casual",
+        "entertainment"
+      ],
+      "platforms": [
+        "Google Play",
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN, FR, DE, JA, PT, RU, ES, UK",
+      "about": "Are you ready for a fast-paced Warplane battles?\n\nHero Wings - delivers the most intense free to play action game. Build, upgrade, team up and compete. Survive epic fast-paced 3v3 multiplayer battles. Become the strongest and fastest pilot and destroy the enemy team! Select your fighter from different designs and powers. Choose your primary and special weapons from the great selection including: machineguns, missiles, cannons, shotguns, laser, frost and quantum weapons.\n\nFEATURES\n\nCOSTOMIZE THE STRONGEST WARPLANE - Outsmart your enemies by picking the right combination of aircrafts, weapons and characters. You can create your own warplane with unique skins to stand out and show off on the battlefield!\n\nDIFFERENT 3V3 GAME MODES - Snatch: squad up against the opposing team. Grab and hold gems to win.\nBounty: in under three minutes destroy enemies to earn points, the team with the most points is the winner!\n\nCHESTS - With every victory earn chests to unlock rewards, discover powerful new cards and upgrade existing ones. Build your card collection. This is your chance to be one step ahead of your enemies.\n\nMASTER YOUR ABILITIES - The game is easy to learn, but hard to master! Fighters with different speed, armor and weapons. Practice to control them like a pro to decide the course of the battle.\n\nProgress through numerous arenas. Level up your ranks to earn different prizes.\n\nPlay free anytime and anywhere!\n\nA steady internet connection required.",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.appidea.herowings",
+        "appstore": "https://apps.apple.com/us/app/hero-wings/id1506183208"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/7c/df/e7/7cdfe7b7-2824-e803-ba10-5bee0db85716/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/60/90/87/6090879e-4285-da99-7ffb-b105894da6fe/pr_source.png/406x228bb.png",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/7c/df/e7/7cdfe7b7-2824-e803-ba10-5bee0db85716/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/60/90/87/6090879e-4285-da99-7ffb-b105894da6fe/pr_source.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/67/af/c1/67afc189-02f6-3ab5-a939-f4ddbdd64d78/pr_source.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/15/7f/3d/157f3dac-db85-a1c2-bae8-68d35b54b221/pr_source.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/46/a6/03/46a6035f-a83b-4fd7-f130-7252d65edbcd/pr_source.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/a0/39/8c/a0398c47-5aea-70ac-2782-736b6ce04017/pr_source.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/71/44/96/714496dc-636c-6156-cd71-626ca2692901/pr_source.png/406x228bb.png"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "sword-fish-3d",
+      "name": "Sword Fish 3D",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2019-06-13",
+      "year": 2019,
+      "mobile": true,
+      "genres": [
+        "action",
+        "entertainment",
+        "family"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "Pierce everyone on the map and get your tusk longer to kill more. Keep yourself among the best !",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/sword-fish-3d/id1465911082"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/68/91/fb/6891fb05-d98d-0a4d-3392-b04002ca3948/AppIcon-1x_U007emarketing-0-4-85-220.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/d7/b7/50/d7b750e3-86eb-9608-5a02-3d93dde58e74/pr_source.png/392x696bb.png",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/68/91/fb/6891fb05-d98d-0a4d-3392-b04002ca3948/AppIcon-1x_U007emarketing-0-4-85-220.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/d7/b7/50/d7b750e3-86eb-9608-5a02-3d93dde58e74/pr_source.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/54/93/1d/54931db9-8e2c-8a2d-10ae-5c16514b3a71/pr_source.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple123/v4/6d/bf/7e/6dbf7ec6-13d5-fa0c-7abd-6784792fc07c/pr_source.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/a3/d7/9c/a3d79cd7-7c37-2cb6-5c2f-9527bb7876c5/pr_source.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/16/12/37/1612374f-90f1-9e7e-eff2-1366c3598666/pr_source.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/92/f1/a0/92f1a0f8-de39-84bc-29e2-fd615740372b/pr_source.png/576x768bb.png"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "smash-down-blocks",
+      "name": "Smash Down Blocks",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2018-07-04",
+      "year": 2018,
+      "mobile": true,
+      "genres": [
+        "entertainment"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "Smash your way through a beautiful 3d world. \nFall down to brake blocks and glass objects. \nAvoid different obstacles on your way and laser running after you. collect crystals.\nHow many levels can you complete?",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/smash-down-blocks/id1292587810"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/54/a6/51/54a651a6-86fb-0ee3-ee9d-8276ab319034/AppIcon-1x_U007emarketing-85-220-9.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/Purple115/v4/85/42/7d/85427d0a-6e2c-ed20-5ddf-c60ac5cd944a/pr_source.jpg/392x696bb.jpg",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/54/a6/51/54a651a6-86fb-0ee3-ee9d-8276ab319034/AppIcon-1x_U007emarketing-85-220-9.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple115/v4/85/42/7d/85427d0a-6e2c-ed20-5ddf-c60ac5cd944a/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple125/v4/3c/ea/52/3cea52d5-7c65-cf96-ffc4-9e1538bb623a/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple125/v4/e4/d5/c6/e4d5c640-45e4-73a8-0399-e4011b2d73b4/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple115/v4/47/65/aa/4765aafb-e30d-d7b3-d794-aa31bc7677f2/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple125/v4/f2/bb/c4/f2bbc40d-225f-50f0-794b-4bc063096743/pr_source.jpg/392x696bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple125/v4/d1/db/26/d1db2685-ad86-429f-6183-87db3174a883/mzl.naveekdn.jpg/576x768bb.jpg"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "zombie-basketball-feed-monster",
+      "name": "Zombie Basketball Feed Monster",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2017-05-22",
+      "year": 2017,
+      "mobile": true,
+      "genres": [
+        "sports",
+        "casual",
+        "sports"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "Big fan of basketball sport but bored to play regular ones ? Come and join us in this crazy and fun “basketball” game! Throw Zombie Heads and Feed the Monster !  You didn’t know basketball could be so much fun!\n\nZombie Basketball is a basketball shoot game where you can spend a lot of hours!\nGain points in various modes and become the best one in the global leaderboard! \n\nGet ready to feed your monster! Those undead creatures are back, and it's up to you to keep them Headless. Use your finger to tear off zombies head and throw it to monster mouth, eliminate them as much as possible .\n\nHow to Play:\n- Simply swipe your finger to the zombie head to tear off his head.\n- Release the head and fling it to the monster mouth.\n\nGame Features:\n2 different game modes!\nGain points(bones) in various modes to unlock other creatures and different rooms or spend them on additional health.\nBecome a real sniper and get on the top of global leaderboard! \nIntense and fun zombie action game play fit for subway time.",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/zombie-basketball-feed-monster/id1233186789"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/73/29/7b/73297b38-592b-ac08-26b3-5c31916c7d5a/AppIcon-0-1x_U007emarketing-0-0-85-220-7.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/ae/8c/fb/ae8cfbf3-9b25-9790-4a89-63d4f6b34883/mzl.auzdapey.png/392x696bb.png",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/73/29/7b/73297b38-592b-ac08-26b3-5c31916c7d5a/AppIcon-0-1x_U007emarketing-0-0-85-220-7.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/ae/8c/fb/ae8cfbf3-9b25-9790-4a89-63d4f6b34883/mzl.auzdapey.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/bd/fa/5f/bdfa5f94-2ae6-717d-b8a6-988937d05c2a/mzl.nnhgwtee.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/c0/16/ef/c016ef0a-b291-7e0b-da50-6dc259ad160e/mzl.sfwttyeo.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/e2/d9/fe/e2d9fee7-9b27-4c53-e357-ad3b780627f8/mzl.huuqcqwl.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/c1/9d/df/c19ddf4b-da9c-7c0a-d589-0d9a17720404/mzl.ckfkvxxj.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/de/69/c4/de69c4ab-73c7-0c48-5406-a4ca199a921a/mzl.guznerbo.jpg/576x768bb.jpg"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "roller-cactus",
+      "name": "Roller Cactus",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2018-02-09",
+      "year": 2018,
+      "mobile": true,
+      "genres": [
+        "entertainment",
+        "action",
+        "casual"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "Control your basketball on the round cactus rolling down the mountain. Avoid spines which sticks on the cactus and tap to jump into hoops.",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/roller-cactus/id1342155908"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/b5/18/b8/b518b8ce-7aa6-309a-4567-6aaa57b8df24/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/45/ae/5d/45ae5de0-06be-1444-341e-5e3c9a58649f/pr_source.png/406x228bb.png",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/b5/18/b8/b518b8ce-7aa6-309a-4567-6aaa57b8df24/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/45/ae/5d/45ae5de0-06be-1444-341e-5e3c9a58649f/pr_source.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/cc/06/6f/cc066fdf-7bd5-78cb-d016-9c2d8998463c/pr_source.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/b4/da/16/b4da16ac-9cd6-d76c-fd21-373bd2b0477b/pr_source.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/c8/6b/a5/c86ba581-112c-d869-a766-228b5c9d39a5/pr_source.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/59/5e/a3/595ea315-8e05-0995-37a2-46a0fc227675/pr_source.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/a3/60/65/a360652d-916c-10af-0ee0-4cd68b7a07d1/pr_source.png/552x414bb.png"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "escape-vortex",
+      "name": "Escape Vortex",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2018-05-12",
+      "year": 2018,
+      "mobile": true,
+      "genres": [
+        "entertainment",
+        "casual",
+        "action"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "See how far you can go between the lines?!  Escape Vortex is infuriating, frustrating and amazing fun, all at the same time. \n\nEscape Vortex is a highly addicting game of skill that tests your nerve and reflexes to the max. Jump to segment when it in front of you, react fast to stay far away from vortex. Remember time is important in this little addictive game.",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/escape-vortex/id1349113594"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/36/ca/c0/36cac0da-8c05-81f7-2c01-628120dac321/AppIcon-1x_U007emarketing-85-220-0-9.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/2f/67/ec/2f67eccb-8820-304b-288f-5df9a4ea5eb2/pr_source.png/392x696bb.png",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/36/ca/c0/36cac0da-8c05-81f7-2c01-628120dac321/AppIcon-1x_U007emarketing-85-220-0-9.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/2f/67/ec/2f67eccb-8820-304b-288f-5df9a4ea5eb2/pr_source.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/96/19/3b/96193b52-468a-fb48-390a-0b0fc66fb583/pr_source.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/fa/0e/c0/fa0ec068-e8b8-11d4-644f-e45f6ff669dd/pr_source.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple128/v4/86/21/2d/86212d15-3888-d304-a4c3-f044c263035a/pr_source.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/05/b3/85/05b38581-ea91-66a8-0d2c-286c6cab61ff/pr_source.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple118/v4/3d/cc/c5/3dccc57d-199c-5388-879f-856e5f0f441e/pr_source.png/576x768bb.png"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "fish-eat-fish-go-feed-to-grow",
+      "name": "Fish Eat Fish: Go Feed to Grow",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2025-05-22",
+      "year": 2025,
+      "mobile": true,
+      "genres": [
+        "puzzle",
+        "entertainment",
+        "action"
+      ],
+      "platforms": [
+        "Google Play",
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "Swim. Eat. Grow. Survive!\nDive into the vibrant world of a fast-paced and addictively fun 2D underwater adventure where size matters and survival depends on your appetite! Start as a tiny fish in a big ocean and eat smaller fish to grow — just make sure you don’t become someone else’s snack.",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.appidea.fish.monster.merge.game",
+        "appstore": "https://apps.apple.com/us/app/fish-eat-fish-go-feed-to-grow/id6714480971"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/34/ae/93/34ae9333-ac1e-d195-e96c-35b3fb323985/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a3/ba/4e/a3ba4e90-34d6-34ee-65d0-b4b7ecd532e9/Pure_Action_Iphone.png/320x480bb.jpg",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/34/ae/93/34ae9333-ac1e-d195-e96c-35b3fb323985/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/a3/ba/4e/a3ba4e90-34d6-34ee-65d0-b4b7ecd532e9/Pure_Action_Iphone.png/320x480bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/cc/87/ae/cc87ae35-17e5-4bf1-1f24-dab7430fd002/No_Ads_Iphone.png/320x480bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/fd/fc/12/fdfc120c-1959-29a1-08c8-a5f003ab7432/Grow_Explore_Iphone.png/320x480bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/ff/a7/7f/ffa77faa-c2dd-25cf-4537-2e753b680d61/Get_Boosters_Iphone.png/320x480bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/b9/2c/50/b92c50f6-0f0d-6f6a-8f34-0bdd202e06aa/Eat_Fish_Iphone.png/320x480bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f7/ce/18/f7ce189d-9562-08a8-1192-9ac227310624/No_Ads_Ipad.png/360x480bb.jpg"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "merge-horizons-village-builder",
+      "name": "Merge Horizons village builder",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2023-09-22",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "puzzle",
+        "board"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "Welcome to \"Merge Horizons Village Builder\" – the one of a kind puzzle game that takes the classic 2048 game to a whole new level!\n\nIn our unique gaming experience, you'll be sliding and merging various items on your 4x4 grid, such as fish, crowns, donuts, stars, shells, and leaves. The magic happens when two identical items merge and transform into a new, more valuable item, earning you gold coins in the process!\n\nTo help you along your journey, we have power-ups available! These power-ups can change the course of your game, adding an extra layer of strategy. Whether it's reshuffling the entire board, instantly removing an unwanted item, reversing your previous actions or interchanging two adjacent items on the board, these power-ups provide an exciting twist to your gaming experience.\n\nBut that's not all! Once you've collected enough gold coins, you can start building structures in your very own village. Watch as your sleepy town transforms into a bustling village, one building at a time. The more you build, the more your village flourishes!\n\nOnce you've built every possible structure and transformed your village into a thriving town, it's time to pack up and move to the next village. With each new area, the challenge increases, and the rewards grow even larger.\n\n\"Merge Horizons Village Builder\" combines the thrill of a puzzle, the excitement of item matching, and the joy of town-building, offering a gaming experience that will keep you engaged for hours on end.\n\nSo, are you ready to slide, swipe, match, merge, build, and move your way to the ultimate village? Download \"Merge Horizons Village Builder\" today and start your exciting journey!",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/merge-horizons-village-builder/id6453763634"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/7f/85/fc/7f85fcfc-a5ae-d539-5939-a171df07ccd5/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/10/80/be/1080beba-9be2-6515-cd7d-1b84f985303e/9f8ab2b6-a32e-40f8-a31d-583941a41842_1_U00281242x2208_U0029.png/392x696bb.png",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/7f/85/fc/7f85fcfc-a5ae-d539-5939-a171df07ccd5/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/10/80/be/1080beba-9be2-6515-cd7d-1b84f985303e/9f8ab2b6-a32e-40f8-a31d-583941a41842_1_U00281242x2208_U0029.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/c2/4d/13/c24d13a8-8f54-160b-1d29-f0f9257f0b7c/fa400d02-c9af-45be-80d4-b61a63b06229_2_U00281242x2208_U0029.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/84/7a/86/847a8604-37e0-9ad3-4d1d-d2beef9e8cc0/cdd56876-22f1-4768-9387-b7e4a0c2d2ba_3_U00281242x2208_U0029.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/8e/92/90/8e9290da-9270-2fd2-0a80-9a2e3eadbc97/cabe647e-19f4-4ec1-b98b-9f5fad5f937f_4_U00281242x2208_U0029.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/c3/03/d9/c303d9f7-6fff-d49c-7577-d232338b4e5f/c906ca72-bf71-4981-bc27-63c34e66a36a_4_U00282048x2732_U0029.png/576x768bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/5b/18/36/5b183697-d98a-3252-58ae-d2fd081c2585/ee87a5b5-a566-4505-9eea-bda7be1334a3_3_U00282048x2732_U0029.png/576x768bb.png"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "2048-village-builder",
+      "name": "2048 - Village Builder",
+      "studioId": "appidea",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Oct 12, 2023",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "puzzle"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Enhance your gaming experience with a unique twist on the classic 2048 puzzle!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.merge.builder.puzzle2048"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/VmiGUC9yQI14csGQVfmvEx8HPIAhPqbn_0xMMlSB2iKPnS1TkQWip9Xj1F2C2_q-8YXzIW-4LrC_Jg_gysLoqQ",
+        "hero": "https://play-lh.googleusercontent.com/VmiGUC9yQI14csGQVfmvEx8HPIAhPqbn_0xMMlSB2iKPnS1TkQWip9Xj1F2C2_q-8YXzIW-4LrC_Jg_gysLoqQ",
+        "portrait": "https://play-lh.googleusercontent.com/VmiGUC9yQI14csGQVfmvEx8HPIAhPqbn_0xMMlSB2iKPnS1TkQWip9Xj1F2C2_q-8YXzIW-4LrC_Jg_gysLoqQ",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "guns-fury",
+      "name": "Guns & Fury",
+      "studioId": "golden-fox",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2021-11-16",
+      "year": 2021,
+      "mobile": true,
+      "genres": [
+        "action"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN, JA, KO",
+      "about": "Step into the Wild West and become the fastest gun in Red Valley with Guns & Fury! This fast-paced action mobile game puts you in the shoes of a wooden gunslinger on a mission to claim the title. With stunning 3D graphics, seamless controls, and a diverse arsenal of weapons, get ready for an unforgettable experience.\n\nPut your skills to the test with challenging bounties, epic boss battles, and a variety of game modes that cater to players of all skill levels. In the thrilling Zombie mode, fight off endless waves of the undead with strategy and lightning-fast reflexes. Each type of zombie presents its own unique abilities and weaknesses, so stay sharp and take them down!\n\nGuns & Fury is all about intense action. Experience the thrill of 1 vs 1 duels, where quick thinking and precision are key. Master our unholstering, shooting, and reloading gameplay mechanics and become the ultimate gunslinger in the Wild West!",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/guns-fury/id1589304660"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6f/a2/82/6fa2827b-6342-1d33-454c-ee3c13f0e4c3/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/11/95/25/11952501-b840-cba0-6bc7-1de396f22929/5dfdb5bd-34f6-42ea-88bb-8033cef0e880_Fast_Paced_Duels2208x1242.jpg/406x228bb.jpg",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/6f/a2/82/6fa2827b-6342-1d33-454c-ee3c13f0e4c3/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/11/95/25/11952501-b840-cba0-6bc7-1de396f22929/5dfdb5bd-34f6-42ea-88bb-8033cef0e880_Fast_Paced_Duels2208x1242.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/71/18/96/71189629-3afe-a66e-a749-f9f2676d5129/7f46a1fc-701e-49c2-a42f-5e81a5941b11_Explore_Red_Valley_Hub2208x1242.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/56/5b/a5/565ba5fc-f40d-2df5-1696-d13131a82c58/2b3bce5e-caaf-440c-8e12-d83b494395ea_Claim_Bounties2208x1242.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/fb/8a/2b/fb8a2bd8-039e-47e2-3c8c-7e0607cbe0c2/4d738cd7-f5bd-4a6d-b70d-6a2b11998c4d_Zombie_Mode2208x1242.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/1c/d4/5b/1cd45b38-afd3-72c4-4669-45052386b53a/b9873b3f-16c7-4b3d-80dd-33ef44cb58cf_Duel_Others2208x1242.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c0/86/38/c0863815-41dd-fc56-5fa5-4e488836a095/d85c7d50-03c8-4fb6-942c-7cfc39f7ff79_Customize_Character2208x1242.jpg/406x228bb.jpg"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "battle-for-basiani",
+      "name": "Battle For Basiani",
+      "studioId": "golden-fox",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2020-02-24",
+      "year": 2020,
+      "mobile": true,
+      "genres": [
+        "action"
+      ],
+      "platforms": [
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "Choose between three different characters and try to achieve the highest score you can, in a world of chaos where everyone is out to party.\n\nYou play as characters who decide to fight chaos with chaos and are stuck in endless loop of waves.\n\nPLEASE NOTE: the game is free to play and will feature only in-game Ads. \n\nGame is a parody, it carries no political or social messages.\n\nNetwork connection is not required to play the game.",
+      "aboutEn": "",
+      "stores": {
+        "appstore": "https://apps.apple.com/us/app/battle-for-basiani/id1495060685"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/38/ea/ba/38eabab9-0d79-2436-a978-cd4646a9864c/AppIcon-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/Purple114/v4/e0/06/08/e006088b-41c5-a5e1-ea64-9428184d15ca/pr_source.jpg/406x228bb.jpg",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/38/ea/ba/38eabab9-0d79-2436-a978-cd4646a9864c/AppIcon-1x_U007emarketing-0-7-0-85-220.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple114/v4/e0/06/08/e006088b-41c5-a5e1-ea64-9428184d15ca/pr_source.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/dc/a5/3c/dca53c53-66d2-47e2-5fa7-c9093dc5ab07/pr_source.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/76/e9/05/76e9057b-3869-3be6-f140-762a25d49fc3/pr_source.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple124/v4/ed/17/4b/ed174b1e-9dcd-3332-cbf2-d92a1b1712d6/pr_source.jpg/406x228bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple114/v4/35/f5/3d/35f53d86-a3ba-8424-8f45-5c3e3a958858/pr_source.jpg/552x414bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple114/v4/3e/7c/95/3e7c95c9-a298-7bd0-5cea-c92de61cead8/pr_source.jpg/552x414bb.jpg"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "snakes-vs-bricks",
+      "name": "Snakes vs Bricks",
+      "studioId": "happy-bat-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Nov 7, 2025",
+      "year": 2025,
+      "mobile": true,
+      "genres": [
+        "puzzle"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Tap, match, feed snakes, and survive the conveyor chaos without filling storage.",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.happybat.snakevsbricks"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/ZND3w9YGY9ZnPp3_a9d-EICk06pCnEJJ36QikRzcExJMepuBX-TUzcJAOIRBwJ-6OjWmpw15GXxJxj89b3-u",
+        "hero": "https://play-lh.googleusercontent.com/ZND3w9YGY9ZnPp3_a9d-EICk06pCnEJJ36QikRzcExJMepuBX-TUzcJAOIRBwJ-6OjWmpw15GXxJxj89b3-u",
+        "portrait": "https://play-lh.googleusercontent.com/ZND3w9YGY9ZnPp3_a9d-EICk06pCnEJJ36QikRzcExJMepuBX-TUzcJAOIRBwJ-6OjWmpw15GXxJxj89b3-u",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "pixel-fury-classic-fps-shooter",
+      "name": "Pixel Fury Classic FPS Shooter",
+      "studioId": "stormbringer-studios",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2023-04-06",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "simulation",
+        "entertainment",
+        "action"
+      ],
+      "platforms": [
+        "Google Play",
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "CA, EN, FR, DE, JA, KO, ZH, ES",
+      "about": "Try Pixel Fury: Battle Royale in 3D where you can fight against players worldwide! In this FPS pocket edition you can use multiple block guns (from axes to sniper) and play with friends on awesome maps! Join with thousands of players around the world! Pick your weapon and start your duty causing havoc and destruction in this battle thorn environment of Pixel Fury!  \n\nIN THIS FREE WORLD WIDE MULTIPLAYER YOU CAN:\n\n+ Battle against friends with wide variety of guns including bazookas, mini gun, axes, shotguns, combat rifles, sniper, UZI, AK, RPG and many other!\n\n+ Earn points to unlock new pixel weapons & characters!\n\n+ Choose between different awesome FPS game modes of DEATHMATCH, TEAM DEATHMATCH and CAPTURE THE FLAG!\n\n+ Customize your character with VAST SELECTION OF DIFFERENT SKINS!\n\n+ Play on AWESOME MULTIPLAYER MAPS IN 3D which are all UNLOCKED!\n\n+  Cause HAVOC: Throw grenades, sniper the enemy, shoot with bazooka!\n\nSoldier! You have to free your full fury and craft a bulletproof plan to survive in these wars of mass destruction. Which weapon are your going to pick for survival?\nDifferent block guns have different abilities, would it be best to kill the enemy with a close up combat knife or craft a pistol for that? Sniper him from a distance or call extinguish to his survival using a bazooka?\nIn this modern shooter game, sniper is great for city maps and it is  a wonderful firearm in team deathmatches. While cops team runs into the robbers hordes with block knifes, kalashnikovs blazing and RPG roaming, you can eliminate enemies in stealth mode. \nAnother wicked craft is to wait for the robbers to gather up in the city center and blast them away using a missile weapon. Or you can use a close combat weapon in the fast paced city fights to take the robbers out from a short range. However, if you wish to enjoy great multiplayer action in the good old shooting games style, pick a pixel gun or AK 47 and have fun shooting!\n\nYou have to constantly improve in this shooting game, the more wars you survive the stronger you get. After each duty you will increase in experience, which allows you to craft new weapons n skins. Buy modern weapons & fps enhancers like armor, ammo and firepower to your guns. You can upgrade firearms to improve ammo capacity, accuracy and fire rate.\n\nThere are a lot of different skins in this pixel shooter, play as general, zombie, boy or cop! Call your war skin wisely, some skins work well for night time maps, blending in with the battleground n increasing your chances of survival, some just look very cool!\n\nYou can blast the enemies in different worlds! There are fps maps which take place in a desert or city. You can shoot the robbers at night time in harbor container fields or during a snowy day in an open arena or even in space!\n\nBe wise choosing the best shooting game mode for you! During deathmatch wars you can shoot all opponents. Get your best gun out n call destruction. It is the survival of the fittest.\nHowever, when trying to call for team deathmatch, do your best to help your military commando! Fill your duty by using a missile weapon or jump into shooter action with a shotgun!\nWhen you have chosen capture the flag mode you have to craft a clever plan. Find the right balance between defending your commando outpost while trying to capture the robbers base. One war tactic is to divide the block army. One great block commando duty is to go behind the enemy lines, shooting everyone in the city, while the other commando will guard your flag in full honor!\n\nThe battle is yours! Experience a 3D war like never before! Cause immense havoc!\nWide variety of fire arms offer you best & awesome shooting experience for hours in this world of action.\n\nJoin Pixel Fury multiplayer 3D shooter! Get your guns blazing in massive FPS battle!\n\nGood luck, soldier!\n\nVisit\n\nhttps://www.facebook.com/PixelFuryClassic/\n\nhttps://stormbringerstudios.com/discord",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.sbs.pixelfury.fps.shooter",
+        "appstore": "https://apps.apple.com/us/app/pixel-fury-classic-fps-shooter/id6446079999"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/34/d2/9f/34d29f89-c422-4640-dd6a-904ae5740efb/AppIcon-1x_U007emarketing-0-7-0-85-220-0.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/47/df/c6/47dfc6ac-53de-55fb-4d60-7732166d6914/e514769c-56bc-4f0f-9888-5036c02d334b_Fury_Game_Store.png/406x228bb.png",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/34/d2/9f/34d29f89-c422-4640-dd6a-904ae5740efb/AppIcon-1x_U007emarketing-0-7-0-85-220-0.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/47/df/c6/47dfc6ac-53de-55fb-4d60-7732166d6914/e514769c-56bc-4f0f-9888-5036c02d334b_Fury_Game_Store.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/77/85/20/778520bc-1b85-f741-fd1e-f07a8a8a25ad/6950c0ad-8c23-4735-bf01-abbe6f61efd0_Planet_69_Ingame.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/5e/62/8a/5e628ab6-16a9-ee88-a367-029a32d54d68/2151751e-70ea-445a-8767-ac306a4656fa_Rust_Ingame.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/d9/ba/5c/d9ba5cb9-00c4-72ca-3236-a60cbb8afd92/b7c8e073-6180-48b7-8cb1-d3de7c785ae0_Oasis_Ingame.png/406x228bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/21/95/de/2195dec8-bde0-6530-0c11-cc201d5104b9/d4f0bb68-5620-4354-91fc-d7a889cae4ae_Fury_Game_Store.png/552x414bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/07/e9/cf/07e9cff6-fb46-41c9-3148-d192a3fbf644/d3097f1f-6fea-4b6f-b1bc-12e691bfacb7_Planet_69_Ingame.png/552x414bb.png"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "tsikara",
+      "name": "Tsikara",
+      "studioId": "stormbringer-studios",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2024-12-31",
+      "year": 2024,
+      "mobile": true,
+      "genres": [
+        "action",
+        "adventure"
+      ],
+      "platforms": [
+        "Google Play",
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "Tsikara is a 2D platformer game based on a Georgian fairy tale.\n\nThe story of the fairy tale is as follows: a young boy has a bull named Tsikara. The boy’s stepmother decides to get rid of both him and Tsikara. Tsikara reveals the plan to the boy, and together they flee from home.\n\nIn the first part of the tale, the boy collects magical items. In the second part, the stepmother, mounted on a boar, chases the boy and Tsikara. In the third part, Tsikara must rescue the boy, who has been imprisoned in a nine-lock fortress.\n\nThe game is an interactive fairy tale, featuring illustrations created by artist Giorgi Jinchardze.",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.MeAndMyBrother.Tsikara",
+        "appstore": "https://apps.apple.com/us/app/tsikara/id6739938729"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/30/8c/18/308c1814-4d5e-2efa-7ba0-1b998d5a2907/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/39/04/55/39045598-3ea4-70af-efbe-e3da9bda95fe/A_1_2868x1320.png/320x480bb.jpg",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/30/8c/18/308c1814-4d5e-2efa-7ba0-1b998d5a2907/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/39/04/55/39045598-3ea4-70af-efbe-e3da9bda95fe/A_1_2868x1320.png/320x480bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/c5/2a/b1/c52ab166-5d60-e70e-40cc-329414f1e282/A_2_2868x1320.png/320x480bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/62/3a/4e/623a4e31-0256-f7b4-cf00-5933023cfd8a/A_3_2868x1320.png/320x480bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/22/0e/5e/220e5ec2-66cb-c463-897a-4da19494dad4/C_1_2752x2064.jpg/360x480bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/31/cf/b4/31cfb4cc-92e7-04c9-265d-1eac1672767e/C_2_2752x2064.png/360x480bb.jpg",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/38/f0/e3/38f0e38a-ac0e-6e84-dc45-04011e9c1f55/C_3_2752x2064.png/360x480bb.jpg"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "freekick-shooter",
+      "name": "FreeKick Shooter",
+      "studioId": "stormbringer-studios",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2023-01-18",
+      "year": 2023,
+      "mobile": true,
+      "genres": [
+        "action",
+        "sports",
+        "sports"
+      ],
+      "platforms": [
+        "Google Play",
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "For the Football fans from all over the world.\nExperience yourself in the kicking shoes of the greatest number 10s of the Football World. Practice Trick shots, shoot the ball avoiding defenders and past the goalkeeper in practice mode. Test your skills in Arcade mode and cycle through different soccer arenas, stadiums, sand beach, street ball arena and even outer space. If you are skilled enough you can Battle the Time itself in Rush mode, score as many goals as possible in limited time and compete on Global Leaderboard. Enhance your experience with huge variety of Ball and Defender designs.",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.stormbringerstudios.freekickshooter.football",
+        "appstore": "https://apps.apple.com/us/app/freekick-shooter/id1665557204"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ad/80/9b/ad809bd4-a868-bc87-1d33-b9cea4f3fee9/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ed/af/b2/edafb203-6157-945a-eaf3-03cdbefecb1a/92ca47ec-7a86-441a-97a4-44c2cbe2c1ef_5.5_3.png/392x696bb.png",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ad/80/9b/ad809bd4-a868-bc87-1d33-b9cea4f3fee9/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ed/af/b2/edafb203-6157-945a-eaf3-03cdbefecb1a/92ca47ec-7a86-441a-97a4-44c2cbe2c1ef_5.5_3.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/69/e3/ea/69e3eab7-8636-51a4-aede-7a0423fa871e/626e8b7d-3c04-4a78-b65f-c2f5229aa1e2_5.5_1.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/61/40/e1/6140e19b-ab0a-5e50-682c-3d28c32e4519/8d94b8a9-121c-4065-acc9-17c6784fb167_5.5_4.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/3c/29/b2/3c29b238-81ba-0ea5-7ffe-d02433775695/9af9ecd2-a778-4a23-b56f-caa4d4b5094f_5.5_2.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/69/f3/21/69f321eb-6de1-0296-c287-eb0a4f5f8aed/8d1ce4ae-0756-4dd0-8bee-66607fdc2139_5.5_5.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ed/b1/05/edb10579-46a8-d12c-8211-b3ebcafd6469/2ff2c33b-b25a-4526-9cb9-12f04e560391_5.5_6.png/392x696bb.png"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "puncherman-fist-of-fury",
+      "name": "Puncherman: Fist of fury",
+      "studioId": "stormbringer-studios",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2020-05-16",
+      "year": 2020,
+      "mobile": true,
+      "genres": [
+        "action",
+        "casual"
+      ],
+      "platforms": [
+        "Google Play",
+        "App Store"
+      ],
+      "engine": "",
+      "price": "Free",
+      "langs": "EN",
+      "about": "Set in Greatest traditions of Martial Arts movies from the 80's Puncherman: Fist of fury gives you an opportunity to Punch your way through the wooden planks and become the best there is. Unleash the Fist of Fury!\n\nSimple\nFun\nAddictive",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.stormbringerstudios.puncherman.fistoffury",
+        "appstore": "https://apps.apple.com/us/app/puncherman-fist-of-fury/id1513557351"
+      },
+      "art": {
+        "capsule": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/99/01/d0/9901d025-05b5-2dcd-d8c7-73f96b462e22/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+        "hero": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource122/v4/e2/b6/e7/e2b6e768-924f-f4d2-3c66-5eda84286564/cd259b1e-ad32-494f-89b5-fb1ec36fcfee_1242x2208_1.png/392x696bb.png",
+        "portrait": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/99/01/d0/9901d025-05b5-2dcd-d8c7-73f96b462e22/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+        "shots": [
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource122/v4/e2/b6/e7/e2b6e768-924f-f4d2-3c66-5eda84286564/cd259b1e-ad32-494f-89b5-fb1ec36fcfee_1242x2208_1.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource112/v4/8d/d9/10/8dd9102b-d843-a3f6-68ab-bbae0882cf64/1e3c1011-6b21-431a-84fe-ae81cde8d6a0_1242x2208_2.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource122/v4/2c/aa/3a/2caa3a02-9e02-af70-5395-e53ca468b230/4bce4fca-097e-453e-a469-5fc4b2f09dd4_1242x2208_4.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource112/v4/6d/b3/a4/6db3a474-c6b6-84ce-1a9a-11dec7bce673/b9cf2f4c-885b-443a-992a-f1d5c69e35d8_1242x2208_3.png/392x696bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/c1/f0/04/c1f004ed-ef20-d19f-248d-c31e4c588d29/1acfcd4a-5314-4a4f-9937-e588f8664055_2048x2732_1.png/576x768bb.png",
+          "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource122/v4/5a/f7/df/5af7df6b-fe96-5952-8d21-a9c7a8f601ff/403530f4-9470-422d-b142-6bc659dd9fc2_2048x2732_2.png/576x768bb.png"
+        ]
+      },
+      "localArt": "",
+      "source": "appstore",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "bitcoin-jam",
+      "name": "Bitcoin Jam",
+      "studioId": "stormbringer-studios",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Jun 7, 2026",
+      "year": 2026,
+      "mobile": true,
+      "genres": [
+        "puzzle"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Solve fun bus puzzles, match passengers, and earn real rewards for free!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.mobileesports.bitcoinjam"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/XzwZWRKr_RsTdzRwx7Q3MhWOdJM9KC5yAvU8mQ_r6ga0a9azEscaar2PFEbtDwHYtxIB4co_xlMDJ-b4DB8hMg",
+        "hero": "https://play-lh.googleusercontent.com/XzwZWRKr_RsTdzRwx7Q3MhWOdJM9KC5yAvU8mQ_r6ga0a9azEscaar2PFEbtDwHYtxIB4co_xlMDJ-b4DB8hMg",
+        "portrait": "https://play-lh.googleusercontent.com/XzwZWRKr_RsTdzRwx7Q3MhWOdJM9KC5yAvU8mQ_r6ga0a9azEscaar2PFEbtDwHYtxIB4co_xlMDJ-b4DB8hMg",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "stickman-party-jump-merge",
+      "name": "Stickman Party Jump Merge",
+      "studioId": "stormbringer-studios",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Sep 12, 2025",
+      "year": 2025,
+      "mobile": true,
+      "genres": [
+        "casual"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Spawn, jump & merge stickmen on trampolines! Unlock cash & characters!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.sbs.stickman.party.jump.merge"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/2Kf0y4n5bYiuapyuB1T-LXzHsjk7dFFq_ievd8pws6NEPIezimZ0s-C4z6QITE29fIUxfaaq1GyJXZnI_Iy9",
+        "hero": "https://play-lh.googleusercontent.com/2Kf0y4n5bYiuapyuB1T-LXzHsjk7dFFq_ievd8pws6NEPIezimZ0s-C4z6QITE29fIUxfaaq1GyJXZnI_Iy9",
+        "portrait": "https://play-lh.googleusercontent.com/2Kf0y4n5bYiuapyuB1T-LXzHsjk7dFFq_ievd8pws6NEPIezimZ0s-C4z6QITE29fIUxfaaq1GyJXZnI_Iy9",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "stickman-soccer-juggle-merge",
+      "name": "Stickman Soccer Juggle Merge",
+      "studioId": "stormbringer-studios",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Aug 22, 2025",
+      "year": 2025,
+      "mobile": true,
+      "genres": [
+        "casual"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Juggle, merge & unlock balls in a fun stickman soccer game!",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.sbs.stickman.soccer.juggle.merge"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/MI-gRIJqGC_IrGu4T9LZ7a169UZEI7b4dXwoCZnVIZVSmaz5NwNJwhgRWiuMtr3c2boeRXnJLpYTCostavv-knM",
+        "hero": "https://play-lh.googleusercontent.com/MI-gRIJqGC_IrGu4T9LZ7a169UZEI7b4dXwoCZnVIZVSmaz5NwNJwhgRWiuMtr3c2boeRXnJLpYTCostavv-knM",
+        "portrait": "https://play-lh.googleusercontent.com/MI-gRIJqGC_IrGu4T9LZ7a169UZEI7b4dXwoCZnVIZVSmaz5NwNJwhgRWiuMtr3c2boeRXnJLpYTCostavv-knM",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "number-race-merge-arcade",
+      "name": "Number Race: Merge Arcade",
+      "studioId": "stormbringer-studios",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Oct 29, 2025",
+      "year": 2025,
+      "mobile": true,
+      "genres": [
+        "casual"
+      ],
+      "platforms": [
+        "Google Play"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "Run, collect, and conquer as you race through exciting levels.",
+      "aboutEn": "",
+      "stores": {
+        "googleplay": "https://play.google.com/store/apps/details?id=com.sbs.number.race"
+      },
+      "art": {
+        "capsule": "https://play-lh.googleusercontent.com/KEVhhhIOroJx8F3xxW4YxRLuunb-0PZcSsDeGlRmHM-vgOK8Srr1_06V6FFLZENOZKEcBc7e36Jhw_c24fejOag",
+        "hero": "https://play-lh.googleusercontent.com/KEVhhhIOroJx8F3xxW4YxRLuunb-0PZcSsDeGlRmHM-vgOK8Srr1_06V6FFLZENOZKEcBc7e36Jhw_c24fejOag",
+        "portrait": "https://play-lh.googleusercontent.com/KEVhhhIOroJx8F3xxW4YxRLuunb-0PZcSsDeGlRmHM-vgOK8Srr1_06V6FFLZENOZKEcBc7e36Jhw_c24fejOag",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "googleplay",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "vrz-torment",
+      "name": "VRZ: Torment",
+      "studioId": "stormbringer-studios",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "18 May, 2017",
+      "year": 2017,
+      "mobile": false,
+      "genres": [
+        "action",
+        "adventure",
+        "indie",
+        "rpg"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$0.90 USD",
+      "langs": "Englishlanguages with full audio support",
+      "about": "Be immersed into Purgatory Island of undead and dying. Solve mysteries to escape while trying to survive. The undead are rising, zombie skags are swarming the land, and your end is fast approaching! Arm yourself, uncover what you need to survive, and escape the inescapable.",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/484350/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/484350/header.jpg?t=1769504166",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/484350/page_bg_raw.jpg?t=1769504166",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/484350/ss_2f451f239f1fc78a938121d9cf1688309c6ead41.600x338.jpg?t=1769504166",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/484350/ss_50269ec78ebf310089e6b4962815bd5a22cb4b77.600x338.jpg?t=1769504166",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/484350/ss_2b807b2ecfccb6f63de6e0c4fd7a22f6763cbdee.600x338.jpg?t=1769504166"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-10-02T10:38:38.061Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "survive-georgia",
+      "name": "Survive Georgia",
+      "studioId": "beka-bitarashvili",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "survival",
+        "action",
+        "educational"
+      ],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://beka-bitara.itch.io/survive-georgia"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzI3OTQ3MTYwLmpwZw==/original/8%2Bnfu2.jpg",
+        "hero": "https://img.itch.zone/aW1nLzI3OTQ3MTYwLmpwZw==/original/8%2Bnfu2.jpg",
+        "portrait": "",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T10:39:53.270Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "my-time-my-rules",
+      "name": "My Time My Rules",
+      "studioId": "გიგა-ფუტკარაძე",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "platformer"
+      ],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "Unity",
+      "price": "",
+      "langs": "",
+      "about": "You need to jump in time to jump on platforms",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://giga-putkaradze.itch.io/my-time-my-rules"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzI3NjkzNDAxLnBuZw==/original/wrMZQc.png",
+        "hero": "https://img.itch.zone/aW1nLzI3NjkzNDAxLnBuZw==/original/wrMZQc.png",
+        "portrait": "",
+        "shots": []
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T10:39:53.682Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
       "created": "2026-10-02",
       "updated": "2026-10-02"
     }

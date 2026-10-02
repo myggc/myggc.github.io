@@ -445,7 +445,7 @@
       "contact": "თორნიკე ჯორთმენაძე",
       "about": "ვქმნით მაღალი ხარისხის მობილურ თამაშებს — ჩამთრევი გეიმფლეით, დახვეწილი ვიზუალით და დასამახსოვრებელი გამოცდილებით.",
       "aboutEn": "We create high-quality mobile games with a focus on engaging gameplay, polished visuals, and memorable player experiences.",
-      "logo": "",
+      "logo": "images/logos/tensu-forge.jpg?v=1790937518061",
       "links": {
         "linkedin": "https://www.linkedin.com/company/tensu-forge/"
       },
@@ -474,7 +474,7 @@
       "contact": "კონსტანტინე ჟორჟოლიანი, CEO",
       "about": "xidePunk Studio არის თამაშების დეველოპმენტისა და 3D ციფრული არტის აუთსორსინგ სტუდია. ვქმნით მაღალი ხარისხის ასეტებს, ძირითადად Unreal Engine-ისთვის — FPS სისტემებისთვის 3D იარაღის მოდელირება, ტექსტურირება, რიგინგი და AAA ანიმაციები, ასევე გარემოს არტი და Blueprint სისტემები.",
       "aboutEn": "xidePunk Studio is a game development and 3D digital art outsourcing studio. We create high-quality game assets primarily for Unreal Engine — 3D weapon modelling for FPS systems, texturing, rigging and AAA animations, plus environment art and custom Blueprint systems.",
-      "logo": "",
+      "logo": "images/logos/xidepunk-studio.jpg?v=1790937518061",
       "links": {
         "linkedin": "https://www.linkedin.com/company/105684275/",
         "artstation": "https://www.artstation.com/xidepunk"
@@ -503,7 +503,7 @@
       "contact": "",
       "about": "სოლო დეველოპერი — მეტროიდვანია, Souls-like და RPG. itch.io-ზე აქვს რამდენიმე პროექტი, მათ შორის The Liftman და Duskblade. შთაგონება: Soulsborne, Hollow Knight, Disco Elysium.",
       "aboutEn": "Solo developer — metroidvania, souls-like and RPG. Several projects on itch.io, including The Liftman and Duskblade. Inspired by Soulsborne, Hollow Knight and Disco Elysium.",
-      "logo": "",
+      "logo": "images/logos/საბა-სანიკიძე.jpg?v=1790937518061",
       "links": {
         "itch": "https://sabexdev.itch.io/"
       },
@@ -531,7 +531,7 @@
       "contact": "",
       "about": "არტ დირექტორი 13 წელზე მეტი გამოცდილებით AAA, AA, რეალისტურ, სტილიზებულ და live-service პროექტებში. სპეციალიზაცია: ვიზუალური მიმართულება, არტ დირექშენი, გარემოს არტი, წარმოების პაიპლაინები, გუნდის ხელმძღვანელობა და სხვადასხვა მიმართულების გუნდებთან თანამშრომლობა.",
       "aboutEn": "Art Director with 13+ years of experience across AAA, AA, realistic, stylized and live-service productions. Specialised in visual direction, art direction, environment art, production pipelines, team leadership and cross-discipline collaboration.",
-      "logo": "",
+      "logo": "images/logos/zurab-barisashvili.jpg?v=1790937518061",
       "links": {
         "linkedin": "https://www.linkedin.com/in/vikingvalhalla"
       },
@@ -643,7 +643,8 @@
       "aboutEn": "Generalist game designer, aiming to take quest and combat design to the highest level.",
       "logo": "",
       "links": {
-        "linkedin": "https://www.linkedin.com/in/giga-p-b9a354196"
+        "linkedin": "https://www.linkedin.com/in/giga-p-b9a354196",
+        "itch": "https://giga-putkaradze.itch.io/"
       },
       "verified": true,
       "active": true,
@@ -723,9 +724,10 @@
       "contact": "",
       "about": "მე ვარ ბექა ბიტარაშვილი, სოლო დეველოპერი. თამაშების კეთება დავიწყე Python-ის ნეითივზე და შემდეგ გადავედი Godot-ის ძრავზე, დღეს ამ ძრავზე ვმუშაობ.",
       "aboutEn": "I'm Beka Bitarashvili, a solo developer. I started making games in plain Python, then moved to the Godot engine, which I work in today.",
-      "logo": "",
+      "logo": "images/logos/beka-bitarashvili.jpg?v=1790937518061",
       "links": {
-        "github": "https://github.com/BekaBitarashvili"
+        "github": "https://github.com/BekaBitarashvili",
+        "itch": "https://beka-bitara.itch.io/"
       },
       "verified": true,
       "active": true,
@@ -806,7 +808,7 @@
       "contact": "",
       "about": "გამარჯობა, მე ვარ Giovanni Giorgo, მაგრამ ყველა Soap-ს მეძახის. უბრალოდ მიყვარს თამაშების კეთება — ნებისმიერი ჟანრის. მომწერეთ რჩევისთვის ან შემოთავაზებით.",
       "aboutEn": "Hello my name is Giovanni Giorgo, but everybody calls me Soap. I just love making games, any kind of game — feel free to contact for advice or offers.",
-      "logo": "",
+      "logo": "images/logos/ნიკოლოზ-შეყილაძე.jpg?v=1790937518061",
       "links": {},
       "verified": true,
       "active": true,
@@ -888,9 +890,11 @@
       "contact": "",
       "about": "ქართული დეველოპერი და თვითგამომცემელი — ქმნის კაჟუალ და მიდ-კორ მობილურ თამაშებს iOS-ისა და Android-ისთვის. ყველაზე წარმატებული თამაში, Pixel Sword Fish io, 15 მილიონზე მეტჯერაა ჩამოტვირთული.",
       "aboutEn": "Georgian developer and self-publisher of casual and mid-core mobile games for iOS and Android. Its most successful game, Pixel Sword Fish io, has over 15 million downloads.",
-      "logo": "",
+      "logo": "images/logos/appidea.jpg?v=1790937518061",
       "links": {
-        "linkedin": "https://www.linkedin.com/company/appidea-games"
+        "linkedin": "https://www.linkedin.com/company/appidea-games",
+        "appstore": "https://apps.apple.com/us/developer/appidea/id995922286",
+        "googleplay": "https://play.google.com/store/apps/developer?id=APPIDEA+Capital+LTD"
       },
       "verified": false,
       "active": true,
@@ -917,9 +921,9 @@
       "contact": "",
       "about": "დამოუკიდებელი სტუდია, რომელიც მობილურ თამაშებს ქმნის. მთავარი პროექტი — Guns & Fury (iOS).",
       "aboutEn": "Independent studio making mobile games. Flagship title: Guns & Fury on iOS.",
-      "logo": "",
+      "logo": "images/logos/golden-fox.jpg?v=1790937518061",
       "links": {
-        "appstore": "https://apps.apple.com/developer/golden-fox-llc/id1589304659"
+        "appstore": "https://apps.apple.com/us/developer/golden-fox-llc/id1495060684"
       },
       "verified": false,
       "active": true,
@@ -945,10 +949,11 @@
       "contact": "",
       "about": "თბილისური სტუდია, დაარსებული 2017 წელს. ქმნის ჰიბრიდულ და ჰიპერ-კაჟუალ მობილურ თამაშებს; ადრე — VR თამაშებიც (VR Table Sports, Mad Farm).",
       "aboutEn": "Tbilisi studio founded in 2017, making hybrid and hyper-casual mobile games; earlier VR titles include VR Table Sports and Mad Farm.",
-      "logo": "",
+      "logo": "images/logos/happy-bat-games.jpg?v=1790937518061",
       "links": {
         "facebook": "https://www.facebook.com/HappyBatGames/",
-        "linkedin": "https://www.linkedin.com/company/happy-bat"
+        "linkedin": "https://www.linkedin.com/company/happy-bat",
+        "googleplay": "https://play.google.com/store/apps/developer?id=Happy+Bat"
       },
       "verified": false,
       "active": true,
@@ -1006,7 +1011,7 @@
       "contact": "",
       "about": "თბილისური მულტიმედიისა და თამაშების დეველოპმენტის აუთსორსინგ სტუდია — 3D და 2D არტი, ანიმაცია, აუდიო. საკუთარი თამაში: Keyboard Rush.",
       "aboutEn": "Tbilisi multimedia and game development outsourcing studio — 3D and 2D art, animation and audio. Own game: Keyboard Rush.",
-      "logo": "",
+      "logo": "images/logos/peacox-studio.jpg?v=1790937518061",
       "links": {
         "artstation": "https://peacoxstudio.artstation.com/"
       },
@@ -1034,7 +1039,7 @@
       "contact": "",
       "about": "თამაშებისა და გართობის კომპანია, დაარსებული თბილისში 2019 წელს. ქმნის მობილურ თამაშებს iOS-ისა და Android-ისთვის, ასევე გეიმიფიცირებულ მარკეტინგულ კამპანიებს, აპლიკაციებს და სარეკლამო ვიდეოს. Arena Games-ის მშობელი კომპანია.",
       "aboutEn": "Game development and entertainment company founded in Tbilisi in 2019. Builds mobile games for iOS and Android alongside gamified marketing campaigns, apps and advertising video. Parent company of Arena Games.",
-      "logo": "",
+      "logo": "images/logos/sambrela.jpg?v=1790937518061",
       "links": {
         "linkedin": "https://www.linkedin.com/company/sambrela"
       },
@@ -1063,7 +1068,7 @@
       "contact": "",
       "about": "თბილისური სტუდია, დაარსებული 2013 წელს. ქმნის კაჟუალ მობილურ თამაშებს Unity-ზე; პირველი პროექტები — Geopolice 1 და 2, მილიონზე მეტი ჩამოტვირთვით. აუთსორსზე მუშაობდა Last Day on Earth-ზე.",
       "aboutEn": "Tbilisi studio founded in 2013, making casual mobile games in Unity. Its first titles, Geopolice 1 and 2, passed a million downloads; outsourcing work includes Last Day on Earth.",
-      "logo": "",
+      "logo": "https://play-lh.googleusercontent.com/_CSxkLsSwIKhlKvS2NaeB-m_lsxhj1yrVCh5KruIzdIuf3QQWRIXL2GZkCwpQTQZow",
       "links": {
         "facebook": "https://www.facebook.com/StormBringerStudios",
         "appstore": "https://apps.apple.com/us/developer/stormbringer-studios/id972116619",
@@ -1093,7 +1098,7 @@
       "contact": "",
       "about": "სოლო დეველოპერი, რომელიც ქმნის სიუჟეტზე დაფუძნებულ ჰარდკორ სურვაივალ თამაშს AB AETERNO — თავიდანვე VR-ისთვის შექმნილს.",
       "aboutEn": "Solo developer building AB AETERNO, a story-driven hardcore survival experience designed for VR from the ground up.",
-      "logo": "",
+      "logo": "images/logos/irakli-kokrashvili.jpg?v=1790937518061",
       "links": {},
       "verified": false,
       "active": true,
