@@ -43,13 +43,13 @@
     },
     {
       "id": "mtatsminda-studio",
-      "kind": "team",
+      "kind": "solo",
       "name": "Mtatsminda Studio",
-      "legal": "Mtatsminda Studio",
-      "regId": "5764",
+      "legal": "Iakob Janiashvili",
+      "regId": "",
       "city": "თბილისი",
-      "founded": 2025,
-      "size": "1-2",
+      "founded": 0,
+      "size": "",
       "roles": [
         "developer"
       ],
@@ -429,7 +429,7 @@
     },
     {
       "id": "tensu-forge",
-      "kind": "company",
+      "kind": "team",
       "name": "Tensu Forge",
       "legal": "Tensu Forge",
       "regId": "",
@@ -456,10 +456,10 @@
       "updated": "2026-10-02"
     },
     {
-      "id": "xidepunk-studio-llc",
-      "kind": "company",
+      "id": "xidepunk-studio",
+      "kind": "team",
       "name": "xidePunk Studio",
-      "legal": "xidePunk Studio LLC",
+      "legal": "xidePunk Studio",
       "regId": "",
       "city": "თბილისი",
       "founded": 2020,
@@ -844,7 +844,7 @@
     },
     {
       "id": "abelix-games",
-      "kind": "company",
+      "kind": "team",
       "name": "Abelix Games",
       "legal": "Abelix Games",
       "regId": "",
@@ -870,7 +870,7 @@
     },
     {
       "id": "appidea",
-      "kind": "company",
+      "kind": "team",
       "name": "Appidea",
       "legal": "Appidea",
       "regId": "",
@@ -900,7 +900,7 @@
     },
     {
       "id": "golden-fox",
-      "kind": "company",
+      "kind": "team",
       "name": "Golden Fox",
       "legal": "Golden Fox",
       "regId": "",
@@ -929,7 +929,7 @@
     },
     {
       "id": "happy-bat-games",
-      "kind": "company",
+      "kind": "team",
       "name": "Happy Bat Games",
       "legal": "Happy Bat Games",
       "regId": "",
@@ -958,7 +958,7 @@
     },
     {
       "id": "maxhp-studio",
-      "kind": "company",
+      "kind": "team",
       "name": "MaxHP Studio",
       "legal": "MaxHP Studio",
       "regId": "",
@@ -987,7 +987,7 @@
     },
     {
       "id": "peacox-studio",
-      "kind": "company",
+      "kind": "team",
       "name": "Peacox Studio",
       "legal": "Peacox Studio",
       "regId": "",
@@ -1017,10 +1017,10 @@
       "updated": "2026-10-02"
     },
     {
-      "id": "sambrela-llc",
-      "kind": "company",
+      "id": "sambrela",
+      "kind": "team",
       "name": "Sambrela",
-      "legal": "Sambrela LLC",
+      "legal": "Sambrela",
       "regId": "",
       "city": "თბილისი",
       "founded": 2019,
@@ -1046,7 +1046,7 @@
     },
     {
       "id": "stormbringer-studios",
-      "kind": "company",
+      "kind": "team",
       "name": "StormBringer Studios",
       "legal": "StormBringer Studios",
       "regId": "",
