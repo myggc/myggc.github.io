@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-09-20",
+  "updated": "2026-10-02",
   "items": [
     {
       "id": "madmoa",
@@ -57,19 +57,20 @@
       "email": "mtatsmindastudio@gmail.com",
       "phone": "",
       "contact": "",
-      "about": "სოლო დეველოპერი",
-      "aboutEn": "",
+      "about": "მე ვარ სოლო დეველოპერი (Mtatsminda Studio). უმეტესწილად ვქმნი ატმოსფერულ, ნარატივზე დაფუძნებულ ინდი თამაშებს. ჩემი პირველი კომერციული პროექტია Steam-ზე გამოშვებული ჰორორ PSX თამაში „Beso's Shawarma“.",
+      "aboutEn": "Solo developer (Mtatsminda Studio), mostly making atmospheric, narrative-driven indie games. My first commercial project is the PSX horror game Beso's Shawarma, released on Steam.",
       "logo": "https://avatars.akamai.steamstatic.com/8f4ecf23f60fd7f45d2db8e2172658bea36e96d1_full.jpg",
       "links": {
         "discord": "https://discord.gg/bKMjgUx2yT",
         "tiktok": "https://www.tiktok.com/@besosshaurma",
-        "steam": "https://store.steampowered.com/curator/45881856"
+        "steam": "https://store.steampowered.com/curator/45881856",
+        "linkedin": "https://www.linkedin.com/in/iakobjaniashvili/"
       },
       "verified": true,
       "active": true,
-      "validated": "2026-09-06",
+      "validated": "2026-10-02",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-10-02"
     },
     {
       "id": "შპს-რევოლტ-ენთერთეინმენთი",
@@ -81,24 +82,25 @@
       "founded": 2019,
       "size": "1-2",
       "roles": [
-        "developer"
+        "developer",
+        "outsourcing"
       ],
-      "website": "https://reventstudios.com/",
-      "email": "...",
+      "website": "https://revoltentertainment.github.io/Website/index.html",
+      "email": "entertainmentrevolt@gmail.com",
       "phone": "",
-      "contact": "",
-      "about": "ინდი სტუდია",
-      "aboutEn": "Indie Studio",
+      "contact": "გიორგი ჩიტიძე, დამფუძნებელი",
+      "about": "Revolt Entertainment არის ქართული დამოუკიდებელი გეიმდეველოპერული და ინტერაქტიული მედიის კომპანია, რომელიც ქმნის ორიგინალურ ვიდეოთამაშებს და ციფრულ გამოცდილებებს PC და კონსოლებისთვის. მუშაობს როგორც საკუთარ IP-ებზე, ისე პარტნიორულ პროექტებზე.",
+      "aboutEn": "Revolt Entertainment is a Georgian independent game development and interactive media company creating original video games and digital experiences for PC and consoles. It works on its own IPs as well as partner projects.",
       "logo": "https://avatars.fastly.steamstatic.com/c49ebc219d52110fde0ac2c4b7e684143928f645_full.jpg",
       "links": {
         "facebook": "https://www.facebook.com/RevoltEntertainment/",
         "steam": "https://store.steampowered.com/curator/45820461"
       },
-      "verified": false,
+      "verified": true,
       "active": true,
-      "validated": "2026-09-06",
+      "validated": "2026-10-02",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-10-02"
     },
     {
       "id": "შპს-ლისისოფტი",
@@ -282,14 +284,15 @@
       "founded": "2016-07-15",
       "size": "3-5",
       "roles": [
-        "developer"
+        "developer",
+        "outsourcing"
       ],
       "website": "https://blackroomgames.com/",
       "email": "info@blackroomgames.com",
       "phone": "",
       "contact": "",
-      "about": "ინდი სტუდია",
-      "aboutEn": "Indie studio",
+      "about": "ინდი სტუდია თითქმის ათწლიანი გამოცდილებით PC-ზე, მობილურსა და VR-ში. 100-ზე მეტი ჰიბრიდული და ჰიპერ-კაჟუალ თამაში ჟანრის გამომცემლებთან ერთად, ასევე გამოყენებითი თამაშები სოფლის მეურნეობის, ჯანდაცვისა და გარემოს დაცვისთვის.",
+      "aboutEn": "Indie studio with nearly a decade of experience across PC, mobile and VR. Over 100 hybrid and hyper-casual titles with genre publishers, plus applied games for agriculture, healthcare and environmental protection.",
       "logo": "https://play-lh.googleusercontent.com/79Ul9b4SAYLDSRRtvfdVqAZZ38h6Pi5RBRzkTdkBM-5V7eFm0rSRnJQF0vKYUIRMtA",
       "links": {
         "googleplay": "https://play.google.com/store/apps/dev?id=4869302861934416363&hl=en"
@@ -298,7 +301,7 @@
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-10-02"
     },
     {
       "id": "sollerstech",
@@ -423,6 +426,680 @@
       "validated": "2026-09-20",
       "created": "2026-09-20",
       "updated": "2026-09-20"
+    },
+    {
+      "id": "tensu-forge",
+      "kind": "company",
+      "name": "Tensu Forge",
+      "legal": "Tensu Forge",
+      "regId": "",
+      "city": "თბილისი",
+      "founded": 2025,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://tensuforge.com",
+      "email": "tornike.jortsoft@gmail.com",
+      "phone": "",
+      "contact": "თორნიკე ჯორთმენაძე",
+      "about": "ვქმნით მაღალი ხარისხის მობილურ თამაშებს — ჩამთრევი გეიმფლეით, დახვეწილი ვიზუალით და დასამახსოვრებელი გამოცდილებით.",
+      "aboutEn": "We create high-quality mobile games with a focus on engaging gameplay, polished visuals, and memorable player experiences.",
+      "logo": "",
+      "links": {
+        "linkedin": "https://www.linkedin.com/company/tensu-forge/"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "xidepunk-studio-llc",
+      "kind": "company",
+      "name": "xidePunk Studio",
+      "legal": "xidePunk Studio LLC",
+      "regId": "",
+      "city": "თბილისი",
+      "founded": 2020,
+      "size": "",
+      "roles": [
+        "outsourcing",
+        "art"
+      ],
+      "website": "https://www.artstation.com/xidepunk",
+      "email": "xidepunk@gmail.com",
+      "phone": "",
+      "contact": "კონსტანტინე ჟორჟოლიანი, CEO",
+      "about": "xidePunk Studio არის თამაშების დეველოპმენტისა და 3D ციფრული არტის აუთსორსინგ სტუდია. ვქმნით მაღალი ხარისხის ასეტებს, ძირითადად Unreal Engine-ისთვის — FPS სისტემებისთვის 3D იარაღის მოდელირება, ტექსტურირება, რიგინგი და AAA ანიმაციები, ასევე გარემოს არტი და Blueprint სისტემები.",
+      "aboutEn": "xidePunk Studio is a game development and 3D digital art outsourcing studio. We create high-quality game assets primarily for Unreal Engine — 3D weapon modelling for FPS systems, texturing, rigging and AAA animations, plus environment art and custom Blueprint systems.",
+      "logo": "",
+      "links": {
+        "linkedin": "https://www.linkedin.com/company/105684275/",
+        "artstation": "https://www.artstation.com/xidepunk"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "საბა-სანიკიძე",
+      "kind": "solo",
+      "name": "Xebas / ხებასი",
+      "legal": "საბა სანიკიძე",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://xebas777.artstation.com/",
+      "email": "sanikidzesaba95@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "სოლო დეველოპერი — მეტროიდვანია, Souls-like და RPG. itch.io-ზე აქვს რამდენიმე პროექტი, მათ შორის The Liftman და Duskblade. შთაგონება: Soulsborne, Hollow Knight, Disco Elysium.",
+      "aboutEn": "Solo developer — metroidvania, souls-like and RPG. Several projects on itch.io, including The Liftman and Duskblade. Inspired by Soulsborne, Hollow Knight and Disco Elysium.",
+      "logo": "",
+      "links": {
+        "itch": "https://sabexdev.itch.io/"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "zurab-barisashvili",
+      "kind": "solo",
+      "name": "Zurab Barisashvili",
+      "legal": "Zurab Barisashvili",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "art"
+      ],
+      "website": "https://www.artstation.com/devil13fhd",
+      "email": "rock.zuka@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "არტ დირექტორი 13 წელზე მეტი გამოცდილებით AAA, AA, რეალისტურ, სტილიზებულ და live-service პროექტებში. სპეციალიზაცია: ვიზუალური მიმართულება, არტ დირექშენი, გარემოს არტი, წარმოების პაიპლაინები, გუნდის ხელმძღვანელობა და სხვადასხვა მიმართულების გუნდებთან თანამშრომლობა.",
+      "aboutEn": "Art Director with 13+ years of experience across AAA, AA, realistic, stylized and live-service productions. Specialised in visual direction, art direction, environment art, production pipelines, team leadership and cross-discipline collaboration.",
+      "logo": "",
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/vikingvalhalla"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "ავთანდილ-ღვინიაშვილი",
+      "kind": "solo",
+      "name": "ავთანდილ ღვინიაშვილი",
+      "legal": "ავთანდილ ღვინიაშვილი",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "",
+      "email": "avtogviniashvili@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "სოლო დეველოპერი — ჰორორი და თავსატეხები.",
+      "aboutEn": "Solo developer — horror and puzzle games.",
+      "logo": "",
+      "links": {},
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "გურამ-ბერიტაშვილი",
+      "kind": "solo",
+      "name": "გურამ ბერიტაშვილი",
+      "legal": "გურამ ბერიტაშვილი",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "",
+      "email": "GBeritashvili@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "სოლო დეველოპერი.",
+      "aboutEn": "Solo developer.",
+      "logo": "",
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/guram-beritashvili-853712234"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "ნოდარი-კობახიძე",
+      "kind": "solo",
+      "name": "ნოდარი კობახიძე",
+      "legal": "ნოდარი კობახიძე",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://kobakhidze.net",
+      "email": "info@kobakhidze.net",
+      "phone": "",
+      "contact": "",
+      "about": "პროფესიონალი თამაშების დეველოპერი გეიმფლეი პროგრამირების, სისტემური დიზაინისა და არქიტექტურის გამოცდილებით (ძირითადად Unity და C#). ბოლო ათწლეულია მუშაობს მობილურ, PC და VR თამაშებზე. მონაწილეობდა მილიონობით ჩამოტვირთვის მქონე პროექტებში (Pixel Fury, Craft IO) და ბესტსელერ ბანქოს თამაშ Dawncaster-ზე.",
+      "aboutEn": "Professional video game developer with a background in gameplay programming, systems design and architecture (primarily Unity and C#). Spent the past decade on mobile, PC and VR games. Contributed to titles with millions of downloads (Pixel Fury, Craft IO) and the best-selling card game Dawncaster.",
+      "logo": "",
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/kobakhidze"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "გიგა-ფუტკარაძე",
+      "kind": "solo",
+      "name": "ტიგა",
+      "legal": "გიგა ფუტკარაძე",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://gigaputkaradze.com",
+      "email": "gigaputkaradze@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "ვარ გეიმ დიზაინერი ჯენერალისტი. მიზნად მაქვს, რომ ქვესტ და კომბატ დიზაინერობა უმაღლეს ლეველზე ავწიო.",
+      "aboutEn": "Generalist game designer, aiming to take quest and combat design to the highest level.",
+      "logo": "",
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/giga-p-b9a354196"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "ავთო-ქამაშიძე",
+      "kind": "solo",
+      "name": "ფრილანსერა",
+      "legal": "ავთო ქამაშიძე",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "",
+      "email": "qamashidzeavto34@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "ფიზიკური პირი ავთო ქამაშიძე — მონდომებული, მიზანსწრაფული.",
+      "aboutEn": "Avto Kamashidze — dedicated and goal-driven.",
+      "logo": "",
+      "links": {},
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "shako-pkhaladze",
+      "kind": "solo",
+      "name": "(OGD) one guy development",
+      "legal": "Shako Pkhaladze",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "",
+      "email": "pxaladze415@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "ვარ დამოუკიდებელი სოლო დეველოპერი. ჯერ არ მაქვს დაფაბლიშებული თამაში, მაგრამ მალე გამოვა ჩემი story-driven ჰორორი. ყველაფერს ვაკეთებ მარტო, ვმუშაობ Unreal Engine-ზე — სთორი, მექანიკები, სინემატიკები, ლეველ დიზაინი, მოდელები, ხმები და არტი.",
+      "aboutEn": "Independent solo developer. No published game yet, but my story-driven horror is coming soon. I do everything alone in Unreal Engine — story, mechanics, cinematics, level design, models, sound and art.",
+      "logo": "",
+      "links": {
+        "instagram": "https://www.instagram.com/shako_pkhaladze7"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "beka-bitarashvili",
+      "kind": "solo",
+      "name": "@Codemama",
+      "legal": "Beka Bitarashvili",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "",
+      "email": "bekabitarashvili@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "მე ვარ ბექა ბიტარაშვილი, სოლო დეველოპერი. თამაშების კეთება დავიწყე Python-ის ნეითივზე და შემდეგ გადავედი Godot-ის ძრავზე, დღეს ამ ძრავზე ვმუშაობ.",
+      "aboutEn": "I'm Beka Bitarashvili, a solo developer. I started making games in plain Python, then moved to the Godot engine, which I work in today.",
+      "logo": "",
+      "links": {
+        "github": "https://github.com/BekaBitarashvili"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "გიორგი-დვალიშვილი",
+      "kind": "solo",
+      "name": "f1zzi",
+      "legal": "გიორგი დვალიშვილი",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "",
+      "email": "giofifa16@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "სოლო დეველოპერი. itch.io-ზე აქვს ორი game jam თამაში, შექმნილი Godot-ზე.",
+      "aboutEn": "Solo developer with two game jam games on itch.io, made in Godot.",
+      "logo": "",
+      "links": {
+        "facebook": "https://www.facebook.com/Dvalchik.22/",
+        "itch": "https://f1zzzi.itch.io/"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "მიშა-ჩხაიძე",
+      "kind": "solo",
+      "name": "Rodi",
+      "legal": "მიშა ჩხაიძე",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "",
+      "email": "chxaidzemishiko@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "სოლო დეველოპერი — ჰორორი; ასევე ჯოკერი (ბანქოს თამაში) 1v1 ბოტის წინააღმდეგ.",
+      "aboutEn": "Solo developer — horror, plus a 1v1 Joker card game against a bot.",
+      "logo": "",
+      "links": {},
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "ნიკოლოზ-შეყილაძე",
+      "kind": "solo",
+      "name": "Soapy",
+      "legal": "ნიკოლოზ შეყილაძე",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://soapydev.com",
+      "email": "nikashekiladze@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "გამარჯობა, მე ვარ Giovanni Giorgo, მაგრამ ყველა Soap-ს მეძახის. უბრალოდ მიყვარს თამაშების კეთება — ნებისმიერი ჟანრის. მომწერეთ რჩევისთვის ან შემოთავაზებით.",
+      "aboutEn": "Hello my name is Giovanni Giorgo, but everybody calls me Soap. I just love making games, any kind of game — feel free to contact for advice or offers.",
+      "logo": "",
+      "links": {},
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "არჩილ-ბეროზაშვილი",
+      "kind": "solo",
+      "name": "Softcurse Systems",
+      "legal": "არჩილ ბეროზაშვილი",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "",
+      "email": "softcursesystems@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "სოლო დეველოპერი (Softcurse Systems). პროექტები: FakeChecker (itch.io) და Softcurse's Chess (ბრაუზერში).",
+      "aboutEn": "Solo developer (Softcurse Systems). Projects: FakeChecker on itch.io and Softcurse's Chess in the browser.",
+      "logo": "",
+      "links": {
+        "itch": "https://softcurse.itch.io/"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "abelix-games",
+      "kind": "company",
+      "name": "Abelix Games",
+      "legal": "Abelix Games",
+      "regId": "",
+      "city": "თბილისი",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://abelixgames.com",
+      "email": "",
+      "phone": "",
+      "contact": "",
+      "about": "ინდი სტუდია, რომელიც PC-სთვის ქმნის სტილიზებულ პლატფორმერ-სათავგადასავლო თამაშებს.",
+      "aboutEn": "Indie studio making stylised platformer-adventure games for PC.",
+      "logo": "",
+      "links": {},
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "appidea",
+      "kind": "company",
+      "name": "Appidea",
+      "legal": "Appidea",
+      "regId": "",
+      "city": "თბილისი",
+      "founded": 2014,
+      "size": "",
+      "roles": [
+        "developer",
+        "publisher",
+        "outsourcing"
+      ],
+      "website": "https://www.appidea.com/",
+      "email": "",
+      "phone": "",
+      "contact": "",
+      "about": "ქართული დეველოპერი და თვითგამომცემელი — ქმნის კაჟუალ და მიდ-კორ მობილურ თამაშებს iOS-ისა და Android-ისთვის. ყველაზე წარმატებული თამაში, Pixel Sword Fish io, 15 მილიონზე მეტჯერაა ჩამოტვირთული.",
+      "aboutEn": "Georgian developer and self-publisher of casual and mid-core mobile games for iOS and Android. Its most successful game, Pixel Sword Fish io, has over 15 million downloads.",
+      "logo": "",
+      "links": {
+        "linkedin": "https://www.linkedin.com/company/appidea-games"
+      },
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "golden-fox",
+      "kind": "company",
+      "name": "Golden Fox",
+      "legal": "Golden Fox",
+      "regId": "",
+      "city": "თბილისი",
+      "founded": 2016,
+      "size": "",
+      "roles": [
+        "developer",
+        "outsourcing"
+      ],
+      "website": "https://goldenfox.games/",
+      "email": "",
+      "phone": "",
+      "contact": "",
+      "about": "დამოუკიდებელი სტუდია, რომელიც მობილურ თამაშებს ქმნის. მთავარი პროექტი — Guns & Fury (iOS).",
+      "aboutEn": "Independent studio making mobile games. Flagship title: Guns & Fury on iOS.",
+      "logo": "",
+      "links": {
+        "appstore": "https://apps.apple.com/developer/golden-fox-llc/id1589304659"
+      },
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "happy-bat-games",
+      "kind": "company",
+      "name": "Happy Bat Games",
+      "legal": "Happy Bat Games",
+      "regId": "",
+      "city": "თბილისი",
+      "founded": 2017,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://www.happybat.com/",
+      "email": "",
+      "phone": "",
+      "contact": "",
+      "about": "თბილისური სტუდია, დაარსებული 2017 წელს. ქმნის ჰიბრიდულ და ჰიპერ-კაჟუალ მობილურ თამაშებს; ადრე — VR თამაშებიც (VR Table Sports, Mad Farm).",
+      "aboutEn": "Tbilisi studio founded in 2017, making hybrid and hyper-casual mobile games; earlier VR titles include VR Table Sports and Mad Farm.",
+      "logo": "",
+      "links": {
+        "facebook": "https://www.facebook.com/HappyBatGames/",
+        "linkedin": "https://www.linkedin.com/company/happy-bat"
+      },
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "maxhp-studio",
+      "kind": "company",
+      "name": "MaxHP Studio",
+      "legal": "MaxHP Studio",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "",
+      "email": "",
+      "phone": "",
+      "contact": "",
+      "about": "გუნდი, რომელიც ქმნის რთულ, უნარზე დაფუძნებულ მობილურ თამაშებს. მთავარი პროექტი — როგლაიტ ექშენი Legends Forge.",
+      "aboutEn": "Team making challenging, skill-based mobile games. Main project: the rogue-lite action game Legends Forge.",
+      "logo": "",
+      "links": {
+        "itch": "https://maxhpstudio.itch.io/",
+        "facebook": "https://www.facebook.com/maxhpstudio/"
+      },
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "peacox-studio",
+      "kind": "company",
+      "name": "Peacox Studio",
+      "legal": "Peacox Studio",
+      "regId": "",
+      "city": "თბილისი",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "outsourcing",
+        "art",
+        "audio",
+        "developer"
+      ],
+      "website": "",
+      "email": "",
+      "phone": "",
+      "contact": "",
+      "about": "თბილისური მულტიმედიისა და თამაშების დეველოპმენტის აუთსორსინგ სტუდია — 3D და 2D არტი, ანიმაცია, აუდიო. საკუთარი თამაში: Keyboard Rush.",
+      "aboutEn": "Tbilisi multimedia and game development outsourcing studio — 3D and 2D art, animation and audio. Own game: Keyboard Rush.",
+      "logo": "",
+      "links": {
+        "artstation": "https://peacoxstudio.artstation.com/"
+      },
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "sambrela-llc",
+      "kind": "company",
+      "name": "Sambrela",
+      "legal": "Sambrela LLC",
+      "regId": "",
+      "city": "თბილისი",
+      "founded": 2019,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "",
+      "email": "",
+      "phone": "",
+      "contact": "",
+      "about": "თამაშებისა და გართობის კომპანია, დაარსებული თბილისში 2019 წელს. ქმნის მობილურ თამაშებს iOS-ისა და Android-ისთვის, ასევე გეიმიფიცირებულ მარკეტინგულ კამპანიებს, აპლიკაციებს და სარეკლამო ვიდეოს. Arena Games-ის მშობელი კომპანია.",
+      "aboutEn": "Game development and entertainment company founded in Tbilisi in 2019. Builds mobile games for iOS and Android alongside gamified marketing campaigns, apps and advertising video. Parent company of Arena Games.",
+      "logo": "",
+      "links": {
+        "linkedin": "https://www.linkedin.com/company/sambrela"
+      },
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "stormbringer-studios",
+      "kind": "company",
+      "name": "StormBringer Studios",
+      "legal": "StormBringer Studios",
+      "regId": "",
+      "city": "თბილისი",
+      "founded": 2013,
+      "size": "",
+      "roles": [
+        "developer",
+        "outsourcing"
+      ],
+      "website": "https://stormbringerstudios.com/",
+      "email": "",
+      "phone": "",
+      "contact": "",
+      "about": "თბილისური სტუდია, დაარსებული 2013 წელს. ქმნის კაჟუალ მობილურ თამაშებს Unity-ზე; პირველი პროექტები — Geopolice 1 და 2, მილიონზე მეტი ჩამოტვირთვით. აუთსორსზე მუშაობდა Last Day on Earth-ზე.",
+      "aboutEn": "Tbilisi studio founded in 2013, making casual mobile games in Unity. Its first titles, Geopolice 1 and 2, passed a million downloads; outsourcing work includes Last Day on Earth.",
+      "logo": "",
+      "links": {
+        "facebook": "https://www.facebook.com/StormBringerStudios",
+        "appstore": "https://apps.apple.com/us/developer/stormbringer-studios/id972116619",
+        "googleplay": "https://play.google.com/store/apps/dev?id=7804606026912309672"
+      },
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "irakli-kokrashvili",
+      "kind": "solo",
+      "name": "Irakli Kokrashvili",
+      "legal": "Irakli Kokrashvili",
+      "regId": "",
+      "city": "",
+      "founded": 0,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://www.vrkemono.com/",
+      "email": "",
+      "phone": "",
+      "contact": "",
+      "about": "სოლო დეველოპერი, რომელიც ქმნის სიუჟეტზე დაფუძნებულ ჰარდკორ სურვაივალ თამაშს AB AETERNO — თავიდანვე VR-ისთვის შექმნილს.",
+      "aboutEn": "Solo developer building AB AETERNO, a story-driven hardcore survival experience designed for VR from the ground up.",
+      "logo": "",
+      "links": {},
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
     }
   ]
 }

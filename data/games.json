@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-01",
+  "updated": "2026-10-02",
   "items": [
     {
       "id": "besos-shawarma",
@@ -2303,6 +2303,353 @@
       "validated": "2026-09-20",
       "created": "2026-09-20",
       "updated": "2026-09-25"
+    },
+    {
+      "id": "the-liftman",
+      "name": "The Liftman",
+      "studioId": "საბა-სანიკიძე",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "simulation"
+      ],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "Unity",
+      "price": "",
+      "langs": "",
+      "about": "Survive your shift as an Elevator Operator in a strange hotel full of curses.",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://sabexdev.itch.io/the-liftman"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzI4NzkyNTQ0LnBuZw==/original/zQtSKL.png",
+        "hero": "https://img.itch.zone/aW1nLzI4NzkyNTQ0LnBuZw==/original/zQtSKL.png",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T12:00:00.000Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "duskblade",
+      "name": "Duskblade",
+      "studioId": "საბა-სანიკიძე",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "action"
+      ],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "Unity",
+      "price": "",
+      "langs": "",
+      "about": "Spin through waves of enemies, get upgrades and dont die.",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://pyparsu.itch.io/duskblade"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzI4MTQ5MTgwLnBuZw==/original/b%2BOEGg.png",
+        "hero": "https://img.itch.zone/aW1nLzI4MTQ5MTgwLnBuZw==/original/b%2BOEGg.png",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T12:00:00.000Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "boss-test",
+      "name": "Boss Test",
+      "studioId": "საბა-სანიკიძე",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "adventure"
+      ],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "Unity",
+      "price": "",
+      "langs": "",
+      "about": "",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://sabexdev.itch.io/metroidvania-test"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzI4MjMwMTM4LnBuZw==/original/MfwVGK.png",
+        "hero": "https://img.itch.zone/aW1nLzI4MjMwMTM4LnBuZw==/original/MfwVGK.png",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T12:00:00.000Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "deliver-that-pizza",
+      "name": "Deliver That Pizza",
+      "studioId": "გიორგი-დვალიშვილი",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "action"
+      ],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "Godot",
+      "price": "",
+      "langs": "",
+      "about": "",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://f1zzzi.itch.io/deliver-that-pizza"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzI2NDA4MTg5LnBuZw==/original/AAXhAq.png",
+        "hero": "https://img.itch.zone/aW1nLzI2NDA4MTg5LnBuZw==/original/AAXhAq.png",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T12:00:00.000Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "whistling-away",
+      "name": "Whistling Away",
+      "studioId": "გიორგი-დვალიშვილი",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "action"
+      ],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "Godot",
+      "price": "",
+      "langs": "",
+      "about": "",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://f1zzzi.itch.io/whistling-away"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzI2MDM5OTY2LnBuZw==/original/LtavZB.png",
+        "hero": "https://img.itch.zone/aW1nLzI2MDM5OTY2LnBuZw==/original/LtavZB.png",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T12:00:00.000Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "fakechecker",
+      "name": "FakeChecker",
+      "studioId": "არჩილ-ბეროზაშვილი",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "simulation"
+      ],
+      "platforms": [
+        "itch.io"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "",
+      "about": "Welcome to the Ministry of Verity. Process the news. Expose the lies. Meet your daily quota. Do not ask questions.",
+      "aboutEn": "",
+      "stores": {
+        "itch": "https://softcurse.itch.io/fakechecker"
+      },
+      "art": {
+        "capsule": "https://img.itch.zone/aW1nLzI3ODY3NDA0LmpwZw==/original/rDujjR.jpg",
+        "hero": "https://img.itch.zone/aW1nLzI3ODY3NDA0LmpwZw==/original/rDujjR.jpg",
+        "portrait": ""
+      },
+      "localArt": "",
+      "source": "itch",
+      "parsedAt": "2026-10-02T12:00:00.000Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "softcurses-chess",
+      "name": "Softcurse's Chess",
+      "studioId": "არჩილ-ბეროზაშვილი",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "board"
+      ],
+      "platforms": [
+        "Web"
+      ],
+      "engine": "",
+      "price": "უფასო",
+      "langs": "",
+      "about": "",
+      "aboutEn": "",
+      "stores": {
+        "web": "https://softcurse-chess.pages.dev"
+      },
+      "art": {},
+      "localArt": "",
+      "source": "manual",
+      "parsedAt": "",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-02",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "a-difficult-game-about-letters",
+      "name": "A Difficult Game About Letters",
+      "studioId": "abelix-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Nov 19, 2025",
+      "year": 2025,
+      "mobile": false,
+      "genres": [
+        "action",
+        "adventure",
+        "casual",
+        "indie"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$3.74",
+      "langs": "English, Georgian, French, Italian, German, Spanish - Spain, Japanese, Korean, Portuguese - Portugal, Russian, Simplified Chinese, Traditional Chinese, Ukrainian",
+      "about": "Transform into letters to overcome platforming challenges and save your friend from evil King in this crayon-style adventure!",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/3440890/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3440890/86f735419e590981e721c46bc3867342f82da3ff/header.jpg?t=1763623752",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/3440890?t=1763623752",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3440890/fbb70228c9af284e94b961955579c636b90bf90d/ss_fbb70228c9af284e94b961955579c636b90bf90d.600x338.jpg?t=1763623752",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3440890/bebb298020453b30100c7c4b7e44002a1b42e74e/ss_bebb298020453b30100c7c4b7e44002a1b42e74e.600x338.jpg?t=1763623752",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3440890/ac3d863d08c6bffc11dd9a029bbf643c385b342c/ss_ac3d863d08c6bffc11dd9a029bbf643c385b342c.600x338.jpg?t=1763623752"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-10-02T12:00:00.000Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
+    },
+    {
+      "id": "ab-aeterno",
+      "name": "AB AETERNO",
+      "studioId": "irakli-kokrashvili",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "To be announced",
+      "year": 0,
+      "mobile": false,
+      "genres": [
+        "action",
+        "adventure",
+        "indie",
+        "rpg",
+        "simulation",
+        "early access"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "",
+      "langs": "Englishlanguages with full audio support",
+      "about": "AB AETERNO is a story-driven hardcore survival experience with both well known and brand new survival mechanics designed and polished for VR from the ground up.",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/1625630/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1625630/header.jpg?t=1764076011",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1625630/page_bg_raw.jpg?t=1764076011",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1625630/ss_414b81896cd4983b57d325b43d16376c177e6507.600x338.jpg?t=1764076011",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1625630/ss_b849f98e6ad60b6c63ef4787a7ef53f2f4441b16.600x338.jpg?t=1764076011",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1625630/ss_81a3c7e9c743beaedc8306fdcb2b2af032694e3a.600x338.jpg?t=1764076011"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-10-02T12:00:00.000Z",
+      "verified": false,
+      "active": true,
+      "validated": "",
+      "created": "2026-10-02",
+      "updated": "2026-10-02"
     }
   ]
 }
