@@ -190,7 +190,9 @@ async function readPlay(url) {
    as the site's importer; keep the two in step. */
 async function readItch(url) {
   const html = await get(url, false);
-  const og = (p) => (new RegExp(`<meta[^>]+(?:property|name)="${p}"[^>]*content="([^"]*)`, "i").exec(html) || [])[1] || "";
+  // itch writes a tag's two attributes in either order, page to page.
+  const og = (p) => (new RegExp(`<meta[^>]+(?:property|name)="${p}"[^>]*content="([^"]*)`, "i").exec(html) ||
+    new RegExp(`<meta[^>]+content="([^"]*)"[^>]*(?:property|name)="${p}"`, "i").exec(html) || [])[1] || "";
   const title = og("og:title") || /<title[^>]*>([^<]+)/i.exec(html)?.[1] || "";
   const name = title.replace(/\s+by\s+[^|]*$/i, "").replace(/\s*[-–—|]\s*itch\.io\s*$/i, "").trim();
   if (!name || /^itch\.io$/i.test(name)) throw new Error(`no metadata at ${url}`);
@@ -262,7 +264,11 @@ function merge(game, parsed) {
     changed = true;
   };
   for (const key of OWNED) {
-    if (key === "art") set("art", { ...(game.art || {}), ...(parsed.art || {}) });
+    // A picture the store did not return is no reason to drop the one already there.
+    if (key === "art") {
+      const found = Object.entries(parsed.art || {}).filter(([, v]) => Array.isArray(v) ? v.length : v);
+      set("art", { ...(game.art || {}), ...Object.fromEntries(found) });
+    }
     else set(key, parsed[key]);
   }
   // Platforms the store proves are real get added; hand-entered ones stay.

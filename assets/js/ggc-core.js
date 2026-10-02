@@ -988,8 +988,12 @@
      picture and nothing else: no genre, no date, no price. */
   function parseItch(url) {
     return fetchVia(url, function (html) {
+      /* itch writes a tag's two attributes in either order, page to page.
+         Reading only property-then-content left half the pages with no
+         picture and no description. */
       var og = function (p) {
-        var hit = new RegExp('<meta[^>]+(?:property|name)="' + p + '"[^>]*content="([^"]*)', "i").exec(html);
+        var hit = new RegExp('<meta[^>]+(?:property|name)="' + p + '"[^>]*content="([^"]*)', "i").exec(html) ||
+          new RegExp('<meta[^>]+content="([^"]*)"[^>]*(?:property|name)="' + p + '"', "i").exec(html);
         return hit ? hit[1] : "";
       };
       var title = og("og:title") || (/<title[^>]*>([^<]+)/i.exec(html) || [])[1] || "";
