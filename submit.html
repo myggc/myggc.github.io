@@ -664,7 +664,9 @@ class Component extends DCLogic {
         legal: c.legal, regId: c.regId, name: c.name, city: c.city,
         founded: c.founded ? String(c.founded) : "", size: c.size,
         about: c.about, aboutEn: c.aboutEn, website: c.website, email: c.email,
-        phone: c.phone, contact: c.contact
+        // Never shown publicly, and anyone can open this form for any studio.
+        // Left blank it is simply not sent, so the stored number stays.
+        phone: "", contact: c.contact
       }, c.links || {})
     };
   }
