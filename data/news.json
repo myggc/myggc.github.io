@@ -30,12 +30,12 @@
       "date": "2026-10-01",
       "cover": "images/news/top-5-kartuli-tamashi-romelsats-tvali-unda-adevnot-natsili-1-cover-mur5922c.jpg",
       "author": "GGC",
-      "featured": false,
+      "featured": true,
       "draft": false,
       "en": false,
       "minutes": 3,
       "created": "2026-10-01",
-      "updated": "2026-10-02"
+      "updated": "2026-10-03"
     }
   ]
 }
