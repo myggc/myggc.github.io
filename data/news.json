@@ -1,8 +1,25 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-02",
+  "updated": "2026-10-03",
   "items": [
+    {
+      "id": "ratom-unda-iqos-sheni-tamashi-ggc-is-bazashi",
+      "title": "რატომ უნდა იყოს შენი თამაში GGC-ის ბაზაში?",
+      "titleEn": "",
+      "excerpt": "თამაშის შექმნა რთული, შრომატევადი და შემოქმედებითი პროცესია, თუმცა ბევრი დეველოპერისთვის ყველაზე დიდი ბარიერი თამაშის დასრულების შემდეგ იწყება: როგორ გავხადოთ პროექტი ხილვადი? როგორ ვიპოვოთ…",
+      "excerptEn": "",
+      "tag": "ggc",
+      "date": "2026-10-03",
+      "cover": "",
+      "author": "GGC",
+      "featured": false,
+      "draft": true,
+      "en": false,
+      "minutes": 1,
+      "created": "2026-10-03",
+      "updated": "2026-10-03"
+    },
     {
       "id": "top-5-kartuli-tamashi-romelsats-tvali-unda-adevnot-natsili-1",
       "title": "TOP 5 ქართული თამაში, რომელსაც თვალი უნდა ადევნოთ (ნაწილი 1)",
