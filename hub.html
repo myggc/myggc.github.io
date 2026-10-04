@@ -1,8 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="ka">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ჰაბი | GGC</title>
+<meta name="description" content="GGC-ის ოთხი მიმართულება: საზოგადოება, აქსელერაცია, გამომცემლობა და ინდუსტრიის მონაცემები.">
+<link rel="canonical" href="https://myggc.ge/hub.html">
+<link rel="icon" href="assets/brand/ggc-mark.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Georgian Game Community">
+<meta property="og:locale" content="ka_GE">
+<meta property="og:title" content="ჰაბი | GGC">
+<meta property="og:description" content="GGC-ის ოთხი მიმართულება: საზოგადოება, აქსელერაცია, გამომცემლობა და ინდუსტრიის მონაცემები.">
+<meta property="og:url" content="https://myggc.ge/hub.html">
+<meta property="og:image" content="https://myggc.ge/assets/brand/ggc-share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <script src="assets/js/support.js"></script>
 </head>
 <body>
@@ -248,7 +263,7 @@
           <a href="mailto:georgiangamecommunity@gmail.com" style="display:inline-block;margin-top:20px;background:#fdb813;color:#16181b;border-radius:11px;padding:14px 22px;font-size:16px;font-weight:700" style-hover="background:#e0a30f">დაგვიკავშირდი</a>
           <div style="margin-top:12px;font-size:15px;color:#c6ccd3;word-break:break-all">georgiangamecommunity@gmail.com</div>
         </div>
-        <div style="background:#fff;border:1px solid #e6e0d3;border-radius:20px;padding:clamp(22px,3vw,32px)">
+        <div style="display:{{ reportsShow }};background:#fff;border:1px solid #e6e0d3;border-radius:20px;padding:clamp(22px,3vw,32px)">
           <h2 style="margin:0;font-size:clamp(20px,2.6vw,26px);font-weight:700;letter-spacing:-.02em">წლიური რეპორტები</h2>
           <div style="display:flex;flex-direction:column;gap:9px;margin-top:16px">
             <sc-for list="{{ reports }}" as="r" hint-placeholder-count="3">
@@ -285,6 +300,10 @@
 </footer>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{}">
+/* Annual reports in the report tab, newest first. Add one when its PDF is up:
+   { title: "ქართული გეიმდევი 2026", meta: "PDF · 2,4 MB", href: "reports/ggc-2026.pdf" } */
+const REPORTS = [];
+
 const TABS = [
   { id: "community", title: "საზოგადოება", sub: "მითაფები, ჯემები, მასტერკლასები",
     on: "#1580b7", onFg: "#fff", off: "#cfe1ee", offFg: "#0f5273", dotOn: "rgba(255,255,255,.5)", dotOff: "#1d96d3",
@@ -462,12 +481,11 @@ class Component extends DCLogic {
           rows: this.tally(companies.map(c => c.size), ["#fdb813", "#e8d7ac"],
             ["1-2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-250", "251+"]) }
       ],
-      // One line, for the report that is actually coming. The two named years
-      // that were listed here do not exist, and a list of links to "#" is not a
-      // list of reports.
-      reports: [
-        { title: "ქართული გეიმდევი 2026", meta: "PDF · მალე", href: "#" }
-      ]
+      // Published reports only: { title, meta: "PDF · 2,4 MB", href }. The card
+      // stays hidden while the list is empty; a "coming soon" line that linked
+      // to "#" read as a broken link.
+      reports: REPORTS,
+      reportsShow: REPORTS.length ? "block" : "none"
     };
   }
 }
