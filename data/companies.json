@@ -1051,10 +1051,10 @@
     },
     {
       "id": "stormbringer-studios",
-      "kind": "team",
+      "kind": "company",
       "name": "StormBringer Studios",
       "legal": "StormBringer Studios",
-      "regId": "",
+      "regId": "404997633",
       "city": "თბილისი",
       "founded": 2013,
       "size": "",
@@ -1063,7 +1063,7 @@
         "outsourcing"
       ],
       "website": "https://stormbringerstudios.com/",
-      "email": "",
+      "email": "info@stormbringerstudios.com",
       "phone": "",
       "contact": "",
       "about": "თბილისური სტუდია, დაარსებული 2013 წელს. ქმნის კაჟუალ მობილურ თამაშებს Unity-ზე; პირველი პროექტები — Geopolice 1 და 2, მილიონზე მეტი ჩამოტვირთვით. აუთსორსზე მუშაობდა Last Day on Earth-ზე.",
@@ -1078,7 +1078,7 @@
       "active": true,
       "validated": "",
       "created": "2026-10-02",
-      "updated": "2026-10-02"
+      "updated": "2026-10-04"
     },
     {
       "id": "irakli-kokrashvili",
