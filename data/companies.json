@@ -938,32 +938,32 @@
     },
     {
       "id": "maxhp-studio",
-      "kind": "team",
+      "kind": "company",
       "name": "MaxHP Studio",
       "legal": "MaxHP Studio",
-      "regId": "",
-      "city": "",
-      "founded": 0,
-      "size": "",
+      "regId": "442265549",
+      "city": "თბილისი",
+      "founded": "2024-05-12",
+      "size": "1-2",
       "roles": [
         "developer"
       ],
       "website": "",
-      "email": "",
+      "email": "studio.maxhp@gmail.com",
       "phone": "",
       "contact": "",
       "about": "გუნდი, რომელიც ქმნის რთულ, უნარზე დაფუძნებულ მობილურ თამაშებს. მთავარი პროექტი — როგლაიტ ექშენი Legends Forge.",
       "aboutEn": "Team making challenging, skill-based mobile games. Main project: the rogue-lite action game Legends Forge.",
-      "logo": "",
+      "logo": "images/logos/maxhp-studio.jpg?v=1791118503026",
       "links": {
         "itch": "https://maxhpstudio.itch.io/",
         "facebook": "https://www.facebook.com/maxhpstudio/"
       },
-      "verified": false,
+      "verified": true,
       "active": true,
       "validated": "",
       "created": "2026-10-02",
-      "updated": "2026-10-02"
+      "updated": "2026-10-04"
     },
     {
       "id": "stormbringer-studios",
