@@ -907,35 +907,6 @@
       "updated": "2026-10-04"
     },
     {
-      "id": "golden-fox",
-      "kind": "team",
-      "name": "Golden Fox",
-      "legal": "Golden Fox",
-      "regId": "",
-      "city": "თბილისი",
-      "founded": 2016,
-      "size": "",
-      "roles": [
-        "developer",
-        "outsourcing"
-      ],
-      "website": "https://goldenfox.games/",
-      "email": "",
-      "phone": "",
-      "contact": "",
-      "about": "დამოუკიდებელი სტუდია, რომელიც მობილურ თამაშებს ქმნის. მთავარი პროექტი — Guns & Fury (iOS).",
-      "aboutEn": "Independent studio making mobile games. Flagship title: Guns & Fury on iOS.",
-      "logo": "images/logos/golden-fox.jpg?v=1790937518061",
-      "links": {
-        "appstore": "https://apps.apple.com/us/developer/golden-fox-llc/id1495060684"
-      },
-      "verified": false,
-      "active": true,
-      "validated": "",
-      "created": "2026-10-02",
-      "updated": "2026-10-02"
-    },
-    {
       "id": "happy-bat-games",
       "kind": "team",
       "name": "Happy Bat Games",
