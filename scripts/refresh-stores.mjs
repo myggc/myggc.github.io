@@ -41,7 +41,11 @@ const strip = (s) => String(s || "").replace(/<[^>]+>/g, "")
   .replace(/&quot;/g, '"').replace(/&#0?39;|&apos;/g, "'")
   .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&nbsp;/g, " ")
   .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(n))
-  .replace(/&amp;/g, "&").trim();
+  .replace(/&amp;/g, "&").trim()
+  // The site uses no em dashes anywhere, a store's text included. Cleaned
+  // as it is read, so a refresh never puts one back. Mirrors undash() in
+  // assets/js/ggc-core.js.
+  .replace(/^[ \t]*—[ \t]*/gm, "").replace(/[ \t]*—[ \t]*/g, ", ");
 
 /* Only ever use URLs the store API itself returned.
    The guessable path — cdn.*.steamstatic.com/steam/apps/<id>/capsule_616x353.jpg

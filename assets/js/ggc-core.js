@@ -211,6 +211,14 @@
       .replace(/&#(\d+);/g, function (_, n) { return String.fromCharCode(n); })
       .replace(/&amp;/g, "&");
   }
+  /* The site uses no em dashes anywhere. A description can still arrive with
+     one, from a store or typed in the panel, so it is turned into a comma (or
+     dropped where it opens a line) on the way in. Mirrors strip() in
+     scripts/refresh-stores.mjs, which cleans store text the same way. */
+  function undash(s) {
+    if (!s || s.indexOf("—") < 0) return s || "";
+    return String(s).replace(/^[ \t]*—[ \t]*/gm, "").replace(/[ \t]*—[ \t]*/g, ", ");
+  }
 
   /* Target sizes for hand-uploaded art, so every card in a row lines up.
      Logos are square (shown in a circle), store-style capsules are 460×215 at
@@ -291,7 +299,7 @@
         return reject(new Error("ეს სურათი არ არის (JPG, PNG, WebP ან GIF)"));
       }
       var gif = /gif$/i.test(file.type);
-      if (gif && file.size > GIF_MAX_BYTES) return reject(new Error("GIF ძალიან დიდია — მაქსიმუმ 8 MB"));
+      if (gif && file.size > GIF_MAX_BYTES) return reject(new Error("GIF ძალიან დიდია, მაქსიმუმ 8 MB"));
       var reader = new FileReader();
       reader.onerror = function () { reject(new Error("ფაილი ვერ წაიკითხა")); };
       reader.onload = function () {
@@ -398,8 +406,8 @@
       // who has no office address and no colleague to nominate as a contact.
       phone: c.phone || "",
       contact: c.contact || "",
-      about: unescapeHtml(c.about || ""),
-      aboutEn: unescapeHtml(c.aboutEn || ""),
+      about: undash(unescapeHtml(c.about || "")),
+      aboutEn: undash(unescapeHtml(c.aboutEn || "")),
       logo: c.logo || "",
       links: c.links || {},
       verified: !!c.verified,
@@ -434,8 +442,8 @@
       price: g.price || "",
       langs: g.langs || "",
       // Records written before the parsers decoded entities still carry them.
-      about: unescapeHtml(g.about || ""),
-      aboutEn: unescapeHtml(g.aboutEn || ""),
+      about: undash(unescapeHtml(g.about || "")),
+      aboutEn: undash(unescapeHtml(g.aboutEn || "")),
       stores: stores,
       art: g.art || {},
       localArt: g.localArt || "",
@@ -1234,7 +1242,7 @@
             links: { appstore: d.url }
           },
           reason: games.length ? "" : (apps.length
-            ? "ამ დეველოპერს App Store-ზე თამაშები არ აქვს — მხოლოდ აპლიკაციები."
+            ? "ამ დეველოპერს App Store-ზე თამაშები არ აქვს, მხოლოდ აპლიკაციები."
             : "ამ დეველოპერის გვერდზე არაფერი მოიძებნა.")
         };
       });
@@ -1746,9 +1754,9 @@
         var reason = "";
         if (!games.length) {
           reason = !out.length
-            ? ("გვერდზე " + total + " თამაში მოიძებნა, მაგრამ ვერცერთი ვერ წაიკითხა — " +
+            ? ("გვერდზე " + total + " თამაში მოიძებნა, მაგრამ ვერცერთი ვერ წაიკითხა. " +
                "მაღაზია ახლა დაკავებულია, სცადე ერთ წუთში.")
-            : "მხოლოდ დემო/DLC მოიძებნა — სრული თამაში ამ გვერდზე არ არის.";
+            : "მხოლოდ დემო/DLC მოიძებნა, სრული თამაში ამ გვერდზე არ არის.";
         }
         var result = {
           source: d.kind, found: total, skipped: out.length - games.length,
@@ -1850,7 +1858,7 @@
           out.push({
             key: k + "." + kk,
             k: label + " · " + (SOC[kk] || STORE_LABEL[kk] || kk),
-            old: sa2 || "—",
+            old: sa2 || "(ცარიელი)",
             "new": sb2
           });
         });
@@ -1860,7 +1868,7 @@
       var sa = fmtVal(a);
       var sb = fmtVal(b);
       if (sa === sb || sb === "") return;
-      out.push({ key: k, k: label, old: sa || "—", "new": sb });
+      out.push({ key: k, k: label, old: sa || "(ცარიელი)", "new": sb });
     });
     return out;
   }
