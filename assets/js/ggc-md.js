@@ -50,14 +50,21 @@
     var s = safeHref(u);
     return s && !/^(mailto:|tel:)/i.test(s) ? s : "";
   }
-  function siteHost() {
-    try { return new URL(window.GGC.config.site).host.toLowerCase(); } catch (e) { return ""; }
+  /* The addresses this site answers to: wherever it is open right now, the
+     domain it is published at, and the github.io address it had before that —
+     GitHub keeps redirecting it, so a post that links the old way still links
+     here. With or without www. */
+  function isOurHost(host) {
+    var bare = function (h) { return String(h || "").toLowerCase().replace(/^www\./, ""); };
+    var C = (window.GGC && window.GGC.config) || {};
+    var mine = [location.host, /\.github\.io$/i.test(C.repo || "") ? C.repo : ""];
+    try { mine.push(new URL(C.site).host); } catch (e) {}
+    host = bare(host);
+    return mine.some(function (h) { return h && bare(h) === host; });
   }
   function ours(u) {
     var m = /^https?:\/\/([^/?#]+)/i.exec(u);
-    if (!m) return true;
-    var host = m[1].toLowerCase();
-    return host === location.host.toLowerCase() || host === siteHost();
+    return !m || isOurHost(m[1]);
   }
   function cssUrl(u) { return 'url("' + String(u).replace(/["\\]/g, "\\$&") + '")'; }
 
@@ -295,7 +302,7 @@
   function catalogue(u) {
     var m = /^(?:(?:https?:)?\/\/([^/?#]+))?\/?(?:\.\/)?(games|companies)\.html#([^\s#?]+)$/i.exec(String(u || "").trim());
     if (!m) return null;
-    if (m[1] && m[1].toLowerCase() !== location.host.toLowerCase() && m[1].toLowerCase() !== siteHost()) return null;
+    if (m[1] && !isOurHost(m[1])) return null;
     var id;
     try { id = decodeURIComponent(m[3]); } catch (e) { id = m[3]; }
     return { kind: m[2].toLowerCase() === "games" ? "game" : "studio", id: id };
