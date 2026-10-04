@@ -864,7 +864,7 @@
       "contact": "",
       "about": "ინდი სტუდია, რომელიც PC-სთვის ქმნის სტილიზებულ პლატფორმერ-სათავგადასავლო თამაშებს.",
       "aboutEn": "Indie studio making stylised platformer-adventure games for PC.",
-      "logo": "images/logos/abelix-games.jpg?v=1791116466177",
+      "logo": "images/logos/abelix-games.jpg?v=1791116502827",
       "links": {
         "steam": "https://store.steampowered.com/search/?developer=Giorgi%20Abelashvili"
       },
@@ -995,26 +995,29 @@
       "updated": "2026-10-02"
     },
     {
-      "id": "sambrela",
+      "id": "peacox-studio",
       "kind": "team",
-      "name": "Sambrela",
-      "legal": "Sambrela",
+      "name": "Peacox Studio",
+      "legal": "Peacox Studio",
       "regId": "",
       "city": "თბილისი",
-      "founded": 2019,
+      "founded": 0,
       "size": "",
       "roles": [
+        "outsourcing",
+        "art",
+        "audio",
         "developer"
       ],
       "website": "",
       "email": "",
       "phone": "",
       "contact": "",
-      "about": "თამაშებისა და გართობის კომპანია, დაარსებული თბილისში 2019 წელს. ქმნის მობილურ თამაშებს iOS-ისა და Android-ისთვის, ასევე გეიმიფიცირებულ მარკეტინგულ კამპანიებს, აპლიკაციებს და სარეკლამო ვიდეოს. Arena Games-ის მშობელი კომპანია.",
-      "aboutEn": "Game development and entertainment company founded in Tbilisi in 2019. Builds mobile games for iOS and Android alongside gamified marketing campaigns, apps and advertising video. Parent company of Arena Games.",
-      "logo": "images/logos/sambrela.jpg?v=1790937518061",
+      "about": "თბილისური მულტიმედიისა და თამაშების დეველოპმენტის აუთსორსინგ სტუდია — 3D და 2D არტი, ანიმაცია, აუდიო. საკუთარი თამაში: Keyboard Rush.",
+      "aboutEn": "Tbilisi multimedia and game development outsourcing studio — 3D and 2D art, animation and audio. Own game: Keyboard Rush.",
+      "logo": "images/logos/peacox-studio.jpg?v=1790937518061",
       "links": {
-        "linkedin": "https://www.linkedin.com/company/sambrela"
+        "artstation": "https://peacoxstudio.artstation.com/"
       },
       "verified": false,
       "active": true,
