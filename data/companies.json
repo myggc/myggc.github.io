@@ -124,11 +124,11 @@
         "discord": "https://discord.gg/cJu4SVVtDx",
         "steam": "https://store.steampowered.com/developer/lisisoft"
       },
-      "verified": true,
+      "verified": false,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-10-04"
+      "updated": "2026-09-06"
     },
     {
       "id": "შპს-ბაბი-2007",
@@ -856,7 +856,9 @@
       "founded": "2018-09-14",
       "size": "1-2",
       "roles": [
-        "developer"
+        "developer",
+        "porting",
+        "outsourcing"
       ],
       "website": "https://abelixgames.com",
       "email": "giorgi.abelashvili@gmail.com",
