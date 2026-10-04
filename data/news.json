@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-03",
+  "updated": "2026-10-04",
   "items": [
     {
       "id": "ratom-unda-iqos-sheni-tamashi-ggc-is-bazashi",
@@ -24,18 +24,18 @@
       "id": "5-game-dev-kompania-sakartveloshi",
       "title": "5 Game Dev  კომპანია საქართველოში",
       "titleEn": "",
-      "excerpt": "GGC (Georgian Game Developers Community) წარმოგიდგენთ 5 Game Dev კომპანიასა და სტუდიას საქართველოში, რომლებიც საერთაშორისო პროექტებზე მუშაობენ.",
+      "excerpt": "GGC (Georgian Game Developers Community) წარმოგიდგენთ 5 Game Dev კომპანიასა და სტუდიას საქართველოში, რომლებიც ლოკალურ და საერთაშორისო პროექტებზე მუშაობენ.",
       "excerptEn": "",
       "tag": "ggc",
       "date": "2026-10-03",
       "cover": "",
       "author": "GGC",
       "featured": false,
-      "draft": true,
+      "draft": false,
       "en": false,
       "minutes": 2,
       "created": "2026-10-03",
-      "updated": "2026-10-03"
+      "updated": "2026-10-04"
     },
     {
       "id": "top-5-kartuli-tamashi-romelsats-tvali-unda-adevnot-natsili-1",
