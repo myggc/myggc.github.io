@@ -24,6 +24,7 @@
     "მხარდაჭერა": "Support", "ადმინი": "Admin", "ქარ": "GE",
     "მთავარი": "Home", "კონტაქტი": "Contact", "ადამიანები": "People", "სიახლეები": "News",
     "ქართული თამაშების საზოგადოება.": "The Georgian games community.",
+    "ქართული თამაშების საზოგადოება": "The Georgian games community",
 
     /* -------------------------------------------------------------- home */
     "თამაშები იქმნება აქ": "Games are made here",
@@ -528,6 +529,8 @@
      half-translated itself while its language switch lives elsewhere is worse
      than one that stays in Georgian. */
   var OFF = document.documentElement.hasAttribute("data-ggc-no-i18n");
+  // Screen readers and search engines read the page's language from here.
+  if (!OFF) document.documentElement.lang = lang === "en" ? "en" : "ka";
 
   /* Content that carries its own English — a news post's title and text — is
      marked data-ggc-no-i18n and left alone. Run through the dictionary, a post
@@ -575,7 +578,15 @@
       b[i].style.color = on ? "#fff" : "#5a5f65";
     }
   }
-  function run() { walk(document.body); marks(); }
+  /* The tab title lives outside the body, so the walk never reaches it. It is
+     written "Page | GGC", and each part is looked up on its own. */
+  function title() {
+    if (OFF || lang !== "en") return;
+    var t = document.title;
+    var next = t.split(" | ").map(function (p) { return DICT[p.trim()] || p; }).join(" | ");
+    if (next !== t) document.title = next;
+  }
+  function run() { walk(document.body); title(); marks(); }
 
   document.addEventListener("click", function (e) {
     var t = e.target.closest && e.target.closest("[data-ggc-lang]");
