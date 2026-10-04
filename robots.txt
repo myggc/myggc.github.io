@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin.html
+Disallow: /wireframes.html
+
+Sitemap: https://myggc.ge/sitemap.xml
