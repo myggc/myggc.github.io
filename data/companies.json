@@ -124,11 +124,11 @@
         "discord": "https://discord.gg/cJu4SVVtDx",
         "steam": "https://store.steampowered.com/developer/lisisoft"
       },
-      "verified": false,
+      "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-10-04"
     },
     {
       "id": "შპს-ბაბი-2007",
@@ -866,7 +866,7 @@
       "links": {
         "steam": "https://store.steampowered.com/search/?developer=Giorgi%20Abelashvili"
       },
-      "verified": true,
+      "verified": false,
       "active": true,
       "validated": "",
       "created": "2026-10-02",
