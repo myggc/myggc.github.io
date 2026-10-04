@@ -205,7 +205,6 @@
       <div style="background:#fff;border:1px solid #e6e0d3;border-radius:16px;padding:clamp(18px,3vw,26px)">
         <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px">
           <h2 style="margin:0;font-size:clamp(20px,2.6vw,26px);font-weight:700;letter-spacing:-.02em">გამოშვებები წლების მიხედვით</h2>
-          <span style="font-size:14px;color:#5a5f65">n = {{ total }}</span>
         </div>
         <div style="display:flex;align-items:flex-end;gap:clamp(8px,2vw,20px);height:200px;margin-top:24px">
           <sc-for list="{{ bars }}" as="b" hint-placeholder-count="6">
@@ -225,7 +224,6 @@
           <div style="background:#fff;border:1px solid #e6e0d3;border-radius:16px;padding:20px">
             <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:10px">
               <h3 style="margin:0;font-size:18px;font-weight:600">{{ s.title }}</h3>
-              <span style="font-size:13px;color:#5a5f65">n = {{ s.n }}</span>
             </div>
             <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
               <sc-for list="{{ s.rows }}" as="r" hint-placeholder-count="4">
@@ -312,18 +310,39 @@ class Component extends DCLogic {
     GGC.data.load().then(() => this.setState({ ready: true }));
   }
 
-  /* One breakdown row set: count by key, sort, keep the top few, and scale the
-     bars against the largest so the shape reads even with small numbers. */
-  tally(pairs, colors, total) {
+  /* One breakdown row set: count by key and scale the bars against the
+     largest so the shape reads even with small numbers. The most common come
+     first and only the top four are kept; given an `order` (team sizes), every
+     value present is listed in that order instead. Colour follows the count,
+     so the biggest row is the highlighted one either way. */
+  tally(keys, colors, order) {
     const counts = {};
-    pairs.forEach(k => { if (k) counts[k] = (counts[k] || 0) + 1; });
-    const rows = Object.keys(counts).map(k => ({ k, v: counts[k] }))
-      .sort((a, b) => b.v - a.v).slice(0, 4);
-    const top = rows.length ? rows[0].v : 1;
-    return rows.map((r, i) => Object.assign(r, {
+    keys.forEach(k => { if (k) counts[k] = (counts[k] || 0) + 1; });
+    let rows = Object.keys(counts).map(k => ({ k, v: counts[k] }));
+    rows = order
+      ? rows.sort((a, b) => order.indexOf(a.k) - order.indexOf(b.k))
+      : rows.sort((a, b) => b.v - a.v).slice(0, 4);
+    const top = Math.max(1, ...rows.map(r => r.v));
+    const byCount = rows.slice().sort((a, b) => b.v - a.v);
+    return rows.map(r => Object.assign(r, {
       pct: Math.max(8, Math.round(r.v / top * 92)) + "%",
-      color: colors[i] || colors[colors.length - 1]
+      color: colors[byCount.indexOf(r)] || colors[colors.length - 1]
     }));
+  }
+
+  /* A game's genres as the stores tag them, made countable: one spelling per
+     genre ("Action" and "action" were two rows), and without the tags that
+     describe the listing rather than the game, which otherwise crowd the top. */
+  genresOf(g) {
+    const notGenre = { indie: 1, entertainment: 1, family: 1, "early access": 1, "free to play": 1, "2.5d": 1 };
+    const alias = { "role playing": "rpg", "role-playing": "rpg" };
+    const seen = {};
+    (g.genres || []).forEach(raw => {
+      let k = String(raw).trim().toLowerCase();
+      k = alias[k] || k;
+      if (k && !notGenre[k]) seen[k] = 1;
+    });
+    return Object.keys(seen).map(k => k === "rpg" ? "RPG" : k.charAt(0).toUpperCase() + k.slice(1));
   }
   componentWillUnmount() { window.removeEventListener("hashchange", this.onHash); }
   readHash() {
@@ -418,26 +437,30 @@ class Component extends DCLogic {
       }),
 
       titlesEmptyShow: games.filter(g => /^ggc/i.test(g.publisherId || "")).length ? "none" : "block",
-      total: st.games,
+      // The same counts the catalogue shows on its tabs. "Verified studios" had
+      // been counting every active entry, verified or not, teams and solo
+      // developers included.
       stats: [
-        { n: String(st.studios), label: "ვერიფიცირებული სტუდია"  },
-        { n: String(st.games), label: "თამაში კატალოგში"  },
-        { n: String(st.solo), label: "სოლო დეველოპერი"  },
-        { n: String(st.upcoming), label: "მოსალოდნელი გამოშვება"  }
+        { n: String(st.companies), label: "კომპანიები" },
+        { n: String(st.teams), label: "გუნდები" },
+        { n: String(st.solo), label: "სოლო დეველოპერები" },
+        { n: String(st.games), label: "თამაშები" },
+        { n: String(st.upcoming), label: "მოსალოდნელი გამოშვება" }
       ],
       bars: years.map(([year, v], i) => ({
         year, v, h: Math.round(v / peak * 100) + "%",
         color: i === years.length - 1 ? "#fdb813" : "#e8d7ac"
       })),
       splits: [
-        { title: "ჟანრები", n: st.games, href: "games.html",
-          rows: this.tally([].concat.apply([], games.map(g => g.genres || [])), ["#fdb813", "#fdb813", "#e8d7ac", "#e8d7ac"]) },
-        { title: "პლატფორმები", n: st.games, href: "games.html",
+        { title: "ჟანრები", href: "games.html",
+          rows: this.tally([].concat.apply([], games.map(g => this.genresOf(g))), ["#fdb813", "#fdb813", "#e8d7ac", "#e8d7ac"]) },
+        { title: "პლატფორმები", href: "games.html",
           rows: this.tally([].concat.apply([], games.map(g => g.platforms || [])), ["#1d96d3", "#83c341", "#ee2626", "#e8d7ac"]) },
-        { title: "სტუდიები ქალაქების მიხედვით", n: companies.length, href: "companies.html",
+        { title: "სტუდიები ქალაქების მიხედვით", href: "companies.html",
           rows: this.tally(companies.map(c => c.city), ["#fdb813", "#e8d7ac", "#e8d7ac", "#e8d7ac"]) },
-        { title: "გუნდის ზომა", n: companies.length, href: "companies.html",
-          rows: this.tally(companies.map(c => c.size), ["#fdb813", "#e8d7ac", "#e8d7ac", "#e8d7ac"]) }
+        { title: "გუნდის ზომა", href: "companies.html",
+          rows: this.tally(companies.map(c => c.size), ["#fdb813", "#e8d7ac"],
+            ["1-2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-250", "251+"]) }
       ],
       // One line, for the report that is actually coming. The two named years
       // that were listed here do not exist, and a list of links to "#" is not a
