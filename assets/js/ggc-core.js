@@ -32,8 +32,8 @@
     social: {
       telegram: "https://t.me/ggcgeorgia",
       facebook: "https://www.facebook.com/GeorgianGameCommunity",
-      instagram: "https://instagram.com/georgiangamecommunity",
-      tiktok: "https://tiktok.com/@georgiangamecommunity",
+      instagram: "https://www.instagram.com/ggc_geo/",
+      tiktok: "https://www.tiktok.com/@ggc_geo",
       youtube: "https://www.youtube.com/@ggc_geo",
       linkedin: "https://www.linkedin.com/company/georgian-game-community",
       discord: "https://discord.gg/ZTh5tNedAh"
