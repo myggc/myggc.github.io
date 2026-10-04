@@ -178,8 +178,14 @@ class Component extends DCLogic {
       team: team.map(m => Object.assign({}, m, {
         bg: 'url("images/team/' + m.en.toLowerCase().replace(/\s+/g, "-") + '.jpg") center/cover no-repeat'
       })),
-      partners: ["Lenovo", "Startup Büro", "GITA"].map((name, i) => ({
-        name, bg: 'url("images/partners/partner-' + (i + 1) + '.png") center/contain no-repeat'
+      // [name, file in images/partners/] — a logo comes as whatever the partner publishes.
+      partners: [
+        ["Lenovo", "partner-1.png"],
+        ["Startup Büro", "partner-2.png"],
+        ["GITA", "partner-3.png"],
+        ["Entrepreneur Georgia", "partner-4.svg"]
+      ].map(([name, file]) => ({
+        name, bg: 'url("images/partners/' + file + '") center/contain no-repeat'
       }))
     };
   }
