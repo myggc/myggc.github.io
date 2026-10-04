@@ -864,7 +864,7 @@
       "contact": "",
       "about": "ინდი სტუდია, რომელიც PC-სთვის ქმნის სტილიზებულ პლატფორმერ-სათავგადასავლო თამაშებს.",
       "aboutEn": "Indie studio making stylised platformer-adventure games for PC.",
-      "logo": "images/logos/abelix-games.jpg?v=1791116502827",
+      "logo": "images/logos/abelix-games.jpg?v=1791116466177",
       "links": {
         "steam": "https://store.steampowered.com/search/?developer=Giorgi%20Abelashvili"
       },
@@ -987,37 +987,6 @@
       "links": {
         "itch": "https://maxhpstudio.itch.io/",
         "facebook": "https://www.facebook.com/maxhpstudio/"
-      },
-      "verified": false,
-      "active": true,
-      "validated": "",
-      "created": "2026-10-02",
-      "updated": "2026-10-02"
-    },
-    {
-      "id": "peacox-studio",
-      "kind": "team",
-      "name": "Peacox Studio",
-      "legal": "Peacox Studio",
-      "regId": "",
-      "city": "თბილისი",
-      "founded": 0,
-      "size": "",
-      "roles": [
-        "outsourcing",
-        "art",
-        "audio",
-        "developer"
-      ],
-      "website": "",
-      "email": "",
-      "phone": "",
-      "contact": "",
-      "about": "თბილისური მულტიმედიისა და თამაშების დეველოპმენტის აუთსორსინგ სტუდია — 3D და 2D არტი, ანიმაცია, აუდიო. საკუთარი თამაში: Keyboard Rush.",
-      "aboutEn": "Tbilisi multimedia and game development outsourcing studio — 3D and 2D art, animation and audio. Own game: Keyboard Rush.",
-      "logo": "images/logos/peacox-studio.jpg?v=1790937518061",
-      "links": {
-        "artstation": "https://peacoxstudio.artstation.com/"
       },
       "verified": false,
       "active": true,
