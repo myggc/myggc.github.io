@@ -1,8 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="ka">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>კომპანიები | GGC</title>
+<meta name="description" content="ქართული თამაშების სტუდიები, გუნდები და სოლო დეველოპერები, მათი თამაშებით და კონტაქტებით.">
+<link rel="canonical" href="https://myggc.ge/companies.html">
+<link rel="icon" href="assets/brand/ggc-mark.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Georgian Game Community">
+<meta property="og:locale" content="ka_GE">
+<meta property="og:title" content="კომპანიები | GGC">
+<meta property="og:description" content="ქართული თამაშების სტუდიები, გუნდები და სოლო დეველოპერები, მათი თამაშებით და კონტაქტებით.">
+<meta property="og:url" content="https://myggc.ge/companies.html">
+<meta property="og:image" content="https://myggc.ge/assets/brand/ggc-share.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <script src="assets/js/support.js"></script>
 </head>
 <body>
@@ -292,6 +307,13 @@ class Component extends DCLogic {
     if (rec) this.setState({ kind: Math.max(0, KINDS.indexOf(rec.kind)), open: rec.id, inactive: !rec.active });
   }
 
+  /* The city sits inside a "name · city · year" line, which the dictionary
+     cannot match as a whole, so on the English page it is translated here. */
+  city(name) {
+    const I = window.GGCI18n;
+    return (name && I && I.lang === "en" && I.tr(name)) || name || "";
+  }
+
   /* Roles actually present in the catalogue, so the chip row never offers a
      filter that returns nothing. */
   roleList() {
@@ -347,7 +369,7 @@ class Component extends DCLogic {
       // Initials stand in for a logo; printed over one they are just graffiti.
       initials: d.logo ? "" : U.initials(d.name),
       initialsShow: d.logo ? "none" : "block",
-      sub: [d.legal, d.city, U.foundedYear(d) || ""].filter(Boolean).join(" · "),
+      sub: [d.legal, this.city(d.city), U.foundedYear(d) || ""].filter(Boolean).join(" · "),
       about: d.about || "",
       roles: d.roles, facts, games, links,
       gamesCount: all.length,
@@ -413,7 +435,7 @@ class Component extends DCLogic {
         logoBg: c.logo ? 'url("' + c.logo + '") center/cover no-repeat' : "none",
         initials: c.logo ? "" : U.initials(c.name),
         initialsShow: c.logo ? "none" : "block",
-        sub: [c.legal, c.city, U.foundedYear(c) || ""].filter(Boolean).join(" · "),
+        sub: [c.legal, this.city(c.city), U.foundedYear(c) || ""].filter(Boolean).join(" · "),
         roles: c.roles,
         gamesCount: c.gamesCount,
         accent: U.ACCENT[c.kind],
