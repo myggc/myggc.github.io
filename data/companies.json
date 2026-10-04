@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-02",
+  "updated": "2026-10-04",
   "items": [
     {
       "id": "madmoa",
@@ -872,10 +872,10 @@
     },
     {
       "id": "appidea",
-      "kind": "team",
+      "kind": "company",
       "name": "Appidea",
       "legal": "Appidea",
-      "regId": "",
+      "regId": "404468893",
       "city": "თბილისი",
       "founded": 2014,
       "size": "",
@@ -885,7 +885,7 @@
         "outsourcing"
       ],
       "website": "https://www.appidea.com/",
-      "email": "",
+      "email": "info@appidea.com",
       "phone": "",
       "contact": "",
       "about": "ქართული დეველოპერი და თვითგამომცემელი — ქმნის კაჟუალ და მიდ-კორ მობილურ თამაშებს iOS-ისა და Android-ისთვის. ყველაზე წარმატებული თამაში, Pixel Sword Fish io, 15 მილიონზე მეტჯერაა ჩამოტვირთული.",
@@ -900,7 +900,7 @@
       "active": true,
       "validated": "",
       "created": "2026-10-02",
-      "updated": "2026-10-02"
+      "updated": "2026-10-04"
     },
     {
       "id": "golden-fox",
