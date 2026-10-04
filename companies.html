@@ -233,21 +233,21 @@ const KINDS = ["company", "team", "solo"];
 const ADD_CTA = {
   company: {
     title: "შენი კომპანია სიაში არაა?",
-    text: "დაამატე ოფიციალური სახელით, მიამაგრე თამაშები და გამოგზავნე — ჩვენ დავავალიდირებთ.",
+    text: "დაამატე ოფიციალური სახელით, მიამაგრე თამაშები და გამოგზავნე, ჩვენ დავავალიდირებთ.",
     label: "კომპანიის დამატება",
     link: "დაამატე კომპანია",
     href: "submit.html#new-company"
   },
   team: {
     title: "შენი გუნდი სიაში არაა?",
-    text: "თუ ოფიციალურად რეგისტრირებული არ ხართ, გუნდად დაემატეთ — ბრენდის სახელით, თამაშებით და გამოგზავნეთ.",
+    text: "თუ ოფიციალურად რეგისტრირებული არ ხართ, გუნდად დაემატეთ ბრენდის სახელით, თამაშებით და გამოგზავნეთ.",
     label: "გუნდის დამატება",
     link: "დაამატე გუნდი",
     href: "submit.html#new-team"
   },
   solo: {
     title: "სიაში არ ხარ?",
-    text: "თუ მარტო აკეთებ თამაშებს, დაემატე სოლო დეველოპერად — სახელით, თამაშებით და გამოგზავნე.",
+    text: "თუ მარტო აკეთებ თამაშებს, დაემატე სოლო დეველოპერად სახელით, თამაშებით და გამოგზავნე.",
     label: "სოლო დეველოპერის დამატება",
     link: "დაემატე სოლო დეველოპერად",
     href: "submit.html#new-solo"
@@ -388,7 +388,7 @@ class Component extends DCLogic {
       addLabel: ADD_CTA[kind].label,
       addEmptyLink: ADD_CTA[kind].link,
       addHref: ADD_CTA[kind].href,
-      shownLabel: U.KIND_LABEL[kind] + (list.length === 1 ? "" : " — ნაჩვენებია სულ"),
+      shownLabel: U.KIND_LABEL[kind] + (list.length === 1 ? "" : ", ნაჩვენებია სულ"),
       emptyShow: !s.ready || list.length ? "none" : "block",
       roleChips: roles.map(r => ({
         label: r,

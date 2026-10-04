@@ -8,7 +8,7 @@
 **![](images/news/5-game-dev-kompania-sakartveloshi-mutn4afp.jpg)**
 
 **კომპანიის შესახებ:** 
-სტუდიის სავიზიტო ბარათია თამაში Dumbriel: Magnificent Adventure in Hell — 2D Metroidvania Action-Adventure პროექტი ჯოჯოხეთში მოხვედრილი ანგელოზის შესახებ, რომელსაც უკვე აქვს დემო ვერსია Steam-ზე და დიდი ინტერესი დაიმსახურა როგორც ადგილობრივ, ისე საერთაშორისო გეიმერების საზოგადოებაში. 
+სტუდიის სავიზიტო ბარათია თამაში Dumbriel: Magnificent Adventure in Hell, 2D Metroidvania Action-Adventure პროექტი ჯოჯოხეთში მოხვედრილი ანგელოზის შესახებ, რომელსაც უკვე აქვს დემო ვერსია Steam-ზე და დიდი ინტერესი დაიმსახურა როგორც ადგილობრივ, ისე საერთაშორისო გეიმერების საზოგადოებაში. 
 [MadMoa](https://madmoa.com/) აქტიურად მონაწილეობს ქართული გეიმ-დეველოპმენტ ეკოსისტემის განვითარებაში.
 
 **![](images/news/5-game-dev-kompania-sakartveloshi-mutnikbc.jpg)** 

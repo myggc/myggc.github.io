@@ -27,8 +27,8 @@
 
     /* -------------------------------------------------------------- home */
     "თამაშები იქმნება აქ": "Games are made here",
-    "GGC აერთიანებს ქართულ გეიმდევ ინდუსტრიას — სტუდიებს, გუნდებს, სოლო დეველოპერებს და მათ თამაშებს. ერთ ადგილას, ვერიფიცირებულად.":
-      "GGC brings the Georgian games industry together — studios, teams, solo developers and their games. In one place, verified.",
+    "GGC აერთიანებს ქართულ გეიმდევ ინდუსტრიას: სტუდიებს, გუნდებს, სოლო დეველოპერებს და მათ თამაშებს. ერთ ადგილას, ვერიფიცირებულად.":
+      "GGC brings the Georgian games industry together: studios, teams, solo developers and their games. In one place, verified.",
     "ვერიფიცირებული კომპანია": "verified companies",
     "ვერიფიცირებული კომპანია და გუნდი": "verified companies and teams",
     "სოლო დეველოპერი": "solo developers", "სოლო დეველოპერები": "solo developers",
@@ -36,8 +36,8 @@
     "ვერიფიცირებული სტუდია": "verified studios",
     "მოსალოდნელი გამოშვება": "upcoming releases",
     "მოსალოდნელი და ახლად გამოსული": "Upcoming and just released",
-    "ქართული თამაშები — მონაცემები პლატფორმებიდან ავტომატურად განახლდება.":
-      "Georgian games — the data updates itself from the storefronts.",
+    "ქართული თამაშები. მონაცემები პლატფორმებიდან ავტომატურად განახლდება.":
+      "Georgian games. The data updates itself from the storefronts.",
     "მიმართულებები": "Directions",
     "ოთხი მიმართულება": "Four directions",
     "მალე განახლდება": "coming soon",
@@ -56,8 +56,8 @@
       "Strategy, business model, shipping on Steam, mentorship, genre and market analysis, access to a base of content creators and publishers.",
     "ინკუბატორი, კოჰორტები და დაფინანსება სტუდიებისთვის, რომლებიც უკვე მზად არიან გაზრდისთვის.":
       "An incubator, cohorts and funding for studios that are already ready to grow.",
-    "ქართული თამაშების ბაზა, სტუდიების სტატისტიკა და წლიური რეპორტები — ის რიცხვები, რომლებზეც ინდუსტრია დაყრდნობით ლაპარაკობს.":
-      "A catalogue of Georgian games, studio statistics and annual reports — the numbers the industry can actually cite.",
+    "ქართული თამაშების ბაზა, სტუდიების სტატისტიკა და წლიური რეპორტები: ის რიცხვები, რომლებზეც ინდუსტრია დაყრდნობით ლაპარაკობს.":
+      "A catalogue of Georgian games, studio statistics and annual reports: the numbers the industry can actually cite.",
     "მენტორშიპი": "Mentorship", "ინვესტორები": "Investors",
     "ინდუსტრიის მონაცემები": "Industry data",
 
@@ -65,12 +65,12 @@
     "შენი კომპანია სიაში არაა?": "Is your company missing?",
     "შენი გუნდი სიაში არაა?": "Is your team missing?",
     "სიაში არ ხარ?": "Not on the list?",
-    "დაამატე ოფიციალური სახელით, მიამაგრე თამაშები და გამოგზავნე — ჩვენ დავავალიდირებთ.":
-      "Add it under its official name, attach the games and send it in — we validate it.",
-    "თუ ოფიციალურად რეგისტრირებული არ ხართ, გუნდად დაემატეთ — ბრენდის სახელით, თამაშებით და გამოგზავნეთ.":
-      "If you are not officially registered, add yourselves as a team — under the name you go by, with your games, and send it in.",
-    "თუ მარტო აკეთებ თამაშებს, დაემატე სოლო დეველოპერად — სახელით, თამაშებით და გამოგზავნე.":
-      "If you make games on your own, add yourself as a solo developer — your name, your games, and send it in.",
+    "დაამატე ოფიციალური სახელით, მიამაგრე თამაშები და გამოგზავნე, ჩვენ დავავალიდირებთ.":
+      "Add it under its official name, attach the games and send it in, and we validate it.",
+    "თუ ოფიციალურად რეგისტრირებული არ ხართ, გუნდად დაემატეთ ბრენდის სახელით, თამაშებით და გამოგზავნეთ.":
+      "If you are not officially registered, add yourselves as a team under the name you go by, with your games, and send it in.",
+    "თუ მარტო აკეთებ თამაშებს, დაემატე სოლო დეველოპერად სახელით, თამაშებით და გამოგზავნე.":
+      "If you make games on your own, add yourself as a solo developer with your name and games, and send it in.",
     "კომპანიის დამატება": "Add a company",
     "გუნდის დამატება": "Add a team",
     "სოლო დეველოპერის დამატება": "Add a solo developer",
@@ -101,10 +101,10 @@
     "სტუდიები ქალაქების მიხედვით": "Studios by city",
     "კატალოგში ნახვა →": "See in the catalogue →",
     "კოჰორტები": "Cohorts", "დაფინანსება": "Funding", "რელოკაცია": "Relocation",
-    "მაინტერესებს — შემატყობინეთ": "I'm interested — notify me",
-    "სანამ — გამომცემლობა": "Meanwhile — publishing",
+    "მაინტერესებს — შემატყობინეთ": "I'm interested, notify me",
+    "სანამ — გამომცემლობა": "Meanwhile: publishing",
     "ჩვენი საქმე 4 ნაწილად იყოფა. აირჩიე მიმართულება და დეტალებს იქვე ნახავ.":
-      "GGC's work splits into four parts. Pick a direction — the detail appears below.",
+      "GGC's work splits into four parts. Pick a direction and the detail appears below.",
     "მითაფები, ჯემები, მასტერკლასები": "Meetups, jams, masterclasses",
     "დაფინანსება, პორტინგი, გამოშვება": "Funding, porting, release",
     "ინკუბატორი და ზრდის პროგრამა": "Incubator and growth programme",
@@ -114,7 +114,7 @@
     "48 საათი, გუნდები ადგილზე იკრიბებიან და ბოლოს ყველა ერთმანეთის თამაშს ვტესტავთ.":
       "48 hours, teams form on site, and at the end everyone plays each other's games.",
     "პრაქტიკული სესია კონკრეტულ უნარებზე: 2D, 3D, პროგრამირება თუ ბიზნესი.":
-      "A hands-on session on one skill — 2D, 3D, programming or business.",
+      "A hands-on session on one skill: 2D, 3D, programming or business.",
     "წლის შეჯამება, ახალი თამაშების შოუქეისი და ინდუსტრიის დიდი შეკრება.":
       "The year in review, a showcase of new games and the industry's big get-together.",
     "ივენთების ანონსები, ვაკანსიები, დახმარება და ისეთი კითხვები, რაზეც სხვაგან პასუხს ვერ იპოვი.":
@@ -131,14 +131,14 @@
     "კონტრაქტები, პლატფორმებთან ურთიერთობა, გარიგებები.":
       "Contracts, platform relations, deals.",
     "გამოგვიგზავნე თამაში": "Send us your game",
-    "პიჩ-დეკი, ბილდი ან უბრალოდ იდეა — ყველაფერს ვუყურებთ. პასუხს ორ კვირაში იღებ.":
-      "A pitch deck, a build or just an idea — we look at everything. You get an answer within two weeks.",
+    "პიჩ-დეკი, ბილდი ან უბრალოდ იდეა: ყველაფერს ვუყურებთ. პასუხს ორ კვირაში იღებ.":
+      "A pitch deck, a build or just an idea: we look at everything. You get an answer within two weeks.",
     "შესაძლებელია ინვესტიციის ჩადება როგორც კონკრეტულ თამაშში, ისე სტუდიაში. მოგვწერე და გამოგიგზავნით პროექტების მოკლე მიმოხილვას.":
       "You can invest in a single game or in a studio. Write to us and we'll send a short overview of the projects.",
-    "თუ ეძებ, სად შედის ფული ქართულ გეიმდევში — ეს გვერდი საწყისი წერტილია. სრული პორტფელი, ეტაპები და გუნდები მოთხოვნისთანავე.":
+    "თუ ეძებ, სად შედის ფული ქართულ გეიმდევში, ეს გვერდი საწყისი წერტილია. სრული პორტფელი, ეტაპები და გუნდები მოთხოვნისთანავე.":
       "If you're looking for where the money goes in Georgian gamedev, this page is the starting point. Full portfolio, milestones and teams on request.",
     "ინკუბატორი და აქსელერატორი ქართული სტუდიებისთვის, რომლებიც უკვე მზად არიან გაზრდისთვის. პროგრამა ჯერ იწერება — ქვემოთ ის მიმართულებებია, რომლებზეც ვმუშაობთ.":
-      "An incubator and accelerator for Georgian studios that are already ready to grow. The programme is still being written — below are the directions we're working on.",
+      "An incubator and accelerator for Georgian studios that are already ready to grow. The programme is still being written. Below are the directions we're working on.",
     "3-6 სტუდია ერთ ნაკადში, ფიქსირებული ხანგრძლივობა და ეტაპები.":
       "3-6 studios per cohort, with a fixed length and milestones.",
     "გრანტი ან თანადაფინანსება კონკრეტულ ეტაპზე, გამჭვირვალე პირობებით.":
@@ -155,7 +155,7 @@
     "48 საათი · ტექნოპარკი": "48 hours · Technopark",
     "სტუმრები საზღვარგარეთიდან": "Guests from abroad",
     "წლის შედეგები": "The year in review",
-    "GameJam 2025: შემაჯამებელი": "GameJam 2025 — wrap-up",
+    "GameJam 2025: შემაჯამებელი": "GameJam 2025: wrap-up",
     "მითაფი: 2D არტი თამაშებში": "Meetup: 2D art in games",
     "მასტერკლასი: Unity-ს ოპტიმიზაცია": "Masterclass: Unity optimisation",
     "GGC კონფერენცია": "GGC conference",
@@ -176,8 +176,8 @@
     "სცადე სხვა ფილტრი, ან": "Try another filter, or",
     "გაასუფთავე ფილტრები, ან": "Clear the filters, or",
     "შენი სტუდია სიაში არაა?": "Your studio isn't listed?",
-    "დაამატე ოფიციალური სახელით, მიამაგრე თამაშები და გამოგზავნე — ჩვენ დავავალიდირებთ.":
-      "Add it under its official name, attach your games and send — we'll validate it.",
+    "დაამატე ოფიციალური სახელით, მიამაგრე თამაშები და გამოგზავნე, ჩვენ დავავალიდირებთ.":
+      "Add it under its official name, attach your games and send it, and we'll validate it.",
     "დალაგება: სახელი": "Sort: name",
     "დალაგება: თამაშების რიცხვი": "Sort: number of games",
     "დალაგება: დაფუძნების წელი": "Sort: year founded",
@@ -201,43 +201,44 @@
     /* ---------------------------------------------------------- the form */
     "მონაცემების გაგზავნა": "Submit data",
     "ინფორმაციის გაგზავნა": "Submit data",
-    "შენ ავსებ — ჩვენ ვამოწმებთ და ვაქვეყნებთ. კომპანია ყოველთვის ოფიციალური სახელით იდენტიფიცირდება, თამაში კი მიბმულია კომპანიაზე.":
-      "You fill it in — we check it and publish it. A record is always identified by its official name, and a game is always attached to one.",
+    "შენ ავსებ, ჩვენ ვამოწმებთ და ვაქვეყნებთ. კომპანია ყოველთვის ოფიციალური სახელით იდენტიფიცირდება, თამაში კი მიბმულია კომპანიაზე.":
+      "You fill it in, we check it and publish it. A record is always identified by its official name, and a game is always attached to one.",
     "ქმედება": "Action", "იდენტიფიკაცია": "Identification", "დეტალები": "Details",
     "გადახედვა": "Review", "ცოცხალი გადახედვა": "Live preview",
     "დაამატე სტუდია, გუნდი ან სოლო დეველოპერი": "Add a studio, a team or a solo developer",
-    "რეგისტრირებული კომპანია, არარეგისტრირებული გუნდი ან ერთი ადამიანი — რომელიც კატალოგში ჯერ არ არის.":
-      "A registered company, an unregistered team or one person — anyone not in the catalogue yet.",
+    "რეგისტრირებული კომპანია, არარეგისტრირებული გუნდი ან ერთი ადამიანი, რომელიც კატალოგში ჯერ არ არის.":
+      "A registered company, an unregistered team or one person, anyone not in the catalogue yet.",
     "თამაშის დამატება": "Add a game",
-    "იპოვე შენი ჩანაწერი — სტუდია, გუნდი თუ საკუთარი სახელი — და მიამაგრე თამაში. მაღაზიის ლინკიდან ყველაფერი ავტომატურად ივსება.":
-      "Find your record — a studio, a team or your own name — and attach the game. A store link fills in the rest.",
+    "იპოვე შენი ჩანაწერი (სტუდია, გუნდი თუ საკუთარი სახელი) და მიამაგრე თამაში. მაღაზიის ლინკიდან ყველაფერი ავტომატურად ივსება.":
+      "Find your record (a studio, a team or your own name) and attach the game. A store link fills in the rest.",
     "არსებული მონაცემის შესწორება": "Correct existing data",
-    "რამე არასწორია ან შეიცვალა — მოითხოვე ედიტი.": "Something is wrong or has changed — request an edit.",
-    "ყველაზე მარტივი გზა — მაღაზიის გვერდი": "The easiest way — your store page",
-    "ჩასვი შენი (ან შენი სტუდიის) გვერდი Steam-ზე (სასურველია), itch.io-ზე, App Store-ზე ან Google Play-ზე. სახელს, ვებსაიტს, სოციალურ ქსელებს და ყველა თამაშს ავტომატურად შევავსებთ — შენ მხოლოდ დანარჩენს დაამატებ.":
-      "Paste your page — or your studio's — on Steam (preferred), itch.io, the App Store or Google Play. We fill in the name, the website, the social accounts and every game; you add the rest.",
-    "ჩასვი შენი სტუდიის გვერდი — Steam-ის publisher/developer გვერდი, itch.io-ს პროფილი, App Store-ის ან Google Play-ის დეველოპერის გვერდი. ჩვენ თვითონ ვიპოვით ყველა თამაშს და შევავსებთ თითოეულის მონაცემებს.":
-      "Paste your studio page — a Steam publisher/developer page, an itch.io profile, an App Store or Google Play developer page. We find every game and fill each one in.",
+    "რამე არასწორია ან შეიცვალა? მოითხოვე ედიტი.": "Something wrong or changed? Request an edit.",
+    "ყველაზე მარტივი გზა: მაღაზიის გვერდი": "The easiest way: your store page",
+    "ჩასვი შენი (ან შენი სტუდიის) გვერდი Steam-ზე (სასურველია), itch.io-ზე, App Store-ზე ან Google Play-ზე. სახელს, ვებსაიტს, სოციალურ ქსელებს და ყველა თამაშს ავტომატურად შევავსებთ, შენ მხოლოდ დანარჩენს დაამატებ.":
+      "Paste your page (or your studio's) on Steam (preferred), itch.io, the App Store or Google Play. We fill in the name, the website, the social accounts and every game; you add the rest.",
+    "ჩასვი შენი სტუდიის გვერდი: Steam-ის publisher/developer გვერდი, itch.io-ს პროფილი, App Store-ის ან Google Play-ის დეველოპერის გვერდი. ჩვენ თვითონ ვიპოვით ყველა თამაშს და შევავსებთ თითოეულის მონაცემებს.":
+      "Paste your studio page: a Steam publisher/developer page, an itch.io profile, an App Store or Google Play developer page. We find every game and fill each one in.",
     "სტუდიის გვერდი": "Studio page",
     "ყველა თამაშის წამოღება": "Import every game",
     "ყველა თამაში ერთბაშად": "Every game at once",
     "ან ჩაწერე სახელით": "Or type the name",
     "იპოვე შენი ჩანაწერი": "Find your record",
     "ვის ეკუთვნის თამაში?": "Who does the game belong to?",
-    "ჩაწერე სახელი — კომპანიის, გუნდის ან შენი. იპოვი და იქვე შეასწორებ.":
-      "Type the name — a company's, a team's or your own. Find it and correct it right there.",
-    "თუ მაღაზიის გვერდი არ გაქვს, ჩაწერე სახელი — კომპანიის, გუნდის ან შენი. თუ უკვე არსებობს, ედიტს მოითხოვ; თუ არა, აქვე შექმნი.":
-      "If you have no store page, type the name — a company's, a team's or your own. If it exists you can request an edit; if not, you create it here.",
+    "ჩაწერე სახელი: კომპანიის, გუნდის ან შენი. იპოვი და იქვე შეასწორებ.":
+      "Type the name: a company's, a team's or your own. Find it and correct it right there.",
+    "თუ მაღაზიის გვერდი არ გაქვს, ჩაწერე სახელი: კომპანიის, გუნდის ან შენი. თუ უკვე არსებობს, ედიტს მოითხოვ; თუ არა, აქვე შექმნი.":
+      "If you have no store page, type the name: a company's, a team's or your own. If it exists you can request an edit; if not, you create it here.",
     "იპოვე სტუდია, რომელსაც თამაში მიება. თუ სიაში არაა, ჯერ სტუდია უნდა დაემატოს.":
       "Find the studio the game belongs to. If it isn't listed, the studio has to be added first.",
-    "სახელი — მაგ. GGC Games LLC, GGC Games ან გიორგი ჩხაიძე":
-      "A name — e.g. GGC Games LLC, GGC Games, or a person's full name",
-    "ვერ მოიძებნა — შექმენი ახალი": "Not found — create it",
-    "სახელი გახდება იდენტიფიკატორი, რომელზეც თამაშები მიება — კომპანიის ოფიციალური სახელი, გუნდის სახელი ან შენი სახელი და გვარი.":
-      "The name becomes the identifier that games attach to — a company's legal name, a team's name, or your own name and surname.",
+    "სახელი, მაგ. GGC Games LLC, GGC Games ან გიორგი ჩხაიძე":
+      "A name, e.g. GGC Games LLC, GGC Games, or a person's full name",
+    "ვერ მოიძებნა. შექმენი ახალი": "Not found. Create it",
+    "სახელი გახდება იდენტიფიკატორი, რომელზეც თამაშები მიება: კომპანიის ოფიციალური სახელი, გუნდის სახელი ან შენი სახელი და გვარი.":
+      "The name becomes the identifier that games attach to: a company's legal name, a team's name, or your own name and surname.",
     "ახლის შექმნა": "Create new",
     "თამაშის მიმაგრება": "Attach a game", "არსებულის შესწორება": "Request an edit",
-    "უკვე კატალოგშია —": "Already in the catalogue —",
+    "უკვე კატალოგშია:": "Already in the catalogue:",
+    "(ცარიელი)": "(empty)",
     "თავიდან დაწყება": "Start over",
     "გაგრძელებულია ადრე დაწყებული შევსება": "Picked up where you left off",
     ". თუ სხვა სტუდიას ამატებ, დააჭირე „თავიდან დაწყებას“.":
@@ -247,12 +248,12 @@
     "შენი მონაცემები": "Your details", "შესწორებული მონაცემები": "Corrected details",
     "ვინ ხარ": "Who you are", "ტიპი": "Kind",
     "რას აკეთებთ": "What you do", "რას აკეთებ": "What you do",
-    "ოფიციალურად რეგისტრირებული კომპანია — პრიორიტეტული ჩანაწერი, სჭირდება საიდენტიფიკაციო ნომერი.":
-      "An officially registered company — the strongest kind of record; needs a registry number.",
-    "არარეგისტრირებული გუნდი — იდენტიფიკატორი გუნდის სახელია.":
-      "An unregistered team — the team's name is the identifier.",
-    "ერთი ადამიანი — იდენტიფიკატორი პირადი სახელია.":
-      "One person — your own name is the identifier.",
+    "ოფიციალურად რეგისტრირებული კომპანია: პრიორიტეტული ჩანაწერი, სჭირდება საიდენტიფიკაციო ნომერი.":
+      "An officially registered company: the strongest kind of record; needs a registry number.",
+    "არარეგისტრირებული გუნდი: იდენტიფიკატორი გუნდის სახელია.":
+      "An unregistered team: the team's name is the identifier.",
+    "ერთი ადამიანი: იდენტიფიკატორი პირადი სახელია.":
+      "One person: your own name is the identifier.",
     "სოციალური ქსელები": "Social accounts", "მაღაზიები": "Storefronts",
     "ლინკები და სოციალური ქსელები": "Links and social accounts",
     "ლოგო მაღაზიიდან": "Logo from the store",
@@ -299,14 +300,14 @@
     "სტუდიის სახელი": "Studio name",
     "ახალი სტუდია": "New studio",
     "რა იგზავნება": "What gets sent",
-    "დაუსრულებელი ველები არ იგზავნება — ადმინისტრაცია მათ ჩვენს მხარეს შეავსებს.":
-      "Empty fields are not sent — we'll fill those in on our side.",
-    "შევსებული მონაცემი ინახება ბრაუზერში — გვერდის განახლებაც არაფერს შლის. გაგზავნის შემდეგ GGC-ის ადმინისტრაცია გადაამოწმებს და გამოქვეყნდება.":
-      "What you fill in is kept in your browser — reloading the page loses nothing. Once sent, GGC reviews it and publishes it.",
+    "დაუსრულებელი ველები არ იგზავნება, ადმინისტრაცია მათ ჩვენს მხარეს შეავსებს.":
+      "Empty fields are not sent. We'll fill those in on our side.",
+    "შევსებული მონაცემი ინახება ბრაუზერში, გვერდის განახლებაც არაფერს შლის. გაგზავნის შემდეგ GGC-ის ადმინისტრაცია გადაამოწმებს და გამოქვეყნდება.":
+      "What you fill in is kept in your browser, so reloading the page loses nothing. Once sent, GGC reviews it and publishes it.",
     "ჯერ ერთი-ორი ველი დარჩა": "A field or two still missing",
     "შესავსებია:": "Still to fill in:",
-    ". დაბრუნდი „უკან“ და შეავსე — ამის გარეშე ვერ გამოვაქვეყნებთ.":
-      ". Go “Back” and fill them in — we can't publish without them.",
+    ". დაბრუნდი „უკან“ და შეავსე, ამის გარეშე ვერ გამოვაქვეყნებთ.":
+      ". Go “Back” and fill them in. We can't publish without them.",
     "ოფიციალური სახელი · ქალაქი · წელი": "Legal name · city · year",
     "ვალიდაციის მოლოდინში": "awaiting validation",
     "როლები არ არის მითითებული": "no roles set",
@@ -315,14 +316,14 @@
     "ხელახლა გაგზავნა": "Send again",
     "მონაცემები გადაეგზავნა GGC-ის ადმინისტრაციას და გადამოწმდება. როგორც კი დავადასტურებთ, საიტზე გამოჩნდება.":
       "Your data has gone to GGC for review. As soon as we confirm it, it appears on the site.",
-    "გაგზავნა ვერ მოხერხდა — შენი მონაცემები არსად დაკარგულა, უბრალოდ სცადე ხელახლა.":
-      "It couldn't be sent — nothing you filled in is lost, just try again.",
+    "გაგზავნა ვერ მოხერხდა. შენი მონაცემები არსად დაკარგულა, უბრალოდ სცადე ხელახლა.":
+      "It couldn't be sent. Nothing you filled in is lost, just try again.",
     "სერვერამდე ვერ მივიდა.": "It didn't reach the server.",
     "კატალოგში დაბრუნება": "Back to the catalogue",
     "კიდევ ერთის დამატება": "Add another",
     "ჩასვი მაღაზიის ბმული": "Paste the store link",
-    "ავტომატურად ვერ წავიკითხეთ — შეავსე ხელით, ბმულს ჩვენ თვითონ დავამუშავებთ":
-      "We couldn't read it automatically — fill it in by hand and we'll process the link ourselves",
+    "ავტომატურად ვერ წავიკითხეთ. შეავსე ხელით, ბმულს ჩვენ თვითონ დავამუშავებთ":
+      "We couldn't read it automatically. Fill it in by hand and we'll process the link ourselves",
     "ამ გვერდიდან მონაცემები ვერ წაიკითხა": "Nothing could be read from that page",
     "ამ გვერდიდან სტუდიის მონაცემები ვერ წაიკითხა": "No studio details could be read from that page",
     "ეს სტუდიის გვერდი არ არის": "That isn't a studio page",
@@ -338,24 +339,24 @@
     "მაისი": "May", "ივნისი": "June", "ივლისი": "July", "აგვისტო": "August",
     "სექტემბერი": "September", "ოქტომბერი": "October", "ნოემბერი": "November",
     "დეკემბერი": "December",
-    "GameJam 2025 — შემაჯამებელი": "GameJam 2025 — wrap-up",
+    "GameJam 2025 — შემაჯამებელი": "GameJam 2025: wrap-up",
     "შესწორების მოთხოვნა": "Request an edit",
-    "GGC-ის საქმიანობა ოთხ ნაწილად იყოფა. აირჩიე მიმართულება — ქვემოთ სრული კონტენტი გამოჩნდება.":
-      "GGC's work splits into four parts. Pick a direction — the full content appears below.",
+    "GGC-ის საქმიანობა ოთხ ნაწილად იყოფა. აირჩიე მიმართულება და ქვემოთ სრული კონტენტი გამოჩნდება.":
+      "GGC's work splits into four parts. Pick a direction and the full content appears below.",
     "ერთი თემა, ორი მოხსენება, ერთი საათი კითხვები. უფასო, დარეგისტრირების გარეშე.":
       "One topic, two talks, an hour of questions. Free, no registration.",
     "48 საათი, გუნდები ადგილზე იკრიბება, ბოლოს ყველა თამაშობს ერთმანეთის თამაშს.":
       "48 hours, teams form on site, and at the end everyone plays each other's games.",
-    "პრაქტიკული სესია კონკრეტულ უნარზე — 2D, 3D, პროგრამირება, ბიზნესი.":
-      "A hands-on session on one skill — 2D, 3D, programming, business.",
+    "პრაქტიკული სესია კონკრეტულ უნარზე: 2D, 3D, პროგრამირება, ბიზნესი.":
+      "A hands-on session on one skill: 2D, 3D, programming, business.",
     "წლის შედეგები, ახალი თამაშების ჩვენება და ინდუსტრიის შეხვედრა.":
       "The year's results, new game showcases and an industry get-together.",
     "ივენთების გამოცხადება, ვაკანსიები, ერთმანეთის დახმარება და ის შუადღის კითხვები, რომლებზეც ფორუმზე ვერავინ გიპასუხებდა.":
       "Event announcements, job posts, mutual help, and the midday questions no forum would answer.",
     "კომუნითი და ივენთები": "Community and events",
-    "დაწერე Telegram-ზე — ყველაზე სწრაფი გზაა.": "Write on Telegram — it's the fastest way.",
-    "GGC არის ქართული თამაშების საზოგადოება — ადგილი, სადაც სტუდიები, გუნდები და ცალკეული დეველოპერები ერთმანეთს პოულობენ. ჩვენ არ ვქმნით თამაშებს; ჩვენ ვაშენებთ ინფრასტრუქტურას, რომელიც თამაშების შექმნას აადვილებს.":
-      "GGC is the Georgian games community — the place where studios, teams and individual developers find each other. We don't make games; we build the infrastructure that makes making them easier.",
+    "დაწერე Telegram-ზე, ყველაზე სწრაფი გზაა.": "Write on Telegram, it's the fastest way.",
+    "GGC არის ქართული თამაშების საზოგადოება, ადგილი, სადაც სტუდიები, გუნდები და ცალკეული დეველოპერები ერთმანეთს პოულობენ. ჩვენ არ ვქმნით თამაშებს; ჩვენ ვაშენებთ ინფრასტრუქტურას, რომელიც თამაშების შექმნას აადვილებს.":
+      "GGC is the Georgian games community, the place where studios, teams and individual developers find each other. We don't make games; we build the infrastructure that makes making them easier.",
 
     /* ------------------------------------------------------------ cities */
     "თბილისი": "Tbilisi", "ბათუმი": "Batumi", "ქუთაისი": "Kutaisi", "რუსთავი": "Rustavi",
@@ -377,13 +378,13 @@
     "მითაფები და მასტერკლასები": "Meetups and masterclasses",
     "გეიმჯემი პრიზების გარეშე უბრალოდ შაბათ-კვირაა. პრიზი არის მიზეზი, რომ ხალხმა თამაში ბოლომდე მიიყვანოს.":
       "A game jam without prizes is just a weekend. The prize is the reason people finish the game.",
-    "დარბაზი, პროექტორი, მიკროფონი, ინტერნეტი — მითაფი ამათ გარეშე არ დგება.":
-      "A hall, a projector, a microphone, internet — a meetup doesn't happen without them.",
+    "დარბაზი, პროექტორი, მიკროფონი, ინტერნეტი: მითაფი ამათ გარეშე არ დგება.":
+      "A hall, a projector, a microphone, internet: a meetup doesn't happen without them.",
     "ერთი ბილეთი საერთაშორისო ექსპოზე ქართული სტუდიისთვის ხშირად პირველი რეალური კონტრაქტია.":
       "One ticket to an international expo is often a Georgian studio's first real contract.",
     "სად წავიდა შარშანდელი ფული": "Where last year's money went",
     "რიცხვები შეიცვლება რეალურით — სტრუქტურა ასეთი რჩება.":
-      "The numbers will be replaced with real ones — the structure stays as it is.",
+      "The numbers will be replaced with real ones. The structure stays as it is.",
     "სულ": "Total", "მწვანე": "Green", "შავ-თეთრი": "Mono",
     "წითელი": "Red", "ლურჯი": "Blue", "ყვითელი": "Yellow",
 
@@ -397,7 +398,7 @@
     "თანადამფუძნებელი": "Co-founder",
     "პროექტების მენეჯერი": "Project manager", "კონტენტი": "Content",
     "GGC ქართული თამაშების საზოგადოებაა, სივრცე სადაც სტუდიები, გუნდები და სოლო დეველოპერები ერთმანეთს პოულობენ. ჩვენ თავად არ ვქმნით თამაშებს, მაგრამ ვქმნით გარემოს, რომელიც ამ პროცესს ბევრად მარტივს ხდის.":
-      "GGC is the Georgian games community — the place where studios, teams and individual developers find each other. We don't make games ourselves; we build the environment that makes making them far easier.",
+      "GGC is the Georgian games community, the place where studios, teams and individual developers find each other. We don't make games ourselves; we build the environment that makes making them far easier.",
     "ადამიანი გადამზადებული 2023 წლიდან": "people trained since 2023",
     "ტექნოპარკის ჩართულობით": "with Technopark involvement",
     "გლობალური გეიმჯემი 2022-2026": "global game jams 2022-2026",
@@ -416,8 +417,8 @@
     "10 მითაფი, კონფერენცია, 70,000₾ ბიუჯეტი.": "10 meetups, a conference, a ₾70,000 budget.",
     "სტუდიებთან კონსულტაციები და პირველი პროექტები.": "Consultations with studios and the first projects.",
     "ღია მონაცემები ქართულ გეიმდევზე.": "Open data on Georgian gamedev.",
-    "ლოგოებს ჩაანაცვლებ —": "Replace the logos —",
-    "მოგვწერე Telegram-ზე, ეს ყველაზე სწრაფი გზაა.": "Write on Telegram — it's the fastest way.",
+    "ლოგოებს ჩაანაცვლებ —": "Replace the logos:",
+    "მოგვწერე Telegram-ზე, ეს ყველაზე სწრაფი გზაა.": "Write on Telegram, it's the fastest way.",
     "თამაშის პიჩი, ინვესტიცია, სპონსორობა.": "Game pitches, investment, sponsorship.",
     "შენი სტუდიის დამატება ან შესწორება.": "Add or correct your studio.",
 
@@ -431,16 +432,16 @@
     "სიახლეები · News": "News", "კონტაქტი · Contact": "Contact",
 
     /* -------------------------------------------------------------- news */
-    "რა ხდება GGC-ში — ივენთები, ანონსები და ინდუსტრიის ამბები.":
-      "What's happening at GGC — events, announcements and industry news.",
+    "რა ხდება GGC-ში: ივენთები, ანონსები და ინდუსტრიის ამბები.":
+      "What's happening at GGC: events, announcements and industry news.",
     "ყველა სიახლე →": "All news →", "ყველა სიახლე": "All news", "← ყველა სიახლე": "← All news",
-    "ივენთები, ანონსები, გამოშვებები და ინდუსტრიის ამბები — ყველაფერი, რაც ქართულ გეიმდევში ხდება.":
-      "Events, announcements, releases and industry news — everything happening in Georgian game development.",
+    "ივენთები, ანონსები, გამოშვებები და ინდუსტრიის ამბები: ყველაფერი, რაც ქართულ გეიმდევში ხდება.":
+      "Events, announcements, releases and industry news: everything happening in Georgian game development.",
     "მთავარი სიახლე": "Featured", "წაკითხვა →": "Read →",
     "ძებნა სიახლეებში": "Search the news",
     "სიახლეები ჯერ არ გამოქვეყნებულა.": "No news has been published yet.",
-    "პირველი ამბები მალე გამოჩნდება — მანამდე ყველაფერი Telegram-ში ხდება.":
-      "The first stories are on their way — until then, everything happens on Telegram.",
+    "პირველი ამბები მალე გამოჩნდება. მანამდე ყველაფერი Telegram-ში ხდება.":
+      "The first stories are on their way. Until then, everything happens on Telegram.",
     "გაასუფთავე ფილტრი ან სცადე სხვა სიტყვა.": "Clear the filter or try another word.",
     "სტატია ვერ მოიძებნა": "Article not found",
     "შეიძლება წაიშალა, ან ჯერ არ გამოქვეყნებულა.": "It may have been removed, or it is not published yet.",
@@ -485,15 +486,15 @@
        assembled at runtime — so the label is translated without its star, and
        the list is translated one item at a time. */
     [/^(.+) \*$/, function (m, a) { return (DICT[a] || a) + " *"; }],
-    [/^\* — სავალდებულო\. ყველა შევსებულია\.$/, function () { return "* — required. All filled in."; }],
-    [/^\* — სავალდებულო\. შესავსებია: (.+)\.$/, function (m, a) {
-      return "* — required. Still to fill in: " + a.split(/,\s*/).map(function (x) { return DICT[x] || x; }).join(", ") + ".";
+    [/^\* სავალდებულო\. ყველა შევსებულია\.$/, function () { return "* required. All filled in."; }],
+    [/^\* სავალდებულო\. შესავსებია: (.+)\.$/, function (m, a) {
+      return "* required. Still to fill in: " + a.split(/,\s*/).map(function (x) { return DICT[x] || x; }).join(", ") + ".";
     }],
     [/^შესავსებია: (.+)$/, function (m, a) {
       return "Still to fill in: " + a.split(/,\s*/).map(function (x) { return DICT[x] || x; }).join(", ");
     }],
-    [/^(რეგისტრირებული კომპანია|გუნდი|სოლო დეველოპერი) — ნაჩვენებია სულ$/,
-      function (m, a) { return (DICT[a] || a) + " — showing in total"; }],
+    [/^(რეგისტრირებული კომპანია|გუნდი|სოლო დეველოპერი), ნაჩვენებია სულ$/,
+      function (m, a) { return (DICT[a] || a) + ", showing in total"; }],
     [/^დაემატა (\d+) თამაში(.*)$/, function (m, a, b) { return "Added " + a + " game" + (a === "1" ? "" : "s") + b; }],
     [/^(\d+) წთ საკითხავი$/, function (m, a) { return a + " min read"; }]
   ];

@@ -53,7 +53,7 @@
 
 <section style="max-width:1000px;margin:0 auto;padding:clamp(26px,4vw,48px) 20px clamp(40px,6vw,72px)">
   <h1 style="margin:0;font-size:clamp(28px,4.6vw,46px);line-height:1.05;font-weight:800;letter-spacing:-.03em">მონაცემების გაგზავნა</h1>
-  <p style="margin:14px 0 0;max-width:56ch;font-size:17px;line-height:1.55;color:#41464c">შენ ავსებ — ჩვენ ვამოწმებთ და ვაქვეყნებთ. კომპანია ყოველთვის ოფიციალური სახელით იდენტიფიცირდება, თამაში კი მიბმულია კომპანიაზე.</p>
+  <p style="margin:14px 0 0;max-width:56ch;font-size:17px;line-height:1.55;color:#41464c">შენ ავსებ, ჩვენ ვამოწმებთ და ვაქვეყნებთ. კომპანია ყოველთვის ოფიციალური სახელით იდენტიფიცირდება, თამაში კი მიბმულია კომპანიაზე.</p>
 
   <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:28px 0 22px">
     <sc-for list="{{ crumbs }}" as="c" hint-placeholder-count="5">
@@ -72,15 +72,15 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:14px;animation:ggcPop .4s ease both">
       <button type="button" onClick="{{ pickNew }}" style="text-align:left;cursor:pointer;background:#fff;border:1px solid #dfe3e4;border-top:4px solid #1d96d3;border-radius:16px;padding:24px;font-family:inherit" style-hover="border-color:#1d96d3">
         <div style="font-size:19px;font-weight:600;color:#16181b">დაამატე სტუდია, გუნდი ან სოლო დეველოპერი</div>
-        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">რეგისტრირებული კომპანია, არარეგისტრირებული გუნდი ან ერთი ადამიანი — რომელიც კატალოგში ჯერ არ არის.</p>
+        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">რეგისტრირებული კომპანია, არარეგისტრირებული გუნდი ან ერთი ადამიანი, რომელიც კატალოგში ჯერ არ არის.</p>
       </button>
       <button type="button" onClick="{{ pickGame }}" style="text-align:left;cursor:pointer;background:#fff;border:1px solid #dfe3e4;border-top:4px solid #ee2626;border-radius:16px;padding:24px;font-family:inherit" style-hover="border-color:#ee2626">
         <div style="font-size:19px;font-weight:600;color:#16181b">თამაშის დამატება</div>
-        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">იპოვე შენი ჩანაწერი — სტუდია, გუნდი თუ საკუთარი სახელი — და მიამაგრე თამაში. მაღაზიის ლინკიდან ყველაფერი ავტომატურად ივსება.</p>
+        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">იპოვე შენი ჩანაწერი (სტუდია, გუნდი თუ საკუთარი სახელი) და მიამაგრე თამაში. მაღაზიის ლინკიდან ყველაფერი ავტომატურად ივსება.</p>
       </button>
       <button type="button" onClick="{{ pickEdit }}" style="text-align:left;cursor:pointer;background:#fff;border:1px solid #dfe3e4;border-top:4px solid #fdb813;border-radius:16px;padding:24px;font-family:inherit" style-hover="border-color:#fdb813">
         <div style="font-size:19px;font-weight:600;color:#16181b">არსებული მონაცემის შესწორება</div>
-        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">რამე არასწორია ან შეიცვალა — მოითხოვე ედიტი.</p>
+        <p style="margin:10px 0 0;font-size:15px;line-height:1.6;color:#4d5258">რამე არასწორია ან შეიცვალა? მოითხოვე ედიტი.</p>
       </button>
     </div>
   </sc-if>
@@ -88,8 +88,8 @@
   <sc-if value="{{ isStep1 }}">
     <div style="background:#fff;border:1px solid #dfe3e4;border-radius:18px;padding:clamp(18px,3vw,28px);animation:ggcPop .4s ease both">
       <div style="display:{{ prefillShow }};background:#eef6fb;border:1px solid #cfe3ef;border-radius:16px;padding:18px;margin-bottom:20px">
-        <div style="font-size:17px;font-weight:600;color:#14536f">ყველაზე მარტივი გზა — მაღაზიის გვერდი</div>
-        <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#2c5f7d">ჩასვი შენი (ან შენი სტუდიის) გვერდი Steam-ზე (სასურველია), itch.io-ზე, App Store-ზე ან Google Play-ზე. სახელს, ვებსაიტს, სოციალურ ქსელებს და ყველა თამაშს ავტომატურად შევავსებთ — შენ მხოლოდ დანარჩენს დაამატებ.</p>
+        <div style="font-size:17px;font-weight:600;color:#14536f">ყველაზე მარტივი გზა: მაღაზიის გვერდი</div>
+        <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#2c5f7d">ჩასვი შენი (ან შენი სტუდიის) გვერდი Steam-ზე (სასურველია), itch.io-ზე, App Store-ზე ან Google Play-ზე. სახელს, ვებსაიტს, სოციალურ ქსელებს და ყველა თამაშს ავტომატურად შევავსებთ, შენ მხოლოდ დანარჩენს დაამატებ.</p>
         <input type="url" placeholder="https://store.steampowered.com/developer/…" value="{{ studioUrl }}" onInput="{{ onStudioUrl }}" style="width:100%;margin-top:14px;border:1px solid #cfe3ef;border-radius:11px;padding:13px 15px;font-family:inherit;font-size:15px;background:#fff;color:#16181b">
         <button type="button" onClick="{{ importStudio }}" style="margin-top:12px;border:0;cursor:pointer;background:#146590;color:#fff;border-radius:11px;padding:13px 20px;font-family:inherit;font-size:15px;font-weight:600">{{ importLabel }}</button>
         <div style="display:{{ importBusyShow }};align-items:center;gap:12px;margin-top:12px;background:#fff;border:1px solid #cfe3ef;border-radius:11px;padding:13px">
@@ -101,7 +101,7 @@
 
       <div style="font-size:20px;font-weight:600">{{ step1Title }}</div>
       <p style="margin:8px 0 18px;font-size:15px;line-height:1.6;color:#4d5258;max-width:62ch">{{ step1Hint }}</p>
-      <input type="search" placeholder="სახელი — მაგ. GGC Games LLC, GGC Games ან გიორგი ჩხაიძე" value="{{ lookup }}" onInput="{{ onLookup }}" style="width:100%;border:1px solid #dfe3e4;border-radius:11px;padding:14px 16px;font-family:inherit;font-size:16px;background:#f7f9f9;color:#16181b">
+      <input type="search" placeholder="სახელი, მაგ. GGC Games LLC, GGC Games ან გიორგი ჩხაიძე" value="{{ lookup }}" onInput="{{ onLookup }}" style="width:100%;border:1px solid #dfe3e4;border-radius:11px;padding:14px 16px;font-family:inherit;font-size:16px;background:#f7f9f9;color:#16181b">
       <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
         <sc-for list="{{ matches }}" as="m" hint-placeholder-count="2">
           <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:#f7f9f9;border:1px solid #e6eaeb;border-radius:12px;padding:14px 16px">
@@ -114,7 +114,7 @@
         </sc-for>
       </div>
       <div style="display:{{ noMatchShow }};margin-top:14px;background:#f7f9f9;border:1px dashed #ccd3d4;border-radius:12px;padding:18px">
-        <div style="font-size:16px;font-weight:600">ვერ მოიძებნა — შექმენი ახალი</div>
+        <div style="font-size:16px;font-weight:600">ვერ მოიძებნა. შექმენი ახალი</div>
         <p style="margin:8px 0 14px;font-size:15px;color:#4d5258">{{ createHint }}</p>
         <button type="button" onClick="{{ createNew }}" style="border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:10px;padding:12px 18px;font-family:inherit;font-size:15px;font-weight:600">ახლის შექმნა</button>
       </div>
@@ -204,7 +204,7 @@
       <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#4d5258">{{ gamesIntro }}</p>
 
       <div style="display:{{ ownedShow }};margin-top:20px">
-        <div style="font-size:14px;color:#5a5f65;margin-bottom:10px">უკვე კატალოგშია — {{ ownedCount }}</div>
+        <div style="font-size:14px;color:#5a5f65;margin-bottom:10px">უკვე კატალოგშია: {{ ownedCount }}</div>
         <div style="display:flex;flex-direction:column;gap:8px">
           <sc-for list="{{ owned }}" as="g" hint-placeholder-count="3">
             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:#f7f9f9;border:1px solid #e6eaeb;border-radius:12px;padding:12px 14px">
@@ -221,7 +221,7 @@
 
       <div style="display:{{ bulkShow }};margin-top:20px;background:#eef6fb;border:1px solid #cfe3ef;border-radius:16px;padding:18px">
         <div style="font-size:16px;font-weight:600;color:#14536f">ყველა თამაში ერთბაშად</div>
-        <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#2c5f7d">ჩასვი შენი სტუდიის გვერდი — Steam-ის publisher/developer გვერდი, itch.io-ს პროფილი, App Store-ის ან Google Play-ის დეველოპერის გვერდი. ჩვენ თვითონ ვიპოვით ყველა თამაშს და შევავსებთ თითოეულის მონაცემებს.</p>
+        <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#2c5f7d">ჩასვი შენი სტუდიის გვერდი: Steam-ის publisher/developer გვერდი, itch.io-ს პროფილი, App Store-ის ან Google Play-ის დეველოპერის გვერდი. ჩვენ თვითონ ვიპოვით ყველა თამაშს და შევავსებთ თითოეულის მონაცემებს.</p>
         <label style="display:flex;flex-direction:column;gap:7px;margin-top:14px;font-size:14px;color:#2c5f7d">სტუდიის გვერდი
           <input type="url" placeholder="https://store.steampowered.com/developer/…" value="{{ studioUrl }}" onInput="{{ onStudioUrl }}" style="border:1px solid #cfe3ef;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#fff;color:#16181b">
         </label>
@@ -255,12 +255,12 @@
 
               <div style="display:{{ g.busyShow }};align-items:center;gap:12px;margin-top:14px;background:#eaf3f8;border:1px solid #cfe3ef;border-radius:11px;padding:14px">
                 <span style="width:18px;height:18px;border-radius:50%;border:3px solid #cfe3ef;border-top-color:#146590;animation:ggcSpin 900ms linear infinite;flex:none"></span>
-                <div style="flex:1 1 160px;min-width:0;font-size:14px;line-height:1.55;color:#14536f">ვკითხულობთ მაღაზიის გვერდს — ეს ნახევარ წუთამდე შეიძლება გაგრძელდეს. გვერდი ღია დატოვე.</div>
+                <div style="flex:1 1 160px;min-width:0;font-size:14px;line-height:1.55;color:#14536f">ვკითხულობთ მაღაზიის გვერდს, ეს ნახევარ წუთამდე შეიძლება გაგრძელდეს. გვერდი ღია დატოვე.</div>
               </div>
 
               <div style="display:{{ g.okShow }};margin-top:14px">
                 <div style="display:flex;align-items:center;gap:9px;background:#e9f5ec;border:1px solid #d3e8d9;border-radius:11px;padding:12px 14px;font-size:14px;color:#2f5c3c">
-                  <span style="width:8px;height:8px;border-radius:50%;background:#4c9a5e;flex:none"></span>ყველაფერი წამოვიდა მაღაზიიდან — შემდეგში ავტომატურად განახლდება
+                  <span style="width:8px;height:8px;border-radius:50%;background:#4c9a5e;flex:none"></span>ყველაფერი წამოვიდა მაღაზიიდან და შემდეგში ავტომატურად განახლდება
                 </div>
                 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr));gap:8px;margin-top:12px">
                   <sc-for list="{{ g.parsedFields }}" as="p" hint-placeholder-count="5">
@@ -337,7 +337,7 @@
               </div>
 
               <div style="margin-top:12px;display:flex;align-items:center;gap:12px;background:#fff8e7;border:1px solid #f3e2b8;border-radius:11px;padding:12px 14px;font-size:14px;color:#7a5500">
-                ატვირთული სურათი ავტომატურად შეიკვეცება 460×215-ზე და შეიკუმშება — კიდეებს არ გასცდება.
+                ატვირთული სურათი ავტომატურად შეიკვეცება 460×215-ზე და შეიკუმშება, კიდეებს არ გასცდება.
               </div>
             </div>
           </div>
@@ -357,7 +357,7 @@
     <div style="animation:ggcPop .4s ease both">
       <div style="display:{{ missingShow }};margin-bottom:16px;background:#fff8e7;border:1px solid #f3e2b8;border-radius:14px;padding:16px 18px">
         <div style="font-size:15px;font-weight:600;color:#7a5500">ჯერ ერთი-ორი ველი დარჩა</div>
-        <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#7a5500">შესავსებია: {{ missingList }}. დაბრუნდი „უკან“ და შეავსე — ამის გარეშე ვერ გამოვაქვეყნებთ.</p>
+        <p style="margin:8px 0 0;font-size:15px;line-height:1.6;color:#7a5500">შესავსებია: {{ missingList }}. დაბრუნდი „უკან“ და შეავსე, ამის გარეშე ვერ გამოვაქვეყნებთ.</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:16px">
         <div style="background:#fff;border:1px solid #dfe3e4;border-radius:18px;padding:22px">
@@ -398,7 +398,7 @@
         </div>
         <div style="background:#fff;border:1px solid #dfe3e4;border-radius:18px;padding:22px">
           <div style="font-size:20px;font-weight:600">გაგზავნამდე</div>
-          <p style="margin:10px 0 0;font-size:15px;line-height:1.65;color:#4d5258">შევსებული მონაცემი ინახება ბრაუზერში — გვერდის განახლებაც არაფერს შლის. გაგზავნის შემდეგ GGC-ის ადმინისტრაცია გადაამოწმებს და გამოქვეყნდება.</p>
+          <p style="margin:10px 0 0;font-size:15px;line-height:1.65;color:#4d5258">შევსებული მონაცემი ინახება ბრაუზერში, გვერდის განახლებაც არაფერს შლის. გაგზავნის შემდეგ GGC-ის ადმინისტრაცია გადაამოწმებს და გამოქვეყნდება.</p>
 
           <div style="margin-top:20px;padding-top:18px;border-top:1px solid #eef1f1">
             <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px">
@@ -413,7 +413,7 @@
                 </div>
               </sc-for>
             </div>
-            <p style="display:{{ emptyShow }};margin:10px 0 0;font-size:14px;line-height:1.55;color:#6b7278">დაუსრულებელი ველები არ იგზავნება — ადმინისტრაცია მათ ჩვენს მხარეს შეავსებს.</p>
+            <p style="display:{{ emptyShow }};margin:10px 0 0;font-size:14px;line-height:1.55;color:#6b7278">დაუსრულებელი ველები არ იგზავნება, ადმინისტრაცია მათ ჩვენს მხარეს შეავსებს.</p>
           </div>
 
           <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px">
@@ -433,7 +433,7 @@
       <h2 style="margin:18px 0 0;font-size:clamp(24px,3.4vw,34px);font-weight:700;letter-spacing:-.02em">{{ sentTitle }}</h2>
       <p style="margin:14px auto 0;max-width:46ch;font-size:17px;line-height:1.6;color:#41464c">{{ sentText }}</p>
       <div style="display:{{ failShow }};max-width:520px;margin:22px auto 0;background:#fdf2f2;border:1px solid #f3d4d4;border-radius:16px;padding:18px">
-        <p style="margin:0;font-size:15px;line-height:1.6;color:#8c2f2f">გაგზავნა ვერ მოხერხდა — შენი მონაცემები არსად დაკარგულა, უბრალოდ სცადე ხელახლა.</p>
+        <p style="margin:0;font-size:15px;line-height:1.6;color:#8c2f2f">გაგზავნა ვერ მოხერხდა. შენი მონაცემები არსად დაკარგულა, უბრალოდ სცადე ხელახლა.</p>
         <button type="button" onClick="{{ retry }}" style="margin-top:14px;border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:10px;padding:12px 20px;font-family:inherit;font-size:15px;font-weight:600">{{ retryLabel }}</button>
       </div>
       <div style="display:{{ doneShow }};flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px">
@@ -545,9 +545,9 @@ const ROLES = {
   solo: ["developer", "art", "audio", "porting"]
 };
 const KIND_HINT = {
-  company: "ოფიციალურად რეგისტრირებული კომპანია — პრიორიტეტული ჩანაწერი, სჭირდება საიდენტიფიკაციო ნომერი.",
-  team: "არარეგისტრირებული გუნდი — იდენტიფიკატორი გუნდის სახელია.",
-  solo: "ერთი ადამიანი — იდენტიფიკატორი პირადი სახელია."
+  company: "ოფიციალურად რეგისტრირებული კომპანია: პრიორიტეტული ჩანაწერი, სჭირდება საიდენტიფიკაციო ნომერი.",
+  team: "არარეგისტრირებული გუნდი: იდენტიფიკატორი გუნდის სახელია.",
+  solo: "ერთი ადამიანი: იდენტიფიკატორი პირადი სახელია."
 };
 /* The same set the panel edits, minus what only GGC decides — the validation
    dates, the verified badge, the record's id. Someone correcting their own game
@@ -746,14 +746,14 @@ class Component extends DCLogic {
     if (!url) return this.setState({ importMsg: "ჩასვი სტუდიის გვერდის ბმული.", importMsgColor: "#8c2f2f" });
     if (!GGC.stores.detectStudio(url)) {
       return this.setState({
-        importMsg: "ეს კონკრეტული თამაშის გვერდს ჰგავს. სტუდიის გვერდი გვჭირდება — Steam-ზე ეს არის /publisher/ ან /developer/ მისამართი.",
+        importMsg: "ეს კონკრეტული თამაშის გვერდს ჰგავს. სტუდიის გვერდი გვჭირდება. Steam-ზე ეს არის /publisher/ ან /developer/ მისამართი.",
         importMsgColor: "#7a5500"
       });
     }
     this.setState({ importing: true, importMsg: "", importProgress: "ვეძებთ თამაშებს სტუდიის გვერდზე…" });
     GGC.stores.parseStudio(url, (done, total, name) => {
       this.setState({
-        importProgress: "წაკითხულია " + done + "/" + total + (name ? " — " + name : "") +
+        importProgress: "წაკითხულია " + done + "/" + total + (name ? ": " + name : "") +
           ". გვერდი ღია დატოვე."
       });
     }).then(res => {
@@ -845,7 +845,7 @@ class Component extends DCLogic {
       },
       () => this.patchDraft(key, {
         parsing: false, parsed: null,
-        parseErr: "ავტომატურად ვერ წავიკითხეთ — შეავსე ხელით, ბმულს ჩვენ თვითონ დავამუშავებთ"
+        parseErr: "ავტომატურად ვერ წავიკითხეთ. შეავსე ხელით, ბმულს ჩვენ თვითონ დავამუშავებთ"
       })
     );
   }
@@ -1045,7 +1045,7 @@ class Component extends DCLogic {
            other — it goes through validation rather than happening at once —
            but there was no way to ask at all. */
         dropShow: d.gameId ? "inline-block" : "none",
-        dropLabel: d.remove ? "✔ წაშლა მოთხოვნილია — დააბრუნე" : "წაშლის მოთხოვნა",
+        dropLabel: d.remove ? "✔ წაშლა მოთხოვნილია, დააბრუნე" : "წაშლის მოთხოვნა",
         dropBg: d.remove ? "#8c2f2f" : "#fff",
         dropFg: d.remove ? "#fff" : "#8c2f2f",
         drop: () => this.patchDraft(d.key, { remove: !d.remove }),
@@ -1055,16 +1055,16 @@ class Component extends DCLogic {
            not something a date input can hold, so it is shown as it was written
            and the picker is left asking for the exact day. */
         rawDateShow: d.rawDate ? "flex" : "none",
-        rawDate: d.rawDate ? "მაღაზიაში წერია „" + d.rawDate + "“ — თუ ზუსტი დღე იცი, აირჩიე კალენდარში." : "",
+        rawDate: d.rawDate ? "მაღაზიაში წერია „" + d.rawDate + "“. თუ ზუსტი დღე იცი, აირჩიე კალენდარში." : "",
         statusValue: d.f.status || "released",
         onStatus: e => this.setDraftField(d.key, "status", e.target.value),
         statusOptions: [
           { v: "released", label: "გამოსული" },
-          { v: "upcoming", label: "მოსალოდნელი — თარიღი ჯერ არ არის" }
+          { v: "upcoming", label: "მოსალოდნელი, თარიღი ჯერ არ არის" }
         ],
         engineValue: engineChoice,
         onEngine: e => this.setDraftField(d.key, "engine", e.target.value === "Custom" ? "Custom: " : e.target.value),
-        engineOptions: [{ v: "", label: "—" }].concat(U.ENGINES.map(v => ({ v, label: v }))),
+        engineOptions: [{ v: "", label: "აირჩიე" }].concat(U.ENGINES.map(v => ({ v, label: v }))),
         engineCustomShow: engineChoice === "Custom" ? "flex" : "none",
         engineCustom: d.f.engine || "",
         onEngineCustom: e => this.setDraftField(d.key, "engine", e.target.value),
@@ -1178,7 +1178,7 @@ class Component extends DCLogic {
       // A restored draft used to be invisible, so a new studio could be filled
       // in on top of an old one without any sign of it.
       resumeShow: s.saved && !s.sent ? "block" : "none",
-      resumeWho: (f.legal || f.name) ? " — " + (f.legal || f.name) : "",
+      resumeWho: (f.legal || f.name) ? ", " + (f.legal || f.name) : "",
       crumbs: ["ქმედება", "იდენტიფიკაცია", "დეტალები", "თამაშები", "გადახედვა"].map((t, i) => ({
         n: "0" + (i + 1), t,
         bg: s.step === i ? "#16181b" : (s.step > i ? "#e6f2f9" : "#fff"),
@@ -1223,12 +1223,12 @@ class Component extends DCLogic {
       // yet; correcting an existing one starts from the record we already have.
       prefillShow: s.mode === "edit" ? "none" : "block",
       step1Title: s.mode === "edit" ? "იპოვე შენი ჩანაწერი" : (s.mode === "game" ? "ვის ეკუთვნის თამაში?" : "ან ჩაწერე სახელით"),
-      createHint: "სახელი გახდება იდენტიფიკატორი, რომელზეც თამაშები მიება — კომპანიის ოფიციალური სახელი, გუნდის სახელი ან შენი სახელი და გვარი.",
+      createHint: "სახელი გახდება იდენტიფიკატორი, რომელზეც თამაშები მიება: კომპანიის ოფიციალური სახელი, გუნდის სახელი ან შენი სახელი და გვარი.",
       step1Hint: s.mode === "edit"
-        ? "ჩაწერე სახელი — კომპანიის, გუნდის ან შენი. იპოვი და იქვე შეასწორებ."
+        ? "ჩაწერე სახელი: კომპანიის, გუნდის ან შენი. იპოვი და იქვე შეასწორებ."
         : (s.mode === "game"
           ? "იპოვე სტუდია, რომელსაც თამაში მიება. თუ სიაში არაა, ჯერ სტუდია უნდა დაემატოს."
-          : "თუ მაღაზიის გვერდი არ გაქვს, ჩაწერე სახელი — კომპანიის, გუნდის ან შენი. თუ უკვე არსებობს, ედიტს მოითხოვ; თუ არა, აქვე შექმნი."),
+          : "თუ მაღაზიის გვერდი არ გაქვს, ჩაწერე სახელი: კომპანიის, გუნდის ან შენი. თუ უკვე არსებობს, ედიტს მოითხოვ; თუ არა, აქვე შექმნი."),
       createNew: () => this.save({ mode: "new", step: 2, f: Object.assign({}, f, { legal: s.lookup }) }),
 
       step2Title: isNew ? STEP2_TITLE[s.kind] : "შესწორებული მონაცემები",
@@ -1245,8 +1245,8 @@ class Component extends DCLogic {
         onChange: e => this.set("size", e.target.value)
       }]),
       requiredNote: this.missingFields().length
-        ? "* — სავალდებულო. შესავსებია: " + this.missingFields().join(", ") + "."
-        : "* — სავალდებულო. ყველა შევსებულია.",
+        ? "* სავალდებულო. შესავსებია: " + this.missingFields().join(", ") + "."
+        : "* სავალდებულო. ყველა შევსებულია.",
       requiredNoteColor: this.missingFields().length ? "#8c2f2f" : "#2f5c3c",
       kindHint: KIND_HINT[s.kind],
       rolesLabel: s.kind === "solo" ? "რას აკეთებ" : "რას აკეთებთ",

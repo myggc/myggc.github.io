@@ -351,7 +351,7 @@
       "<head>",
       '<meta charset="utf-8">',
       '<meta name="viewport" content="width=device-width, initial-scale=1">',
-      "<title>" + esc(title) + " — GGC</title>",
+      "<title>" + esc(title) + " | GGC</title>",
       // A post with no summary has no description; the preview shows the title alone.
       desc ? '<meta name="description" content="' + esc(desc) + '">' : "",
       '<meta property="og:type" content="article">',
