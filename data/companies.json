@@ -846,29 +846,33 @@
     },
     {
       "id": "abelix-games",
-      "kind": "team",
+      "kind": "company",
       "name": "Abelix Games",
       "legal": "Abelix Games",
-      "regId": "",
+      "regId": "406257955",
       "city": "თბილისი",
-      "founded": 0,
-      "size": "",
+      "founded": "2018-09-13",
+      "size": "1-2",
       "roles": [
-        "developer"
+        "developer",
+        "porting",
+        "outsourcing"
       ],
       "website": "https://abelixgames.com",
-      "email": "",
+      "email": "406257955",
       "phone": "",
       "contact": "",
       "about": "ინდი სტუდია, რომელიც PC-სთვის ქმნის სტილიზებულ პლატფორმერ-სათავგადასავლო თამაშებს.",
       "aboutEn": "Indie studio making stylised platformer-adventure games for PC.",
       "logo": "",
-      "links": {},
-      "verified": false,
+      "links": {
+        "steam": "https://store.steampowered.com/search/?developer=Giorgi%20Abelashvili"
+      },
+      "verified": true,
       "active": true,
       "validated": "",
       "created": "2026-10-02",
-      "updated": "2026-10-02"
+      "updated": "2026-10-04"
     },
     {
       "id": "appidea",
@@ -1051,10 +1055,10 @@
     },
     {
       "id": "stormbringer-studios",
-      "kind": "company",
+      "kind": "team",
       "name": "StormBringer Studios",
       "legal": "StormBringer Studios",
-      "regId": "404997633",
+      "regId": "",
       "city": "თბილისი",
       "founded": 2013,
       "size": "",
@@ -1063,7 +1067,7 @@
         "outsourcing"
       ],
       "website": "https://stormbringerstudios.com/",
-      "email": "info@stormbringerstudios.com",
+      "email": "",
       "phone": "",
       "contact": "",
       "about": "თბილისური სტუდია, დაარსებული 2013 წელს. ქმნის კაჟუალ მობილურ თამაშებს Unity-ზე; პირველი პროექტები — Geopolice 1 და 2, მილიონზე მეტი ჩამოტვირთვით. აუთსორსზე მუშაობდა Last Day on Earth-ზე.",
@@ -1078,7 +1082,7 @@
       "active": true,
       "validated": "",
       "created": "2026-10-02",
-      "updated": "2026-10-04"
+      "updated": "2026-10-02"
     },
     {
       "id": "irakli-kokrashvili",
