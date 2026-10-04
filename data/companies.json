@@ -124,11 +124,11 @@
         "discord": "https://discord.gg/cJu4SVVtDx",
         "steam": "https://store.steampowered.com/developer/lisisoft"
       },
-      "verified": true,
+      "verified": false,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-10-04"
+      "updated": "2026-09-06"
     },
     {
       "id": "შპს-ბაბი-2007",
@@ -180,13 +180,15 @@
       "logo": "https://avatars.fastly.steamstatic.com/0a6a0d6dec95f12579c92a63f3c6b5b2d5cbcace_full.jpg",
       "links": {
         "linkedin": "https://www.linkedin.com/company/anti-gaming-studio/about/",
-        "steam": "https://store.steampowered.com/curator/45607140"
+        "steam": "https://store.steampowered.com/curator/45607140",
+        "instagram": "https://www.instagram.com/anti_gaming_studio/",
+        "itch": "https://chubabria.itch.io/"
       },
-      "verified": false,
+      "verified": true,
       "active": true,
       "validated": "2026-09-09",
       "created": "2026-09-06",
-      "updated": "2026-09-09"
+      "updated": "2026-10-04"
     },
     {
       "id": "zambara-studio",
@@ -862,7 +864,7 @@
       "contact": "",
       "about": "ინდი სტუდია, რომელიც PC-სთვის ქმნის სტილიზებულ პლატფორმერ-სათავგადასავლო თამაშებს.",
       "aboutEn": "Indie studio making stylised platformer-adventure games for PC.",
-      "logo": "",
+      "logo": "images/logos/abelix-games.jpg?v=1791116466177",
       "links": {
         "steam": "https://store.steampowered.com/search/?developer=Giorgi%20Abelashvili"
       },
@@ -880,7 +882,7 @@
       "regId": "404468893",
       "city": "თბილისი",
       "founded": 2014,
-      "size": "11-20",
+      "size": "",
       "roles": [
         "developer",
         "publisher",
@@ -898,7 +900,7 @@
         "appstore": "https://apps.apple.com/us/developer/appidea/id995922286",
         "googleplay": "https://play.google.com/store/apps/developer?id=APPIDEA+Capital+LTD"
       },
-      "verified": true,
+      "verified": false,
       "active": true,
       "validated": "",
       "created": "2026-10-02",
