@@ -74,19 +74,19 @@
     <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));gap:1px;margin-top:clamp(40px,6vw,64px);background:#e4e5e1;border:1px solid #e4e5e1;border-radius:16px;overflow:hidden">
       <a href="companies.html" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #1d96d3;transition:background .25s ease" style-hover="background:#fafbf8">
         <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#1d96d3">{{ nCompanies }}</div>
-        <div style="margin-top:8px;font-size:14px;color:#4d5258">ვერიფიცირებული კომპანია</div>
+        <div style="margin-top:8px;font-size:14px;color:#4d5258">კომპანიები</div>
       </a>
       <a href="companies.html#teams" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #83c341;transition:background .25s ease" style-hover="background:#fafbf8">
         <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#83c341">{{ nTeams }}</div>
-        <div style="margin-top:8px;font-size:14px;color:#4d5258">გუნდი</div>
+        <div style="margin-top:8px;font-size:14px;color:#4d5258">გუნდები</div>
       </a>
       <a href="companies.html#solo" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #fdb813;transition:background .25s ease" style-hover="background:#fafbf8">
         <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#fdb813">{{ nSolo }}</div>
-        <div style="margin-top:8px;font-size:14px;color:#4d5258">სოლო დეველოპერი</div>
+        <div style="margin-top:8px;font-size:14px;color:#4d5258">სოლო დეველოპერები</div>
       </a>
       <a href="games.html" style="display:block;background:#fff;padding:22px 20px;border-top:4px solid #ee2626;transition:background .25s ease" style-hover="background:#fafbf8">
         <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#ee2626">{{ nGames }}</div>
-        <div style="margin-top:8px;font-size:14px;color:#4d5258">თამაში</div>
+        <div style="margin-top:8px;font-size:14px;color:#4d5258">თამაშები</div>
       </a>
     </div>
   </section>
@@ -470,10 +470,12 @@ class Component extends DCLogic {
     const v = {
       haloColor: DIRS[s.i].color,
       svgRot: s.rot !== undefined ? s.rot : 180,
-      nCompanies: s.ready ? st.companies : (p.companies ?? "…"),
-      nTeams: s.ready ? st.teams : (p.teams ?? "…"),
-      nSolo: s.ready ? st.solo : (p.solo ?? "…"),
-      nGames: s.ready ? st.games : (p.games ?? "…"),
+      // Counted from the catalogue once it has loaded. The editor's sample
+      // numbers used to stand in until then, and they were long out of date.
+      nCompanies: s.ready ? st.companies : "…",
+      nTeams: s.ready ? st.teams : "…",
+      nSolo: s.ready ? st.solo : "…",
+      nGames: s.ready ? st.games : "…",
       langLabel: s.lang === "ka" ? "EN" : "ქარ",
       toggleLang: () => this.setState(st2 => ({ lang: st2.lang === "ka" ? "en" : "ka" })),
       games: shelf,
