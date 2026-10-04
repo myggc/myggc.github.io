@@ -93,7 +93,6 @@
       <div style="background:#fff;border:1px solid #e1e3df;border-radius:16px;padding:22px;text-align:center">
         <div style="position:relative;width:78px;height:78px;margin:0 auto;border-radius:50%;background:#e8eae7;overflow:hidden;display:flex;align-items:center;justify-content:center">
           <div aria-hidden="true" style="position:absolute;inset:0;background:{{ m.bg }}"></div>
-          <span style="position:relative;font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:600;color:#5a5f65">{{ m.initials }}</span>
         </div>
         <div style="margin-top:14px;font-size:17px;font-weight:600">{{ m.ka }}</div>
         <div style="margin-top:3px;font-size:14px;color:#5a5f65">{{ m.en }}</div>
@@ -180,8 +179,7 @@ class Component extends DCLogic {
         { year: "2026", title: "კატალოგი", note: "ღია მონაცემები ქართულ გეიმდევზე.", color: "#83c341" }
       ],
       team: team.map(m => Object.assign({}, m, {
-        bg: 'url("images/team/' + m.en.toLowerCase().replace(/\s+/g, "-") + '.jpg") center/cover no-repeat',
-        initials: m.en.split(/\s+/).slice(0, 2).map(w => w[0]).join("")
+        bg: 'url("images/team/' + m.en.toLowerCase().replace(/\s+/g, "-") + '.jpg") center/cover no-repeat'
       })),
       partners: ["Lenovo", "Startup Bureau", "Techpark", "Partner", "Partner", "Partner"].map((name, i) => ({
         name, bg: 'url("images/partners/partner-' + (i + 1) + '.png") center/contain no-repeat'
