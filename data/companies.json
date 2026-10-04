@@ -124,11 +124,11 @@
         "discord": "https://discord.gg/cJu4SVVtDx",
         "steam": "https://store.steampowered.com/developer/lisisoft"
       },
-      "verified": true,
+      "verified": false,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-10-04"
+      "updated": "2026-09-06"
     },
     {
       "id": "შპს-ბაბი-2007",
@@ -180,13 +180,15 @@
       "logo": "https://avatars.fastly.steamstatic.com/0a6a0d6dec95f12579c92a63f3c6b5b2d5cbcace_full.jpg",
       "links": {
         "linkedin": "https://www.linkedin.com/company/anti-gaming-studio/about/",
-        "steam": "https://store.steampowered.com/curator/45607140"
+        "steam": "https://store.steampowered.com/curator/45607140",
+        "instagram": "https://www.instagram.com/anti_gaming_studio/",
+        "itch": "https://chubabria.itch.io/"
       },
-      "verified": false,
+      "verified": true,
       "active": true,
       "validated": "2026-09-09",
       "created": "2026-09-06",
-      "updated": "2026-09-09"
+      "updated": "2026-10-04"
     },
     {
       "id": "zambara-studio",
