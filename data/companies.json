@@ -851,15 +851,13 @@
       "legal": "Abelix Games",
       "regId": "406257955",
       "city": "თბილისი",
-      "founded": "2018-09-13",
+      "founded": "2018-09-14",
       "size": "1-2",
       "roles": [
-        "developer",
-        "porting",
-        "outsourcing"
+        "developer"
       ],
       "website": "https://abelixgames.com",
-      "email": "406257955",
+      "email": "giorgi.abelashvili@gmail.com",
       "phone": "",
       "contact": "",
       "about": "ინდი სტუდია, რომელიც PC-სთვის ქმნის სტილიზებულ პლატფორმერ-სათავგადასავლო თამაშებს.",
@@ -868,7 +866,7 @@
       "links": {
         "steam": "https://store.steampowered.com/search/?developer=Giorgi%20Abelashvili"
       },
-      "verified": true,
+      "verified": false,
       "active": true,
       "validated": "",
       "created": "2026-10-02",
@@ -1055,10 +1053,10 @@
     },
     {
       "id": "stormbringer-studios",
-      "kind": "team",
+      "kind": "company",
       "name": "StormBringer Studios",
       "legal": "StormBringer Studios",
-      "regId": "",
+      "regId": "404997633",
       "city": "თბილისი",
       "founded": 2013,
       "size": "",
@@ -1067,7 +1065,7 @@
         "outsourcing"
       ],
       "website": "https://stormbringerstudios.com/",
-      "email": "",
+      "email": "info@stormbringerstudios.com",
       "phone": "",
       "contact": "",
       "about": "თბილისური სტუდია, დაარსებული 2013 წელს. ქმნის კაჟუალ მობილურ თამაშებს Unity-ზე; პირველი პროექტები — Geopolice 1 და 2, მილიონზე მეტი ჩამოტვირთვით. აუთსორსზე მუშაობდა Last Day on Earth-ზე.",
@@ -1082,7 +1080,7 @@
       "active": true,
       "validated": "",
       "created": "2026-10-02",
-      "updated": "2026-10-02"
+      "updated": "2026-10-04"
     },
     {
       "id": "irakli-kokrashvili",
