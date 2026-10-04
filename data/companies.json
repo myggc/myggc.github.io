@@ -866,7 +866,7 @@
       "links": {
         "steam": "https://store.steampowered.com/search/?developer=Giorgi%20Abelashvili"
       },
-      "verified": false,
+      "verified": true,
       "active": true,
       "validated": "",
       "created": "2026-10-02",
@@ -1056,16 +1056,16 @@
       "kind": "company",
       "name": "StormBringer Studios",
       "legal": "StormBringer Studios",
-      "regId": "",
+      "regId": "404997633",
       "city": "თბილისი",
       "founded": 2013,
-      "size": "3-5",
+      "size": "",
       "roles": [
         "developer",
         "outsourcing"
       ],
       "website": "https://stormbringerstudios.com/",
-      "email": "",
+      "email": "info@stormbringerstudios.com",
       "phone": "",
       "contact": "",
       "about": "თბილისური სტუდია, დაარსებული 2013 წელს. ქმნის კაჟუალ მობილურ თამაშებს Unity-ზე; პირველი პროექტები — Geopolice 1 და 2, მილიონზე მეტი ჩამოტვირთვით. აუთსორსზე მუშაობდა Last Day on Earth-ზე.",
