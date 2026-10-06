@@ -4254,6 +4254,96 @@
       "validated": "2026-10-02",
       "created": "2026-10-02",
       "updated": "2026-10-02"
+    },
+    {
+      "id": "mad-farm-vr",
+      "name": "Mad Farm VR",
+      "studioId": "happy-bat-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Mar 9, 2018",
+      "year": 2018,
+      "mobile": false,
+      "genres": [
+        "gore",
+        "action",
+        "casual",
+        "indie"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$4.99",
+      "langs": "English",
+      "about": "Any day being eaten alive does not seem like a joyous activity, especially when you are up against a reckless animal that can devour you with ease. There are more than enough animals for zombie uprising and this farm dispatched the first of the undead. Are you ready to enter this madness!?",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/679720/Mad_Farm_VR/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/679720/header.jpg?t=1524572706",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/679720?t=1524572706",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/679720/ss_3528b03483d869c0e6c6b763fe9ef3697da06d1a.600x338.jpg?t=1524572706",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/679720/ss_eda0eb0bb48e9471f3ae593962a763f37d97ce38.600x338.jpg?t=1524572706",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/679720/ss_56a761b0e0b0e6fb443241d4332495aeacd540fe.600x338.jpg?t=1524572706"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-10-06T16:16:31.977Z",
+      "verified": false,
+      "active": true,
+      "validated": "2026-10-06",
+      "created": "2026-10-06",
+      "updated": "2026-10-06"
+    },
+    {
+      "id": "draft",
+      "name": "VR Table Sports",
+      "studioId": "happy-bat-games",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "Aug 19, 2017",
+      "year": 2017,
+      "mobile": false,
+      "genres": [
+        "casual",
+        "indie",
+        "simulation",
+        "sports"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$7.99",
+      "langs": "English",
+      "about": "Three table sports simulator in one game! Play Foosball, Ping pong and Air hockey with your friends and other people from around the world. Meet them in different places with various avatars and have fun together :)",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/678200/VR_Table_Sports/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/678200/header.jpg?t=1524387514",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/678200?t=1524387514",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/678200/ss_6b18faa8a1d0fcea9020fbe8aacfaf28fa22aa8e.600x338.jpg?t=1524387514",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/678200/ss_dce92f90ae39b9aed983590b9ffd594e0db67610.600x338.jpg?t=1524387514",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/678200/ss_1197e8a2b0bf1f7ef171cd0d41005fca7a0f38a7.600x338.jpg?t=1524387514"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-10-06T16:17:46.876Z",
+      "verified": false,
+      "active": true,
+      "validated": "2026-10-06",
+      "created": "2026-10-06",
+      "updated": "2026-10-06"
     }
   ]
 }

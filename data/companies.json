@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-04",
+  "updated": "2026-10-06",
   "items": [
     {
       "id": "madmoa",
@@ -921,7 +921,7 @@
         "developer"
       ],
       "website": "https://www.happybat.com/",
-      "email": "",
+      "email": " ",
       "phone": "",
       "contact": "",
       "about": "თბილისური სტუდია, დაარსებული 2017 წელს. ქმნის ჰიბრიდულ და ჰიპერ-კაჟუალ მობილურ თამაშებს; ადრე VR თამაშებიც (VR Table Sports, Mad Farm).",
@@ -930,13 +930,14 @@
       "links": {
         "facebook": "https://www.facebook.com/HappyBatGames/",
         "linkedin": "https://www.linkedin.com/company/happy-bat",
-        "googleplay": "https://play.google.com/store/apps/developer?id=Happy+Bat"
+        "googleplay": "https://play.google.com/store/apps/developer?id=Happy+Bat",
+        "steam": "https://store.steampowered.com/curator/33026336"
       },
       "verified": false,
       "active": true,
       "validated": "",
       "created": "2026-10-02",
-      "updated": "2026-10-02"
+      "updated": "2026-10-06"
     },
     {
       "id": "maxhp-studio",
