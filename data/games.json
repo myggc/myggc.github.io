@@ -2346,7 +2346,7 @@
       "name": "Duskblade",
       "studioId": "საბა-სანიკიძე",
       "publisherId": "",
-      "status": "upcoming",
+      "status": "released",
       "releaseDate": "",
       "year": 0,
       "mobile": false,
@@ -2371,12 +2371,12 @@
       },
       "localArt": "",
       "source": "itch",
-      "parsedAt": "2026-10-02T10:41:05.041Z",
+      "parsedAt": "2026-10-06T21:00:06.527Z",
       "verified": true,
       "active": true,
       "validated": "2026-10-02",
       "created": "2026-10-02",
-      "updated": "2026-10-02"
+      "updated": "2026-10-06"
     },
     {
       "id": "boss-test",
