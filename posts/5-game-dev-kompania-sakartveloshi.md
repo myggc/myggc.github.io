@@ -1,6 +1,6 @@
 **![](images/news/5-game-dev-kompania-sakartveloshi-mutnsi4d.jpg)**
 
-1. MadMoa
+**1. MadMoa**
 •	სპეციალიზაცია: Full-Cycle PC/Console Game Development
 •	პროექტები: Dumbriel: Magnificent Adventure in Hell
 •	ვებ-გვერდი: https://madmoa.com/
@@ -43,7 +43,7 @@ Revolt Entertainment არის ქართული დამოუკიდ
 
 **![](images/news/5-game-dev-kompania-sakartveloshi-mutnkoyl.jpg)**
 
-4. Dasi Games
+**4. Dasi Games**
 •	სპეციალიზაცია: Full-Cycle Mobile Game Development
 •	პროექტები: https://play.google.com/store/apps/dev?id=5818328852601157830&hl=en
 •	ვებ-გვერდი: https://dasigames.com/

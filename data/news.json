@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-04",
+  "updated": "2026-10-06",
   "items": [
     {
       "id": "ratom-unda-iqos-sheni-tamashi-ggc-is-bazashi",
@@ -35,7 +35,7 @@
       "en": false,
       "minutes": 2,
       "created": "2026-10-03",
-      "updated": "2026-10-04"
+      "updated": "2026-10-06"
     },
     {
       "id": "top-5-kartuli-tamashi-romelsats-tvali-unda-adevnot-natsili-1",
