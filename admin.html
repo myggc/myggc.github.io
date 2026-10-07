@@ -86,11 +86,55 @@
       <sc-if value="{{ isQueue }}" hint-placeholder-val="{{ true }}">
         <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
           <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px">
-            <h1 style="margin:0;font-size:22px;font-weight:600;color:#fff">ვალიდაციის რიგი</h1>
-            <span style="font-size:15px;color:#8b949c">{{ queueCount }} მოთხოვნა</span>
-            <button type="button" onClick="{{ reload }}" style="margin-left:auto;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px">განახლება</button>
+            <h1 style="margin:0;font-size:22px;font-weight:600;color:#fff">{{ queueTitle }}</h1>
+            <span style="display:{{ queueCountShow }};font-size:15px;color:#8b949c">{{ queueCount }} მოთხოვნა</span>
+            <div style="display:flex;gap:2px;background:#171a1e;border:1px solid #2f353c;border-radius:10px;padding:3px;margin-left:auto">
+              <button type="button" onClick="{{ showQueueView }}" style="border:0;cursor:pointer;background:{{ viewQueueBg }};color:{{ viewQueueFg }};border-radius:7px;padding:7px 13px;font-family:inherit;font-size:14px;font-weight:600">რიგი</button>
+              <button type="button" onClick="{{ showHistoryView }}" style="border:0;cursor:pointer;background:{{ viewHistoryBg }};color:{{ viewHistoryFg }};border-radius:7px;padding:7px 13px;font-family:inherit;font-size:14px;font-weight:600">ისტორია</button>
+            </div>
+            <button type="button" onClick="{{ reload }}" style="border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px">განახლება</button>
           </div>
-          <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px">
+          <div style="display:{{ historyShow }};flex-direction:column;gap:10px;margin-top:18px">
+            <input type="search" placeholder="ძებნა ისტორიაში" value="{{ historyQ }}" onInput="{{ onHistorySearch }}" style="border:1px solid #333941;border-radius:10px;padding:10px 13px;font-family:inherit;font-size:14px;background:#171a1e;color:#e9ecee">
+            <sc-for list="{{ history }}" as="hq" hint-placeholder-count="3">
+              <div style="background:#20242a;border:1px solid #2f353c;border-left:4px solid {{ hq.accent }};border-radius:13px;overflow:hidden">
+                <button type="button" onClick="{{ hq.toggle }}" style="width:100%;display:flex;flex-wrap:wrap;align-items:center;gap:12px;border:0;cursor:pointer;background:transparent;padding:16px 18px;font-family:inherit;text-align:left">
+                  <span style="flex:none;background:{{ hq.tagBg }};color:{{ hq.tagFg }};border-radius:7px;padding:5px 10px;font-size:12px;font-weight:600">{{ hq.state }}</span>
+                  <span style="flex:1 1 160px;min-width:0;font-size:16px;font-weight:600;color:#fff">{{ hq.name }}</span>
+                  <span style="flex:none;font-size:14px;color:#8b949c">{{ hq.meta }}</span>
+                  <span style="flex:none;font-family:'Space Grotesk',sans-serif;font-size:18px;color:#6cc0e8">{{ hq.chevron }}</span>
+                </button>
+                <div style="display:{{ hq.show }};padding:0 18px 18px">
+                  <div style="display:{{ hq.noteShow }};margin-bottom:12px;background:#171a1e;border:1px solid #2f353c;border-radius:11px;padding:14px;font-size:14px;line-height:1.6;color:#c6ccd3">{{ hq.note }}</div>
+                  <sc-for list="{{ hq.sections }}" as="hs" hint-placeholder-count="1">
+                    <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;overflow:hidden;margin-bottom:12px">
+                      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:14px 16px;background:#1d2126;border-bottom:1px solid #2f353c">
+                        <div style="flex:1 1 160px;min-width:0">
+                          <div style="font-size:16px;font-weight:600;color:#fff;word-break:break-word">{{ hs.title }}</div>
+                          <div style="margin-top:3px;font-size:13px;color:#8b949c">{{ hs.sub }}</div>
+                        </div>
+                        <span style="flex:none;font-size:13px;color:#6a737c">{{ hs.count }}</span>
+                        <button type="button" onClick="{{ hs.open }}" style="display:{{ hs.openShow }};flex:none;border:1px solid #1d4a68;cursor:pointer;background:#0f1c26;color:#6cc0e8;border-radius:9px;padding:8px 13px;font-family:inherit;font-size:13px;font-weight:600">ჩანაწერის გახსნა</button>
+                      </div>
+                      <div style="display:flex;flex-direction:column;gap:1px;background:#2f353c">
+                        <sc-for list="{{ hs.rows }}" as="r" hint-placeholder-count="4">
+                          <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;background:#171a1e;padding:11px 16px;font-size:14px;line-height:1.6">
+                            <span style="flex:0 0 148px;font-size:13px;color:#8b949c">{{ r.k }}</span>
+                            <span style="display:{{ r.oldShow }};flex:0 1 auto;color:#6a737c;text-decoration:line-through;word-break:break-word;overflow-wrap:anywhere">{{ r.old }}</span>
+                            <span style="flex:1 1 200px;min-width:0;color:{{ r.color }};word-break:break-word;overflow-wrap:anywhere">{{ r.new }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <div style="display:{{ hs.emptyShow }};padding:14px 16px;font-size:14px;color:#8b949c">ველები არ შეცვლილა.</div>
+                    </div>
+                  </sc-for>
+                  <a href="{{ hq.url }}" target="_blank" rel="noopener" style="display:inline-block;border:1px solid #333941;background:#20242a;color:#c6ccd3;border-radius:10px;padding:11px 18px;font-size:15px;font-weight:600">GitHub-ზე გახსნა ↗</a>
+                </div>
+              </div>
+            </sc-for>
+            <div style="display:{{ historyEmptyShow }};padding:34px;text-align:center;border:1px dashed #333941;border-radius:13px;color:#8b949c;font-size:16px">{{ historyEmptyText }}</div>
+          </div>
+          <div style="display:{{ queueListShow }};flex-direction:column;gap:10px;margin-top:18px">
             <sc-for list="{{ queue }}" as="q" hint-placeholder-count="3">
               <div style="background:#20242a;border:1px solid #2f353c;border-left:4px solid {{ q.accent }};border-radius:13px;overflow:hidden">
                 <button type="button" onClick="{{ q.toggle }}" style="width:100%;display:flex;flex-wrap:wrap;align-items:center;gap:12px;border:0;cursor:pointer;background:transparent;padding:16px 18px;font-family:inherit;text-align:left">
@@ -910,6 +954,7 @@ class Component extends DCLogic {
   state = {
     ready: false, authed: false, user: "", tokenInput: "", authErr: "", signing: false,
     tab: "queue", open: null, q: "", sort: "", edit: null, editKind: "company",
+    queueView: "queue", history: null, loadingHistory: false, historyOpen: null, historyQ: "",
     queue: [], decisions: {}, companies: [], games: [], events: [], spending: [], previews: {}, audit: [], audited: false,
     status: "", statusColor: "#8b949c", publishing: false, syncing: "",
     pending: null, uploading: false, asking: 0, busy: 0, testing: false, endpointOk: "",
@@ -1109,6 +1154,7 @@ class Component extends DCLogic {
     if (s.asking) return "კომენტარი იგზავნება…";
     if (s.busy) return "მოთხოვნა იხურება…";
     if (s.loadingQueue) return "რიგი იტვირთება…";
+    if (s.loadingHistory) return "ისტორია იტვირთება…";
     return "";
   }
 
@@ -1554,6 +1600,7 @@ class Component extends DCLogic {
 
     // Which records this produced, so the panel can open them straight after.
     p.appliedGameIds = [];
+    p.removedGameIds = [];
     this.payloadGames(p).forEach(entry => {
       const fields = Object.assign({}, entry);
       const gameId = fields.gameId;
@@ -1563,7 +1610,7 @@ class Component extends DCLogic {
         if (i < 0) throw new Error("თამაში ვერ მოიძებნა: " + gameId);
         // A submitter can ask for a game to come off the catalogue; approving
         // the request is what carries it out.
-        if (fields.remove) { games.splice(i, 1); return; }
+        if (fields.remove) { games.splice(i, 1); p.removedGameIds.push(gameId); return; }
         games[i] = D.normGame(Object.assign({}, games[i], fields, { updated: now, validated: now }));
         p.appliedGameIds.push(gameId);
         return;
@@ -1646,11 +1693,201 @@ class Component extends DCLogic {
           open: s.open === item.number ? null : s.open,
           queue: s.queue.filter(q => q.number !== item.number)
         }));
+        this.staleHistory();
         this.say("#" + item.number + " უარყოფილია და დაიხურა", "#f4cd77");
       })
       .catch(e => {
         this.setState({ busy: 0 });
         this.say("ვერ დაიხურა: " + e.message, "#f0a8a8");
+      });
+  }
+
+  /* ----------------------------------------------------------------- history */
+
+  /* An approved request used to vanish with its issue, and with it any way of
+     seeing what it had changed. Closed requests are the history now: each
+     approval published from here carries a before/after record in its closing
+     comment (see publish), and older ones fall back to what was asked for. */
+  loadHistory() {
+    this.setState({ loadingHistory: true });
+    GH.listHistory()
+      .then(list => this.setState({ history: list, loadingHistory: false }))
+      .catch(e => {
+        this.setState({ loadingHistory: false });
+        this.say("ისტორია ვერ ჩაიტვირთა: " + e.message, "#f0a8a8");
+      });
+  }
+
+  staleHistory() {
+    if (this.state.queueView === "history") this.loadHistory();
+    else this.setState({ history: null });
+  }
+
+  /* Every field that differs between two versions of a record, both ways, so a
+     value that was cleared shows up as well as one that was added. Bookkeeping
+     dates are left out: they change on every save and say nothing. */
+  changeRows(before, after, labels) {
+    const SKIP = { updated: 1, validated: 1, created: 1, parsedAt: 1 };
+    const val = v => {
+      if (v === undefined || v === null) return "";
+      if (Array.isArray(v)) return v.map(x => x && typeof x === "object" ? JSON.stringify(x) : String(x)).join(", ");
+      if (typeof v === "boolean") return v ? "კი" : "არა";
+      if (typeof v === "object") return JSON.stringify(v);
+      return String(v);
+    };
+    const flat = rec => {
+      const out = {};
+      Object.keys(rec || {}).forEach(k => {
+        if (SKIP[k]) return;
+        const v = rec[k];
+        if (v && typeof v === "object" && !Array.isArray(v)) {
+          Object.keys(v).forEach(kk => { out[k + "." + kk] = val(v[kk]); });
+        } else {
+          out[k] = k === "kind" ? (U.KIND_LABEL[v] || val(v)) : val(v);
+        }
+      });
+      return out;
+    };
+    const a = flat(before), b = flat(after);
+    const keys = Object.keys(b).concat(Object.keys(a).filter(k => !(k in b)));
+    return keys.filter(k => (a[k] || "") !== (b[k] || "")).map(k => {
+      const dot = k.indexOf(".");
+      const top = dot < 0 ? k : k.slice(0, dot), sub = dot < 0 ? "" : k.slice(dot + 1);
+      return {
+        k: (labels[top] || top) + (sub ? " · " + (U.SOC[sub] || U.STORE_LABEL[sub] || sub) : ""),
+        old: (a[k] || "").slice(0, 2000),
+        "new": (b[k] || "").slice(0, 2000)
+      };
+    });
+  }
+
+  /* What publishing an approval did to each record it touched: the live copy
+     (D, until the reload after publishing) against the staged one. */
+  appliedRecord(item) {
+    const s = this.state, p = item.payload || {};
+    const changes = [];
+    if (p.appliedId) {
+      const before = D.company(p.appliedId);
+      const after = s.companies.filter(c => c.id === p.appliedId)[0];
+      if (after) changes.push({
+        type: "company", id: after.id, name: after.legal || after.name || after.id,
+        isNew: !before, rows: this.changeRows(before, after, CO_LABELS)
+      });
+    }
+    (p.appliedGameIds || []).forEach(id => {
+      const before = D.game(id);
+      const after = s.games.filter(g => g.id === id)[0];
+      if (after) changes.push({
+        type: "game", id: id, name: after.name || id,
+        isNew: !before, rows: this.changeRows(before, after, GAME_LABELS)
+      });
+    });
+    (p.removedGameIds || []).forEach(id => {
+      const before = D.game(id);
+      changes.push({ type: "game", id: id, name: (before && before.name) || id, removed: true, rows: [] });
+    });
+    return { v: 1, at: new Date().toISOString(), by: s.user, changes: changes };
+  }
+
+  /* An issue closed before records were kept: show what it asked for, and find
+     the record it was about so it can still be opened. */
+  requestedChanges(item) {
+    const s = this.state, p = item.payload || {};
+    if (item.malformed) return [];
+    const same = (x, y) => !!x && !!y && String(x).trim().toLowerCase() === String(y).trim().toLowerCase();
+    const out = [];
+    if (p.company) {
+      const hit = s.companies.filter(c => c.id === p.companyId)[0] ||
+        s.companies.filter(c => same(c.legal, p.company.legal) || same(c.name, p.company.name))[0];
+      out.push({
+        type: "company", id: hit ? hit.id : "", requested: true,
+        name: p.company.legal || p.company.name || p.subject || "სტუდია",
+        isNew: p.action === "new-company",
+        rows: GGC.submit.diff(null, p.company, CO_LABELS).map(r => ({ k: r.k, old: "", "new": r["new"] }))
+      });
+    }
+    this.payloadGames(p).forEach(entry => {
+      const fields = Object.assign({}, entry);
+      delete fields.gameId;
+      const hit = s.games.filter(g => g.id === entry.gameId)[0] || s.games.filter(g => same(g.name, fields.name))[0];
+      out.push({
+        type: "game", id: hit ? hit.id : "", requested: true,
+        name: (hit && hit.name) || fields.name || "უსახელო თამაში",
+        isNew: !entry.gameId, removed: !!fields.remove,
+        rows: GGC.submit.diff(null, fields, GAME_LABELS).map(r => ({ k: r.k, old: "", "new": r["new"] }))
+      });
+    });
+    return out;
+  }
+
+  openRecord(type, id) {
+    if (type === "game") {
+      if (!this.state.games.some(g => g.id === id)) return this.say("ეს თამაში კატალოგში აღარ არის", "#f4cd77");
+      return this.setState({ tab: "games", gameEdit: id, open: null });
+    }
+    const co = this.state.companies.filter(c => c.id === id)[0];
+    if (!co) return this.say("ეს ჩანაწერი კატალოგში აღარ არის", "#f4cd77");
+    this.setState({ tab: TAB_OF_KIND[co.kind] || "companies", edit: co.id, editKind: co.kind, open: null });
+  }
+
+  historyRows() {
+    const s = this.state;
+    const term = (s.historyQ || "").trim().toLowerCase();
+    const OUT = {
+      approved: { label: "დადასტურდა", accent: "#4c9a5e", bg: "#1e2a22", fg: "#9ede9e" },
+      rejected: { label: "უარყოფილი", accent: "#a14b4b", bg: "#2a1f1f", fg: "#f0a8a8" },
+      closed: { label: "დაიხურა", accent: "#4a525b", bg: "#2b3138", fg: "#c6ccd3" }
+    };
+    return (s.history || [])
+      .filter(item => !term || ((item.payload && item.payload.subject) || item.title || "").toLowerCase().indexOf(term) >= 0)
+      .map(item => {
+        const p = item.payload || {};
+        const rec = item.applied;
+        const o = OUT[item.outcome] || OUT.closed;
+        const changes = rec && rec.changes ? rec.changes : this.requestedChanges(item);
+        const sections = changes.map(ch => {
+          const isGame = ch.type === "game";
+          const exists = !!ch.id && (isGame ? s.games.some(g => g.id === ch.id) : s.companies.some(c => c.id === ch.id));
+          const what = ch.removed ? "თამაშის წაშლა"
+            : isGame ? (ch.isNew ? "ახალი თამაში" : "თამაშის შესწორება")
+            : (ch.isNew ? "ახალი ჩანაწერი" : "ჩანაწერის შესწორება");
+          const rows = (ch.rows || []).map(r => ({
+            k: r.k,
+            old: r.old,
+            oldShow: r.old ? "inline" : "none",
+            "new": r["new"] || "(წაიშალა)",
+            color: !r["new"] ? "#f0a8a8" : r.old ? "#9ede9e" : "#e9ecee"
+          }));
+          return {
+            title: ch.name || ch.id || "?",
+            sub: ch.requested ? what + " · მოთხოვნილი მნიშვნელობები" : what,
+            count: rows.length + " ველი",
+            rows: rows,
+            emptyShow: rows.length || ch.removed ? "none" : "block",
+            openShow: exists ? "inline-block" : "none",
+            open: () => this.openRecord(ch.type, ch.id)
+          };
+        });
+        const note = item.malformed ? "JSON ვერ წაიკითხა, გახსენი GitHub-ზე."
+          : item.outcome === "rejected" ? "უარყოფილია: საიტზე არაფერი შეცვლილა. ქვემოთ არის ის, რაც მოითხოვეს."
+          : !rec ? "ეს მოთხოვნა ისტორიის დამატებამდე დაიხურა, ამიტომ ძველი მნიშვნელობები არ შენახულა. ქვემოთ არის ის, რაც მოითხოვეს."
+          : "";
+        return {
+          name: p.subject || item.title,
+          meta: [
+            item.author ? "@" + item.author : "",
+            item.closedAt ? "დაიხურა " + U.fmtDate(item.closedAt.slice(0, 10)) : "",
+            rec && rec.by ? "დაადასტურა @" + rec.by : ""
+          ].filter(Boolean).join(" · "),
+          state: o.label, accent: o.accent, tagBg: o.bg, tagFg: o.fg,
+          show: s.historyOpen === item.number ? "block" : "none",
+          chevron: s.historyOpen === item.number ? "−" : "+",
+          toggle: () => this.setState(st => ({ historyOpen: st.historyOpen === item.number ? null : item.number })),
+          sections: sections,
+          note: note,
+          noteShow: note ? "block" : "none",
+          url: item.url
+        };
       });
   }
 
@@ -1680,10 +1917,17 @@ class Component extends DCLogic {
     this.say("იტვირთება…", "#6cc0e8");
     // Only approvals reach here — a rejection closed itself when it was made.
     const approved = Object.keys(s.decisions);
+    // Taken now, while D still holds what is live, so "before" is the site as
+    // it was and "after" includes any fix made after pressing approve.
+    const records = {};
+    approved.forEach(n => {
+      const item = s.queue.filter(q => String(q.number) === n)[0];
+      if (item) records[n] = this.appliedRecord(item);
+    });
     const msg = "data: " + this.dirtyCount() + " განახლება ადმინიდან";
     GH.saveData(s.companies, s.games, msg, { events: s.events, spending: s.spending })
       .then(() => Promise.all(approved.map(n =>
-        GH.comment(n, "დადასტურდა და გამოქვეყნდა კატალოგში. მადლობა!")
+        GH.comment(n, "დადასტურდა და გამოქვეყნდა კატალოგში. მადლობა!" + (records[n] ? GH.appliedNote(records[n]) : ""))
           .then(() => GH.closeIssue(n, "approved"))
           .catch(() => null)
       )))
@@ -1695,6 +1939,7 @@ class Component extends DCLogic {
         });
         this.say("გამოქვეყნდა", "#9ede9e");
         this.loadQueue();
+        this.staleHistory();
       })
       .catch(e => {
         this.setState({ publishing: false });
@@ -3657,6 +3902,7 @@ class Component extends DCLogic {
     const i18nAll = this.i18nRows();
     const i18nUnsaved = this.i18nDirty();
     const pending = s.queue.filter(q => !s.decisions[q.number]).length;
+    const historyAll = this.historyRows();
     const isGames = s.tab === "games";
     const cur = this.current();
 
@@ -3698,6 +3944,7 @@ class Component extends DCLogic {
       // nothing is waiting to be published.
       reload: () => {
         this.loadQueue();
+        if (s.queueView === "history") this.loadHistory();
         if (this.dirtyCount()) return this.say("რიგი განახლდა — მონაცემები არა, რადგან " + this.dirtyCount() + " ჩანაწერი ატვირთვას ელოდება", "#f4cd77");
         D.load(true).then(() => {
           this.setState({ ready: true, companies: U.clone(D.companies()), games: U.clone(D.games()) });
@@ -3819,8 +4066,27 @@ class Component extends DCLogic {
 
       queueCount: pending,
       queue: this.queueRows(),
-      queueEmpty: s.queue.length ? "none" : "block",
+      queueEmpty: s.queue.length || s.queueView === "history" ? "none" : "block",
       queueEmptyText: s.authed ? "რიგი ცარიელია" : "შემოსული მოთხოვნების სანახავად საჭიროა შესვლა",
+
+      queueListShow: s.queueView === "history" ? "none" : "flex",
+      historyShow: s.queueView === "history" ? "flex" : "none",
+      queueTitle: s.queueView === "history" ? "ისტორია" : "ვალიდაციის რიგი",
+      queueCountShow: s.queueView === "history" ? "none" : "inline",
+      viewQueueBg: s.queueView === "history" ? "transparent" : "#2b3138",
+      viewQueueFg: s.queueView === "history" ? "#a9b1b9" : "#fff",
+      viewHistoryBg: s.queueView === "history" ? "#2b3138" : "transparent",
+      viewHistoryFg: s.queueView === "history" ? "#fff" : "#a9b1b9",
+      showQueueView: () => this.setState({ queueView: "queue" }),
+      showHistoryView: () => this.setState({ queueView: "history" }, () => {
+        if (!this.state.history && !this.state.loadingHistory) this.loadHistory();
+      }),
+      history: historyAll,
+      historyQ: s.historyQ,
+      onHistorySearch: e => this.setState({ historyQ: e.target.value }),
+      historyEmptyShow: s.queueView === "history" && !historyAll.length ? "block" : "none",
+      historyEmptyText: s.loadingHistory || !s.history ? "ისტორია იტვირთება…"
+        : s.historyQ ? "ამ ძებნით არაფერი მოიძებნა" : "დახურული მოთხოვნები ჯერ არ არის",
 
       listTitle: TITLES[s.tab] || "",
       q: s.q,

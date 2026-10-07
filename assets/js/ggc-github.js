@@ -130,6 +130,59 @@
       });
   }
 
+  /* Every page of a list endpoint, up to `max` pages of a hundred. */
+  function pages(path, max) {
+    var out = [];
+    function next(n) {
+      return req(path + (path.indexOf("?") < 0 ? "?" : "&") + "per_page=100&page=" + n).then(function (list) {
+        out = out.concat(list || []);
+        return list && list.length === 100 && n < max ? next(n + 1) : out;
+      });
+    }
+    return next(1);
+  }
+
+  /* Closed submissions, newest first. Publishing leaves a record of what an
+     approval changed, before and after, in the closing comment, inside an HTML
+     comment so the submitter sees only the thank-you. Issues closed before that
+     record existed come back with `applied` null. */
+  var APPLIED = /<!-- ggc:applied\s*([\s\S]*?)\s*-->/;
+  var THANKS = "დადასტურდა და გამოქვეყნდა";
+
+  function listHistory() {
+    return Promise.all([
+      pages(R + "/issues?state=closed&sort=updated&direction=desc", 5),
+      pages(R + "/issues/comments?sort=created&direction=desc", 10)
+    ]).then(function (r) {
+      var applied = {}, thanked = {};
+      r[1].forEach(function (c) {
+        var n = Number(String(c.issue_url || "").split("/").pop());
+        var body = c.body || "";
+        var m = APPLIED.exec(body);
+        // Newest first, so a re-published issue keeps its latest record.
+        if (m && !applied[n]) { try { applied[n] = JSON.parse(m[1]); } catch (e) {} }
+        if (body.indexOf(THANKS) >= 0) thanked[n] = true;
+      });
+      return r[0]
+        .filter(function (i) { return !i.pull_request && isSubmission(i); })
+        .map(function (i) {
+          var it = parseIssue(i);
+          var labels = (i.labels || []).map(function (l) { return (l && (l.name || l)) || ""; });
+          it.closedAt = i.closed_at || "";
+          it.outcome = labels.indexOf("approved") >= 0 || thanked[i.number] || applied[i.number] ? "approved"
+            : labels.indexOf("rejected") >= 0 ? "rejected" : "closed";
+          it.applied = applied[i.number] || null;
+          return it;
+        })
+        .sort(function (a, b) { return a.closedAt < b.closedAt ? 1 : a.closedAt > b.closedAt ? -1 : 0; });
+    });
+  }
+
+  function appliedNote(record) {
+    // ">" is escaped so no value can close the HTML comment early.
+    return "\n\n<!-- ggc:applied\n" + JSON.stringify(record).replace(/</g, "\\u003c").replace(/>/g, "\\u003e") + "\n-->";
+  }
+
   function comment(number, body) {
     return req(R + "/issues/" + number + "/comments", { method: "POST", body: { body: body } });
   }
@@ -451,7 +504,8 @@
 
   window.GGCGitHub = {
     hasToken: hasToken, setToken: setToken, signIn: signIn, me: me,
-    listSubmissions: listSubmissions, comment: comment, closeIssue: closeIssue,
+    listSubmissions: listSubmissions, listHistory: listHistory, appliedNote: appliedNote,
+    comment: comment, closeIssue: closeIssue,
     getFile: getFile, getText: getText, commit: commit, saveData: saveData, parseIssue: parseIssue,
     markBaseline: markBaseline, saveI18n: saveI18n,
     putImage: putImage, putFiles: putFiles,
