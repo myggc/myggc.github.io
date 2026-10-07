@@ -4381,13 +4381,12 @@
       "studioId": "დავით-ქურასბედიანი",
       "publisherId": "",
       "status": "upcoming",
-      "releaseDate": "2026-10-07",
+      "releaseDate": "2026",
       "year": 2026,
       "mobile": false,
       "genres": [
         "action",
-        "indie",
-        "co-op"
+        "indie"
       ],
       "platforms": [
         "Steam"
@@ -4412,7 +4411,7 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-07T18:14:54.066Z",
+      "parsedAt": "2026-10-07T21:20:41.173Z",
       "verified": true,
       "active": true,
       "validated": "2026-10-07",
