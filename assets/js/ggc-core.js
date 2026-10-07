@@ -385,6 +385,26 @@
   function fetchJSON(path) { return fetchFile(path, false); }
   function fetchText(path) { return fetchFile(path, true); }
 
+  /* A studio's website, social links and store pages are typed by whoever
+     submits them, then put straight into an href. React 18 still renders a
+     javascript: address, so one approved by mistake would run on the site when
+     clicked. Web, mail and phone links pass, as does anything relative; every
+     other scheme is dropped, including one hidden behind spaces or control
+     characters the browser would strip. Same rule as ggc-md.js safeHref. */
+  function safeLink(u) {
+    var s = String(u || "").trim();
+    var probe = s.replace(/[\u0000- \u007f-\u009f]+/g, "").toLowerCase();
+    if (!probe) return "";
+    if (/^(https?:|mailto:|tel:)/.test(probe)) return s;
+    if (/^[a-z][a-z0-9+.\-]*:/.test(probe)) return "";
+    return s;
+  }
+  function safeLinks(o) {
+    var out = {};
+    Object.keys(o || {}).forEach(function (k) { var v = safeLink(o[k]); if (v) out[k] = v; });
+    return out;
+  }
+
   function normCompany(c) {
     c = c || {};
     return {
@@ -402,7 +422,7 @@
       founded: /^\d{4}-\d{2}-\d{2}$/.test(String(c.founded || "")) ? c.founded : (Number(c.founded) || 0),
       size: c.size || "",
       roles: Array.isArray(c.roles) ? c.roles : [],
-      website: c.website || "",
+      website: safeLink(c.website),
       email: c.email || "",
       // Optional, and never shown publicly — a way to reach a solo developer
       // who has no office address and no colleague to nominate as a contact.
@@ -411,7 +431,7 @@
       about: undash(unescapeHtml(c.about || "")),
       aboutEn: undash(unescapeHtml(c.aboutEn || "")),
       logo: c.logo || "",
-      links: c.links || {},
+      links: safeLinks(c.links),
       verified: !!c.verified,
       active: c.active !== false,
       validated: c.validated || "",
@@ -422,8 +442,7 @@
 
   function normGame(g) {
     g = g || {};
-    var stores = {};
-    Object.keys(g.stores || {}).forEach(function (k) { if (g.stores[k]) stores[k] = g.stores[k]; });
+    var stores = safeLinks(g.stores);
     /* A store link is what makes a platform. Keeping a separate list of ticked
        platforms meant a game could claim to be on Switch with no Switch link —
        which is a promise the catalogue then had to break. The links are the
