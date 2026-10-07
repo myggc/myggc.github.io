@@ -4374,36 +4374,6 @@
       "validated": "2026-10-07",
       "created": "2026-10-07",
       "updated": "2026-10-07"
-    },
-    {
-      "id": "retro-coder-2000-2",
-      "name": "Retro Coder 2000",
-      "studioId": "irakli-kokrashvili",
-      "publisherId": "",
-      "status": "upcoming",
-      "releaseDate": "2026-12-07",
-      "year": 2026,
-      "mobile": false,
-      "genres": [
-        "Puzzle",
-        "Simulation"
-      ],
-      "platforms": [],
-      "engine": "Unity",
-      "price": "4.99",
-      "langs": "English",
-      "about": "Retro Coder 2000 is a retro computer simulator in virtual reality. It's 1991, and you're alone in your room with an old PC, a screeching modem, a dot-matrix printer and a stack of floppy disks. Write real code in a built-in programming language, make your own 2D and 3D games, and play them right away on the glowing CRT. Your hardware matters: a faster CPU, more memory and a better video card change what your programs can do.\n\nThen go online. Dial up into a 90s internet full of shops, bulletin boards, scam pages and strange corners. Take jobs from clients who need bugs fixed, data converted and messages decoded, and watch out for viruses from dodgy downloads. Earn a reputation, follow the white rabbit into the hacker underground, and break into servers with deduction-based hacking puzzles. In the end, a mysterious group called MAYFLY pulls you into a puzzle hunt that only the sharpest players will solve.\n\nWhether you're an experienced coder or have never written a line, LEARN lessons get you started, and the hacker career can be played without writing any code. Available on PC, PCVR and Meta Quest.",
-      "aboutEn": "",
-      "stores": {},
-      "art": {},
-      "localArt": "",
-      "source": "manual",
-      "parsedAt": "",
-      "verified": true,
-      "active": true,
-      "validated": "2026-10-07",
-      "created": "2026-10-07",
-      "updated": "2026-10-07"
     }
   ]
 }
