@@ -144,6 +144,7 @@
                   <span style="flex:none;font-family:'Space Grotesk',sans-serif;font-size:18px;color:#6cc0e8">{{ q.chevron }}</span>
                 </button>
                 <div style="display:{{ q.show }};padding:0 18px 18px">
+                  <div style="display:{{ q.dupShow }};margin-bottom:12px;background:#2a2412;border:1px solid #5c4d1e;border-radius:11px;padding:14px;font-size:14px;line-height:1.6;color:#f4cd77">{{ q.dup }}</div>
                   <div style="display:{{ q.sectionsShow }}">
                     <sc-for list="{{ q.sections }}" as="sec" hint-placeholder-count="2">
                       <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;overflow:hidden;margin-bottom:12px">
@@ -949,6 +950,19 @@ const GAME_LABELS = {
   parsedAt: "წაკითხვის დრო", active: "აქტიური", created: "შექმნილი", updated: "განახლებული",
   art: "სურათები", id: "ID", studio: "სტუდია"
 };
+
+/* Date and local time, "07/10/2026 22:14:56". Two requests sent the same day
+   could not be told apart by date alone, and a form sent twice lands within
+   the same minute. */
+const when = iso => {
+  const d = new Date(iso || "");
+  if (isNaN(d)) return U.fmtDate(String(iso || "").slice(0, 10));
+  const p = n => String(n).padStart(2, "0");
+  return p(d.getDate()) + "/" + p(d.getMonth() + 1) + "/" + d.getFullYear() + " " + p(d.getHours()) + ":" + p(d.getMinutes()) + ":" + p(d.getSeconds());
+};
+
+/* A request with its timestamps taken out, so a form sent twice compares equal. */
+const sameRequest = p => JSON.stringify(p || {}, (k, v) => k === "submittedAt" || k === "parsedAt" ? undefined : v);
 
 class Component extends DCLogic {
   state = {
@@ -1876,7 +1890,7 @@ class Component extends DCLogic {
           name: p.subject || item.title,
           meta: [
             item.author ? "@" + item.author : "",
-            item.closedAt ? "დაიხურა " + U.fmtDate(item.closedAt.slice(0, 10)) : "",
+            item.closedAt ? "დაიხურა " + when(item.closedAt) : "",
             rec && rec.by ? "დაადასტურა @" + rec.by : ""
           ].filter(Boolean).join(" · "),
           state: o.label, accent: o.accent, tagBg: o.bg, tagFg: o.fg,
@@ -3166,6 +3180,15 @@ class Component extends DCLogic {
     return s.queue.map(item => {
       const p = item.payload || {};
       const decided = s.decisions[item.number];
+      // A form sent twice arrives as two identical requests. Point at the
+      // newest so only one gets approved.
+      const twins = item.malformed ? [] : s.queue.filter(o => o.number !== item.number && !o.malformed &&
+        sameRequest(o.payload) === sameRequest(p)).map(o => o.number);
+      const newest = Math.max.apply(null, twins.concat(item.number));
+      const dup = !twins.length ? ""
+        : newest === item.number
+          ? "იგივე მოთხოვნა გამოიგზავნა რამდენჯერმე: " + twins.map(n => "#" + n).join(", ") + ". ეს ყველაზე ახალია: დაადასტურე ეს, დანარჩენებს უთხარი უარი."
+          : "ეს ასლია: ზუსტად იგივეა, რაც #" + newest + ", რომელიც მოგვიანებით გამოიგზავნა. დაადასტურე #" + newest + ", ამას უთხარი უარი.";
       const isEdit = p.action === "edit-company" || p.action === "edit-game";
       const entries = item.malformed ? [] : this.payloadGames(p);
       const isGame = !p.company && entries.length > 0;
@@ -3195,7 +3218,10 @@ class Component extends DCLogic {
       const accent = isEdit ? "#fdb813" : isGame ? "#ee2626" : "#1d96d3";
       return {
         name: p.subject || item.title,
-        meta: [item.author ? "@" + item.author : "", p.contact || "", U.fmtDate((item.createdAt || "").slice(0, 10))].filter(Boolean).join(" · "),
+        meta: [item.author ? "@" + item.author : "", p.contact || "", when(item.createdAt),
+          twins.length && newest !== item.number ? "ასლი #" + newest : ""].filter(Boolean).join(" · "),
+        dup: dup,
+        dupShow: dup ? "block" : "none",
         kind: kind, accent: accent,
         tagBg: isEdit ? "#3a2f14" : isGame ? "#3a1717" : "#14293a",
         tagFg: isEdit ? "#f4cd77" : isGame ? "#f0a8a8" : "#8ccbe9",

@@ -87,7 +87,8 @@ async function readSteam(appid, url) {
     releaseDate: date,
     year,
     price: d.is_free ? "უფასო" : (d.price_overview?.final_formatted || ""),
-    langs: strip(d.supported_languages).replace(/\*/g, "").trim(),
+    // Steam ends the list with a "*languages with full audio support" footnote.
+    langs: strip(String(d.supported_languages || "").replace(/<br\s*\/?>[\s\S]*$/i, "")).replace(/\*/g, "").trim(),
     art: steamArt(d),
     platforms: ["Steam"],
     mobile: false,

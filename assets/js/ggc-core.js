@@ -461,7 +461,7 @@
       platforms: plats,
       engine: g.engine || "",
       price: g.price || "",
-      langs: g.langs || "",
+      langs: String(g.langs || "").replace(/\s*languages with full audio support\s*$/i, ""),
       // Records written before the parsers decoded entities still carry them.
       about: undash(unescapeHtml(g.about || "")),
       aboutEn: undash(unescapeHtml(g.aboutEn || "")),
@@ -951,7 +951,9 @@
       releaseDate: date,
       year: Number(year) || 0,
       price: d.is_free ? "უფასო" : ((d.price_overview && d.price_overview.final_formatted) || ""),
-      langs: (d.supported_languages || "").replace(/<[^>]+>/g, "").replace(/\*/g, "").trim(),
+      // Steam ends the list with a footnote, "*languages with full audio support",
+      // after a <br>; left in, it was glued onto the last language.
+      langs: (d.supported_languages || "").replace(/<br\s*\/?>[\s\S]*$/i, "").replace(/<[^>]+>/g, "").replace(/\*/g, "").trim(),
       website: d.website || "",
       /* Steam asks every studio for a support address and shows it on the page.
          For a small studio it is the studio's own address — and it is one of the
@@ -1418,7 +1420,7 @@
       "linkedin.com", "discord.com", "discord.gg", "tiktok.com", "twitch.tv", "bsky.app",
       "bsky.social", "reddit.com", "patreon.com", "kickstarter.com", "paypal.com",
       "amazon.com", "microsoft.com", "xbox.com", "playstation.com", "nintendo.com",
-      "epicgames.com", "unrealengine.com", "unity.com", "w3.org", "schema.org",
+      "epicgames.com", "unrealengine.com", "unity.com", "w3.org", "schema.org", "steamdeck.com",
       "creativecommons.org", "gnu.org"
     ];
     var ASSET = /\.(css|js|json|png|jpe?g|gif|svg|webp|ico|xml|rss|pdf|mp4|woff2?)(\?|$)/i;
