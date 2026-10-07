@@ -218,12 +218,15 @@
 
   /* One commit for however many files changed, so companies.json and
      games.json never land in the history half-applied. A file whose content is
-     null is removed in the same commit; `encoding: "base64"` carries a picture. */
-  function commit(files, message) {
+     null is removed in the same commit; `encoding: "base64"` carries a picture.
+     With `parent`, the commit goes on top of that commit and the branch only
+     moves if it still points there: a push in between fails it rather than
+     being overwritten. */
+  function commit(files, message, parent) {
     var head, baseTree;
-    return req(R + "/git/ref/heads/" + C.branch)
-      .then(function (ref) {
-        head = ref.object.sha;
+    return (parent ? Promise.resolve(parent) : req(R + "/git/ref/heads/" + C.branch).then(function (ref) { return ref.object.sha; }))
+      .then(function (sha) {
+        head = sha;
         return req(R + "/git/commits/" + head);
       })
       .then(function (c) {
@@ -274,53 +277,127 @@
     return JSON.stringify(doc, null, 2) + "\n";
   }
 
-  /* The panel publishes whole arrays it loaded when the tab opened, so a tab
-     left open overwrites anything committed since — a refresh run, or another
-     admin. Remember what the data looked like at load and refuse to publish
-     over a newer version rather than silently reverting it. */
-  var baseline = null;
+  /* The panel used to publish the whole catalogue as it held it. After an
+     upload it reloaded that catalogue from the site, which GitHub Pages takes a
+     minute to rebuild, so it got the old copy back: the edits looked lost, and
+     the next upload wrote the old copy over them. On 7 October one approval
+     undid another that way 50 seconds after it went out.
 
-  function fileSha(path) {
-    return req(R + "/contents/" + path + "?ref=" + C.branch)
-      .then(function (f) { return f.sha; })
-      .catch(function () { return null; });
+     So an upload carries only what this panel changed. The files are read at
+     the branch's current commit, the changed records are laid over them, and
+     the commit goes on top of that same commit, so anything published in
+     between (another admin, the store refresh) is kept. If the branch moves
+     while this runs, it starts over from the new commit. */
+
+  // Kept for callers; the merge below needs no snapshot of the files.
+  function markBaseline() { return Promise.resolve(null); }
+
+  function fileAt(path, sha) {
+    return req(R + "/contents/" + path + "?ref=" + sha).then(function (f) {
+      var bin = atob((f.content || "").replace(/\n/g, ""));
+      var bytes = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      return JSON.parse(new TextDecoder("utf-8").decode(bytes));
+    });
   }
 
-  function markBaseline() {
-    return Promise.all([fileSha(C.paths.companies), fileSha(C.paths.games)])
-      .then(function (shas) {
-        baseline = { companies: shas[0], games: shas[1] };
-        return baseline;
-      });
+  function same(a, b) { return JSON.stringify(sorted(a)) === JSON.stringify(sorted(b)); }
+  function sorted(v) {
+    if (Array.isArray(v)) return v.map(sorted);
+    if (!v || typeof v !== "object") return v === undefined ? null : v;
+    var out = {};
+    Object.keys(v).sort().forEach(function (k) { out[k] = sorted(v[k]); });
+    return out;
   }
 
-  /* Writes the data files in a single commit. Pass the full item arrays; `site`
-     carries the events and spending the community and donate pages read. */
-  function saveData(companies, games, message, site) {
-    return Promise.all([fileSha(C.paths.companies), fileSha(C.paths.games)])
-      .then(function (shas) {
-        if (baseline && (shas[0] !== baseline.companies || shas[1] !== baseline.games)) {
-          throw new Error(
-            "მონაცემები შეიცვალა მას შემდეგ, რაც ეს გვერდი გაიხსნა. " +
-            "გადატვირთე გვერდი, თორემ სხვისი ცვლილება წაიშლება."
-          );
-        }
-        var raw = window.GGC.data.raw();
-        var cDoc = Object.assign({}, raw.companies || { version: 1 }, { items: companies });
-        var gDoc = Object.assign({}, raw.games || { version: 1 }, { items: games });
-        var files = [
-          { path: C.paths.companies, content: stringify(cDoc) },
-          { path: C.paths.games, content: stringify(gDoc) }
-        ];
-        if (site) {
-          var sDoc = Object.assign({}, raw.site || { version: 1 }, {
-            events: site.events || [], spending: site.spending || []
+  /* Lays `change` ({ upsert: [records], remove: [ids], base: { id: record as
+     loaded, or null } }) over a file's items. A record someone else changed
+     since this panel loaded it is still replaced, but named in `conflicts`. */
+  function merge(items, change, norm, conflicts) {
+    var out = (items || []).slice();
+    var at = function (id) {
+      for (var i = 0; i < out.length; i++) if (out[i] && out[i].id === id) return i;
+      return -1;
+    };
+    var check = function (id) {
+      if (!change.base || !(id in change.base)) return;
+      var i = at(id), was = change.base[id];
+      var now = i < 0 ? null : norm(out[i]);
+      if (!same(now, was)) conflicts.push(id);
+    };
+    (change.remove || []).forEach(function (id) {
+      check(id);
+      var i = at(id);
+      if (i >= 0) out.splice(i, 1);
+    });
+    (change.upsert || []).forEach(function (rec) {
+      check(rec.id);
+      var i = at(rec.id);
+      if (i >= 0) out[i] = rec; else out.push(rec);
+    });
+    return out;
+  }
+
+  /* The data files as they are on the branch right now. The site serves them a
+     minute or so behind a commit, while Pages rebuilds. */
+  function loadData() {
+    return req(R + "/git/ref/heads/" + C.branch).then(function (ref) {
+      var head = ref.object.sha;
+      return Promise.all([
+        fileAt(C.paths.companies, head),
+        fileAt(C.paths.games, head),
+        fileAt(C.paths.site, head).catch(function () { return { version: 1, events: [], spending: [] }; })
+      ]);
+    }).then(function (docs) { return { companies: docs[0], games: docs[1], site: docs[2] }; });
+  }
+
+  /* `changes` = { companies, games } as above, plus `site` with `events`
+     and/or `spending` when those were edited. Resolves to the documents as
+     published, and the ids that had also been changed elsewhere. */
+  function saveData(changes, message) {
+    var D = window.GGC.data;
+    var attempt = function (tries) {
+      var head;
+      return req(R + "/git/ref/heads/" + C.branch)
+        .then(function (ref) {
+          head = ref.object.sha;
+          return Promise.all([
+            fileAt(C.paths.companies, head),
+            fileAt(C.paths.games, head),
+            fileAt(C.paths.site, head).catch(function () { return { version: 1, events: [], spending: [] }; })
+          ]);
+        })
+        .then(function (docs) {
+          var conflicts = [];
+          var cDoc = Object.assign({}, docs[0]);
+          var gDoc = Object.assign({}, docs[1]);
+          var sDoc = Object.assign({}, docs[2]);
+          var files = [];
+          if (changes.companies) {
+            cDoc.items = merge(docs[0].items, changes.companies, D.normCompany, conflicts);
+            files.push({ path: C.paths.companies, content: stringify(cDoc) });
+          }
+          if (changes.games) {
+            gDoc.items = merge(docs[1].items, changes.games, D.normGame, conflicts);
+            files.push({ path: C.paths.games, content: stringify(gDoc) });
+          }
+          if (changes.site) {
+            if (changes.site.events) sDoc.events = changes.site.events;
+            if (changes.site.spending) sDoc.spending = changes.site.spending;
+            files.push({ path: C.paths.site, content: stringify(sDoc) });
+          }
+          if (!files.length) return { docs: { companies: cDoc, games: gDoc, site: sDoc }, conflicts: [] };
+          return commit(files, message, head).then(function () {
+            return { docs: { companies: cDoc, games: gDoc, site: sDoc }, conflicts: conflicts };
           });
-          files.push({ path: C.paths.site, content: stringify(sDoc) });
-        }
-        return commit(files, message);
-      })
-      .then(function (r) { return markBaseline().then(function () { return r; }); });
+        })
+        .catch(function (e) {
+          // 422 from moving the branch: someone pushed meanwhile. Go again.
+          if (e.status === 422 && tries < 3) return attempt(tries + 1);
+          throw e;
+        });
+    };
+    return attempt(1);
   }
 
   /* Translations publish on their own. They are not part of the catalogue and
@@ -506,7 +583,7 @@
     hasToken: hasToken, setToken: setToken, signIn: signIn, me: me,
     listSubmissions: listSubmissions, listHistory: listHistory, appliedNote: appliedNote,
     comment: comment, closeIssue: closeIssue,
-    getFile: getFile, getText: getText, commit: commit, saveData: saveData, parseIssue: parseIssue,
+    getFile: getFile, getText: getText, commit: commit, saveData: saveData, loadData: loadData, parseIssue: parseIssue,
     markBaseline: markBaseline, saveI18n: saveI18n,
     putImage: putImage, putFiles: putFiles,
     loadNews: loadNews, saveNewsPost: saveNewsPost, deleteNewsPost: deleteNewsPost,

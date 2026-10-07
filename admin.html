@@ -1096,9 +1096,6 @@ class Component extends DCLogic {
         this.setState({ authed: true, user: u.login });
         this.loadQueue();
         this.loadNews();
-        // Pin the version this session started from, so publishing cannot
-        // quietly revert a commit made after this tab was opened.
-        GH.markBaseline();
       }).catch(() => GH.signOut());
     }
   }
@@ -1125,6 +1122,37 @@ class Component extends DCLogic {
       clean[k] = v;
     });
     return JSON.stringify(clean);
+  }
+
+  /* What an upload carries: the records that differ from the published copy,
+     the ids that are gone, and each one as it was loaded, so the upload can
+     tell when someone else changed the same record in the meantime. */
+  pendingChanges() {
+    const keys = this.dirtyKeys();
+    const out = {};
+    const part = (kind, list, pubOf) => {
+      const now = {};
+      list.forEach(x => { now[x.id] = x; });
+      const ids = keys.filter(k => k.slice(0, 2) === kind + ":").map(k => k.slice(2));
+      if (!ids.length) return null;
+      const base = {};
+      ids.forEach(id => { base[id] = pubOf(id) || null; });
+      return {
+        upsert: ids.filter(id => now[id]).map(id => now[id]),
+        remove: ids.filter(id => !now[id]),
+        base: base
+      };
+    };
+    const c = part("c", this.state.companies, id => D.company(id));
+    const g = part("g", this.state.games, id => D.game(id));
+    if (c) out.companies = c;
+    if (g) out.games = g;
+    if (keys.indexOf("site:events") >= 0 || keys.indexOf("site:spending") >= 0) {
+      out.site = {};
+      if (keys.indexOf("site:events") >= 0) out.site.events = this.state.events;
+      if (keys.indexOf("site:spending") >= 0) out.site.spending = this.state.spending;
+    }
+    return out;
   }
 
   dirtyKeys() {
@@ -1561,7 +1589,6 @@ class Component extends DCLogic {
       this.setState({ authed: true, user: u.login, tokenInput: "", signing: false });
       this.loadQueue();
       this.loadNews();
-      GH.markBaseline();
     }).catch(e => this.setState({ authErr: e.message, signing: false }));
   }
 
@@ -1939,18 +1966,43 @@ class Component extends DCLogic {
       if (item) records[n] = this.appliedRecord(item);
     });
     const msg = "data: " + this.dirtyCount() + " განახლება ადმინიდან";
-    GH.saveData(s.companies, s.games, msg, { events: s.events, spending: s.spending })
+    // What was sent, so an edit typed while the upload runs is not thrown away.
+    const sent = { c: {}, g: {} };
+    s.companies.forEach(c => { sent.c[c.id] = this.stable(c); });
+    s.games.forEach(g => { sent.g[g.id] = this.stable(g); });
+    let conflicts = [];
+    GH.saveData(this.pendingChanges(), msg)
+      .then(res => {
+        /* Kept as published rather than read back from the site, which still
+           serves the old files until Pages rebuilds. Reading it back is what
+           made edits look lost and let the next upload undo them. */
+        D.adopt(res.docs);
+        conflicts = res.conflicts || [];
+      })
       .then(() => Promise.all(approved.map(n =>
         GH.comment(n, "დადასტურდა და გამოქვეყნდა კატალოგში. მადლობა!" + (records[n] ? GH.appliedNote(records[n]) : ""))
           .then(() => GH.closeIssue(n, "approved"))
           .catch(() => null)
       )))
-      .then(() => D.load(true))
       .then(() => {
-        this.setState({
-          publishing: false, decisions: {}, gameEdit: null, edit: null,
-          companies: U.clone(D.companies()), games: U.clone(D.games())
+        this.setState(st => {
+          const keep = (list, pub, kind) => {
+            const mine = list.filter(x => sent[kind][x.id] !== this.stable(x));
+            const ids = {};
+            mine.forEach(x => { ids[x.id] = 1; });
+            return U.clone(pub).map(x => ids[x.id] ? mine.filter(m => m.id === x.id)[0] : x)
+              .concat(mine.filter(m => !pub.some(x => x.id === m.id)));
+          };
+          return {
+            publishing: false, decisions: {}, gameEdit: null, edit: null,
+            companies: keep(st.companies, D.companies(), "c"),
+            games: keep(st.games, D.games(), "g")
+          };
         });
+        if (conflicts.length) {
+          return this.say("გამოქვეყნდა. ყურადღება: " + conflicts.join(", ") +
+            " სხვამაც შეცვალა ამ ხნის განმავლობაში, დარჩა შენი ვერსია. გადაამოწმე.", "#f4cd77");
+        }
         this.say("გამოქვეყნდა", "#9ede9e");
         this.loadQueue();
         this.staleHistory();
@@ -3972,10 +4024,10 @@ class Component extends DCLogic {
         this.loadQueue();
         if (s.queueView === "history") this.loadHistory();
         if (this.dirtyCount()) return this.say("რიგი განახლდა — მონაცემები არა, რადგან " + this.dirtyCount() + " ჩანაწერი ატვირთვას ელოდება", "#f4cd77");
-        D.load(true).then(() => {
+        // Signed in, read the branch itself: the site lags a commit by a minute.
+        (s.authed ? GH.loadData().then(docs => D.adopt(docs)) : D.load(true)).then(() => {
           this.setState({ ready: true, companies: U.clone(D.companies()), games: U.clone(D.games()) });
-          if (s.authed) GH.markBaseline();
-        });
+        }).catch(e => this.say("მონაცემები ვერ ჩაიტვირთა: " + e.message, "#f0a8a8"));
       },
 
       nav: NAV.map(([id, label]) => {

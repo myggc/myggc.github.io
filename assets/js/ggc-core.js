@@ -496,17 +496,28 @@
          the community page lists and where the donations went. Both used to be
          written into the page, so keeping them current meant editing HTML. */
       fetchJSON(config.paths.site).catch(function () { return { events: [], spending: [] }; })
-    ]).then(function (r) {
-      cache.raw = { companies: r[0], games: r[1], site: r[2] };
-      cache.companies = (r[0].items || r[0] || []).map(normCompany);
-      cache.games = (r[1].items || r[1] || []).map(normGame);
-      cache.site = {
-        events: (r[2].events || []).map(normEvent),
-        spending: (r[2].spending || []).filter(function (s) { return s && s.label; })
-      };
-      return { companies: cache.companies, games: cache.games, site: cache.site };
-    });
+    ]).then(function (r) { return ingest(r[0], r[1], r[2]); });
     return cache.promise;
+  }
+
+  function ingest(companiesDoc, gamesDoc, siteDoc) {
+    cache.raw = { companies: companiesDoc, games: gamesDoc, site: siteDoc };
+    cache.companies = (companiesDoc.items || companiesDoc || []).map(normCompany);
+    cache.games = (gamesDoc.items || gamesDoc || []).map(normGame);
+    cache.site = {
+      events: (siteDoc.events || []).map(normEvent),
+      spending: (siteDoc.spending || []).filter(function (s) { return s && s.label; })
+    };
+    return { companies: cache.companies, games: cache.games, site: cache.site };
+  }
+
+  /* The admin panel has just committed these documents. The site will serve
+     them in a minute or so, once Pages has rebuilt; reading it back before
+     that returns the old copy. Take them as published straight away. */
+  function adopt(docs) {
+    var out = ingest(docs.companies, docs.games, docs.site);
+    cache.promise = Promise.resolve(out);
+    return out;
   }
 
   function normEvent(e) {
@@ -1978,7 +1989,7 @@
       lang: newsLang, text: postText, body: postBody
     },
     data: {
-      load: load, companies: companies, games: games, company: company, game: game,
+      load: load, adopt: adopt, companies: companies, games: games, company: company, game: game,
       gamesOf: gamesOf, studioName: studioName, sortGames: sortGames, stats: stats,
       gameArt: gameArt, gameHero: gameHero, platformLinks: platformLinks,
       events: events, spending: spending, normEvent: normEvent,
