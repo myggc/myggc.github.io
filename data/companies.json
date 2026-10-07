@@ -1033,6 +1033,36 @@
       "validated": "2026-10-07",
       "created": "2026-10-02",
       "updated": "2026-10-07"
+    },
+    {
+      "id": "დავით-ქურასბედიანი",
+      "kind": "solo",
+      "name": "Wise Bu",
+      "legal": "დავით ქურასბედიანი",
+      "regId": "",
+      "city": "თბილისი",
+      "founded": 1999,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://steamdeck.com/en/verified",
+      "email": "wise.bu.games@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "მე ვარ გამოცდილი დეველოპერი რომელიც ჰობის დონეზე სამსახურთან ხელშეწყობით ვაწყობ თამაშებ",
+      "aboutEn": "I am experienced software engineer and as a hobby I am working on the games after working hours",
+      "logo": "",
+      "links": {
+        "instagram": "https://www.instagram.com/wise.bu",
+        "discord": "https://discord.gg/G8ZAqEJgu",
+        "steam": "https://store.steampowered.com/search/?developer=Wise%20Bu"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-07",
+      "created": "2026-10-07",
+      "updated": "2026-10-07"
     }
   ]
 }

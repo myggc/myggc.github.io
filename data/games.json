@@ -4374,6 +4374,50 @@
       "validated": "2026-10-07",
       "created": "2026-10-07",
       "updated": "2026-10-07"
+    },
+    {
+      "id": "fearless-crew",
+      "name": "Fearless Crew",
+      "studioId": "დავით-ქურასბედიანი",
+      "publisherId": "",
+      "status": "upcoming",
+      "releaseDate": "2026-10-07",
+      "year": 2026,
+      "mobile": false,
+      "genres": [
+        "action",
+        "indie",
+        "co-op"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "Unity",
+      "price": "3.99",
+      "langs": "English",
+      "about": "Fearless Crew is a monster-hunter co-op game where you and up to 3 friends hunt monsters and bring them back to the ship. Each monster is caught in a unique way, with different tools - so be smart about what items you use and when. Even you might get caught off guard by the very tools you use",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/4644500/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4644500/c16cd688648017b9ff73c18ef6dabd9ee2e8cfc9/header.jpg?t=1788990453",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/4644500?t=1788990453",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4644500/a7fb15d875ab42a1b2af22987b58fcb2ebeba23b/ss_a7fb15d875ab42a1b2af22987b58fcb2ebeba23b.600x338.jpg?t=1788990453",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4644500/b279ffc78df3dd6a66d03afd183acce6dcdec951/ss_b279ffc78df3dd6a66d03afd183acce6dcdec951.600x338.jpg?t=1788990453",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4644500/cc9b80bad760a06bf8d7419c538a05e91b961b71/ss_cc9b80bad760a06bf8d7419c538a05e91b961b71.600x338.jpg?t=1788990453"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-10-07T18:14:54.066Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-07",
+      "created": "2026-10-07",
+      "updated": "2026-10-07"
     }
   ]
 }
