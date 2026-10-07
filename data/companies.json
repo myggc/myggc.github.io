@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-06",
+  "updated": "2026-10-07",
   "items": [
     {
       "id": "madmoa",
@@ -633,8 +633,8 @@
       "name": "ტიგა",
       "legal": "გიგა ფუტკარაძე",
       "regId": "",
-      "city": "",
-      "founded": 0,
+      "city": "თბილისი",
+      "founded": 1998,
       "size": "",
       "roles": [
         "developer"
@@ -652,9 +652,9 @@
       },
       "verified": true,
       "active": true,
-      "validated": "2026-10-02",
+      "validated": "2026-10-07",
       "created": "2026-10-02",
-      "updated": "2026-10-02"
+      "updated": "2026-10-07"
     },
     {
       "id": "ავთო-ქამაშიძე",

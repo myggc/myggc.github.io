@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-06",
+  "updated": "2026-10-07",
   "items": [
     {
       "id": "besos-shawarma",
@@ -4344,6 +4344,51 @@
       "validated": "2026-10-06",
       "created": "2026-10-06",
       "updated": "2026-10-06"
+    },
+    {
+      "id": "a-difficult-game-about-letters-2",
+      "name": "A Difficult Game About Letters",
+      "studioId": "გიგა-ფუტკარაძე",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2025-11-19",
+      "year": 2025,
+      "mobile": false,
+      "genres": [
+        "action",
+        "adventure",
+        "casual",
+        "indie"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "Unity",
+      "price": "$3.74",
+      "langs": "English, Georgian, French, Italian, German, Spanish - Spain, Japanese, Korean, Portuguese - Portugal, Russian, Simplified Chinese, Traditional Chinese, Ukrainian",
+      "about": "Transform into letters to overcome platforming challenges and save your friend from evil King in this crayon-style adventure!",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/3440890/A_Difficult_Game_About_Letters/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3440890/86f735419e590981e721c46bc3867342f82da3ff/header.jpg?t=1763623752",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/3440890?t=1763623752",
+        "portrait": "",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3440890/fbb70228c9af284e94b961955579c636b90bf90d/ss_fbb70228c9af284e94b961955579c636b90bf90d.600x338.jpg?t=1763623752",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3440890/bebb298020453b30100c7c4b7e44002a1b42e74e/ss_bebb298020453b30100c7c4b7e44002a1b42e74e.600x338.jpg?t=1763623752",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3440890/ac3d863d08c6bffc11dd9a029bbf643c385b342c/ss_ac3d863d08c6bffc11dd9a029bbf643c385b342c.600x338.jpg?t=1763623752"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-10-06T17:04:40.913Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-07",
+      "created": "2026-10-07",
+      "updated": "2026-10-07"
     }
   ]
 }
