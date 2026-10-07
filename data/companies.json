@@ -633,8 +633,8 @@
       "name": "ტიგა",
       "legal": "გიგა ფუტკარაძე",
       "regId": "",
-      "city": "თბილისი",
-      "founded": 1998,
+      "city": "",
+      "founded": 0,
       "size": "",
       "roles": [
         "developer"
@@ -652,9 +652,9 @@
       },
       "verified": true,
       "active": true,
-      "validated": "2026-10-07",
+      "validated": "2026-10-02",
       "created": "2026-10-02",
-      "updated": "2026-10-07"
+      "updated": "2026-10-02"
     },
     {
       "id": "ავთო-ქამაშიძე",
@@ -1001,29 +1001,38 @@
     },
     {
       "id": "irakli-kokrashvili",
-      "kind": "solo",
+      "kind": "company",
       "name": "Irakli Kokrashvili",
       "legal": "Irakli Kokrashvili",
-      "regId": "",
-      "city": "",
+      "regId": "307078517",
+      "city": "თბილისი",
       "founded": 0,
-      "size": "",
+      "size": "1-2",
       "roles": [
-        "developer"
+        "developer",
+        "publisher",
+        "outsourcing",
+        "porting",
+        "art",
+        "audio",
+        "codev"
       ],
       "website": "https://www.vrkemono.com/",
-      "email": "",
+      "email": "kokrashvili@gmail.com",
       "phone": "",
       "contact": "",
-      "about": "სოლო დეველოპერი, რომელიც ქმნის სიუჟეტზე დაფუძნებულ ჰარდკორ სურვაივალ თამაშს AB AETERNO, თავიდანვე VR-ისთვის შექმნილს.",
-      "aboutEn": "Solo developer building AB AETERNO, a story-driven hardcore survival experience designed for VR from the ground up.",
+      "about": "VRKemono, MB",
+      "aboutEn": "VRKemono, MB",
       "logo": "images/logos/irakli-kokrashvili.jpg?v=1790937518061",
-      "links": {},
+      "links": {
+        "facebook": "https://www.facebook.com/gaming/VRKemono",
+        "youtube": "https://www.youtube.com/@VRKemono"
+      },
       "verified": false,
       "active": true,
-      "validated": "",
+      "validated": "2026-10-07",
       "created": "2026-10-02",
-      "updated": "2026-10-02"
+      "updated": "2026-10-07"
     }
   ]
 }
