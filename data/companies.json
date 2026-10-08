@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-07",
+  "updated": "2026-10-08",
   "items": [
     {
       "id": "madmoa",
@@ -963,37 +963,6 @@
         "facebook": "https://www.facebook.com/maxhpstudio/"
       },
       "verified": true,
-      "active": true,
-      "validated": "",
-      "created": "2026-10-02",
-      "updated": "2026-10-04"
-    },
-    {
-      "id": "stormbringer-studios",
-      "kind": "company",
-      "name": "StormBringer Studios",
-      "legal": "StormBringer Studios",
-      "regId": "404997633",
-      "city": "თბილისი",
-      "founded": 2013,
-      "size": "",
-      "roles": [
-        "developer",
-        "outsourcing"
-      ],
-      "website": "https://stormbringerstudios.com/",
-      "email": "info@stormbringerstudios.com",
-      "phone": "",
-      "contact": "",
-      "about": "თბილისური სტუდია, დაარსებული 2013 წელს. ქმნის კაჟუალ მობილურ თამაშებს Unity-ზე; პირველი პროექტები: Geopolice 1 და 2, მილიონზე მეტი ჩამოტვირთვით. აუთსორსზე მუშაობდა Last Day on Earth-ზე.",
-      "aboutEn": "Tbilisi studio founded in 2013, making casual mobile games in Unity. Its first titles, Geopolice 1 and 2, passed a million downloads; outsourcing work includes Last Day on Earth.",
-      "logo": "https://play-lh.googleusercontent.com/_CSxkLsSwIKhlKvS2NaeB-m_lsxhj1yrVCh5KruIzdIuf3QQWRIXL2GZkCwpQTQZow",
-      "links": {
-        "facebook": "https://www.facebook.com/StormBringerStudios",
-        "appstore": "https://apps.apple.com/us/developer/stormbringer-studios/id972116619",
-        "googleplay": "https://play.google.com/store/apps/dev?id=7804606026912309672"
-      },
-      "verified": false,
       "active": true,
       "validated": "",
       "created": "2026-10-02",
