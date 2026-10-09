@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-08",
+  "updated": "2026-10-09",
   "items": [
     {
       "id": "besos-shawarma",
@@ -1906,23 +1906,23 @@
         "steam": "https://store.steampowered.com/app/2333220/"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/a83c58c8d89c3e10a85e1c92d1656794f2460b0c/header.jpg?t=1790712321",
-        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/2333220?t=1790712321",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/a83c58c8d89c3e10a85e1c92d1656794f2460b0c/header.jpg?t=1791562974",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/2333220?t=1791562974",
         "portrait": "",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/1498952dcb29ef6e891611518b075481e9e0295e/ss_1498952dcb29ef6e891611518b075481e9e0295e.600x338.jpg?t=1790712321",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/808df67cecc7cdba5f20b03feb817cf588f0427b/ss_808df67cecc7cdba5f20b03feb817cf588f0427b.600x338.jpg?t=1790712321",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/1e0ac632fe33839297c3da4eb6ce979fe762fbb9/ss_1e0ac632fe33839297c3da4eb6ce979fe762fbb9.600x338.jpg?t=1790712321"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/1498952dcb29ef6e891611518b075481e9e0295e/ss_1498952dcb29ef6e891611518b075481e9e0295e.600x338.jpg?t=1791562974",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/808df67cecc7cdba5f20b03feb817cf588f0427b/ss_808df67cecc7cdba5f20b03feb817cf588f0427b.600x338.jpg?t=1791562974",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/1e0ac632fe33839297c3da4eb6ce979fe762fbb9/ss_1e0ac632fe33839297c3da4eb6ce979fe762fbb9.600x338.jpg?t=1791562974"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-09-29T20:47:58.846Z",
+      "parsedAt": "2026-10-09T20:55:22.174Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-29"
+      "updated": "2026-10-09"
     },
     {
       "id": "slapper-battle-cheek-slap",
@@ -2896,7 +2896,7 @@
         "Steam"
       ],
       "engine": "",
-      "price": "$9.99",
+      "price": "$0.99",
       "langs": "English, French, Italian, German, Spanish - Spain, Dutch, Japanese, Polish, Portuguese - Portugal, Russian",
       "about": "Grab your favorite car, tune it, challenge players in Online Drift battles and become a DRIFT KING!",
       "aboutEn": "",
@@ -2916,12 +2916,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-08T21:21:16.550Z",
+      "parsedAt": "2026-10-09T20:55:58.962Z",
       "verified": false,
       "active": true,
       "validated": "",
       "created": "2026-10-02",
-      "updated": "2026-10-08"
+      "updated": "2026-10-09"
     },
     {
       "id": "alter-world",
@@ -2939,7 +2939,7 @@
         "Steam"
       ],
       "engine": "",
-      "price": "$4.99",
+      "price": "$0.49",
       "langs": "English, French, Italian, German, Spanish - Spain, Czech, Dutch, Hungarian, Polish, Portuguese - Portugal, Russian, Romanian",
       "about": "Enter the Alter World, a mysterious parallel reality where the rules are different and every step brings new challenges. Inspired by Stephen King's The Dark Tower, Alter World is a 2D platformer built around a unique mechanic that allows you to switch between two realities at any time to overcome obstacles, solve puzzles, and progress...",
       "aboutEn": "",
@@ -2958,12 +2958,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-08T21:21:17.830Z",
+      "parsedAt": "2026-10-09T20:56:00.285Z",
       "verified": false,
       "active": true,
       "validated": "",
       "created": "2026-10-02",
-      "updated": "2026-10-08"
+      "updated": "2026-10-09"
     },
     {
       "id": "circularity",
@@ -2982,7 +2982,7 @@
         "Steam"
       ],
       "engine": "",
-      "price": "$4.99",
+      "price": "$0.49",
       "langs": "English",
       "about": "Relaxing puzzle with interesting game mechanics - bring your character to the final portal which will transit you to the next level. You will need to move straight, avoid obstacles, jump through portals, ricochet from walls and a lot more.",
       "aboutEn": "",
@@ -3001,12 +3001,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-08T21:21:19.143Z",
+      "parsedAt": "2026-10-09T20:56:01.602Z",
       "verified": false,
       "active": true,
       "validated": "",
       "created": "2026-10-02",
-      "updated": "2026-10-08"
+      "updated": "2026-10-09"
     },
     {
       "id": "slice",
