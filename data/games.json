@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-09",
+  "updated": "2026-10-10",
   "items": [
     {
       "id": "besos-shawarma",
@@ -3956,7 +3956,7 @@
     },
     {
       "id": "retro-coder-2000",
-      "name": "Retro Coder 2000",
+      "name": "Retro Coder 2000 on Oculus Rift",
       "studioId": "irakli-kokrashvili",
       "publisherId": "",
       "status": "upcoming",
@@ -3967,22 +3967,30 @@
         "Puzzle",
         "Simulation"
       ],
-      "platforms": [],
+      "platforms": [
+        "Web"
+      ],
       "engine": "Unity",
-      "price": "4.99",
+      "price": "9.99",
       "langs": "English",
-      "about": "Retro Coder 2000 is a retro computer simulator in virtual reality. It's 1991, and you're alone in your room with an old PC, a screeching modem, a dot-matrix printer and a stack of floppy disks. Write real code in a built-in programming language, make your own 2D and 3D games, and play them right away on the glowing CRT. Your hardware matters: a faster CPU, more memory and a better video card change what your programs can do.\n\nThen go online. Dial up into a 90s internet full of shops, bulletin boards, scam pages and strange corners. Take jobs from clients who need bugs fixed, data converted and messages decoded, and watch out for viruses from dodgy downloads. Earn a reputation, follow the white rabbit into the hacker underground, and break into servers with deduction-based hacking puzzles. In the end, a mysterious group called MAYFLY pulls you into a puzzle hunt that only the sharpest players will solve.\n\nWhether you're an experienced coder or have never written a line, LEARN lessons get you started, and the hacker career can be played without writing any code. Available on PC, PCVR and Meta Quest.",
+      "about": "Your older brother vanished and left you his room, his early-90s PC and a dial-up modem. Take coding jobs to pay the rent, fix bugs, crack codes and slip into a hidden network while you follow his trail. Then write your own games in the built-in language, pack them on floppies and share them. Sit at the desk in VR or play on your monitor.",
       "aboutEn": "",
-      "stores": {},
-      "art": {},
+      "stores": {
+        "web": "https://www.meta.com/en-gb/experiences/pcvr/retro-coder-2000/38842569162055415"
+      },
+      "art": {
+        "capsule": "https://scontent-atl3-1.oculuscdn.com/v/t64.5771-25/491830467_2325314524951584_9184670187824172838_n.webp?stp=dst-webp_s720x720&_nc_cat=107&ccb=1-7&_nc_sid=6e7a0a&_nc_ohc=MRU4KkS1V4gQ7kNvwEN_yhO&_nc_oc=Adplyw6x5GzBURVdBuJSDC-eTppWUxXhgXtZL1YcBo-ctHXoNaKshSX7-5FmL8ENP30&_nc_zt=3&_nc_ht=scontent-atl3-1.oculuscdn.com&_nc_ss=7b289&oh=00_AQOfbPt6Fjx6C_mKstVn0YRQ445DHUx4RvhMu-r2TMdf9A&oe=6ACF1197",
+        "hero": "https://scontent-atl3-1.oculuscdn.com/v/t64.5771-25/491830467_2325314524951584_9184670187824172838_n.webp?stp=dst-webp_s720x720&_nc_cat=107&ccb=1-7&_nc_sid=6e7a0a&_nc_ohc=MRU4KkS1V4gQ7kNvwEN_yhO&_nc_oc=Adplyw6x5GzBURVdBuJSDC-eTppWUxXhgXtZL1YcBo-ctHXoNaKshSX7-5FmL8ENP30&_nc_zt=3&_nc_ht=scontent-atl3-1.oculuscdn.com&_nc_ss=7b289&oh=00_AQOfbPt6Fjx6C_mKstVn0YRQ445DHUx4RvhMu-r2TMdf9A&oe=6ACF1197",
+        "portrait": ""
+      },
       "localArt": "",
-      "source": "manual",
-      "parsedAt": "",
+      "source": "web",
+      "parsedAt": "2026-10-09T21:21:55.962Z",
       "verified": true,
       "active": true,
-      "validated": "2026-10-07",
+      "validated": "2026-10-10",
       "created": "2026-10-07",
-      "updated": "2026-10-07"
+      "updated": "2026-10-10"
     },
     {
       "id": "fearless-crew",

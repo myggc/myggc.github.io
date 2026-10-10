@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-08",
+  "updated": "2026-10-10",
   "items": [
     {
       "id": "madmoa",
@@ -713,31 +713,30 @@
     {
       "id": "beka-bitarashvili",
       "kind": "solo",
-      "name": "@Codemama",
+      "name": "CODEMAMA",
       "legal": "Beka Bitarashvili",
       "regId": "",
-      "city": "",
-      "founded": 0,
+      "city": "თბილისი",
+      "founded": 1994,
       "size": "",
       "roles": [
         "developer"
       ],
       "website": "",
       "email": "bekabitarashvili@gmail.com",
-      "phone": "",
+      "phone": "598926660",
       "contact": "",
       "about": "მე ვარ ბექა ბიტარაშვილი, სოლო დეველოპერი. თამაშების კეთება დავიწყე Python-ის ნეითივზე და შემდეგ გადავედი Godot-ის ძრავზე, დღეს ამ ძრავზე ვმუშაობ.",
       "aboutEn": "I'm Beka Bitarashvili, a solo developer. I started making games in plain Python, then moved to the Godot engine, which I work in today.",
       "logo": "images/logos/beka-bitarashvili.jpg?v=1790937518061",
       "links": {
-        "github": "https://github.com/BekaBitarashvili",
         "itch": "https://beka-bitara.itch.io/"
       },
       "verified": true,
       "active": true,
-      "validated": "2026-10-02",
+      "validated": "2026-10-10",
       "created": "2026-10-02",
-      "updated": "2026-10-02"
+      "updated": "2026-10-10"
     },
     {
       "id": "გიორგი-დვალიშვილი",
@@ -999,9 +998,9 @@
       },
       "verified": false,
       "active": true,
-      "validated": "2026-10-07",
+      "validated": "2026-10-10",
       "created": "2026-10-02",
-      "updated": "2026-10-07"
+      "updated": "2026-10-10"
     },
     {
       "id": "დავით-ქურასბედიანი",
