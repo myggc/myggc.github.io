@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-10",
+  "updated": "2026-10-14",
   "items": [
     {
       "id": "madmoa",
@@ -1031,6 +1031,37 @@
       "validated": "2026-10-07",
       "created": "2026-10-07",
       "updated": "2026-10-07"
+    },
+    {
+      "id": "santawar-studio",
+      "kind": "solo",
+      "name": "Beka",
+      "legal": "Santawar Studio",
+      "regId": "",
+      "city": "ქუთაისი",
+      "founded": 1999,
+      "size": "",
+      "roles": [
+        "developer"
+      ],
+      "website": "https://santawarstudio.netlify.app/",
+      "email": "bgoginovi@gmail.com",
+      "phone": "",
+      "contact": "",
+      "about": "ვაკეთებ ინდი თამაშებს და ვუზიარებ ხალხს",
+      "aboutEn": "I make indie games and share them with people.",
+      "logo": "",
+      "links": {
+        "linkedin": "https://www.linkedin.com/in/beka-goginovi-6465bb218?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+        "tiktok": "www.tiktok.com/@santawar.studio",
+        "appstore": "https://apps.apple.com/ge/app/samotxis-mcveli/id6760967757",
+        "googleplay": "https://play.google.com/store/apps/details?id=com.SantawarStudio.SamotxisMcveliGuardianofParadise&pcampaignid=web_share"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-14",
+      "created": "2026-10-14",
+      "updated": "2026-10-14"
     }
   ]
 }
