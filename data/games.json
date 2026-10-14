@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-11",
+  "updated": "2026-10-14",
   "items": [
     {
       "id": "besos-shawarma",
@@ -4017,23 +4017,23 @@
         "steam": "https://store.steampowered.com/app/4644500/"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4644500/c16cd688648017b9ff73c18ef6dabd9ee2e8cfc9/header.jpg?t=1791729391",
-        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/4644500?t=1791729391",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4644500/9ad09857d2e804d71c0c67ba47d1ac02df92207f/header.jpg?t=1791979076",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/4644500?t=1791979076",
         "portrait": "",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4644500/a7fb15d875ab42a1b2af22987b58fcb2ebeba23b/ss_a7fb15d875ab42a1b2af22987b58fcb2ebeba23b.600x338.jpg?t=1791729391",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4644500/b279ffc78df3dd6a66d03afd183acce6dcdec951/ss_b279ffc78df3dd6a66d03afd183acce6dcdec951.600x338.jpg?t=1791729391",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4644500/cc9b80bad760a06bf8d7419c538a05e91b961b71/ss_cc9b80bad760a06bf8d7419c538a05e91b961b71.600x338.jpg?t=1791729391"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4644500/a7fb15d875ab42a1b2af22987b58fcb2ebeba23b/ss_a7fb15d875ab42a1b2af22987b58fcb2ebeba23b.600x338.jpg?t=1791979076",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4644500/b279ffc78df3dd6a66d03afd183acce6dcdec951/ss_b279ffc78df3dd6a66d03afd183acce6dcdec951.600x338.jpg?t=1791979076",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4644500/cc9b80bad760a06bf8d7419c538a05e91b961b71/ss_cc9b80bad760a06bf8d7419c538a05e91b961b71.600x338.jpg?t=1791979076"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-11T20:18:45.482Z",
+      "parsedAt": "2026-10-14T20:14:23.468Z",
       "verified": true,
       "active": true,
       "validated": "2026-10-07",
       "created": "2026-10-07",
-      "updated": "2026-10-11"
+      "updated": "2026-10-14"
     }
   ]
 }
