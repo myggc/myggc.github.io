@@ -1822,7 +1822,44 @@
     });
   }
 
+  /* Meta's CDNs sign every image link with an `oe=` expiry a few weeks out;
+     after that the link answers 403 and the card goes blank, which is how
+     Retro Coder 2000 lost its picture. Other signed links (S3, CloudFront,
+     Azure) carry an expiry and a signature the same way. Such a link is never
+     kept: the game holds on to the picture it already has, which for a Meta
+     Quest game is a file in images/games/.
+     Mirrors expiring() in scripts/refresh-stores.mjs; keep the two in step. */
+  var SIGNED_HOST = /^https?:\/\/(?:[^\/?#]+\.)?(?:oculuscdn\.com|fbcdn\.net|cdninstagram\.com|fbsbx\.com)(?:[\/:?#]|$)/i;
+  function expiring(url) {
+    var u = String(url || "");
+    if (SIGNED_HOST.test(u)) return true;
+    var q = (u.split("?")[1] || "").toLowerCase();
+    return /(?:^|&)(?:oe|expires|x-amz-expires|se)=/.test(q) && /(?:^|&)(?:oh|signature|x-amz-signature|sig)=/.test(q);
+  }
+
+  /* The art a store returned, minus empty and expiring entries. Callers merge
+     it over a game's art with Object.assign, so a key that is left out keeps
+     the picture already there, where an empty one would have wiped it. */
+  function durableArt(art) {
+    var out = {};
+    Object.keys(art || {}).forEach(function (k) {
+      var v = art[k];
+      if (Array.isArray(v)) {
+        var keep = v.filter(function (u) { return u && !expiring(u); });
+        if (keep.length) out[k] = keep;
+      } else if (v && !expiring(v)) out[k] = v;
+    });
+    return out;
+  }
+
   function parseStore(url) {
+    return readStore(url).then(function (p) {
+      if (p && p.art) p.art = durableArt(p.art);
+      return p;
+    });
+  }
+
+  function readStore(url) {
     var d = detect(url);
     if (!d) return Promise.reject(new Error("ცარიელი ბმული"));
     if (d.kind === "steam") return parseSteam(d.id, d.url);

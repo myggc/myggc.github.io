@@ -50,7 +50,7 @@ Any empty field simply does not appear on the profile.
 | `mobile` | portrait art instead of a 460×215 capsule; set automatically when the only stores are App Store / Google Play |
 | `genres`, `platforms`, `engine`, `price`, `langs` | shown when filled |
 | `stores` | `{ steam, itch, appstore, googleplay, switch, xbox, playstation, epic, gog }` — full page URLs |
-| `art` | `{ capsule, hero, portrait }` — remote store images |
+| `art` | `{ capsule, hero, portrait }` — store images, or files in `images/games/` when the store only serves expiring links |
 | `localArt` | hand-uploaded image, used **only** while `art` is empty |
 | `locked` | field names the store refresh must not overwrite, e.g. `["name"]` |
 | `source`, `parsedAt` | which store the data came from and when |
@@ -61,6 +61,15 @@ Any empty field simply does not appear on the profile.
 `art.*` always wins over `localArt`. When the store refresh finds a capsule it
 clears `localArt`, so a studio that opens a Steam page later stops using its
 hand-uploaded image and no stale file is left behind.
+
+A store image link that expires is never stored. Meta Quest (`oculuscdn.com`)
+and other Meta CDN links carry an `oe=` expiry a few weeks out and answer 403
+after it, which left Retro Coder 2000 with a blank card. Both store readers
+(`scripts/refresh-stores.mjs` and `assets/js/ggc-core.js`) drop such links, and
+any other signed link with an expiry, so a refresh or admin sync keeps the
+picture the game already has. For those games the art is saved into
+`images/games/` (`<id>.jpg` at 920×430, `<id>-hero.jpg` at 1920×620) and
+`art.capsule` / `art.hero` point at the files.
 
 Images uploaded through the admin panel are centre-cropped and compressed in
 the browser first, to fixed sizes — logo 512×512, capsule 920×430, phone title

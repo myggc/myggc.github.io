@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-14",
+  "updated": "2026-10-17",
   "items": [
     {
       "id": "besos-shawarma",
@@ -3979,8 +3979,8 @@
         "web": "https://www.meta.com/en-gb/experiences/pcvr/retro-coder-2000/38842569162055415"
       },
       "art": {
-        "capsule": "https://scontent-atl3-1.oculuscdn.com/v/t64.5771-25/491830467_2325314524951584_9184670187824172838_n.webp?stp=dst-webp_s720x720&_nc_cat=107&ccb=1-7&_nc_sid=6e7a0a&_nc_ohc=MRU4KkS1V4gQ7kNvwEN_yhO&_nc_oc=Adplyw6x5GzBURVdBuJSDC-eTppWUxXhgXtZL1YcBo-ctHXoNaKshSX7-5FmL8ENP30&_nc_zt=3&_nc_ht=scontent-atl3-1.oculuscdn.com&_nc_ss=7b289&oh=00_AQOfbPt6Fjx6C_mKstVn0YRQ445DHUx4RvhMu-r2TMdf9A&oe=6ACF1197",
-        "hero": "https://scontent-atl3-1.oculuscdn.com/v/t64.5771-25/491830467_2325314524951584_9184670187824172838_n.webp?stp=dst-webp_s720x720&_nc_cat=107&ccb=1-7&_nc_sid=6e7a0a&_nc_ohc=MRU4KkS1V4gQ7kNvwEN_yhO&_nc_oc=Adplyw6x5GzBURVdBuJSDC-eTppWUxXhgXtZL1YcBo-ctHXoNaKshSX7-5FmL8ENP30&_nc_zt=3&_nc_ht=scontent-atl3-1.oculuscdn.com&_nc_ss=7b289&oh=00_AQOfbPt6Fjx6C_mKstVn0YRQ445DHUx4RvhMu-r2TMdf9A&oe=6ACF1197",
+        "capsule": "images/games/retro-coder-2000.jpg",
+        "hero": "images/games/retro-coder-2000-hero.jpg",
         "portrait": ""
       },
       "localArt": "",
@@ -3990,7 +3990,7 @@
       "active": true,
       "validated": "2026-10-10",
       "created": "2026-10-07",
-      "updated": "2026-10-10"
+      "updated": "2026-10-17"
     },
     {
       "id": "fearless-crew",

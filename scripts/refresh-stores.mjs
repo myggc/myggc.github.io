@@ -47,6 +47,33 @@ const strip = (s) => String(s || "").replace(/<[^>]+>/g, "")
   // assets/js/ggc-core.js.
   .replace(/^[ \t]*—[ \t]*/gm, "").replace(/[ \t]*—[ \t]*/g, ", ");
 
+/* Meta's CDNs sign every image link with an `oe=` expiry a few weeks out;
+   after that the link answers 403 and the card goes blank. Other signed links
+   (S3, CloudFront, Azure) carry an expiry and a signature the same way. Such a
+   link is never stored: the game keeps whatever picture it already has, which
+   for a Meta Quest game is a file in images/games/.
+   Mirrors expiring() in assets/js/ggc-core.js; keep the two in step. */
+const SIGNED_HOST = /^https?:\/\/(?:[^/?#]+\.)?(?:oculuscdn\.com|fbcdn\.net|cdninstagram\.com|fbsbx\.com)(?:[/:?#]|$)/i;
+function expiring(url) {
+  const u = String(url || "");
+  if (SIGNED_HOST.test(u)) return true;
+  const q = (u.split("?")[1] || "").toLowerCase();
+  return /(?:^|&)(?:oe|expires|x-amz-expires|se)=/.test(q) && /(?:^|&)(?:oh|signature|x-amz-signature|sig)=/.test(q);
+}
+
+/* The art a store returned, minus empty and expiring entries, so merging it
+   over a game's art never blanks or replaces a picture that works. */
+function durableArt(art) {
+  const out = {};
+  for (const [k, v] of Object.entries(art || {})) {
+    if (Array.isArray(v)) {
+      const keep = v.filter((u) => u && !expiring(u));
+      if (keep.length) out[k] = keep;
+    } else if (v && !expiring(v)) out[k] = v;
+  }
+  return out;
+}
+
 /* Only ever use URLs the store API itself returned.
    The guessable path — cdn.*.steamstatic.com/steam/apps/<id>/capsule_616x353.jpg
    — still resolves, but for Dumbriel it serves artwork the studio replaced long
@@ -269,11 +296,9 @@ function merge(game, parsed) {
     changed = true;
   };
   for (const key of OWNED) {
-    // A picture the store did not return is no reason to drop the one already there.
-    if (key === "art") {
-      const found = Object.entries(parsed.art || {}).filter(([, v]) => Array.isArray(v) ? v.length : v);
-      set("art", { ...(game.art || {}), ...Object.fromEntries(found) });
-    }
+    // A picture the store did not return, or returned only as an expiring
+    // link, is no reason to drop the one already there.
+    if (key === "art") set("art", { ...(game.art || {}), ...durableArt(parsed.art) });
     else set(key, parsed[key]);
   }
   // Platforms the store proves are real get added; hand-entered ones stay.
