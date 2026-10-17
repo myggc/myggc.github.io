@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-14",
+  "updated": "2026-10-17",
   "items": [
     {
       "id": "madmoa",
@@ -971,10 +971,10 @@
       "id": "irakli-kokrashvili",
       "kind": "company",
       "name": "Irakli Kokrashvili",
-      "legal": "Irakli Kokrashvili",
+      "legal": "VR KEMONO",
       "regId": "307078517",
-      "city": "თბილისი",
-      "founded": 0,
+      "city": "საზღვარგარეთ",
+      "founded": "2025-01-27",
       "size": "1-2",
       "roles": [
         "developer",
@@ -1000,7 +1000,7 @@
       "active": true,
       "validated": "2026-10-10",
       "created": "2026-10-02",
-      "updated": "2026-10-10"
+      "updated": "2026-10-17"
     },
     {
       "id": "დავით-ქურასბედიანი",
