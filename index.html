@@ -24,6 +24,15 @@
   if (/^https?:$/.test(location.protocol) && /\/index\.html$/.test(location.pathname))
     history.replaceState(history.state, "", location.pathname.replace(/index\.html$/, "") + location.search + location.hash);
 </script>
+<!-- Google tag (gtag.js), after the line above so a visit counts as / and not /index.html -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WRP9HL8YH2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WRP9HL8YH2');
+</script>
 <script src="assets/js/support.js"></script>
 </head>
 <body>
