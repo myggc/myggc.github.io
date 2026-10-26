@@ -20,7 +20,7 @@
         "Steam"
       ],
       "engine": "Unity",
-      "price": "$2.99",
+      "price": "$1.79",
       "langs": "English, Georgian",
       "about": "Beso's Shawarma is a short, narrative-driven horror game. A late-night call lures you on a surreal journey through empty streets to a sketchy shawarma shop. Talk to a cast of strange characters, make a terrifying choice, and try to escape a disjointed, looping nightmare.",
       "aboutEn": "",
@@ -39,12 +39,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-08T21:19:38.991Z",
+      "parsedAt": "2026-10-26T21:00:52.150Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-10-08"
+      "updated": "2026-10-26"
     },
     {
       "id": "gatekeeper-simulator-inner-circle",
@@ -106,7 +106,7 @@
         "Steam"
       ],
       "engine": "",
-      "price": "$9.99",
+      "price": "$1.99",
       "langs": "English, Russian, Georgian",
       "about": "A first-person folk horror story about a scammer exorcist priest trapped in a cursed 19th-century village. Investigate the seven deadly sins by day and survive the forest spirits that hunt you at night.",
       "aboutEn": "",
@@ -125,12 +125,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-08T21:19:41.616Z",
+      "parsedAt": "2026-10-26T21:00:54.837Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-10-08"
+      "updated": "2026-10-26"
     },
     {
       "id": "glass-cannon",
