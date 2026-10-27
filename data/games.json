@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-26",
+  "updated": "2026-10-27",
   "items": [
     {
       "id": "besos-shawarma",
@@ -63,7 +63,7 @@
         "Steam"
       ],
       "engine": "",
-      "price": "$1.99",
+      "price": "$4.99",
       "langs": "English",
       "about": "You guard the gate of a secret society. Every visitor lies, some better than others. Inspect, decide, and live with the consequences of who you let inside.",
       "aboutEn": "",
@@ -82,12 +82,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-20T19:59:53.631Z",
+      "parsedAt": "2026-10-27T20:41:35.446Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-10-20"
+      "updated": "2026-10-27"
     },
     {
       "id": "the-seven-enchantments",
