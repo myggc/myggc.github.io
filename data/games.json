@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-28",
+  "updated": "2026-10-29",
   "items": [
     {
       "id": "besos-shawarma",
@@ -1865,23 +1865,23 @@
         "steam": "https://store.steampowered.com/app/969330/The_Way_of_Wrath/?curator_clanid=34849725"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/header.jpg?t=1792743735",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/page_bg_raw.jpg?t=1792743735",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/header.jpg?t=1793270475",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/page_bg_raw.jpg?t=1793270475",
         "portrait": "",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/ss_b135bf0d12ff41c9f25c48d7130f70230e2b6a35.600x338.jpg?t=1792743735",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/ss_abd3655457363e5ec4e72d7be91e2385053151af.600x338.jpg?t=1792743735",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/ss_dda2eee5c0a25a36989f21bf0120abe0fd225e85.600x338.jpg?t=1792743735"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/ss_b135bf0d12ff41c9f25c48d7130f70230e2b6a35.600x338.jpg?t=1793270475",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/ss_abd3655457363e5ec4e72d7be91e2385053151af.600x338.jpg?t=1793270475",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/969330/ss_dda2eee5c0a25a36989f21bf0120abe0fd225e85.600x338.jpg?t=1793270475"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-23T09:21:37.104Z",
+      "parsedAt": "2026-10-29T10:54:40.730Z",
       "verified": false,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-10-23"
+      "updated": "2026-10-29"
     },
     {
       "id": "back-to-the-collis",
@@ -2287,23 +2287,23 @@
         "steam": "https://store.steampowered.com/app/5219000/"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/f9d1eef224875e464851759d05a3bfb3e1cc053e/header.jpg?t=1792798708",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/4fa708e13e9dde01c2f4aae924c76db4e7e1e95a/page_bg_raw.jpg?t=1792798708",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/f9d1eef224875e464851759d05a3bfb3e1cc053e/header.jpg?t=1793268655",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/4fa708e13e9dde01c2f4aae924c76db4e7e1e95a/page_bg_raw.jpg?t=1793268655",
         "portrait": "",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/35a73bb18d8a23371d49b6d19582318daa982080/ss_35a73bb18d8a23371d49b6d19582318daa982080.600x338.jpg?t=1792798708",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/546871da28efffae5ffb810f6bdf075a16ecea39/ss_546871da28efffae5ffb810f6bdf075a16ecea39.600x338.jpg?t=1792798708",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/40f04e79f2b5f926364f52e7b7e66b178fce344c/ss_40f04e79f2b5f926364f52e7b7e66b178fce344c.600x338.jpg?t=1792798708"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/35a73bb18d8a23371d49b6d19582318daa982080/ss_35a73bb18d8a23371d49b6d19582318daa982080.600x338.jpg?t=1793268655",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/546871da28efffae5ffb810f6bdf075a16ecea39/ss_546871da28efffae5ffb810f6bdf075a16ecea39.600x338.jpg?t=1793268655",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5219000/40f04e79f2b5f926364f52e7b7e66b178fce344c/ss_40f04e79f2b5f926364f52e7b7e66b178fce344c.600x338.jpg?t=1793268655"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-24T08:53:46.794Z",
+      "parsedAt": "2026-10-29T10:54:54.196Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-20",
       "created": "2026-09-20",
-      "updated": "2026-10-24"
+      "updated": "2026-10-29"
     },
     {
       "id": "the-liftman",
