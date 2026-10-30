@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-17",
+  "updated": "2026-10-30",
   "items": [
     {
       "id": "madmoa",
@@ -974,7 +974,7 @@
       "legal": "VR KEMONO",
       "regId": "307078517",
       "city": "საზღვარგარეთ",
-      "founded": "2025-01-27",
+      "founded": 0,
       "size": "1-2",
       "roles": [
         "developer",
@@ -998,9 +998,9 @@
       },
       "verified": false,
       "active": true,
-      "validated": "2026-10-10",
+      "validated": "2026-10-30",
       "created": "2026-10-02",
-      "updated": "2026-10-17"
+      "updated": "2026-10-30"
     },
     {
       "id": "დავით-ქურასბედიანი",

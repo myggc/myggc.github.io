@@ -3959,41 +3959,48 @@
     },
     {
       "id": "retro-coder-2000",
-      "name": "Retro Coder 2000 on Oculus Rift",
+      "name": "Retro Coder 2000",
       "studioId": "irakli-kokrashvili",
       "publisherId": "",
       "status": "upcoming",
-      "releaseDate": "2026-12-07",
+      "releaseDate": "2026-11-05",
       "year": 2026,
       "mobile": false,
       "genres": [
-        "Puzzle",
-        "Simulation"
+        "adventure",
+        "indie",
+        "simulation"
       ],
       "platforms": [
-        "Web"
+        "Web",
+        "Steam"
       ],
       "engine": "Unity",
       "price": "9.99",
       "langs": "English",
-      "about": "Your older brother vanished and left you his room, his early-90s PC and a dial-up modem. Take coding jobs to pay the rent, fix bugs, crack codes and slip into a hidden network while you follow his trail. Then write your own games in the built-in language, pack them on floppies and share them. Sit at the desk in VR or play on your monitor.",
+      "about": "March 1991. Your brother Levan is gone, but his PC still boots and his mailbox still gets work. Fix code for clients, break into servers on a hidden network, write and share your own games on a programmable 90s PC, and follow what he left behind. Desktop or VR.",
       "aboutEn": "",
       "stores": {
-        "web": "https://www.meta.com/en-gb/experiences/pcvr/retro-coder-2000/38842569162055415"
+        "web": "https://www.meta.com/en-gb/experiences/pcvr/retro-coder-2000/38842569162055415",
+        "steam": "https://store.steampowered.com/app/5418530/Retro_Coder_2000/"
       },
       "art": {
-        "capsule": "images/games/retro-coder-2000.jpg",
-        "hero": "images/games/retro-coder-2000-hero.jpg",
-        "portrait": ""
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/9c2035eed988c0e49c9051c20a7dcacc87c8d221/header.jpg?t=1792421642",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/d41529d3cbced1b2100177807faef32f6754f51d/page_bg_raw.jpg?t=1792421642",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/9d0a457430217cba6d0c17fa32c133648ec18e25/ss_9d0a457430217cba6d0c17fa32c133648ec18e25.600x338.jpg?t=1792421642",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/2bfb30b9603ade36c8a2fa7b83321c80f86d7c26/ss_2bfb30b9603ade36c8a2fa7b83321c80f86d7c26.600x338.jpg?t=1792421642",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/36974894cdc0c128d4570dd33da5dd276c9cbb26/ss_36974894cdc0c128d4570dd33da5dd276c9cbb26.600x338.jpg?t=1792421642"
+        ]
       },
       "localArt": "",
-      "source": "web",
-      "parsedAt": "2026-10-09T21:21:55.962Z",
+      "source": "steam",
+      "parsedAt": "2026-10-19T16:13:54.209Z",
       "verified": true,
       "active": true,
-      "validated": "2026-10-10",
+      "validated": "2026-10-30",
       "created": "2026-10-07",
-      "updated": "2026-10-17"
+      "updated": "2026-10-30"
     },
     {
       "id": "fearless-crew",
