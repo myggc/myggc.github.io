@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-29",
+  "updated": "2026-10-30",
   "items": [
     {
       "id": "besos-shawarma",
@@ -2174,7 +2174,7 @@
       "engine": "",
       "price": "უფასო",
       "langs": "",
-      "about": "Solve twisted puzzles, uncover haunting secrets of a living nightmare",
+      "about": "Solve escape room puzzles and find hidden keys to escape the scary house.",
       "aboutEn": "",
       "stores": {
         "googleplay": "https://play.google.com/store/apps/details?id=air.com.hfg.sinister"
@@ -2186,12 +2186,12 @@
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "2026-09-07T19:58:48.584Z",
+      "parsedAt": "2026-10-30T10:53:04.747Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-07",
       "created": "2026-09-07",
-      "updated": "2026-09-07"
+      "updated": "2026-10-30"
     },
     {
       "id": "project-dark",
