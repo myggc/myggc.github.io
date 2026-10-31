@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-30",
+  "updated": "2026-10-31",
   "items": [
     {
       "id": "madmoa",
@@ -1062,6 +1062,47 @@
       "validated": "2026-10-14",
       "created": "2026-10-14",
       "updated": "2026-10-14"
+    },
+    {
+      "id": "i-e-aleksei-beliakov",
+      "kind": "company",
+      "name": "Synthetic Domain",
+      "legal": "I/E ALEKSEI BELIAKOV",
+      "regId": "302213646",
+      "city": "ბათუმი",
+      "founded": 0,
+      "size": "11-20",
+      "roles": [
+        "developer",
+        "publisher",
+        "codev",
+        "outsourcing"
+      ],
+      "website": "https://linktr.ee/syntheticdomain",
+      "email": "pr@syntheticdomain.com",
+      "phone": "+995 557688295",
+      "contact": "",
+      "about": "Synthetic Domain არის სრულად დისტანციური შემოქმედებითი სტუდია, რომელსაც უყვარს PC-ებისა და კონსოლებისთვის ინდი თამაშების შექმნა. ჩვენ 2017 წელს დავიწყეთ, როგორც მცირე გუნდმა, რომელიც პირად პროექტზე მუშაობდა, მაგრამ დროთა განმავლობაში ვიქეცით სტუდიად, რომელმაც რამდენიმე თამაში და პროგრამული პროექტი გამოუშვა. ამჟამად ჩვენ ახალ პროდუქტებს ვუშვებთ და ფოკუსირებული ვართ ჩვენი სათამაშო ფრენჩაიზებისა და არსებული პროექტების პოპულარიზაციასა და განვითარებაზე.  ჩვენი მიზანი მარტივია: შევქმნათ თამაშები, რომლებიც თქვენთან დარჩება, ემოციურად, ვიზუალურად და მექანიკურად.",
+      "aboutEn": "Synthetic Domain is a completely remote creative studio that loves to create indie games for PCs and consoles. We started in 2017 as a small team working on a personal project, but over time we grew into a studio that launched several games and software projects. We are currently launching new products and focusing on promoting and developing our game franchises and existing projects.  Our goal is simple: to create games that stay with you - emotionally, visually, and mechanically.",
+      "logo": "https://avatars.fastly.steamstatic.com/c4a80c25b1cf6534a937e3f1e5dc487c49317941_full.jpg",
+      "links": {
+        "telegram": "https://t.me/SyntheticDomain",
+        "facebook": "https://www.facebook.com/gaming/SyntheticDomain",
+        "instagram": "https://www.instagram.com/syntheticdomain",
+        "linkedin": "https://www.linkedin.com/company/syntcheticdomain",
+        "youtube": "https://www.youtube.com/@syntheticdomain",
+        "x": "https://x.com/SyntheticDomain",
+        "discord": "https://discord.com/invite/d7bvmbJz6h",
+        "tiktok": "https://www.tiktok.com/@syntheticdomain",
+        "twitch": "www.twitch.tv/syntheticdomain_",
+        "steam": "https://store.steampowered.com/curator/39808920-Synthetic-Domain/",
+        "itch": "https://syntheticdomain.itch.io/"
+      },
+      "verified": true,
+      "active": true,
+      "validated": "2026-10-31",
+      "created": "2026-10-31",
+      "updated": "2026-10-31"
     }
   ]
 }
