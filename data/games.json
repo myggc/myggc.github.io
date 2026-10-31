@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-10-30",
+  "updated": "2026-10-31",
   "items": [
     {
       "id": "besos-shawarma",
@@ -1358,8 +1358,7 @@
       "year": 2023,
       "mobile": true,
       "genres": [
-        "simulation",
-        "casual"
+        "simulation"
       ],
       "platforms": [
         "Google Play"
@@ -1380,12 +1379,12 @@
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "2026-10-28T10:35:26.417Z",
+      "parsedAt": "2026-10-31T10:23:56.125Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-10-28"
+      "updated": "2026-10-31"
     },
     {
       "id": "school-driver",
