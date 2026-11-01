@@ -1358,7 +1358,8 @@
       "year": 2023,
       "mobile": true,
       "genres": [
-        "simulation"
+        "simulation",
+        "casual"
       ],
       "platforms": [
         "Google Play"
@@ -1379,12 +1380,12 @@
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "2026-10-31T10:23:56.125Z",
+      "parsedAt": "2026-11-01T20:30:48.655Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-10-31"
+      "updated": "2026-11-01"
     },
     {
       "id": "school-driver",
@@ -4122,7 +4123,7 @@
         "Epic Games"
       ],
       "engine": "Unity",
-      "price": "$4.99",
+      "price": "$9.99",
       "langs": "English, French, German, Spanish - Spain, Portuguese - Brazil, Simplified Chinese, Korean, Polish, Russian, Turkish, Japanese, Traditional Chinese",
       "about": "Become the Final Boss! Play any way you want, combine followers from different factions, and win spectacular turn-based battles. Expand your Empire of Darkness and seek a powerful artifact that can change the fate of the world.",
       "aboutEn": "",
@@ -4144,12 +4145,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-31T20:01:18.572Z",
+      "parsedAt": "2026-11-01T20:32:19.361Z",
       "verified": true,
       "active": true,
       "validated": "2026-10-31",
       "created": "2026-10-31",
-      "updated": "2026-10-31"
+      "updated": "2026-11-01"
     },
     {
       "id": "the-bunker-notes-horror-drama-visual-novel",
