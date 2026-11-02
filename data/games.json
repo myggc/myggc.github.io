@@ -20,7 +20,7 @@
         "Steam"
       ],
       "engine": "Unity",
-      "price": "$1.79",
+      "price": "$2.99",
       "langs": "English, Georgian",
       "about": "Beso's Shawarma is a short, narrative-driven horror game. A late-night call lures you on a surreal journey through empty streets to a sketchy shawarma shop. Talk to a cast of strange characters, make a terrifying choice, and try to escape a disjointed, looping nightmare.",
       "aboutEn": "",
@@ -39,12 +39,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-26T21:00:52.150Z",
+      "parsedAt": "2026-11-02T23:29:24.480Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-10-26"
+      "updated": "2026-11-02"
     },
     {
       "id": "gatekeeper-simulator-inner-circle",
@@ -106,7 +106,7 @@
         "Steam"
       ],
       "engine": "",
-      "price": "$1.99",
+      "price": "$9.99",
       "langs": "English, Russian, Georgian",
       "about": "A first-person folk horror story about a scammer exorcist priest trapped in a cursed 19th-century village. Investigate the seven deadly sins by day and survive the forest spirits that hunt you at night.",
       "aboutEn": "",
@@ -125,12 +125,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-26T21:00:54.837Z",
+      "parsedAt": "2026-11-02T23:29:27.232Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-10-26"
+      "updated": "2026-11-02"
     },
     {
       "id": "glass-cannon",
@@ -1909,18 +1909,18 @@
         "steam": "https://store.steampowered.com/app/2333220/"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/a83c58c8d89c3e10a85e1c92d1656794f2460b0c/header.jpg?t=1793609679",
-        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/2333220?t=1793609679",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/a83c58c8d89c3e10a85e1c92d1656794f2460b0c/header.jpg?t=1793638609",
+        "hero": "https://store.akamai.steamstatic.com/images/storepagebackground/app/2333220?t=1793638609",
         "portrait": "",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/1498952dcb29ef6e891611518b075481e9e0295e/ss_1498952dcb29ef6e891611518b075481e9e0295e.600x338.jpg?t=1793609679",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/808df67cecc7cdba5f20b03feb817cf588f0427b/ss_808df67cecc7cdba5f20b03feb817cf588f0427b.600x338.jpg?t=1793609679",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/1e0ac632fe33839297c3da4eb6ce979fe762fbb9/ss_1e0ac632fe33839297c3da4eb6ce979fe762fbb9.600x338.jpg?t=1793609679"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/1498952dcb29ef6e891611518b075481e9e0295e/ss_1498952dcb29ef6e891611518b075481e9e0295e.600x338.jpg?t=1793638609",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/808df67cecc7cdba5f20b03feb817cf588f0427b/ss_808df67cecc7cdba5f20b03feb817cf588f0427b.600x338.jpg?t=1793638609",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2333220/1e0ac632fe33839297c3da4eb6ce979fe762fbb9/ss_1e0ac632fe33839297c3da4eb6ce979fe762fbb9.600x338.jpg?t=1793638609"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-11-02T12:24:42.726Z",
+      "parsedAt": "2026-11-02T23:30:28.774Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
@@ -4170,7 +4170,7 @@
         "Web"
       ],
       "engine": "",
-      "price": "$0.87",
+      "price": "$1.79",
       "langs": "English, Simplified Chinese, Russian",
       "about": "\"The Bunker Notes\" is a visual novel about a concrete trap where the past whispers through the cracks of rusted doors. In this world, survival is everything; meeting another person might be your last mistake.",
       "aboutEn": "",
@@ -4189,12 +4189,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-31T20:01:20.015Z",
+      "parsedAt": "2026-11-02T23:31:41.642Z",
       "verified": true,
       "active": true,
       "validated": "2026-10-31",
       "created": "2026-10-31",
-      "updated": "2026-10-31"
+      "updated": "2026-11-02"
     },
     {
       "id": "aim-war-protocol",
