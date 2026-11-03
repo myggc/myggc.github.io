@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-11-02",
+  "updated": "2026-11-03",
   "items": [
     {
       "id": "besos-shawarma",
@@ -2157,7 +2157,7 @@
     },
     {
       "id": "halloween-room-sinister-tales",
-      "name": "Halloween Room: Sinister Tales",
+      "name": "Horror Escape: Sinister Tales",
       "studioId": "black-room-games",
       "publisherId": "",
       "status": "released",
@@ -2186,12 +2186,12 @@
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "2026-10-30T10:53:04.747Z",
+      "parsedAt": "2026-11-03T21:48:05.148Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-07",
       "created": "2026-09-07",
-      "updated": "2026-10-30"
+      "updated": "2026-11-03"
     },
     {
       "id": "project-dark",
@@ -4179,22 +4179,22 @@
         "web": "https://www.syntheticdomain.com/portfolio/thebunkernotes"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1811190/ef663fc3f908d09ae3f6e7595b7abad8c8a861b0/header.jpg?t=1789421452",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1811190/9b63ef4f7dd5988153193dac383db21bb62ca629/page_bg_raw.jpg?t=1789421452",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1811190/ef663fc3f908d09ae3f6e7595b7abad8c8a861b0/header.jpg?t=1793736960",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1811190/9b63ef4f7dd5988153193dac383db21bb62ca629/page_bg_raw.jpg?t=1793736960",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1811190/e64c24deff560a6b27ed9c8d2940da736427264b/ss_e64c24deff560a6b27ed9c8d2940da736427264b.600x338.jpg?t=1789421452",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1811190/cf24495b40c1590bc5c1f5618e64cec3b0a1ddc2/ss_cf24495b40c1590bc5c1f5618e64cec3b0a1ddc2.600x338.jpg?t=1789421452",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1811190/89d1b2b6d008ac14459ab48f0f3c2c5d263cff48/ss_89d1b2b6d008ac14459ab48f0f3c2c5d263cff48.600x338.jpg?t=1789421452"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1811190/e64c24deff560a6b27ed9c8d2940da736427264b/ss_e64c24deff560a6b27ed9c8d2940da736427264b.600x338.jpg?t=1793736960",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1811190/cf24495b40c1590bc5c1f5618e64cec3b0a1ddc2/ss_cf24495b40c1590bc5c1f5618e64cec3b0a1ddc2.600x338.jpg?t=1793736960",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1811190/89d1b2b6d008ac14459ab48f0f3c2c5d263cff48/ss_89d1b2b6d008ac14459ab48f0f3c2c5d263cff48.600x338.jpg?t=1793736960"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-11-02T23:31:41.642Z",
+      "parsedAt": "2026-11-03T21:49:17.870Z",
       "verified": true,
       "active": true,
       "validated": "2026-10-31",
       "created": "2026-10-31",
-      "updated": "2026-11-02"
+      "updated": "2026-11-03"
     },
     {
       "id": "aim-war-protocol",
