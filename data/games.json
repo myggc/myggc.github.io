@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-11-05",
+  "updated": "2026-11-06",
   "items": [
     {
       "id": "besos-shawarma",
@@ -1358,7 +1358,8 @@
       "year": 2023,
       "mobile": true,
       "genres": [
-        "simulation"
+        "simulation",
+        "casual"
       ],
       "platforms": [
         "Google Play"
@@ -1379,12 +1380,12 @@
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "2026-11-04T12:09:08.232Z",
+      "parsedAt": "2026-11-06T12:06:56.547Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-11-04"
+      "updated": "2026-11-06"
     },
     {
       "id": "school-driver",
@@ -4082,22 +4083,22 @@
         "web": "https://www.syntheticdomain.com/portfolio/mainframedefenders"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/header.jpg?t=1789421386",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/767947cadadf7aa1ad348c605f3ecb30455fce15/page_bg_raw.jpg?t=1789421386",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/header.jpg?t=1793929547",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/767947cadadf7aa1ad348c605f3ecb30455fce15/page_bg_raw.jpg?t=1793929547",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/ss_f0090674133726c198bf0ac8082a5d588fcc23fa.600x338.jpg?t=1789421386",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/ss_d1286a370bd8471bbc2fb52e15cc7796305f7bd1.600x338.jpg?t=1789421386",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/ss_b0b10e4a97d31f2e1659ba487bed92267097eec7.600x338.jpg?t=1789421386"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/ss_f0090674133726c198bf0ac8082a5d588fcc23fa.600x338.jpg?t=1793929547",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/ss_d1286a370bd8471bbc2fb52e15cc7796305f7bd1.600x338.jpg?t=1793929547",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/ss_b0b10e4a97d31f2e1659ba487bed92267097eec7.600x338.jpg?t=1793929547"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-10-31T20:01:17.099Z",
+      "parsedAt": "2026-11-06T12:08:30.954Z",
       "verified": true,
       "active": true,
       "validated": "2026-10-31",
       "created": "2026-10-31",
-      "updated": "2026-10-31"
+      "updated": "2026-11-06"
     },
     {
       "id": "lords-of-ravage",
