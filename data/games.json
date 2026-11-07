@@ -4239,6 +4239,51 @@
       "validated": "2026-10-31",
       "created": "2026-10-31",
       "updated": "2026-11-05"
+    },
+    {
+      "id": "realms-of-eternity",
+      "name": "Realms of Eternity",
+      "studioId": "irakli-kokrashvili",
+      "publisherId": "",
+      "status": "released",
+      "releaseDate": "2020-10-29",
+      "year": 2020,
+      "mobile": false,
+      "genres": [
+        "action",
+        "adventure",
+        "indie",
+        "rpg",
+        "early access"
+      ],
+      "platforms": [
+        "Steam"
+      ],
+      "engine": "",
+      "price": "$9.99",
+      "langs": "English",
+      "about": "Inspired by Thief Series, Dark messiah and Blade of Darkness. Psychics based combat, exotic weapons and mechanics.",
+      "aboutEn": "",
+      "stores": {
+        "steam": "https://store.steampowered.com/app/1343110/Realms_of_Eternity/"
+      },
+      "art": {
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1343110/header.jpg?t=1611792289",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1343110/page_bg_raw.jpg?t=1611792289",
+        "shots": [
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1343110/ss_aa043425986dd3e9ef954e2eb33164977004c48d.600x338.jpg?t=1611792289",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1343110/ss_419a76bf455e796b4fb1879617936d8379b52b3b.600x338.jpg?t=1611792289",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1343110/ss_baa4b36fb4ba6c2745fb73f847fb6fb2b6db3486.600x338.jpg?t=1611792289"
+        ]
+      },
+      "localArt": "",
+      "source": "steam",
+      "parsedAt": "2026-11-04T06:07:50.122Z",
+      "verified": true,
+      "active": true,
+      "validated": "2026-11-07",
+      "created": "2026-11-07",
+      "updated": "2026-11-07"
     }
   ]
 }

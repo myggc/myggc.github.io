@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-11-01",
+  "updated": "2026-11-07",
   "items": [
     {
       "id": "madmoa",
@@ -998,9 +998,9 @@
       },
       "verified": false,
       "active": true,
-      "validated": "2026-10-30",
+      "validated": "2026-11-07",
       "created": "2026-10-02",
-      "updated": "2026-10-30"
+      "updated": "2026-11-07"
     },
     {
       "id": "დავით-ქურასბედიანი",
