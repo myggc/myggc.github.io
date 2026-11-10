@@ -3975,7 +3975,7 @@
         "Steam"
       ],
       "engine": "Unity",
-      "price": "$6.99",
+      "price": "$9.99",
       "langs": "English, French, German, Spanish - Spain, Russian, Ukrainian, Georgian, Italian",
       "about": "March 1991. Your brother Levan is gone, but his PC still boots and his mailbox still gets work. Fix code for clients, break into servers on a hidden network, write and share your own games on a programmable 90s PC, and follow what he left behind. Desktop or VR.",
       "aboutEn": "",
@@ -3994,7 +3994,7 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-11-10T12:40:39.350Z",
+      "parsedAt": "2026-11-10T21:50:29.502Z",
       "verified": true,
       "active": true,
       "validated": "2026-10-30",
