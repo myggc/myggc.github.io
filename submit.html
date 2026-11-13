@@ -947,7 +947,15 @@ class Component extends DCLogic {
        required field, asked for, filled in, and dropped on the way out. */
     if (f.city) company.city = f.city;
     if (f.size) company.size = f.size;
-    if (company.founded) company.founded = Number(company.founded) || 0;
+    /* A company's and a team's founding date comes from a date picker, as
+       "2019-05-14"; only a solo developer types a bare year. Turning the date
+       into a number made it NaN and then 0, so every company sent through the
+       form arrived with no founding date. A full date is kept as written, the
+       same rule the catalogue applies when it reads the record. */
+    if (company.founded) {
+      company.founded = /^\d{4}-\d{2}-\d{2}$/.test(company.founded)
+        ? company.founded : (Number(company.founded) || 0);
+    }
     company.kind = s.kind;
     if (s.roles.length) company.roles = s.roles;
     // Socials and storefronts are asked for separately but travel together —
@@ -964,7 +972,12 @@ class Component extends DCLogic {
       .filter(g => g.name || g.gameId);
 
     const picked = s.picked ? D.company(s.picked) : null;
-    const action = s.mode === "new" ? "new-company" : s.mode === "edit" ? "edit-company" : "games";
+    /* Games attached to a studio already in the catalogue go as "new-game". The
+       relay only accepts the four action names in worker/, and this used to send
+       "games", which it rejects as an unknown action: attaching a game to an
+       existing studio could never be delivered. The admin panel reads "games"
+       and "new-game" the same way, by what the payload carries. */
+    const action = s.mode === "new" ? "new-company" : s.mode === "edit" ? "edit-company" : "new-game";
     const out = {
       action: action,
       subject: picked ? (picked.legal || picked.name) : (company.legal || company.name || s.lookup),
