@@ -278,6 +278,66 @@
     "ჩემს შესახებ": "About me", "ჩემს შესახებ (English)": "About me (English)",
     "ვებსაიტი": "Website", "ვებსაიტი ან პორტფოლიო": "Website or portfolio",
     "ელფოსტა": "Email", "ტელეფონი (არასავალდებულო)": "Phone (optional)",
+    "ტელეფონი": "Phone", "ტელეფონი (არ გამოქვეყნდება)": "Phone (not published)",
+    "9 ციფრი": "9 digits", "ქვეყანა": "Country",
+    "რეგისტრაციის ნომერი": "Registration number",
+    "ქვეყნის რეესტრის ნომერი": "Number in your country's registry",
+    "რეგისტრირებული იურიდიული პირი (შპს, სს და სხვ.). სჭირდება საიდენტიფიკაციო კოდი, რომელსაც GGC რეესტრში გადაამოწმებს. ინდივიდუალური მეწარმე (ი/მ) აირჩევს „სოლო დეველოპერს“.":
+      "A registered legal entity (LLC, JSC and so on). Needs an identification code, which GGC checks against the registry. An individual entrepreneur picks “Solo developer”.",
+    "დაურეგისტრირებელი გუნდი: იდენტიფიკატორი გუნდის სახელია. რეგისტრაციის ნომერი არ სჭირდება.":
+      "An unregistered team: the team's name is the identifier. No registration number needed.",
+    "ერთი ადამიანი, მათ შორის ინდივიდუალური მეწარმე (ი/მ): იდენტიფიკატორი პირადი სახელია. ნომერი არ სჭირდება.":
+      "One person, including an individual entrepreneur: your own name is the identifier. No number needed.",
+    "რეგისტრაციის დადასტურება": "Proof of registration",
+    "საზღვარგარეთ რეგისტრირებული კომპანიის ნომერს GGC ხელით ამოწმებს. ჩასვი ბმული შენი კომპანიის გვერდზე იმ ქვეყნის ოფიციალურ რეესტრში, ან ატვირთე რეესტრის ამონაწერი PDF-ად (3 MB-მდე). ამონაწერი არ გამოქვეყნდება.":
+      "GGC checks the number of a company registered abroad by hand. Paste a link to your company's page in that country's official registry, or upload a registry extract as a PDF (up to 3 MB). The extract is not published.",
+    "ოფიციალური რეესტრის ბმული": "Official registry link",
+    "ან რეესტრის ამონაწერი (PDF)": "or a registry extract (PDF)",
+    "რეესტრის ბმული": "Registry link", "ამონაწერი": "Registry extract",
+    "რეესტრის ბმული ან ამონაწერი": "registry link or extract",
+    "ვინ აგზავნის": "Who is sending",
+    "ელფოსტაზე მოვა დადასტურების ბმული. ტელეფონი მხოლოდ GGC-ს ჩანს.":
+      "A confirmation link goes to the email. Only GGC sees the phone.",
+    "ელფოსტით დადასტურება": "Email confirmation",
+    "გაგზავნის შემდეგ ამ მისამართზე მოვა ბმული:": "After you send, a link goes to this address:",
+    "მოთხოვნა GGC-ს მხოლოდ მას შემდეგ მიუვა, რაც ბმულს დააჭერ.":
+      "GGC only receives the submission once you press that link.",
+    "ელფოსტა ჯერ არ არის მითითებული": "no email entered yet",
+    "ვადასტურებ, რომ მონაცემები სწორია, და ვეთანხმები, რომ GGC შეინახავს ჩემს ელფოსტას და ტელეფონს ჩემთან დასაკავშირებლად. ტელეფონი არ გამოქვეყნდება.":
+      "I confirm the details are correct and agree that GGC keeps my email and phone to contact me. The phone is not published.",
+    "თანხმობა მონაცემების შენახვაზე": "consent to keeping the details",
+    "შეამოწმე ელფოსტა": "Check your email",
+    "დადასტურების ბმული გავგზავნეთ ამ მისამართზე:": "We sent a confirmation link to:",
+    "გახსენი წერილი და დააჭირე „მოთხოვნის დადასტურებას“. სანამ არ დაადასტურებ, მოთხოვნა GGC-ს არ მიუვა. ბმული 7 დღე მოქმედებს.":
+      "Open the email and press “Confirm submission”. GGC doesn't receive it until you do. The link works for 7 days.",
+    "წერილი ვერ იპოვე? შეამოწმე Spam ან Promotions საქაღალდე.":
+      "Can't find it? Check your Spam or Promotions folder.",
+    /* field checks */
+    "საიდენტიფიკაციო კოდი მხოლოდ ციფრებისგან შედგება.": "An identification code is digits only.",
+    "11 ციფრი პირადი ნომერია. ინდივიდუალური მეწარმე (ი/მ) დაემატოს როგორც სოლო დეველოპერი, ნომრის გარეშე.":
+      "11 digits is a personal ID number. An individual entrepreneur is added as a solo developer, without a number.",
+    "კომპანიის საიდენტიფიკაციო კოდი 9 ციფრისგან შედგება.": "A company's identification code is 9 digits.",
+    "ეს კოდი რეალურს არ ჰგავს. ჩაწერე რეესტრის ამონაწერში მითითებული კოდი.":
+      "That doesn't look like a real code. Use the code on your registry extract.",
+    "რეგისტრაციის ნომერი 5-დან 20 სიმბოლომდეა.": "A registration number is 5 to 20 characters.",
+    "რეგისტრაციის ნომერში ციფრიც უნდა იყოს.": "A registration number has to contain digits.",
+    "ეს ნომერი რეალურს არ ჰგავს. ჩაწერე რეესტრში მითითებული ნომერი.":
+      "That doesn't look like a real number. Use the number in the registry.",
+    "ტელეფონში მხოლოდ ციფრები, ინტერვალი, ტირე და დასაწყისში + შეიძლება.":
+      "A phone number can only have digits, spaces, dashes and a + at the start.",
+    "ჩაწერე ასე: 5XX XX XX XX, ან სხვა ქვეყნის ნომერი +-ით დაწყებული.":
+      "Write it as 5XX XX XX XX, or a foreign number starting with +.",
+    "ქართული ნომერი +995-ის შემდეგ 9 ციფრია.": "A Georgian number is 9 digits after +995.",
+    "ქართული მობილური 5-ით იწყება, ქალაქის ნომერი 3-ით ან 4-ით.":
+      "A Georgian mobile starts with 5, a landline with 3 or 4.",
+    "ეს ნომერი რეალურს არ ჰგავს.": "That doesn't look like a real number.",
+    "საერთაშორისო ნომერი ქვეყნის კოდითურთ 8-დან 15 ციფრამდეა.":
+      "An international number is 8 to 15 digits including the country code.",
+    "ელფოსტის ფორმატი არასწორია, მაგ. name@studio.ge": "That email doesn't look right, e.g. name@studio.ge",
+    "ბმული https://-ით უნდა იწყებოდეს.": "The link has to start with https://.",
+    "მხოლოდ PDF ფაილი მიიღება.": "Only PDF files are accepted.",
+    "ფაილი 3 MB-ზე დიდია.": "The file is larger than 3 MB.",
+    "ფაილი ვერ წაიკითხა.": "The file couldn't be read.",
     "საკონტაქტო პირი და კავშირი": "Contact person and handle",
     "სახელი გვარი · @telegram": "Name Surname · @telegram",
     "გიორგი ჩხაიძე": "Name Surname",
@@ -491,6 +551,13 @@
     [/^\* სავალდებულო\. შესავსებია: (.+)\.$/, function (m, a) {
       return "* required. Still to fill in: " + a.split(/,\s*/).map(function (x) { return DICT[x] || x; }).join(", ") + ".";
     }],
+    [/^\* სავალდებულო\. შესავსებია ან გასასწორებელია: (.+)\.$/, function (m, a) {
+      return "* required. Still to fill in or fix: " + a.split(/,\s*/).map(function (x) {
+        var bad = / \(არასწორია\)$/.test(x), base = x.replace(/ \(არასწორია\)$/, "");
+        return (DICT[base] || base) + (bad ? " (invalid)" : "");
+      }).join(", ") + ".";
+    }],
+    [/^(.+) \(მხოლოდ GGC-სთვის\)$/, function (m, a) { return a + " (GGC only)"; }],
     [/^შესავსებია: (.+)$/, function (m, a) {
       return "Still to fill in: " + a.split(/,\s*/).map(function (x) { return DICT[x] || x; }).join(", ");
     }],

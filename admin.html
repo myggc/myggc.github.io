@@ -99,6 +99,7 @@
             <sc-for list="{{ history }}" as="hq" hint-placeholder-count="3">
               <div style="background:#20242a;border:1px solid #2f353c;border-left:4px solid {{ hq.accent }};border-radius:13px;overflow:hidden">
                 <button type="button" onClick="{{ hq.toggle }}" style="width:100%;display:flex;flex-wrap:wrap;align-items:center;gap:12px;border:0;cursor:pointer;background:transparent;padding:16px 18px;font-family:inherit;text-align:left">
+                  <span style="display:{{ hq.typeShow }};flex:none;background:{{ hq.typeBg }};color:{{ hq.typeFg }};border-radius:7px;padding:5px 10px;font-size:12px;font-weight:700;letter-spacing:.02em">{{ hq.typeLabel }}</span>
                   <span style="flex:none;background:{{ hq.tagBg }};color:{{ hq.tagFg }};border-radius:7px;padding:5px 10px;font-size:12px;font-weight:600">{{ hq.state }}</span>
                   <span style="flex:1 1 160px;min-width:0;font-size:16px;font-weight:600;color:#fff">{{ hq.name }}</span>
                   <span style="flex:none;font-size:14px;color:#8b949c">{{ hq.meta }}</span>
@@ -138,12 +139,19 @@
             <sc-for list="{{ queue }}" as="q" hint-placeholder-count="3">
               <div style="background:#20242a;border:1px solid #2f353c;border-left:4px solid {{ q.accent }};border-radius:13px;overflow:hidden">
                 <button type="button" onClick="{{ q.toggle }}" style="width:100%;display:flex;flex-wrap:wrap;align-items:center;gap:12px;border:0;cursor:pointer;background:transparent;padding:16px 18px;font-family:inherit;text-align:left">
+                  <span style="display:{{ q.typeShow }};flex:none;background:{{ q.typeBg }};color:{{ q.typeFg }};border-radius:7px;padding:5px 10px;font-size:12px;font-weight:700;letter-spacing:.02em">{{ q.typeLabel }}</span>
                   <span style="flex:none;background:{{ q.tagBg }};color:{{ q.tagFg }};border-radius:7px;padding:5px 10px;font-size:12px;font-weight:600">{{ q.kind }}</span>
                   <span style="flex:1 1 160px;min-width:0;font-size:16px;font-weight:600;color:#fff">{{ q.name }}</span>
                   <span style="flex:none;font-size:14px;color:#8b949c">{{ q.meta }}</span>
                   <span style="flex:none;font-family:'Space Grotesk',sans-serif;font-size:18px;color:#6cc0e8">{{ q.chevron }}</span>
                 </button>
                 <div style="display:{{ q.show }};padding:0 18px 18px">
+                  <div style="display:{{ q.checksShow }};flex-wrap:wrap;gap:7px;margin-bottom:12px">
+                    <sc-for list="{{ q.checks }}" as="c" hint-placeholder-count="3">
+                      <span style="display:{{ c.textShow }};background:{{ c.bg }};color:{{ c.fg }};border-radius:8px;padding:7px 11px;font-size:13px;line-height:1.45">{{ c.label }}</span>
+                      <a href="{{ c.href }}" target="_blank" rel="noopener" style="display:{{ c.linkShow }};background:{{ c.bg }};color:{{ c.fg }};border-radius:8px;padding:7px 11px;font-size:13px;line-height:1.45;text-decoration:underline">{{ c.label }}</a>
+                    </sc-for>
+                  </div>
                   <div style="display:{{ q.dupShow }};margin-bottom:12px;background:#2a2412;border:1px solid #5c4d1e;border-radius:11px;padding:14px;font-size:14px;line-height:1.6;color:#f4cd77">{{ q.dup }}</div>
                   <div style="display:{{ q.sectionsShow }}">
                     <sc-for list="{{ q.sections }}" as="sec" hint-placeholder-count="2">
@@ -230,6 +238,7 @@
           <div style="background:#1d2126;border:1px solid #2a2f35;border-radius:16px;padding:clamp(16px,2.5vw,24px)">
             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
               <button type="button" onClick="{{ backToStudio }}" style="display:{{ backShow }};flex:none;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px;font-weight:600">← {{ backLabel }}</button>
+              <span style="flex:none;background:{{ editTypeBg }};color:{{ editTypeFg }};border-radius:7px;padding:5px 10px;font-size:12px;font-weight:700;letter-spacing:.02em">{{ editTypeLabel }}</span>
               <h2 style="margin:0;font-size:19px;font-weight:600;color:#fff;flex:1 1 160px;min-width:0">{{ editName }}</h2>
               <button type="button" onClick="{{ deleteEntry }}" style="flex:none;border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px">წაშლა</button>
               <button type="button" onClick="{{ closeEditor }}" style="flex:none;border:1px solid #333941;cursor:pointer;background:#20242a;color:#c6ccd3;border-radius:9px;padding:9px 14px;font-family:inherit;font-size:14px">დახურვა</button>
@@ -931,7 +940,7 @@ const NEWS_ICONS = {
 
 const CO_LABELS = {
   legal: "ოფიციალური სახელი", regId: "საიდენტიფიკაციო", name: "საჯარო სახელი", kind: "ტიპი",
-  city: "ქალაქი", founded: "დაფუძნება", size: "გუნდის ზომა", website: "ვებსაიტი",
+  country: "ქვეყანა", city: "ქალაქი", founded: "დაფუძნება", size: "გუნდის ზომა", website: "ვებსაიტი",
   phone: "ტელეფონი", contact: "საკონტაქტო პირი", aboutEn: "აღწერა (English)",
   email: "ელფოსტა", about: "აღწერა", logo: "ლოგო", roles: "როლები",
   verified: "ვერიფიცირებული", active: "აქტიური", validated: "ვალიდაცია", links: "სოც. ქსელები"
@@ -1622,9 +1631,19 @@ class Component extends DCLogic {
     if (known.indexOf(p.action) < 0) throw new Error("უცნობი ტიპი: " + p.action);
 
     let companyId = p.companyId || "";
+    /* The record becomes a public file, so a phone never goes into it, even
+       from a submission sent before phones moved to the private sheet. */
+    const incoming = Object.assign({}, p.company);
+    delete incoming.phone;
+    delete incoming.id;
+    if (incoming.country === "GE") incoming.country = "";
+    // A studio that became a team or a solo developer, or moved back to
+    // Georgia, should not keep the number or the country it no longer has.
+    if (incoming.kind && incoming.kind !== "company") incoming.regId = "";
+    if (incoming.city && incoming.city !== "საზღვარგარეთ" && !incoming.country) incoming.country = "";
 
     if (p.action === "new-company") {
-      const c = D.normCompany(Object.assign({}, p.company, {
+      const c = D.normCompany(Object.assign({}, incoming, {
         id: this.nextId((p.company && (p.company.legal || p.company.name)) || "studio", companies),
         validated: now, created: now, updated: now, verified: true
       }));
@@ -1634,7 +1653,8 @@ class Component extends DCLogic {
     } else if (p.action === "edit-company") {
       const i = companies.findIndex(c => c.id === p.companyId);
       if (i < 0) throw new Error("კომპანია ვერ მოიძებნა: " + p.companyId);
-      companies[i] = D.normCompany(Object.assign({}, companies[i], p.company, { updated: now, validated: now }));
+      // The id stays: the studio's games point at it.
+      companies[i] = D.normCompany(Object.assign({}, companies[i], incoming, { id: companies[i].id, updated: now, validated: now }));
       companyId = companies[i].id;
       p.appliedId = companies[i].id;
     }
@@ -1892,7 +1912,7 @@ class Component extends DCLogic {
           const what = ch.removed ? "თამაშის წაშლა"
             : isGame ? (ch.isNew ? "ახალი თამაში" : "თამაშის შესწორება")
             : (ch.isNew ? "ახალი ჩანაწერი" : "ჩანაწერის შესწორება");
-          const rows = (ch.rows || []).map(r => ({
+          const rows = (ch.rows || []).filter(r => r.key !== "phone" && r.k !== CO_LABELS.phone).map(r => ({
             k: r.k,
             old: r.old,
             oldShow: r.old ? "inline" : "none",
@@ -1913,7 +1933,12 @@ class Component extends DCLogic {
           : item.outcome === "rejected" ? "უარყოფილია: საიტზე არაფერი შეცვლილა. ქვემოთ არის ის, რაც მოითხოვეს."
           : !rec ? "ეს მოთხოვნა ისტორიის დამატებამდე დაიხურა, ამიტომ ძველი მნიშვნელობები არ შენახულა. ქვემოთ არის ის, რაც მოითხოვეს."
           : "";
+        const type = this.typeOf(p);
         return {
+          typeShow: type ? "inline-block" : "none",
+          typeLabel: type ? U.KIND_SHORT[type] : "",
+          typeBg: type ? U.ACCENT[type] : "transparent",
+          typeFg: type === "company" ? "#fff" : "#16181b",
           name: p.subject || item.title,
           meta: [
             item.author ? "@" + item.author : "",
@@ -3162,6 +3187,9 @@ class Component extends DCLogic {
       rows.forEach(r => {
         const key = r.key || "";
         if (IMG[key]) { art[IMG[key]] = r["new"]; return; }
+        // Older submissions carried the phone; the checks row says it exists.
+        if (key === "phone") return;
+        if (key === "country") r = Object.assign({}, r, { "new": U.countryName(r["new"]) });
         if (key === "art.shots") {
           String(r["new"]).split(/,\s*/).filter(Boolean).slice(0, 6).forEach(u => shots.push({ u }));
           return;
@@ -3227,6 +3255,66 @@ class Component extends DCLogic {
     return out;
   }
 
+  /* Which kind of record a submission is about: what it says it is, or, for a
+     game attached to a studio, what that studio already is. */
+  typeOf(p) {
+    p = p || {};
+    const rec = p.companyId ? (this.state.companies.filter(c => c.id === p.companyId)[0] || D.company(p.companyId)) : null;
+    const k = (p.company && p.company.kind) || (rec && rec.kind) || "";
+    return k === "company" || k === "team" || k === "solo" ? k : "";
+  }
+
+  /* The things that make a record trustworthy, checked and laid out before
+     the values: was the email confirmed, is there a phone, and for a company,
+     does the number have the right shape, is it already someone else's, and
+     where is the proof. A green row is a format check only; a Georgian code
+     still has to be looked up in the registry before approving. */
+  queueChecks(p) {
+    const s = this.state;
+    const ok = (label, href) => ({ label, href: href || "", bg: "#1e2a22", fg: "#9ede9e" });
+    const warn = (label, href) => ({ label, href: href || "", bg: "#3a2f14", fg: "#f4cd77" });
+    const bad = (label, href) => ({ label, href: href || "", bg: "#2a1f1f", fg: "#f0a8a8" });
+    const info = (label, href) => ({ label, href: href || "", bg: "#14293a", fg: "#8ccbe9" });
+    const out = [];
+    const c = p.company || {};
+    const rec = p.companyId ? (s.companies.filter(x => x.id === p.companyId)[0] || null) : null;
+    const type = this.typeOf(p);
+
+    out.push(p.emailConfirmed ? ok("✉ ელფოსტა დადასტურებულია") : warn("✉ ელფოსტა არ არის დადასტურებული (ძველი ფორმა)"));
+    out.push(p.phoneOnFile ? ok("☎ ტელეფონი პირად ცხრილშია")
+      : c.phone ? bad("☎ ტელეფონი ამ საჯარო issue-შია: გადაიტანე ცხრილში და წაშალე issue")
+      : warn("☎ ტელეფონი არ არის"));
+
+    if (type === "company" && (p.action === "new-company" || p.action === "edit-company")) {
+      const country = c.country || (rec && rec.country) || "GE";
+      const regId = c.regId || (rec && rec.regId) || "";
+      const legal = c.legal || (rec && rec.legal) || "";
+      if (/ი\/მ|ი\.მ\.|(^|\s)I\/?E(\s|$)|ინდივიდუალური მეწარმე|individual entrepreneur/i.test(legal)) {
+        out.push(warn("ი/მ: ინდივიდუალური მეწარმე სოლო დეველოპერად ემატება, ნომრის გარეშე"));
+      }
+      if (country !== "GE") out.push(info("ქვეყანა: " + U.countryName(country)));
+      if (!regId) out.push(bad("⚠ საიდენტიფიკაციო კოდი არ არის"));
+      else {
+        const err = U.checkRegId(regId, country);
+        if (err) out.push(bad("⚠ კოდი " + regId + ": " + err));
+        else if (country === "GE") out.push(info("კოდი " + regId + ": ფორმატი სწორია, გადაამოწმე რეესტრში"));
+        else out.push(info("ნომერი " + regId + ": შეამოწმე დამადასტურებელში"));
+        const mine = U.normRegId(regId, country);
+        const twin = s.companies.filter(x => x.id !== p.companyId && x.regId &&
+          U.normRegId(x.regId, x.country || "GE") === mine)[0];
+        if (twin) out.push(bad("⚠ ეს კოდი უკვე აქვს: " + (twin.legal || twin.name)));
+      }
+      if (p.proof && p.proof.url) out.push(info("რეესტრის ბმული ↗", U.safeLink ? U.safeLink(p.proof.url) : p.proof.url));
+      if (p.proofFileUrl) out.push(info("ამონაწერი (PDF) ↗", p.proofFileUrl));
+      if (country !== "GE" && !(p.proof && p.proof.url) && !p.proofFileUrl) out.push(bad("⚠ დამადასტურებელი დოკუმენტი არ არის"));
+    }
+    return out.map(x => Object.assign(x, {
+      href: /^https?:\/\//i.test(x.href) ? x.href : "",
+      linkShow: /^https?:\/\//i.test(x.href) ? "inline-block" : "none",
+      textShow: /^https?:\/\//i.test(x.href) ? "none" : "inline-block"
+    }));
+  }
+
   queueRows() {
     const s = this.state;
     return s.queue.map(item => {
@@ -3249,7 +3337,8 @@ class Component extends DCLogic {
         diff = [{ k: "შენიშვნა", old: "—", "new": "JSON ვერ წაიკითხა — გახსენი GitHub-ზე" }];
       } else {
         if (p.company) {
-          diff = GGC.submit.diff(isEdit ? D.company(p.companyId) : null, p.company, CO_LABELS);
+          diff = GGC.submit.diff(isEdit ? D.company(p.companyId) : null, p.company, CO_LABELS)
+            .filter(r => r.key !== "phone");
         }
         // Every game the submission carries gets its own rows, so nothing is
         // approved sight unseen just because it came in a batch.
@@ -3267,7 +3356,11 @@ class Component extends DCLogic {
       }
       const sections = this.queueSections(item, p, isEdit, entries);
       const kind = item.malformed ? "შემოწმება" : isEdit ? "ედიტი" : isGame ? "თამაში" : "ახალი";
-      const accent = isEdit ? "#fdb813" : isGame ? "#ee2626" : "#1d96d3";
+      const type = this.typeOf(p);
+      const checks = item.malformed ? [] : this.queueChecks(p);
+      // The card's edge is the kind of record, so a scroll down the queue reads
+      // as companies, teams and solo developers at a glance.
+      const accent = type ? U.ACCENT[type] : "#4a525b";
       return {
         name: p.subject || item.title,
         meta: [item.author ? "@" + item.author : "", p.contact || "", when(item.createdAt),
@@ -3275,6 +3368,12 @@ class Component extends DCLogic {
         dup: dup,
         dupShow: dup ? "block" : "none",
         kind: kind, accent: accent,
+        typeShow: type ? "inline-block" : "none",
+        typeLabel: type ? U.KIND_SHORT[type] : "",
+        typeBg: type ? U.ACCENT[type] : "transparent",
+        typeFg: type === "company" ? "#fff" : "#16181b",
+        checks: checks,
+        checksShow: checks.length ? "flex" : "none",
         tagBg: isEdit ? "#3a2f14" : isGame ? "#3a1717" : "#14293a",
         tagFg: isEdit ? "#f4cd77" : isGame ? "#f0a8a8" : "#8ccbe9",
         diff: diff,
@@ -3353,7 +3452,7 @@ class Component extends DCLogic {
       initials: c.logo ? "" : U.initials(c.name),
       art: c.logo ? 'url("' + c.logo + '") center/cover no-repeat' : "none",
       radius: "50%",
-      sub: [c.legal, c.regId, c.city, U.foundedYear(c) || ""].filter(Boolean).join(" · ") || "დეტალები არ არის",
+      sub: [c.legal, c.regId, c.country ? U.countryName(c.country) : c.city, U.foundedYear(c) || ""].filter(Boolean).join(" · ") || "დეტალები არ არის",
       verifiedShow: c.verified ? "inline" : "none",
       status: c.active ? "აქტიური" : "არააქტიური",
       dot: c.active ? "#4c9a5e" : "#5d666e",
@@ -3484,6 +3583,7 @@ class Component extends DCLogic {
     if (!cur) {
       return {
         editorOpen: false, editName: "", editFields: [], editSelects: [], editAreas: [],
+        editTypeLabel: "", editTypeBg: "transparent", editTypeFg: "#fff",
         editToggles: [], editChips: [], editLinks: [], editGames: [],
         gamesBoxShow: "none", linkBoxShow: "none", linkBoxTitle: "", editSectionLabel: "",
         imageBoxShow: "none", imageTitle: "", imagePreview: "#2f353c", imageRatio: "1",
@@ -3502,15 +3602,28 @@ class Component extends DCLogic {
     const req = (f, key) => Object.assign(f, {
       border: missing.indexOf(key) >= 0 ? "#7a3535" : "#333941"
     });
+    /* The same checks the form runs, so a record typed in here is held to
+       what a submission is held to. */
+    const regWarn = cur.kind === "company" && cur.regId ? U.checkRegId(cur.regId, cur.country || "GE") : "";
+    const regTwin = cur.kind === "company" && cur.regId && !regWarn ? s.companies.filter(x => x.id !== cur.id && x.regId &&
+      U.normRegId(x.regId, x.country || "GE") === U.normRegId(cur.regId, cur.country || "GE"))[0] : null;
+    const warnings = [
+      missing.length ? "შესავსებია: " + missing.map(x => (KIND_FIELD[cur.kind] && KIND_FIELD[cur.kind][x]) || FIELD_LABEL[x] || x).join(", ") + "." : "",
+      regWarn ? "საიდენტიფიკაციო კოდი: " + regWarn : "",
+      regTwin ? "ეს კოდი უკვე აქვს: " + (regTwin.legal || regTwin.name) + "." : ""
+    ].filter(Boolean);
 
     return {
       // Prefilling is offered while the record is still essentially blank; once
       // it has a name, the games box below is the place to import from.
       prefillShow: !cur.legal && !cur.name ? "block" : "none",
-      requiredShow: missing.length ? "block" : "none",
-      requiredMsg: "შესავსებია: " + missing.map(x => (KIND_FIELD[cur.kind] && KIND_FIELD[cur.kind][x]) || FIELD_LABEL[x] || x).join(", "),
+      requiredShow: warnings.length ? "block" : "none",
+      requiredMsg: warnings.join(" "),
       editorOpen: true,
       editName: cur.legal || cur.name || "ჩანაწერი",
+      editTypeLabel: U.KIND_SHORT[cur.kind] || "",
+      editTypeBg: U.ACCENT[cur.kind] || "#4a525b",
+      editTypeFg: cur.kind === "company" ? "#fff" : "#16181b",
       editSectionLabel: "იდენტიფიკაცია",
       editSelects: [
         { k: "ტიპი", v: cur.kind, options: [
@@ -3518,6 +3631,14 @@ class Component extends DCLogic {
           { v: "team", label: "გუნდი" },
           { v: "solo", label: "სოლო დეველოპერი" }
         ], onChange: e => { this.patch({ kind: e.target.value }); this.setState({ editKind: e.target.value }); } },
+        // Outside Georgia the city is "abroad" and the country says where.
+        { k: "ქვეყანა", v: cur.country || "GE", options: U.countries(),
+          onChange: e => {
+            const v = e.target.value;
+            this.patch(v === "GE"
+              ? { country: "", city: cur.city === "საზღვარგარეთ" ? "" : cur.city }
+              : { country: v, city: "საზღვარგარეთ" });
+          } },
         // Fixed lists on both sides, so the catalogue can group by city and size
         // instead of collecting a dozen spellings of each.
         { k: "ქალაქი", v: cur.city || "",
@@ -3533,7 +3654,7 @@ class Component extends DCLogic {
       // nothing for that kind of entry.
       editFields: [
         req(k.text("legal", KIND_FIELD[cur.kind].legal + " *", KIND_FIELD[cur.kind].legalPh), "legal"),
-        cur.kind === "company" ? req(k.text("regId", "საიდენტიფიკაციო ნომერი *", "მაგ. 404123456"), "regId") : null,
+        cur.kind === "company" ? req(k.text("regId", cur.country ? "რეგისტრაციის ნომერი *" : "საიდენტიფიკაციო ნომერი *", cur.country ? "ქვეყნის რეესტრის ნომერი" : "9 ციფრი"), "regId") : null,
         req(k.text("name", KIND_FIELD[cur.kind].name + " *", "მაგ. GGC Games"), "name"),
         // Derived from the official name, so nobody has to invent a slug and no
         // two records collide by accident. Still editable if it needs to differ.
@@ -3541,9 +3662,8 @@ class Component extends DCLogic {
         req(k.date("founded", KIND_FIELD[cur.kind].founded + " *"), "founded"),
         k.text("website", KIND_FIELD[cur.kind].website, "https://…"),
         req(k.text("email", "ელფოსტა *", "მაგ. info@ggc.ge"), "email"),
-        /* A solo developer has no colleague to nominate as a contact — they are
-           the contact — so the phone stands in for it. Never shown publicly. */
-        k.text("phone", "ტელეფონი (არასავალდებულო)", "+995 555 00 00 00"),
+        /* No phone box: this record is published as a public file. Phones are
+           in GGC's private contacts sheet, which the relay fills in. */
         k.date("validated", "პირველი ვალიდაცია"),
         k.readOnly("updated", "ბოლო განახლება")
       ].filter(Boolean),

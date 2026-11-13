@@ -322,6 +322,10 @@ class Component extends DCLogic {
     const I = window.GGCI18n;
     return (name && I && I.lang === "en" && I.tr(name)) || name || "";
   }
+  // A studio registered abroad shows its country rather than "abroad".
+  place(c) {
+    return c.country ? U.countryName(c.country) : this.city(c.city);
+  }
 
   /* Roles actually present in the catalogue, so the chip row never offers a
      filter that returns nothing. */
@@ -360,6 +364,7 @@ class Component extends DCLogic {
     const games = D.sortGames(all.filter(g => !want || g.status === want)).map(g => this.gameRow(g));
     const src = Object.assign({}, d, {
       founded: U.foundedYear(d) ? String(U.foundedYear(d)) : "",
+      city: this.place(d),
       status: d.active ? "აქტიური" : "არააქტიური",
       validated: U.fmtDate(d.validated)
     });
@@ -378,7 +383,7 @@ class Component extends DCLogic {
       // Initials stand in for a logo; printed over one they are just graffiti.
       initials: d.logo ? "" : U.initials(d.name),
       initialsShow: d.logo ? "none" : "block",
-      sub: [d.legal, this.city(d.city), U.foundedYear(d) || ""].filter(Boolean).join(" · "),
+      sub: [d.legal, this.place(d), U.foundedYear(d) || ""].filter(Boolean).join(" · "),
       about: d.about || "",
       roles: d.roles, facts, games, links,
       gamesCount: all.length,
@@ -444,7 +449,7 @@ class Component extends DCLogic {
         logoBg: c.logo ? 'url("' + c.logo + '") center/cover no-repeat' : "none",
         initials: c.logo ? "" : U.initials(c.name),
         initialsShow: c.logo ? "none" : "block",
-        sub: [c.legal, this.city(c.city), U.foundedYear(c) || ""].filter(Boolean).join(" · "),
+        sub: [c.legal, this.place(c), U.foundedYear(c) || ""].filter(Boolean).join(" · "),
         roles: c.roles,
         gamesCount: c.gamesCount,
         accent: U.ACCENT[c.kind],

@@ -19,15 +19,17 @@ to link back to its studio.
 | field | meaning |
 | --- | --- |
 | `id` | url slug, used in `companies.html#<id>` and by `studioId` |
-| `kind` | `company` (registered), `team` (unregistered), `solo` |
+| `kind` | `company` (a registered legal entity), `team` (unregistered), `solo` (one person, including an individual entrepreneur, ი/მ) |
 | `legal` | **the real identifier** — a company's registered name, a team's name, or a person's full name |
-| `regId` | state registration number (companies only) |
+| `regId` | companies only: in Georgia the 9-digit identification code from the Public Registry; abroad, that country's registry number |
+| `country` | ISO country code for a company registered outside Georgia (then `city` is `საზღვარგარეთ`); empty for Georgia |
 | `name` | public / brand name |
 | `city`, `size` | shown only when filled; `size` is not asked of a solo developer |
 | `founded` | a year (`2019`) or a full date (`2019-05-14`); for a solo developer this is the birth year |
 | `roles` | `developer`, `publisher`, `art`, `audio`, `porting`, `outsourcing`, `codev` |
 | `website`, `email`, `about`, `aboutEn` | `website` is a portfolio for a solo developer |
-| `phone`, `contact` | never shown publicly; `contact` is not asked of a solo developer, who is their own contact |
+| `contact` | never shown publicly; not asked of a solo developer, who is their own contact |
+| (no `phone`) | this file is public, so phone numbers are kept in GGC's private contacts sheet, filled in by the submission relay (`worker/apps-script.gs`) |
 | `logo` | path under `images/logos/`, shown in a circle |
 | `links` | `{ telegram, facebook, instagram, linkedin, youtube, x, steam, itch, … }` |
 | `verified` | shows the ✔ badge |

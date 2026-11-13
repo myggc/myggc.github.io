@@ -77,6 +77,12 @@ export default {
 
     let payload;
     try { payload = JSON.parse(raw); } catch { return json({ error: "invalid json" }, 400, origin); }
+    /* The issue this opens is public. Phones and registry extracts are kept by
+       the Apps Script relay (version 2) in a private sheet; this recipe has
+       nowhere private to put them, so it drops them rather than publish them. */
+    delete payload.private;
+    delete payload.proofFile;
+    if (payload.company) delete payload.company.phone;
     if (!ACTIONS.includes(payload.action)) return json({ error: "unknown action" }, 400, origin);
     if (!payload.subject || String(payload.subject).length > 200) {
       return json({ error: "missing subject" }, 400, origin);

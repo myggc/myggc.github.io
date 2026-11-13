@@ -172,6 +172,7 @@
         <sc-for list="{{ fields }}" as="f" hint-placeholder-count="6">
           <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:{{ f.color }}">{{ f.label }}
             <input type="{{ f.type }}" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid {{ f.border }};border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
+            <span style="display:{{ f.errShow }};font-size:13px;line-height:1.5;color:#8c2f2f">{{ f.err }}</span>
           </label>
         </sc-for>
         <sc-for list="{{ selectFields }}" as="f" hint-placeholder-count="1">
@@ -183,6 +184,22 @@
             </select>
           </label>
         </sc-for>
+      </div>
+      <div style="display:{{ proofShow }};margin-top:18px;background:#eef6fb;border:1px solid #cfe3ef;border-radius:14px;padding:16px 18px">
+        <div style="font-size:16px;font-weight:600;color:#14536f">რეგისტრაციის დადასტურება</div>
+        <p style="margin:8px 0 0;font-size:14px;line-height:1.6;color:#2c5f7d">საზღვარგარეთ რეგისტრირებული კომპანიის ნომერს GGC ხელით ამოწმებს. ჩასვი ბმული შენი კომპანიის გვერდზე იმ ქვეყნის ოფიციალურ რეესტრში, ან ატვირთე რეესტრის ამონაწერი PDF-ად (3 MB-მდე). ამონაწერი არ გამოქვეყნდება.</p>
+        <label style="display:flex;flex-direction:column;gap:7px;margin-top:12px;font-size:14px;color:#2c5f7d">ოფიციალური რეესტრის ბმული
+          <input type="url" placeholder="https://…" value="{{ proofUrl }}" onInput="{{ onProofUrl }}" style="border:1px solid #cfe3ef;border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#fff;color:#16181b">
+          <span style="display:{{ proofUrlErrShow }};font-size:13px;color:#8c2f2f">{{ proofUrlErr }}</span>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:7px;margin-top:12px;font-size:14px;color:#2c5f7d">ან რეესტრის ამონაწერი (PDF)
+          <input type="file" accept="application/pdf" onChange="{{ onProofFile }}" style="font-family:inherit;font-size:14px;color:#2c5f7d">
+        </label>
+        <div style="display:{{ proofFileShow }};flex-wrap:wrap;align-items:center;gap:10px;margin-top:10px;background:#fff;border:1px solid #cfe3ef;border-radius:10px;padding:10px 12px;font-size:14px;color:#14536f">
+          <span style="flex:1 1 160px;min-width:0;word-break:break-word">✔ {{ proofFileName }}</span>
+          <button type="button" onClick="{{ clearProof }}" style="flex:none;border:1px solid #cfe3ef;cursor:pointer;background:#fff;color:#14536f;border-radius:8px;padding:6px 11px;font-family:inherit;font-size:13px">მოხსნა</button>
+        </div>
+        <span style="display:{{ proofFileErrShow }};margin-top:8px;font-size:13px;color:#8c2f2f">{{ proofFileErr }}</span>
       </div>
       <p style="margin:12px 0 0;font-size:14px;line-height:1.55;color:{{ requiredNoteColor }}">{{ requiredNote }}</p>
       <div style="margin-top:22px;padding-top:20px;border-top:1px solid #eef1f1">
@@ -440,6 +457,31 @@
             <p style="display:{{ emptyShow }};margin:10px 0 0;font-size:14px;line-height:1.55;color:#6b7278">დაუსრულებელი ველები არ იგზავნება, ადმინისტრაცია მათ ჩვენს მხარეს შეავსებს.</p>
           </div>
 
+          <div style="display:{{ contactShow }};margin-top:20px;padding-top:18px;border-top:1px solid #eef1f1">
+            <div style="font-size:16px;font-weight:600">ვინ აგზავნის</div>
+            <p style="margin:6px 0 0;font-size:14px;line-height:1.55;color:#4d5258">ელფოსტაზე მოვა დადასტურების ბმული. ტელეფონი მხოლოდ GGC-ს ჩანს.</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:10px;margin-top:12px">
+              <sc-for list="{{ contactFields }}" as="f" hint-placeholder-count="2">
+                <label style="display:flex;flex-direction:column;gap:7px;font-size:14px;color:{{ f.color }}">{{ f.label }}
+                  <input type="{{ f.type }}" placeholder="{{ f.ph }}" value="{{ f.value }}" onInput="{{ f.onInput }}" style="border:1px solid {{ f.border }};border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;background:#f7f9f9;color:#16181b">
+                  <span style="display:{{ f.errShow }};font-size:13px;line-height:1.5;color:#8c2f2f">{{ f.err }}</span>
+                </label>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="margin-top:20px;background:#f7f9f9;border:1px solid #e6eaeb;border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.6;color:#41464c">
+            <div style="font-weight:600;color:#16181b">ელფოსტით დადასტურება</div>
+            <p style="margin:6px 0 0">გაგზავნის შემდეგ ამ მისამართზე მოვა ბმული:</p>
+            <p style="margin:2px 0 0;font-weight:600;color:#16181b;word-break:break-all">{{ confirmEmail }}</p>
+            <p style="margin:6px 0 0">მოთხოვნა GGC-ს მხოლოდ მას შემდეგ მიუვა, რაც ბმულს დააჭერ.</p>
+          </div>
+          <button type="button" onClick="{{ toggleConsent }}" style="display:flex;align-items:flex-start;gap:11px;width:100%;margin-top:14px;border:0;cursor:pointer;background:transparent;padding:0;font-family:inherit;text-align:left">
+            <span style="flex:none;width:22px;height:22px;margin-top:1px;border-radius:6px;border:2px solid {{ consentBorder }};background:{{ consentBg }};color:#fff;font-size:14px;line-height:18px;text-align:center">{{ consentMark }}</span>
+            <span style="flex:1 1 200px;min-width:0;font-size:14px;line-height:1.6;color:#41464c">ვადასტურებ, რომ მონაცემები სწორია, და ვეთანხმები, რომ GGC შეინახავს ჩემს ელფოსტას და ტელეფონს ჩემთან დასაკავშირებლად. ტელეფონი არ გამოქვეყნდება.</span>
+          </button>
+
+          <p style="display:{{ missingShow }};margin:14px 0 0;font-size:14px;line-height:1.55;color:#8c2f2f">შესავსებია: {{ missingList }}</p>
           <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:22px">
             <button type="button" onClick="{{ send }}" style="border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:11px;padding:14px 24px;font-family:inherit;font-size:16px;font-weight:600">გაგზავნა</button>
             <button type="button" onClick="{{ back }}" style="border:1px solid #dfe3e4;cursor:pointer;background:#fff;color:#41464c;border-radius:11px;padding:14px 22px;font-family:inherit;font-size:16px;font-weight:600">უკან</button>
@@ -456,6 +498,11 @@
       </div>
       <h2 style="margin:18px 0 0;font-size:clamp(24px,3.4vw,34px);font-weight:700;letter-spacing:-.02em">{{ sentTitle }}</h2>
       <p style="margin:14px auto 0;max-width:46ch;font-size:17px;line-height:1.6;color:#41464c">{{ sentText }}</p>
+      <div style="display:{{ spamShow }}">
+        <p style="margin:6px auto 0;max-width:46ch;font-size:17px;font-weight:600;color:#16181b;word-break:break-all">{{ sentTo }}</p>
+        <p style="margin:12px auto 0;max-width:46ch;font-size:16px;line-height:1.6;color:#41464c">გახსენი წერილი და დააჭირე „მოთხოვნის დადასტურებას“. სანამ არ დაადასტურებ, მოთხოვნა GGC-ს არ მიუვა. ბმული 7 დღე მოქმედებს.</p>
+        <p style="margin:10px auto 0;max-width:46ch;font-size:14px;line-height:1.6;color:#6b7278">წერილი ვერ იპოვე? შეამოწმე Spam ან Promotions საქაღალდე.</p>
+      </div>
       <div style="display:{{ failShow }};max-width:520px;margin:22px auto 0;background:#fdf2f2;border:1px solid #f3d4d4;border-radius:16px;padding:18px">
         <p style="margin:0;font-size:15px;line-height:1.6;color:#8c2f2f">გაგზავნა ვერ მოხერხდა. შენი მონაცემები არსად დაკარგულა, უბრალოდ სცადე ხელახლა.</p>
         <button type="button" onClick="{{ retry }}" style="margin-top:14px;border:0;cursor:pointer;background:#16181b;color:#fff;border-radius:10px;padding:12px 20px;font-family:inherit;font-size:15px;font-weight:600">{{ retryLabel }}</button>
@@ -497,14 +544,14 @@ const D = GGC.data, U = GGC.util;
 const FIELDS_BY_KIND = {
   company: [
     ["legal", "ოფიციალური სახელი", "GGC Games LLC"],
-    ["regId", "საიდენტიფიკაციო ნომერი", "404123456"],
+    ["regId", "საიდენტიფიკაციო ნომერი", "9 ციფრი"],
     ["name", "საჯარო სახელი", "GGC Games"],
     ["founded", "ოფიციალურად დაფუძნების თარიღი", "", "date"],
     ["about", "აღწერა", "ქართული ინდი სტუდია…"],
     ["aboutEn", "აღწერა (English)", "Georgian indie studio…"],
     ["website", "ვებსაიტი", "https://ggc.ge"],
     ["email", "ელფოსტა", "info@ggc.ge"],
-    ["phone", "ტელეფონი (არასავალდებულო)", "+995 555 00 00 00"],
+    ["phone", "ტელეფონი (არ გამოქვეყნდება)", "+995 5XX XX XX XX", "tel"],
   ],
   team: [
     ["legal", "გუნდის სახელი", "GGC Games"],
@@ -514,7 +561,7 @@ const FIELDS_BY_KIND = {
     ["aboutEn", "აღწერა (English)", "Georgian indie team…"],
     ["website", "ვებსაიტი", "https://ggc.ge"],
     ["email", "ელფოსტა", "hello@ggc.ge"],
-    ["phone", "ტელეფონი (არასავალდებულო)", "+995 555 00 00 00"],
+    ["phone", "ტელეფონი (არ გამოქვეყნდება)", "+995 5XX XX XX XX", "tel"],
   ],
   solo: [
     ["legal", "სახელი და გვარი", "გიორგი ჩხაიძე"],
@@ -524,7 +571,7 @@ const FIELDS_BY_KIND = {
     ["aboutEn", "ჩემს შესახებ (English)", "I make indie games…"],
     ["website", "ვებსაიტი ან პორტფოლიო", "https://ggc.ge"],
     ["email", "ელფოსტა", "me@ggc.ge"],
-    ["phone", "ტელეფონი (არასავალდებულო)", "+995 555 00 00 00"]
+    ["phone", "ტელეფონი (არ გამოქვეყნდება)", "+995 5XX XX XX XX", "tel"]
   ]
 };
 const CO_FIELDS = FIELDS_BY_KIND.company;
@@ -535,12 +582,17 @@ const STEP2_TITLE = {
 /* One choice from a fixed list, so the catalogue can group and count sizes
    instead of holding a dozen spellings of the same range. */
 const SIZES = ["1-2", "3-5", "6-10", "11-20", "21-50", "51-100", "101-250", "251+"];
-const CITIES = ["თბილისი", "ბათუმი", "ქუთაისი", "რუსთავი", "გორი", "ზუგდიდი", "ფოთი", "თელავი", "ახალციხე", "ოზურგეთი", "სხვა", "საზღვარგარეთ"];
+const CITIES = ["თბილისი", "ბათუმი", "ქუთაისი", "რუსთავი", "გორი", "ზუგდიდი", "ფოთი", "თელავი", "ახალციხე", "ოზურგეთი", "სხვა"];
+/* A studio registered abroad still belongs in the catalogue, but its number
+   cannot be checked against the Georgian registry, so it brings proof: a link
+   to its page in its own country's official registry, or an extract as a PDF. */
+const ABROAD = "საზღვარგარეთ";
+const MAX_PROOF = 3 * 1024 * 1024;
 /* The catalogue will not publish a studio without these, and finding that out
    on the last step — after the games are filled in and the send button is
    pressed — is the wrong place to learn it. Marked on the field itself, and the
    details step will not hand over to the games step until they are there. */
-const REQUIRED = ["legal", "name", "city", "founded", "email", "about"];
+const REQUIRED = ["legal", "name", "city", "founded", "email", "phone", "about"];
 const REQUIRED_KIND = { company: ["regId"], team: ["size"], solo: [] };
 function requiredFor(kind) {
   return REQUIRED.concat(REQUIRED_KIND[kind] || []).concat(kind === "company" ? ["size"] : []);
@@ -569,9 +621,9 @@ const ROLES = {
   solo: ["developer", "art", "audio", "porting"]
 };
 const KIND_HINT = {
-  company: "ოფიციალურად რეგისტრირებული კომპანია: პრიორიტეტული ჩანაწერი, სჭირდება საიდენტიფიკაციო ნომერი.",
-  team: "არარეგისტრირებული გუნდი: იდენტიფიკატორი გუნდის სახელია.",
-  solo: "ერთი ადამიანი: იდენტიფიკატორი პირადი სახელია."
+  company: "რეგისტრირებული იურიდიული პირი (შპს, სს და სხვ.). სჭირდება საიდენტიფიკაციო კოდი, რომელსაც GGC რეესტრში გადაამოწმებს. ინდივიდუალური მეწარმე (ი/მ) აირჩევს „სოლო დეველოპერს“.",
+  team: "დაურეგისტრირებელი გუნდი: იდენტიფიკატორი გუნდის სახელია. რეგისტრაციის ნომერი არ სჭირდება.",
+  solo: "ერთი ადამიანი, მათ შორის ინდივიდუალური მეწარმე (ი/მ): იდენტიფიკატორი პირადი სახელია. ნომერი არ სჭირდება."
 };
 /* The same set the panel edits, minus what only GGC decides — the validation
    dates, the verified badge, the record's id. Someone correcting their own game
@@ -610,6 +662,12 @@ class Component extends DCLogic {
     ready: false, step: 0, mode: "", lookup: "", picked: null,
     sent: false, sending: false, f: {}, saved: false,
     kind: "company", roles: [], result: null,
+    // Ticked on the review step; never restored from a draft, so it is always
+    // a decision made at the moment of sending.
+    consent: false,
+    // A registry extract for a studio registered abroad. Kept out of the saved
+    // draft (it can be megabytes), so after a reload it has to be picked again.
+    proofFile: null, proofErr: "",
     studioUrl: "", importing: false, importProgress: "", importMsg: "", importMsgColor: "#2c5f7d",
     missing: [],
     // Every game being added or corrected, each with its own store URL and
@@ -685,7 +743,12 @@ class Component extends DCLogic {
       roles: c.roles || [],
       lookup: c.legal || c.name,
       f: Object.assign({
-        legal: c.legal, regId: c.regId, name: c.name, city: c.city,
+        legal: c.legal, regId: c.regId, name: c.name,
+        /* An older foreign record has only the word "abroad" as its city. It
+           opens on Georgia with the city empty, and the empty required city is
+           what asks the person to pick either a city or their country. */
+        country: c.country || "GE",
+        city: c.city === ABROAD ? "" : c.city,
         founded: c.founded ? String(c.founded) : "", size: c.size,
         about: c.about, aboutEn: c.aboutEn, website: c.website, email: c.email,
         // Never shown publicly, and anyone can open this form for any studio.
@@ -945,8 +1008,17 @@ class Component extends DCLogic {
        hand. Size
        was; city was not, and every submission so far arrived without it — a
        required field, asked for, filled in, and dropped on the way out. */
-    if (f.city) company.city = f.city;
+    const country = f.country || "GE";
+    if (country !== "GE") { company.country = country; company.city = ABROAD; }
+    else if (f.city) company.city = f.city;
     if (f.size) company.size = f.size;
+    /* The phone is in the form's field list but never in the record: the record
+       becomes a public file and a public GitHub issue, so the phone travels in
+       "private", which the relay moves to GGC's own sheet before anything is
+       published. A company's code is stored in one spelling. */
+    delete company.phone;
+    if (s.kind !== "company") delete company.regId;
+    else if (company.regId) company.regId = U.normRegId(company.regId, country);
     /* A company's and a team's founding date comes from a date picker, as
        "2019-05-14"; only a solo developer types a bare year. Turning the date
        into a number made it NaN and then 0, so every company sent through the
@@ -983,11 +1055,20 @@ class Component extends DCLogic {
       subject: picked ? (picked.legal || picked.name) : (company.legal || company.name || s.lookup),
       contact: f.contact || f.email || links.telegram || "",
       note: f.note || "",
-      site: "myggc"
+      site: "myggc",
+      consent: !!s.consent,
+      "private": { email: (f.email || "").trim(), phone: U.normPhone(f.phone).value || (f.phone || "").trim() }
     };
     if (s.picked) out.companyId = s.picked;
-    if (action !== "games") out.company = company;
+    /* Attaching games changes nothing about the studio, so the studio's record
+       is not sent with them. It was, once "games" became "new-game", which put
+       a copy of the whole record in front of the admin as if it were new. */
+    if (action !== "new-game") out.company = company;
     if (games.length) out.games = games;
+    if (this.needsProof()) {
+      if (f.proofUrl) out.proof = { url: f.proofUrl.trim() };
+      if (s.proofFile) out.proofFile = s.proofFile;
+    }
     return out;
   }
 
@@ -997,19 +1078,83 @@ class Component extends DCLogic {
      the catalogue needs and bounce straight back to the sender. */
   missingFields() {
     const s = this.state, f = s.f;
-    if (s.mode === "game") return [];
+    // Attaching a game asks only for who is sending it.
+    if (s.mode === "game") {
+      return [["email", "ელფოსტა"], ["phone", "ტელეფონი"]].filter(([k]) => !f[k]).map(([, l]) => l);
+    }
+    const abroad = (f.country || "GE") !== "GE";
     const need = [["legal", "ოფიციალური სახელი"], ["name", "საჯარო სახელი"],
-      ["city", "ქალაქი"], ["founded", "დაფუძნების წელი"], ["email", "ელფოსტა"],
-      ["about", "აღწერა"]];
+      ["founded", "დაფუძნების წელი"], ["email", "ელფოსტა"],
+      ["phone", "ტელეფონი"], ["about", "აღწერა"]];
+    if (!abroad) need.push(["city", "ქალაქი"]);
     if (s.kind === "company") need.push(["regId", "საიდენტიფიკაციო ნომერი"]);
     if (s.kind !== "solo") need.push(["size", "გუნდის ზომა"]);
-    return need.filter(([k]) => !f[k]).map(([, label]) => label);
+    const out = need.filter(([k]) => !f[k]).map(([, label]) => label);
+    if (this.needsProof() && !f.proofUrl && !s.proofFile) out.push("რეესტრის ბმული ან ამონაწერი");
+    return out;
+  }
+
+  /* A company registered outside Georgia proves it with its own registry. */
+  needsProof() {
+    const s = this.state;
+    return s.mode !== "game" && s.kind === "company" && (s.f.country || "GE") !== "GE";
+  }
+
+  /* Filled in, but not a value the catalogue can stand behind. Keyed by field,
+     so each message sits under its own box. */
+  fieldErrors() {
+    const s = this.state, f = s.f, err = {};
+    const country = f.country || "GE";
+    if (f.email && U.checkEmail(f.email)) err.email = U.checkEmail(f.email);
+    if (f.phone && !U.normPhone(f.phone).ok) err.phone = U.normPhone(f.phone).error;
+    if (s.mode !== "game" && s.kind === "company" && f.regId) {
+      const bad = U.checkRegId(f.regId, country);
+      if (bad) err.regId = bad;
+      else {
+        const mine = U.normRegId(f.regId, country);
+        const twin = D.companies().filter(c => c.id !== s.picked && c.regId &&
+          U.normRegId(c.regId, c.country || "GE") === mine)[0];
+        if (twin) {
+          err.regId = "ეს კოდი კატალოგში უკვე აქვს „" + (twin.legal || twin.name) +
+            "“-ს. თუ ეს თქვენი კომპანიაა, დაბრუნდი დასაწყისში და აირჩიე „არსებული მონაცემის შესწორება“.";
+        }
+      }
+    }
+    if (this.needsProof() && f.proofUrl && !/^https?:\/\/[^\s/.]+\.[^\s]+$/i.test(f.proofUrl.trim())) {
+      err.proofUrl = "ბმული https://-ით უნდა იწყებოდეს.";
+    }
+    if (s.proofErr) err.proofFile = s.proofErr;
+    return err;
+  }
+
+  /* Everything that stops a hand-over: what is missing, then what is wrong. */
+  blockers() {
+    const err = this.fieldErrors();
+    const label = { email: "ელფოსტა", phone: "ტელეფონი", regId: "საიდენტიფიკაციო ნომერი",
+      proofUrl: "რეესტრის ბმული", proofFile: "ამონაწერი" };
+    return this.missingFields().concat(Object.keys(err).map(k => (label[k] || k) + " (არასწორია)"));
+  }
+
+  pickProof(file) {
+    if (!file) return this.setState({ proofFile: null, proofErr: "" });
+    if (file.type !== "application/pdf") return this.setState({ proofFile: null, proofErr: "მხოლოდ PDF ფაილი მიიღება." });
+    if (file.size > MAX_PROOF) return this.setState({ proofFile: null, proofErr: "ფაილი 3 MB-ზე დიდია." });
+    const r = new FileReader();
+    r.onload = () => {
+      const data = String(r.result || "").split(",")[1] || "";
+      this.setState({ proofFile: { name: file.name, type: file.type, size: file.size, data: data }, proofErr: "" });
+    };
+    r.onerror = () => this.setState({ proofFile: null, proofErr: "ფაილი ვერ წაიკითხა." });
+    r.readAsDataURL(file);
   }
 
   send() {
-    const miss = this.missingFields();
+    const miss = this.blockers();
     if (miss.length) {
       return this.setState({ sent: false, missing: miss });
+    }
+    if (!this.state.consent) {
+      return this.setState({ sent: false, missing: ["თანხმობა მონაცემების შენახვაზე"] });
     }
     const p = this.payload();
     this.setState({ sent: true, result: null, sending: true });
@@ -1126,13 +1271,28 @@ class Component extends DCLogic {
       : [];
     const isNew = s.mode === "new";
     const need = requiredFor(s.kind);
+    const country = f.country || "GE";
+    const abroad = country !== "GE";
+    const errs = this.fieldErrors();
     // A required field that is filled looks like any other; an empty one says so.
     const mark = (k, label) => need.indexOf(k) < 0 ? label : label + " *";
-    const markColor = (k) => need.indexOf(k) >= 0 && !f[k] ? "#8c2f2f" : "#5a5f65";
-    const markBorder = (k) => need.indexOf(k) >= 0 && !f[k] ? "#e8c4c4" : "#dfe3e4";
-    const fields = fieldsFor(s.kind).map(([k, label, ph, type]) => ({
-      label: mark(k, label), ph, type: type || "text", value: f[k] || "",
-      color: markColor(k), border: markBorder(k),
+    const markColor = (k) => (need.indexOf(k) >= 0 && !f[k]) || errs[k] ? "#8c2f2f" : "#5a5f65";
+    const markBorder = (k) => (need.indexOf(k) >= 0 && !f[k]) || errs[k] ? "#e8c4c4" : "#dfe3e4";
+    const fields = fieldsFor(s.kind).map(([k, label, ph, type]) => {
+      // Abroad the number is whatever that country's registry issues.
+      if (k === "regId" && abroad) { label = "რეგისტრაციის ნომერი"; ph = "ქვეყნის რეესტრის ნომერი"; }
+      return {
+        label: mark(k, label), ph, type: type || "text", value: f[k] || "",
+        color: markColor(k), border: markBorder(k),
+        err: errs[k] || "", errShow: errs[k] ? "block" : "none",
+        onInput: e => this.set(k, e.target.value)
+      };
+    });
+    const contactFields = [["email", "ელფოსტა", "name@studio.ge", "email"],
+      ["phone", "ტელეფონი (არ გამოქვეყნდება)", "+995 5XX XX XX XX", "tel"]].map(([k, label, ph, type]) => ({
+      label: label + " *", ph, type, value: f[k] || "",
+      color: !f[k] || errs[k] ? "#8c2f2f" : "#5a5f65", border: !f[k] || errs[k] ? "#e8c4c4" : "#dfe3e4",
+      err: errs[k] || "", errShow: errs[k] ? "block" : "none",
       onInput: e => this.set(k, e.target.value)
     }));
     const roleList = ROLES[s.kind];
@@ -1196,7 +1356,8 @@ class Component extends DCLogic {
     row("ოფიციალური სახელი", co.legal);
     row("საიდენტიფიკაციო ნომერი", co.regId);
     row("საჯარო სახელი", co.name);
-    row("ქალაქი", co.city);
+    row("ქვეყანა", co.country ? U.countryName(co.country) : (pay.company ? U.countryName("GE") : ""));
+    row("ქალაქი", co.country ? "" : co.city);
     row("გუნდის ზომა", co.size);
     row("დაფუძნების წელი", co.founded);
     row("ელფოსტა", co.email);
@@ -1208,6 +1369,9 @@ class Component extends DCLogic {
     (pay.games || []).forEach((g, i) => row("თამაში " + (i + 1),
       [g.name || g.gameId, (g.platforms || []).join(", ")].filter(Boolean).join(" · ")));
     row("კონტაქტი", pay.contact);
+    row("ტელეფონი", pay["private"].phone ? pay["private"].phone + " (მხოლოდ GGC-სთვის)" : "");
+    row("რეესტრის ბმული", pay.proof && pay.proof.url);
+    row("ამონაწერი", pay.proofFile ? pay.proofFile.name : "");
     row("შენიშვნა", pay.note, true);
 
     return {
@@ -1271,20 +1435,47 @@ class Component extends DCLogic {
       step2Title: isNew ? STEP2_TITLE[s.kind] : "შესწორებული მონაცემები",
       fields,
       selectFields: [{
+        label: "ქვეყანა *", color: "#5a5f65", border: "#dfe3e4",
+        value: country,
+        options: U.countries().map(c => ({ v: c.v, label: c.label })),
+        onChange: e => this.set("country", e.target.value)
+      }].concat(abroad ? [] : [{
         label: mark("city", "ქალაქი"), color: markColor("city"), border: markBorder("city"),
         value: f.city || "",
         options: [{ v: "", label: "აირჩიე" }].concat(CITIES.map(v => ({ v, label: v }))),
         onChange: e => this.set("city", e.target.value)
-      }].concat(s.kind === "solo" ? [] : [{
+      }]).concat(s.kind === "solo" ? [] : [{
         label: mark("size", "გუნდის ზომა"), color: markColor("size"), border: markBorder("size"),
         value: f.size || "",
         options: [{ v: "", label: "აირჩიე" }].concat(SIZES.map(v => ({ v, label: v }))),
         onChange: e => this.set("size", e.target.value)
       }]),
-      requiredNote: this.missingFields().length
-        ? "* სავალდებულო. შესავსებია: " + this.missingFields().join(", ") + "."
+      requiredNote: this.blockers().length
+        ? "* სავალდებულო. შესავსებია ან გასასწორებელია: " + this.blockers().join(", ") + "."
         : "* სავალდებულო. ყველა შევსებულია.",
-      requiredNoteColor: this.missingFields().length ? "#8c2f2f" : "#2f5c3c",
+      requiredNoteColor: this.blockers().length ? "#8c2f2f" : "#2f5c3c",
+
+      /* Proof for a company registered abroad: a registry link, a PDF, or both. */
+      proofShow: this.needsProof() ? "block" : "none",
+      proofCountry: U.countryName(country),
+      proofUrl: f.proofUrl || "",
+      onProofUrl: e => this.set("proofUrl", e.target.value),
+      proofUrlErr: errs.proofUrl || "", proofUrlErrShow: errs.proofUrl ? "block" : "none",
+      onProofFile: e => this.pickProof(e.target.files && e.target.files[0]),
+      proofFileShow: s.proofFile ? "flex" : "none",
+      proofFileName: s.proofFile ? s.proofFile.name + " · " + Math.max(1, Math.round(s.proofFile.size / 1024)) + " KB" : "",
+      clearProof: () => this.setState({ proofFile: null, proofErr: "" }),
+      proofFileErr: s.proofErr, proofFileErrShow: s.proofErr ? "block" : "none",
+
+      /* Who is sending. Attaching a game skips the details step, so the
+         contact is asked for here instead. */
+      contactShow: s.mode === "game" ? "block" : "none",
+      contactFields: contactFields,
+      consentMark: s.consent ? "✔" : "",
+      consentBg: s.consent ? "#1d96d3" : "#fff",
+      consentBorder: s.consent ? "#1d96d3" : "#b9c0c0",
+      toggleConsent: () => this.setState({ consent: !s.consent, missing: [] }),
+      confirmEmail: (f.email || "").trim() || "ელფოსტა ჯერ არ არის მითითებული",
       kindHint: KIND_HINT[s.kind],
       rolesLabel: s.kind === "solo" ? "რას აკეთებ" : "რას აკეთებთ",
       roleChips: roleList.map(r => ({
@@ -1307,8 +1498,8 @@ class Component extends DCLogic {
          set is there. It used to, and the refusal came at the very end instead —
          after the games were filled in and send was pressed. */
       next: () => {
-        if (s.step === 2 && this.missingFields().length) {
-          return this.setState({ missing: this.missingFields() });
+        if (s.step === 2 && this.blockers().length) {
+          return this.setState({ missing: this.blockers() });
         }
         this.save({ step: Math.min(4, s.step + 1), missing: [] });
       },
@@ -1375,12 +1566,19 @@ class Component extends DCLogic {
       send: () => this.send(),
       missingShow: (s.missing && s.missing.length) ? "block" : "none",
       missingList: (s.missing || []).join(", "),
-      sentTitle: s.sending ? "იგზავნება…" : (res && res.ok ? "გაიგზავნა" : "ვერ გაიგზავნა"),
+      sentTitle: s.sending ? "იგზავნება…" : (res && res.ok ? (res.pending ? "შეამოწმე ელფოსტა" : "გაიგზავნა") : "ვერ გაიგზავნა"),
+      /* With email confirmation the submission is held until the link in the
+         email is pressed, so "sent" is not yet "with GGC", and saying so is
+         what gets the email opened. */
       sentText: s.sending
         ? "ერთი წამი."
         : res && res.ok
-          ? "მონაცემები გადაეგზავნა GGC-ის ადმინისტრაციას და გადამოწმდება. როგორც კი დავადასტურებთ, საიტზე გამოჩნდება."
-          : "სერვერამდე ვერ მივიდა.",
+          ? (res.pending
+            ? "დადასტურების ბმული გავგზავნეთ ამ მისამართზე:"
+            : "მონაცემები გადაეგზავნა GGC-ის ადმინისტრაციას და გადამოწმდება. როგორც კი დავადასტურებთ, საიტზე გამოჩნდება.")
+          : (res && /[ა-ჿ]/.test(res.error || "") ? res.error : "სერვერამდე ვერ მივიდა."),
+      spamShow: !s.sending && res && res.ok && res.pending ? "block" : "none",
+      sentTo: (res && res.to) || (f.email || ""),
       failShow: !s.sending && res && !res.ok ? "block" : "none",
       doneShow: !s.sending && res && res.ok ? "flex" : "none",
       retry: () => this.send(),
@@ -1389,7 +1587,8 @@ class Component extends DCLogic {
       restart: () => { try { localStorage.removeItem(DRAFT); } catch (e) {} this.setState({
         step: 0, mode: "", lookup: "", picked: null, drafts: [], saved: false,
         studioUrl: "", importMsg: "", importing: false, missing: [],
-        sent: false, sending: false, f: {}, kind: "company", roles: [], result: null
+        sent: false, sending: false, f: {}, kind: "company", roles: [], result: null,
+        consent: false, proofFile: null, proofErr: ""
       }); }
     };
   }

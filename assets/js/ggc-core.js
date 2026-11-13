@@ -77,7 +77,149 @@
   /* -------------------------------------------------------------------- util */
 
   var KIND_LABEL = { company: "რეგისტრირებული კომპანია", team: "გუნდი", solo: "სოლო დეველოპერი" };
+  var KIND_SHORT = { company: "კომპანია", team: "გუნდი", solo: "სოლო" };
   var ACCENT = { company: "#1d96d3", team: "#83c341", solo: "#fdb813" };
+
+  /* ------------------------------------------------------------ checks
+     The catalogue is meant to be a register people can rely on, so the form
+     and the admin queue run the same checks on what identifies a record. They
+     only judge the shape of a value. Whether a Georgian code really belongs to
+     the company is still for the admin to confirm against the registry. */
+
+  /* Placeholders, runs and repeated digits: what gets typed to get past a
+     required field rather than to fill it in. */
+  function looksFake(s) {
+    s = String(s || "");
+    if (/^(.)\1+$/.test(s)) return true;
+    if (/^\d+$/.test(s) && s.length >= 6 &&
+        ("01234567890123456789".indexOf(s) >= 0 || "98765432109876543210".indexOf(s) >= 0)) return true;
+    return false;
+  }
+
+  /* Georgia's Public Registry gives every legal entity a 9-digit
+     identification code. An 11-digit number is a person's ID number, which is
+     what an individual entrepreneur registers under, and that is personal data
+     the catalogue does not hold: an individual entrepreneur is listed as a solo
+     developer. Abroad there is no single format, so the number only has to look
+     like a registration number, and the proof (a registry link or extract) is
+     what the admin checks. Returns "" when the value passes. */
+  function checkRegId(raw, country) {
+    var v = String(raw || "").trim();
+    if (!v) return "";
+    if (!country || country === "GE") {
+      var d = v.replace(/[\s.\-]/g, "");
+      if (!/^\d+$/.test(d)) return "საიდენტიფიკაციო კოდი მხოლოდ ციფრებისგან შედგება.";
+      if (d.length === 11) return "11 ციფრი პირადი ნომერია. ინდივიდუალური მეწარმე (ი/მ) დაემატოს როგორც სოლო დეველოპერი, ნომრის გარეშე.";
+      if (d.length !== 9) return "კომპანიის საიდენტიფიკაციო კოდი 9 ციფრისგან შედგება.";
+      if (looksFake(d)) return "ეს კოდი რეალურს არ ჰგავს. ჩაწერე რეესტრის ამონაწერში მითითებული კოდი.";
+      return "";
+    }
+    var a = v.toUpperCase().replace(/[^0-9A-Z]/g, "");
+    if (a.length < 5 || a.length > 20) return "რეგისტრაციის ნომერი 5-დან 20 სიმბოლომდეა.";
+    if (!/\d/.test(a)) return "რეგისტრაციის ნომერში ციფრიც უნდა იყოს.";
+    if (looksFake(a)) return "ეს ნომერი რეალურს არ ჰგავს. ჩაწერე რეესტრში მითითებული ნომერი.";
+    return "";
+  }
+  function normRegId(raw, country) {
+    var v = String(raw || "").trim();
+    return !country || country === "GE" ? v.replace(/[\s.\-]/g, "") : v;
+  }
+
+  /* A Georgian number is +995 and nine digits: 5 for a mobile, 3 or 4 for a
+     landline, 7 for the VoIP ranges. Typed without a country code, nine digits
+     are read as Georgian. Anything else has to start with + (or 00) and is held
+     to the international limit of 8 to 15 digits. Returns the number in one
+     spelling, so the same phone is never stored three ways. */
+  function normPhone(raw) {
+    var s = String(raw || "").replace(/[()]/g, " ").trim();
+    if (!s) return { ok: false, value: "", error: "" };
+    if (/[^\d\s+.\-]/.test(s) || /.\+/.test(s)) {
+      return { ok: false, value: "", error: "ტელეფონში მხოლოდ ციფრები, ინტერვალი, ტირე და დასაწყისში + შეიძლება." };
+    }
+    var intl = /^(\+|00)/.test(s);
+    var d = s.replace(/^00/, "").replace(/\D/g, "");
+    if (!intl && d.length === 9) d = "995" + d;
+    else if (!intl && !(d.length === 12 && d.indexOf("995") === 0)) {
+      return { ok: false, value: "", error: "ჩაწერე ასე: 5XX XX XX XX, ან სხვა ქვეყნის ნომერი +-ით დაწყებული." };
+    }
+    if (d.indexOf("995") === 0) {
+      var n = d.slice(3);
+      if (n.length !== 9) return { ok: false, value: "", error: "ქართული ნომერი +995-ის შემდეგ 9 ციფრია." };
+      if (!/^[3457]/.test(n)) return { ok: false, value: "", error: "ქართული მობილური 5-ით იწყება, ქალაქის ნომერი 3-ით ან 4-ით." };
+      if (looksFake(n) || n === "555000000" || /^5\d\d0{6}$/.test(n)) {
+        return { ok: false, value: "", error: "ეს ნომერი რეალურს არ ჰგავს." };
+      }
+      return { ok: true, value: "+995 " + n.slice(0, 3) + " " + n.slice(3, 5) + " " + n.slice(5, 7) + " " + n.slice(7), error: "" };
+    }
+    if (d.length < 8 || d.length > 15 || d.charAt(0) === "0") {
+      return { ok: false, value: "", error: "საერთაშორისო ნომერი ქვეყნის კოდითურთ 8-დან 15 ციფრამდეა." };
+    }
+    // Abroad only a run of one digit is refused; a real number may well end 2345678.
+    if (/^(\d)\1+$/.test(d.slice(-7))) return { ok: false, value: "", error: "ეს ნომერი რეალურს არ ჰგავს." };
+    return { ok: true, value: "+" + d, error: "" };
+  }
+
+  function checkEmail(raw) {
+    var s = String(raw || "").trim();
+    if (!s) return "";
+    if (!/^[^\s@<>()",;:]+@[^\s@<>()",;:.]+(\.[^\s@<>()",;:.]+)*\.[a-z]{2,}$/i.test(s)) {
+      return "ელფოსტის ფორმატი არასწორია, მაგ. name@studio.ge";
+    }
+    return "";
+  }
+
+  /* Every ISO 3166 country code. The names come from the browser in the
+     page's language, so the list costs one line here and still reads as
+     Georgian or English. */
+  var COUNTRY_CODES = ("AD AE AF AG AI AL AM AO AR AT AU AW AZ BA BB BD BE BF BG BH BI BJ BN BO BR BS BT BW BY BZ " +
+    "CA CD CF CG CH CI CL CM CN CO CR CU CV CY CZ DE DJ DK DM DO DZ EC EE EG ER ES ET FI FJ FM FR GA GB GD GE GH GM " +
+    "GN GQ GR GT GW GY HK HN HR HT HU ID IE IL IN IQ IR IS IT JM JO JP KE KG KH KI KM KN KP KR KW KZ LA LB LC LI LK " +
+    "LR LS LT LU LV LY MA MC MD ME MG MH MK ML MM MN MO MR MT MU MV MW MX MY MZ NA NE NG NI NL NO NP NR NZ OM PA PE " +
+    "PG PH PK PL PS PT PW PY QA RO RS RU RW SA SB SC SD SE SG SI SK SL SM SN SO SR SS ST SV SY SZ TD TG TH TJ TL TM " +
+    "TN TO TR TT TV TW TZ UA UG US UY UZ VA VC VE VN VU WS XK YE ZA ZM ZW").split(" ");
+  /* Georgian names for the countries a Georgian studio is most likely to be
+     registered in, for browsers that have no Georgian country names of their
+     own. Where the browser has them, it names the rest. */
+  var COUNTRY_KA = {
+    GE: "საქართველო", US: "აშშ", GB: "დიდი ბრიტანეთი", DE: "გერმანია", FR: "საფრანგეთი",
+    NL: "ნიდერლანდები", EE: "ესტონეთი", LT: "ლიტვა", LV: "ლატვია", PL: "პოლონეთი", CZ: "ჩეხეთი",
+    UA: "უკრაინა", AM: "სომხეთი", AZ: "აზერბაიჯანი", TR: "თურქეთი", RU: "რუსეთი", BY: "ბელარუსი",
+    KZ: "ყაზახეთი", UZ: "უზბეკეთი", KG: "ყირგიზეთი", MD: "მოლდოვა", IL: "ისრაელი",
+    AE: "არაბთა გაერთიანებული საამიროები", CY: "კვიპროსი", MT: "მალტა", IE: "ირლანდია",
+    ES: "ესპანეთი", IT: "იტალია", PT: "პორტუგალია", SE: "შვედეთი", FI: "ფინეთი", NO: "ნორვეგია",
+    DK: "დანია", CH: "შვეიცარია", AT: "ავსტრია", BE: "ბელგია", LU: "ლუქსემბურგი", IS: "ისლანდია",
+    BG: "ბულგარეთი", RO: "რუმინეთი", GR: "საბერძნეთი", HU: "უნგრეთი", SK: "სლოვაკეთი",
+    SI: "სლოვენია", HR: "ხორვატია", RS: "სერბეთი", CA: "კანადა", AU: "ავსტრალია",
+    NZ: "ახალი ზელანდია", JP: "იაპონია", KR: "სამხრეთ კორეა", CN: "ჩინეთი", SG: "სინგაპური",
+    HK: "ჰონკონგი", IN: "ინდოეთი", BR: "ბრაზილია", AR: "არგენტინა", MX: "მექსიკა", XK: "კოსოვო"
+  };
+  var COUNTRY_EN = { XK: "Kosovo" };
+  function countryName(code, lang) {
+    code = String(code || "").toUpperCase();
+    if (!code) return "";
+    lang = lang || ((window.GGCI18n && window.GGCI18n.lang === "en") ? "en" : "ka");
+    var fixed = (lang === "en" ? COUNTRY_EN : COUNTRY_KA)[code];
+    if (fixed) return fixed;
+    try {
+      var name = new Intl.DisplayNames([lang, "en"], { type: "region" }).of(code);
+      if (name && name !== code) return name;
+    } catch (e) {}
+    return code;
+  }
+  /* Georgia first, the rest alphabetical in the page's language. A name the
+     browser could only give in English goes after the Georgian ones, so the
+     list does not read as two alphabets shuffled together. */
+  function countries(lang) {
+    lang = lang || ((window.GGCI18n && window.GGCI18n.lang === "en") ? "en" : "ka");
+    var latin = /^[A-Za-z]/;
+    return [{ v: "GE", label: countryName("GE", lang) }].concat(
+      COUNTRY_CODES.filter(function (c) { return c !== "GE"; })
+        .map(function (c) { return { v: c, label: countryName(c, lang) }; })
+        .sort(function (a, b) {
+          var la = lang === "ka" && latin.test(a.label), lb = lang === "ka" && latin.test(b.label);
+          return la !== lb ? (la ? 1 : -1) : a.label.localeCompare(b.label, lang);
+        }));
+  }
   var SOC = {
     telegram: "Telegram", facebook: "Facebook", instagram: "Instagram", linkedin: "LinkedIn",
     youtube: "YouTube", x: "X", steam: "Steam", itch: "itch.io", discord: "Discord",
@@ -423,10 +565,11 @@
       size: c.size || "",
       roles: Array.isArray(c.roles) ? c.roles : [],
       website: safeLink(c.website),
+      // Outside Georgia only; a Georgian record leaves it empty.
+      country: c.country && c.country !== "GE" ? String(c.country).toUpperCase() : "",
       email: c.email || "",
-      // Optional, and never shown publicly — a way to reach a solo developer
-      // who has no office address and no colleague to nominate as a contact.
-      phone: c.phone || "",
+      /* No phone here. This file is public, so phone numbers live in GGC's
+         private contacts sheet, which the submission relay fills in. */
       contact: c.contact || "",
       about: undash(unescapeHtml(c.about || "")),
       aboutEn: undash(unescapeHtml(c.aboutEn || "")),
@@ -1984,6 +2127,22 @@
      is missing or the POST fails, that is our fault, not the visitor's: report
      the failure so the form can offer a retry, and say plainly in the console
      what the site owner needs to do. See worker/README.md. */
+  /* Version 2 of the relay keeps the phone and any uploaded registry extract
+     out of the public GitHub issue (they go to GGC's private sheet and Drive)
+     and holds a submission until its sender confirms their email. An older
+     relay would paste everything into the issue, so it is asked first, and
+     until it answers 2 the private parts are simply not sent. */
+  var relayVersionP = null;
+  function relayVersion() {
+    if (!relayVersionP) {
+      relayVersionP = fetch(config.submitEndpoint + "?action=version")
+        .then(function (r) { return r.json(); })
+        .then(function (j) { return Number(j && j.version) || 1; })
+        .catch(function () { relayVersionP = null; return 1; });
+    }
+    return relayVersionP;
+  }
+
   function deliver(p) {
     p.submittedAt = new Date().toISOString();
     if (!config.submitEndpoint) {
@@ -1994,16 +2153,24 @@
       );
       return Promise.resolve({ ok: false, error: "endpoint-missing" });
     }
-    return fetch(config.submitEndpoint, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(p)
+    return relayVersion().then(function (v) {
+      var body = p;
+      if (v < 2) {
+        body = Object.assign({}, p);
+        delete body["private"];
+        delete body.proofFile;
+      }
+      return fetch(config.submitEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(body)
+      });
     }).then(function (r) {
       if (!r.ok) throw new Error("HTTP " + r.status);
       return r.json().catch(function () { return {}; });
     }).then(function (j) {
       if (j && j.error) throw new Error(j.error);
-      return { ok: true, url: (j && j.url) || "" };
+      return { ok: true, url: (j && j.url) || "", pending: !!(j && j.pending), to: (j && j.to) || "" };
     }).catch(function (e) {
       return { ok: false, error: (e && e.message) || "unreachable" };
     });
@@ -2015,7 +2182,9 @@
     util: {
       slug: slug, initials: initials, fmtDate: fmtDate, today: today, clone: clone,
       prepareImage: prepareImage, IMAGE_SIZES: IMAGE_SIZES, iconUrl: iconUrl,
-      KIND_LABEL: KIND_LABEL, ACCENT: ACCENT, SOC: SOC, STORE_LABEL: STORE_LABEL,
+      KIND_LABEL: KIND_LABEL, KIND_SHORT: KIND_SHORT, ACCENT: ACCENT, SOC: SOC, STORE_LABEL: STORE_LABEL,
+      checkRegId: checkRegId, normRegId: normRegId, normPhone: normPhone, checkEmail: checkEmail,
+      countryName: countryName, countries: countries,
       foundedYear: foundedYear, toISODate: toISODate,
       PLATFORM_HOME: PLATFORM_HOME, ENGINES: ENGINES,
       fitImage: fitImage, latinSlug: latinSlug, localToday: localToday

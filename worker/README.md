@@ -14,19 +14,31 @@ apart. Option A needs nothing installed.
 
 ---
 
-## Option A — Google Apps Script (no installs, ~3 minutes)
+## Option A: Google Apps Script (no installs, ~5 minutes)
 
-Deploys from a browser. Use this one if you do not want to touch a terminal.
+Deploys from a browser. This is the one the site uses, and the only one that
+keeps phone numbers private and confirms the sender's email (version 2).
 
-1. Open [script.google.com](https://script.google.com) → **New project**
+1. Open [script.google.com](https://script.google.com) and the GGC relay project
+   (or **New project**)
 2. Paste [`apps-script.gs`](apps-script.gs) over `Code.gs`
 3. **Project Settings → Script Properties → Add script property**
    - `GITHUB_TOKEN` = a fine-grained token for `myggc/myggc.github.io` with
      **Issues: Read and write** and nothing else
-4. **Deploy → New deployment → Web app**
-   - *Execute as*: **Me**
-   - *Who has access*: **Anyone**
-5. Copy the `/exec` URL
+4. In the editor choose the function **setup** and press **Run**. Allow the
+   permissions it asks for. It creates the private contacts sheet and Drive
+   folder, copies the phone numbers that were stored before, and prints the
+   sheet's link in the execution log.
+5. **Deploy → Manage deployments → edit (pencil) → Version: New version → Deploy**.
+   Editing the existing deployment keeps its `/exec` URL. For a first
+   deployment: **Deploy → New deployment → Web app**, *Execute as*: **Me**,
+   *Who has access*: **Anyone**, then copy the `/exec` URL.
+
+What version 2 does with a submission: the phone goes to the private sheet,
+an uploaded registry extract goes to the private Drive folder, the sender gets
+an email with a confirmation link, and only after they confirm is the GitHub
+issue opened, without the phone. Confirmation emails are sent from the Google
+account that owns the script, so use a GGC account.
 
 ## Option B — Cloudflare Worker (needs npm)
 
