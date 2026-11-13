@@ -292,6 +292,10 @@ function merge(game, parsed) {
     if (value === undefined || value === null || value === "") return;
     if (Array.isArray(value) && !value.length) return;
     if (JSON.stringify(next[key]) === JSON.stringify(value)) return;
+    // Google Play lists a game's genres in a different order from one visit to
+    // the next; the same genres reordered is not a change worth a commit.
+    if (key === "genres" && Array.isArray(next[key]) &&
+        JSON.stringify([...next[key]].sort()) === JSON.stringify([...value].sort())) return;
     next[key] = value;
     changed = true;
   };
