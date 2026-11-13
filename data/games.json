@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-11-11",
+  "updated": "2026-11-13",
   "items": [
     {
       "id": "besos-shawarma",
@@ -1358,8 +1358,7 @@
       "year": 2023,
       "mobile": true,
       "genres": [
-        "simulation",
-        "casual"
+        "simulation"
       ],
       "platforms": [
         "Google Play"
@@ -1380,12 +1379,12 @@
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "2026-11-11T22:42:14.309Z",
+      "parsedAt": "2026-11-13T12:12:58.636Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-11-11"
+      "updated": "2026-11-13"
     },
     {
       "id": "school-driver",
@@ -1394,7 +1393,7 @@
       "publisherId": "",
       "status": "released",
       "releaseDate": "May 24, 2022",
-      "year": 2022,
+      "year": 0,
       "mobile": true,
       "genres": [
         "arcade"
@@ -1418,12 +1417,12 @@
       },
       "localArt": "",
       "source": "googleplay",
-      "parsedAt": "",
+      "parsedAt": "2026-11-13T12:12:59.950Z",
       "verified": true,
       "active": true,
       "validated": "2026-09-06",
       "created": "2026-09-06",
-      "updated": "2026-09-06"
+      "updated": "2026-11-13"
     },
     {
       "id": "monster-truck",
