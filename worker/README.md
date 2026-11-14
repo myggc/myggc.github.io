@@ -19,6 +19,11 @@ apart. Option A needs nothing installed.
 Deploys from a browser. This is the one the site uses, and the only one that
 keeps phone numbers private and confirms the sender's email (version 2).
 
+The live relay is the **GGC submission relay** project in the GGC Google
+account (the one that sends the confirmation emails). Its GitHub token expires
+on 13 November 2027: before then, make a new one with the same settings and
+replace `GITHUB_TOKEN` in that project's Script Properties.
+
 1. Open [script.google.com](https://script.google.com) and the GGC relay project
    (or **New project**)
 2. Paste [`apps-script.gs`](apps-script.gs) over `Code.gs`
