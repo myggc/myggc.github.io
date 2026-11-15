@@ -216,7 +216,7 @@
       <div style="display:{{ logoShow }};margin-top:22px;padding-top:20px;border-top:1px solid #eef1f1">
         <div style="font-size:14px;color:#5a5f65;margin-bottom:10px">ლოგო მაღაზიიდან</div>
         <div style="display:flex;align-items:center;gap:14px">
-          <img src="{{ logoUrl }}" alt="" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:1px solid #dfe3e4;background:#f7f9f9">
+          <img loading="lazy" src="{{ logoUrl }}" alt="" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:1px solid #dfe3e4;background:#f7f9f9">
           <div style="flex:1 1 180px;min-width:0;font-size:14px;line-height:1.55;color:#4d5258">ეს სურათი შენი მაღაზიის გვერდიდანაა და ჩანაწერს თან გაჰყვება. სხვა ლოგო თუ გინდა, მიწერე შენიშვნებში.</div>
         </div>
       </div>
@@ -313,10 +313,10 @@
                 </div>
                 <div style="display:{{ g.artShow }};margin-top:12px;background:#fff;border:1px solid #e6eaeb;border-radius:12px;padding:12px 14px">
                   <div style="font-size:13px;color:#5a5f65">სურათები მაღაზიიდან</div>
-                  <img src="{{ g.artUrl }}" alt="" style="display:block;width:100%;max-width:340px;aspect-ratio:460/215;object-fit:cover;border-radius:9px;margin-top:9px;background:#eef1f1">
+                  <img loading="lazy" src="{{ g.artUrl }}" alt="" style="display:block;width:100%;max-width:340px;aspect-ratio:460/215;object-fit:cover;border-radius:9px;margin-top:9px;background:#eef1f1">
                   <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:9px">
                     <sc-for list="{{ g.shots }}" as="sh" hint-placeholder-count="4">
-                      <img src="{{ sh.u }}" alt="" style="width:96px;aspect-ratio:16/9;object-fit:cover;border-radius:7px;background:#eef1f1">
+                      <img loading="lazy" src="{{ sh.u }}" alt="" style="width:96px;aspect-ratio:16/9;object-fit:cover;border-radius:7px;background:#eef1f1">
                     </sc-for>
                   </div>
                 </div>
@@ -407,7 +407,7 @@
             <div style="display:flex;flex-wrap:wrap;align-items:center;gap:13px">
               <div style="width:54px;height:54px;border-radius:50%;background:#e8ecec;flex:none;display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:#5a5f65">
                 <span style="display:{{ pvInitialsShow }}">{{ pvInitials }}</span>
-                <img src="{{ pvLogo }}" alt="" style="display:{{ pvLogoShow }};width:100%;height:100%;object-fit:cover">
+                <img loading="lazy" src="{{ pvLogo }}" alt="" style="display:{{ pvLogoShow }};width:100%;height:100%;object-fit:cover">
               </div>
               <div style="flex:1 1 120px;min-width:0">
                 <div style="display:flex;align-items:center;gap:7px"><span style="font-size:18px;font-weight:600">{{ pvName }}</span><span style="color:#b9c0c0;font-size:15px">✔</span></div>
@@ -428,7 +428,7 @@
             <div style="margin-top:12px;display:flex;gap:12px;align-items:center;border:1px solid #e6eaeb;border-radius:14px;padding:12px">
               <div style="width:92px;aspect-ratio:460/215;background:#e8eaec;border-radius:7px;flex:none;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:11px;color:#5a5f65">
                 <span style="display:{{ g.placeholderShow }}">460×215</span>
-                <img src="{{ g.art }}" alt="" style="display:{{ g.artShow }};width:100%;height:100%;object-fit:cover">
+                <img loading="lazy" src="{{ g.art }}" alt="" style="display:{{ g.artShow }};width:100%;height:100%;object-fit:cover">
               </div>
               <div style="flex:1 1 100px;min-width:0">
                 <div style="font-size:16px;font-weight:600">{{ g.name }}</div>

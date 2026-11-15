@@ -212,7 +212,7 @@
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:6px">
             <sc-for list="{{ a.shares }}" as="x" hint-placeholder-count="4">
-              <a href="{{ x.href }}" target="_blank" rel="noopener" title="{{ x.label }}" aria-label="{{ x.label }}" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#fff;border:1px solid #e2e2df" style-hover="border-color:#16181b"><img src="{{ x.icon }}" alt="" width="16" height="16" style="display:block"></a>
+              <a href="{{ x.href }}" target="_blank" rel="noopener" title="{{ x.label }}" aria-label="{{ x.label }}" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#fff;border:1px solid #e2e2df" style-hover="border-color:#16181b"><img loading="lazy" src="{{ x.icon }}" alt="" width="16" height="16" style="display:block"></a>
             </sc-for>
             <button type="button" onClick="{{ a.copy }}" style="display:inline-flex;align-items:center;height:38px;border:1px solid #e2e2df;cursor:pointer;background:#fff;color:#16181b;border-radius:10px;padding:0 13px;font-family:inherit;font-size:14px;font-weight:600" style-hover="border-color:#16181b">{{ a.copyLabel }}</button>
           </div>
@@ -241,7 +241,7 @@
       <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:clamp(32px,4.5vw,48px);padding-top:20px;border-top:1px solid #dfe1dc">
         <span style="font-size:14px;font-weight:600;color:#41464c;margin-right:6px">გაზიარება</span>
         <sc-for list="{{ a.shares }}" as="x" hint-placeholder-count="4">
-          <a href="{{ x.href }}" target="_blank" rel="noopener" title="{{ x.label }}" aria-label="{{ x.label }}" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#fff;border:1px solid #e2e2df" style-hover="border-color:#16181b"><img src="{{ x.icon }}" alt="" width="16" height="16" style="display:block"></a>
+          <a href="{{ x.href }}" target="_blank" rel="noopener" title="{{ x.label }}" aria-label="{{ x.label }}" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#fff;border:1px solid #e2e2df" style-hover="border-color:#16181b"><img loading="lazy" src="{{ x.icon }}" alt="" width="16" height="16" style="display:block"></a>
         </sc-for>
         <button type="button" onClick="{{ a.copy }}" style="display:inline-flex;align-items:center;height:38px;border:1px solid #e2e2df;cursor:pointer;background:#fff;color:#16181b;border-radius:10px;padding:0 13px;font-family:inherit;font-size:14px;font-weight:600" style-hover="border-color:#16181b">{{ a.copyLabel }}</button>
         <a href="news.html" onClick="{{ back }}" style="margin-left:auto;font-size:15px;font-weight:600">← ყველა სიახლე</a>
@@ -289,7 +289,7 @@
 </sc-if>
 
 <div onClick="{{ closeZoom }}" style="display:{{ zoomShow }};position:fixed;inset:0;z-index:90;background:rgba(12,14,16,.9);flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:clamp(12px,3vw,44px);cursor:zoom-out">
-  <img src="{{ zoomSrc }}" alt="{{ zoomAlt }}" style="max-width:100%;max-height:calc(100% - 44px);border-radius:12px;display:block">
+  <img loading="lazy" src="{{ zoomSrc }}" alt="{{ zoomAlt }}" style="max-width:100%;max-height:calc(100% - 44px);border-radius:12px;display:block">
   <div data-ggc-no-i18n style="display:{{ zoomCapShow }};max-width:70ch;color:#e8eaec;font-size:15px;line-height:1.5;text-align:center">{{ zoomAlt }}</div>
   <button type="button" onClick="{{ closeZoom }}" aria-label="სურათის დახურვა" style="position:absolute;top:16px;right:16px;width:40px;height:40px;border:0;border-radius:11px;background:rgba(255,255,255,.92);font-size:20px;line-height:1;cursor:pointer;color:#16181b">×</button>
 </div>

@@ -201,7 +201,7 @@
     </div>
     <div style="padding:clamp(18px,3vw,28px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:clamp(16px,3vw,28px)">
       <div style="min-width:0">
-        <p style="margin:0;font-size:16px;line-height:1.65;color:#41464c;text-wrap:pretty">{{ p.about }}</p>
+        <p data-ggc-no-i18n style="margin:0;font-size:16px;line-height:1.65;color:#41464c;text-wrap:pretty">{{ p.about }}</p>
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:22px 0 14px">
           <h3 style="margin:0;font-size:19px;font-weight:600;flex:1 1 120px;min-width:0">თამაშები <span style="font-family:'Space Grotesk',sans-serif;color:#5a5f65">{{ p.gamesCount }}</span></h3>
           <div style="display:flex;gap:4px;padding:4px;background:#eef1f1;border-radius:10px;flex:none">
@@ -236,7 +236,7 @@
         <div style="display:flex;flex-wrap:wrap;gap:8px">
           <sc-for list="{{ p.links }}" as="l" hint-placeholder-count="3">
             <a href="{{ l.url }}" target="_blank" rel="noopener" title="{{ l.name }}" style="display:inline-flex;align-items:center;gap:7px;background:#16181b;color:#fff;border-radius:10px;padding:10px 14px;font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600" style-hover="background:#000">
-              <img src="{{ l.icon }}" alt="" width="15" height="15" style="display:block;flex:none">{{ l.name }} ↗
+              <img loading="lazy" src="{{ l.icon }}" alt="" width="15" height="15" style="display:block;flex:none">{{ l.name }} ↗
             </a>
           </sc-for>
         </div>
@@ -384,7 +384,7 @@ class Component extends DCLogic {
       initials: d.logo ? "" : U.initials(d.name),
       initialsShow: d.logo ? "none" : "block",
       sub: [d.legal, this.place(d), U.foundedYear(d) || ""].filter(Boolean).join(" · "),
-      about: d.about || "",
+      about: U.aboutFor(d),
       roles: d.roles, facts, games, links,
       gamesCount: all.length,
       noGames: games.length ? "none" : "block",

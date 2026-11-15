@@ -124,7 +124,7 @@
           <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px">
             <sc-for list="{{ g.platforms }}" as="p" hint-placeholder-count="2">
               <a href="{{ p.url }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;background:#f1f4f4;color:#41464c;border-radius:7px;padding:5px 9px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500" style-hover="background:#e4e9ea;color:#16181b">
-                <img src="{{ p.iconDark }}" alt="" width="12" height="12" style="display:block;flex:none">{{ p.name }}
+                <img loading="lazy" src="{{ p.iconDark }}" alt="" width="12" height="12" style="display:block;flex:none">{{ p.name }}
               </a>
             </sc-for>
           </div>
@@ -161,7 +161,7 @@
           <span style="background:{{ d.badgeBg }};color:{{ d.badgeFg }};border-radius:7px;padding:5px 10px;font-size:13px;font-weight:600">{{ d.badge }}</span>
         </div>
         <a href="{{ d.studioHref }}" style="display:inline-block;margin-top:8px;font-size:16px;font-weight:600">{{ d.studio }} →</a>
-        <p style="margin:16px 0 0;font-size:16px;line-height:1.65;color:#41464c;text-wrap:pretty">{{ d.about }}</p>
+        <p data-ggc-no-i18n style="margin:16px 0 0;font-size:16px;line-height:1.65;color:#41464c;text-wrap:pretty">{{ d.about }}</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(120px,100%),1fr));gap:8px;margin-top:20px">
           <sc-for list="{{ d.shots }}" as="s" hint-placeholder-count="3">
             <button type="button" onClick="{{ s.open }}" style="border:0;padding:0;aspect-ratio:16/9;background:{{ s.bg }};border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:inherit;font-size:12px;color:#5a5f65;cursor:{{ s.cursor }}">{{ s.label }}</button>
@@ -181,7 +181,7 @@
         <div style="display:flex;flex-wrap:wrap;gap:8px">
           <sc-for list="{{ d.platforms }}" as="p" hint-placeholder-count="2">
             <a href="{{ p.url }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#16181b;color:#fff;border-radius:10px;padding:11px 15px;font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600" style-hover="background:#000">
-              <img src="{{ p.icon }}" alt="" width="15" height="15" style="display:block;flex:none">{{ p.name }} ↗
+              <img loading="lazy" src="{{ p.icon }}" alt="" width="15" height="15" style="display:block;flex:none">{{ p.name }} ↗
             </a>
           </sc-for>
         </div>
@@ -194,7 +194,7 @@
 </div>
 
 <div onClick="{{ closeShot }}" style="display:{{ shotShow }};position:fixed;inset:0;z-index:80;background:rgba(12,14,16,.88);align-items:center;justify-content:center;padding:clamp(12px,3vw,44px);cursor:zoom-out">
-  <img src="{{ shotOpen }}" alt="" style="max-width:100%;max-height:100%;border-radius:12px;display:block">
+  <img loading="lazy" src="{{ shotOpen }}" alt="" style="max-width:100%;max-height:100%;border-radius:12px;display:block">
   <button type="button" onClick="{{ closeShot }}" aria-label="დახურვა" style="position:absolute;top:16px;right:16px;width:40px;height:40px;border:0;border-radius:11px;background:rgba(255,255,255,.92);font-size:20px;line-height:1;cursor:pointer;color:#16181b">×</button>
 </div>
 
@@ -320,7 +320,7 @@ class Component extends DCLogic {
       editHref: "submit.html#game=" + encodeURIComponent(g.id),
       hero: hero ? "" : "hero",
       heroImg: hero ? 'url("' + hero + '") center/cover no-repeat' : "none",
-      about: g.about || "",
+      about: U.aboutFor(g),
       parsed: src
         ? "მონაცემები ავტომატურად მოდის " + src + "-იდან" + (g.parsedAt ? " · " + U.fmtDate(g.parsedAt.slice(0, 10)) : "")
         : "მონაცემები შევსებულია ხელით",

@@ -51,6 +51,24 @@
     <a href="/games.html">თამაშები · Games</a>
   </nav>
 </main>
+<script>
+  /* Both languages are always on the page; a visitor who chose English on the
+     site gets English first. Without the choice, or without storage, the page
+     stays as written. */
+  try {
+    if (localStorage.getItem("ggc.lang") === "en") {
+      document.documentElement.lang = "en";
+      document.title = "Page not found | GGC";
+      var h = document.querySelector("h1"), ps = document.querySelectorAll("main p");
+      h.textContent = "Page not found";
+      ps[0].textContent = "This page doesn't exist or has moved.";
+      ps[1].textContent = "ეს მისამართი არ არსებობს ან გადატანილია.";
+      ps[1].lang = "ka";
+      var names = ["Home", "Companies", "Games"];
+      document.querySelectorAll("nav a").forEach(function (a, i) { if (names[i]) a.textContent = names[i]; });
+    }
+  } catch (e) {}
+</script>
 <div class="stripe" aria-hidden="true"><span style="background:#1d96d3"></span><span style="background:#83c341"></span><span style="background:#ee2626"></span><span style="background:#fdb813"></span></div>
 </body>
 </html>

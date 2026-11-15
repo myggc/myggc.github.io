@@ -206,6 +206,14 @@
     } catch (e) {}
     return code;
   }
+  /* A description in the page's language when the record has one, the other
+     language when it does not: an English visitor reading a studio that wrote
+     its English text should get it, and an empty box helps nobody. */
+  function aboutFor(rec, lang) {
+    if (!rec) return "";
+    lang = lang || ((window.GGCI18n && window.GGCI18n.lang === "en") ? "en" : "ka");
+    return lang === "en" ? (rec.aboutEn || rec.about || "") : (rec.about || rec.aboutEn || "");
+  }
   /* Georgia first, the rest alphabetical in the page's language. A name the
      browser could only give in English goes after the Georgian ones, so the
      list does not read as two alphabets shuffled together. */
@@ -2184,7 +2192,7 @@
       prepareImage: prepareImage, IMAGE_SIZES: IMAGE_SIZES, iconUrl: iconUrl,
       KIND_LABEL: KIND_LABEL, KIND_SHORT: KIND_SHORT, ACCENT: ACCENT, SOC: SOC, STORE_LABEL: STORE_LABEL,
       checkRegId: checkRegId, normRegId: normRegId, normPhone: normPhone, checkEmail: checkEmail,
-      countryName: countryName, countries: countries,
+      countryName: countryName, countries: countries, aboutFor: aboutFor,
       foundedYear: foundedYear, toISODate: toISODate,
       PLATFORM_HOME: PLATFORM_HOME, ENGINES: ENGINES,
       fitImage: fitImage, latinSlug: latinSlug, localToday: localToday
