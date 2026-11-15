@@ -157,7 +157,7 @@
                     <sc-for list="{{ q.sections }}" as="sec" hint-placeholder-count="2">
                       <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;overflow:hidden;margin-bottom:12px">
                         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:14px 16px;background:#1d2126;border-bottom:1px solid #2f353c">
-                          <img src="{{ sec.pic }}" alt="" style="display:{{ sec.picShow }};width:{{ sec.picW }};aspect-ratio:{{ sec.picRatio }};border-radius:{{ sec.picRadius }};object-fit:cover;background:#20242a;flex:none">
+                          <img loading="lazy" src="{{ sec.pic }}" alt="" style="display:{{ sec.picShow }};width:{{ sec.picW }};aspect-ratio:{{ sec.picRatio }};border-radius:{{ sec.picRadius }};object-fit:cover;background:#20242a;flex:none">
                           <div style="flex:1 1 160px;min-width:0">
                             <div style="font-size:16px;font-weight:600;color:#fff;word-break:break-word">{{ sec.title }}</div>
                             <div style="margin-top:3px;font-size:13px;color:#8b949c">{{ sec.sub }}</div>
@@ -166,7 +166,7 @@
                         </div>
                         <div style="display:{{ sec.shotsShow }};flex-wrap:wrap;gap:7px;padding:12px 16px;border-bottom:1px solid #2f353c">
                           <sc-for list="{{ sec.shots }}" as="sh" hint-placeholder-count="3">
-                            <img src="{{ sh.u }}" alt="" style="width:112px;aspect-ratio:16/9;object-fit:cover;border-radius:7px;background:#20242a">
+                            <img loading="lazy" src="{{ sh.u }}" alt="" style="width:112px;aspect-ratio:16/9;object-fit:cover;border-radius:7px;background:#20242a">
                           </sc-for>
                         </div>
                         <div style="display:flex;flex-direction:column;gap:1px;background:#2f353c">
@@ -211,6 +211,11 @@
                 <option value="{{ o.v }}">{{ o.label }}</option>
               </sc-for>
             </select>
+            <select value="{{ show }}" onChange="{{ onShow }}" aria-label="ფილტრი" style="flex:none;max-width:100%;border:1px solid #333941;border-radius:10px;padding:10px 13px;font-family:inherit;font-size:14px;background:#171a1e;color:#e9ecee">
+              <sc-for list="{{ showOptions }}" as="o" hint-placeholder-count="3">
+                <option value="{{ o.v }}">{{ o.label }}</option>
+              </sc-for>
+            </select>
             <button type="button" onClick="{{ addNew }}" style="flex:none;border:0;cursor:pointer;background:#1d96d3;color:#fff;border-radius:10px;padding:10px 15px;font-family:inherit;font-size:14px;font-weight:600">+ ახალი</button>
           </div>
           <div style="display:flex;flex-direction:column;gap:1px;margin-top:18px;background:#2a2f35;border:1px solid #2a2f35;border-radius:12px;overflow:hidden">
@@ -223,6 +228,7 @@
                 <div style="flex:1 1 150px;min-width:0">
                   <div style="display:flex;flex-wrap:wrap;align-items:center;gap:7px;color:#fff;font-weight:600">{{ r.name }}<span style="display:{{ r.verifiedShow }};color:#6cc0e8;font-size:14px">✔</span><span style="display:{{ r.pendingShow }};background:#3a2f14;color:#f4cd77;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600">{{ r.pendingLabel }}</span></div>
                   <div style="margin-top:2px;font-size:13px;color:#8b949c">{{ r.sub }}</div>
+                  <div style="display:{{ r.gapsShow }};margin-top:4px;font-size:13px;color:#f4cd77">{{ r.gaps }}</div>
                 </div>
                 <div style="flex:none;display:flex;align-items:center;gap:7px;font-size:14px;color:#c6ccd3"><span style="width:8px;height:8px;border-radius:50%;background:{{ r.dot }}"></span>{{ r.status }}</div>
                 <div style="display:{{ r.gamesShow }};flex:none;font-family:'Space Grotesk',sans-serif;font-size:14px;color:#c6ccd3"><b style="color:#fff">{{ r.games }}</b> თამაში</div>
@@ -231,7 +237,7 @@
               </div>
             </sc-for>
           </div>
-          <div style="display:{{ rowsEmpty }};padding:30px;text-align:center;color:#8b949c;font-size:15px">ჩანაწერი არ არის — დაამატე „+ ახალი"</div>
+          <div style="display:{{ rowsEmpty }};padding:30px;text-align:center;color:#8b949c;font-size:15px">{{ rowsEmptyText }}</div>
         </div>
 
         <sc-if value="{{ editorOpen }}">
@@ -585,7 +591,7 @@
             <sc-for list="{{ siteEvents }}" as="e" hint-placeholder-count="2">
               <div style="background:#171a1e;border:1px solid #2f353c;border-radius:12px;padding:14px 16px">
                 <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
-                  <img src="{{ e.image }}" alt="" style="display:{{ e.imgShow }};width:78px;aspect-ratio:4/3;object-fit:cover;border-radius:8px;background:#20242a;flex:none">
+                  <img loading="lazy" src="{{ e.image }}" alt="" style="display:{{ e.imgShow }};width:78px;aspect-ratio:4/3;object-fit:cover;border-radius:8px;background:#20242a;flex:none">
                   <span style="flex:1 1 140px;min-width:0;font-size:15px;font-weight:600;color:#fff">{{ e.title }}</span>
                   <button type="button" onClick="{{ e.remove }}" style="flex:none;border:1px solid #4a3232;cursor:pointer;background:#2a1f1f;color:#f0a8a8;border-radius:9px;padding:8px 13px;font-family:inherit;font-size:13px;font-weight:600">წაშლა</button>
                 </div>
@@ -976,7 +982,7 @@ const sameRequest = p => JSON.stringify(p || {}, (k, v) => k === "submittedAt" |
 class Component extends DCLogic {
   state = {
     ready: false, authed: false, user: "", tokenInput: "", authErr: "", signing: false,
-    tab: "queue", open: null, q: "", sort: "", edit: null, editKind: "company",
+    tab: "queue", open: null, q: "", sort: "", show: "", edit: null, editKind: "company",
     queueView: "queue", history: null, loadingHistory: false, historyOpen: null, historyQ: "",
     queue: [], decisions: {}, companies: [], games: [], events: [], spending: [], previews: {}, audit: [], audited: false,
     status: "", statusColor: "#8b949c", publishing: false, syncing: "",
@@ -3404,13 +3410,66 @@ class Component extends DCLogic {
     });
   }
 
+  /* What a record still lacks for a complete catalogue entry, in the words the
+     editor uses for those fields. Phones are not here: the panel never sees them. */
+  gapsOfCompany(c) {
+    const f = KIND_FIELD[c.kind] || KIND_FIELD.company, out = [];
+    if (!c.logo) out.push("ლოგო");
+    if (c.kind === "company" && !c.regId) out.push("საიდენტიფიკაციო ნომერი");
+    if (!c.founded) out.push(f.founded);
+    if ((!c.country || c.country === "GE") && !c.city) out.push("ქალაქი");
+    if (!c.email) out.push("ელფოსტა");
+    if (!c.website) out.push(f.website);
+    if (!c.about) out.push(f.about);
+    if (!c.aboutEn) out.push(f.aboutEn);
+    return out;
+  }
+
+  gapsOfGame(g) {
+    const out = [];
+    if (!g.studioId || !this.state.companies.some(c => c.id === g.studioId)) out.push("სტუდია");
+    if (!D.gameArt(g)) out.push("სურათი");
+    if (!g.about) out.push("აღწერა");
+    if (!Object.keys(g.stores || {}).some(k => g.stores[k])) out.push("მაღაზიის ბმული");
+    return out;
+  }
+
+  /* The list's own records before search and the gaps/validation filter, so the
+     filter can say how many each choice would show. */
+  listBase() {
+    const s = this.state;
+    if (s.tab === "games") return s.games;
+    const kind = KIND_OF_TAB[s.tab] || "company";
+    return s.companies.filter(c => c.kind === kind);
+  }
+
+  showOptions() {
+    const isGames = this.state.tab === "games";
+    const base = this.listBase();
+    const gaps = base.filter(x => (isGames ? this.gapsOfGame(x) : this.gapsOfCompany(x)).length).length;
+    const unval = base.filter(x => !x.validated).length;
+    return [
+      { v: "", label: "ყველა (" + base.length + ")" },
+      { v: "gaps", label: "აკლია მონაცემები (" + gaps + ")" },
+      { v: "unvalidated", label: "ვალიდაციის გარეშე (" + unval + ")" }
+    ];
+  }
+
   listRows() {
     const s = this.state;
     const isGames = s.tab === "games";
     const sort = s.sort || (isGames ? "year" : "games");
     const term = s.q.toLowerCase();
+    const show = s.show || "";
+    const gapsOf = x => isGames ? this.gapsOfGame(x) : this.gapsOfCompany(x);
+    const keep = x => show === "gaps" ? gapsOf(x).length > 0 : show === "unvalidated" ? !x.validated : true;
+    // Listed only while that filter is on, so the plain list stays as it was.
+    const gapRow = x => {
+      const g = show === "gaps" ? gapsOf(x) : [];
+      return { gaps: g.length ? "აკლია: " + g.join(", ") : "", gapsShow: g.length ? "block" : "none" };
+    };
     if (isGames) {
-      let rows = s.games.filter(g => {
+      let rows = s.games.filter(keep).filter(g => {
         const st = s.companies.filter(c => c.id === g.studioId)[0];
         return !term || (g.name + " " + (st ? st.name : "")).toLowerCase().indexOf(term) >= 0;
       });
@@ -3421,10 +3480,10 @@ class Component extends DCLogic {
       return rows.map(g => {
         const st = s.companies.filter(c => c.id === g.studioId)[0];
         const art = D.gameArt(g);
-        return {
-          name: g.name || "(უსახელო — შეავსე)",
+        return Object.assign(gapRow(g), {
+          name: g.name || "(უსახელო, შეავსე)",
           pendingShow: this.isTouched("g", g.id) ? "inline" : "none",
-          pendingLabel: D.game(g.id) ? "შეცვლილი — არ არის ატვირთული" : "ახალი — არ არის ატვირთული",
+          pendingLabel: D.game(g.id) ? "შეცვლილი, არ არის ატვირთული" : "ახალი, არ არის ატვირთული",
           initials: art ? "" : U.initials(g.name),
           art: art ? 'url("' + art + '") center/cover no-repeat' : "none",
           radius: "6px",
@@ -3435,20 +3494,19 @@ class Component extends DCLogic {
           games: 0, gamesShow: "none",
           validated: g.validated ? "ვალიდაცია " + U.fmtDate(g.validated) : "არ არის ვალიდირებული",
           edit: () => this.setState({ gameEdit: g.id })
-        };
+        });
       });
     }
-    const kind = KIND_OF_TAB[s.tab] || "company";
-    let rows = s.companies.filter(c => c.kind === kind)
+    let rows = this.listBase().filter(keep)
       .filter(c => !term || (c.name + " " + c.legal + " " + c.regId).toLowerCase().indexOf(term) >= 0)
       .map(c => Object.assign({}, c, { count: s.games.filter(g => g.studioId === c.id).length }));
     rows.sort((a, b) => sort === "name" ? a.name.localeCompare(b.name)
       : sort === "year" ? U.foundedYear(b) - U.foundedYear(a)
       : b.count - a.count);
-    return rows.map(c => ({
-      name: c.name || "(უსახელო — შეავსე)",
+    return rows.map(c => Object.assign(gapRow(c), {
+      name: c.name || "(უსახელო, შეავსე)",
       pendingShow: this.isTouched("c", c.id) ? "inline" : "none",
-      pendingLabel: D.company(c.id) ? "შეცვლილი — არ არის ატვირთული" : "ახალი — არ არის ატვირთული",
+      pendingLabel: D.company(c.id) ? "შეცვლილი, არ არის ატვირთული" : "ახალი, არ არის ატვირთული",
       initials: c.logo ? "" : U.initials(c.name),
       art: c.logo ? 'url("' + c.logo + '") center/cover no-repeat' : "none",
       radius: "50%",
@@ -4166,7 +4224,7 @@ class Component extends DCLogic {
         bg: s.tab === id ? "#2b3138" : "transparent",
         fg: s.tab === id ? "#fff" : "#a9b1b9",
         click: () => {
-          const patch = { tab: id, edit: null, gameEdit: null, q: "", sort: "" };
+          const patch = { tab: id, edit: null, gameEdit: null, q: "", sort: "", show: "" };
           // Leaving a post keeps what was typed in it: that is in the drafts already.
           if (s.post || s.postBusy === "loading") this.closePost();
           if (id === "news" && s.news === null && !s.newsLoading) this.loadNews();
@@ -4291,12 +4349,16 @@ class Component extends DCLogic {
       sort: s.sort || (isGames ? "year" : "games"),
       onSearch: e => this.setState({ q: e.target.value }),
       onSort: e => this.setState({ sort: e.target.value }),
+      show: s.show || "",
+      onShow: e => this.setState({ show: e.target.value }),
+      showOptions: s.tab === "games" || KIND_OF_TAB[s.tab] ? this.showOptions() : [],
       sortOptions: isGames
         ? [{ v: "year", label: "წელი" }, { v: "status", label: "სტატუსი" }, { v: "name", label: "სახელი" }]
         : [{ v: "games", label: "თამაშები" }, { v: "year", label: "დაფუძნების წელი" }, { v: "name", label: "სახელი" }],
       addNew: () => this.addEntry(),
       rows: this.listRows(),
       rowsEmpty: this.listRows().length ? "none" : "block",
+      rowsEmptyText: s.show || s.q ? "ამ ფილტრით არაფერი მოიძებნა" : "ჩანაწერი არ არის. დაამატე „+ ახალი“",
       closeEditor: () => this.setState({ edit: null }),
       deleteEntry: () => this.removeEntry(),
       addGame: () => {
