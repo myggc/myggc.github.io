@@ -226,7 +226,7 @@
                   <span style="position:relative">{{ r.initials }}</span>
                 </div>
                 <div style="flex:1 1 150px;min-width:0">
-                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:7px;color:#fff;font-weight:600">{{ r.name }}<span style="display:{{ r.verifiedShow }};color:#6cc0e8;font-size:14px">✔</span><span style="display:{{ r.pendingShow }};background:#3a2f14;color:#f4cd77;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600">{{ r.pendingLabel }}</span></div>
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:7px;color:#fff;font-weight:600">{{ r.name }}<span style="display:{{ r.verifiedShow }};color:#6cc0e8;font-size:14px">✔</span><span title="{{ r.fillTitle }}" aria-label="{{ r.fillTitle }}" style="background:{{ r.fillBg }};color:{{ r.fillFg }};border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;cursor:default">{{ r.fillLabel }}</span><span style="display:{{ r.pendingShow }};background:#3a2f14;color:#f4cd77;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600">{{ r.pendingLabel }}</span></div>
                   <div style="margin-top:2px;font-size:13px;color:#8b949c">{{ r.sub }}</div>
                   <div style="display:{{ r.gapsShow }};margin-top:4px;font-size:13px;color:#f4cd77">{{ r.gaps }}</div>
                 </div>
@@ -3463,10 +3463,19 @@ class Component extends DCLogic {
     const show = s.show || "";
     const gapsOf = x => isGames ? this.gapsOfGame(x) : this.gapsOfCompany(x);
     const keep = x => show === "gaps" ? gapsOf(x).length > 0 : show === "unvalidated" ? !x.validated : true;
-    // Listed only while that filter is on, so the plain list stays as it was.
+    /* A badge on every row says at a glance whether the entry is complete; the
+       hover names what is missing. The full list under the name is shown only
+       while the "missing details" filter is on, so the plain list stays short. */
     const gapRow = x => {
-      const g = show === "gaps" ? gapsOf(x) : [];
-      return { gaps: g.length ? "აკლია: " + g.join(", ") : "", gapsShow: g.length ? "block" : "none" };
+      const g = gapsOf(x);
+      return {
+        gaps: g.length ? "აკლია: " + g.join(", ") : "",
+        gapsShow: show === "gaps" && g.length ? "block" : "none",
+        fillLabel: g.length ? "აკლია " + g.length : "✓ სრული",
+        fillTitle: g.length ? "აკლია: " + g.join(", ") : "ყველა ველი შევსებულია",
+        fillBg: g.length ? "#3b2a1c" : "#1d3324",
+        fillFg: g.length ? "#f2b27e" : "#8fd19e"
+      };
     };
     if (isGames) {
       let rows = s.games.filter(keep).filter(g => {
