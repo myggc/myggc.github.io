@@ -576,6 +576,9 @@ const FIELDS_BY_KIND = {
 };
 const CO_FIELDS = FIELDS_BY_KIND.company;
 const fieldsFor = (kind) => FIELDS_BY_KIND[kind] || FIELDS_BY_KIND.company;
+/* The label a field has for this kind, so a summary calls a birth year a birth
+   year and a founding date a date. */
+const labelFor = (kind, key) => (fieldsFor(kind).filter(x => x[0] === key)[0] || [])[1];
 const STEP2_TITLE = {
   company: "კომპანიის მონაცემები", team: "გუნდის მონაცემები", solo: "შენი მონაცემები"
 };
@@ -1083,9 +1086,9 @@ class Component extends DCLogic {
       return [["email", "ელფოსტა"], ["phone", "ტელეფონი"]].filter(([k]) => !f[k]).map(([, l]) => l);
     }
     const abroad = (f.country || "GE") !== "GE";
-    const need = [["legal", "ოფიციალური სახელი"], ["name", "საჯარო სახელი"],
-      ["founded", "დაფუძნების წელი"], ["email", "ელფოსტა"],
-      ["phone", "ტელეფონი"], ["about", "აღწერა"]];
+    const need = [["legal", labelFor(s.kind, "legal")], ["name", labelFor(s.kind, "name")],
+      ["founded", labelFor(s.kind, "founded")], ["email", "ელფოსტა"],
+      ["phone", "ტელეფონი"], ["about", labelFor(s.kind, "about")]];
     if (!abroad) need.push(["city", "ქალაქი"]);
     if (s.kind === "company") need.push(["regId", "საიდენტიფიკაციო ნომერი"]);
     if (s.kind !== "solo") need.push(["size", "გუნდის ზომა"]);
@@ -1353,13 +1356,13 @@ class Component extends DCLogic {
     row("ქმედება", s.mode === "edit" ? "არსებულის შესწორება" : s.mode === "game" ? "თამაშის მიმაგრება" : "ახალი სტუდია");
     if (picked) row("სტუდია", picked.legal || picked.name);
     row("ტიპი", U.KIND_LABEL[co.kind] || "");
-    row("ოფიციალური სახელი", co.legal);
+    row(labelFor(co.kind, "legal"), co.legal);
     row("საიდენტიფიკაციო ნომერი", co.regId);
-    row("საჯარო სახელი", co.name);
+    row(labelFor(co.kind, "name"), co.name);
     row("ქვეყანა", co.country ? U.countryName(co.country) : (pay.company ? U.countryName("GE") : ""));
     row("ქალაქი", co.country ? "" : co.city);
     row("გუნდის ზომა", co.size);
-    row("დაფუძნების წელი", co.founded);
+    row(labelFor(co.kind, "founded"), co.founded);
     row("ელფოსტა", co.email);
     row("ვებსაიტი", co.website);
     row("როლები", (co.roles || []).join(", "));
