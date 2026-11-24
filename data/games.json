@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-11-22",
+  "updated": "2026-11-24",
   "items": [
     {
       "id": "besos-shawarma",
@@ -4083,22 +4083,22 @@
         "web": "https://www.syntheticdomain.com/portfolio/mainframedefenders"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/header.jpg?t=1793929547",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/767947cadadf7aa1ad348c605f3ecb30455fce15/page_bg_raw.jpg?t=1793929547",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/header.jpg?t=1795458596",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/767947cadadf7aa1ad348c605f3ecb30455fce15/page_bg_raw.jpg?t=1795458596",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/ss_f0090674133726c198bf0ac8082a5d588fcc23fa.600x338.jpg?t=1793929547",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/ss_d1286a370bd8471bbc2fb52e15cc7796305f7bd1.600x338.jpg?t=1793929547",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/ss_b0b10e4a97d31f2e1659ba487bed92267097eec7.600x338.jpg?t=1793929547"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/ss_f0090674133726c198bf0ac8082a5d588fcc23fa.600x338.jpg?t=1795458596",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/ss_d1286a370bd8471bbc2fb52e15cc7796305f7bd1.600x338.jpg?t=1795458596",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1184810/ss_b0b10e4a97d31f2e1659ba487bed92267097eec7.600x338.jpg?t=1795458596"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-11-06T12:08:30.954Z",
+      "parsedAt": "2026-11-24T02:56:22.619Z",
       "verified": true,
       "active": true,
       "validated": "2026-10-31",
       "created": "2026-10-31",
-      "updated": "2026-11-06"
+      "updated": "2026-11-24"
     },
     {
       "id": "lords-of-ravage",
@@ -4224,22 +4224,22 @@
         "steam": "https://store.steampowered.com/app/1171340/AIM_War_Protocol"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/410a613395dc2fda424a0b4dbcb6f8ac26435d44/header.jpg?t=1793830477",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/page_bg_raw.jpg?t=1793830477",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/410a613395dc2fda424a0b4dbcb6f8ac26435d44/header.jpg?t=1795455600",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/page_bg_raw.jpg?t=1795455600",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/ca2e0ab6953d5cb9bc2a15c0ff0073762fa66362/ss_ca2e0ab6953d5cb9bc2a15c0ff0073762fa66362.600x338.jpg?t=1793830477",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/0fe86162ec6f148afdee3ec79bf947e0e086bffd/ss_0fe86162ec6f148afdee3ec79bf947e0e086bffd.600x338.jpg?t=1793830477",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/7ce30bd062e45a4fd63f0f7d694472797f582aa4/ss_7ce30bd062e45a4fd63f0f7d694472797f582aa4.600x338.jpg?t=1793830477"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/0fe86162ec6f148afdee3ec79bf947e0e086bffd/ss_0fe86162ec6f148afdee3ec79bf947e0e086bffd.600x338.jpg?t=1795455600",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/1780627d9cadd98a2e2aef298887e02284210be9/ss_1780627d9cadd98a2e2aef298887e02284210be9.600x338.jpg?t=1795455600",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/84769bd12f36b094dd9bab461e6f8b247b0e5ee8/ss_84769bd12f36b094dd9bab461e6f8b247b0e5ee8.600x338.jpg?t=1795455600"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-11-05T12:21:53.176Z",
+      "parsedAt": "2026-11-24T02:56:26.628Z",
       "verified": true,
       "active": true,
       "validated": "2026-10-31",
       "created": "2026-10-31",
-      "updated": "2026-11-05"
+      "updated": "2026-11-24"
     },
     {
       "id": "realms-of-eternity",
