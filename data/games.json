@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-11-24",
+  "updated": "2026-11-27",
   "items": [
     {
       "id": "besos-shawarma",
@@ -4069,7 +4069,7 @@
         "Web"
       ],
       "engine": "Unity",
-      "price": "$5.99",
+      "price": "$0.59",
       "langs": "English, Russian, Hungarian, German, Portuguese - Portugal, French, Italian, Spanish - Spain, Polish, Simplified Chinese, Korean, Japanese, Portuguese - Brazil",
       "about": "MAINFRAME DEFENDERS - Turn-based tactics centered around gear and unit customization. It offers simple combat, high replayability, and tons of loot. Items don't just provide stats boost, but also offer distinct mechanics that can be combined into powerful builds.",
       "aboutEn": "",
@@ -4093,12 +4093,12 @@
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-11-24T02:56:22.619Z",
+      "parsedAt": "2026-11-27T00:36:58.383Z",
       "verified": true,
       "active": true,
       "validated": "2026-10-31",
       "created": "2026-10-31",
-      "updated": "2026-11-24"
+      "updated": "2026-11-27"
     },
     {
       "id": "lords-of-ravage",
