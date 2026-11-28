@@ -1,7 +1,7 @@
 {
   "$schema": "./schema.md",
   "version": 1,
-  "updated": "2026-11-27",
+  "updated": "2026-11-28",
   "items": [
     {
       "id": "besos-shawarma",
@@ -3985,22 +3985,22 @@
         "steam": "https://store.steampowered.com/app/5418530/Retro_Coder_2000/"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/9c2035eed988c0e49c9051c20a7dcacc87c8d221/header.jpg?t=1794302600",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/d41529d3cbced1b2100177807faef32f6754f51d/page_bg_raw.jpg?t=1794302600",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/9c2035eed988c0e49c9051c20a7dcacc87c8d221/header.jpg?t=1795811340",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/d41529d3cbced1b2100177807faef32f6754f51d/page_bg_raw.jpg?t=1795811340",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/9d0a457430217cba6d0c17fa32c133648ec18e25/ss_9d0a457430217cba6d0c17fa32c133648ec18e25.600x338.jpg?t=1794302600",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/2bfb30b9603ade36c8a2fa7b83321c80f86d7c26/ss_2bfb30b9603ade36c8a2fa7b83321c80f86d7c26.600x338.jpg?t=1794302600",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/36974894cdc0c128d4570dd33da5dd276c9cbb26/ss_36974894cdc0c128d4570dd33da5dd276c9cbb26.600x338.jpg?t=1794302600"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/9d0a457430217cba6d0c17fa32c133648ec18e25/ss_9d0a457430217cba6d0c17fa32c133648ec18e25.600x338.jpg?t=1795811340",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/2bfb30b9603ade36c8a2fa7b83321c80f86d7c26/ss_2bfb30b9603ade36c8a2fa7b83321c80f86d7c26.600x338.jpg?t=1795811340",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5418530/36974894cdc0c128d4570dd33da5dd276c9cbb26/ss_36974894cdc0c128d4570dd33da5dd276c9cbb26.600x338.jpg?t=1795811340"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-11-10T21:50:29.502Z",
+      "parsedAt": "2026-11-28T00:05:38.602Z",
       "verified": true,
       "active": true,
       "validated": "2026-10-30",
       "created": "2026-10-07",
-      "updated": "2026-11-10"
+      "updated": "2026-11-28"
     },
     {
       "id": "fearless-crew",
@@ -4224,22 +4224,22 @@
         "steam": "https://store.steampowered.com/app/1171340/AIM_War_Protocol"
       },
       "art": {
-        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/410a613395dc2fda424a0b4dbcb6f8ac26435d44/header.jpg?t=1795455600",
-        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/page_bg_raw.jpg?t=1795455600",
+        "capsule": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/410a613395dc2fda424a0b4dbcb6f8ac26435d44/header.jpg?t=1795808162",
+        "hero": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/page_bg_raw.jpg?t=1795808162",
         "shots": [
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/0fe86162ec6f148afdee3ec79bf947e0e086bffd/ss_0fe86162ec6f148afdee3ec79bf947e0e086bffd.600x338.jpg?t=1795455600",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/1780627d9cadd98a2e2aef298887e02284210be9/ss_1780627d9cadd98a2e2aef298887e02284210be9.600x338.jpg?t=1795455600",
-          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/84769bd12f36b094dd9bab461e6f8b247b0e5ee8/ss_84769bd12f36b094dd9bab461e6f8b247b0e5ee8.600x338.jpg?t=1795455600"
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/0fe86162ec6f148afdee3ec79bf947e0e086bffd/ss_0fe86162ec6f148afdee3ec79bf947e0e086bffd.600x338.jpg?t=1795808162",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/1780627d9cadd98a2e2aef298887e02284210be9/ss_1780627d9cadd98a2e2aef298887e02284210be9.600x338.jpg?t=1795808162",
+          "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1171340/84769bd12f36b094dd9bab461e6f8b247b0e5ee8/ss_84769bd12f36b094dd9bab461e6f8b247b0e5ee8.600x338.jpg?t=1795808162"
         ]
       },
       "localArt": "",
       "source": "steam",
-      "parsedAt": "2026-11-24T02:56:26.628Z",
+      "parsedAt": "2026-11-28T00:05:45.413Z",
       "verified": true,
       "active": true,
       "validated": "2026-10-31",
       "created": "2026-10-31",
-      "updated": "2026-11-24"
+      "updated": "2026-11-28"
     },
     {
       "id": "realms-of-eternity",
